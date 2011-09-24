@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDirenvioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <br/>  <br/>
+                <p:panel header="VER DIRECCION">
+                <center>
+                    <h:panelGrid columns="2" cellspacing="15">
+                    
+                    <h:outputText value="Atencion:"/>
+                    <h:outputText value="#{direnvioController.selected.atencion}" title="#{bundle.ViewDirenvioTitle_atencion}"/>
+                    <h:outputText value="Calle:"/>
+                    <h:outputText value="#{direnvioController.selected.calle}" title="#{bundle.ViewDirenvioTitle_calle}"/>
+                    <h:outputText value="No.Exterior"/>
+                    <h:outputText value="#{direnvioController.selected.noExterior}" title="#{bundle.ViewDirenvioTitle_noExterior}"/>
+                    <h:outputText value="No.Interior"/>
+                    <h:outputText value="#{direnvioController.selected.noInterior}" title="#{bundle.ViewDirenvioTitle_noInterior}"/>
+                    <h:outputText value="Colonia:"/>
+                    <h:outputText value="#{direnvioController.selected.colonia}" title="#{bundle.ViewDirenvioTitle_colonia}"/>
+                    <h:outputText value="Municipio:"/>
+                    <h:outputText value="#{direnvioController.selected.delMunicipio}" title="#{bundle.ViewDirenvioTitle_delMunicipio}"/>
+                    <h:outputText value="Ciudad:"/>
+                    <h:outputText value="#{direnvioController.selected.ciudad}" title="#{bundle.ViewDirenvioTitle_ciudad}"/>
+                    <h:outputText value="Cp:"/>
+                    <h:outputText value="#{direnvioController.selected.cp}" title="#{bundle.ViewDirenvioTitle_cp}"/>
+                    <h:outputText value="Referencia:"/>
+                    <h:outputText value="#{direnvioController.selected.referencia}" title="#{bundle.ViewDirenvioTitle_referencia}"/>
+                    <h:outputText value="Telefono:"/>
+                    <h:outputText value="#{direnvioController.selected.telefono}" title="#{bundle.ViewDirenvioTitle_telefono}"/>
+                    <h:outputText value="idCliente:"/>
+                    <h:outputText value="#{direnvioController.selected.idCliente}" title="#{bundle.ViewDirenvioTitle_idCliente}"/>
+                </h:panelGrid>
+                </center>
+                </p:panel>
+                <br />
+                <br/>
+                <div align="center">
+                <p:panel >
+               
+                    <h:commandButton action="#{direnvioController.prepareList}" value="VOLVER"/>
+                </p:panel>
+                </div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

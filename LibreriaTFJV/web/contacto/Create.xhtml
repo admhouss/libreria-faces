@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateContactoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <br/>  <br/>
+                <p:panel header="ALTA CONTACTO">
+                    <center>
+                        <h:panelGrid columns="2" cellspacing="15">
+                   
+                    <h:outputLabel value="#{bundle.CreateContactoLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{contactoController.selected.nombre}" title="#{bundle.CreateContactoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.CreateContactoLabel_paterno}" for="paterno" />
+                    <h:inputText id="paterno" value="#{contactoController.selected.paterno}" title="#{bundle.CreateContactoTitle_paterno}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_paterno}"/>
+                    <h:outputLabel value="#{bundle.CreateContactoLabel_materno}" for="materno" />
+                    <h:inputText id="materno" value="#{contactoController.selected.materno}" title="#{bundle.CreateContactoTitle_materno}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_materno}"/>
+                    <h:outputLabel value="#{bundle.CreateContactoLabel_puesto}" for="puesto" />
+                    <h:inputText id="puesto" value="#{contactoController.selected.puesto}" title="#{bundle.CreateContactoTitle_puesto}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_puesto}"/>
+                    <h:outputLabel value="Cliente:" for="idCliente" />
+                    <h:selectOneMenu id="idCliente" value="#{contactoController.selected.idCliente}" title="#{bundle.CreateContactoTitle_idCliente}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_idCliente}">
+                        <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                    </center>
+                </p:panel>
+                <br /><br />
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{contactoController.create}" value="GUARDAR" />
+                    </p:panel>
+                </div>
+
+               
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

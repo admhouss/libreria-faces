@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="LibreriaTFJVPU" transaction-type="JTA">
+    <jta-data-source>libreria</jta-data-source>
+    <class>escom.libreria.info.articulo.jpa.Articulo</class>
+    <class>escom.libreria.info.articulo.jpa.Proveedor</class>
+    <class>escom.libreria.info.articulo.jpa.Publicacion</class>
+    <class>escom.libreria.info.articulo.jpa.TipoArticulo</class>
+    <class>escom.libreria.info.cliente.jpa.Cliente</class>
+    <class>escom.libreria.info.cliente.jpa.Estado</class>
+    <class>escom.libreria.info.contacto.jpa.Contacto</class>
+    <class>escom.libreria.info.contacto.jpa.Direnvio</class>
+    <class>escom.libreria.info.usarioAdministrativo.jpa.Actividadusuario</class>
+    <class>escom.libreria.info.usarioAdministrativo.jpa.Usuarioadministrativo</class>
+    <class>escom.libreria.info.articulo.jpa.Promocion</class>
+    <class>escom.libreria.info.articulo.jpa.DescuentoArticulo</class>
+    <class>escom.libreria.info.articulo.jpa.Impuesto</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties/>
+  </persistence-unit>
+</persistence>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewContactoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+
+                <br/> <br/> <br/>
+                <p:panel header="VER CONTACTO">
+                    <center>
+                <h:panelGrid columns="2">
+                    
+                    <h:outputText value="#{bundle.ViewContactoLabel_nombre}"/>
+                    <h:outputText value="#{contactoController.selected.nombre}" title="#{bundle.ViewContactoTitle_nombre}"/>
+                    <h:outputText value="#{bundle.ViewContactoLabel_paterno}"/>
+                    <h:outputText value="#{contactoController.selected.paterno}" title="#{bundle.ViewContactoTitle_paterno}"/>
+                    <h:outputText value="#{bundle.ViewContactoLabel_materno}"/>
+                    <h:outputText value="#{contactoController.selected.materno}" title="#{bundle.ViewContactoTitle_materno}"/>
+                    <h:outputText value="#{bundle.ViewContactoLabel_puesto}"/>
+                    <h:outputText value="#{contactoController.selected.puesto}" title="#{bundle.ViewContactoTitle_puesto}"/>
+                    <h:outputText value="Cliente:"/>
+                    <h:outputText value="#{contactoController.selected.idCliente}" title="#{bundle.ViewContactoTitle_idCliente}"/>
+                </h:panelGrid>
+                    </center>
+                </p:panel>
+                <br /><br />
+
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{contactoController.prepareList}" value="VOLVER"/>
+                    </p:panel>
+                 </div>
+                
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

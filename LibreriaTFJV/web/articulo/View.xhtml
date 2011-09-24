@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewArticuloTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="articuloview">
+
+                <br/><br/><br/>
+               
+                       <p:tabView>
+                    <center>
+                        <p:tab title="Descripci&oacute;n General">
+                    <h:panelGrid columns="2" cellspacing="12">
+
+                    <h:outputText value="Unidad:"/>
+                    <h:outputText value="#{articuloController.selected.unidad}" title="#{bundle.ViewArticuloTitle_unidad}"/>
+                    <h:outputText value="Divisa:"/>
+                    <h:outputText value="#{articuloController.selected.divisa}" title="#{bundle.ViewArticuloTitle_divisa}"/>
+                    <h:outputText value="Costo:"/>
+                    <h:outputText value="#{articuloController.selected.costo}" title="#{bundle.ViewArticuloTitle_costo}"/>
+                    <h:outputText value="Precio Unitario:"/>
+                    <h:outputText value="#{articuloController.selected.precioUnitario}" title="#{bundle.ViewArticuloTitle_precioUnitario}"/>
+                    <h:outputText value="Descripcion:"/>
+                    <h:outputText value="#{articuloController.selected.descripcion}" title="#{bundle.ViewArticuloTitle_descripcion}"/>
+                    <h:outputText value="Fecha Registro:"/>
+                    <h:outputText value="#{articuloController.selected.fechaRegistro}" title="#{bundle.ViewArticuloTitle_fechaRegistro}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="Proveedor:"/>
+                    <h:outputText value="#{articuloController.selected.idProveedor.nombre}" title="#{bundle.ViewArticuloTitle_idProveedor}"/>
+                    </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Detalle">
+                            <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputText value="Publicacion:"/>
+                    <h:outputText value="#{articuloController.selected.idIdc}" title="#{bundle.ViewArticuloTitle_idIdc}"/>
+                    <h:outputText value="Tipo Articulo:"/>
+                    <h:outputText value="#{articuloController.selected.idTipo.descripcion}" title="#{bundle.ViewArticuloTitle_idTipo}"/>
+                    </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Comentario">
+                            
+                        </p:tab>
+                
+                    </center>
+                       </p:tabView>
+                
+                <br/><br/>
+                <div align="center">
+                    <p:panel >
+
+                        <h:commandButton action="#{articuloController.prepareList}" value="Volver"/>
+                    </p:panel>
+                </div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

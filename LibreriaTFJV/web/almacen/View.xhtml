@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAlmacenTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="verAlamcen">
+                <br/>  <br/>
+                <p:panel header="VER ALAMCEN">
+                    <center>
+                <h:panelGrid columns="2">
+                   
+                    <h:outputText value="#{bundle.ViewAlmacenLabel_existencia}"/>
+                    <h:outputText value="NO" rendered="#{almacenController.selected.existencia==false}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                     <h:outputText value="SI" rendered="#{almacenController.selected.existencia}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                    <h:outputText value="Consigna:"/>
+                    <h:outputText value="NO" rendered="#{almacenController.selected.enConsigna==false}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                     <h:outputText value="SI" rendered="#{almacenController.selected.existencia}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+
+                    <h:outputText value="Firme:"/>
+                    <h:outputText value="NO" rendered="#{almacenController.selected.enFirme==false}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                    <h:outputText value="SI" rendered="#{almacenController.selected.enFirme}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                    <h:outputText value="#{bundle.ViewAlmacenLabel_articulo}"/>
+                    <h:outputText value="#{almacenController.selected.articulo.idTipo.descripcion}" title="#{bundle.ViewAlmacenTitle_articulo}"/>
+                </h:panelGrid>
+                    </center>
+                </p:panel>
+                 <br />
+                <br />
+                <div align="center">
+                    <p:panel>
+                    <h:commandButton action="#{almacenController.prepareList}" value="VOLVER CATALOG"/>
+                    </p:panel>
+                </div>
+               
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

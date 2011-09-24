@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      >
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePublicacionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+            <h:form>
+                 <br/>
+                <br/>
+                <p:panel header="NUEVA PUBLICACIONES">
+                     <center>
+                         <h:panelGrid columns="2" cellspacing="12">
+                   
+                    <h:outputLabel value="Periodo Mes:" for="periodoMes" />
+                    <p:calendar id="periodoMes" value="#{publicacionController.selected.periodoMes}" title="#{bundle.CreatePublicacionTitle_periodoMes}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_periodoMes}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:calendar>
+                    <h:outputLabel value="Periodo Anio:" for="periodoAnio" />
+                    <p:calendar id="periodoAnio" value="#{publicacionController.selected.periodoAnio}" title="#{bundle.CreatePublicacionTitle_periodoAnio}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_periodoAnio}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:calendar>
+                    <h:outputLabel value="Epoca:" for="epoca" />
+                    <h:inputText id="epoca" value="#{publicacionController.selected.epoca}" title="#{bundle.CreatePublicacionTitle_epoca}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_epoca}"/>
+                    <h:outputLabel value="Anio:" for="anio" />
+                    <h:inputText id="anio" value="#{publicacionController.selected.anio}" title="#{bundle.CreatePublicacionTitle_anio}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_anio}"/>
+                    <h:outputLabel value="Numero:" for="numero" />
+                    <h:inputText id="numero" value="#{publicacionController.selected.numero}" title="#{bundle.CreatePublicacionTitle_numero}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_numero}"/>
+                    <h:outputLabel value="ISSN:" for="issn" />
+                    <h:inputText id="issn" value="#{publicacionController.selected.issn}" title="#{bundle.CreatePublicacionTitle_issn}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_issn}"/>
+                    <h:outputLabel value="ISBN" for="isbn" />
+                    <h:inputText id="isbn" value="#{publicacionController.selected.isbn}" title="#{bundle.CreatePublicacionTitle_isbn}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_isbn}"/>
+                    <h:outputLabel value="Tomo" for="tomo" />
+                    <h:inputText id="tomo" value="#{publicacionController.selected.tomo}" title="#{bundle.CreatePublicacionTitle_tomo}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_tomo}"/>
+                    <h:outputLabel value="Editorial" for="editorial" />
+                    <h:inputText id="editorial" value="#{publicacionController.selected.editorial}" title="#{bundle.CreatePublicacionTitle_editorial}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_editorial}" size="20"/>
+                </h:panelGrid>
+                </center>
+                </p:panel>
+                <br /><br />
+                <p:panel >
+                    <div align="center">
+                    <h:commandButton action="#{publicacionController.create}" value="Guardar" />
+                    </div>
+                </p:panel>
+               
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
