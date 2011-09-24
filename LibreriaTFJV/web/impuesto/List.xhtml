@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListImpuestoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+              <br />
+              <div align="right">
+              <h:commandButton action="#{impuestoController.prepareCreate}" value="Crear Nuevo"/>
+              </div>
+
+
+               <br/>  <br/>
+
+
+            <h:panelGroup >
+                 <p:panel header="CATALOGO IMPUESTO ">
+                <center>
+             
+                    <p:dataTable value="#{impuestoController.listaImpuesto}" var="item" paginator="true" rows="5">
+                   <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListImpuestoTitle_idArticulo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idArticulo}"/>
+                   </p:column>
+                   <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Impuesto"/>
+                        </f:facet>
+                        <h:outputText value="#{item.montoImpuesto}"/>
+                   </p:column>
+                   <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListImpuestoTitle_descripcion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.descripcion}"/>
+                   </p:column>
+                   <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListImpuestoTitle_articulo}"/>
+                        </f:facet>
+                       <h:outputText value="#{item.articulo.idTipo.descripcion}"/>
+                   </p:column>
+                   <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{impuestoController.prepareView(item)}" >
+                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                       
+                        <h:commandLink action="#{impuestoController.prepareEdit(item)}">
+                            <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
+                        </h:commandLink>
+                       
+                        <h:commandLink action="#{impuestoController.destroy(item)}" >
+                            <img src="./../resources/iconos/quitar.png" alt="" title="eliminar"/>
+                        </h:commandLink>
+                   </p:column>
+                </p:dataTable>
+                </center>
+                 </p:panel>
+            </h:panelGroup>
+          
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

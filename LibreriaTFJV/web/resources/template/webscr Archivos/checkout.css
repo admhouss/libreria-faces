@@ -1,0 +1,779 @@
+/* General Styles */
+#stdpage {width:920px;overflow:hidden;}
+#content {padding:0 !important; overflow:visible;}
+#header img.logo {position:absolute; padding:5px 0;}
+#header h1{padding-top:50px; padding-left:0;}
+h1 {font-size:1.8em; color:#333;}
+h2 {font-size:1.33em; padding:1px 0 0;}
+input.tall {height:30px;}
+input.focused {border:1px solid #369;}
+.dark {color:#333;}
+div.col.first {z-index:9;}
+div.col.last {overflow:hidden;float:left;}
+div.col.last h2 {padding-left:30px; margin:28px 0 20px;}
+div.col.last h2.openWAXHead {padding-left:30px; margin:28px 0 0 0;}
+div.col.last h3.openWAXSubHead {padding-left:30px; margin:0 0 20px 0;}
+.clearfix:after {content:".";display:block;height:0;*height:1%;_height:1%;clear:both;visibility:hidden;}
+.clearB {clear:both;}
+.clearBG {background:none !important;}
+
+#panelMask {position:absolute; z-index:5; opacity:.5; filter:alpha(opacity=50);width:561px;}
+#panelMask .top div, #panelMask .bottom div {height:10px; background:transparent url(/en_US/i/scr/scr_UCGradient_Dark_920x45.gif) no-repeat scroll 0 0;}
+#panelMask .top div {background-position:right top; right:0; top:0;}
+#panelMask .bottom div {background-position:right bottom; right:0; bottom:0;}
+#panelMask .body {background-color:#666;}
+#progressMeter {position:relative; top:150px; left:50%; margin-left: -21px; z-index:6; height:42px; width:42px;}
+
+#sliderWrapper {overflow:hidden;position:relative;clear:both;}
+
+div#page.manageBank { width:920px; }
+div#page.manageBank #header { width:920px; }
+.nonjshide {display:none;}
+.jsEnabled .nonjshide {display:block;}
+/* Fixes misalignment of fields on Login page in error cases */
+form.error #parentSlider fieldset#sliders {margin-left:0;}
+/* Misalignment for errors in multi-input field labels */
+form.error fieldset.error span.label {padding-left: 0px;}
+
+/* Merchant Logo */
+div#merchantLogo {width:190px;height:60px;overflow:hidden;text-align:center;margin-left:65px;margin-bottom:10px}
+form#cartForm div#merchantLogo {margin:0 0 10px 0;}
+#panelMask {position:absolute; z-index:5; opacity:.5; filter:alpha(opacity=50);width:561px;}
+#panelMask .top div, #panelMask .bottom div {height:10px; background:transparent url(/en_US/i/scr/scr_UCGradient_Dark_920x45.gif) no-repeat scroll 0 0;}
+#panelMask .top div {background-position:right top; right:0; top:0;}
+#panelMask .bottom div {background-position:right bottom; right:0; bottom:0;}
+#panelMask .body {background-color:#666;}
+#progressMeter {position:relative; top:150px; left:50%; margin-left: -21px; z-index:6; height:42px; width:42px;}
+
+#sliderWrapper {overflow:hidden;position:relative;clear:both;}
+
+/*EM24 Brazil Installment Experience*/
+#progressText p{margin:0; color:#aaa;}
+#instDropdown p{margin:0;}
+#progressInst {vertical-align:bottom; width:20px; height:20px;}
+#instSel{width:20em;}
+/* Removing for PPSCR01054737
+*/
+/* Footer */
+#prefooter p {float:left;}
+#footer {padding:1em 0; *padding:0.3em 0; _padding:1em 0; text-align:left;}
+#footer p {margin:.2em 0;}
+
+#cartForm .cartBody {margin:0; min-height:460px;}
+#cartTable ul {list-style-type:none; margin:0;}
+#cartTable td, #cartTable th {padding:0;}
+#cartTable ul li {margin:0;}
+#cartTable {width:100%; margin:0 0 15px; table-layout:fixed;}
+#cartTable caption {color:#C88039; font-size:1.33em; padding:15px 0; margin:0;}
+#cartTable th {background-color: #eee; height:22px; vertical-align: middle; text-align:left; font-weight:normal;}
+#cartTable .descriptionCol {padding-right:15px; padding-left:15px; width:380px; word-wrap:break-word;}
+#cartTable .priceCol {padding-right:55px; padding-left:15px; width:70px; text-align:right;}
+#cartTable .quantityCol {padding-right:15px; width:175px;}
+#cartTable .amountCol {padding-right:30px; padding-left:5px; width:75px; text-align:right;}
+#cartTable tbody a {padding:0 3px;}
+#cartTable tbody td {padding-top:15px; height:50px;}
+#cartTable tr.last td {border-bottom: 1px solid #ccc;}
+#cartTable tfoot td {text-align:right;}
+#cartTable tr.subtotalRow td {font-weight:bold; padding-top:15px;}
+#cartTable tr.totalRow td {font-weight:bold; border-top:1px solid #ccc;}
+#cartTable td.shippingWidget {padding-right:0;}
+#cartTable p.group {margin:0;}
+#cartTable span.buttonAsLink {margin:0 4px;}
+#cartButtons {text-align:right; margin:0 0 15px 0;}
+p#cartNote {padding:0 0 40px 0; margin:0;}
+#cartButtons span.operant {margin:0 5px 0 10px;vertical-align:super;}
+#cartButtons span.leftBtn {float: left;}
+#ppCheckout {padding-top:0;margin-top:-2px;vertical-align:top; width:auto; border:0;}
+
+/* Secure Checkout module */
+#secureCheckout {float:right; padding:1em 0 0 1em; font-style:italic;}
+#secureCheckout img {vertical-align:middle;}
+#secureCheckout.lockLogo, div.reviewPage #secureCheckout.lockLogo {padding:0;}
+#billingBox #secureCheckout.guess, div.reviewPage #secureCheckout.guest {position:absolute; right:20px; bottom:5px;}
+#loginBox .secure {display:none;}
+#prefooter #secureCheckout {padding-top:8px;}
+#loginModule #secureCheckout {padding-top:0;}
+.securePayPalTabLogo {float: right; margin:-27px 5px 0 0;}
+
+/* OpenWAX Challenge */
+.waxChallenge{background-color:#E8F1FA; padding:20px; margin-top: 20px; width:455px;}
+/* End OpenWAX Challenge */
+
+/*MiniCart*/
+#miniCartContent {min-height:510px; _height:510px;}
+#miniCart {float:left; background:#fff;width:295px;}
+#miniCart h3 {text-align:center; margin:13px 0 15px;}
+#miniCart fieldset, #miniCart li {margin:0;}
+#miniCart .wrap {position:relative; padding:6px 0 0 8px;}
+#miniCart .head {padding:2px 0 2px 10px; margin-left:4px; height:18px; background:#eee; width:278px;}
+#miniCart .head .amount {top:2px; right:25px;}
+#miniCart .limit {height:194px; overflow:auto;}
+#miniCart .maxlimit {max-height:200px; margin-bottom:20px; overflow:auto;}/*UCP support*/
+#miniCart .amount {position:absolute; top:0; right:25px; width:auto; color:#333;}
+#miniCart .desc {float:left; width:80%;}
+#miniCart .ebay .amount {right:0}
+#miniCart .grandTotal {right:0px;}
+#miniCart .ineligible-amount {position:absolute; top:0; right:20px; width:auto;color:#757575!}
+#miniCart ol.items {width:278px; margin-left:4px; overflow-x:hidden;}
+#miniCart ol, #miniCart ul {float:left; margin:0; list-style-type:none;}
+#miniCart .items li ul {margin:0; padding:5px 0;}
+#miniCart .items li ul.sellername, #miniCart .items li.itmdet ul {border-top:1px solid #ccc; margin:0;}
+#miniCart .items li.seller1 ul.sellername, #miniCart .items li.itmdet ul.seller1 {border-top:none;}
+#miniCart .seller1 ul, #miniCart .items li.itmdet ul.item1 {margin:-5px 0 0; border:0 none;}
+#miniCart .items li {float:left; position:relative; padding:0; width:278px;}
+#miniCart .ebay .item1 li {margin-bottom:7px}
+#miniCart .ebay.totals {padding-top:10px; padding-bottom:20px; margin-top:0px}
+#miniCart .ebay.wrap {}
+#miniCart ul.sellername a.expSell {padding:0 0 0 15px; text-decoration:none; border-bottom: none; background: url(/en_US/i/icon/icon_collapse_9wx9h.gif) no-repeat 0 3px;}
+#miniCart ul.sellername a.collSell  {padding:0 0 0 15px; text-decoration:none; border-bottom: none; background: url(/en_US/i/icon/icon_expand_9wx9h.gif) no-repeat 0 3px;}
+#miniCart li.selleritm {padding-left:15px;}
+#miniCart input.small {font-size: inherit; margin-left: 5px;}
+#miniCart #shippingHandling input#toggleWidget {margin-left:0px;}
+#miniCart input#amount {position:absolute;top:0;right:15px;}
+
+#miniCart .totals {margin-left:4px; padding-left: 10px; padding-bottom:0.5em; width:278px; float:left; border-top:1px solid #ccc;}
+#miniCart div.totals-hss, #miniCart div.totals-hss li{border:none; font-weight:normal;}
+#miniCart .qty .group {margin:0.1em 0;}
+#miniCart .qty label {display:inline;}
+#miniCart .qty input {text-align:right;}
+#miniCart .qty div.action {float:left; margin:4.75px 0px 0px;}
+#miniCart li.discount {padding:0 0 6px;}
+#miniCart .msg {width:315px; padding:15px 10px; margin:0;}
+#miniCart #step {text-align:right;}
+#miniCart label.highlight {width:295px; display:inline;}
+#miniCart #shippingWidget {margin:4px 0; float:left;}
+#miniCart #shippingWidget .cancelWidget {margin:1.2em 0 0 1em}
+#miniCart .resultRow {font-size:0.9em;}/*cart vs minicart discrepancy*/
+#miniCart .emptyCart {border-top:1px solid #ccc;margin-top:5px;}
+#miniCart .ecText {text-align:center;margin:20px 30px;}
+
+#miniCart li.secondary.qty p.group.error {width:100%; position:relative; padding-top:20px;}
+#miniCart li.secondary.qty.qtyUnavailable p.group.error {padding-top:0; width:auto;}
+#miniCart li.secondary.qty p.group.error label {padding:0;}
+#miniCart li.secondary.qty p.group.error span.help {margin-left:0; position:absolute; top:0; left:0;}
+#miniCart li.secondary.qty p.group.error span.field {padding:0 10px;}
+#miniCart li.secondary.qty p.group .align span {display:inline;}
+#miniCart li.error span.help {padding-left:20px;}
+#miniCart .noamt {margin-left:16px;}
+#miniCart .autoTooltip {border-bottom:1px dashed #084482; text-decoration:none;}
+/* #miniCart.mcBilling, #miniCart.mcReview {height:1187px;} */
+#miniCart .installmentDiscountLabel{display:block;width:60%;}
+		
+/* MiniCart - Done Page */
+#miniDone {float:left; position:relative;width:295px;padding:34px 0 0 10px;}
+#miniDone .reviewInfo {padding:8px 0 11px;background:0 none;}
+#miniDone .reviewInfo .inset {margin:0;}
+#miniDone .address strong {display:block;}
+div.paymentDone div.orderDetails {text-align:center;width:295px;margin-top:20px;}
+div.paymentDone div.total {text-align:center;width:295px;margin-top:10px;font-size:20px;padding-bottom:15px;border-bottom:1px solid #dedede;}
+div.paymentDone div.doneDetails {margin:20px 0;}
+div.paymentdone div.centerLink {text-align:center;}
+div.paymentDone div.instPlan{font-size:0.57em;}
+/* override form.edit styles*/
+form.edit #miniCart p.group label {clear:none; float:none; text-align:left; width:auto;}
+form.edit #miniCart p.group span.field {display:inline; margin-left:auto;}
+
+/* Shipping calculator */
+div#shippingCalc {padding-top:15px;}
+div#shippingCalc div.resultRow {clear:both;margin-bottom:10px;}
+div#shippingCalc div.resultRow label {display:inline-block;}
+div#shippingCalc div.resultRow span.amount {width:120px;display:inline-block;padding-right:30px;}
+div#shippingCalc div.resultRow span.totalAmount {padding-right:0;}
+#cartTable div#shippingCalc div.resultRow span.totalAmount {padding-right:2px; width:148px;}
+div#shippingCalc div.resultRow span.currencyCode {width:30px;display:inline-block;}
+#shippingWidget {float:right; margin:0 30px 10px 0; padding:10px 0 10px 10px; width:266px; clear:both;}
+#shippingWidget label {float:left; color:#333;}
+#shippingWidget #shippingZipRow, #shippingWidget #shippingIntlRow, #shippingWidget input.button {float:left; margin:10px 0 0;}
+#shippingWidget input {margin-right:8px;padding:1px 2px; width:155px; border:1px solid #83A8CC; color:#000;}
+#shippingWidget span.buttonAsLink input.small {border:none; color:#084482; float:none; font-size:0.9em; margin:0; padding:0; width:auto;}
+#shippingWidget #shippingZipRow p.buttons input {width:auto;}
+#shippingWidget a {float:left;margin:15px 10px 0;}
+#shippingWidget .shippingWidgetbuttons {margin:0;}
+
+/* Login page */
+#loginModule div.fieldRow.login-email {padding:10px 0 12px 0}
+#loginModule div.notes {padding:0}
+#loginBox, .cppincentive.login {padding-left:15px;}
+#loginBox fieldset {margin:0.5em 0 0; width:100%;}
+#loginBox .note {display:block; margin-top:1.5em;}
+#loginBox #ixoOptIn {background-color: #ddd; padding: 1em;}
+#loginBox #ixoOptIn label {display:inline;}
+#loginBox #ixoOptIn input {width:1.5em;padding:0;margin:0;}
+#loginBox #ixoOptIn p {margin: 0 1.5em;padding:0;}
+
+/* signUpConfirmation */
+.signUpConfirmation .success {padding-right:15px;}
+.signUpConfirmation .border {background:url(/en_US/i/scr/scr_grayDotRepeatBg_3x1.gif) repeat-x bottom left; padding:20px 0; margin-top:1px;}
+.signUpConfirmation div.rounded div.top, .signUpConfirmation div.rounded div.bottom {width:920px; padding:5px;}
+.signUpConfirmation #navPrimary {display:none;}
+.signUpConfirmation #header h1 {padding:20px 0 0 0;}
+.signUpConfirmation #header {height:70px;}
+.signUpConfirmation div.rounded div.body {padding:5px 30px 10px;}
+.signUpConfirmation ol {padding-bottom:10px;}
+.signUpConfirmation #footerhps {padding-top:5px;}
+.signUpConfirmation h3 {padding-top:10px;}
+
+/* Payment Method Panels (rounded) */
+div.panel {margin:0 0 0.4em; padding:12px 9px 22px 30px; background:url(/en_US/i/scr/scr_UCDefault_925x61.gif) top right no-repeat; width:520px;}
+div.panel.hover {background:url(/en_US/i/scr/scr_UCHover_925x61.gif) top right no-repeat;}
+div.panel div.secondary {font-size:0.9em; margin-top:-1px;}
+div.panel div.subhead {background:url(/en_US/i/icon/icon_OrangeArrowSolid_10x60.gif) no-repeat 0 -44px; color:#33689b; padding-left:13px; font-weight:bold; font-size:1.17em;}
+div.panel div.subhead span {font-weight:normal; color:#000;}
+div.panel div.subhead p {margin:-5px 0 0 1px;font-weight:normal;font-size:0.75em}
+div.panel div.subhead span.help {color:#757575; font-size:0.85em;}
+div.panel div.subhead span.buttonAsLink {color:#33689B;margin-bottom:3px;display:inline-block;}
+div.panel div.subhead span.buttonAsLink input {overflow:hidden; font-weight:bold; color:#33689b !important;}
+div.panel div.subhead span.buttonAsLink input[disabled] {color:#757575 !important;}
+div.panel.active div.subhead {background:url(/en_US/i/icon/icon_OrangeArrowSolid_10x60.gif) no-repeat 0 8px; margin-bottom:1.5em; padding-left:14px;}
+div.panel.active {background:none; padding:0;}
+div.panel.active div.top, div.panel.active div.top div, div.panel.active div.bottom, div.panel.active div.bottom div {background-image:url(/en_US/i/scr/scr_UCGradient_925x50.png); background-repeat:no-repeat; height:10px; line-height:10px;}
+div.panel.active div.top, div.panel.active div.bottom {position:relative; width:555px;}
+div.panel.active div.top div, div.panel.active div.bottom div {position:absolute; top:0; right:0; width:10px; height:10px; margin-right:-5px; _margin-right:-6px;}
+div.panel.active div.top {background-position:-15px top;}
+div.panel.active div.top div {background-position:top right;}
+div.panel.active div.bottom {background-position:-15px bottom;}
+div.panel.active div.bottom div {background-position:bottom right;}
+div.panel.active div.body {position:relative; background:#fff; border-right:2px #bbbbbb solid; padding:10px 20px 0 30px; width:506px; height:auto; _height:1%;}
+
+/* Rounded Container - Parent */
+div.rounded div.top, div.rounded div.top div, div.rounded div.bottom, div.rounded div.bottom div {background:transparent url(/en_US/i/scr/scr_UCGradient_920x1600.png) no-repeat; _background:transparent url(/en_US/i/scr/scr_UCIE6_920x1600.gif) no-repeat; height:10px; line-height:10px;}
+div.rounded div.top, div.rounded div.bottom {position:relative; width:355px;}
+div.rounded div.top div, div.rounded div.bottom div {position:absolute; top:0; right:0; width:10px; height:10px; margin-right:-5px; _margin-right:-6px;}
+div.rounded div.top {background-position:top left;}
+div.rounded div.top div {background-position:top right;}
+div.rounded div.bottom {background-position:bottom left;}
+div.rounded div.body {background:transparent url(/en_US/i/scr/scr_UCGradient_920x1600.png) -1px -15px no-repeat; _background:transparent url(/en_US/i/scr/scr_UCIE6_920x1600.gif) no-repeat; border-left:1px #ccc solid; border-right:1px #ccc solid; padding:12px 20px 15px 20px; _padding:15px 20px 15px 20px; _margin-top:-10px;}
+div.rounded div.bottom div {background-position:bottom right;}
+div.rounded.defaultStyles div.bottom, div.rounded.defaultStyles div.bottom div, div.rounded.defaultStyles div.body {background-color:#bbb;}
+div.rounded.maxWidth div.top, div.rounded.maxWidth div.bottom {width:920px;}
+
+/* Rounded Container - Child (Inheritance) */
+div.rounded.child div.top, div.rounded.child div.top div, div.rounded.child div.bottom, div.rounded.child div.bottom div {background-image:url(/en_US/i/scr/scr_UCGradient_920x45.png); background-repeat:no-repeat; height:10px;}
+div.rounded.child div.top, div.rounded.child div.bottom {width:313px;}
+div.rounded.child div.body {background:#fff; border-left:1px solid #dedede; border-right:1px solid #dedede; padding:0 10px;}
+div.rounded.child.maxWidth div.top, div.rounded.child.maxWidth div.bottom {width:873px;}
+div.rounded.child.maxWidth div.top div {margin-right:-5px;}
+
+/* AutoComplete */
+.hintText {color:#999;}
+.acResults {z-index:15;}
+.acResults li.active {background:#666; color:#fff;}
+.acToggle {float:left; position:relative; width:18px; height:17px; cursor:pointer; background: url(/en_US/i/scr/src_steparrowdown_12wx12h.gif) center center no-repeat; border-width:1px 1px 1px 1px; border-style:solid; border-color:#83A8CC;}
+
+/* Billing page */
+#method-cc span.buttonAsLink {display:inline-block;margin-bottom:3px;}
+form.edit legend span.autoTooltip {margin-left:0;top:1.5em;}
+div#cupEntry {overflow:hidden; /* so we can animate to zero width */; position:relative;}
+div#cupEnabled {padding-top: 10px;}
+div#cupJSDisabled {color:#c00; font-size:0.9em; display:block;padding-left:200px;padding-top:10px;}
+div#cupMarketingBanner {margin-left:200px; background-image:url(/en_US/i/bnr/bnr_CUPupsell_290x75.gif); width:290px;}
+.cupMarketingContent {width: 300px; margin-left:55px;}
+form.edit #cupcheck {margin-bottom:15px; padding:0;}
+#pm-type {padding-bottom: 10px;}
+a.arrow {padding-left:.8em; background:url(/en_US/i/pui/core/icon_content_arrow.gif) 0 .5em no-repeat;}
+form.edit div#passwordEntry *.group {position:static}
+div#billingModule fieldset.multi p.first {width:auto;} /*layout2f .first overwrite this, need to update global.css*/
+div#billingModule fieldset.multi div.fields {width:300px;}
+/*div#billingModule fieldset#createAccount {margin:2em 0;}*/
+/*div#billingModule fieldset#createAccount div#passwordEntry {width:21em;}*/
+div#billingModule .howToEdit {float:none;margin-left:0px;}
+div#billingModule div#billingInfo p{overflow:visible;}
+div#billingModule div#billingInfo p, div#billingModule div#contactInfo p {margin-top:0}
+div#billingModule div#billingInfo, div#billingModule div#billingInfoEntry, div#billingModule div#contactInfo, div#billingModule div#contactInfoEntry {clear:both;height:auto}
+div#billingModule div#billingInfo p span, div#billingModule div#contactInfo p span,div#optionsModule div#contactInfo p span, div#loginModule div#contactInfo p span,span.cupLearnMore {display:block;}
+#billingInfo h4,#contactInfo h4 {clear:left; float:left; text-align:right; width:180px; font-weight:normal}
+#billingInfo p.group, #contactInfo p.group, div#billingModule p.tos, div#billingModule ul.tos, div#cupOnlineServiceInfoBox {margin-left:200px;}
+div#billingModule #billingInfo h4, div#billingModule #contactInfo h4 {clear:left; float:left; text-align:right; width:180px; font-weight:normal; margin-right:20px}
+div#billingModule #contactInfo p.group, div#billingModule p.tos, div#billingModule ul.tos, div#cupOnlineServiceInfoBox, div#signupmodule  p.tos, div#signupmodule ul.tos{margin-left:200px;}
+div#billingModule .buttons {margin-bottom:0;}
+div#billingModule p#aboutPPNote {margin-left:15px;margin-top:15px;}
+div#billingModule p#buyer-protection {margin-left:15px;}
+div#billingBox {padding-top:10px;margin:20px 0 0 0px;background:transparent url(/en_US/i/scr/scr_grayDotRepeatBg_3x1.gif) repeat-x scroll 0 0}
+#ccdetails .accessAid {*display:none;*visibility:visible;}
+#ccdetails {width: 500px;}
+.unavailable  {display:none;}
+fieldset#promodetails {margin:0;}/*for PPPL*/
+form.edit fieldset.gccheck {margin: 0 0 1em 200px;}
+form.edit fieldset.gccheck input {display:block; float:left;}
+form.edit fieldset.gccheck span {display:block; float:left; width:270px}
+/*removing below fix, as it caused 1089552; We can ignore the p4 caused by this*/
+/*div#billingBox p.group #signupPasswordConfirm {white-space:nowrap;}*/
+#fieldrowCCNumber input#cc_number {width: 12.6em;}
+#cardIssueInformation input {width: 3.35em;}
+#legal{margin-left:0;}
+//IE7 fix for text box not hiding: PPSCR01147902
+#fieldrowCSC .field{line-height:0px;}
+
+/* Review page */
+form.edit #contactInfo p.group label { color:#333333; font-size:12px; padding-left: 0px; width: 239px; margin:0; text-align:right;}
+form.edit #contactInfo p.group span.help {padding-left: 0px; margin-left: 0px; float: left; width: 280px; }
+form.edit #contactInfo p.group span.field {margin-left: 0px; float: left; width: 280px;}
+form.edit #contactInfo p.group { min-height:2em; overflow:visible;}
+div#fieldsCC {clear:left}
+#billingBox .descriptor {display:block;margin-left:181px;padding-left:20px;}
+/* Review page - sliders */
+#editAddressNameEntry {margin:1em 0;height:auto}
+
+form div.cctype.radio {width:280px;}
+form div#cctype.radio label {width:250px;}
+
+/* Choose Payment Method page */
+#paymentMethods h3 {float:left;padding:0.15em 0 0 0; color:#369;}
+#paymentMethods input[type="radio"] {float:left;}
+#paymentMethods div.radioMethod {float:left; margin-right:0.5em;}
+#paymentMethods div.headerContainer {padding:1px;}
+#paymentMethods div.headerContainer div.methodHeader h3 {cursor:pointer}
+#paymentMethods div.headerContainer div.methodHeader h3.headerIsImage{width:500px;}
+#paymentMethods div.sectionHead.selected div.methodHeader h3 {cursor:default}
+#paymentMethods div.sectionHead.selected h3 {color:#000}
+#paymentMethods div.headerContainer div.sectionHead.selected {float:left; width:100%; border-bottom:1px dotted #999;padding-bottom:5px}
+#paymentMethods div.headerContainerSingle, div#stdpage.giropay div.header, div#stdpage.meft-splash div.header{float:left; width:100%; border-bottom:#999 1px dotted;padding-bottom:1em}
+#paymentMethods div.headline, #paymentMethods, subHeading {width:auto;min-width:26em;}
+#paymentMethods div.methodHeader {float:left;width:auto;}
+#paymentMethods div.logo {float:right;width:auto;padding:0.6em 1em 0em 1em}
+#paymentMethods .methodnote {font-weight:normal;font-size:0.9em;}
+#paymentMethods .buyerprotection{font-weight:bold;text-decoration:underline}
+#paymentMethods div.subHeading{clear:left;}
+#paymentMethods div.subHeadingText {clear:left;float:left;width:auto;}
+#paymentMethods div.subHeadingTextSingle {margin:1em 0;}
+#paymentMethods div.sectionDetails {clear:left;/*border:1px solid #eee;border-top:none;*/}
+#paymentMethods div.sectionDetailsSingle {border:none; padding:0;}
+#paymentMethods div.sectionDetailsSingle fieldset {clear:left;}
+#paymentMethods fieldset {margin:0}
+/*#paymentMethods div.sectionDetails .bottom {width:498px; position:relative; bottom:-2.2em; left:-3em; background-position:-5px -17px;}*/
+#paymentMethods div.sectionDetails form#billingForm {width:100%;}
+#paymentMethods div.methodDescription {margin-bottom:1.5em;}
+#paymentMethods div.subPaymentMethods li.subOptions {list-style:none;margin-left:0;}
+#paymentMethods div#guestAgreement {width:22em;}
+#paymentMethods div.note {color:#666; font-size:.9em;}
+#paymentMethods div#billingModule div#billingBox {margin:0;}
+#paymentMethods div#loginBox {padding:0;}
+#paymentMethods div.inlineMessage{margin:0;background-position:5px 10px;padding:10px 2px 10px 26px}
+#paymentMethods div.inlineMessage p {margin:0;}
+#paymentMethods div#billingModule .panel, #paymentMethods div#loginModule .panel{margin-top:0}
+#paymentMethods .panel .body{padding: 1px 10px 0 30px}
+#paymentMethods div#billingModule .panel .top {display:none}
+#paymentMethods div#billingModule .panel .bottom {display:none}
+#paymentMethods div#loginModule .panel .bottom {display:none}
+#paymentMethods .escapeHatch {margin-top:10px}
+form#editAddressForm, form#editBillingForm {width:480px;min-height:400px;}
+form#editAddressForm div.backlink {float:right;text-align:right;margin-top:-25px;}
+#paymentMethods div#billingModule .buttons {margin-bottom:0px;}
+#paymentMethods .staticTab span.buttonAsLink {text-decoration:none}
+#paymentMethods .staticTab span.buttonAsLink input {font-size:1.2em;font-weight:bold;text-decoration:none;color:#336699}
+#paymentMethods .headerWithLogo {width:410px!important}
+div.subPaymentMethods input[type='radio'] {float:none !important}
+div.subPaymentMethods img {vertical-align:middle}
+
+/* Other Payment Methods -- Integrated into Login/Billing */
+div.panel div.sectionDetails{padding-left:15px;}
+div.inlineMessage.info {height:22px;}
+#billingModule div.inlineMessage.info {height:auto}
+div.panel div.methodDescription {padding-bottom:10px;}
+.sectionDetails #cupEntry #billingInfoEntry div.fields{*width:auto;}
+.LodingIconHelpTxt{width:250px;font-weight:bold;color:#000;margin-left:30px;}
+
+/* Done Page */
+.upsellInfo{background: url(/en_US/i/scr/scr_grayDotRepeatBg_3x1.gif) repeat-x scroll 0 0;padding:20px 0;}
+.infoText{margin:0;}
+.upsell {margin-top:1em; padding:20px; background-color:#EEE;overflow:auto;width:470px;}
+.upsell h3 {font-family:arial;font-weight:bold;color:#32689a;margin:0 0 25px;}
+#signupTos {margin-bottom:1em;}
+form.edit div.signupAgreement {padding-left:201px;color:#757575;font-size:0.9em;margin:0.1em 0;}
+#doneInfo .action li {margin:0; list-style-type:none;}
+#guest-account{margin:0;}
+#password_message{margin-left:200px;}
+#checkoutDoneMpi iframe{overflow: hidden;}
+
+
+
+/*AddressBook -- moved to review.css*/
+span.firstLine {margin-left: 5px;}
+span.secondLine {margin: 0 0 15px 26px; display:block;}
+#select-shipping-address input#editShipAddres {width: auto; padding: 0 2px; margin:0;}
+.disabledListContainer {clear:left; margin:0 0 0.3em; color:#999;}
+span#addNewAddress {float: right;}
+
+/*UpsellAddBank*/
+fieldset.flieldblockSavings {background: url(/en_US/i/info/info_savings_200x118.gif) no-repeat scroll 0 97%;height:150px;}
+fieldset.flieldblockChecking {background: url(/en_US/i/info/info_nonjs_200x118.gif) no-repeat scroll 0 97%;height:150px;}
+
+/* style for Return to Merchant link */
+p.return {padding-left:30px}
+div#doneInfo p.return  {padding:0}
+/*Styles for no-cart pages starts 
+/*Styles for no-cart pages starts 
+.outerRoundBox, .roundBox {position:relative; height:100%; margin:auto; background:#eee; overflow:hidden;}
+.outerRoundBox .top div, .outerRoundBox .top, .outerRoundBox .bottom div, .outerRoundBox .bottom {margin:0 0 -2px; width:100%; background:url(/en_US/i/scr/scr_bg_roundedcorner_sprites.gif) no-repeat;}
+.outerRoundBox .top {height:12px; line-height:10px;}
+.outerRoundBox .top div {background-position:0 -90px;}
+.outerRoundBox .top {background-position:0 -64px;}
+.outerRoundBox .bottom div {background-position:0 -145px;}
+.outerRoundBox .bottom {background-position:0 -118px; background-color:#eee;}
+.outerRoundBox .body {padding:0 10px;}
+.roundBox .top div, .roundBox .top, .roundBox .bottom div, .roundBox .bottom {width:100%; background:url(/en_US/i/scr/scr_bg_roundedcorner_sprites.gif) no-repeat;}
+.roundBox .top div {background-position: -935px 0;}
+.roundBox .bottom div {height:35px; background-position: -935px -21px;}
+.roundBox .bottom {height:35px; background-position: 0 -21px; *width:auto;}
+.roundBox .body  {padding:0 14px 15px; background:#fff; border:1px solid #dedede; border-width: 0 1px;}
+.outerRoundBox .bottom, .roundBox .bottom {float:left; line-height:15px;}
+.outerRoundBox .top div, .roundBox .top div, .outerRoundBox .bottom div, .roundBox .bottom div {float:right; width:15px;}
+Styles for no-cart pages ends */
+
+/* Giropay, Add Bank, mEFT Pages START */
+
+div#stdpage.noCartPages  div.layout2 div.col, div#stdpage.noCartPages div.layout2 div.col {width:430px} 
+div#stdpage.noCartPages  div.messageBox {margin:0 0 1em 0}
+div#main .column1 {float:left}
+div#main .column2 {float:right}
+/*div#main .payment {float:left; width:376px; background:#FFF; border:1px solid #DDD;height:auto;padding:15px 20px;}*/
+div#main .payment { background:#FFFFFF none repeat scroll 0 0; border:1px solid #DDDDDD; float:left; height:auto; margin:5px; padding:15px 10px 20px 20px; width:388px;}
+div#main .payment h3{margin-bottom:30px;}
+
+div#stdpage.noCartPages div#main .cardLogos img{margin-right:10px;}
+/*div#stdpage.noCartPages div.header img, div#stdpage.addbank div.header img, div#stdpage.manageCC div.header img {float:right}
+div#stdpage.noCartPages div.header h2, div#stdpage.addbank div.header h2 {float:left}*/
+div#stdpage.addbank p.buttons {margin-left:160px;padding-bottom:10px}
+div#stdpage.addbank label {font-weight:normal!important}
+
+/*no-cart pages have specific styles goes here*/
+div#stdpage.noCartPages div#main .noborder {border: none;}
+div#stdpage.noCartPages ol {margin-left:-10px; padding-left:16px;}
+div#stdpage.noCartPages ol li {padding-right: 4.4em; margin-bottom: 0.1em;}
+div#stdpage.noCartPages ul li {padding-right: 4.4em; margin-bottom: 0.1em;}
+div#stdpage.noCartPages .review table {margin: 0;}
+div#stdpage.noCartPages div#signupTos label.checkbox input {padding: 0; margin-left: 0;}
+div#stdpage.noCartPages .mainContent {width: 600px;}
+
+/* style for Return to Merchant link for no cart pages*/
+div#stdpage.noCartPages p.return {padding-left:0px}
+div#stdpage.manageCC {font-size:11px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; height:22px; letter-spacing:1px; margin-right:10px; overflow:visible; width:auto;}
+
+/*AddbankAccount styles*/
+div#stdpage.addbank p.buttons {margin-left:0}
+div#stdpage.addbank legend {display:block}
+div#stdpage.addbank .ddbank form#AddBank{margin-top: 0;}
+div#stdpage.addbank hr {display: none;}
+div#billingInfo {margin-top: 20px;} 
+div.reviewPage p.reviewInstructions {width: 377px;}
+div#reviewModule p.reviewInstructions {width:415px;}
+
+div#stdpage.addbank div.header {margin: 0 0 15px; overflow: auto;}
+div#stdpage.addbank form.edit legend span.autoTooltip { top:1.4em;}
+.colnote {color:#757575; text-align:right; font-size: 0.9em;}
+.normal {font-weight:normal;}
+
+/* done page styles goes here*/
+#paymentDone {width:295px; margin-top: 15px; margin-left: 10px; }
+#paymentDone div.total, div.paymentMade {text-align: center; font-size: 1.33em; text-align: center;}
+#paymentDone div.total {font-size: 20px; padding-bottom: 20px;}
+div#cartDone {border-top: 1px solid #dedede; padding-top: 15px;}
+div#cartDone .printReceipt {padding: 8px 0;}
+div#cartDone .printReceiptCenter {padding: 8px 0; text-align:center;}
+div#tickPayment {padding: 0px 10px 10px 0px;}
+div#tickPayment h3 {background:transparent url(/en_US/i/icon/checked_color_16x16.gif) no-repeat scroll 0 50%; padding-left: 30px; overflow: auto; float: left;}
+div#tickPayment div#secureCheckout {padding-top: 3px;} 
+div#guestSecure{padding-right: 15px;}
+fieldset#guest-account h3{padding-left:0;}
+
+
+.dottedLine {background: url(/en_US/i/scr/scr_grayDotRepeatBg_3x1.gif) repeat-x left bottom;}
+.negBal {clear:both; width:480px; height: 9px; background:transparent url(/en_US/i/scr/scr_grayDotRepeatBg_3x1.gif) repeat-x scroll 0 50%;}
+div#headerSection {height: 20px; padding: 10px 0px 20px 5px; clear:both; margin-bottom:10px;}
+div#headerSection h2 {float:left;}
+div#headerSection div#secureCheckout {padding-right: 5px; padding-top: 6px;} 
+div#guestSection {height: 30px; clear:both; padding-right: 13px; }
+div.buttons {margin-bottom: 10px;}
+div#stdpage.noCartPages #footer {padding:0.5em 0; text-align:left;} 
+div#signupTos {font-size: 0.9em; padding-right: 10px;}
+div#doneInfo {padding-right: 25px; clear:both;}
+
+/*upsell rounded corners starts here*/
+#upsellArea {margin:20px 0; border:none;  solid #ccc; width:515px;}
+#upsellArea div.upsellTop{margin:-1 0; padding:0; overflow:hidden; _position: relative; _z-index: 1;}
+#upsellArea div.upsellTop div.upsellTopLeft {background:url(/en_US/i/scr/scr_UCGradient_920x45.png) 0 0 no-repeat; width:12px; height:12px;float:left;}
+#upsellArea div.upsellTop div.middle {margin:0; padding:0; float:left; border-top:1px solid #dedede; width:480px;}
+#upsellArea div.upsellTop div.upsellTopRight {background:url(/en_US/i/scr/scr_UCGradient_920x45.png) -908px 0 no-repeat; width:12px; height:12px;float:left; border:0 solid;}
+#upsellArea div.upsellBottom {margin: 0; float: left;}
+#upsellArea div.contentMiniBody{padding: 0px 15px; border-bottom: 1px solid #ffffff;}
+#upsellArea div.upsellBottom div.upsellBottomLeft{background:url(/en_US/i/scr/scr_UCGradient_920x45.png) 0 -33px no-repeat; width:12px; height:12px;float:left;}
+#upsellArea div.upsellBottom div.middle {margin:0; padding:0; float:left; border-bottom:1px solid #dedede; width:480px; height:11px; _margin-top: -7px;}
+#upsellArea div.upsellBottom div.upsellBottomRight{background:url(/en_US/i/scr/scr_UCGradient_920x45.png) -908px -33px no-repeat; width:12px; height:12px;float:left; border:0 solid;}
+#upsellArea div.contentBody {margin:0; #margin-top: -8px; _margin-top: -4px; padding:0 1px 0 1px; vertical-align:top; width:500px; border-left:1px solid #dedede;border-right:1px solid #dedede;}
+div#contentHeader {margin: -10px 0 10px 0; #margin-top: -9px; padding:0; background-color: #eeeeee; border:0 solid; height: 30px; overflow: hidden; _position: relative; _z-index: 2; _margin-top: -13px;}
+div#contentHeader div.chTop {margin: 0; float: left; width: 16px;}
+div#contentHeader div.chTopLeft {margin:0; padding:0; display: block; background:url(/en_US/i/scr/scr_bg_roundedcorner_sprites.gif) -3px -67px no-repeat; width: 16px; height: 16px;}
+div#contentHeader div.chTopRight {margin:0; padding:0; background:url(/en_US/i/scr/scr_bg_roundedcorner_sprites.gif) -2px -112px no-repeat; width:16px; display: block; height:16px;}
+div#contentHeader h3 {margin:5px 0; padding: 0 5px  0 0; float: left; width: 463px; line-height: 1.5em; color: #31639C;}
+div#contentHeader div.chBottom {margin: 0; float: left; width: 16px;}
+div#contentHeader div.chBottomLeft {margin:0; padding:0; display: block; background: url(/en_US/i/scr/scr_bg_roundedcorner_sprites.gif) 8px -90px no-repeat; width: 16px; background-color: #eeeeee; height: 16px;}
+div#contentHeader div.chBottomRight {margin:0; padding:0; background:url(/en_US/i/scr/scr_bg_roundedcorner_sprites.gif) no-repeat; display: block; width:16px; height:16px;}
+div#contentHeader div.chBottomRight {background-position: 7px -143px;}
+/*upsell rounded corners ends here*/
+
+/*CUP Phase 3 (30652)*/
+#cupOnlineServiceInfoBox{width:290px;}
+
+/* AddMore Widget styles start */
+div.add-more-container p.hidelabel label {display:none}
+/* AddMore Widget styles end */
+fieldset {margin:0;}
+#babySlider {padding:5px; background-color:#fff; width:469px; height:auto; z-index:10; position:relative;}
+div#babySlider {margin:100px 0 50px 1px; padding:20px; background-color:#fff; border-right:3px solid #666; border-bottom:3px solid #666; width:469px;height:auto; z-index:10; position:absolute;}
+#babySlider #innerSlider h3, #babySlider #PepLightbox h3 {color: #32689a; margin-bottom:30px;}
+#babySlider #ANLightbox div.footer, #babySlider #PepLightbox div.footer{display:none;}
+#innerSlider {overflow:auto;position:relative;}
+#innerSlider #scrollBuffer p.buttons { padding-left:0px; } 
+#scrollBuffer {overflow:auto;border:1px solid #CCC; padding:5px; margin-bottom:30px;}
+.iPlan:after, .iPlan:before { content: '.'; font-size: 0; height: 0; display: block; color: #fff; clear: both;}
+.iPlan { zoom: 1; }
+.ccplan-input input{border:none;}
+.ccplanLink { margin-top:7px;}
+.ccplanText { margin-top:10px;}
+.cc-block{float:left;padding:10px;text-align:center;background:url(/en_US/i/scr/scr_bg_billing_cc_53h.gif) repeat-x bottom;font-size:10px;}
+.cc-block.faded .ccplan-input *{ opacity:0.2;filter:alpha(opacity=20); }
+form.edit div#billingBox .iPlan{margin-left:30px;}
+form.edit div#billingBox .instHeader{width:180px;text-align:right;}
+form.edit div#billingBox .cc-block{ padding: 10px 18px; }
+
+.pntRpt table.cartDetails {width:100%; margin:0 0 0 1px;} 
+.pntRpt table.noBg th {background:transparent; border-top:1px solid #ccc; border-bottom:1px solid #ccc; }
+.pntRpt table.cartDetails td {padding:5px 15px;}
+.pntRpt p.txnDetails{background-color:#EEE; padding:5px; margin-top:30px;}
+#inputGiftMessage,#noteToSeller {width:460px; height:100px;}
+#noteToSeller span.buttonAsLink {margin-left:5px;}
+
+/* Incentives start */
+#redemptionCode {height:194px; overflow:auto; border: 1px solid #E0E0E0;}
+table#redemptionTable td.secondCol p {margin:0}
+.strikethrough {text-decoration:line-through}
+/* Incentives end */
+
+fieldset#signupFields {margin-top: 0px;}
+fieldset#signupFields div#signupAgreement input {margin-left: 0px; padding-right: 5px;}
+
+/* Printable receipt styles start*/
+.pntRpt span.secondaryblock {display:block; color:#757575;}
+.pntRpt table.cartDetails {width:100%; margin:0;} 
+.pntRpt table.cartDetails th {text-align: left; padding:5px 15px; background-color:#EEEEEE;}
+.pntRpt table.cartDetails td {padding:5px 15px; }
+.pntRpt table.cartDetails th.itemDet, table.cartDetails td.itemDet {text-align:right; width:90px;}
+.pntRpt table.cartDetails tfoot td.grandTotal {border-top:1px solid #ccc;}
+.pntRpt table.cartDetails tfoot td {text-align: right;}
+.pntRpt .infoMsg {width:360px; margin:0 15px 15px 0;}
+.pntRpt h3.tblSubHead {font-size:1.15em; color:#33689B; padding:15px 0 5px 0; clear:both;}
+.pntRpt table.cartDetails th.amount, .pntRpt table.cartDetails td.amount{padding-right:30px;}
+.pntRpt table.cartDetails td.amountCode{padding-right:4px;}
+.pntRpt table.cartDetails span.amountTotal{padding-right:12px;} 
+/* Printable receipt styles end */
+
+/* Add/Update CC page -  Rounder container - full page */
+div.addUpdateCC div.rounded div.top,div.addUpdateCC div.rounded div.bottom {position:relative; width:915px;}
+div.addUpdateCC span.autoTooltip {float:none!important}
+div.addUpdateCC p.return {padding-left:0px; margin:2px 0;}
+
+div.addUpdateCC fieldset.group div span#shipping-address{display:block;}
+div.addUpdateCC div.creditcardSection fieldset.group div fieldset.subform, div.addUpdateCC div.creditcardSection fieldset.group div fieldset.multi{ margin-top:0; margin-bottom: 4px;}
+div.addUpdateCC div.edit fieldset { background:transparent url(/en_US/i/scr/scr_hashedbg_4x4.gif) repeat scroll center center; border:medium none; margin:0; padding:10px; }
+div.addUpdateCC div#edit-shipping-address.edit {width:30em; border:1px solid #CCDDEE; margin-top: 10px; margin-left:-100px}
+div.addUpdateCC div#edit-shipping-address ul.addresses input { border:medium none; margin-right:0.25em; vertical-align:text-top; float:none; width:auto; }
+div.addUpdateCC div.edit fieldset p{ margin-bottom:10px; float:none;}
+div.addUpdateCC div.edit fieldset div.fieldrow{ clear:left; padding:2px 0; margin-bottom:2px;}
+div.addUpdateCC div.edit fieldset div.fieldrow label { width:7.3em; display:block; float:left; margin:0 5px 0 0; padding:3px 0 0 2px; }
+div.addUpdateCC div.edit fieldset div.fieldrow input { border:1px solid #83A8CC; padding:1px; width:18em; }
+div.addUpdateCC div.edit fieldset.add div.buttonrow { padding: 6px 0 0 7.7em; margin:0; }
+div.addUpdateCC div.edit div.buttonrow input { padding:3px 2px; margin-left:5px}
+div.addUpdateCC div.buttonrow input.done, div.buttonrow input.cancel { background:#AFC8F1 url(/en_US/i/btn/btn_secondary_1x50.gif) repeat-x scroll left top; color:#336699;}
+div.addUpdateCC div.buttonrow input.cancel{ background:#CFCFCF url(/en_US/i/btn/btn_cancel_1x50.gif) repeat-x scroll left top; color:#777777;}
+div.addUpdateCC #select-shipping-address ul { list-style-image:none; list-style-position:outside; list-style-type:none; margin:0; padding:0; }
+div.addUpdateCC div.edit li { padding:2px 0; margin-bottom:0.8em; margin-left:1.25em;}
+div.addUpdateCC div.edit fieldset li label { display:inline; line-height:1.6; margin:0; padding:0; float:none; width:auto; }		
+div.addUpdateCC div#signupAgreement {margin-left: 200px;}
+div#signupFields {margin-top: 5px; position:relative;}
+div#signupFields div#signupAgreement input {margin-left: 0px; padding-right: 5px;}
+
+div.addUpdateCC #addUpdateHeader {clear:both;height:20px;margin-bottom:10px;padding:10px 0 24px 5px;background: url(/en_US/i/scr/scr_grayDotRepeatBg_3x1.gif) repeat-x left bottom;}
+div.addUpdateCC #addUpdateHeader h2{width: 720px;}
+div#stdpage.addUpdateCC div#secureCheckout {margin-top:-55px}
+div#loginBox a.disableLink{color:#ccc; cursor:default;}
+
+#miniCart .finalTotal span{display:block;position:relative;text-align:right;}
+div.addUpdateCC .layout2d {float:left;}
+/*Merchant editable section*/
+#miniCartContent div.specialMessageSection{float:left;position:relative;margin-top:35px;width:270px;padding:15px 15px 20px 15px;background:#f3f3f3;overflow:auto;}
+span.installmentPlanSelected{font-weight:normal;}
+.uach{clear:both;}
+div.uach .uachflexibility {width:270px; height:54px; padding:10px; background-color:#F4F7F9;}
+div.uach .uachflexibility input {display:block; float:none; border:none; padding-top:10px;}
+
+div.reviewInfo p.addbanknow input{border:0; padding:1px 2px 0 0; vertical-align:middle;}
+form.edit #cupcheck span label{width:290px; text-align:left;}
+form.edit #cupcheck span label input{margin-left:0px;}
+
+/* Addition to fix slider issues in IE6 */
+div#stdpage {position:relative;}
+form#parentForm div.layout2f div.col.first {position:relative;z-index:15;}
+div#parentSlider fieldset {position:relative;}
+
+/* Merchant Error page */
+#merchantCS {margin-bottom:0; padding:30px 0 0;}
+#stdpage.noCartPages.merchantError div#headerSection {padding-left:0;}
+.soldOutItems {padding-bottom:.2em;}
+.soldOutItems ul {list-style-type:none;}
+
+/* Risk Declines case */
+div.riskdeclines ul li.errorinfo{margin-left:2.2em;margin-bottom:0.2em;}
+
+/*GlobalCreditOffers starts*/
+#creditOffer {color: #333333; clear:both;}
+#creditOffer div {clear:both;}
+#creditOffer fieldset.group div div{margin: 0;}
+div.creditOfferBanner {padding: 0px 0 0 22px;}
+div.creditOfferBanner a img, div.creditOfferBanner a, div.creditOfferBanner img {margin: 0; padding:0; border: 0;}
+#creditOfferAcceptance {padding-left: 27px; padding-bottom: 10px; font-size: 11px;}
+#creditOfferAcceptance input {height: 12px; width: 12px;}
+#creditOfferAcceptance span{padding: 0 0 5px 5px; vertical-align: middle;}
+div.productBenefit {padding-top: 5px; padding-left: 22px; clear:both;}
+div.productBenefit p {margin:0; padding: 0;color:#666666; }
+div.productBenefit span.bullet {margin-right: 5px;}
+div.productBenefit span.bullet {height: 1px; width: 1px; background-color: #000000; display: block; float: left; margin-right: 5px; margin-top: 8px; padding: 1px;}
+#defaultFunding {padding-top: 8px; padding-left: 18px;}
+.promoText {clear:both; margin-left: 20px;}
+div.orderInfo span.promoText {display:block;}
+/*GlobalCreditOffers ends*/
+.subhead .icon{clear:both;float:right;margin-top:-5px;}
+div#loginModule #credit,div#billingModule #credit,div#optionsModule #credit {margin-left:200px;}
+div#loginModule div.creditOfferBanner,div#billingModule div.creditOfferBanner,div#optionsModule div.creditOfferBanner  {padding: 0px 0 0 15px;}
+div.panel div.subhead span.tabPromoText {margin:-5px 0 -10px 1px;font-weight:normal;font-size:0.75em;display:block;color:#757575;}
+.rtl #footer {text-align:right;}
+.rtl .rounded .top {background-position:right top;}
+.rtl .rounded .bottom {background-position:right bottom;}
+.rtl .signUpConfirmation .success {padding-left:15px;}
+.subhead .icon{clear:both;float:right;margin-top:-5px;}
+div#loginModule #credit,div#billingModule #credit,div#optionsModule #credit {margin-left:200px;}
+div#loginModule div.creditOfferBanner,div#billingModule div.creditOfferBanner,div#optionsModule div.creditOfferBanner  {padding: 0px 0 0 15px;}
+div.panel div.subhead span.tabPromoText {margin:-5px 0 -10px 1px;font-weight:normal;font-size:0.75em;display:block;color:#757575;}
+div.panel.active div.creditoffertab div.subhead {background:url(/en_US/i/icon/icon_OrangeArrowSolid_10x60.gif) no-repeat 0 8px; margin-bottom:1.5em; padding-left:14px;float:left;}
+div.creditoffertab div.icon{float:right;display:inline;}
+div.creditoffertab a img, div.creditoffertab a, div.creditoffertab img {margin: 0; padding:0; border: 0;clear:both;display:block;}
+/*Twister in Billing page*/
+div#billingTwister {background-color:#eee;padding:12px 20px;margin:3px 0 3px 0;}
+div#billingTwister label {text-align:left;float:none;}
+form.edit div#billingTwister fieldset#createAccount .billingInfoText {margin:0;padding-left: 0;}
+form.edit div#billingTwister fieldset#createAccount .billingTwisterOptional, div#upsellCreateAccount .billingTwisterOptional{font-size:12px; color:#666666; font-weight:normal;}
+form.edit div#billingTwister fieldset#createAccount .billingTwisterOptional a, div#upsellCreateAccount .billingTwisterOptional a{margin:0 7px;}
+form.edit div#billingTwister fieldset#createAccount a#AOHideShowLink {background: url(/en_US/i/icon/icon_expand_plus_11x11.gif) no-repeat scroll left center;padding:3px 0 3px 20px;font:bold 12px; color:#32689A; text-decoration:none;}
+form.edit div#billingTwister fieldset#createAccount a#AOHideShowLink.opened {background: url(/en_US/i/icon/icon_collapse_minus_11x11.gif) no-repeat scroll left center; text-decoration:none;}
+div#billingTwister .help, div#billingTwister .field {margin-left:0; padding-left:0;}
+div#billingTwister fieldset.multi, div#billingTwister fieldset.group {margin:1em 0;}
+div#billingTwister fieldset.multi legend, div#billingTwister fieldset.group legend {position:static; text-align:left;}
+div#billingTwister p.tos, div#billingTwister ul.tos{margin-left:0;}
+div#billingTwister p.buttons, form.edit div#billingTwister p.error span.help{padding-left:20px;}
+div#billingTwister div#passwordEntry fieldset.multi span.labels, div#billingTwister div#passwordEntry fieldset.group span.labels {width:auto;}
+div#billingTwister div#passwordEntry fieldset.multi span.labels span.label, div#billingTwister div#passwordEntry fieldset.group span.labels span.label  {float:left; text-align: left; width: auto;}
+div#billingTwister div#passwordEntry fieldset.multi span.labels span.autoTooltip {float:left;}
+div#billingTwister div#passwordEntry fieldset.error span.help {clear:both; padding-left: 20px;} 
+div#billingTwister div#passwordEntry fieldset.error span.help {background: url("/en_US/i/icon/form_error.png") no-repeat scroll 0px top transparent;}
+div#billingTwister div#passwordEntry fieldset.multi div.fields, div#billingTwister div#passwordEntry fieldset.group div.fields {width:auto; margin-left:0; clear:both;}
+div#billingTwister div#passwordEntry fieldset.multi div.fields span.help{ text-align: left; padding-left:0; background: none;}
+div#billingTwister a.pepHelp {margin-left:5px; display:inline !important}
+div#billingTwister div#passwordEntry div#propbox, div#upsellCreateAccount div#donepropbox {float:left;width:145px;margin:0 25px 0 0;}
+div#billingTwister div#passwordEntry div#signupfields, div#upsellCreateAccount div#donesignupfields {float:left;width:273px;border-left:2px solid #dedede;padding:0 0 0 25px;}
+form.edit div#billingTwister fieldset#createAccount div#passwordEntry {overflow:auto;margin:20px 0 0; width:470px;}
+div#upsellCreateAccount div#donesignupfields p.buttons {margin-bottom:0px;}
+div#upsellCreateAccount div#donepropbox ul li, div#billingTwister div#propbox ul li {margin-bottom:20px;}
+div#billingTwister div#passwordEntry div#propbox ul, div#upsellCreateAccount div#donepropbox ul{list-style:none;}
+div#billingTwister div#saveInfoTwister{font-weight:bold;}
+div#cupEntry div.bgtwister{margin:0px 0 0px 197px;}
+form.error div#cupEntry div#billingTwister div#signupfields p.error .help{padding-left:20px;}
+div#donesignupfields p.group span.field {word-wrap:break-word;}
+/*Twister in Billing page*/
+
+#fieldrowCSC{position:relative}/**UX Global credit refinement***/
+.reviewInfo #fundingMixSection div.creditOfferBanner {padding:0;}
+.reviewInfo #fundingMixSection div.creditOfferBanner .bannerImage{margin:0 0 0 22px;}
+.reviewInfo #fundingMixSection{padding-bottom:20px;margin-top: 5px;}
+.reviewInfo #creditOfferSection {padding-bottom:20px;}
+.reviewInfo #creditOfferSection #defaultFunding label{margin:0 0 0 28px;}
+/*I apologize to the CSS gods for this ie hack*/
+.reviewInfo #fundingMixSection .bottomer {*margin-top:-5px;}
+
+/* Financial Options Page */
+.finInfo{padding-top:0px; margin-top:1px;}
+#ach_id{max-width:300px;}
+.radioOptionsbox{clear:both; margin-top:50px;}/* padding: 15px 0 15px 5px;  */
+#FinancialOptionsModule p.helpTxt{margin-left:22px;margin-top:0px;}
+#FinancialOptionsModule .radioContainer{margin:0px; float:left; width:50%;height:auto;}
+.white{background-color:#FFF;}	
+#FinancialOptionsModule div.linknewcard{float:right;padding-top:6px;}
+#FinancialOptionsModule .ccSubhead{background:url(/en_US/i/icon/icon_card_37x27.jpg) no-repeat 0 15px;padding:20px 0 0 40px;margin-bottom:0.5em;width:93%;}
+#FinancialOptionsModule .addFundsSubhead{background:url(/en_US/i/icon/icon_addmoney_37x27.jpg) no-repeat 0 15px;padding:20px 0 0 40px;margin-bottom:0.5em;width:93%;}
+#FinancialOptionsModule .bankSubhead{background:url(/en_US/i/icon/icon_bank_37x27.jpg) no-repeat 0 15px;padding:20px 0 0 40px;margin-bottom:0.5em;width:93%;}
+.noFundingOptsCCBlock{padding-top:45px !important;}
+.radioalign{display: block; float: left;}
+.labelalign{float: left; display: block; width: 90%;}
+div.topupBankInstructions{margin:1.8em 0;padding:1.8em .9em;border:1px solid #D7D9DA;} 
+div.topupBankInstructions span.topupImportant{color:#ababab;font-weight:bold;}
+ul ul.topupImportantInstructions li{-moz-background-clip:border;-moz-background-inline-policy:continuous;-moz-background-origin:padding;background:transparent none repeat scroll 0 0;list-style-type:disc;margin:1.0em;padding-left:0.4em;}
+.topupBankInstructions table.bankdata {margin:0.2em auto;}
+.topupBankInstructions  td.datavalue{padding-left:0px;text-align:left;padding-top:0.7em;background-color:transparent;}/*white-space:nowrap;*/
+.topupBankInstructions th.datalabel{text-align:left;padding-top:0.7em;padding-right:15px;background-color:transparent;white-space:nowrap;}
+p.notification{background:url(/en_US/i/icon/checked_color_16x16.gif) no-repeat 0 0px;}
+p span.info{padding:0 21px;}
+div.topupBankInstructions span.autoTooltip{margin-left:0px !important;}
+table.bankdata td{padding:0.2em 0.4em 0.2em 0;}
+p.topupComplete{font-weight:bold;}
+/* Financial Options Page */
+#totalpmtDiscount {font-size: 0.60em; color: #757575;}
+#optionsModule #creditOfferAcceptance{padding-left:0;}
+#optionsModule div.productBenefit{padding:0;}
+.creditDisclaimer{margin-left:2.5em;margin-right:1.5em;padding:0;}
+.creditDisclaimer p {border-left:1px solid #ccc;border-right:1px solid #ccc;border-bottom:1px solid #ccc;}
+div:focus {outline:none;}
+div::-moz-focus-inner {border:0;}
+.seeTerms{display:inline;padding-left:5px;}
+.creditOfferBanner a.seeTermsLink {font-size:0.9em;height:1.4em;}
+
+/*35133-SL Phase 2*/
+div#iconSuccess{background :url("/en_US/i/icon/checked_color_16x16.gif") no-repeat scroll 0 10% transparent;overflow:auto;padding:0 10px 10px 30px;}
+div.rdContent{padding-top:10px;}
+.depositEntry{margin: 0.75em 0;}
+.depositEntry input{margin: 0 0.5em 0 0.5em;}
+
+input#item_name {width:19em;}
+input#item_name,input#item_price{margin-bottom: 2px;}
+
+div#hdrContainer.subhdr h2{margin-bottom:0;}
+div#hdrContainer.subhdr p{margin:0 0 20px 0; padding-left:30px;}
+
+#miniCart div.totalCsection {font-size: 14px;border-top: 1px solid #DEDEDE;border-bottom: 1px solid #DEDEDE;padding: 12px 15px;width: 260px;color:#333;margin:0 auto;}
+#miniCart .totalC {font-size: 24px;}
+div.switchC #miniCartContent {min-height:550px; _height:550px;}
+div#billingTwister div#saveInfoTwister a#AOHideShowLink { border: 0}
+.rprtdescription {padding-bottom: 10px !important;  width: 200px !important;}
+.rprtlimit {padding-bottom: 20px !important;}
+
+/* AUSTRAC */
+form.edit .inputAddress fieldset{border:0 none;margin:0 0;padding:0;}
+form.edit .inputAddress fieldset.multi{clear:left;position:relative;}
+form.edit .inputAddress fieldset.multi p label,form.edit .inputAddress fieldset.multi p.group span.field{float:left !important;margin-left:0;margin-right:10px;width:180px;}
+form.edit .inputAddress p.group{clear:left; min-height:2em;}
+form.edit .inputAddress fieldset.multi .first{margin-left:0px;}
+form.edit .inputAddress fieldset.multi p.group label{margin-right:20px; text-align:right; width:180px;}
+form.edit .inputAddress p.group{clear:left; min-height:2.5em; padding:5px 0; width:100% !important;}
+.inputAddress fieldset.multi p span.help, form.error.edit .inputAddress fieldset.multi.error p span.help{display:none;}
+#PepLightbox div.buttons {text-align:left;}
+#PepLightbox .pepText {height: 125px;  width: 391px;}
+#PepLightbox .header h3 {color:#C88039;}
+#ANLightbox {overflow:auto; height:1%;}
+#ANLightbox .body {overflow:auto;}
+#ANLightbox .button{margin:18px 0 0 0;}		
+#ANLightbox p{margin:5px 0 10px;}	
+#ANLightbox .subText{margin:0 0 20px;}		
+#ANLightbox .header h3{margin:0 0 5px; color:#C88039; font-size:1.33em; }		
+#ANLightbox h3{margin-bottom:0px; color:#333333; font:bold 12px arial;}		
+#ANLightbox .addressMatchWrapper{float:left; width:47%; padding-right:10px;}		
+#ANLightbox .addressEnteredWrapper {float:left; width:47%; border-left:1px dotted #ccc; padding-left:10px;}		
+#ANLightbox .button{margin-right:20px;}
+#ANLightbox .highlight{background-color:#ffeecc;}
+#babySlider #ANLightbox .header h3 {color: #32689A; margin-bottom: 30px; font-size: 1.167em;}

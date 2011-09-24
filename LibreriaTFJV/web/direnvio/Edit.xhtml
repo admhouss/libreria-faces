@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDirenvioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <br/>  <br/>
+                <p:panel header="ALTA DIRECCION">
+                <center>
+                    <h:panelGrid columns="2" cellspacing="15">
+
+                    <h:outputLabel value="Atencion:" for="atencion" />
+                    <h:inputText id="atencion" value="#{direnvioController.selected.atencion}" title="#{bundle.CreateDirenvioTitle_atencion}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_atencion}"/>
+                    <h:outputLabel value="Calle:" for="calle" />
+                    <h:inputText id="calle" value="#{direnvioController.selected.calle}" title="#{bundle.CreateDirenvioTitle_calle}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_calle}"/>
+                    <h:outputLabel value="No.Exterior:" for="noExterior" />
+                    <h:inputText id="noExterior" value="#{direnvioController.selected.noExterior}" title="#{bundle.CreateDirenvioTitle_noExterior}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_noExterior}"/>
+                    <h:outputLabel value="No.Interior:" for="noInterior" />
+                    <h:inputText id="noInterior" value="#{direnvioController.selected.noInterior}" title="#{bundle.CreateDirenvioTitle_noInterior}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_noInterior}"/>
+                    <h:outputLabel value="Colonia:" for="colonia" />
+                    <h:inputText id="colonia" value="#{direnvioController.selected.colonia}" title="#{bundle.CreateDirenvioTitle_colonia}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_colonia}"/>
+                    <h:outputLabel value="Municipio:" for="delMunicipio" />
+                    <h:inputText id="delMunicipio" value="#{direnvioController.selected.delMunicipio}" title="#{bundle.CreateDirenvioTitle_delMunicipio}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_delMunicipio}"/>
+                    <h:outputLabel value="Ciudad:" for="ciudad" />
+                    <h:inputText id="ciudad" value="#{direnvioController.selected.ciudad}" title="#{bundle.CreateDirenvioTitle_ciudad}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_ciudad}"/>
+                    <h:outputLabel value="Cp:" for="cp" />
+                    <h:inputText id="cp" value="#{direnvioController.selected.cp}" title="#{bundle.CreateDirenvioTitle_cp}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_cp}"/>
+                    <h:outputLabel value="Referencia:" for="referencia" />
+                    <h:inputText id="referencia" value="#{direnvioController.selected.referencia}" title="#{bundle.CreateDirenvioTitle_referencia}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_referencia}"/>
+                    <h:outputLabel value="Telefono:" for="telefono" />
+                    <h:inputText id="telefono" value="#{direnvioController.selected.telefono}" title="#{bundle.CreateDirenvioTitle_telefono}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_telefono}"/>
+                    <h:outputLabel value="Cliente:" for="idCliente" />
+                    <h:selectOneMenu id="idCliente" value="#{direnvioController.selected.idCliente}" title="#{bundle.CreateContactoTitle_idCliente}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_idCliente}">
+                        <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+
+                </center>
+                </p:panel>
+                <br /> <br />
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{direnvioController.update}" value="Guardar" />
+                    </p:panel>
+                </div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

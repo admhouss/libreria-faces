@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+ xmlns:p="http://primefaces.prime.com.tr/ui"
+      >
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPublicacionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <p:panel header="Ver Publicacion">
+                    <center>
+                <h:panelGrid columns="2">
+                   
+                    <h:outputText value="Periodo Mes:"/>
+                    <h:outputText value="#{publicacionController.selected.periodoMes}" title="#{bundle.ViewPublicacionTitle_periodoMes}">
+                        <f:convertDateTime pattern="MM/dd/yyyy " />
+                    </h:outputText>
+                    <h:outputText value="Periodo Anio:"/>
+                    <h:outputText value="#{publicacionController.selected.periodoAnio}" title="#{bundle.ViewPublicacionTitle_periodoAnio}">
+                        <f:convertDateTime pattern="MM/dd/yyyy " />
+                    </h:outputText>
+                    <h:outputText value="Epoca:"/>
+                    <h:outputText value="#{publicacionController.selected.epoca}" title="#{bundle.ViewPublicacionTitle_epoca}"/>
+                    <h:outputText value="Anio:"/>
+                    <h:outputText value="#{publicacionController.selected.anio}" title="#{bundle.ViewPublicacionTitle_anio}"/>
+                    <h:outputText value="Numero:"/>
+                    <h:outputText value="#{publicacionController.selected.numero}" title="#{bundle.ViewPublicacionTitle_numero}"/>
+                    <h:outputText value="Issn:"/>
+                    <h:outputText value="#{publicacionController.selected.issn}" title="#{bundle.ViewPublicacionTitle_issn}"/>
+                    <h:outputText value="Isbn:"/>
+                    <h:outputText value="#{publicacionController.selected.isbn}" title="#{bundle.ViewPublicacionTitle_isbn}"/>
+                    <h:outputText value="Tomo:"/>
+                    <h:outputText value="#{publicacionController.selected.tomo}" title="#{bundle.ViewPublicacionTitle_tomo}"/>
+                    <h:outputText value="Editorial:"/>
+                    <h:outputText value="#{publicacionController.selected.editorial}" title="#{bundle.ViewPublicacionTitle_editorial}"/>
+                </h:panelGrid>
+                    </center>
+                <br />
+
+                </p:panel>
+                <br/><br/>
+                <p:panel>
+                    <div align="center">
+                        <h:commandButton action="#{publicacionController.prepareList}" value="Volver"/>
+                    </div>
+                </p:panel>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePromocionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="prompcion">
+
+                <br/>  <br/>
+                <p:panel header="ACTUALIZACION PROMOCION">
+                    <center>
+                <h:panelGrid columns="2" cellspacing="15">
+
+                    <h:outputLabel  value="Precio:" for="precio" />
+                    <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="#{bundle.CreatePromocionTitle_precioPublico}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_precioPublico}"/>
+                    <h:outputLabel value="Dia Inicio:" for="diaInicio" />
+                    <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="#{bundle.CreatePromocionTitle_diaInicio}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_diaInicio}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:calendar>
+                    <h:outputLabel value="Dia Fin:" for="diaFin" />
+                     <p:calendar id="diaFin" value="#{promocionController.selected.diaFin}" title="#{bundle.CreatePromocionTitle_diaFin}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_diaFin}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                     </p:calendar>
+
+                </h:panelGrid>
+                </center>
+                    <br/>
+
+                     <p:panel header="ELEGIR PRECIO A ARTICULO">
+            <h:panelGroup >
+
+                <p:dataTable value="#{articuloController.listArticulos}" var="item"  paginator="true" rows="5">
+                   
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="UNIDAD"/>
+                        </f:facet>
+                        <h:outputText value="#{item.unidad}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DIVISA"/>
+                        </f:facet>
+                        <h:outputText value="#{item.divisa}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="COSTO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.costo}"/>
+                    </p:column>
+
+
+
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="TIPO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idTipo.descripcion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink  action="#{articuloController.prepareView(item,3)}">
+                              <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{promocionController.InitialArticulo_Actualizar(item)}" immediate="true">
+                              <img src="./../resources/iconos/agregar.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+
+
+                    </p:column>
+                 </p:dataTable>
+            </h:panelGroup>
+            </p:panel>
+
+                </p:panel>
+                <br />
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{promocionController.update}" value="Guardar" />
+                    </p:panel>
+                </div>
+                <br />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

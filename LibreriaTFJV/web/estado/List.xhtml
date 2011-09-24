@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEstadoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+           
+            <h:panelGroup >
+                <div align="right" >
+
+
+                    <h:commandButton action="#{estadoController.prepareCreate}" value="Crear Nuevo"/>
+
+                </div>
+                <br/><br/>
+
+                <p:panel  header="CATALOGO DE ESTADO">
+             
+                <p:dataTable value="#{estadoController.listEstado}" var="item" >
+                   <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                   </p:column>
+                   <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="NOMBRE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                   </p:column>
+                   <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{estadoController.prepareView(item)}" >
+                              <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+                        
+                        <h:commandLink action="#{estadoController.prepareEdit(item)}" >
+                              <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                        </h:commandLink>
+                        
+                        <h:commandLink action="#{estadoController.destroy(item)}">
+                              <img src="./../resources/iconos/quitar.png" alt="" title="Eliminar"/>
+                        </h:commandLink>
+                   </p:column>
+                </p:dataTable>
+                    </p:panel>
+            </h:panelGroup>
+            
+            
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
