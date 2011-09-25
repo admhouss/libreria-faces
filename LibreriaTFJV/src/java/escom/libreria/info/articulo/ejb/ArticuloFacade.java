@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -62,5 +63,34 @@ public class ArticuloFacade {
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
+
+    public List<Articulo> buscarLibro(String titulo, String autor, String editorial, String resumen,String anio) {
+              //TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.idIdc.editorial like :editorial and a.idIdc.anio like :anio",Articulo.class)
+              TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.idIdc.editorial =:editorial or a.idIdc.anio =:anio",Articulo.class)
+
+             //.setParameter("titulo", resumen)
+
+            // .setParameter("autor",autor )
+              .setParameter("editorial", editorial)
+              //.setParameter("resuemn", resumen)
+              .setParameter("anio", anio);
+
+              List<Articulo> l=query.getResultList();
+             
+            
+              return l;
+    }
+
+    public List<Articulo> buscarLibroByCategoria(String categoria) {
+         TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.idTipo.descripcion =:categoria",Articulo.class)
+         .setParameter("categoria", categoria);
+            
+          List<Articulo> l=query.getResultList();
+
+
+              return l;
+    }
+
+    
 
 }

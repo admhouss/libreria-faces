@@ -29,6 +29,12 @@ public class PublicacionController implements Serializable{
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<Publicacion> listaPublicacion;
+   
+    
+
+    
+   
+     
 
     public List<Publicacion> getListaPublicacion() {
         return getFacade().findAll();
