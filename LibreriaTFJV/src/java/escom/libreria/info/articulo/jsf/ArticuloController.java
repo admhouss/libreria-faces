@@ -29,6 +29,67 @@ public class ArticuloController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private int formward;//local
+    private String anio,titulo,editorial,resumen,autor,general;
+    private String catego;
+
+    public String getGeneral() {
+        return general;
+    }
+
+    public void setGeneral(String general) {
+        this.general = general;
+    }
+
+
+    public String prepareListByCategoria(){
+        listaLibros=getFacade().buscarLibroByCategoria("fiscal");
+        return "List";
+    }
+
+
+    public String getAnio() {
+        return anio;
+    }
+
+    public void setAnio(String anio) {
+        this.anio = anio;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getEditorial() {
+        return editorial;
+    }
+
+    public void setEditorial(String editorial) {
+        this.editorial = editorial;
+    }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
+
+
+
 
     public ArticuloController() {
     }
@@ -40,13 +101,47 @@ public class ArticuloController implements Serializable {
         }
         return current;
     }
+   
+    private List<Articulo> listaLibros;
+
+    public List<Articulo> getListaLibros() {
+        
+        return listaLibros;
+    }
+
+    public void setListaLibros(List<Articulo> listaLibros) {
+        this.listaLibros = listaLibros;
+    }
+
+     public String buscar(){
+        anio=anio==null?" ":getAnio().trim();
+        titulo=titulo==null?" ":getTitulo().trim();
+        editorial=editorial==null?" ":getEditorial().trim();
+        autor=autor==null?" ":getAutor().trim();
+        resumen=resumen==null?" ":getResumen().trim();
+        
+        listaLibros= getFacade().buscarLibro(titulo,autor,editorial,resumen,anio);
+     //   System.out.println("tamanio:"+listaLibros.size());
+
+        return "List";
+
+    }
+
+     public String buscarGeneral(){
+         general=general==null?" ":getGeneral().trim();
+         return "#";
+         
+     }
+
+   
 
     private ArticuloFacade getFacade() {
         return ejbFacade;
     }
 
     public List<Articulo>  getListArticulos(){
-        return getFacade().findAll();
+        List<Articulo>l=getFacade().findAll();
+        return l;
     }
 
     public PaginationHelper getPagination() {

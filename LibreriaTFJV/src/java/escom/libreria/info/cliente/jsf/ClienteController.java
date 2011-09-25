@@ -31,6 +31,16 @@ public class ClienteController implements Serializable{
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private String confirmaCorreo;
+    private int go;
+    private List<Cliente> listSeleccionCliente;
+
+    public List<Cliente> getListSeleccionCliente() {
+        return listSeleccionCliente;
+    }
+
+    public void setListSeleccionCliente(List<Cliente> listSeleccionCliente) {
+        this.listSeleccionCliente = listSeleccionCliente;
+    }
    
 
     public String getConfirmaCorreo() {
@@ -81,11 +91,12 @@ public class ClienteController implements Serializable{
 
     public String prepareList(int go) {
        // recreateModel();
+        this.go=go;
         if(go==1)
         return "List";
         else{
-        
-           return "./../../" ;
+           return "goHome";
+           
         }
        
 
@@ -99,8 +110,19 @@ public class ClienteController implements Serializable{
 
     public String prepareCreate() {
         current = new Cliente();
+       
     //    selectedItemIndex = -1;
+        
         return "Create";
+       
+    }
+    public String prepareCreate2() {
+        current = new Cliente();
+      
+    //    selectedItemIndex = -1;
+
+        return "./faces/cliente/Create";
+
     }
 
     public String create() {
