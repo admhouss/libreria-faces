@@ -6,6 +6,8 @@
 package escom.libreria.info.articulo.ejb;
 
 import escom.libreria.info.articulo.jpa.Articulo;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -89,6 +91,18 @@ public class ArticuloFacade {
 
 
               return l;
+    }
+
+    public List<Articulo> buscarNovedades() {
+          Date date=new Date();
+
+          //String anio="211"+"-%-%";
+      
+
+         TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a ",Articulo.class);
+         
+          List<Articulo> l=query.getResultList();
+          return l;
     }
 
     

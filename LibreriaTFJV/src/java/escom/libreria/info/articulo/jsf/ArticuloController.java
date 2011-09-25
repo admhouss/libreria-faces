@@ -43,7 +43,7 @@ public class ArticuloController implements Serializable {
 
     public String prepareListByCategoria(){
         listaLibros=getFacade().buscarLibroByCategoria("fiscal");
-        return "List";
+        return "./face/busqueda/List.xhtml";
     }
 
 
@@ -103,6 +103,20 @@ public class ArticuloController implements Serializable {
     }
    
     private List<Articulo> listaLibros;
+    private List<Articulo> listaNovedades;
+
+    public List<Articulo> getListaNovedades() {
+           if(listaNovedades==null){
+             listaNovedades=getFacade().buscarNovedades();
+           }
+        return listaNovedades;
+    }
+
+    public void setListaNovedades(List<Articulo> listaNovedades) {
+        this.listaNovedades = listaNovedades;
+    }
+
+
 
     public List<Articulo> getListaLibros() {
         
