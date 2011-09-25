@@ -8,7 +8,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListArticuloTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
         <h:form styleClass="jsfcrud_list_form">
@@ -19,45 +19,14 @@
             <br/>
             <br/>
            
-            <br/>  <br/>
-            
-            <h:panelGroup >
+         
 
-                <p:panel header="BUSQUEDA AVANZADA">
-                    <center>
-                        <h:panelGrid columns="3" cellspacing="10" cellpadding="12">
-                            <h:outputText value="Titulo:" styleClass="textoNEGRO" />
-                            <h:inputText value="#{articuloController.titulo}" size="25"/>
-                            <h:outputText value=""/>
-                            <h:outputText value="Autor:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{articuloController.autor}"/>
-                            <h:outputText value=""/>
-                            <h:outputText value="Editorial:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{articuloController.editorial}" />
-                            <h:outputText value=""/>
-                            <h:outputText value="Resumen:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{articuloController.resumen}"/>
-                            <h:outputText value=""/>
-                            <h:outputText value="A&ntilde;o:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{articuloController.anio}"/>
-                            
-                            <h:commandButton value="Buscar" action="#{articuloController.buscar}" />
-                            
-                        </h:panelGrid>
-                        </center>
-
-                </p:panel>
-            </h:panelGroup>
-
-
-
-                <br/> <br/> <br/>
-                <p:accordionPanel autoHeight="false" rendered="#{articuloController.listaLibros!=null}">
+                <p:accordionPanel autoHeight="false">
                     <p:tab title="Libro">
                <h:panelGroup >
-                   <p:dataGrid value="#{articuloController.listaLibros}" var="item"  rows="12" paginator="true" effect="true" columns="1"
+                   <p:dataGrid value="#{articuloController.listLibroByCategoria}" var="item"  rows="12" paginator="true" effect="true" columns="1"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                rowsPerPageTemplate="9,12,15" >
+		rowsPerPageTemplate="9,12,15">
 
 
                     <p:column>
