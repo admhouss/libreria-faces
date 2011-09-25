@@ -31,6 +31,10 @@ public class ArticuloController implements Serializable {
     private int formward;//local
     private String anio,titulo,editorial,resumen,autor,general;
     private String catego;
+    private String categoria;
+    private int opc=-1;
+    //Titulo Dinamico tipo de categoria
+
 
     public String getGeneral() {
         return general;
@@ -41,9 +45,17 @@ public class ArticuloController implements Serializable {
     }
 
 
-    public String prepareListByCategoria(){
-        listaLibros=getFacade().buscarLibroByCategoria("fiscal");
-        return "./face/busqueda/List.xhtml";
+    public String prepareListByCategoria_one(int i){
+        if(opc==-1){
+           listaLibros=null;
+           opc=i;
+        }
+        return "/busqueda/ListCategoria.xhtml";
+    }
+     public String prepareListByCategoria(int i){
+         opc=i;
+
+        return "/busqueda/ListCategoria.xhtml";
     }
 
 
@@ -117,8 +129,18 @@ public class ArticuloController implements Serializable {
     }
 
 
+    public List<Articulo> getListLibroByCategoria(){
+
+           listaLibros=getFacade().buscarLibroByCategoria(opc);
+           opc=-1;
+           return listaLibros;
+    }
 
     public List<Articulo> getListaLibros() {
+          if(listaLibros==null)
+           listaLibros=getFacade().findAll();
+
+
         
         return listaLibros;
     }
