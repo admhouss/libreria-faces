@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.prime.com.tr/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     
     <h:head>
  
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <!-- InstanceBeginEditable name="doctitle" -->
-        <h:outputStylesheet name="./../resources/css/primefaces-start/theme.css"/>
+        <h:outputStylesheet name="./resources/css/primefaces-start/theme.css"/>
         <title>..::Libreria::..</title>
         <!-- InstanceEndEditable -->
 <style type="text/css">
@@ -139,7 +139,7 @@
 
     </h:head>
 
-     <h:body>
+     <h:body >
 
 <div id="apDiv1">
   <h2>&nbsp;</h2>
@@ -165,10 +165,8 @@
   <tr>
     <td align="right" class="current_page_item">
 
-       <!--<a href="./faces/cliente/Create.xhtml">Registrarse</a>-->
-       <h:form id="go">
-       <h:commandLink value="Registrarse" action="#{clienteController.prepareCreate(2)}"/>
-       </h:form>
+       <a href="./faces/cliente/Create.xhtml">Registrarse</a>
+       
        
     </td>
   </tr>
@@ -184,7 +182,13 @@
   <tr>
     <th align="left" scope="col"><h2>Categorias</h2>
       <ul class="list navigation">
-        <li><a href="#">Derecho físcal</a></li>
+        <li>
+            
+           
+            
+            <a href="/face/">Derecho Fiscal</a>
+            
+        </li>
         <li><a href="#">Derecho internacional</a>
           <ul>
             <ul>
@@ -250,7 +254,7 @@
               <ul>
                 <li><a href="./faces/cliente/List.xhtml">Clientes</a></li>
                 <li>
-                    <a href="./faces/articulo/List.xhtml">Catalogos</a></li>
+                    <a href="./faces/publicacion/List.xhtml">Catalogos</a></li>
                 <li><a href="#">Estadisticas</a></li>
                 <li></li>
               </ul>
@@ -269,18 +273,24 @@
   <p>&nbsp;</p>
   <table width="97%" border="0" align="right">
     <tr>
-      <th scope="col"><ul id="icons" class="ui-widget ui-helper-clearfix">
-        <a href="Busqueda_gral.html">
+      <th scope="col">
+          <ul id="icons" class="ui-widget ui-helper-clearfix">
+             
+       
            <li class="ui-state-default ui-corner-all" title="Buscar">
            <span class="ui-icon ui-icon-search"></span>
            </li>
-        </a>
+             
           <input name="textfield" type="text" id="textfield" size="25" />
+             
           <li> </li>
-      </ul></th>
+      </ul>
+      </th>
     </tr>
     <tr>
-      <td align="right" class="current_page_item"><a href="Busqueda_avanzada.html">Busqueda Avanzada</a></td>
+      <td align="right" class="current_page_item">
+          <a href="./faces/busqueda/List.xhtml">Busqueda Avanzada</a>
+      </td>
     </tr>
     <tr></tr>
     <tr>
@@ -376,7 +386,8 @@
 		    <div>
 		      <table width="99%" border="0">
 		        <tr>
-		          <td width="13%" rowspan="8" scope="col"><img src="./resources/template/imgs/producto6.jpg" width="83" height="122" /></td>
+		          <td width="13%" rowspan="8" scope="col">
+                         <img src="./resources/template/imgs/producto6.jpg" width="83" height="122" /></td>
 		          <td width="79%" class="Titulo_articulo" scope="col">Mediación y Arbitraje</td>
 	            </tr>
 		        <tr>
@@ -581,7 +592,7 @@
   </table>
 </div>
 <script type="text/javascript">
-var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"../SpryAssets/SpryMenuBarDownHover.gif", imgRight:"../SpryAssets/SpryMenuBarRightHover.gif"});
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"./resources/template/SpryAssets/SpryMenuBarDownHover.gif", imgRight:"../SpryAssets/SpryMenuBarRightHover.gif"});
 </script>
 
  </h:body>
