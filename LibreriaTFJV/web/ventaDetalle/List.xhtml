@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListArticuloTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+            <br/>
+            <br/>
+            <div align="right">
+
+                <h:commandButton action="#{articuloController.prepareCreate}" value="Crear Nuevo"/>
+
+            </div>
+            <br/>  <br/>
+            
+            <h:panelGroup >
+
+                <p:panel  >
+                  
+
+                   
+                    <table width="99%" border="0">
+        <tr>
+          <td width="27%" valign="top" class="Titulo_articulo_small" scope="col">
+              Seleccionar Editorial:
+          </td>
+          <td colspan="2" scope="col">
+            <span class="info2">
+            <h:selectOneMenu  >
+                 <f:selectItems var="item" value="#{publicacionController.listaPublicacion}" itemValue="#{item.editorial}" itemLabel="#{item.editorial}"/>
+            </h:selectOneMenu>
+
+          </span></td>
+        </tr>
+        <tr>
+          <td valign="top" class="Titulo_articulo_small">&nbsp;</td>
+          <td colspan="2">
+           <table width="100%" border="0">
+            <tr>
+              <th scope="col">
+		</th>
+              <th scope="col"></th>
+
+            </tr>
+            <tr>
+                <td scope="col" >
+                  <span class="textoNEGRO">Inicio</span>
+              </td>
+                <td scope="col" >
+                  <span class="textoNEGRO">Fin</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="info3" scope="col">
+                  <p:calendar mode="inline"/>
+              </td>
+              <td class="info3" scope="col">
+                  <p:calendar mode="inline"/>
+                </td>
+
+            </tr>
+          </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" class="Titulo_articulo_small">Cliente</td>
+          <td colspan="2">
+              <span class="info2">
+            
+
+         <h:selectManyMenu value="#{clienteController.listSeleccionCliente}"  style="height:50px" >
+             <f:selectItems
+                    value="#{clienteController.listaClientes}" var="cliente" itemLabel="#{cliente.nombre} #{cliente.paterno} #{cliente.materno}"
+                    itemValue="#{cliente}" />
+        </h:selectManyMenu>
+
+                  <h:selectBooleanCheckbox/>
+            <label for="checkbox"></label>Todos</span>
+          </td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;</td>
+          <td width="64%" align="left">&nbsp;</td>
+          <td width="9%" align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
+
+            <a href="Ventas_Detalle_1.html"><li class="ui-state-default ui-corner-all" title=".ui-icon-search"><span class="ui-icon ui-icon-search"></span></li></a>
+            </ul></td>
+        </tr>
+      </table>
+                            
+                       
+                        
+
+                </p:panel>
+            </h:panelGroup>
+
+
+
+                <br/> <br/> <br/>
+               <h:panelGroup >
+                <p:dataTable value="#{articuloController.listArticulos}" var="item"  paginator="true" rows="5">
+                    
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="UNIDAD"/>
+                        </f:facet>
+                        <h:outputText value="#{item.unidad}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DIVISA"/>
+                        </f:facet>
+                        <h:outputText value="#{item.divisa}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="COSTO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.costo}"/>
+                    </p:column>
+                   
+                    
+                   
+                   
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="TIPO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idTipo.descripcion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{articuloController.prepareView(item,1)}">
+                              <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                        
+                        <h:commandLink action="#{articuloController.prepareEdit(item)}" >
+                              <img src="./../resources/iconos/seditar.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                        
+                        <h:commandLink action="#{articuloController.destroy(item)}">  
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+                    </p:column>
+                 </p:dataTable>
+            </h:panelGroup>
+          
+           
+           
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
