@@ -27,14 +27,17 @@
             <p:panel header="CATALOG DE ARTICULO">
             <h:panelGroup >
                
-                <p:dataTable value="#{articuloController.listArticulos}" var="item"  paginator="true" rows="5">
+                <p:dataTable value="#{articuloController.listArticulos}" var="item"  paginator="true" rows="5" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="9,12,15"
+                             >
                     
                     
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="UNIDAD"/>
+                            <h:outputText value="EDITORIAL"/>
                         </f:facet>
-                        <h:outputText value="#{item.unidad}"/>
+                        <h:outputText value="#{item.idIdc.editorial}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
