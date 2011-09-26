@@ -71,11 +71,14 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
 
                         
                         <h:commandLink action="#{promocionController.prepareEdit(item)}">
-                            <img src="./../resources/iconos/seditar.png" alt="" title="Ver"/>
+                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
                         </h:commandLink>
                        
                         <h:commandLink action="#{promocionController.destroy(item)}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Borrar"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{promocionController.correo(item)}">
+                        <img src="./../resources/iconos/correo.png" alt="" title="Correo"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
