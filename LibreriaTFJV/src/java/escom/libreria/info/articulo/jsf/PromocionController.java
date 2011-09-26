@@ -34,6 +34,7 @@ public class PromocionController implements Serializable{
     private int selectedItemIndex;
     private PromocionPK p;
 
+
     public PromocionController() {
        // p=new PromocionPK();
 
@@ -141,7 +142,11 @@ public class PromocionController implements Serializable{
         return "/promocion/Edit";
     }
 
+ private List<Promocion>  listPromocion;
 
+    public void setListPromocion(List<Promocion> listPromocion) {
+        this.listPromocion = listPromocion;
+    }
     public List<Promocion> getListPromocion(){
         return getFacade().findAll();
     }
