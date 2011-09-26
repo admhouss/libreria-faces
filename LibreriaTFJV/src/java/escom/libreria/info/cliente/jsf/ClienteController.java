@@ -117,11 +117,14 @@ public class ClienteController implements Serializable{
        
     }
     public String prepareCreate2() {
-        current = new Cliente();
-      
-    //    selectedItemIndex = -1;
+    //    current = new Cliente();
+        current=null;
 
-        return "./faces/cliente/Create";
+        System.out.println("go");
+    //    selectedItemIndex = -1;
+        return "./../index.xhtml";
+
+       // return "./faces/cliente/Create";
 
     }
 

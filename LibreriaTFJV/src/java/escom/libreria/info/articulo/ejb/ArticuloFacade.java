@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 
 /**
@@ -68,14 +69,16 @@ public class ArticuloFacade {
 
     public List<Articulo> buscarLibro(String titulo, String autor, String editorial, String resumen,String anio) {
               //TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.idIdc.editorial like :editorial and a.idIdc.anio like :anio",Articulo.class)
-              editorial=editorial+"%";
+
+
+
               TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.idIdc.editorial LIKE :editorial or a.idIdc.anio =:anio",Articulo.class)
 
              //.setParameter("titulo", resumen)
 
             // .setParameter("autor",autor )
 
-              .setParameter("editorial", editorial)
+              .setParameter("editorial", editorial+"%")
               //.setParameter("resuemn", resumen)
               .setParameter("anio", anio);
 
@@ -84,25 +87,36 @@ public class ArticuloFacade {
             
               return l;
     }
+    private String catego;
+
+    public String getCategoria(int opc) {
+        String categoria="";
+         switch(opc){
+                    case 1: categoria="Derecho Fiscal"; break;
+                    case 2:categoria="Derecho Internacional"; break;
+                    case 3:categoria="Juicio en  Linea"; break;
+                    case 4:categoria="Juicio Orales"; break;
+                    case 5:categoria="Jurisprudencia"; break;
+                    default:
+                        categoria = "EN LINEA";
+                }
+        return categoria;
+    }
+
+    public void setCatego(String catego) {
+        this.catego = catego;
+    }
 
     public List<Articulo> buscarLibroByCategoria(int opc) {
         
-        String categoria=" ";
-                switch(opc){
-                    case 1: categoria="DERECHO FISCAL%"; break;
-                    case 2:categoria="DRECHO INTERNACIONAL%"; break;
-                    case 3:categoria="JUICIO EN LINEA%"; break;
-                    case 4:categoria="JUICIO ORALES%"; break;
-                    case 5:categoria="JURISPRUDENCIA%"; break;
-                    default:
-                        categoria = "EN LINEA%";
-                }
-                        System.out.println("Categoria"+categoria);
+        String categoria=getCategoria(opc)+"%";
+              
+               
          TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.idTipo.descripcion LIKE :categoria",Articulo.class)
          .setParameter("categoria", categoria);
             
           List<Articulo> l=query.getResultList();
-          System.out.println("cuantos ay"+l.size());
+          //System.out.println("cuantos ay"+l.size());
 
 
               return l;

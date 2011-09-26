@@ -37,7 +37,8 @@ public class ArticuloController implements Serializable {
 
 
     public String getGeneral() {
-        return general;
+        return getFacade().getCategoria(opc);
+        
     }
 
     public void setGeneral(String general) {
@@ -132,13 +133,29 @@ public class ArticuloController implements Serializable {
     public List<Articulo> getListLibroByCategoria(){
 
            listaLibros=getFacade().buscarLibroByCategoria(opc);
+           //categoria=getFacade().getCategoria();
            opc=-1;
            return listaLibros;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public boolean isActivate(){
+         if(listaLibros==null || listaLibros.isEmpty()){
+            return false;//no muestres el panel
+         }
+
+         return true;
+    }
     public List<Articulo> getListaLibros() {
-          if(listaLibros==null)
-           listaLibros=getFacade().findAll();
+      //      if(listaLibros==null )
+        //   listaLibros=getFacade().findAll();
 
 
         
@@ -197,6 +214,9 @@ public class ArticuloController implements Serializable {
         }
         return pagination;
     }
+    public String regresarBusqueda(){
+        return "/busqueda/List";
+    }
 
     public String prepareList() {
         String ir=null;
@@ -214,13 +234,23 @@ public class ArticuloController implements Serializable {
          return ir;
     }
 
+    public String prepareLibro(Articulo p){
+        current=p;
+        return "View";
+    }
+
     public String prepareView(Articulo p,int go) {
       current=p;
       formward=go;
       //System.out.println("descripcion:"+current.getDescripcion());
        // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-
-        return "/articulo/View";
+      System.out.println("go"+go);
+      if(go==1)
+          return "/articulo/View";
+      else if(go==2)
+        return "./../articulo/View.xhtml";
+      else
+         return "/face/articulo/View.xhtml";
     }
 
     public String prepareCreate() {

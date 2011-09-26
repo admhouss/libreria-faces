@@ -123,6 +123,7 @@ public class PromocionController implements Serializable{
              JsfUtil.addErrorMessage(" Asegurese que ha seleccionado un Articulo");
              return prepareCreate();
             }else{
+            current.setArticulo(current.getArticulo());
             current.setPromocionPK(current.getPromocionPK());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Promocion").getString("PromocionCreated"));
