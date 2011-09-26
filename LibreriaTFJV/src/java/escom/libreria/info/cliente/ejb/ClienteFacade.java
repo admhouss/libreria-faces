@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -60,6 +61,14 @@ public class ClienteFacade  {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<Cliente> getListClientesActive() {
+        String activado="activado%";
+        TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.estado.nombre LIKE :activado ORDER BY c.nombre,c.paterno,c.materno",Cliente.class)
+        .setParameter("activado",activado);
+       List<Cliente> c= l.getResultList();
+       return c;
     }
 
 

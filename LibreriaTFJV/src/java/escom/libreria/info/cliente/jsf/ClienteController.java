@@ -64,7 +64,7 @@ public class ClienteController implements Serializable{
     }
 
     public List<Cliente> getListaClientes(){
-       List<Cliente> l= getFacade().findAll();
+       List<Cliente> l= getFacade().getListClientesActive();
        return l;
     }
     private ClienteFacade getFacade() {
