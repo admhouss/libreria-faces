@@ -6,8 +6,10 @@ import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.PromocionFacade;
 import escom.libreria.info.articulo.jpa.Articulo;
 import escom.libreria.info.articulo.jpa.PromocionPK;
+import escom.libreria.info.cliente.jpa.Cliente;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.ResourceBundle;
@@ -30,6 +32,8 @@ public class PromocionController implements Serializable{
 
     private DataModel items = null;
     @EJB private escom.libreria.info.articulo.ejb.PromocionFacade ejbFacade;
+    @EJB private escom.libreria.info.cliente.ejb.ClienteFacade clieteFacade;
+     @EJB private escom.libreria.correo.ProcesoJMail jMail;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private PromocionPK p;
@@ -74,6 +78,17 @@ public class PromocionController implements Serializable{
         recreateModel();
         return "List";
     }
+
+    public void correo(Promocion promocion){
+       List<Cliente> l= clieteFacade.getListClientesActive();
+       List<String> destinatarios=new ArrayList<String>();
+       for(Cliente cliente:l)
+       destinatarios.add(cliente.getEmail().trim());
+       if(destinatarios.size()>0)
+       jMail.enviarCorreo("Nueva Promocion sobre el Articulo"+promocion.getArticulo().getIdIdc().getEditorial(), "Esto es una Prueba de corre responsable Yamil, proyecto actual libreria", destinatarios);
+       
+   }
+
 
     public String prepareView(Promocion p) {
         current=p;
