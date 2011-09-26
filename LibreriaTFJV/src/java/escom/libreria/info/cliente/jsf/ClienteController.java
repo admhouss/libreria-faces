@@ -28,6 +28,7 @@ public class ClienteController implements Serializable{
     private Cliente current;
     private DataModel items = null;
     @EJB private escom.libreria.info.cliente.ejb.ClienteFacade ejbFacade;
+    @EJB private escom.libreria.correo.ProcesoJMail procesarJMail;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private String confirmaCorreo;
@@ -55,6 +56,7 @@ public class ClienteController implements Serializable{
     public ClienteController() {
     }
 
+   
     public Cliente getSelected() {
         if (current == null) {
             current = new Cliente();
