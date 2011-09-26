@@ -5,12 +5,14 @@
 
 package escom.libreria.info.articulo.ejb;
 
+import escom.libreria.info.articulo.jpa.Articulo;
 import escom.libreria.info.articulo.jpa.Impuesto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -60,6 +62,13 @@ public class ImpuestoFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<Impuesto> buscarImpuestoByarticulo(Articulo p) {
+        TypedQuery<Impuesto> q=em.createQuery("SELECT i FROM Impuesto  i WHERE i.articulo=:id ",Impuesto.class).setParameter("id", p);
+        List<Impuesto> l=q.getResultList();
+        return l;
+
     }
 
 }
