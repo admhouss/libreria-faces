@@ -6,16 +6,87 @@
        xmlns:p="http://primefaces.prime.com.tr/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
+    <h:head>
+
+
+       <!--<h:outputStylesheet name="css/stylesheet.css"/>-->
+       <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css" />
+       <link href="#{facesContext.externalContext.request.contextPath}/resources/template/css/style.css" rel="stylesheet" type="text/css" />
+
+        <link href="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
+
+        <title>..::Libreria::..</title>
+        <!-- InstanceEndEditable -->
+<style type="text/css">
+#apDiv1 {
+	position:absolute;
+	left:10px;
+	top:123px;
+	width:214px;
+	height:551px;
+	z-index:1;
+	background:url(./resources/template/imgs/left_end.gif);
+	background-repeat:no-repeat;
+
+}
+#apDiv2 {
+	position:absolute;
+	left:226px;
+	top:122px;
+	width:590px;
+	height:132px;
+	z-index:5;
+	background-image: url(./resources/template/imgs/img1.jpg);
+}
+#apDiv3 {
+	position:absolute;
+	left:819px;
+	top:122px;
+	width:191px;
+	height:552px;
+	z-index:3;
+	background-image: url(./resources/template/imgs/head_der.jpg);
+	background-repeat:no-repeat;
+}
+#apDiv4 {
+	position:absolute;
+	left:224px;
+	top:258px;
+	width:592px;
+	height:417px;
+	z-index:4;
+}
+#apDiv5 {
+	position:absolute;
+	left:10px;
+	top:11px;
+	width:1000px;
+	height:111px;
+	z-index:1;
+	background-image: url(./resources/template/imgs/head.jpg);
+}
+
+#apDiv6 {
+	position:absolute;
+	left:10px;
+	top:679px;
+	width:1001px;
+	height:66px;
+	z-index:6;
+}
+</style>
+    </h:head>
+
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
+        <ui:define name="head">
 
         </ui:define>
         <ui:insert name="body">
             <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
+            
 
-        </ui:insert>>
+        </ui:insert>
     </ui:composition>
 
 </html>
