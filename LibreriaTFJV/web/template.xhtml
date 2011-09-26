@@ -6,7 +6,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-       <title>  ..:::Libro:::..</title>
+
+        
+       
        <!--<h:outputStylesheet name="css/stylesheet.css"/>-->
        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css" />
        <link href="#{facesContext.externalContext.request.contextPath}/resources/template/css/style.css" rel="stylesheet" type="text/css" />
@@ -23,7 +25,7 @@
 	width:214px;
 	height:551px;
 	z-index:1;
-	background:url(./resources/template/imgs/left_end.gif);
+	background:url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/left_end.gif);
 	background-repeat:no-repeat;
 
 }
@@ -34,7 +36,7 @@
 	width:590px;
 	height:132px;
 	z-index:5;
-	background-image: url(./resources/template/imgs/img1.jpg);
+	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/img1.jpg);
 }
 #apDiv3 {
 	position:absolute;
@@ -43,7 +45,7 @@
 	width:191px;
 	height:552px;
 	z-index:3;
-	background-image: url(./resources/template/imgs/head_der.jpg);
+	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/head_der.jpg);
 	background-repeat:no-repeat;
 }
 #apDiv4 {
@@ -61,7 +63,7 @@
 	width:1000px;
 	height:111px;
 	z-index:1;
-	background-image: url(./resources/template/imgs/head.jpg);
+	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/head.jpg);
 }
 
 #apDiv6 {
@@ -78,6 +80,7 @@
 
 
 	<!-- InstanceEndEditable -->
+        
 
     </h:head>
 
@@ -85,10 +88,10 @@
 
     <h:body>
         <h1>
-            <ui:insert name="title">Default Title</ui:insert>
+            <ui:insert name="title"> </ui:insert>
         </h1>
         
-            <ui:insert name="body">
+        <ui:insert name="body">
 
  <h:form>
 
@@ -154,8 +157,8 @@
                 <li><h:commandLink value="Derecho Administrativo" action="#{articuloController.prepareListByCategoria_one(3)}" immediate="true" /></li>
                 <li><h:commandLink value="Jucio en Linea" action="#{articuloController.prepareListByCategoria_one(4)}" immediate="true" />
                  </li>
-                <li><h:commandLink value="Jucios Orales" action="#{articuloController.prepareListByCategoria_one(4)}" immediate="true" /></li>
-                <li><h:commandLink value="Jurisprudencia" action="#{articuloController.prepareListByCategoria_one(5)}" immediate="true" /></li>
+                <li><h:commandLink value="Jucios Orales" action="#{articuloController.prepareListByCategoria_one(5)}" immediate="true" /></li>
+                <li><h:commandLink value="Jurisprudencia" action="#" immediate="true" /></li>
               </ul>
             </ul>
           </ul>
@@ -267,7 +270,7 @@
     <tr>
       <td><table width="99%" border="0">
         <tr>
-          <td align="center"><p><img src="./resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
+          <td align="center"><p><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
         </tr>
         <tr>
           <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
@@ -289,7 +292,7 @@
     <tr>
       <td><table width="99%" border="0">
         <tr>
-          <td align="center"><p><img src="./resources/template/imgs/producto3.jpg" width="81" height="72" /></p></td>
+          <td align="center"><p><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto3.jpg" width="81" height="72" /></p></td>
         </tr>
         <tr>
           <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
@@ -333,7 +336,7 @@
   <p>&nbsp;</p>
   <table width="99%" border="0" align="center">
     <tr>
-      <td align="center" scope="col"><img src="./resources/template/imgs/logo-paypal.jpg" width="129" height="141" /></td>
+      <td align="center" scope="col"><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/logo-paypal.jpg" width="129" height="141" /></td>
     </tr>
   </table>
 </div>
@@ -359,7 +362,7 @@
                         <table width="99%" border="0">
   <tr>
     <td width="13%" rowspan="8" scope="col">
-       <img src="./resources/template/imgs/producto6.jpg" width="83" height="122" /></td>
+       <img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto6.jpg" width="83" height="122" /></td>
       <td width="79%" class="Titulo_articulo" scope="col">Mediaci&oacute;n y Arbitraje</td>
 
   </tr>
@@ -381,7 +384,13 @@
     <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
       <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
       <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
-      <li class="ui-state-default ui-corner-all" title="Mas información"><a href="Articulo.html"><span class="ui-icon ui-icon-info"></span></a></li>
+     <!-- <li  title="Mas información">
+        <a href="Articulo.html"><span class="ui-icon ui-icon-info"></span></a>
+
+      </li>
+     --> <h:commandLink  action="#{articuloController.prepareView(item,3)}" immediate="true">
+          <img src="#{facesContext.externalContext.request.contextPath}/resources/iconos/sver.png" alt="" title="Ver"/>
+      </h:commandLink>
       <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
     </ul></td>
   </tr>
@@ -418,7 +427,7 @@
   <p>&nbsp;</p>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
-  <div><img src="./resources/template/imgs/footes.jpg" width="592" height="50" /></div>
+  <div><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/footes.jpg" width="592" height="50" /></div>
   <p>&nbsp;</p>
 </div>
 <div id="apDiv5">
@@ -483,7 +492,7 @@
 var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"./../../SpryAssets/SpryMenuBarDownHover.gif", imgRight:"./../../SpryAssets/SpryMenuBarRightHover.gif"});
 </script>
 
-            </ui:insert>
+        </ui:insert>
 
         
     </h:body>
