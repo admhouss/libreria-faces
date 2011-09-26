@@ -8,7 +8,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListArticuloTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
         <h:form styleClass="jsfcrud_list_form">
@@ -52,7 +52,7 @@
 
 
                 <br/> <br/> <br/>
-                <p:accordionPanel autoHeight="false" rendered="#{articuloController.listaLibros!=null}">
+                <p:accordionPanel autoHeight="false" rendered="#{articuloController.activate}">
                     <p:tab title="Libro">
                <h:panelGroup >
                    <p:dataGrid value="#{articuloController.listaLibros}" var="item"  rows="12" paginator="true" effect="true" columns="1"
@@ -84,10 +84,16 @@
   </tr>
   <tr>
 
-    <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
+    <td align="left">
+     <ul id="icons" class="ui-widget ui-helper-clearfix">
       <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
       <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
-      <li class="ui-state-default ui-corner-all" title="Mas información"><a href="Articulo.html"><span class="ui-icon ui-icon-info"></span></a></li>
+      
+       <h:commandLink  action="#{articuloController.prepareView(item,2)}">
+          <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+      </h:commandLink>
+
+      
       <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
     </ul></td>
   </tr>

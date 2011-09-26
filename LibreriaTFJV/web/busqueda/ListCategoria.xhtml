@@ -56,7 +56,13 @@
     <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
       <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
       <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
-      <li class="ui-state-default ui-corner-all" title="Mas información"><a href="Articulo.html"><span class="ui-icon ui-icon-info"></span></a></li>
+      <!--<li class="ui-state-default ui-corner-all" title="Mas información">-->
+
+          <h:commandLink  action="#{articuloController.prepareView(item,2)}" immediate="true">
+          <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+      </h:commandLink>
+     <!-- </li>-->
+
       <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
     </ul></td>
   </tr>
