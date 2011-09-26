@@ -4,12 +4,14 @@ import escom.libreria.info.articulo.jpa.Articulo;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.ArticuloFacade;
+import escom.libreria.info.articulo.jpa.Promocion;
 import java.io.Serializable;
 import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -26,6 +28,12 @@ public class ArticuloController implements Serializable {
     private Articulo current;
     private DataModel items = null;
     @EJB private escom.libreria.info.articulo.ejb.ArticuloFacade ejbFacade;
+    @EJB private escom.libreria.info.articulo.ejb.ImpuestoFacade impuestoFacade;
+    @EJB private escom.libreria.info.articulo.ejb.PromocionFacade promocionFacade;
+    @EJB private escom.libreria.info.articulo.ejb.DescuentoArticuloFacade  descuentoFacade;
+    @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
+    
+
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private int formward;//local
@@ -34,6 +42,48 @@ public class ArticuloController implements Serializable {
     private String categoria;
     private int opc=-1;
     //Titulo Dinamico tipo de categoria
+
+    @ManagedProperty("#{impuestoController}")
+    ImpuestoController impuestoController; //descargando beann impuesto de session
+    @ManagedProperty("#{descuentoController}")
+    ArticuloController descuentoController; //descargando bean  descuento de session;
+    @ManagedProperty("#{promocionController}")
+    PromocionController promController; //descargando bean promocion de session;
+
+    public AlmacenController getAlmacenController() {
+        return almacenController;
+    }
+
+    public void setAlmacenController(AlmacenController almacenController) {
+        this.almacenController = almacenController;
+    }
+
+    public ArticuloController getDescuentoController() {
+        return descuentoController;
+    }
+
+    public void setDescuentoController(ArticuloController descuentoController) {
+        this.descuentoController = descuentoController;
+    }
+
+    public ImpuestoController getImpuestoController() {
+        return impuestoController;
+    }
+
+    public void setImpuestoController(ImpuestoController impuestoController) {
+        this.impuestoController = impuestoController;
+    }
+
+    public PromocionController getPromController() {
+        return promController;
+    }
+
+    public void setPromController(PromocionController promController) {
+        this.promController = promController;
+    }
+    @ManagedProperty("#{almanceController}")
+    AlmacenController almacenController; //descargando bean almancen de session;
+
 
 
     public String getGeneral() {
@@ -46,18 +96,7 @@ public class ArticuloController implements Serializable {
     }
 
 
-    public String prepareListByCategoria_one(int i){
-        if(opc==-1){
-           listaLibros=null;
-           opc=i;
-        }
-        return "/busqueda/ListCategoria.xhtml";
-    }
-     public String prepareListByCategoria(int i){
-         opc=i;
-
-        return "/busqueda/ListCategoria.xhtml";
-    }
+   
 
 
     public String getAnio() {
@@ -115,11 +154,11 @@ public class ArticuloController implements Serializable {
         return current;
     }
    
-    private List<Articulo> listaLibros;
-    private List<Articulo> listaNovedades;
+    private List<Articulo> listaLibros; //para vender
+    private List<Articulo> listaNovedades;//principal cuando se carga la pagina
 
     public List<Articulo> getListaNovedades() {
-           if(listaNovedades==null){
+          if(listaNovedades==null){
              listaNovedades=getFacade().buscarNovedades();
            }
         return listaNovedades;
@@ -131,9 +170,7 @@ public class ArticuloController implements Serializable {
 
 
     public List<Articulo> getListLibroByCategoria(){
-
            listaLibros=getFacade().buscarLibroByCategoria(opc);
-           //categoria=getFacade().getCategoria();
            opc=-1;
            return listaLibros;
     }
@@ -147,11 +184,16 @@ public class ArticuloController implements Serializable {
     }
 
     public boolean isActivate(){
-         if(listaLibros==null || listaLibros.isEmpty()){
+
+        return (listaLibros==null || listaLibros.isEmpty())?false:true;
+
+         /*if(listaLibros==null || listaLibros.isEmpty()){
             return false;//no muestres el panel
          }
 
          return true;
+          * *
+          */
     }
     public List<Articulo> getListaLibros() {
       //      if(listaLibros==null )
@@ -166,18 +208,20 @@ public class ArticuloController implements Serializable {
         this.listaLibros = listaLibros;
     }
 
+    private void limpiarVariables(){
+       setAnio("");setAutor("");
+       setEditorial("");setResumen("");setTitulo("");
+     
+    }
      public String buscar(){
         anio=anio==null?" ":getAnio().trim();
-        titulo=titulo==null?" ":getTitulo().trim();
-        editorial=editorial==null?" ":getEditorial().trim();
-        autor=autor==null?" ":getAutor().trim();
-        resumen=resumen==null?" ":getResumen().trim();
-        
+        titulo=titulo==null?" ":getTitulo();
+        editorial=editorial==null?" ":getEditorial();
+        autor=autor==null?" ":getAutor();
+        resumen=resumen==null?" ":getResumen(); 
         listaLibros= getFacade().buscarLibro(titulo,autor,editorial,resumen,anio);
-     //   System.out.println("tamanio:"+listaLibros.size());
-
+        limpiarVariables();
         return "List";
-
     }
 
      public String buscarGeneral(){
@@ -242,11 +286,13 @@ public class ArticuloController implements Serializable {
     public String prepareView(Articulo p,int go) {
       current=p;
       formward=go;
-      //System.out.println("descripcion:"+current.getDescripcion());
-       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-      System.out.println("go"+go);
-      if(go==1)
+      
+      if(go==1){
+          promController.setListPromocion(promocionFacade.buscarPromocionByarticulo(p));
+          impuestoController.setListaImpuesto(impuestoFacade.buscarImpuestoByarticulo(p));
+
           return "/articulo/View";
+       }
       else if(go==2)
         return "./../articulo/View.xhtml";
       else
@@ -404,4 +450,17 @@ public class ArticuloController implements Serializable {
 
     }
 
+
+     public String prepareListByCategoria_one(int i){
+        if(opc==-1){
+           listaLibros=null;
+           opc=i;
+        }
+        return "/busqueda/ListCategoria.xhtml";
+    }
+     public String prepareListByCategoria(int i){
+         opc=i;
+
+        return "/busqueda/ListCategoria.xhtml";
+    }
 }

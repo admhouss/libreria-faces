@@ -5,6 +5,7 @@ import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.ImpuestoFacade;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import java.util.ResourceBundle;
@@ -29,6 +30,7 @@ public class ImpuestoController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+
     public ImpuestoController() {
     }
 
@@ -40,8 +42,17 @@ public class ImpuestoController implements Serializable {
         return current;
     }
 
+    private List<Impuesto> listaImpuesto;
+
+    public void setListaImpuesto(List<Impuesto> listaImpuesto) {
+        this.listaImpuesto = listaImpuesto;
+    }
+    
     public List<Impuesto> getListaImpuesto(){
+        if(listaImpuesto==null)
         return getFacade().findAll();
+        setListaImpuesto(listaImpuesto);
+        return listaImpuesto;
     }
 
     private ImpuestoFacade getFacade() {
@@ -68,7 +79,7 @@ public class ImpuestoController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "List";
+        return "/impuesto/List";
     }
 
     public String prepareView(Impuesto p) {
@@ -86,6 +97,11 @@ public class ImpuestoController implements Serializable {
     public String create() {
         try {
             current.setIdArticulo(current.getArticulo().getId());
+            current.setArticulo(current.getArticulo());
+            current.setDescripcion(current.getDescripcion());
+            current.setMontoImpuesto(current.getMontoImpuesto());
+
+           
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("ImpuestoCreated"));
             return prepareView(current);
