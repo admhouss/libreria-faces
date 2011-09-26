@@ -5,7 +5,9 @@
 
 package escom.libreria.info.articulo.ejb;
 
+import escom.libreria.info.articulo.jpa.Articulo;
 import escom.libreria.info.articulo.jpa.Promocion;
+import java.beans.Expression;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -51,6 +53,7 @@ public class PromocionFacade {
     public List<Promocion> findAll() {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(Promocion.class));
+
         return em.createQuery(cq).getResultList();
     }
 
@@ -69,6 +72,15 @@ public class PromocionFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<Promocion> buscarPromocionByarticulo(Articulo id) {
+      //  throw new UnsupportedOperationException("Not yet implemented");
+       TypedQuery<Promocion> cq=em.createQuery("SELECT p FROM Promocion p where p.articulo=:id",Promocion.class)
+       .setParameter("id", id);
+       List<Promocion> l=cq.getResultList();
+
+       return l;
     }
 
 }
