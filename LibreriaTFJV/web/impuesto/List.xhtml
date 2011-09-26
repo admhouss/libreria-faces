@@ -8,7 +8,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListImpuestoTitle}"></h:outputText>
+            <h:outputText value="}"></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
         <h:form styleClass="jsfcrud_list_form">
@@ -32,7 +32,7 @@
                     <p:dataTable value="#{impuestoController.listaImpuesto}" var="item" paginator="true" rows="5">
                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListImpuestoTitle_idArticulo}"/>
+                            <h:outputText value="idArticulo"/>
                         </f:facet>
                         <h:outputText value="#{item.idArticulo}"/>
                    </p:column>
@@ -44,13 +44,13 @@
                    </p:column>
                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListImpuestoTitle_descripcion}"/>
+                            <h:outputText value="Descripcion"/>
                         </f:facet>
                         <h:outputText value="#{item.descripcion}"/>
                    </p:column>
                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListImpuestoTitle_articulo}"/>
+                            <h:outputText value="Articulo"/>
                         </f:facet>
                        <h:outputText value="#{item.articulo.idTipo.descripcion}"/>
                    </p:column>

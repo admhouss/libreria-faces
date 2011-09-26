@@ -9,7 +9,7 @@
     <ui:composition template="/templates/templateNovedades.xhtml">
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewImpuestoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
@@ -21,12 +21,12 @@
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
                    
-                    <h:outputText value="#{bundle.ViewImpuestoLabel_montoImpuesto}"/>
-                    <h:outputText value="#{impuestoController.selected.montoImpuesto}" title="#{bundle.ViewImpuestoTitle_montoImpuesto}"/>
-                    <h:outputText value="#{bundle.ViewImpuestoLabel_descripcion}"/>
-                    <h:outputText value="#{impuestoController.selected.descripcion}" title="#{bundle.ViewImpuestoTitle_descripcion}"/>
-                    <h:outputText value="#{bundle.ViewImpuestoLabel_articulo}"/>
-                    <h:outputText value="#{impuestoController.selected.articulo.descripcion}" title="#{bundle.ViewImpuestoTitle_articulo}"/>
+                    <h:outputText value="Monto Impuesto:"/>
+                    <h:outputText value="#{impuestoController.selected.montoImpuesto}" title="monto Impuesto"/>
+                    <h:outputText value="Descripcion:"/>
+                    <h:outputText value="#{impuestoController.selected.descripcion}" title="descripcion"/>
+                    <h:outputText value="Articulo:"/>
+                    <h:outputText value="#{impuestoController.selected.articulo.descripcion}" title="articulo"/>
                 </h:panelGrid>
                 </center>
                 </p:panel>

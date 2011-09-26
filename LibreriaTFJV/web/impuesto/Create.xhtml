@@ -27,7 +27,7 @@
                     <h:selectOneMenu id="articulo" value="#{impuestoController.selected.articulo}" title="#{bundle.CreateImpuestoTitle_articulo}" required="true" requiredMessage="#{bundle.CreateImpuestoRequiredMessage_articulo}">
                         <f:selectItems value="#{articuloController.listArticulos}" itemValue="#{item}" var="item" itemLabel="#{item.idTipo.descripcion}"/>
                     </h:selectOneMenu>
-                     <h:outputLabel value="#{bundle.CreateImpuestoLabel_descripcion}" for="descripcion" />
+                     <h:outputLabel value="Descripcion:" for="descripcion" />
                      <h:inputTextarea id="descripcion" value="#{impuestoController.selected.descripcion}" title="#{bundle.CreateImpuestoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateImpuestoRequiredMessage_descripcion}"/>
                 </h:panelGrid>
                 </center>
