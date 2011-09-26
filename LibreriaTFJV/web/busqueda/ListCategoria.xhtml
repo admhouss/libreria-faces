@@ -6,16 +6,19 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/templates/templateNovedades.xhtml">
+    <ui:composition template="/templates/templateCategoria.xhtml">
         <ui:define name="title">
             <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="bodyNovedades">
+        <ui:define name="bodyCategoria">
         <h:form styleClass="jsfcrud_list_form">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
 
+
+              <h2>Categoria #{articuloController.general}</h2>
+                <p>&nbsp;</p>
             <br/>
             <br/>
            
@@ -58,7 +61,7 @@
       <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
       <!--<li class="ui-state-default ui-corner-all" title="Mas información">-->
 
-          <h:commandLink  action="#{articuloController.prepareView(item,2)}" immediate="true">
+      <h:commandLink  action="#{articuloController.prepareLibro(item)}" immediate="true">
           <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
       </h:commandLink>
      <!-- </li>-->
