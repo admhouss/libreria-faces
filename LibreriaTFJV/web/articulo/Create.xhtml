@@ -8,7 +8,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateArticuloTitle}"></h:outputText>
+            <h:outputText value="Title}"></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
@@ -22,29 +22,29 @@
                         <h:panelGrid columns="2" cellspacing="12">
                    
                     <h:outputLabel value="Unidad:" for="unidad" />
-                    <h:inputText id="unidad" value="#{articuloController.selected.unidad}" title="unidad" required="true" requiredMessage="#{bundle.CreateArticuloRequiredMessage_unidad}"/>
+                    <h:inputText id="unidad" value="#{articuloController.selected.unidad}" title="unidad" required="true" requiredMessage="RequiredMessage_unidad"/>
                     <h:outputLabel value="Divisa:" for="divisa" />
-                    <h:inputText id="divisa" value="#{articuloController.selected.divisa}" title="divisa" required="true" requiredMessage="#{bundle.CreateArticuloRequiredMessage_divisa}"/>
+                    <h:inputText id="divisa" value="#{articuloController.selected.divisa}" title="divisa" required="true" requiredMessage="RequiredMessage_divisa"/>
                     <h:outputLabel value="Costo:" for="costo" />
-                    <h:inputText id="costo" value="#{articuloController.selected.costo}" title="costo" required="true" requiredMessage="#{bundle.CreateArticuloRequiredMessage_costo}"/>
+                    <h:inputText id="costo" value="#{articuloController.selected.costo}" title="costo" required="true" requiredMessage="RequiredMessage_costo"/>
                     <h:outputLabel value="Precio Unitario:" for="precioUnitario" />
-                    <h:inputText id="precioUnitario" value="#{articuloController.selected.precioUnitario}" title="precioUnitario" required="true" requiredMessage="#{bundle.CreateArticuloRequiredMessage_precioUnitario}"/>
+                    <h:inputText id="precioUnitario" value="#{articuloController.selected.precioUnitario}" title="precioUnitario" required="true" requiredMessage="RequiredMessage_precioUnitario"/>
                     <h:outputLabel value="Descripcion:" for="descripcion" />
-                    <h:inputText id="descripcion" value="#{articuloController.selected.descripcion}" title="descripcion" required="true" requiredMessage="#{bundle.CreateArticuloRequiredMessage_descripcion}"/>
+                    <h:inputText id="descripcion" value="#{articuloController.selected.descripcion}" title="descripcion" required="true" requiredMessage="RequiredMessage_descripcion"/>
                     <h:outputLabel value="Fecha Registro:" for="fechaRegistro" />
-                    <p:calendar id="fechaRegistro" value="#{articuloController.selected.fechaRegistro}" title="fechaRegistro" required="true" requiredMessage="#{bundle.CreateArticuloRequiredMessage_fechaRegistro}">
+                    <p:calendar id="fechaRegistro" value="#{articuloController.selected.fechaRegistro}" title="fechaRegistro" required="true" requiredMessage="RequiredMessage_fechaRegistro">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </p:calendar>
                     <h:outputLabel value="Proveedor:" for="idProveedor" />
-                    <h:selectOneMenu id="idProveedor" value="#{articuloController.selected.idProveedor}" title="idProveedor" required="true" requiredMessage="#{bundle.CreateArticuloRequiredMessage_idProveedor}">
+                    <h:selectOneMenu id="idProveedor" value="#{articuloController.selected.idProveedor}" title="idProveedor" required="true" requiredMessage="RequiredMessage_idProveedor">
                         <f:selectItems value="#{proveedorController.listProveedor}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="Publicacion:" for="idIdc" />
-                    <h:selectOneMenu id="idIdc" value="#{articuloController.selected.idIdc}" title="idIdc" required="true" requiredMessage="#{bundle.CreateArticuloRequiredMessage_idIdc}">
+                    <h:selectOneMenu id="idIdc" value="#{articuloController.selected.idIdc}" title="idIdc" required="true" requiredMessage="RequiredMessage_idIdc">
                         <f:selectItems value="#{publicacionController.listaPublicacion}" itemValue="#{item}" var="item" itemLabel="#{item.epoca}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="Tipo:" for="idTipo" />
-                    <h:selectOneMenu id="idTipo" value="#{articuloController.selected.idTipo}" title="idTipo}" required="true" requiredMessage="#{bundle.CreateArticuloRequiredMessage_idTipo}">
+                    <h:selectOneMenu id="idTipo" value="#{articuloController.selected.idTipo}" title="idTipo" required="true" requiredMessage="RequiredMessage_idTipo">
                         <f:selectItems value="#{tipoArticuloController.listTipoArticulo}" itemValue="#{item}" var="item" itemLabel="#{item.descripcion}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
