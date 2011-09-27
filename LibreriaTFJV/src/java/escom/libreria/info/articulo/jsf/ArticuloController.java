@@ -5,21 +5,26 @@ import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.ArticuloFacade;
 import escom.libreria.info.articulo.jpa.Promocion;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.faces.view.facelets.FaceletContext;
 
 @ManagedBean (name="articuloController")
 @SessionScoped
@@ -171,6 +176,7 @@ public class ArticuloController implements Serializable {
 
     public List<Articulo> getListLibroByCategoria(){
            listaLibros=getFacade().buscarLibroByCategoria(opc);
+           categoria=getFacade().getCategoria(opc);
            opc=-1;
            return listaLibros;
     }
@@ -452,12 +458,27 @@ public class ArticuloController implements Serializable {
 
 
      public String prepareListByCategoria_one(int i){
-        if(opc==-1){
-           listaLibros=null;
-           opc=i;
+        try {
+            if (opc == -1) {
+                listaLibros = null;
+                opc = i;
+            }
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            String go = externalContext.getRequestContextPath()+"/faces/busqueda/ListCategoria.xhtml";
+            externalContext.redirect(go);
+           
+        } catch (IOException ex) {
+            Logger.getLogger(ArticuloController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "/busqueda/ListCategoria.xhtml";
+        return null;
     }
+      
+
+
+     public String prepareListByCategoriaNovedades(int op){
+         opc=op;
+         return "./../busqueda/ListCategoria.xhtml" ;
+      }
      public String prepareListByCategoria(int i){
          opc=i;
 

@@ -94,9 +94,10 @@ public class ArticuloFacade {
          switch(opc){
                     case 1: categoria="Derecho Fiscal"; break;
                     case 2:categoria="Derecho Internacional"; break;
-                    case 3:categoria="Juicio en  Linea"; break;
-                    case 4:categoria="Juicio Orales"; break;
-                    case 5:categoria="Jurisprudencia"; break;
+                    case 3:categoria="Derecho Administrativo"; break;
+                    case 4:categoria="Juicio en  Linea"; break;
+                    case 5:categoria="Juicio Orales"; break;
+                    case 6:categoria="Jurisprudencia"; break;
                     default:
                         categoria = "EN LINEA";
                 }
