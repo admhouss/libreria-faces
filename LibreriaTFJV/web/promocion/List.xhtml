@@ -29,17 +29,17 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
 
                 <br/>  <br/>
                 <p:panel header="CATALOGO DE PROMOCIONES">
-                        <center>
+                        
                             <p:dataTable value="#{promocionController.listPromocion}" var="item" paginator="true" rows="7">
                     
                     
-                    <p:column>
+                      <p:column style="width: 15px;">
                         <f:facet name="header">
                             <h:outputText value="PRECIO"/>
                         </f:facet>
                         <h:outputText id="precio" value="#{item.precioPublico}"/>
                     </p:column>
-                    <p:column>
+                    <p:column style="width:15px;">
                         <f:facet name="header">
                             <h:outputText value="DIA INICIO"/>
                         </f:facet>
@@ -47,7 +47,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column>
+                    <p:column style="width:15px;">
                         <f:facet name="header">
                             <h:outputText value="DIA FIN"/>
                         </f:facet>
@@ -55,7 +55,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                     </p:column>
-                     <p:column>
+                     <p:column style="width:15px">
                         <f:facet name="header">
                             <h:outputText value="ARTICULO"/>
                         </f:facet>
@@ -82,7 +82,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
-                        </center>
+                       
                 </p:panel>
             </h:panelGroup>
            
