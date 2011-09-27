@@ -46,12 +46,12 @@ public class ProcesoJMail {
     public void enviaCorreo(MensajeCorreoDTO mensaje){
         Properties props = new Properties();
         props.put("mail.transport.protocol","smtp");
-        props.put("mail.host","mail.tuwebhost.us");
+        props.put("mail.host","");
         props.put("mail.smtp.auth","true");
-        props.put("mail.smtp.port","2525");
-        String from="libreria@libreria-tfjfa.com";
+        //props.put("mail.smtp.port","25");
+        String from="libreria";
 
-        String password="admin";
+        String password="new123";
 
 
 
