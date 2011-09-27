@@ -7,13 +7,16 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
 
-        
+
+
+
        
        <!--<h:outputStylesheet name="css/stylesheet.css"/>-->
        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css" />
        <link href="#{facesContext.externalContext.request.contextPath}/resources/template/css/style.css" rel="stylesheet" type="text/css" />
        
         <link href="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
+
 
         <title>..::Libreria::..</title>
         <!-- InstanceEndEditable -->
@@ -86,7 +89,12 @@
 
     
 
+
     <h:body>
+
+        
+       
+        <script src="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
         <h1>
             <ui:insert name="title"> </ui:insert>
         </h1>
@@ -122,7 +130,7 @@
   <tr>
     <td align="right" class="current_page_item">
 
-       <a href="./faces/cliente/Create.xhtml">Registrarse</a>
+       <a href="#{facesContext.externalContext.request.contextPath}/faces/cliente/Create.xhtml">Registrarse</a>
 
 
     </td>
@@ -210,14 +218,20 @@
   <tr>
     <th align="left" scope="col"><h2>Administración</h2>
       <ul class="list navigation">
-        <li><a href="Reporte_Ventas.html">Ventas General </a></li>
-        <li><a href="Ventas_Detalle.html">Ventas Detalles</a>
+        <li>
+            
+                <a href="#">Ventas General </a>
+
+        
+        </li>
+
+        <li><a href="#{facesContext.externalContext.request.contextPath}/faces/ventaDetalle/List.xhtml">Ventas Detalles</a>
           <ul>
             <ul>
               <ul>
-                <li><a href="./faces/cliente/List.xhtml">Clientes</a></li>
+                <li><a href="#{facesContext.externalContext.request.contextPath}/faces/cliente/List.xhtml">Clientes</a></li>
                 <li>
-                    <a href="./faces/publicacion/List.xhtml">Catalogos</a></li>
+                    <a href="#{facesContext.externalContext.request.contextPath}/faces/articulo/List.xhtml">Catalogos</a></li>
                 <li><a href="#">Estadisticas</a></li>
                 <li></li>
               </ul>
@@ -352,9 +366,8 @@
        <p:accordionPanel autoHeight="false">
                     <p:tab title="Libro">
                <h:panelGroup >
-                   <p:dataGrid value="#{articuloController.listaNovedades}" var="item"  rows="12" paginator="true" effect="true" columns="1"
-		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		rowsPerPageTemplate="6,10,15 ">
+                   <p:dataGrid value="#{articuloController.listaNovedades}" var="item"  rows="6" paginator="true"  columns="1"
+		   >
 
 
                     <p:column>
@@ -489,7 +502,7 @@
 </div>
 </h:form>
 <script type="text/javascript">
-var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"./../../SpryAssets/SpryMenuBarDownHover.gif", imgRight:"./../../SpryAssets/SpryMenuBarRightHover.gif"});
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"./SpryAssets/SpryMenuBarDownHover.gif", imgRight:"./../../SpryAssets/SpryMenuBarRightHover.gif"});
 </script>
 
         </ui:insert>
