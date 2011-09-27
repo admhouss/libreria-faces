@@ -21,7 +21,7 @@
 	width:214px;
 	height:551px;
 	z-index:1;
-	background:url(./../resources/template/imgs/left_end.gif);
+	background:url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/left_end.gif);
 	background-repeat:no-repeat;
 
 }
@@ -32,7 +32,7 @@
 	width:590px;
 	height:132px;
 	z-index:5;
-	background-image: url(./../resources/template/imgs/img1.jpg);
+	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/img1.jpg);
 }
 #apDiv3 {
 	position:absolute;
@@ -41,7 +41,7 @@
 	width:191px;
 	height:552px;
 	z-index:3;
-	background-image: url(./../resources/template/imgs/head_der.jpg);
+	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/head_der.jpg);
 	background-repeat:no-repeat;
 }
 #apDiv4 {
@@ -59,7 +59,7 @@
 	width:1000px;
 	height:111px;
 	z-index:1;
-	background-image: url(./../resources/template/imgs/head.jpg);
+	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/head.jpg);
 }
 
 #apDiv6 {
@@ -79,11 +79,12 @@
 
     </h:head>
 
-
+ 
 
     <h:body>
+        <script src="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBar.js" type="text/javascript"/>
         <h1>
-            <ui:insert name="title">Default Title</ui:insert>
+            <ui:insert name="title">..:::Libreria:::..</ui:insert>
         </h1>
 
             <ui:insert name="body">
