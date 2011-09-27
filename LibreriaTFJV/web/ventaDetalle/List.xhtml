@@ -8,7 +8,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListArticuloTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
         <h:form styleClass="jsfcrud_list_form">
@@ -27,10 +27,10 @@
             
             <h:panelGroup >
 
-                <p:panel  >
+                <p:accordionPanel autoHeight="false">
                   
 
-                   
+                    <p:tab title="Editorial">
                     <table width="99%" border="0">
         <tr>
           <td width="27%" valign="top" class="Titulo_articulo_small" scope="col">
@@ -82,7 +82,7 @@
 
          <h:selectManyMenu value="#{clienteController.listSeleccionCliente}"  style="height:50px" >
              <f:selectItems
-                    value="#{clienteController.listaClientes}" var="cliente" itemLabel="#{cliente.nombre} #{cliente.paterno} #{cliente.materno}"
+                    value="#{clienteController.listaClientes}" var="cliente" itemLabel="#{cliente.nombre}"
                     itemValue="#{cliente}" />
         </h:selectManyMenu>
 
@@ -100,10 +100,10 @@
         </tr>
       </table>
                             
-                       
+                    </p:tab>
                         
 
-                </p:panel>
+                </p:accordionPanel>
             </h:panelGroup>
 
 
