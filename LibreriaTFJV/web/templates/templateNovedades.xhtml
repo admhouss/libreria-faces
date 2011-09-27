@@ -117,7 +117,7 @@
   <tr>
     <td align="right" class="current_page_item">
 
-       <a href="./../cliente/Create.xhtml">Registrarse</a>
+       <a href="#{facesContext.externalContext.request.contextPath}/faces/cliente/Create.xhtml">Registrarse</a>
 
 
     </td>
@@ -138,18 +138,40 @@
 
 
             <h:form>
-            <h:commandLink value="Derecho Fiscal" action="#{articuloController.prepareListByCategoria}"/>
+            <h:commandLink value="Derecho Fiscal" action="#{articuloController.prepareListByCategoria_one(1)}"/>
             </h:form>
 
         </li>
-        <li><a href="#">Derecho internacional</a>
+        <li>
+           <h:form>
+            <h:commandLink value="Derecho Internacinal" action="#{articuloController.prepareListByCategoria_one(2)}"/>
+            </h:form>
           <ul>
             <ul>
               <ul>
-                <li><a href="#">Derecho Admimistrativo</a></li>
-                <li><a href="#">Juicio en Linea </a></li>
-                <li><a href="#">Juicios Orales</a></li>
-                <li><a href="#">Jurisprudencia</a></li>
+                <li>
+             <h:form>
+            <h:commandLink value="Derecho Administrativo" action="#{articuloController.prepareListByCategoria_one(3)}"/>
+            </h:form>
+
+                </li>
+                <li>
+              <h:form>
+            <h:commandLink value="Juicio en Linea" action="#{articuloController.prepareListByCategoria_one(4)}"/>
+            </h:form>
+                </li>
+                <li>
+              <h:form>
+            <h:commandLink value="Juicios Orales" action="#{articuloController.prepareListByCategoria_one(5)}"/>
+            </h:form>
+               </li>
+                <li>
+                    
+                    <h:form>
+            <h:commandLink value="Jurisprudencia" action="#{articuloController.prepareListByCategoria_one(6)}"/>
+            </h:form>
+
+                </li>
               </ul>
             </ul>
           </ul>
@@ -205,9 +227,9 @@
           <ul>
             <ul>
               <ul>
-                <li><a href="./faces/cliente/List.xhtml">Clientes</a></li>
+                <li><a href="#{facesContext.externalContext.request.contextPath}/faces/cliente/List.xhtml">Clientes</a></li>
                 <li>
-                    <a href="./faces/publicacion/List.xhtml">Catalogos</a></li>
+                    <a href="#{facesContext.externalContext.request.contextPath}/faces/articulo/List.xhtml">Catalogos</a></li>
                 <li><a href="#">Estadisticas</a></li>
                 <li></li>
               </ul>
@@ -242,7 +264,7 @@
     </tr>
     <tr>
       <td align="right" class="current_page_item">
-          <a href="./../busqueda/List.xhtml">Busqueda Avanzada</a>
+          <a href="#{facesContext.externalContext.request.contextPath}/faces/busqueda/List.xhtml">Busqueda Avanzada</a>
       </td>
     </tr>
     <tr></tr>
@@ -373,7 +395,7 @@
         <li><a href="carrito_1.html">Productos</a>
           <ul>
             <li><a href="Libros.html">Libros</a></li>
-            <li><a href="Suscripciones.html">Suscripciones</a></li>
+            <li><a href="Suscripcidoss.html">Suscripcidoss</a></li>
             <li><a href="Aceesorios.html">Accesorios</a></li>
           </ul>
         </li>
