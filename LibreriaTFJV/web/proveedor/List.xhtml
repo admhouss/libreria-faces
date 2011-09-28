@@ -28,17 +28,31 @@
  <br/> <br/>
  <p:panel header="CATALOGO DE PROVEEDORES" >
      <p:dataTable value="#{proveedorController.listProveedor}" var="item" paginator="true" rows="5">
-                   <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ID"/>
-                        </f:facet>
-                        <h:outputText value="#{item.id}"/>
-                   </p:column>
-                   <p:column>
+                   
+                    <p:column style="width:15px;">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
                         <h:outputText value="#{item.nombre}"/>
+                   </p:column>
+                   <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="SIGLA"/>
+                        </f:facet>
+                       <h:outputText value="#{item.sigla}"/>
+                   </p:column>
+                  <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="CD"/>
+                        </f:facet>
+                      <h:outputText value="#{item.cd}"/>
+                   </p:column>
+                 
+                      <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="RFC"/>
+                        </f:facet>
+                        <h:outputText value="#{item.rfc}"/>
                    </p:column>
                    <p:column>
                         <f:facet name="header">

@@ -24,7 +24,7 @@
            
          
 
-                <p:accordionPanel autoHeight="false">
+            <p:accordionPanel autoHeight="false" rendered="#{articuloController.listLibroByCategoria!=null}">
                     <p:tab title="Libro">
                <h:panelGroup >
                    <p:dataGrid value="#{articuloController.listLibroByCategoria}" var="item"  rows="12" paginator="true" effect="true" columns="1"
