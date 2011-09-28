@@ -3,20 +3,17 @@
  * and open the template in the editor.
  */
 
-package escom.libreria.info.articulo.jpa;
+package escom.libreria.info.cliente.jpa;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,43 +21,53 @@ import javax.persistence.Table;
  * @author xxx
  */
 @Entity
-@Table(name = "tipo_articulo")
+@Table(name = "telefono")
 @NamedQueries({
-    @NamedQuery(name = "TipoArticulo.findAll", query = "SELECT t FROM TipoArticulo t"),
-    @NamedQuery(name = "TipoArticulo.findById", query = "SELECT t FROM TipoArticulo t WHERE t.id = :id"),
-    @NamedQuery(name = "TipoArticulo.findByDescripcion", query = "SELECT t FROM TipoArticulo t WHERE t.descripcion = :descripcion")})
-public class TipoArticulo implements Serializable {
+    @NamedQuery(name = "Telefono.findAll", query = "SELECT t FROM Telefono t"),
+    @NamedQuery(name = "Telefono.findById", query = "SELECT t FROM Telefono t WHERE t.id = :id"),
+    @NamedQuery(name = "Telefono.findByTelefono", query = "SELECT t FROM Telefono t WHERE t.telefono = :telefono"),
+    @NamedQuery(name = "Telefono.findByDescripcion", query = "SELECT t FROM Telefono t WHERE t.descripcion = :descripcion")})
+public class Telefono implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
-    private Integer id;
+    private String id;
+    @Column(name = "TELEFONO")
+    private String telefono;
     @Basic(optional = false)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipo")
-    private List<Articulo> articuloList;
-    
+    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Cliente cliente;
 
-    public TipoArticulo() {
+    public Telefono() {
     }
 
-    public TipoArticulo(Integer id) {
+    public Telefono(String id) {
         this.id = id;
     }
 
-    public TipoArticulo(Integer id, String descripcion) {
+    public Telefono(String id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getDescripcion() {
@@ -71,15 +78,13 @@ public class TipoArticulo implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<Articulo> getArticuloList() {
-        return articuloList;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setArticuloList(List<Articulo> articuloList) {
-        this.articuloList = articuloList;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
-
-   
 
     @Override
     public int hashCode() {
@@ -91,10 +96,10 @@ public class TipoArticulo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoArticulo)) {
+        if (!(object instanceof Telefono)) {
             return false;
         }
-        TipoArticulo other = (TipoArticulo) object;
+        Telefono other = (Telefono) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -103,7 +108,7 @@ public class TipoArticulo implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.articulo.jpa.TipoArticulo[id=" + id + "]";
+        return "escom.libreria.info.cliente.jpa.Telefono[id=" + id + "]";
     }
 
 }

@@ -5,7 +5,8 @@
 
 package escom.libreria.info.articulo.ejb;
 
-import escom.libreria.info.articulo.jpa.Proveedor;
+
+import escom.libreria.info.proveedor.jpa.Proveedor;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

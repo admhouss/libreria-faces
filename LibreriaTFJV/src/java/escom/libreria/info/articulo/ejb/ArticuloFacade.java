@@ -115,12 +115,8 @@ public class ArticuloFacade {
                
          TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.idTipo.descripcion LIKE :categoria",Articulo.class)
          .setParameter("categoria", categoria);
-            
           List<Articulo> l=query.getResultList();
-          //System.out.println("cuantos ay"+l.size());
-
-
-              return l;
+          return l.isEmpty()?null:l;
     }
 
     public List<Articulo> buscarNovedades() {

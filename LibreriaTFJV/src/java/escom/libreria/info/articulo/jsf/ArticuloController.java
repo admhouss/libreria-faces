@@ -175,9 +175,10 @@ public class ArticuloController implements Serializable {
 
 
     public List<Articulo> getListLibroByCategoria(){
+
            listaLibros=getFacade().buscarLibroByCategoria(opc);
            categoria=getFacade().getCategoria(opc);
-           opc=-1;
+          
            return listaLibros;
     }
 
@@ -459,10 +460,7 @@ public class ArticuloController implements Serializable {
 
      public String prepareListByCategoria_one(int i){
         try {
-            if (opc == -1) {
-                listaLibros = null;
-                opc = i;
-            }
+             opc=i;
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             String go = externalContext.getRequestContextPath()+"/faces/busqueda/ListCategoria.xhtml";
             externalContext.redirect(go);
