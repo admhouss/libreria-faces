@@ -46,7 +46,7 @@
                     <h:inputText id="fax" value="#{clienteController.selected.fax}" title="fax"  size="25"/>
                     <h:outputLabel value=" "/>
                     <h:outputLabel value="Mod:" for="mod" styleClass="textoNEGRO"/>
-                    <h:inputText id="mod" value="#{clienteController.selected.modS}" title="mod"  requiredMessage="#{bundle.CreateClienteRequiredMessage_mod}" size="25"/>
+                    <h:inputText id="mod" value="#{clienteController.selected.mods}" title="mod"  requiredMessage="#{bundle.CreateClienteRequiredMessage_mod}" size="25"/>
                     <h:outputLabel value=" "/>
                     
                     <h:outputLabel value="Password:" for="password" styleClass="textoNEGRO"/>
@@ -54,7 +54,7 @@
                     <h:outputLabel value="*" styleClass="textoROJO"/>
 
                     <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="estado" value="#{clienteController.selected.estado}" title="estado}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_estado}">
+                    <h:selectOneMenu id="estado" value="#{clienteController.selected.idEstado}" title="estado}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_estado}">
                         <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}"  itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value=" "/>
