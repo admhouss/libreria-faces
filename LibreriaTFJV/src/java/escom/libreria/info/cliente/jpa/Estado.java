@@ -39,7 +39,7 @@ public class Estado implements Serializable {
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
     private List<Cliente> clienteList;
 
     public Estado() {
@@ -100,7 +100,7 @@ public class Estado implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.cliente.Estado[id=" + id + "]";
+        return "escom.libreria.info.cliente.jpa.Estado[id=" + id + "]";
     }
 
 }

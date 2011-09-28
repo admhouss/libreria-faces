@@ -65,7 +65,7 @@ public class ClienteFacade  {
 
     public List<Cliente> getListClientesActive() {
         String activado="activado%";
-        TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.estado.nombre LIKE :activado ORDER BY c.nombre,c.paterno,c.materno",Cliente.class)
+        TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.idEstado.nombre LIKE :activado ORDER BY c.nombre,c.paterno,c.materno",Cliente.class)
         .setParameter("activado",activado);
        List<Cliente> c= l.getResultList();
        return c;

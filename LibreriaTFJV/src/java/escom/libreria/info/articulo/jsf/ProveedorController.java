@@ -1,10 +1,12 @@
 package escom.libreria.info.articulo.jsf;
 
-import escom.libreria.info.articulo.jpa.Proveedor;
+
+import escom.libreria.info.proveedor.jpa.Proveedor;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.ProveedorFacade;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
@@ -68,14 +70,14 @@ public class ProveedorController implements Serializable{
     }
 
     public String prepareList() {
-        recreateModel();
+        //recreateModel();
         return "/proveedor/List";
     }
 
     public String prepareView(Proveedor p) {
        current=p;
         //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "/proveedor/View";
     }
 
     public String prepareCreate() {
@@ -86,10 +88,13 @@ public class ProveedorController implements Serializable{
 
     public String create() {
         try {
-            if(current!=null){
+            //if(current!=null){
+                current.setFechaAlta(new Date());
+                current.setMmod(new Date());
+                current.setEstatus(true);
                 getFacade().create(current);
                 JsfUtil.addSuccessMessage("Proveedor Guardado Satisfactoriamente");
-             }
+             //}
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -105,7 +110,7 @@ public class ProveedorController implements Serializable{
 
     public String update() {
         try {
-
+            current.setMmod(new Date());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("Proveedor actualizado"));
             return "View";

@@ -33,7 +33,7 @@ public class PromocionController implements Serializable{
     private DataModel items = null;
     @EJB private escom.libreria.info.articulo.ejb.PromocionFacade ejbFacade;
     @EJB private escom.libreria.info.cliente.ejb.ClienteFacade clieteFacade;
-     @EJB private escom.libreria.correo.ProcesoJMail jMail;
+    @EJB private escom.libreria.correo.ProcesoJMail jMail;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private PromocionPK p;
@@ -84,8 +84,10 @@ public class PromocionController implements Serializable{
        List<String> destinatarios=new ArrayList<String>();
        for(Cliente cliente:l)
        destinatarios.add(cliente.getEmail().trim());
-       if(destinatarios.size()>0)
-       jMail.enviarCorreo("Nueva Promocion sobre el Articulo"+promocion.getArticulo().getIdIdc().getEditorial(), "Esto es una Prueba de corre responsable Yamil, proyecto actual libreria", destinatarios);
+       if(destinatarios.size()>0){
+       jMail.enviarCorreo("Hola", "Nueva Promocion de libro"+promocion.getArticulo().getDescripcion(), destinatarios);
+        }
+       
        
    }
 

@@ -45,13 +45,16 @@ public class ProcesoJMail {
 
     public void enviaCorreo(MensajeCorreoDTO mensaje){
         Properties props = new Properties();
-        props.put("mail.transport.protocol","smtp");
-        props.put("mail.host","");
+        props.put("mail.transport.protocol","smntp");
+        props.put("mail.host","smtp.mail.yahoo.com");
         props.put("mail.smtp.auth","true");
-        //props.put("mail.smtp.port","25");
-        String from="libreria";
+       
+        props.put("mail.smtp.ssl.enable","true");
+      
+        String from="yamildelgado99@yahoo.com";
 
-        String password="new123";
+
+        String password=getPassword();
 
 
 
@@ -112,9 +115,12 @@ public class ProcesoJMail {
             System.out.println(ex);
 
         }
-          
          
     }
+    private String getPassword(){
+             return "refigerador";
+         }
+         
     public void enviarCorreo(String Asunto,String Cuerpo,List<String> correos) {
     MensajeCorreoDTO mensaje = new MensajeCorreoDTO();
     mensaje.setAsunto(Asunto);

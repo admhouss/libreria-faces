@@ -5,10 +5,13 @@
 
 package escom.libreria.info.articulo.jpa;
 
+import escom.libreria.info.proveedor.jpa.Proveedor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +21,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,7 +41,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Articulo.findByCosto", query = "SELECT a FROM Articulo a WHERE a.costo = :costo"),
     @NamedQuery(name = "Articulo.findByPrecioUnitario", query = "SELECT a FROM Articulo a WHERE a.precioUnitario = :precioUnitario"),
     @NamedQuery(name = "Articulo.findByDescripcion", query = "SELECT a FROM Articulo a WHERE a.descripcion = :descripcion"),
-    @NamedQuery(name = "Articulo.findByFechaRegistro", query = "SELECT a FROM Articulo a WHERE a.fechaRegistro = :fechaRegistro")})
+    @NamedQuery(name = "Articulo.findByFechaRegistro", query = "SELECT a FROM Articulo a WHERE a.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Articulo.findByImagen", query = "SELECT a FROM Articulo a WHERE a.imagen = :imagen")})
 public class Articulo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,15 +69,26 @@ public class Articulo implements Serializable {
     @Column(name = "FECHA_REGISTRO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
-    @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Proveedor idProveedor;
+    @Column(name = "IMAGEN")
+    private String imagen;
     @JoinColumn(name = "ID_IDC", referencedColumnName = "ID_DC")
     @ManyToOne(optional = false)
     private Publicacion idIdc;
+    @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Proveedor idProveedor;
     @JoinColumn(name = "ID_TIPO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private TipoArticulo idTipo;
+  
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private DescuentoArticulo descuentoArticulo;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private Impuesto impuesto;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<Promocion> promocionList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private Almacen almacen;
 
     public Articulo() {
     }
@@ -146,12 +163,12 @@ public class Articulo implements Serializable {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Proveedor getIdProveedor() {
-        return idProveedor;
+    public String getImagen() {
+        return imagen;
     }
 
-    public void setIdProveedor(Proveedor idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public Publicacion getIdIdc() {
@@ -162,12 +179,56 @@ public class Articulo implements Serializable {
         this.idIdc = idIdc;
     }
 
+    public Proveedor getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(Proveedor idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
     public TipoArticulo getIdTipo() {
         return idTipo;
     }
 
     public void setIdTipo(TipoArticulo idTipo) {
         this.idTipo = idTipo;
+    }
+
+   
+
+    
+
+    public DescuentoArticulo getDescuentoArticulo() {
+        return descuentoArticulo;
+    }
+
+    public void setDescuentoArticulo(DescuentoArticulo descuentoArticulo) {
+        this.descuentoArticulo = descuentoArticulo;
+    }
+
+    public Impuesto getImpuesto() {
+        return impuesto;
+    }
+
+    public void setImpuesto(Impuesto impuesto) {
+        this.impuesto = impuesto;
+    }
+
+    public List<Promocion> getPromocionList() {
+        return promocionList;
+    }
+
+    public void setPromocionList(List<Promocion> promocionList) {
+        this.promocionList = promocionList;
+    }
+
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
     }
 
     @Override
@@ -192,7 +253,7 @@ public class Articulo implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.articulo.Articulo[id=" + id + "]";
+        return "escom.libreria.info.articulo.jpa.Articulo[id=" + id + "]";
     }
 
 }

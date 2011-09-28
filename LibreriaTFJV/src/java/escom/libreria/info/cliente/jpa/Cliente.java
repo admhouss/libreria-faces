@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,14 +37,14 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :nombre"),
     @NamedQuery(name = "Cliente.findByPaterno", query = "SELECT c FROM Cliente c WHERE c.paterno = :paterno"),
     @NamedQuery(name = "Cliente.findByMaterno", query = "SELECT c FROM Cliente c WHERE c.materno = :materno"),
-    @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono"),
     @NamedQuery(name = "Cliente.findByFax", query = "SELECT c FROM Cliente c WHERE c.fax = :fax"),
     @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
     @NamedQuery(name = "Cliente.findByEstatus", query = "SELECT c FROM Cliente c WHERE c.estatus = :estatus"),
     @NamedQuery(name = "Cliente.findByMods", query = "SELECT c FROM Cliente c WHERE c.mods = :mods"),
     @NamedQuery(name = "Cliente.findByPassword", query = "SELECT c FROM Cliente c WHERE c.password = :password"),
     @NamedQuery(name = "Cliente.findByFechaAlta", query = "SELECT c FROM Cliente c WHERE c.fechaAlta = :fechaAlta"),
-    @NamedQuery(name = "Cliente.findByRecibeInfor", query = "SELECT c FROM Cliente c WHERE c.recibeInfor = :recibeInfor")})
+    @NamedQuery(name = "Cliente.findByRecibeInfor", query = "SELECT c FROM Cliente c WHERE c.recibeInfor = :recibeInfor"),
+    @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono")})
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -59,8 +60,6 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "MATERNO")
     private String materno;
-    @Column(name = "TELEFONO")
-    private String telefono;
     @Column(name = "FAX")
     private String fax;
     @Basic(optional = false)
@@ -82,6 +81,11 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "RECIBE_INFOR")
     private boolean recibeInfor;
+    @Basic(optional = false)
+    @Column(name = "TELEFONO")
+    private String telefono;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private Telefono telefonoOficina;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
     private List<Contacto> contactoList;
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
@@ -97,7 +101,7 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public Cliente(String id, String nombre, String paterno, String materno, String email, boolean estatus, String mods, String password, Date fechaAlta, boolean recibeInfor) {
+    public Cliente(String id, String nombre, String paterno, String materno, String email, boolean estatus, String mods, String password, Date fechaAlta, boolean recibeInfor, String telefono1) {
         this.id = id;
         this.nombre = nombre;
         this.paterno = paterno;
@@ -108,6 +112,14 @@ public class Cliente implements Serializable {
         this.password = password;
         this.fechaAlta = fechaAlta;
         this.recibeInfor = recibeInfor;
+        this.telefono = telefono1;
+    }
+    public boolean isEstatus() {
+        return estatus;
+    }
+
+    public boolean isRecibeInfor() {
+        return recibeInfor;
     }
 
     public String getId() {
@@ -140,14 +152,6 @@ public class Cliente implements Serializable {
 
     public void setMaterno(String materno) {
         this.materno = materno;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
     }
 
     public String getFax() {
@@ -206,6 +210,25 @@ public class Cliente implements Serializable {
         this.recibeInfor = recibeInfor;
     }
 
+   
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Telefono getTelefonoOficina() {
+        return telefonoOficina;
+    }
+
+    public void setTelefonoOficina(Telefono telefonoOficina) {
+        this.telefonoOficina = telefonoOficina;
+    }
+
+    
     public List<Contacto> getContactoList() {
         return contactoList;
     }
