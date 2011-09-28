@@ -5,9 +5,13 @@
 
 package escom.libreria.info.cliente.jpa;
 
+import escom.libreria.info.contacto.jpa.Contacto;
+import escom.libreria.info.contacto.jpa.Direnvio;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,9 +40,10 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Cliente.findByFax", query = "SELECT c FROM Cliente c WHERE c.fax = :fax"),
     @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
     @NamedQuery(name = "Cliente.findByEstatus", query = "SELECT c FROM Cliente c WHERE c.estatus = :estatus"),
-    @NamedQuery(name = "Cliente.findByMod", query = "SELECT c FROM Cliente c WHERE c.modS = :mod"),
+    @NamedQuery(name = "Cliente.findByMods", query = "SELECT c FROM Cliente c WHERE c.mods = :mods"),
     @NamedQuery(name = "Cliente.findByPassword", query = "SELECT c FROM Cliente c WHERE c.password = :password"),
-    @NamedQuery(name = "Cliente.findByFechaAlta", query = "SELECT c FROM Cliente c WHERE c.fechaAlta = :fechaAlta")})
+    @NamedQuery(name = "Cliente.findByFechaAlta", query = "SELECT c FROM Cliente c WHERE c.fechaAlta = :fechaAlta"),
+    @NamedQuery(name = "Cliente.findByRecibeInfor", query = "SELECT c FROM Cliente c WHERE c.recibeInfor = :recibeInfor")})
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,7 +59,6 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "MATERNO")
     private String materno;
-   
     @Column(name = "TELEFONO")
     private String telefono;
     @Column(name = "FAX")
@@ -66,7 +71,7 @@ public class Cliente implements Serializable {
     private boolean estatus;
     @Basic(optional = false)
     @Column(name = "MODS")
-    private String modS;
+    private String mods;
     @Basic(optional = false)
     @Column(name = "PASSWORD")
     private String password;
@@ -74,9 +79,16 @@ public class Cliente implements Serializable {
     @Column(name = "FECHA_ALTA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAlta;
+    @Basic(optional = false)
+    @Column(name = "RECIBE_INFOR")
+    private boolean recibeInfor;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private List<Contacto> contactoList;
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Estado estado;
+    private Estado idEstado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private List<Direnvio> direnvioList;
 
     public Cliente() {
     }
@@ -85,17 +97,17 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public Cliente(String id, String nombre, String paterno, String materno, String telefono, String email, boolean estatus, String mod, String password, Date fechaAlta) {
+    public Cliente(String id, String nombre, String paterno, String materno, String email, boolean estatus, String mods, String password, Date fechaAlta, boolean recibeInfor) {
         this.id = id;
         this.nombre = nombre;
         this.paterno = paterno;
         this.materno = materno;
-        this.telefono = telefono;
         this.email = email;
         this.estatus = estatus;
-        this.modS = mod;
+        this.mods = mods;
         this.password = password;
         this.fechaAlta = fechaAlta;
+        this.recibeInfor = recibeInfor;
     }
 
     public String getId() {
@@ -162,15 +174,13 @@ public class Cliente implements Serializable {
         this.estatus = estatus;
     }
 
-    public String getModS() {
-        return modS;
+    public String getMods() {
+        return mods;
     }
 
-    public void setModS(String modS) {
-        this.modS = modS;
+    public void setMods(String mods) {
+        this.mods = mods;
     }
-
-    
 
     public String getPassword() {
         return password;
@@ -188,12 +198,36 @@ public class Cliente implements Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public boolean getRecibeInfor() {
+        return recibeInfor;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setRecibeInfor(boolean recibeInfor) {
+        this.recibeInfor = recibeInfor;
+    }
+
+    public List<Contacto> getContactoList() {
+        return contactoList;
+    }
+
+    public void setContactoList(List<Contacto> contactoList) {
+        this.contactoList = contactoList;
+    }
+
+    public Estado getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Estado idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public List<Direnvio> getDirenvioList() {
+        return direnvioList;
+    }
+
+    public void setDirenvioList(List<Direnvio> direnvioList) {
+        this.direnvioList = direnvioList;
     }
 
     @Override
@@ -218,7 +252,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.cliente.Cliente[id=" + id + "]";
+        return "escom.libreria.info.cliente.jpa.Cliente[id=" + id + "]";
     }
 
 }
