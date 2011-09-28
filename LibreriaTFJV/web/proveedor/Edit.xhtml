@@ -18,56 +18,98 @@
             <h:form>
                 <br/>
                 <br/>
-                <p:panel header="CATALOGO DE PROVEEDORES">
-                    <center>
-                        <h:panelGrid columns="2" cellspacing="15">
+                <p:panel header="EDITAR  PROVEEDOR">
 
-                    <h:outputLabel value="NOMBRE:" for="nombre" />
-                    <h:inputText id="nombre" value="#{proveedorController.selected.nombre}" title="nombre" required="true" requiredMessage="RequiredMessage_nombre" size="35"/>
-                    <h:outputLabel value="SIGLAS:" for="siglas" />
-                    <h:inputText id="siglas" value="#{proveedorController.selected.sigla}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="CALLE:" for="calle" />
-                    <h:inputText id="calle" value="#{proveedorController.selected.calle}" title="calle" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="COLONIA:" for="colonia" />
-                    <h:inputText id="colonia" value="#{proveedorController.selected.colonia}" title="colonia" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="CD:" for="cd" />
-                    <h:inputText id="cd" value="#{proveedorController.selected.cd}" title="cp"  requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="CONTACTO:" for="contacto" />
-                    <h:inputText id="contacto" value="#{proveedorController.selected.contacto}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="TIPO:" for="tipo" />
-                    <h:inputText id="tipo" value="#{proveedorController.selected.tipo}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="CREDITO:" for="credito" />
-                    <h:inputText id="credito" value="#{proveedorController.selected.credito}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="TELEFONO:" for="telefono" />
-                    <h:inputText id="telefono" value="#{proveedorController.selected.telefono}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="FAX:" for="fax" />
-                    <h:inputText id="fax" value="#{proveedorController.selected.fax}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="MAIL:" for="mail" />
-                    <h:inputText id="mail" value="#{proveedorController.selected.mail}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="PUESTO:" for="puesto" />
-                    <h:inputText id="puesto" value="#{proveedorController.selected.puesto}" title="siglas" requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="ZONA:" for="zona" />
-                    <h:inputText id="zona" value="#{proveedorController.selected.zona}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="DESCTO:" for="descuento" />
-                    <h:inputText id="descuento" value="#{proveedorController.selected.descto}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
-
-                    <h:outputLabel value="RFC:" for="rfc" />
-                    <h:inputText id="rfc" value="#{proveedorController.selected.rfc}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="CP:" for="siglas" />
-                    <h:inputText id="cp" value="#{proveedorController.selected.cp}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="CTA MIN:" for="CTA_MIN" />
-                    <h:inputText id="CTA_MIN" value="#{proveedorController.selected.ctaMn}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="CTA DIV:" for="CTA_DIV" />
-                    <h:inputText id="CTA_DIV" value="#{proveedorController.selected.ctaDiv}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
-                    <h:outputLabel value="ESTATUS:" for="estatus" />
-                    <h:selectBooleanCheckbox id="estatus" value="#{proveedorController.selected.estatus}" title="siglas" required="true" requiredMessage="RequiredMessage_estatus" />
+                    <br/><br/>
 
 
+                    <p:panel header="INFORMACION GENERAL">
+                        <center>
+                        <h:panelGrid columns="3" cellspacing="15">
 
-                </h:panelGrid>
+                            <h:outputLabel value="Nombre:" for="nombre" styleClass="textoNEGRO"  />
+                            <h:inputText id="nombre" value="#{proveedorController.selected.nombre}" title="nombre" required="true" requiredMessage="RequiredMessage_nombre" size="35"/>
+                            <h:outputLabel value="*" styleClass="textoROJO"/>
+                            <h:outputLabel value="Siglas:" for="siglas" styleClass="textoNEGRO" />
+                            <h:inputText id="siglas" value="#{proveedorController.selected.sigla}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:outputLabel value="*" styleClass="textoROJO"/>
+                            <h:outputLabel value="Contacto:" for="contacto" styleClass="textoNEGRO" />
+                            <h:inputText id="contacto" value="#{proveedorController.selected.contacto}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:outputLabel value="*" styleClass="textoROJO"/>
+                            <h:outputLabel value="Puesto:" for="puesto" styleClass="textoNEGRO" />
+                            <h:inputText id="puesto" value="#{proveedorController.selected.puesto}" title="siglas" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:outputLabel value=" "/>
+                            <h:outputLabel value="Telefono:" for="telefono" styleClass="textoNEGRO" />
+                            <h:inputText id="telefono" value="#{proveedorController.selected.telefono}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:outputLabel value=" "/>
+                            <h:outputLabel value="Fax:" for="fax" styleClass="textoNEGRO" />
+                            <h:inputText id="fax" value="#{proveedorController.selected.fax}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:outputLabel value="*" styleClass="textoROJO"/>
+                            <h:outputLabel value="Mail:" for="mail" styleClass="textoNEGRO" />
+                            <h:inputText id="mail" value="#{proveedorController.selected.mail}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:outputLabel value=" "/>
+                     </h:panelGrid>
                     </center>
-                <br />
-                </p:panel>
+                    </p:panel>
+                        <br/>
+                        <p:panel header="LOCALIZAC&Oacute;N" >
+                            <center>
+                            <h:panelGrid columns="3" cellspacing="15" >
+                    <h:outputLabel value="Calle:" for="calle" styleClass="textoNEGRO" />
+                    <h:inputText id="calle" value="#{proveedorController.selected.calle}" title="calle" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="Colonia:" for="colonia" styleClass="textoNEGRO" />
+                    <h:inputText id="colonia" value="#{proveedorController.selected.colonia}" title="colonia" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="Ciudad:" for="cd" styleClass="textoNEGRO" />
+                    <h:inputText id="cd" value="#{proveedorController.selected.cd}" title="cp" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="Cp:" for="siglas" styleClass="textoNEGRO" />
+                    <h:inputText id="cp" value="#{proveedorController.selected.cp}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="Zona:" for="zona" styleClass="textoNEGRO" />
+                    <h:inputText id="zona" value="#{proveedorController.selected.zona}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                            </h:panelGrid>
+                    </center>
+                        </p:panel>
+                        <br/><br/>
+                        <p:panel header="CREDITOS">
+                             <center>
+                            <h:panelGrid columns="3" cellspacing="15">
+
+
+                    <h:outputLabel value="Tipo:" for="tipo" styleClass="textoNEGRO" />
+                    <h:inputText id="tipo" value="#{proveedorController.selected.tipo}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value=" "/>
+                    <h:outputLabel value="Credito:" for="credito" styleClass="textoNEGRO" />
+                    <h:inputText id="credito" value="#{proveedorController.selected.credito}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+
+
+                    <h:outputLabel value="Descto:" for="descuento" styleClass="textoNEGRO" />
+                    <h:inputText id="descuento" value="#{proveedorController.selected.descto}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                    <h:outputLabel value="Rfc:" for="rfc" styleClass="textoNEGRO" />
+                    <h:inputText id="rfc" value="#{proveedorController.selected.rfc}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                    <h:outputLabel value="Cta min:" for="CTA_MIN" styleClass="textoNEGRO" />
+                    <h:inputText id="CTA_MIN" value="#{proveedorController.selected.ctaMn}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value=" " />
+                    <h:outputLabel value="Cta div:" for="CTA_DIV" styleClass="textoNEGRO" />
+                    <h:inputText id="CTA_DIV" value="#{proveedorController.selected.ctaDiv}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value=" " />
+                    <h:selectBooleanCheckbox value="Estatus:"  styleClass="textoNEGRO" />
+                    <h:inputText id="estatus" value="#{proveedorController.selected.estatus}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                  </h:panelGrid>
+                                 </center>
+                   </p:panel>
+
+                </p:panel> <!--end-->
                 <br />
                 <br />
                 <p:panel>
