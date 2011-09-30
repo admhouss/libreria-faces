@@ -47,13 +47,15 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
      <ul id="icons" class="ui-widget ui-helper-clearfix">
       <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
       <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
-      <!--<li class="ui-state-default ui-corner-all" title="Mas información">-->
-      <h:commandLink  action="./../index.xhtml" >
+      <li class="ui-state-default ui-corner-all" title="Mas información">
+    <!-- <h:commandLink  action="./../index.xhtml" >
           <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
       </h:commandLink>
-       <!--<a href="Articulo.html">-->
-      <!--<span class="ui-icon ui-icon-info"></span></a>-->
-      <!--</li>-->
+    -->
+      <a href="Articulo.html">
+      <span class="ui-icon ui-icon-info"></span>
+      </a>
+      </li>
       <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
     </ul>
     </td>
@@ -134,23 +136,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         </f:facet>
                          <h:outputText value="#{item.articulo.idTipo.descripcion}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
-                        </f:facet>
-                        <h:commandLink action="#{promocionController.prepareView(item)}" >
-                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
-                        </h:commandLink>
-
-
-                        <h:commandLink action="#{promocionController.prepareEdit(item)}">
-                            <img src="./../resources/iconos/seditar.png" alt="" title="Ver"/>
-                        </h:commandLink>
-
-                        <h:commandLink action="#{promocionController.destroy(item)}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
-                        </h:commandLink>
-                    </p:column>
+                    
                 </p:dataTable>
                       
                     </p:tab>
@@ -175,22 +161,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         </f:facet>
                        <h:outputText value="#{item.articulo.id}"/>
                    </p:column>
-                   <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
-                        </f:facet>
-                        <h:commandLink action="#{impuestoController.prepareView(item)}" >
-                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
-                        </h:commandLink>
-
-                        <h:commandLink action="#{impuestoController.prepareEdit(item)}">
-                            <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
-                        </h:commandLink>
-
-                        <h:commandLink action="#{impuestoController.destroy(item)}" >
-                            <img src="./../resources/iconos/quitar.png" alt="" title="eliminar"/>
-                        </h:commandLink>
-                   </p:column>
+                   
                 </p:dataTable>
 
                     </p:tab>

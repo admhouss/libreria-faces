@@ -355,80 +355,8 @@
   </table>
 </div>
 <div id="apDiv4"><!-- InstanceBeginEditable name="Main" -->
-  <h2>Novedades</h2>
-  <p>&nbsp;</p>
 
-  <!-- acordion -->
-
-
-  <h:form>
-
-       <p:accordionPanel autoHeight="false">
-                    <p:tab title="Libro">
-               <h:panelGroup >
-                   <p:dataGrid value="#{articuloController.listaNovedades}" var="item"  rows="6" paginator="true"  columns="1"
-		   >
-
-
-                    <p:column>
-
-                        <table width="99%" border="0">
-  <tr>
-    <td width="13%" rowspan="8" scope="col">
-       <img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto6.jpg" width="83" height="122" /></td>
-      <td width="79%" class="Titulo_articulo" scope="col">Mediaci&oacute;n y Arbitraje</td>
-
-  </tr>
-  <tr>
-    <td><p><strong>Autor:</strong> Francisco Javier Corjon Gomez</p></td>
-  </tr>
-  <tr>
-      <td><p><strong>Editorial:</strong><h:outputText value="#{item.idIdc.editorial}"/></p></td>
-
-  </tr>
-  <tr>
-      <td><strong>ISBN: </strong><h:outputText value="#{item.idIdc.isbn}"/></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-
-    <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
-      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
-      <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
-     <!-- <li  title="Mas información">
-        <a href="Articulo.html"><span class="ui-icon ui-icon-info"></span></a>
-
-      </li>
-     --> <h:commandLink  action="#{articuloController.prepareView(item,3)}" immediate="true">
-          <img src="#{facesContext.externalContext.request.contextPath}/resources/iconos/sver.png" alt="" title="Ver"/>
-      </h:commandLink>
-      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
-    </ul></td>
-  </tr>
-  <tr></tr>
-  <tr></tr>
-
-</table>
-
-
-
-
-                    </p:column>
-                   </p:dataGrid>
-            </h:panelGroup>
-                    </p:tab>
-                </p:accordionPanel>
-  </h:form>
-
- 
-
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
+    <ui:define name="body"/>
   <!-- Tabs --><!-- InstanceEndEditable -->
   <p>&nbsp;</p>
   <p>&nbsp;</p>
