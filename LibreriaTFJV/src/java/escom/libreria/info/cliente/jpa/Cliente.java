@@ -68,9 +68,10 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTATUS")
     private boolean estatus;
-    @Basic(optional = false)
+    @Basic(optional = true)
     @Column(name = "MODS")
-    private String mods;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date mods;
     @Basic(optional = false)
     @Column(name = "PASSWORD")
     private String password;
@@ -81,6 +82,8 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "RECIBE_INFOR")
     private boolean recibeInfor;
+
+
     @Basic(optional = false)
     @Column(name = "TELEFONO")
     private String telefono;
@@ -101,7 +104,7 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public Cliente(String id, String nombre, String paterno, String materno, String email, boolean estatus, String mods, String password, Date fechaAlta, boolean recibeInfor, String telefono1) {
+    public Cliente(String id, String nombre, String paterno, String materno, String email, boolean estatus, Date mods, String password, Date fechaAlta, boolean recibeInfor, String telefono1) {
         this.id = id;
         this.nombre = nombre;
         this.paterno = paterno;
@@ -114,9 +117,7 @@ public class Cliente implements Serializable {
         this.recibeInfor = recibeInfor;
         this.telefono = telefono1;
     }
-    public boolean isEstatus() {
-        return estatus;
-    }
+   
 
     public boolean isRecibeInfor() {
         return recibeInfor;
@@ -128,6 +129,9 @@ public class Cliente implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+     public boolean isEstatus() {
+        return estatus;
     }
 
     public String getNombre() {
@@ -178,13 +182,15 @@ public class Cliente implements Serializable {
         this.estatus = estatus;
     }
 
-    public String getMods() {
+    public Date getMods() {
         return mods;
     }
 
-    public void setMods(String mods) {
+    public void setMods(Date mods) {
         this.mods = mods;
     }
+
+   
 
     public String getPassword() {
         return password;
@@ -202,13 +208,8 @@ public class Cliente implements Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    public boolean getRecibeInfor() {
-        return recibeInfor;
-    }
-
-    public void setRecibeInfor(boolean recibeInfor) {
-        this.recibeInfor = recibeInfor;
-    }
+    
+    
 
    
 
@@ -271,6 +272,10 @@ public class Cliente implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public void setRecibeInfor(boolean recibeInfor) {
+        this.recibeInfor = recibeInfor;
     }
 
     @Override

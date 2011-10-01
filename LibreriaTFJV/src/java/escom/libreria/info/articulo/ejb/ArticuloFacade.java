@@ -7,6 +7,7 @@ package escom.libreria.info.articulo.ejb;
 
 import escom.libreria.info.articulo.jpa.Articulo;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -17,6 +18,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
+import sun.util.calendar.Gregorian;
 
 /**
  *
@@ -70,7 +72,7 @@ public class ArticuloFacade {
     public List<Articulo> buscarLibro(String titulo, String autor, String editorial, String resumen,String anio) {
               //TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.idIdc.editorial like :editorial and a.idIdc.anio like :anio",Articulo.class)
 
-
+                  editorial="%"+editorial.concat("%");
 
               TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.idIdc.editorial LIKE :editorial or a.idIdc.anio =:anio",Articulo.class)
 
@@ -120,12 +122,21 @@ public class ArticuloFacade {
     }
 
     public List<Articulo> buscarNovedades() {
-          Date date=new Date();
+          Date fechaActual=new Date();
+          fechaActual.getMonth();//obtenemos Mes
+          Calendar fechaA=Calendar.getInstance();
+          fechaA.set(fechaActual.getYear(),fechaActual.getMonth(), 1);
+          Date fechaInicio=fechaA.getTime();
+
 
           //String anio="211"+"-%-%";
       
 
-         TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a ",Articulo.class);
+         TypedQuery<Articulo> query=em.createQuery
+         ("SELECT a FROM Articulo a WHERE a.fechaRegistro >=:fi  AND a.fechaRegistro <=:fa ",Articulo.class)
+                 .setParameter("fa", fechaActual)
+                 .setParameter("fi", fechaInicio);
+
          
           List<Articulo> l=query.getResultList();
           return l;

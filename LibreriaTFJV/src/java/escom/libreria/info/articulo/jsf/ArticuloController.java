@@ -101,7 +101,10 @@ public class ArticuloController implements Serializable {
     }
 
 
-   
+   public String prepareViewVenta(Articulo articulo){
+       current=articulo;
+       return "/articulo/ViewVenta";
+   }
 
 
     public String getAnio() {
@@ -237,6 +240,12 @@ public class ArticuloController implements Serializable {
          
      }
 
+     public String buscarLibroGeneral(){
+         titulo=titulo==null?" ":getTitulo();
+         listaLibros=getFacade().buscarLibro( titulo,  titulo, titulo,  titulo, titulo);
+         return "/busqueda/List";
+     }
+
    
 
     private ArticuloFacade getFacade() {
@@ -285,6 +294,11 @@ public class ArticuloController implements Serializable {
          return ir;
     }
 
+
+    public String prepareLibroBuscar(Articulo p){
+         current=p;
+        return "/busqueda/View";
+    }
     public String prepareLibro(Articulo p){
         current=p;
         return "View";
