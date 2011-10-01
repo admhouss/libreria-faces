@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form id="carritoCompra" styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+            <h2>Carrito de Compra</h2>
+            <br/><br/>
+
+
+            <p:accordionPanel autoHeight="false">
+                
+                <p:tab title="Articulos">
+                    
+                    
+                </p:tab>
+                <p:tab title="Env&iacute;o y Facturaci&oacute;n">
+
+
+                </p:tab>
+                 <p:tab title="Pago">
+
+
+                </p:tab>
+            </p:accordionPanel>
+
+
+
+            </h:panelGroup>
+            </p:panel>
+           
+           
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
