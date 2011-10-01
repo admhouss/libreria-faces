@@ -87,11 +87,25 @@
     <td align="left">
      <ul id="icons" class="ui-widget ui-helper-clearfix">
       <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
-      <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Agregar un comentario">
+          <a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a>
+      </li>
+        <li class="ui-state-default ui-corner-all" title="Ver detalles"  >
+           
+            
+            <h:commandLink  action="#{articuloController.prepareLibro(item)}" immediate="true" styleClass="ui-icon ui-icon-info" style="width:23px;" />
+           
+            
+
+
       
-      <h:commandLink  action="#{articuloController.prepareLibro(item)}">
-          <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
-      </h:commandLink>
+        </li>
+
+
+
+      
+      
+      
 
       
       <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>

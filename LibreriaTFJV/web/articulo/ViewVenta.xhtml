@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="articuloview">
+
+                <br/><br/><br/>
+               
+                       <p:tabView>
+                    <center>
+                        <p:tab title="Descripci&oacute;n General">
+                       <table width="99%" border="0">
+  <tr>
+    <td width="13%" rowspan="8" scope="col">
+       <img src="./../resources/template/imgs/producto6.jpg" width="83" height="122" /></td>
+      <td width="79%" class="Titulo_articulo" scope="col">Mediaci&oacute;n y Arbitraje</td>
+
+  </tr>
+  <tr>
+    <td><p><strong>Autor:</strong> Francisco Javier Corjon Gomez</p></td>
+  </tr>
+  <tr>
+      <td><p><strong>Editorial:</strong><h:outputText value="#{articuloController.selected.idIdc.editorial}"/></p></td>
+
+  </tr>
+  <tr>
+      <td><strong>ISBN: </strong><h:outputText value="#{articuloController.selected.idIdc.isbn}"/></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+
+    <td align="left">
+     <ul id="icons" class="ui-widget ui-helper-clearfix">
+      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Mas información">
+   <span class="ui-icon ui-icon-info">
+
+      <h:commandLink  action="#{articuloController.prepareViewVenta(item)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
+
+
+       </span>
+
+      </li>
+      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+    </ul>
+    </td>
+  </tr>
+  <tr></tr>
+  <tr></tr>
+
+</table>
+
+
+                     
+
+                        </p:tab>
+                        <p:tab title="Detalle">
+                            <h:panelGrid columns="2" cellspacing="15">
+                     <h:outputText value="Unidad:"/>
+                    <h:outputText value="#{articuloController.selected.unidad}" title="unidad"/>
+                    <h:outputText value="Divisa:"/>
+                    <h:outputText value="#{articuloController.selected.divisa}" title="divisa"/>
+                    <h:outputText value="Costo:"/>
+                    <h:outputText value="#{articuloController.selected.costo}" title="costo"/>
+                    <h:outputText value="Precio Unitario:"/>
+                    <h:outputText value="#{articuloController.selected.precioUnitario}" title="precio Unitario:"/>
+                    <h:outputText value="Descripcion:"/>
+                    <h:outputText value="#{articuloController.selected.descripcion}" title="Descripcion"/>
+                    <h:outputText value="Fecha Registro:"/>
+                    <h:outputText value="#{articuloController.selected.fechaRegistro}" title="Fecha Registro">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="Proveedor:"/>
+                    <h:outputText value="#{articuloController.selected.idProveedor.nombre}" title="idProveedor"/>
+
+                   
+                    <h:outputText value="Tipo Articulo:"/>
+                    <h:outputText value="#{articuloController.selected.idTipo.descripcion}" title="idTipo"/>
+                    </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Comentario">
+                            
+                        </p:tab>
+                
+                    </center>
+                       </p:tabView>
+                
+                <br/><br/>
+
+               
+                <br/>  <br/>
+
+
+                
+                <div align="center">
+                    <p:panel >
+
+                        <h:commandButton action="./../index.xhtml" value="VOLVER"/>
+                    </p:panel>
+                </div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
