@@ -70,6 +70,19 @@ public class ClienteFacade  {
        List<Cliente> c= l.getResultList();
        return c;
     }
+  private Cliente cliente;
+    public Cliente buscarUsuario(String usuario, String password) {
+        cliente=null;
+        try{
+         TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.id=:correo AND c.password=:password",Cliente.class)
+        .setParameter("correo",usuario)
+        .setParameter("password", password).setMaxResults(1);
+         cliente=l.getSingleResult();
+        }catch(Exception e){}
+         return cliente;
+
+
+    }
 
 
 }

@@ -106,8 +106,8 @@ public class ClienteController implements Serializable{
 
     public String prepareView(Cliente p) {
        current=p;
-       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+      
+        return "/cliente/View_1";
     }
 
     public String prepareCreate() {
@@ -132,10 +132,13 @@ public class ClienteController implements Serializable{
 
     public String create() {
         try {
+
             if(confirmaCorreo.equals(current.getEmail())){
                 
                  current.setEstatus(true);
                  current.setFechaAlta(new Date());
+                 current.setId(current.getEmail().trim());
+                 current.setMods(new Date());
                  if(getFacade().find(current.getId())==null){
                    getFacade().create(current);
                    JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Cliente").getString("ClienteCreated"));
@@ -162,6 +165,7 @@ public class ClienteController implements Serializable{
 
     public String update() {
         try {
+            current.setMods(new Date());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Cliente").getString("ClienteUpdated"));
             return "View";
