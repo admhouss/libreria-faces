@@ -2,16 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:p="http://primefaces.prime.com.tr/ui"
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
-       <title>  ..:::Libro:::..</title>
+       
+
        <!--<h:outputStylesheet name="css/stylesheet.css"/>-->
        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css" />
        <link href="#{facesContext.externalContext.request.contextPath}/resources/template/css/style.css" rel="stylesheet" type="text/css" />
 
         <link href="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
 
-        <title>..::Libreria::..</title>
+        
         <!-- InstanceEndEditable -->
 <style type="text/css">
 #apDiv1 {
@@ -83,9 +85,9 @@
 
     <h:body>
         <script src="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBar.js" type="text/javascript"/>
-        <h1>
-            <ui:insert name="title">..:::Libreria:::..</ui:insert>
-        </h1>
+       
+            <ui:insert name="title"></ui:insert>
+        
 
             <ui:insert name="body">
 
@@ -96,24 +98,44 @@
 
 <div id="apDiv1">
   <h2>&nbsp;</h2>
+  <h:form id="loginAcces">
   <table width="90%" border="0" align="right">
     <tr>
-      <td scope="col"><h3>Log-in </h3></td>
+      <td scope="col">
+       <h3>Log-in </h3>
+      </td>
     </tr>
     <tr>
     <td scope="col">Usuario</td>
   </tr>
   <tr>
-    <td><input name="textfield2" type="text" id="textfield2" size="15" /></td>
+    <td>
+        <h:inputText id="usuario" value="#{sistemaController.usuario}" size="20"/>
+       <!-- <input name="textfield2" type="text" id="textfield2" size="15" />-->
+
+    </td>
   </tr>
   <tr>
     <td>Contraseña</td>
   </tr>
   <tr>
-    <td><input name="textfield3" type="text" id="textfield3" size="15" />
-      <ul id="icons" class="ui-widget ui-helper-clearfix">
-        <li class="ui-state-default ui-corner-all" title="Ingresar"><span class="ui-icon ui-icon-key"></span></li>
-      </ul></td>
+    <td>
+        <h:inputSecret id="password" value="#{sistemaController.password}" size="20"/>
+        <!--<input name="textfield3" type="text" id="textfield3" size="15" />-->
+        
+        <center>
+        <ul id="icons" class="ui-widget ui-helper-clearfix" >
+          <li class="ui-state-default ui-corner-all" style="width:25px;"  title="Ingresar" >
+            <h:commandLink action="#{sistemaController.loginAcces}" styleClass="ui-icon ui-icon-key" title="Ingresar" />
+
+
+
+           
+        </li>
+      </ul>
+     </center>
+               
+    </td>
   </tr>
   <tr>
     <td align="right" class="current_page_item">
@@ -124,6 +146,7 @@
     </td>
   </tr>
 </table>
+  </h:form>
 <p>&nbsp;</p>
 <h2>&nbsp;</h2>
 <h2>&nbsp;</h2>
@@ -252,15 +275,19 @@
       <td scope="col">
 
       <ul id="icons" class="ui-widget ui-helper-clearfix">
-
-          <a href="Busqueda_gral.html"></a>
+          <h:form id="buscarGenerica">
+         
            <li class="ui-state-default ui-corner-all" title="Buscar">
-           <span class="ui-icon ui-icon-search"></span>
-           </li>
-           <li class="ui-state-default ui-corner-all" title="Buscar">
-          <input name="textfield" type="text" id="textfield" size="25" />
+          
+               <h:commandLink action="#{articuloController.buscarLibroGeneral}" immediate="true" styleClass="ui-icon ui-icon-search" style="width:19px"/>
+               
+          
+               <h:inputText value="#{articuloController.titulo}" size="25"/>
+          
 
            </li>
+
+          </h:form>
       </ul>
       </td>
     </tr>
@@ -284,7 +311,7 @@
     <tr>
       <td><table width="99%" border="0">
         <tr>
-          <td align="center"><p><img src="./resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
+          <td align="center"><p><img src="./../resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
         </tr>
         <tr>
           <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
@@ -294,7 +321,8 @@
           <td align="right"><ul id="icons" class="ui-widget ui-helper-clearfix">
            <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
             <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li></a>            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li>
+            </a>            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
           </ul></td>
         </tr>
         <tr></tr>
@@ -358,8 +386,12 @@
   <!--<h2>Novedades</h2>
   <p>&nbsp;</p>
   -->
-
+  <center>
+      <h3><h:outputLabel value="BIENVENIDO #{sistemaController.cliente.nombre}  #{sistemaController.cliente.paterno}  #{sistemaController.cliente.materno}" rendered="#{sistemaController.cliente!=null}"/></h3>
+  </center>
+  <p>&nbsp;</p>
   <!-- acordion -->
+
 
   <ui:insert name="bodyNovedades"/>
 
