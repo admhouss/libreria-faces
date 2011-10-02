@@ -21,13 +21,13 @@
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
 
-                    <h:outputLabel value="#{bundle.CreateAlmacenLabel_existencia}" for="existencia" />
+                    <h:outputLabel value="#{bundle.CreateAlmacenLabel_existencia}" for="existencia" styleClass="textoNEGRO"/>
                     <h:selectBooleanCheckbox id="existencia" value="#{almacenController.selected.existencia}" title="#{bundle.CreateAlmacenTitle_existencia}" required="true" requiredMessage="#{bundle.CreateAlmacenRequiredMessage_existencia}"/>
-                    <h:outputLabel value="#{bundle.CreateAlmacenLabel_enConsigna}" for="enConsigna" />
+                    <h:outputLabel value="#{bundle.CreateAlmacenLabel_enConsigna}" for="enConsigna"styleClass="textoNEGRO" />
                     <h:selectBooleanCheckbox id="enConsigna" value="#{almacenController.selected.enConsigna}" title="#{bundle.CreateAlmacenTitle_enConsigna}" required="true" requiredMessage="#{bundle.CreateAlmacenRequiredMessage_enConsigna}"/>
-                    <h:outputLabel value="#{bundle.CreateAlmacenLabel_enFirme}" for="enFirme" />
+                    <h:outputLabel value="#{bundle.CreateAlmacenLabel_enFirme}" for="enFirme" styleClass="textoNEGRO"/>
                     <h:selectBooleanCheckbox id="enFirme" value="#{almacenController.selected.enFirme}" title="#{bundle.CreateAlmacenTitle_enFirme}" required="true" requiredMessage="#{bundle.CreateAlmacenRequiredMessage_enFirme}"/>
-                    <h:outputLabel value="#{bundle.CreateAlmacenLabel_articulo}" for="articulo" />
+                    <h:outputLabel value="#{bundle.CreateAlmacenLabel_articulo}" for="articulo" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="articulo" value="#{almacenController.selected.articulo}" title="#{bundle.CreateAlmacenTitle_articulo}" required="true" requiredMessage="#{bundle.CreateAlmacenRequiredMessage_articulo}">
                         <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.idTipo.descripcion}"/>
                     </h:selectOneMenu>
