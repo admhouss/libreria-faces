@@ -20,10 +20,10 @@
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
 
-                    <h:outputLabel value="Descuento:" for="montoImpuesto" />
+                    <h:outputLabel value="Descuento:" for="montoImpuesto" styleClass="textoNEGRO" />
                     <h:inputText id="montoImpuesto" value="#{descuentoArticuloController.selected.descuento}" title="descuento" required="true" requiredMessage="#{bundle.CreateImpuestoRequiredMessage_montoImpuesto}"/>
 
-                    <h:outputLabel value="Articulo:" for="articulo" />
+                    <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
                     <h:selectOneMenu id="articulo" value="#{descuentoArticuloController.selected.articulo}" title="#{bundle.CreateImpuestoTitle_articulo}" required="true" requiredMessage="#{bundle.CreateImpuestoRequiredMessage_articulo}">
                         <f:selectItems value="#{articuloController.listArticulos}" itemValue="#{item}" var="item" itemLabel="#{item.idTipo.descripcion}"/>
                     </h:selectOneMenu>
