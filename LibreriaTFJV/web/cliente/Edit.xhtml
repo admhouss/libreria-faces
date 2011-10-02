@@ -16,7 +16,7 @@
             </h:panelGroup>
             <h:form styleClass="jsfcrud_list_form">
 
-                <p:panel header="ACTUALIZANDO CLIENTE">
+                <p:panel header="EDITAR  CLIENTE">
                          <center>
 
                              <h:panelGrid columns="3" cellspacing="7">
@@ -24,46 +24,52 @@
                                   <h:outputLabel value=" "/>
                                  <h:outputLabel value=" "/>
 
-                                 <h:outputLabel value="Direcci&oacute;n de correo:" for="email" styleClass="textoNEGRO"/>
-                                 <h:inputText id="email" value="#{clienteController.selected.email}" title="email" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_email}" size="25"/>
-                                 <h:outputLabel value="*" styleClass="textoROJO"/>
-                                 <h:outputLabel value="Confirmaci&oacute;n de la direcci&oacute;n de correo:" for="cemail" styleClass="textoNEGRO"/>
-                                 <h:inputText id="cemail" value="#{clienteController.confirmaCorreo}" title="confirma email" required="true" requiredMessage="requiere confirma direccion electronica" size="25"/>
-                                 <h:outputLabel value="*" styleClass="textoROJO"/>
+
                                  <h:outputLabel value="Nombre:" for="nombre" styleClass="textoNEGRO"/>
                                  <h:inputText id="nombre" value="#{clienteController.selected.nombre}" title="nombre" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombre}" size="25"/>
                                  <h:outputLabel value="*" styleClass="textoROJO"/>
                                  <h:outputLabel value="Paterno:" for="paterno" styleClass="textoNEGRO"/>
                                  <h:inputText id="paterno" value="#{clienteController.selected.paterno}" title="paterno" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_paterno}" size="25"/>
-                                <h:outputLabel value="*" styleClass="textoROJO"/>
-                    <h:outputLabel value="Materno:" for="materno" styleClass="textoNEGRO"/>
-                    <h:inputText id="materno" value="#{clienteController.selected.materno}" title="materno" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_materno}" size="25"/>
-                    <h:outputLabel value="*" styleClass="textoROJO"/>
-                    <h:outputLabel value="Telefono:" for="telefono" styleClass="textoNEGRO"/>
-                    <h:inputText id="telefono" value="#{clienteController.selected.telefono}" title="telefono" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}" size="25"/>
-                    <h:outputLabel value=" "/>
+                                 <h:outputLabel value="*" styleClass="textoROJO"/>
+                                 <h:outputLabel value="Materno:" for="materno" styleClass="textoNEGRO"/>
+                                 <h:inputText id="materno" value="#{clienteController.selected.materno}" title="materno" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_materno}" size="25"/>
+                                 <h:outputLabel value="*" styleClass="textoROJO"/>
+                                 <h:outputLabel value="Tel&eacute;fono Casa:" for="telefono" styleClass="textoNEGRO"/>
+                                 <h:inputText id="telefono" value="#{clienteController.selected.telefonoList[0].telefono}" title="telefono" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}" size="25"/>
+                                 <h:outputLabel value=" "/>
+                                 <h:outputLabel value="Tel&eacute;fono Oficina:" for="telefonoOficina" styleClass="textoNEGRO"/>
+                                
+                                <h:inputText value="#{clienteController.selected.telefonoList[1].telefono}" size="25"/>
+                                <h:outputLabel value=" " />
+
                     <h:outputLabel value="Fax:" for="fax" styleClass="textoNEGRO"/>
                     <h:inputText id="fax" value="#{clienteController.selected.fax}" title="fax"  size="25"/>
                     <h:outputLabel value=" "/>
-                   
-                    
+
+
+
                     <h:outputLabel value="Password:" for="password" styleClass="textoNEGRO"/>
-                    <p:password feedback="true" id="password" value="#{clienteController.selected.password}" title="password}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_password}" size="25" minLength="3"/>
+                    <p:password feedback="true" id="password" value="#{clienteController.selected.password}" title="password" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_password}" size="25" minLength="3"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
 
                     <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="estado" value="#{clienteController.selected.idEstado}" title="estado}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_estado}">
+                    <h:selectOneMenu id="estado" value="#{clienteController.selected.estado}" title="estado" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_estado}">
                         <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}"  itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value=" "/>
 
                 </h:panelGrid>
-                    </center>
+                             <h:selectBooleanCheckbox value="#{clienteController.selected.recibeInfor}" id="recibe"/>
+                    <h:outputLabel style="font-size:12px"  value="S&iacute;, deseo recibir informaci&oacute;n en mi correo acerca de la Librer&iacute;a Virtual - TFJFA" for="recibe" styleClass="textoNEGRO"/>
+
+                         </center>
+
             </p:panel>
                 <br />
                 <br/>
                 <p:panel>
                     <div align="center">
+
                         <h:commandButton action="#{clienteController.update}" value="Guardar" />
                     </div>
                 </p:panel>

@@ -19,31 +19,27 @@
               <p:accordionPanel autoHeight="false" >
                   <p:tab title="VER CLIENTE">
 
-                      
+
                             <center>
                       <h:panelGrid columns="2" cellspacing="12">
-                    
+
                     <h:outputText value="Nombre:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.nombre} #{clienteController.selected.paterno} #{clienteController.selected.materno}" title="#{bundle.ViewClienteTitle_nombre}"/>
-                   
+                    <h:outputText value="#{clienteController.selected.nombre} #{clienteController.selected.paterno} #{clienteController.selected.materno}" title="nombre}"/>
+
                     <h:outputText value="Telefono:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.telefono}" title="#{bundle.ViewClienteTitle_telefono}"/>
+                    <h:outputText value=" " title="telefono"/>
                     <h:outputText value="Fax:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.fax}" title="#{bundle.ViewClienteTitle_fax}"/>
+                    <h:outputText value="#{clienteController.selected.fax}" title="fax"/>
                     <h:outputText value="Email:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.email}" title="#{bundle.ViewClienteTitle_email}"/>
-                    <h:outputText value="Estatus:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.estatus}" title="#{bundle.ViewClienteTitle_estatus}"/>
-                    <h:outputText value="Mod:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.mods}" title="#{bundle.ViewClienteTitle_mod}"/>
+                    <h:outputText value="#{clienteController.selected.id}" title="email"/>
                     <h:outputText value="Password:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.password}" title="#{bundle.ViewClienteTitle_password}"/>
+                    <h:outputText value="#{clienteController.selected.password}" title="password"/>
                     <h:outputText value="Fecha Alta:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.fechaAlta}" title="#{bundle.ViewClienteTitle_fechaAlta}">
+                    <h:outputText value="#{clienteController.selected.fechaAlta}" title="fechaAlta">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
                     <h:outputText value="Estado:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.idEstado.nombre}" title="#{bundle.ViewClienteTitle_estado}"/>
+                    <h:outputText value="#{clienteController.selected.estado.nombre}" title="estado"/>
                 </h:panelGrid>
                   </center>
 
@@ -54,13 +50,13 @@
 
                <div align="center">
                     <p:panel>
-                        <h:commandButton action="#{clienteController.prepareList(1)}" value="Volver"/>
-                       
+                        <h:commandButton action="#{clienteController.prepareList(1)}" value="VOLVER"/>
 
-                        
+
+
                     </p:panel>
                 </div>
-              
+
 
             </h:form>
         </ui:define>
