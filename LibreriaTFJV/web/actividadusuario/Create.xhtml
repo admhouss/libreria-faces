@@ -19,9 +19,9 @@
                 <p:panel header="ALTA ACTIVIDAD USUARIO">
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
-                   
+
                     
-                    <h:outputLabel value="#{bundle.CreateActividadusuarioLabel_fecha}" for="fecha" />
+                        <h:outputLabel value="fecha" for="fecha"  styleClass="textoNEGRO" />
                     <p:calendar id="fecha" value="#{actividadusuarioController.selected.fecha}" title="#{bundle.CreateActividadusuarioTitle_fecha}" required="true" requiredMessage="#{bundle.CreateActividadusuarioRequiredMessage_fecha}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </p:calendar>
