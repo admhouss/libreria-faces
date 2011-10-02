@@ -79,7 +79,7 @@ public class PublicacionController implements Serializable{
     }
 
     public String prepareList() {
-        recreateModel();
+        
         return "/publicacion/List";
     }
 

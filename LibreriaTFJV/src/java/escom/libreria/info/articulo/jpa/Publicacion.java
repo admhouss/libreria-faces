@@ -7,17 +7,17 @@ package escom.libreria.info.articulo.jpa;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -76,8 +76,12 @@ public class Publicacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "EDITORIAL")
     private String editorial;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idIdc")
-    private List<Articulo> articuloList;
+    @Lob
+    @Column(name = "ARCHIVO")
+    private byte[] archivo;
+    @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")
+    @ManyToOne
+    private Articulo articulo;
 
     public Publicacion() {
     }
@@ -179,12 +183,20 @@ public class Publicacion implements Serializable {
         this.editorial = editorial;
     }
 
-    public List<Articulo> getArticuloList() {
-        return articuloList;
+    public byte[] getArchivo() {
+        return archivo;
     }
 
-    public void setArticuloList(List<Articulo> articuloList) {
-        this.articuloList = articuloList;
+    public void setArchivo(byte[] archivo) {
+        this.archivo = archivo;
+    }
+
+    public Articulo getArticulo() {
+        return articulo;
+    }
+
+    public void setArticulo(Articulo articulo) {
+        this.articulo = articulo;
     }
 
     @Override
@@ -209,7 +221,7 @@ public class Publicacion implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.articulo.Publicacion[idDc=" + idDc + "]";
+        return "escom.libreria.info.articulo.jpa.Publicacion[idDc=" + idDc + "]";
     }
 
 }

@@ -11,15 +11,16 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,8 +47,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Proveedor.findByPuesto", query = "SELECT p FROM Proveedor p WHERE p.puesto = :puesto"),
     @NamedQuery(name = "Proveedor.findByZona", query = "SELECT p FROM Proveedor p WHERE p.zona = :zona"),
     @NamedQuery(name = "Proveedor.findByDescto", query = "SELECT p FROM Proveedor p WHERE p.descto = :descto"),
-    
-    @NamedQuery(name = "Proveedor.findByRfc", query = "SELECT p FROM Proveedor p WHERE p.rfc = :rfc"),
+    @NamedQuery(name = "Proveedor.findByMmod", query = "SELECT p FROM Proveedor p WHERE p.mmod = :mmod"),
+   
     @NamedQuery(name = "Proveedor.findByCp", query = "SELECT p FROM Proveedor p WHERE p.cp = :cp"),
     @NamedQuery(name = "Proveedor.findByCtaMn", query = "SELECT p FROM Proveedor p WHERE p.ctaMn = :ctaMn"),
     @NamedQuery(name = "Proveedor.findByCtaDiv", query = "SELECT p FROM Proveedor p WHERE p.ctaDiv = :ctaDiv"),
@@ -75,22 +76,17 @@ public class Proveedor implements Serializable {
     private String cd;
     @Column(name = "CONTACTO")
     private String contacto;
-    @Basic(optional = false)
     @Column(name = "TIPO")
     private String tipo;
-    @Basic(optional = false)
     @Column(name = "CREDITO")
     private BigDecimal credito;
-    @Basic(optional = false)
     @Column(name = "TELEFONO")
     private String telefono;
-    @Basic(optional = false)
     @Column(name = "FAX")
     private String fax;
     @Basic(optional = false)
     @Column(name = "MAIL")
     private String mail;
-    @Basic(optional = false)
     @Column(name = "PUESTO")
     private String puesto;
     @Basic(optional = false)
@@ -103,16 +99,12 @@ public class Proveedor implements Serializable {
     @Column(name = "MMOD")
     @Temporal(TemporalType.TIMESTAMP)
     private Date mmod;
-    @Basic(optional = false)
-    @Column(name = "RFC")
-    private String rfc;
+    
     @Basic(optional = false)
     @Column(name = "CP")
     private String cp;
-    @Basic(optional = false)
     @Column(name = "CTA_MN")
     private String ctaMn;
-    @Basic(optional = false)
     @Column(name = "CTA_DIV")
     private String ctaDiv;
     @Basic(optional = false)
@@ -125,9 +117,11 @@ public class Proveedor implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTATUS")
     private boolean estatus;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProveedor")
+    @JoinTable(name = "proveedor_articulo", joinColumns = {
+        @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")})
+    @ManyToMany
     private List<Articulo> articuloList;
-   
 
     public Proveedor() {
     }
@@ -136,36 +130,23 @@ public class Proveedor implements Serializable {
         this.id = id;
     }
 
-    public Proveedor(Integer id, String nombre, String calle, String colonia, String cd, String tipo, BigDecimal credito, String telefono, String fax, String mail, String puesto, String zona, String descto, Date mod, String rfc, String cp, String ctaMn, String ctaDiv, String sigla, Date fechaAlta, boolean estatus) {
+    public Proveedor(Integer id, String nombre, String calle, String colonia, String cd, String mail, String zona, String descto, Date mmod, String cp, String sigla, Date fechaAlta, boolean estatus) {
         this.id = id;
         this.nombre = nombre;
         this.calle = calle;
         this.colonia = colonia;
         this.cd = cd;
-        this.tipo = tipo;
-        this.credito = credito;
-        this.telefono = telefono;
-        this.fax = fax;
         this.mail = mail;
-        this.puesto = puesto;
         this.zona = zona;
         this.descto = descto;
-        this.mmod = mod;
-        this.rfc = rfc;
+        this.mmod = mmod;
+       
         this.cp = cp;
-        this.ctaMn = ctaMn;
-        this.ctaDiv = ctaDiv;
         this.sigla = sigla;
         this.fechaAlta = fechaAlta;
         this.estatus = estatus;
     }
-public Date getMmod() {
-        return mmod;
-    }
 
-    public void setMmod(Date mmod) {
-        this.mmod = mmod;
-    }
     public Integer getId() {
         return id;
     }
@@ -278,17 +259,15 @@ public Date getMmod() {
         this.descto = descto;
     }
 
-    
-
-    
-
-    public String getRfc() {
-        return rfc;
+    public Date getMmod() {
+        return mmod;
     }
 
-    public void setRfc(String rfc) {
-        this.rfc = rfc;
+    public void setMmod(Date mmod) {
+        this.mmod = mmod;
     }
+
+    
 
     public String getCp() {
         return cp;
@@ -346,7 +325,6 @@ public Date getMmod() {
         this.articuloList = articuloList;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;

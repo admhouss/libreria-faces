@@ -55,7 +55,7 @@ public class CarritoController {
          return carritoCompraTemporalLocal;
     }
  public void agregarArticulo(Articulo articulo){
-      
+          carritoCompraTemporalLocal=ObtenerCarrito();
          carritoCompraTemporalLocal.addArticulo(articulo);
          JsfUtil.addSuccessMessage("Articulo agregado Satisfactoriamente");
     }

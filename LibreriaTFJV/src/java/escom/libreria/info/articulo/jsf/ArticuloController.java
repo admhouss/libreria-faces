@@ -7,6 +7,7 @@ import escom.libreria.info.articulo.ejb.ArticuloFacade;
 import escom.libreria.info.articulo.jpa.Promocion;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
@@ -328,6 +329,7 @@ public class ArticuloController implements Serializable {
 
     public String create() {
         try {
+            current.setFechaRegistro(new Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(("Articulo Created"));
             return prepareView(current,1);
