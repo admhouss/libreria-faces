@@ -127,7 +127,13 @@
   <tr>
 
     <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
-      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito">
+
+          <h:commandLink action="#{carritoController.agregarArticulo(item)}">
+              <span class="ui-icon ui-icon-cart"></span>
+          </h:commandLink>
+
+      </li>
       <li class="ui-state-default ui-corner-all" title="Agregar un comentario">
           <a href="Articulo.html">
               <span class="ui-icon ui-icon-comment"></span>
