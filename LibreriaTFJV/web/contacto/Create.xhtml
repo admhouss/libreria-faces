@@ -20,15 +20,15 @@
                     <center>
                         <h:panelGrid columns="2" cellspacing="15">
                    
-                    <h:outputLabel value="#{bundle.CreateContactoLabel_nombre}" for="nombre" />
+                    <h:outputLabel value="#{bundle.CreateContactoLabel_nombre}" for="nombre" styleClass="textoNEGRO" />
                     <h:inputText id="nombre" value="#{contactoController.selected.nombre}" title="#{bundle.CreateContactoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_nombre}"/>
-                    <h:outputLabel value="#{bundle.CreateContactoLabel_paterno}" for="paterno" />
+                    <h:outputLabel value="#{bundle.CreateContactoLabel_paterno}" for="paterno" styleClass="textoNEGRO" />
                     <h:inputText id="paterno" value="#{contactoController.selected.paterno}" title="#{bundle.CreateContactoTitle_paterno}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_paterno}"/>
-                    <h:outputLabel value="#{bundle.CreateContactoLabel_materno}" for="materno" />
+                    <h:outputLabel value="#{bundle.CreateContactoLabel_materno}" for="materno" styleClass="textoNEGRO" />
                     <h:inputText id="materno" value="#{contactoController.selected.materno}" title="#{bundle.CreateContactoTitle_materno}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_materno}"/>
-                    <h:outputLabel value="#{bundle.CreateContactoLabel_puesto}" for="puesto" />
+                    <h:outputLabel value="#{bundle.CreateContactoLabel_puesto}" for="puesto" styleClass="textoNEGRO"/>
                     <h:inputText id="puesto" value="#{contactoController.selected.puesto}" title="#{bundle.CreateContactoTitle_puesto}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_puesto}"/>
-                    <h:outputLabel value="Cliente:" for="idCliente" />
+                    <h:outputLabel value="Cliente:" for="idCliente" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="idCliente" value="#{contactoController.selected.idCliente}" title="#{bundle.CreateContactoTitle_idCliente}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_idCliente}">
                         <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
