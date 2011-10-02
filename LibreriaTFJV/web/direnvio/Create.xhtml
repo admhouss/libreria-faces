@@ -21,27 +21,27 @@
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
                    
-                    <h:outputLabel value="Atencion:" for="atencion" />
+                    <h:outputLabel value="Atencion:" for="atencion" styleClass="textoNEGRO"/>
                     <h:inputText id="atencion" value="#{direnvioController.selected.atencion}" title="#{bundle.CreateDirenvioTitle_atencion}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_atencion}"/>
-                    <h:outputLabel value="Calle:" for="calle" />
+                    <h:outputLabel value="Calle:" for="calle" styleClass="textoNEGRO"/>
                     <h:inputText id="calle" value="#{direnvioController.selected.calle}" title="#{bundle.CreateDirenvioTitle_calle}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_calle}"/>
-                    <h:outputLabel value="No.Exterior:" for="noExterior" />
+                    <h:outputLabel value="No.Exterior:" for="noExterior" styleClass="textoNEGRO"/>
                     <h:inputText id="noExterior" value="#{direnvioController.selected.noExterior}" title="#{bundle.CreateDirenvioTitle_noExterior}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_noExterior}"/>
-                    <h:outputLabel value="No.Interior:" for="noInterior" />
+                    <h:outputLabel value="No.Interior:" for="noInterior" styleClass="textoNEGRO"/>
                     <h:inputText id="noInterior" value="#{direnvioController.selected.noInterior}" title="#{bundle.CreateDirenvioTitle_noInterior}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_noInterior}"/>
-                    <h:outputLabel value="Colonia:" for="colonia" />
+                    <h:outputLabel value="Colonia:" for="colonia" styleClass="textoNEGRO"/>
                     <h:inputText id="colonia" value="#{direnvioController.selected.colonia}" title="#{bundle.CreateDirenvioTitle_colonia}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_colonia}"/>
-                    <h:outputLabel value="Municipio:" for="delMunicipio" />
+                    <h:outputLabel value="Municipio:" for="delMunicipio" styleClass="textoNEGRO"/>
                     <h:inputText id="delMunicipio" value="#{direnvioController.selected.delMunicipio}" title="#{bundle.CreateDirenvioTitle_delMunicipio}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_delMunicipio}"/>
-                    <h:outputLabel value="Ciudad:" for="ciudad" />
+                    <h:outputLabel value="Ciudad:" for="ciudad" styleClass="textoNEGRO" />
                     <h:inputText id="ciudad" value="#{direnvioController.selected.ciudad}" title="#{bundle.CreateDirenvioTitle_ciudad}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_ciudad}"/>
-                    <h:outputLabel value="Cp:" for="cp" />
+                    <h:outputLabel value="Cp:" for="cp" styleClass="textoNEGRO" />
                     <h:inputText id="cp" value="#{direnvioController.selected.cp}" title="#{bundle.CreateDirenvioTitle_cp}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_cp}"/>
-                    <h:outputLabel value="Referencia:" for="referencia" />
+                    <h:outputLabel value="Referencia:" for="referencia" styleClass="textoNEGRO"/>
                     <h:inputText id="referencia" value="#{direnvioController.selected.referencia}" title="#{bundle.CreateDirenvioTitle_referencia}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_referencia}"/>
-                    <h:outputLabel value="Telefono:" for="telefono" />
+                    <h:outputLabel value="Telefono:" for="telefono" styleClass="textoNEGRO"/>
                     <h:inputText id="telefono" value="#{direnvioController.selected.telefono}" title="#{bundle.CreateDirenvioTitle_telefono}" required="true" requiredMessage="#{bundle.CreateDirenvioRequiredMessage_telefono}"/>
-                    <h:outputLabel value="Cliente:" for="idCliente" />
+                    <h:outputLabel value="Cliente:" for="idCliente" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="idCliente" value="#{direnvioController.selected.idCliente}" title="#{bundle.CreateContactoTitle_idCliente}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_idCliente}">
                         <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
