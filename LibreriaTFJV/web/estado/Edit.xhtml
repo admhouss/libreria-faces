@@ -15,11 +15,11 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <p:panel header="NUEVO ESTADO">
+                <p:panel header="EDITAR ESTADO">
                     <center>
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="#{bundle.CreateEstadoLabel_nombre}" for="nombre" />
+                    <h:outputLabel value="Estado:" for="nombre" />
                     <h:inputText id="nombre" value="#{estadoController.selected.nombre}" title="#{bundle.CreateEstadoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateEstadoRequiredMessage_nombre}"/>
                 </h:panelGrid>
                     </center>
@@ -27,7 +27,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                 <br /><br />
                 <p:panel>
                     <div align="center">
-                        <h:commandButton action="#{estadoController.update}" value="#{bundle.CreateEstadoSaveLink}" />
+                        <h:commandButton action="#{estadoController.update}" value="Guardar" />
                     </div>
                 </p:panel>
 
