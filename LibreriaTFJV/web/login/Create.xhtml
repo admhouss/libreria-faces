@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form id="carritoCompra" styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+            <h1>Mi cuenta</h1>
+            <p>&nbsp;</p>
+
+            
+             <h:panelGroup>
+
+
+                 <p:panel header="Proporciona tus datos: " style="font-size:12px;">
+                     <br/>
+                     <center>
+
+                         <table width="538" border="0" cellpadding="0" cellspacing="0" align="center">
+  <!--<tr>
+    <td width="14" bgcolor="#FFFFFF" >&nbsp;</td>
+    <td colspan="2" bgcolor="#FFFFFF" ><h3>Proporciona tus datos: </h3></td>
+    <td width="97" bgcolor="#FFFFFF" >&nbsp;</td>
+    <td width="146" bgcolor="#FFFFFF" >&nbsp;</td>
+    <td width="17" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  -->
+  <tr>
+    <td colspan="6" bgcolor="#FFFFFF" >&nbsp;</td>
+    </tr>
+  <tr>
+    <td bgcolor="#FFFFFF" >&nbsp;</td>
+    <td width="105" bgcolor="#FFFFFF" >&nbsp;&nbsp;E-mail:</td>
+    <td width="159"  > <h:inputText value="#{sistemaController.usuario}" maxlength="10"/></td>
+    <td colspan="2" bgcolor="#FFFFFF" >&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="5" bgcolor="#FFFFFF" ></td>
+    <td bgcolor="#FFFFFF" ></td>
+    <td colspan="3" bgcolor="#FFFFFF"></td>
+    <td bgcolor="#FFFFFF"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF" >&nbsp;</td>
+    <td bgcolor="#FFFFFF" >&nbsp;Password:</td>
+    <td bgcolor="#FFFFFF" >   <h:inputSecret value="#{sistemaController.password}"/></td>
+    <td colspan="2" bgcolor="#FFFFFF" >&nbsp;&nbsp;&nbsp;M&aacute;ximo 10 caracteres.</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="6" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF"><h:commandButton value="Entrar" action="#{sistemaController.loginAcces}" immediate="true"/></td>
+    <td bgcolor="#FFFFFF"></td>
+    <td bgcolor="#FFFFFF"></td>
+    <td bgcolor="#FFFFFF"></td>
+  </tr>
+  <tr>
+    <td colspan="6" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="2" bgcolor="#FFFFFF">
+        
+
+         <a href="#" >&iquest;Olvidaste tu password?</a>
+        
+    </td>
+    <td colspan="2" bgcolor="#FFFFFF"><a href="#{facesContext.externalContext.request.contextPath}/faces/cliente/Create.xhtml">Registrarse</a></td>
+    <td bgcolor="#FFFFFF"></td>
+  </tr>
+</table>
+
+
+
+
+                        
+                          </center>
+                 </p:panel>
+
+
+
+            </h:panelGroup>
+           
+           
+           
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

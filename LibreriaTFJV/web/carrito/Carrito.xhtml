@@ -20,11 +20,18 @@
             <h2>Carrito de Compra</h2>
             <br/><br/>
 
-
+            <h:panelGroup>
             <p:accordionPanel autoHeight="false">
                 
                 <p:tab title="Articulos">
-                    
+                    <p:dataTable var="articulo" value="#{carritoCompra.listArticulos}">
+                        <p:column styleClass="ui-state-focus">
+                            <f:facet name="header">
+                                Descripci&oacute;n
+                            </f:facet>
+                         <h:outputText value="#{car.model}" />
+                        </p:column>
+                    </p:dataTable>
                     
                 </p:tab>
                 <p:tab title="Env&iacute;o y Facturaci&oacute;n">
@@ -40,7 +47,7 @@
 
 
             </h:panelGroup>
-            </p:panel>
+           
            
            
         </h:form>
