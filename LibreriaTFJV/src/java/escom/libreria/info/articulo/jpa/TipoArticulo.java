@@ -39,9 +39,8 @@ public class TipoArticulo implements Serializable {
     @Basic(optional = false)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoArticulo")
     private List<Articulo> articuloList;
-    
 
     public TipoArticulo() {
     }
@@ -78,8 +77,6 @@ public class TipoArticulo implements Serializable {
     public void setArticuloList(List<Articulo> articuloList) {
         this.articuloList = articuloList;
     }
-
-   
 
     @Override
     public int hashCode() {

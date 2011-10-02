@@ -5,13 +5,10 @@
 
 package escom.libreria.info.articulo.jpa;
 
-import escom.libreria.info.proveedor.jpa.Proveedor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,8 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -71,24 +66,9 @@ public class Articulo implements Serializable {
     private Date fechaRegistro;
     @Column(name = "IMAGEN")
     private String imagen;
-    @JoinColumn(name = "ID_IDC", referencedColumnName = "ID_DC")
-    @ManyToOne(optional = false)
-    private Publicacion idIdc;
-    @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Proveedor idProveedor;
     @JoinColumn(name = "ID_TIPO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private TipoArticulo idTipo;
-  
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
-    private DescuentoArticulo descuentoArticulo;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
-    private Impuesto impuesto;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
-    private List<Promocion> promocionList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
-    private Almacen almacen;
+    private TipoArticulo tipoArticulo;
 
     public Articulo() {
     }
@@ -171,64 +151,12 @@ public class Articulo implements Serializable {
         this.imagen = imagen;
     }
 
-    public Publicacion getIdIdc() {
-        return idIdc;
+    public TipoArticulo getTipoArticulo() {
+        return tipoArticulo;
     }
 
-    public void setIdIdc(Publicacion idIdc) {
-        this.idIdc = idIdc;
-    }
-
-    public Proveedor getIdProveedor() {
-        return idProveedor;
-    }
-
-    public void setIdProveedor(Proveedor idProveedor) {
-        this.idProveedor = idProveedor;
-    }
-
-    public TipoArticulo getIdTipo() {
-        return idTipo;
-    }
-
-    public void setIdTipo(TipoArticulo idTipo) {
-        this.idTipo = idTipo;
-    }
-
-   
-
-    
-
-    public DescuentoArticulo getDescuentoArticulo() {
-        return descuentoArticulo;
-    }
-
-    public void setDescuentoArticulo(DescuentoArticulo descuentoArticulo) {
-        this.descuentoArticulo = descuentoArticulo;
-    }
-
-    public Impuesto getImpuesto() {
-        return impuesto;
-    }
-
-    public void setImpuesto(Impuesto impuesto) {
-        this.impuesto = impuesto;
-    }
-
-    public List<Promocion> getPromocionList() {
-        return promocionList;
-    }
-
-    public void setPromocionList(List<Promocion> promocionList) {
-        this.promocionList = promocionList;
-    }
-
-    public Almacen getAlmacen() {
-        return almacen;
-    }
-
-    public void setAlmacen(Almacen almacen) {
-        this.almacen = almacen;
+    public void setTipoArticulo(TipoArticulo tipoArticulo) {
+        this.tipoArticulo = tipoArticulo;
     }
 
     @Override
