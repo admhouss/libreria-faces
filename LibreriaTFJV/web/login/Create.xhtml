@@ -43,7 +43,7 @@
   <tr>
     <td bgcolor="#FFFFFF" >&nbsp;</td>
     <td width="105" bgcolor="#FFFFFF" >&nbsp;&nbsp;E-mail:</td>
-    <td width="159"  > <h:inputText value="#{sistemaController.usuario}" maxlength="10"/></td>
+    <td width="159"  > <h:inputText value="#{sistemaController.usuario}" id="idUsuario" /></td>
     <td colspan="2" bgcolor="#FFFFFF" >&nbsp;</td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
@@ -56,7 +56,7 @@
   <tr>
     <td bgcolor="#FFFFFF" >&nbsp;</td>
     <td bgcolor="#FFFFFF" >&nbsp;Password:</td>
-    <td bgcolor="#FFFFFF" >   <h:inputSecret value="#{sistemaController.password}"/></td>
+    <td bgcolor="#FFFFFF" >   <h:inputSecret value="#{sistemaController.password}" maxlength="10"  id="password"/></td>
     <td colspan="2" bgcolor="#FFFFFF" >&nbsp;&nbsp;&nbsp;M&aacute;ximo 10 caracteres.</td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
@@ -66,7 +66,7 @@
   <tr>
     <td bgcolor="#FFFFFF">&nbsp;</td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><h:commandButton value="Entrar" action="#{sistemaController.loginAcces}" immediate="true"/></td>
+    <td bgcolor="#FFFFFF"><h:commandButton value="Entrar" action="#{sistemaController.loginAcces}"/></td>
     <td bgcolor="#FFFFFF"></td>
     <td bgcolor="#FFFFFF"></td>
     <td bgcolor="#FFFFFF"></td>
