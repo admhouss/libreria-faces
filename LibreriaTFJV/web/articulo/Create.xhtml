@@ -21,22 +21,22 @@
                     <center>
                         <h:panelGrid columns="2" cellspacing="12">
                    
-                    <h:outputLabel value="Unidad:" for="unidad" />
+                    <h:outputLabel value="Unidad:" for="unidad" styleClass="textoNEGRO"/>
                     <h:inputText id="unidad" value="#{articuloController.selected.unidad}" title="unidad" required="true" requiredMessage="RequiredMessage_unidad"/>
-                    <h:outputLabel value="Divisa:" for="divisa" />
+                    <h:outputLabel value="Divisa:" for="divisa" styleClass="textoNEGRO"/>
                     <h:inputText id="divisa" value="#{articuloController.selected.divisa}" title="divisa" required="true" requiredMessage="RequiredMessage_divisa"/>
-                    <h:outputLabel value="Costo:" for="costo" />
+                    <h:outputLabel value="Costo:" for="costo" styleClass="textoNEGRO"/>
                     <h:inputText id="costo" value="#{articuloController.selected.costo}" title="costo" required="true" requiredMessage="RequiredMessage_costo"/>
-                    <h:outputLabel value="Precio Unitario:" for="precioUnitario" />
+                    <h:outputLabel value="Precio Unitario:" for="precioUnitario" styleClass="textoNEGRO"/>
                     <h:inputText id="precioUnitario" value="#{articuloController.selected.precioUnitario}" title="precioUnitario" required="true" requiredMessage="RequiredMessage_precioUnitario"/>
-                    <h:outputLabel value="Descripcion:" for="descripcion" />
+                    <h:outputLabel value="Descripcion:" for="descripcion" styleClass="textoNEGRO" />
                     <h:inputText id="descripcion" value="#{articuloController.selected.descripcion}" title="descripcion" required="true" requiredMessage="RequiredMessage_descripcion"/>
                     
-                    <h:outputLabel value="Proveedor:" for="idProveedor" />
-                    <h:outputLabel value=""/>
+                    <h:outputLabel value="Proveedor:" for="idProveedor" styleClass="textoNEGRO" />
+                    <h:outputLabel value="" styleClass="textoROJO"/>
                    
                    
-                    <h:outputLabel value="Tipo:" for="idTipo" />
+                    <h:outputLabel value="Tipo:" for="idTipo" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="idTipo" value="#{articuloController.selected.tipoArticulo}" title="idTipo" required="true" requiredMessage="RequiredMessage_idTipo">
                         <f:selectItems value="#{tipoArticuloController.listTipoArticulo}" itemValue="#{item}" var="item" itemLabel="#{item.descripcion}"/>
                     </h:selectOneMenu>
