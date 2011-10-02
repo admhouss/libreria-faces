@@ -24,14 +24,46 @@
             <p:accordionPanel autoHeight="false">
                 
                 <p:tab title="Articulos">
-                    <p:dataTable var="articulo" value="#{carritoCompra.listArticulos}">
-                        <p:column styleClass="ui-state-focus">
+                    <center>
+                    <h:dataTable var="articulo" value="#{carritoController.listArticulos}">
+                        <h:column >
                             <f:facet name="header">
-                                Descripci&oacute;n
+                                <h:outputLabel value="Descripci&oacute;n" styleClass="ui-state-focus"/>
                             </f:facet>
-                         <h:outputText value="#{car.model}" />
-                        </p:column>
-                    </p:dataTable>
+                            <h:outputText value="hola" />
+                       </h:column>
+                        <h:column >
+                            <f:facet name="header">
+                                <h:outputLabel value="Descripci&oacute;n" styleClass="ui-state-focus"/>
+                            </f:facet>
+                            <h:outputText value="#{articulo.descripcion}" />
+                       </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                               <h:outputLabel value="Cantidad" styleClass="ui-state-focus"/>
+                            </f:facet>
+                            <h:outputText value="#{articulo.costo}" />
+                       </h:column>
+                        <h:column >
+                            <f:facet name="header">
+                              <h:outputLabel value="Precio" styleClass="ui-state-focus"/>
+                            </f:facet>
+                            <h:outputText value="#{articulo.costo}" />
+                       </h:column>
+                        <h:column >
+                            <f:facet name="header">
+                                <h:outputLabel value="Desc" styleClass="ui-state-focus"/>
+                            </f:facet>
+                            <h:outputText value="#{articulo.descuentoArticulo.descuento}" />
+                       </h:column>
+                        <h:column >
+                            <f:facet name="header">
+                               <h:outputLabel value="Total" styleClass="ui-state-focus"/>
+                            </f:facet>
+                            <h:outputText value="#{articulo.costo}" />
+                        </h:column>
+                    </h:dataTable>
+                    </center>
                     
                 </p:tab>
                 <p:tab title="Env&iacute;o y Facturaci&oacute;n">
