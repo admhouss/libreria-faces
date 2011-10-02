@@ -5,8 +5,6 @@
 
 package escom.libreria.info.cliente.jpa;
 
-import escom.libreria.info.contacto.jpa.Contacto;
-import escom.libreria.info.contacto.jpa.Direnvio;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,13 +35,10 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Cliente.findByPaterno", query = "SELECT c FROM Cliente c WHERE c.paterno = :paterno"),
     @NamedQuery(name = "Cliente.findByMaterno", query = "SELECT c FROM Cliente c WHERE c.materno = :materno"),
     @NamedQuery(name = "Cliente.findByFax", query = "SELECT c FROM Cliente c WHERE c.fax = :fax"),
-    @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
     @NamedQuery(name = "Cliente.findByEstatus", query = "SELECT c FROM Cliente c WHERE c.estatus = :estatus"),
-    @NamedQuery(name = "Cliente.findByMods", query = "SELECT c FROM Cliente c WHERE c.mods = :mods"),
     @NamedQuery(name = "Cliente.findByPassword", query = "SELECT c FROM Cliente c WHERE c.password = :password"),
     @NamedQuery(name = "Cliente.findByFechaAlta", query = "SELECT c FROM Cliente c WHERE c.fechaAlta = :fechaAlta"),
-    @NamedQuery(name = "Cliente.findByRecibeInfor", query = "SELECT c FROM Cliente c WHERE c.recibeInfor = :recibeInfor"),
-    @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono")})
+    @NamedQuery(name = "Cliente.findByRecibeInfor", query = "SELECT c FROM Cliente c WHERE c.recibeInfor = :recibeInfor")})
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,15 +57,8 @@ public class Cliente implements Serializable {
     @Column(name = "FAX")
     private String fax;
     @Basic(optional = false)
-    @Column(name = "EMAIL")
-    private String email;
-    @Basic(optional = false)
     @Column(name = "ESTATUS")
     private boolean estatus;
-    @Basic(optional = true)
-    @Column(name = "MODS")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date mods;
     @Basic(optional = false)
     @Column(name = "PASSWORD")
     private String password;
@@ -82,20 +69,11 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "RECIBE_INFOR")
     private boolean recibeInfor;
-
-
-    @Basic(optional = false)
-    @Column(name = "TELEFONO")
-    private String telefono;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private Telefono telefonoOficina;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
-    private List<Contacto> contactoList;
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Estado idEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
-    private List<Direnvio> direnvioList;
+    private Estado estado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Telefono> telefonoList;
 
     public Cliente() {
     }
@@ -104,23 +82,15 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public Cliente(String id, String nombre, String paterno, String materno, String email, boolean estatus, Date mods, String password, Date fechaAlta, boolean recibeInfor, String telefono1) {
+    public Cliente(String id, String nombre, String paterno, String materno, boolean estatus, String password, Date fechaAlta, boolean recibeInfor) {
         this.id = id;
         this.nombre = nombre;
         this.paterno = paterno;
         this.materno = materno;
-        this.email = email;
         this.estatus = estatus;
-        this.mods = mods;
         this.password = password;
         this.fechaAlta = fechaAlta;
         this.recibeInfor = recibeInfor;
-        this.telefono = telefono1;
-    }
-   
-
-    public boolean isRecibeInfor() {
-        return recibeInfor;
     }
 
     public String getId() {
@@ -129,9 +99,6 @@ public class Cliente implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-     public boolean isEstatus() {
-        return estatus;
     }
 
     public String getNombre() {
@@ -166,14 +133,6 @@ public class Cliente implements Serializable {
         this.fax = fax;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public boolean getEstatus() {
         return estatus;
     }
@@ -181,16 +140,6 @@ public class Cliente implements Serializable {
     public void setEstatus(boolean estatus) {
         this.estatus = estatus;
     }
-
-    public Date getMods() {
-        return mods;
-    }
-
-    public void setMods(Date mods) {
-        this.mods = mods;
-    }
-
-   
 
     public String getPassword() {
         return password;
@@ -208,50 +157,28 @@ public class Cliente implements Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    
-    
-
-   
-
-    public String getTelefono() {
-        return telefono;
+    public boolean getRecibeInfor() {
+        return recibeInfor;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setRecibeInfor(boolean recibeInfor) {
+        this.recibeInfor = recibeInfor;
     }
 
-    public Telefono getTelefonoOficina() {
-        return telefonoOficina;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setTelefonoOficina(Telefono telefonoOficina) {
-        this.telefonoOficina = telefonoOficina;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
-    
-    public List<Contacto> getContactoList() {
-        return contactoList;
+    public List<Telefono> getTelefonoList() {
+        return telefonoList;
     }
 
-    public void setContactoList(List<Contacto> contactoList) {
-        this.contactoList = contactoList;
-    }
-
-    public Estado getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(Estado idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    public List<Direnvio> getDirenvioList() {
-        return direnvioList;
-    }
-
-    public void setDirenvioList(List<Direnvio> direnvioList) {
-        this.direnvioList = direnvioList;
+    public void setTelefonoList(List<Telefono> telefonoList) {
+        this.telefonoList = telefonoList;
     }
 
     @Override
@@ -272,10 +199,6 @@ public class Cliente implements Serializable {
             return false;
         }
         return true;
-    }
-
-    public void setRecibeInfor(boolean recibeInfor) {
-        this.recibeInfor = recibeInfor;
     }
 
     @Override

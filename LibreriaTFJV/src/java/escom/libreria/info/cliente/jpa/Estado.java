@@ -39,7 +39,7 @@ public class Estado implements Serializable {
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
     private List<Cliente> clienteList;
 
     public Estado() {

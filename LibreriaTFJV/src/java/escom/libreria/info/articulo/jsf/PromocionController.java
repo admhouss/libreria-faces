@@ -83,7 +83,7 @@ public class PromocionController implements Serializable{
        List<Cliente> l= clieteFacade.getListClientesActive();
        List<String> destinatarios=new ArrayList<String>();
        for(Cliente cliente:l)
-       destinatarios.add(cliente.getEmail().trim());
+        destinatarios.add(cliente.getId());
        if(destinatarios.size()>0){
        jMail.enviarCorreo("Hola", "Nueva Promocion de libro"+promocion.getArticulo().getDescripcion(), destinatarios);
         }

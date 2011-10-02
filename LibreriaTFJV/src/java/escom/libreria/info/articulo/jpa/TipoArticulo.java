@@ -39,10 +39,28 @@ public class TipoArticulo implements Serializable {
     @Basic(optional = false)
     @Column(name = "DESCRIPCION")
     private String descripcion;
+     @Basic(optional = false)
+    @Column(name = "SIGLA")
+    private String sigla;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoArticulo")
     private List<Articulo> articuloList;
 
     public TipoArticulo() {
+    }
+
+    public TipoArticulo(Integer id, String descripcion, String sigla, List<Articulo> articuloList) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.sigla = sigla;
+        this.articuloList = articuloList;
+    }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
     }
 
     public TipoArticulo(Integer id) {
@@ -53,6 +71,7 @@ public class TipoArticulo implements Serializable {
         this.id = id;
         this.descripcion = descripcion;
     }
+
 
     public Integer getId() {
         return id;

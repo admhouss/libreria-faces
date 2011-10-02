@@ -41,7 +41,7 @@ public class EstadoController implements Serializable{
     }
 
     public List<Estado> getListEstado(){
-        return getFacade().findAll();
+        return getFacade().getListaEstados();
     }
     private EstadoFacade getFacade() {
         return ejbFacade;
@@ -111,7 +111,8 @@ public class EstadoController implements Serializable{
     }
 
     public String destroy(Estado p) {
-        current =p;// (Estado)getItems().getRowData();
+        current =p;
+        // (Estado)getItems().getRowData();
         //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         //performDestroy();
         //recreateModel();

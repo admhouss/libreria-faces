@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -39,6 +40,7 @@ public class EstadoFacade  {
     public List<Estado> findAll() {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(Estado.class));
+
         return em.createQuery(cq).getResultList();
     }
 
@@ -57,6 +59,12 @@ public class EstadoFacade  {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<Estado> getListaEstados(){
+       TypedQuery<Estado> q=em.createQuery("SELECT e FROM Estado e ORDER BY e.nombre",Estado.class);
+       List<Estado> estados=q.getResultList();
+       return estados;
     }
 
   

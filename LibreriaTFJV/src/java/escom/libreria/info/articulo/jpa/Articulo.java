@@ -8,6 +8,7 @@ package escom.libreria.info.articulo.jpa;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,7 +49,7 @@ public class Articulo implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @Column(name = "UNIDAD")
-    private int unidad;
+    private String unidad;
     @Basic(optional = false)
     @Column(name = "DIVISA")
     private String divisa;
@@ -66,18 +68,30 @@ public class Articulo implements Serializable {
     private Date fechaRegistro;
     @Column(name = "IMAGEN")
     private String imagen;
+    @Column(name = "ARCHIVO")
+    private String archio;
     @JoinColumn(name = "ID_TIPO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private TipoArticulo tipoArticulo;
+    @OneToMany(mappedBy = "articulo")
+    private List<Publicacion> publicacionList;
 
     public Articulo() {
+    }
+
+    public String getArchio() {
+        return archio;
+    }
+
+    public void setArchio(String archio) {
+        this.archio = archio;
     }
 
     public Articulo(Integer id) {
         this.id = id;
     }
 
-    public Articulo(Integer id, int unidad, String divisa, BigDecimal costo, BigDecimal precioUnitario, String descripcion, Date fechaRegistro) {
+    public Articulo(Integer id, String unidad, String divisa, BigDecimal costo, BigDecimal precioUnitario, String descripcion, Date fechaRegistro) {
         this.id = id;
         this.unidad = unidad;
         this.divisa = divisa;
@@ -95,11 +109,11 @@ public class Articulo implements Serializable {
         this.id = id;
     }
 
-    public int getUnidad() {
+    public String getUnidad() {
         return unidad;
     }
 
-    public void setUnidad(int unidad) {
+    public void setUnidad(String unidad) {
         this.unidad = unidad;
     }
 
@@ -157,6 +171,14 @@ public class Articulo implements Serializable {
 
     public void setTipoArticulo(TipoArticulo tipoArticulo) {
         this.tipoArticulo = tipoArticulo;
+    }
+
+    public List<Publicacion> getPublicacionList() {
+        return publicacionList;
+    }
+
+    public void setPublicacionList(List<Publicacion> publicacionList) {
+        this.publicacionList = publicacionList;
     }
 
     @Override

@@ -36,19 +36,20 @@ public class SistemaController implements Serializable {
     }
 
     public void loginAcces(){
-        try {
+       // try {
             if (usuario != null && password != null) {
                 cliente = clienteFacade.buscarUsuario(usuario, password);
-                if (cliente != null) {
-                    // JsfUtil.addSuccessMessage("Bienvenido "+cliente.getNombre()+""+cliente.getPaterno()+" "+cliente.getMaterno());
-                }
+                if(cliente==null)
+                JsfUtil.addErrorMessage("Usuario no identificado ");
+                else{JsfUtil.addSuccessMessage("Usuario identificado");}
+                
             } //usuario no valido
-            JsfUtil.addErrorMessage("Usuario no identificado ");
-            ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
-            external.redirect(external.getRequestContextPath());
-        } catch (IOException ex) {
-            Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+           
+          //  ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
+            //external.redirect(external.getRequestContextPath()+"/faces/index.xhtml");
+        //} catch (IOException ex) {
+          //  Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
+        //}
 
     }
 

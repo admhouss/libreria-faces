@@ -6,14 +6,13 @@
 package escom.libreria.info.cliente.jpa;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,42 +23,39 @@ import javax.persistence.Table;
 @Table(name = "telefono")
 @NamedQueries({
     @NamedQuery(name = "Telefono.findAll", query = "SELECT t FROM Telefono t"),
-    @NamedQuery(name = "Telefono.findById", query = "SELECT t FROM Telefono t WHERE t.id = :id"),
+    @NamedQuery(name = "Telefono.findById", query = "SELECT t FROM Telefono t WHERE t.telefonoPK.id = :id"),
     @NamedQuery(name = "Telefono.findByTelefono", query = "SELECT t FROM Telefono t WHERE t.telefono = :telefono"),
-    @NamedQuery(name = "Telefono.findByDescripcion", query = "SELECT t FROM Telefono t WHERE t.descripcion = :descripcion")})
+    @NamedQuery(name = "Telefono.findByDescripcion", query = "SELECT t FROM Telefono t WHERE t.descripcion = :descripcion"),
+    @NamedQuery(name = "Telefono.findByIdCliente", query = "SELECT t FROM Telefono t WHERE t.telefonoPK.idCliente = :idCliente")})
 public class Telefono implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private String id;
+    @EmbeddedId
+    protected TelefonoPK telefonoPK;
     @Column(name = "TELEFONO")
     private String telefono;
-    @Basic(optional = false)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private Cliente cliente;
 
     public Telefono() {
     }
 
-    public Telefono(String id) {
-        this.id = id;
+    public Telefono(TelefonoPK telefonoPK) {
+        this.telefonoPK = telefonoPK;
     }
 
-    public Telefono(String id, String descripcion) {
-        this.id = id;
-        this.descripcion = descripcion;
+    public Telefono(int id, String idCliente) {
+        this.telefonoPK = new TelefonoPK(id, idCliente);
     }
 
-    public String getId() {
-        return id;
+    public TelefonoPK getTelefonoPK() {
+        return telefonoPK;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTelefonoPK(TelefonoPK telefonoPK) {
+        this.telefonoPK = telefonoPK;
     }
 
     public String getTelefono() {
@@ -89,7 +85,7 @@ public class Telefono implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (telefonoPK != null ? telefonoPK.hashCode() : 0);
         return hash;
     }
 
@@ -100,7 +96,7 @@ public class Telefono implements Serializable {
             return false;
         }
         Telefono other = (Telefono) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.telefonoPK == null && other.telefonoPK != null) || (this.telefonoPK != null && !this.telefonoPK.equals(other.telefonoPK))) {
             return false;
         }
         return true;
@@ -108,7 +104,7 @@ public class Telefono implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.cliente.jpa.Telefono[id=" + id + "]";
+        return "escom.libreria.info.cliente.jpa.Telefono[telefonoPK=" + telefonoPK + "]";
     }
 
 }
