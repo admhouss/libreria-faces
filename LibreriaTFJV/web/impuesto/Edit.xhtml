@@ -20,14 +20,14 @@
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
 
-                    <h:outputLabel value="Impuesto:" for="montoImpuesto" />
+                    <h:outputLabel value="Impuesto:" for="montoImpuesto" styleClass="textoNEGRO"/>
                     <h:inputText id="montoImpuesto" value="#{impuestoController.selected.montoImpuesto}" title="#{bundle.CreateImpuestoTitle_montoImpuesto}" required="true" requiredMessage="#{bundle.CreateImpuestoRequiredMessage_montoImpuesto}"/>
 
-                    <h:outputLabel value="Articulo:" for="articulo" />
+                    <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="articulo" value="#{impuestoController.selected.articulo}" title="#{bundle.CreateImpuestoTitle_articulo}" required="true" requiredMessage="#{bundle.CreateImpuestoRequiredMessage_articulo}">
                         <f:selectItems value="#{articuloController.listArticulos}" itemValue="#{item}" var="item" itemLabel="#{item.idTipo.descripcion}"/>
                     </h:selectOneMenu>
-                     <h:outputLabel value="#{bundle.CreateImpuestoLabel_descripcion}" for="descripcion" />
+                     <h:outputLabel value="#{bundle.CreateImpuestoLabel_descripcion}" for="descripcion" styleClass="textoNEGRO"/>
                      <h:inputTextarea id="descripcion" value="#{impuestoController.selected.descripcion}" title="#{bundle.CreateImpuestoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateImpuestoRequiredMessage_descripcion}"/>
                 </h:panelGrid>
                 </center>
