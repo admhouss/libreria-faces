@@ -31,20 +31,13 @@
                     <h:inputText id="precioUnitario" value="#{articuloController.selected.precioUnitario}" title="precioUnitario" required="true" requiredMessage="RequiredMessage_precioUnitario"/>
                     <h:outputLabel value="Descripcion:" for="descripcion" />
                     <h:inputText id="descripcion" value="#{articuloController.selected.descripcion}" title="descripcion" required="true" requiredMessage="RequiredMessage_descripcion"/>
-                    <h:outputLabel value="Fecha Registro:" for="fechaRegistro" />
-                    <p:calendar id="fechaRegistro" value="#{articuloController.selected.fechaRegistro}" title="fechaRegistro" required="true" requiredMessage="RequiredMessage_fechaRegistro">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </p:calendar>
+                    
                     <h:outputLabel value="Proveedor:" for="idProveedor" />
-                    <h:selectOneMenu id="idProveedor" value="#{articuloController.selected.idProveedor}" title="idProveedor" required="true" requiredMessage="RequiredMessage_idProveedor">
-                        <f:selectItems value="#{proveedorController.listProveedor}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="Publicacion:" for="idIdc" />
-                    <h:selectOneMenu id="idIdc" value="#{articuloController.selected.idIdc}" title="idIdc" required="true" requiredMessage="RequiredMessage_idIdc">
-                        <f:selectItems value="#{publicacionController.listaPublicacion}" itemValue="#{item}" var="item" itemLabel="#{item.epoca}"/>
-                    </h:selectOneMenu>
+                    <h:outputLabel value=""/>
+                   
+                   
                     <h:outputLabel value="Tipo:" for="idTipo" />
-                    <h:selectOneMenu id="idTipo" value="#{articuloController.selected.idTipo}" title="idTipo" required="true" requiredMessage="RequiredMessage_idTipo">
+                    <h:selectOneMenu id="idTipo" value="#{articuloController.selected.tipoArticulo}" title="idTipo" required="true" requiredMessage="RequiredMessage_idTipo">
                         <f:selectItems value="#{tipoArticuloController.listTipoArticulo}" itemValue="#{item}" var="item" itemLabel="#{item.descripcion}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

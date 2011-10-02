@@ -41,9 +41,9 @@
                     
                     <p:column style="width:15px">
                         <f:facet name="header">
-                            <h:outputText value="EDITORIAL"/>
+                            <h:outputText value="CATEGORIA"/>
                         </f:facet>
-                        <h:outputText value="#{item.idIdc.editorial}"/>
+                        <h:outputText value="#{item.tipoArticulo.descripcion}"/>
                     </p:column>
                    
                     <p:column style="width:15px;">
@@ -56,7 +56,7 @@
                         <f:facet name="header">
                             <h:outputText value="PROVEEDOR" style="width:15px;"/>
                         </f:facet>
-                       <h:outputText value="#{item.idProveedor.sigla}"/>
+                       <h:outputText value="XX"/>
                     </p:column>
                     
                   
@@ -65,7 +65,7 @@
                         <f:facet name="header">
                             <h:outputText value="TIPO"/>
                         </f:facet>
-                        <h:outputText value="#{item.idTipo.descripcion}"/>
+                        <h:outputText value="#{item.tipoArticulo.descripcion}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">

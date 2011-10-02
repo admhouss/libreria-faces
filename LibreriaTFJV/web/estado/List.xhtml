@@ -27,7 +27,7 @@
 
                 <p:panel  header="CATALOGO DE ESTADO">
              
-                <p:dataTable value="#{estadoController.listEstado}" var="item" >
+                    <p:dataTable value="#{estadoController.listEstado}" var="item"  paginator="true" rows="7">
                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
