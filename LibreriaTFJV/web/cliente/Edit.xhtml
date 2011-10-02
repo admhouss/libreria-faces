@@ -21,8 +21,8 @@
 
                              <h:panelGrid columns="3" cellspacing="7">
                                  <h:outputLabel value="Los campos con * son requeridos." style="font-size:12px"/>
-                                  <h:outputLabel value=" "/>
-                                 <h:outputLabel value=" "/>
+                                  <h:outputLabel value=" " styleClass="textoROJO"/>
+                                 <h:outputLabel value=" "styleClass="textoROJO"/>
 
 
                                  <h:outputLabel value="Nombre:" for="nombre" styleClass="textoNEGRO"/>
@@ -36,15 +36,15 @@
                                  <h:outputLabel value="*" styleClass="textoROJO"/>
                                  <h:outputLabel value="Tel&eacute;fono Casa:" for="telefono" styleClass="textoNEGRO"/>
                                  <h:inputText id="telefono" value="#{clienteController.selected.telefonoList[0].telefono}" title="telefono" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}" size="25"/>
-                                 <h:outputLabel value=" "/>
+                                 <h:outputLabel value=" " styleClass="textoROJO"/>
                                  <h:outputLabel value="Tel&eacute;fono Oficina:" for="telefonoOficina" styleClass="textoNEGRO"/>
                                 
                                 <h:inputText value="#{clienteController.selected.telefonoList[1].telefono}" size="25"/>
-                                <h:outputLabel value=" " />
+                                <h:outputLabel value=" " styleClass="textoROJO"/>
 
                     <h:outputLabel value="Fax:" for="fax" styleClass="textoNEGRO"/>
                     <h:inputText id="fax" value="#{clienteController.selected.fax}" title="fax"  size="25"/>
-                    <h:outputLabel value=" "/>
+                    <h:outputLabel value=" " styleClass="textoROJO"/>
 
 
 
@@ -56,7 +56,7 @@
                     <h:selectOneMenu id="estado" value="#{clienteController.selected.estado}" title="estado" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_estado}">
                         <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}"  itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value=" "/>
+                    <h:outputLabel value=" "styleClass="textoROJO"/>
 
                 </h:panelGrid>
                              <h:selectBooleanCheckbox value="#{clienteController.selected.recibeInfor}" id="recibe"/>
