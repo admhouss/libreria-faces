@@ -40,11 +40,23 @@ public class CarritoController {
 
     /** Creates a new instance of CarritoController */
     public CarritoController() {
-        if(carritoCompraTemporalLocal==null)
+
+        
+    }
+
+    private CarritoCompraTemporalLocal ObtenerCarrito(){
+         if(carritoCompraTemporalLocal==null){
+            try{
           carritoCompraTemporalLocal=sistemaFacade.getObtenerBandejaTemporal();
+            }catch(Exception e){
+                System.out.println("No carrito creado");
+            }
+        }
+         return carritoCompraTemporalLocal;
     }
  public void agregarArticulo(Articulo articulo){
-          carritoCompraTemporalLocal.addArticulo(articulo);
+      
+         carritoCompraTemporalLocal.addArticulo(articulo);
          JsfUtil.addSuccessMessage("Articulo agregado Satisfactoriamente");
     }
     public void borrarArticulo(Articulo articulo){
@@ -54,6 +66,6 @@ public class CarritoController {
         return carritoCompraTemporalLocal.getListArticulos();
     }
 
-     private CarritoCompraTemporalLocal carritoCompraTemporalLocal;
+     private CarritoCompraTemporalLocal carritoCompraTemporalLocal=ObtenerCarrito();
 
 }

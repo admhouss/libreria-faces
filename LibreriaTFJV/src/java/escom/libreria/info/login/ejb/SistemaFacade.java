@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
 /**
  *
  * @author xxx
@@ -28,6 +27,7 @@ public class SistemaFacade {
             bandeja = (CarritoCompraTemporalLocal) contex.lookup("java:global/LibreriaTFJV/CarritoCompraTemporal!escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal");
             return bandeja;
         } catch (NamingException ex) {
+            ex.printStackTrace();
             System.out.println("No se cargo la bandeja");
           // ex.printStackTrace();
         }
