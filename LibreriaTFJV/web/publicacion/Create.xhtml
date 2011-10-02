@@ -23,27 +23,27 @@
                      <center>
                          <h:panelGrid columns="2" cellspacing="12">
                    
-                    <h:outputLabel value="Periodo Mes:" for="periodoMes" />
+                    <h:outputLabel value="Periodo Mes:" for="periodoMes" styleClass="textoNEGRO"/>
                     <p:calendar id="periodoMes" value="#{publicacionController.selected.periodoMes}" title="#{bundle.CreatePublicacionTitle_periodoMes}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_periodoMes}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </p:calendar>
-                    <h:outputLabel value="Periodo Anio:" for="periodoAnio" />
+                    <h:outputLabel value="Periodo Anio:" for="periodoAnio" styleClass="textoNEGRO"/>
                     <p:calendar id="periodoAnio" value="#{publicacionController.selected.periodoAnio}" title="#{bundle.CreatePublicacionTitle_periodoAnio}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_periodoAnio}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </p:calendar>
-                    <h:outputLabel value="Epoca:" for="epoca" />
+                    <h:outputLabel value="Epoca:" for="epoca" styleClass="textoNEGRO"/>
                     <h:inputText id="epoca" value="#{publicacionController.selected.epoca}" title="#{bundle.CreatePublicacionTitle_epoca}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_epoca}"/>
-                    <h:outputLabel value="Anio:" for="anio" />
+                    <h:outputLabel value="Anio:" for="anio" styleClass="textoNEGRO" />
                     <h:inputText id="anio" value="#{publicacionController.selected.anio}" title="#{bundle.CreatePublicacionTitle_anio}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_anio}"/>
-                    <h:outputLabel value="Numero:" for="numero" />
+                    <h:outputLabel value="Numero:" for="numero" styleClass="textoNEGRO" />
                     <h:inputText id="numero" value="#{publicacionController.selected.numero}" title="#{bundle.CreatePublicacionTitle_numero}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_numero}"/>
-                    <h:outputLabel value="ISSN:" for="issn" />
+                    <h:outputLabel value="ISSN:" for="issn" styleClass="textoNEGRO"/>
                     <h:inputText id="issn" value="#{publicacionController.selected.issn}" title="#{bundle.CreatePublicacionTitle_issn}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_issn}"/>
-                    <h:outputLabel value="ISBN" for="isbn" />
+                    <h:outputLabel value="ISBN" for="isbn" styleClass="textoNEGRO"/>
                     <h:inputText id="isbn" value="#{publicacionController.selected.isbn}" title="#{bundle.CreatePublicacionTitle_isbn}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_isbn}"/>
-                    <h:outputLabel value="Tomo" for="tomo" />
+                    <h:outputLabel value="Tomo" for="tomo" styleClass="textoNEGRO"/>
                     <h:inputText id="tomo" value="#{publicacionController.selected.tomo}" title="#{bundle.CreatePublicacionTitle_tomo}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_tomo}"/>
-                    <h:outputLabel value="Editorial" for="editorial" />
+                    <h:outputLabel value="Editorial" for="editorial" styleClass="textoNEGRO"/>
                     <h:inputText id="editorial" value="#{publicacionController.selected.editorial}" title="#{bundle.CreatePublicacionTitle_editorial}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_editorial}" size="20"/>
                 </h:panelGrid>
                 </center>
