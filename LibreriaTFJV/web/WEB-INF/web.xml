@@ -23,10 +23,10 @@
     </welcome-file-list>
     <error-page>
         <error-code>404</error-code>
-        <location>/index.xhtml</location>
+        <location>/login/Create.xhtml</location>
     </error-page>
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/index.xhtml</location>
+        <location>/login/Create.xhtml</location>
     </error-page>
 </web-app>
