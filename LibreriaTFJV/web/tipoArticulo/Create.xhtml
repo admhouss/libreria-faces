@@ -20,9 +20,10 @@
                 <p:panel header="ALTA TIPO ARTICULO">
                     <center>
                 <h:panelGrid columns="2">
-                   
+                    <h:outputLabel value="Sigla:" for="descripcion" styleClass="textoNEGRO" for="siglas"  />
+                    <h:inputSecret  value="#{tipoArticuloController.selected.sigla}" id="siglas" required="true" requiredMessage="Requiere que captura siglas" size="25"/>
                     <h:outputLabel value="Descripcion:" for="descripcion" styleClass="textoNEGRO"/>
-                    <h:inputText id="descripcion" value="#{tipoArticuloController.selected.descripcion}" title="#{bundle.CreateTipoArticuloTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateTipoArticuloRequiredMessage_descripcion}" size="35"/>
+                    <h:inputText id="descripcion" value="#{tipoArticuloController.selected.descripcion}" title="descripcion" required="true" requiredMessage="descripcion}" size="35"/>
                 </h:panelGrid>
                     </center>
                 </p:panel>

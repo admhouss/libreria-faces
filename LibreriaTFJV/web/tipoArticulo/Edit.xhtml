@@ -17,12 +17,15 @@
             </h:panelGroup>
             <h:form>
                  <br /> <br />
-                <p:panel header="ALTA TIPO ARTICULO">
+                <p:panel header="ACTUALIZAR TIPO ARTICULO">
+                    <center>
                 <h:panelGrid columns="2">
-
-                    <h:outputLabel value="Descripcion:" for="descripcion" />
-                    <h:inputText id="descripcion" value="#{tipoArticuloController.selected.descripcion}" title="#{bundle.CreateTipoArticuloTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateTipoArticuloRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="Sigla:" for="sigla" styleClass="textoNEGRO"   />
+                    <h:inputText  value="#{tipoArticuloController.selected.sigla}" id="sigla" required="true" requiredMessage="Requiere que captura siglas" size="25"/>
+                    <h:outputLabel value="Descripcion:" for="descripcio" styleClass="textoNEGRO" />
+                    <h:inputTextarea id="descripcio" value="#{tipoArticuloController.selected.descripcion}" title="descripcion" required="true" requiredMessage="descripcion}" />
                 </h:panelGrid>
+                    </center>
                 </p:panel>
                 <br />
                  <br />
