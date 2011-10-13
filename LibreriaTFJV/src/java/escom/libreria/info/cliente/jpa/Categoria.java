@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package escom.libreria.info.articulo.jpa;
+package escom.libreria.info.cliente.jpa;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,12 +24,12 @@ import javax.persistence.Table;
  * @author xxx
  */
 @Entity
-@Table(name = "tipo_articulo")
+@Table(name = "categoria")
 @NamedQueries({
-    @NamedQuery(name = "TipoArticulo.findAll", query = "SELECT t FROM TipoArticulo t"),
-    @NamedQuery(name = "TipoArticulo.findById", query = "SELECT t FROM TipoArticulo t WHERE t.id = :id"),
-    @NamedQuery(name = "TipoArticulo.findByDescripcion", query = "SELECT t FROM TipoArticulo t WHERE t.descripcion = :descripcion")})
-public class TipoArticulo implements Serializable {
+    @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
+    @NamedQuery(name = "Categoria.findById", query = "SELECT c FROM Categoria c WHERE c.id = :id"),
+    @NamedQuery(name = "Categoria.findByConcepto", query = "SELECT c FROM Categoria c WHERE c.concepto = :concepto")})
+public class Categoria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,21 +37,21 @@ public class TipoArticulo implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoArticulo")
-    private List<Articulo> articuloList;
+    @Column(name = "CONCEPTO")
+    private String concepto;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
+    private List<Cliente> clienteList;
 
-    public TipoArticulo() {
+    public Categoria() {
     }
 
-    public TipoArticulo(Integer id) {
+    public Categoria(Integer id) {
         this.id = id;
     }
 
-    public TipoArticulo(Integer id, String descripcion) {
+    public Categoria(Integer id, String concepto) {
         this.id = id;
-        this.descripcion = descripcion;
+        this.concepto = concepto;
     }
 
     public Integer getId() {
@@ -62,20 +62,20 @@ public class TipoArticulo implements Serializable {
         this.id = id;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getConcepto() {
+        return concepto;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
     }
 
-    public List<Articulo> getArticuloList() {
-        return articuloList;
+    public List<Cliente> getClienteList() {
+        return clienteList;
     }
 
-    public void setArticuloList(List<Articulo> articuloList) {
-        this.articuloList = articuloList;
+    public void setClienteList(List<Cliente> clienteList) {
+        this.clienteList = clienteList;
     }
 
     @Override
@@ -88,10 +88,10 @@ public class TipoArticulo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoArticulo)) {
+        if (!(object instanceof Categoria)) {
             return false;
         }
-        TipoArticulo other = (TipoArticulo) object;
+        Categoria other = (Categoria) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +100,7 @@ public class TipoArticulo implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.articulo.jpa.TipoArticulo[id=" + id + "]";
+        return "escom.libreria.info.cliente.jpa.Categoria[id=" + id + "]";
     }
 
 }

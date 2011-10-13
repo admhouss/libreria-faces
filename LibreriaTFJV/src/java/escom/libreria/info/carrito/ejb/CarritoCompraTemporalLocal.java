@@ -5,7 +5,9 @@
 
 package escom.libreria.info.carrito.ejb;
 
-import escom.libreria.info.articulo.jpa.Articulo;
+
+import escom.libreria.info.articulo.jpa.Publicacion;
+import escom.libreria.info.carrito.jsf.CarritoDTO;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -15,9 +17,11 @@ import javax.ejb.Local;
  */
 @Local
 public interface CarritoCompraTemporalLocal {
-    public void addArticulo(Articulo articulo);//Agregar un articulo al carrito de compra
-    public void removeArticulo(Articulo articulo); //borra un articulo del carrito de compra
-    public List<Articulo> getListArticulos(); //Retorna una lista de los articulos agregados al carrito
+    public void addPublicacion(Publicacion articulo);//Agregar un articulo al carrito de compra
+    public void removePublicacion(Publicacion articulo); //borra un articulo del carrito de compra
+    public List<CarritoDTO> getListPublicacion(); //Retorna una lista de los articulos agregados al carrito
     public boolean Emtity();//Si la lista esta vacia
+    public int getCount();
+    public CarritoDTO buscarArticulo(Publicacion p);//dado una publicacion retorna su DTO
     
 }

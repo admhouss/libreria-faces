@@ -4,8 +4,7 @@ import escom.libreria.info.cliente.jpa.Cliente;
 import escom.libreria.info.cliente.jsf.util.JsfUtil;
 import escom.libreria.info.cliente.jsf.util.PaginationHelper;
 import escom.libreria.info.cliente.ejb.ClienteFacade;
-import escom.libreria.info.cliente.jpa.Telefono;
-import escom.libreria.info.cliente.jpa.TelefonoPK;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +36,24 @@ public class ClienteController implements Serializable{
     private String confirmaCorreo;
     private int go;
     private List<Cliente> listSeleccionCliente;
+
+    private String telefonoCasa,telefonoOficina;
+
+    public String getTelefonoCasa() {
+        return telefonoCasa;
+    }
+
+    public void setTelefonoCasa(String telefonoCasa) {
+        this.telefonoCasa = telefonoCasa;
+    }
+
+    public String getTelefonoOficina() {
+        return telefonoOficina;
+    }
+
+    public void setTelefonoOficina(String telefonoOficina) {
+        this.telefonoOficina = telefonoOficina;
+    }
    
     public List<Cliente> getListSeleccionCliente() {
         return listSeleccionCliente;
@@ -63,13 +80,7 @@ public class ClienteController implements Serializable{
     public Cliente getSelected() {
         if (current == null) {
             current = new Cliente();
-            current.setTelefonoList(new ArrayList<Telefono>());
-            Telefono t1=new Telefono();
-            t1.setTelefono("");
-            current.getTelefonoList().add(t1);
-            Telefono t2=new Telefono();
-            t2.setTelefono("");
-            current.getTelefonoList().add(t2);
+          
             selectedItemIndex = -1;
         }
 
@@ -118,13 +129,7 @@ public class ClienteController implements Serializable{
 
     public String prepareCreate() {
         current = new Cliente();
-        current.setTelefonoList(new ArrayList<Telefono>());
-        Telefono t1=new Telefono();
-        t1.setTelefono("");
-        current.getTelefonoList().add(t1);
-        Telefono t2=new Telefono();
-        t2.setTelefono("");
-        current.getTelefonoList().add(t2);
+       
 
        
     //    selectedItemIndex = -1;
@@ -154,34 +159,20 @@ public class ClienteController implements Serializable{
                          current.setEstatus(true);
                          current.setFechaAlta(new Date());
                          current.setId(current.getId());
-                         Telefono telefono1= current.getTelefonoList().get(0);
-                         TelefonoPK telefonoPK=new TelefonoPK();//TELEONO 1
-                         telefonoPK.setIdCliente(current.getId());
-                         telefono1.setCliente(current);
-                         telefono1.setDescripcion("Telefono Casa");
-                         telefono1.setTelefono(telefono1.getTelefono());
-                         telefono1.setTelefonoPK(telefonoPK);
-                 
-                             if(current.getTelefonoList().get(1).getTelefono()!=null){
-                                    Telefono telefono2= current.getTelefonoList().get(1);
-                                    TelefonoPK telefonoPK2=new TelefonoPK();//TELEFONO 2
-                                    telefonoPK2.setIdCliente(current.getId());
-                                    telefono2.setCliente(current);
-                                    telefono2.setDescripcion("Telefono Oficina");
-                                    telefono2.setTelefono(telefono2.getTelefono());
-                                    telefono2.setTelefonoPK(telefonoPK2);
-                            }else{current.getTelefonoList().set(1,null);}
-
-                   current.setTelefonoList(current.getTelefonoList());          
-                   getFacade().create(current);
-                   JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Cliente").getString("ClienteCreated"));
-                   return prepareView(current);
+                         current.setModificacion(new Date());
+                         current.setEmail(current.getEmail());
+                         confirmaCorreo="";
+                        getFacade().create(current);
+                        JsfUtil.addSuccessMessage("Cliente creado satisfactoriamente");
+                        return prepareView(current);
                  }else{
                      JsfUtil.addErrorMessage("La cuenta que intenta registrara ,ya existe!");
                      current.setId(" ");
-                     return "Create";
+                     return "/cliente/Create";
                  }
             }
+            setTelefonoCasa("");
+            setTelefonoOficina("");
            JsfUtil.addErrorMessage("El correo y la confirmacion no coinciden");
            return "Create";
         } catch (Exception e) {
@@ -192,15 +183,7 @@ public class ClienteController implements Serializable{
 
     public String prepareEdit(Cliente p) {
        current=p;
-       if(current.getTelefonoList().size()==1){
-         Telefono nuevo=new Telefono();
-         nuevo.setCliente(current);
-         nuevo.setDescripcion("Telefono Oficina");
-         TelefonoPK pk=new TelefonoPK();
-         pk.setIdCliente(current.getId());
-         nuevo.setTelefonoPK(pk);
-         current.getTelefonoList().add(nuevo);
-       }
+      
        
 
        
@@ -208,32 +191,18 @@ public class ClienteController implements Serializable{
     }
 
     public String update() {
-        List <Telefono> telefonos =new ArrayList<Telefono>();
+     //   List <Telefono> telefonos =new ArrayList<Telefono>();
         try {
                      
-                   if(current.getTelefonoList().isEmpty() ){
-                               Telefono t=current.getTelefonoList().get(0);
-                               t.setCliente(current);
-                               t.setDescripcion(t.getDescripcion());
-                               t.setTelefono(t.getTelefono());
-                               t.setTelefonoPK(t.getTelefonoPK());
-                               if(current.getTelefonoList().get(1).getTelefono()!=null){
+               
 
-                                 Telefono t2=current.getTelefonoList().get(1);
-                                 t2=t2==null?new Telefono():t2;
-                                 t2.setCliente(current);
-                                 t2.setDescripcion(t.getDescripcion());
-                                 t2.setTelefono(t2.getTelefono());
-                                 t2.setTelefonoPK(t.getTelefonoPK());
-                               }else{
-                                   current.getTelefonoList().set(1, null);
-                               }
-
-
-                    }
-                   current.setTelefonoList(current.getTelefonoList());
+                   
+          //   current.setTelefonoList(current.getTelefonoList());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("Cliente actializado"));
+            setConfirmaCorreo("");
+                   setTelefonoCasa("");
+                   setTelefonoOficina("");
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Cliente").getString("PersistenceErrorOccured"));

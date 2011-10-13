@@ -7,9 +7,7 @@ package escom.libreria.info.cliente.jpa;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,7 +35,9 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Cliente.findByEstatus", query = "SELECT c FROM Cliente c WHERE c.estatus = :estatus"),
     @NamedQuery(name = "Cliente.findByPassword", query = "SELECT c FROM Cliente c WHERE c.password = :password"),
     @NamedQuery(name = "Cliente.findByFechaAlta", query = "SELECT c FROM Cliente c WHERE c.fechaAlta = :fechaAlta"),
-    @NamedQuery(name = "Cliente.findByRecibeInfor", query = "SELECT c FROM Cliente c WHERE c.recibeInfor = :recibeInfor")})
+    @NamedQuery(name = "Cliente.findByRecibeInfor", query = "SELECT c FROM Cliente c WHERE c.recibeInfor = :recibeInfor"),
+    @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
+    @NamedQuery(name = "Cliente.findByModificacion", query = "SELECT c FROM Cliente c WHERE c.modificacion = :modificacion")})
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -69,11 +68,19 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "RECIBE_INFOR")
     private boolean recibeInfor;
+    @Basic(optional = false)
+    @Column(name = "EMAIL")
+    private String email;
+    @Basic(optional = false)
+    @Column(name = "MODIFICACION")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modificacion;
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Estado estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<Telefono> telefonoList;
+    @JoinColumn(name = "ID_CATEGORIA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Categoria categoria;
 
     public Cliente() {
     }
@@ -82,7 +89,7 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public Cliente(String id, String nombre, String paterno, String materno, boolean estatus, String password, Date fechaAlta, boolean recibeInfor) {
+    public Cliente(String id, String nombre, String paterno, String materno, boolean estatus, String password, Date fechaAlta, boolean recibeInfor, String email, Date modificacion) {
         this.id = id;
         this.nombre = nombre;
         this.paterno = paterno;
@@ -91,6 +98,8 @@ public class Cliente implements Serializable {
         this.password = password;
         this.fechaAlta = fechaAlta;
         this.recibeInfor = recibeInfor;
+        this.email = email;
+        this.modificacion = modificacion;
     }
 
     public String getId() {
@@ -165,6 +174,22 @@ public class Cliente implements Serializable {
         this.recibeInfor = recibeInfor;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getModificacion() {
+        return modificacion;
+    }
+
+    public void setModificacion(Date modificacion) {
+        this.modificacion = modificacion;
+    }
+
     public Estado getEstado() {
         return estado;
     }
@@ -173,12 +198,12 @@ public class Cliente implements Serializable {
         this.estado = estado;
     }
 
-    public List<Telefono> getTelefonoList() {
-        return telefonoList;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setTelefonoList(List<Telefono> telefonoList) {
-        this.telefonoList = telefonoList;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override

@@ -5,7 +5,7 @@
 
 package escom.libreria.info.proveedor.jpa;
 
-import escom.libreria.info.articulo.jpa.Articulo;
+import escom.libreria.info.articulo.jpa.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -16,8 +16,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -48,9 +46,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Proveedor.findByZona", query = "SELECT p FROM Proveedor p WHERE p.zona = :zona"),
     @NamedQuery(name = "Proveedor.findByDescto", query = "SELECT p FROM Proveedor p WHERE p.descto = :descto"),
     @NamedQuery(name = "Proveedor.findByMmod", query = "SELECT p FROM Proveedor p WHERE p.mmod = :mmod"),
-   
+    @NamedQuery(name = "Proveedor.findByRfc", query = "SELECT p FROM Proveedor p WHERE p.rfc = :rfc"),
     @NamedQuery(name = "Proveedor.findByCp", query = "SELECT p FROM Proveedor p WHERE p.cp = :cp"),
-    @NamedQuery(name = "Proveedor.findByCtaMn", query = "SELECT p FROM Proveedor p WHERE p.ctaMn = :ctaMn"),
     @NamedQuery(name = "Proveedor.findByCtaDiv", query = "SELECT p FROM Proveedor p WHERE p.ctaDiv = :ctaDiv"),
     @NamedQuery(name = "Proveedor.findBySigla", query = "SELECT p FROM Proveedor p WHERE p.sigla = :sigla"),
     @NamedQuery(name = "Proveedor.findByFechaAlta", query = "SELECT p FROM Proveedor p WHERE p.fechaAlta = :fechaAlta"),
@@ -99,12 +96,12 @@ public class Proveedor implements Serializable {
     @Column(name = "MMOD")
     @Temporal(TemporalType.TIMESTAMP)
     private Date mmod;
-    
+    @Basic(optional = false)
+    @Column(name = "RFC")
+    private String rfc;
     @Basic(optional = false)
     @Column(name = "CP")
     private String cp;
-    @Column(name = "CTA_MN")
-    private String ctaMn;
     @Column(name = "CTA_DIV")
     private String ctaDiv;
     @Basic(optional = false)
@@ -117,10 +114,7 @@ public class Proveedor implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTATUS")
     private boolean estatus;
-    @JoinTable(name = "proveedor_articulo", joinColumns = {
-        @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "proveedorList")
     private List<Articulo> articuloList;
 
     public Proveedor() {
@@ -130,7 +124,7 @@ public class Proveedor implements Serializable {
         this.id = id;
     }
 
-    public Proveedor(Integer id, String nombre, String calle, String colonia, String cd, String mail, String zona, String descto, Date mmod, String cp, String sigla, Date fechaAlta, boolean estatus) {
+    public Proveedor(Integer id, String nombre, String calle, String colonia, String cd, String mail, String zona, String descto, Date mmod, String rfc, String cp, String sigla, Date fechaAlta, boolean estatus) {
         this.id = id;
         this.nombre = nombre;
         this.calle = calle;
@@ -140,7 +134,7 @@ public class Proveedor implements Serializable {
         this.zona = zona;
         this.descto = descto;
         this.mmod = mmod;
-       
+        this.rfc = rfc;
         this.cp = cp;
         this.sigla = sigla;
         this.fechaAlta = fechaAlta;
@@ -267,7 +261,13 @@ public class Proveedor implements Serializable {
         this.mmod = mmod;
     }
 
-    
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
     public String getCp() {
         return cp;
@@ -275,14 +275,6 @@ public class Proveedor implements Serializable {
 
     public void setCp(String cp) {
         this.cp = cp;
-    }
-
-    public String getCtaMn() {
-        return ctaMn;
-    }
-
-    public void setCtaMn(String ctaMn) {
-        this.ctaMn = ctaMn;
     }
 
     public String getCtaDiv() {
@@ -347,7 +339,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.proveedor.jpa.Proveedor[id=" + id + "]";
+        return "escom.libreria.info.articulo.jpa.Proveedor[id=" + id + "]";
     }
 
 }

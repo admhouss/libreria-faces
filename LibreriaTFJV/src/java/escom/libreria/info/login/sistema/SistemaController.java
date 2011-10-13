@@ -35,21 +35,29 @@ public class SistemaController implements Serializable {
     public SistemaController() {
     }
 
-    public void loginAcces(){
-       // try {
+    public String  loginAcces(){
+        String go="";
+        
             if (usuario != null && password != null) {
                 cliente = clienteFacade.buscarUsuario(usuario, password);
-                if(cliente==null)
-                JsfUtil.addErrorMessage("Usuario no identificado ");
-                else{JsfUtil.addSuccessMessage("Usuario identificado");}
+                if(cliente==null){
+                    JsfUtil.addErrorMessage("Usuario no identificado ");
+                    go="/login/Create";
+                }
+                else{
+                    try {
+                        setUsuario("");
+                        JsfUtil.addSuccessMessage("Usuario identificado");
+                        ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
+                        external.redirect(external.getRequestContextPath() + "/faces/index.xhtml");
+                    } catch (IOException ex) {
+                         Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+               }
                 
             } //usuario no valido
-           
-          //  ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
-            //external.redirect(external.getRequestContextPath()+"/faces/index.xhtml");
-        //} catch (IOException ex) {
-          //  Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
-        //}
+
+        return go;
 
     }
 

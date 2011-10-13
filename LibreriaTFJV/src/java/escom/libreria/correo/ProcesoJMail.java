@@ -44,15 +44,31 @@ public class ProcesoJMail {
     //@EJB nexttech.gal.mail.ejb.ServidorCorreoConfFacade sConfFacade;
 
     public void enviaCorreo(MensajeCorreoDTO mensaje){
-        Properties props = new Properties();
+       Properties props = new Properties();
         props.put("mail.transport.protocol","smntp");
         props.put("mail.host","smtp.mail.yahoo.com");
         props.put("mail.smtp.auth","true");
-       
+
         props.put("mail.smtp.ssl.enable","true");
-      
+               
+
+       /* props.put("mail.transport.protocol","smtp");
+        //props.put("mail.host","smtp.mail.yahoo.com");
+        props.put("mail.host","localhost");//no
+        props.put("mail.smtp.auth","true");
+        props.put("mail.smtp.port","25");//no
+        //props.put("mail.smtp.ssl.enable","true");
+        //servidor
+*/
+        //String from="libreria@libreria-tfjfa.com";
+        //String from ="yamildelgado99@yahoo.com";
+
+
+      // String password=getPassword();
         String from="yamildelgado99@yahoo.com";
 
+      
+      
 
         String password=getPassword();
 
@@ -118,14 +134,15 @@ public class ProcesoJMail {
          
     }
     private String getPassword(){
-             return "refigerador";
+             //return "marlon23";
+            return "refigerador";
          }
          
     public void enviarCorreo(String Asunto,String Cuerpo,List<String> correos) {
     MensajeCorreoDTO mensaje = new MensajeCorreoDTO();
     mensaje.setAsunto(Asunto);
 
-    String cadena="<html><head></head><body><p>"+Cuerpo+"</p>"+"<A HREF=\"http://www.google.com\">Notificacion de correo</A></p></body></html>";
+    String cadena="<html><head></head><body><p>"+Cuerpo+"</p>"+"<A HREF=\"http://www.google.com\">Ver Promocion</A></p></body></html>";
     mensaje.setCuerpo(cadena);
     //mensaje.setAdjuntoList(c);
     
