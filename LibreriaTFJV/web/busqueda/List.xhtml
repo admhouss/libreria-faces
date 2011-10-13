@@ -16,6 +16,8 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
 
+
+
             <br/>
             <br/>
            
@@ -27,21 +29,21 @@
                     <center>
                         <h:panelGrid columns="3" cellspacing="10" cellpadding="12">
                             <h:outputText value="Titulo:" styleClass="textoNEGRO" />
-                            <h:inputText value="#{articuloController.titulo}" size="25"/>
+                            <h:inputText value="#{publicacionController.titulo}" size="25"/>
                             <h:outputText value=""/>
                             <h:outputText value="Autor:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{articuloController.autor}"/>
+                            <h:inputText size="25" value="#{publicacionController.autor}"/>
                             <h:outputText value=""/>
                             <h:outputText value="Editorial:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{articuloController.editorial}" />
+                            <h:inputText size="25" value="#{publicacionController.editorial}" />
                             <h:outputText value=""/>
                             <h:outputText value="Resumen:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{articuloController.resumen}"/>
+                            <h:inputText size="25" value="#{publicacionController.resumen}"/>
                             <h:outputText value=""/>
                             <h:outputText value="A&ntilde;o:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{articuloController.anio}"/>
+                            <h:inputText size="25" value="#{publicacionController.anio}"/>
                             
-                            <h:commandButton value="Buscar" action="#{articuloController.buscar}" />
+                            <h:commandButton value="Buscar" action="#{publicacionController.buscar}" />
                             
                         </h:panelGrid>
                         </center>
@@ -52,10 +54,10 @@
 
 
                 <br/> <br/> <br/>
-                <p:accordionPanel autoHeight="false" rendered="#{articuloController.activate}">
+                <p:accordionPanel autoHeight="false" rendered="#{publicacionController.activate}">
                     <p:tab title="Libro">
                <h:panelGroup >
-                   <p:dataGrid value="#{articuloController.listaLibros}" var="item"  rows="12" paginator="true" effect="true" columns="1"
+                   <p:dataGrid value="#{publicacionController.listPublicacionByBusqueda}" var="item"  rows="12" paginator="true" effect="true" columns="1"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                 rowsPerPageTemplate="9,12,15" >
 
@@ -65,19 +67,19 @@
                         <table width="99%" border="0">
   <tr>
     <td width="13%" rowspan="8" scope="col">
-       <img src="./../resources/template/imgs/producto6.jpg" width="83" height="122" /></td>
-      <td width="79%" class="Titulo_articulo" scope="col">Mediaci&oacute;n y Arbitraje</td>
+        <img src="./../#{item.articulo.imagen}" width="83" height="122" /></td>
+      <td width="79%" class="Titulo_articulo" scope="col"><h:outputText value="#{item.articulo.titulo}"/></td>
 
   </tr>
   <tr>
-    <td><p><strong>Autor:</strong> Francisco Javier Corjon Gomez</p></td>
+      <td><p><strong>Autor:</strong> <h:outputText value="#{item.articulo.creador}"/></p></td>
   </tr>
   <tr>
-      <td><p><strong>Editorial:</strong><h:outputText value="#{item.idIdc.editorial}"/></p></td>
+      <td><p><strong>Editorial:</strong><h:outputText value="#{item.editorial}"/></p></td>
 
   </tr>
   <tr>
-      <td><strong>ISBN: </strong><h:outputText value="#{item.idIdc.isbn}"/></td>
+      <td><strong>ISBN: </strong><h:outputText value="#{item.isbn}"/></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -86,14 +88,22 @@
 
     <td align="left">
      <ul id="icons" class="ui-widget ui-helper-clearfix">
-      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito">
+
+           <h:commandLink action="#{carritoController.agregarArticulo(item)}">
+              <span class="ui-icon ui-icon-cart"></span>
+          </h:commandLink>
+          
+
+      </li>
       <li class="ui-state-default ui-corner-all" title="Agregar un comentario">
           <a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a>
       </li>
         <li class="ui-state-default ui-corner-all" title="Ver detalles"  >
-           
+            <span class="ui-icon ui-icon-info">
             
-            <h:commandLink  action="#{articuloController.prepareLibro(item)}" immediate="true" styleClass="ui-icon ui-icon-info" style="width:23px;" />
+                <h:commandLink  action="#{publicacionController.prepareView(item)}" immediate="true" styleClass="ui-icon ui-icon-info" style="width:23px;" />
+            </span>
            
             
 

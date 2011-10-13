@@ -4,7 +4,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.prime.com.tr/ui">
+     xmlns:p="http://primefaces.prime.com.tr/ui">
+
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
@@ -33,11 +34,11 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
     <td><p><strong>Autor:</strong> Francisco Javier Corjon Gomez</p></td>
   </tr>
   <tr>
-      <td><p><strong>Editorial:</strong><h:outputText value="#{articuloController.selected.idIdc.editorial}"/></p></td>
+      <td><p><strong>Editorial:</strong><h:outputText value="#{articuloController.selected.publicacion.editorial}"/></p></td>
 
   </tr>
   <tr>
-      <td><strong>ISBN: </strong><h:outputText value="#{articuloController.selected.idIdc.isbn}"/></td>
+      <td><strong>ISBN: </strong><h:outputText value="#{articuloController.selected.publicacion.isbn}"/></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -85,11 +86,11 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
                     <h:outputText value="Proveedor:"/>
-                    <h:outputText value="#{articuloController.selected.idProveedor.nombre}" title="#{bundle.ViewArticuloTitle_idProveedor}"/>
+                    <h:outputText value="#{articuloController.selected.proveedor.nombre}" title="#{bundle.ViewArticuloTitle_idProveedor}"/>
 
 
                     <h:outputText value="Tipo Articulo:"/>
-                    <h:outputText value="#{articuloController.selected.idTipo.descripcion}" title="#{bundle.ViewArticuloTitle_idTipo}"/>
+                    <h:outputText value="#{articuloController.selected.tipoArticulo.descripcion}" title="#{bundle.ViewArticuloTitle_idTipo}"/>
                     </h:panelGrid>
                         </p:tab>
                         <p:tab title="Comentario">
@@ -103,7 +104,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                 <div align="center">
                     <p:panel >
 
-                        <h:commandButton action="/busqueda/List" value="VOLVER"/>
+                        <h:commandButton action="/busqueda/ListCategoria" value="VOLVER"/>
                     </p:panel>
                 </div>
 
