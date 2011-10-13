@@ -10,11 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -43,7 +40,6 @@ import javax.persistence.TemporalType;
 public class Publicacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_DC")
     private Integer idDc;
@@ -76,11 +72,8 @@ public class Publicacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "EDITORIAL")
     private String editorial;
-    @Lob
-    @Column(name = "ARCHIVO")
-    private byte[] archivo;
     @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Articulo articulo;
 
     public Publicacion() {
@@ -181,14 +174,6 @@ public class Publicacion implements Serializable {
 
     public void setEditorial(String editorial) {
         this.editorial = editorial;
-    }
-
-    public byte[] getArchivo() {
-        return archivo;
-    }
-
-    public void setArchivo(byte[] archivo) {
-        this.archivo = archivo;
     }
 
     public Articulo getArticulo() {

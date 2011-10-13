@@ -5,8 +5,10 @@ import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.ArticuloFacade;
 import escom.libreria.info.articulo.jpa.Promocion;
+import escom.libreria.info.articulo.jpa.TipoArticulo;
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -38,12 +40,13 @@ public class ArticuloController implements Serializable {
     @EJB private escom.libreria.info.articulo.ejb.PromocionFacade promocionFacade;
     @EJB private escom.libreria.info.articulo.ejb.DescuentoArticuloFacade  descuentoFacade;
     @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
+    @EJB private escom.libreria.info.articulo.ejb.TipoArticuloFacade tipoArticuloejbFacade;
     
 
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private int formward;//local
-    private String anio,titulo,editorial,resumen,autor,general;
+   
     private String catego;
     private String categoria;
     private int opc=-1;
@@ -92,14 +95,7 @@ public class ArticuloController implements Serializable {
 
 
 
-    public String getGeneral() {
-        return getFacade().getCategoria(opc);
-        
-    }
-
-    public void setGeneral(String general) {
-        this.general = general;
-    }
+    
 
 
    public String prepareViewVenta(Articulo articulo){
@@ -108,45 +104,15 @@ public class ArticuloController implements Serializable {
    }
 
 
-    public String getAnio() {
-        return anio;
-    }
+    
 
-    public void setAnio(String anio) {
-        this.anio = anio;
-    }
+    
 
-    public String getAutor() {
-        return autor;
-    }
+    
 
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
+    
 
-    public String getEditorial() {
-        return editorial;
-    }
-
-    public void setEditorial(String editorial) {
-        this.editorial = editorial;
-    }
-
-    public String getResumen() {
-        return resumen;
-    }
-
-    public void setResumen(String resumen) {
-        this.resumen = resumen;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+    
     
 
 
@@ -163,89 +129,37 @@ public class ArticuloController implements Serializable {
         return current;
     }
    
-    private List<Articulo> listaLibros; //para vender
-    private List<Articulo> listaNovedades;//principal cuando se carga la pagina
+   
+ 
 
-    public List<Articulo> getListaNovedades() {
-          if(listaNovedades==null){
-             listaNovedades=getFacade().buscarNovedades();
-           }
-        return listaNovedades;
-    }
-
-    public void setListaNovedades(List<Articulo> listaNovedades) {
-        this.listaNovedades = listaNovedades;
-    }
-
-
-    public List<Articulo> getListLibroByCategoria(){
-
-           listaLibros=getFacade().buscarLibroByCategoria(opc);
-           categoria=getFacade().getCategoria(opc);
-          
-           return listaLibros;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public boolean isActivate(){
-
-        return (listaLibros==null || listaLibros.isEmpty())?false:true;
-
-         /*if(listaLibros==null || listaLibros.isEmpty()){
-            return false;//no muestres el panel
-         }
-
-         return true;
-          * *
-          */
-    }
-    public List<Articulo> getListaLibros() {
-      //      if(listaLibros==null )
-        //   listaLibros=getFacade().findAll();
-
-
-        
-        return listaLibros;
-    }
-
-    public void setListaLibros(List<Articulo> listaLibros) {
-        this.listaLibros = listaLibros;
-    }
-
-    private void limpiarVariables(){
+    /*private void limpiarVariables(){
        setAnio("");setAutor("");
        setEditorial("");setResumen("");setTitulo("");
      
-    }
-     public String buscar(){
+    }*/
+    /* public String buscar(){
         anio=anio==null?" ":getAnio().trim();
         titulo=titulo==null?" ":getTitulo();
         editorial=editorial==null?" ":getEditorial();
         autor=autor==null?" ":getAutor();
         resumen=resumen==null?" ":getResumen(); 
-        listaLibros= getFacade().buscarLibro(titulo,autor,editorial,resumen,anio);
+        listaLibros= getFacade().buscarLibro(editorial,editorial,editorial,editorial,editorial);
         limpiarVariables();
         return "List";
-    }
+    }*/
 
-     public String buscarGeneral(){
+    /* public String buscarGeneral(){
          general=general==null?" ":getGeneral().trim();
          return "#";
          
-     }
+     }*/
 
-     public String buscarLibroGeneral(){
+     /*public String buscarLibroGeneral(){
          titulo=titulo==null?" ":getTitulo();
-         listaLibros=getFacade().buscarLibro( titulo,  titulo, titulo,  titulo, titulo);
+         editorial=editorial==null?"":getEditorial();
+         listaLibros=getFacade().buscarLibro(editorial,editorial ,editorial, editorial, editorial);
          return "/busqueda/List";
-     }
+     }*/
 
    
 
@@ -280,7 +194,7 @@ public class ArticuloController implements Serializable {
     }
 
     public String prepareList() {
-        String ir=null;
+       /* String ir=null;
         if(formward==1){
         recreateModel();
         return "List";
@@ -292,7 +206,8 @@ public class ArticuloController implements Serializable {
              ir="/promocion/Edit";
         }
         
-         return ir;
+         return ir;*/
+        return "/articulo/List";
     }
 
 
@@ -305,34 +220,52 @@ public class ArticuloController implements Serializable {
         return "View";
     }
 
-    public String prepareView(Articulo p,int go) {
+    public String prepareView(Articulo p) {
       current=p;
-      formward=go;
+      current.setProveedorList(current.getProveedorList());
       
-      if(go==1){
-          promController.setListPromocion(promocionFacade.buscarPromocionByarticulo(p));
-          impuestoController.setListaImpuesto(impuestoFacade.buscarImpuestoByarticulo(p));
+     // formward=go;
+      
+     // if(go==1){
+          //promController.setListPromocion(promocionFacade.buscarPromocionByarticulo(p));
+          //impuestoController.setListaImpuesto(impuestoFacade.buscarImpuestoByarticulo(p));
 
           return "/articulo/View";
-       }
-      else if(go==2)
-        return "./../articulo/View.xhtml";
-      else
-         return "/face/articulo/View.xhtml";
+       //}
+      //else if(go==2)
+        //return "./../articulo/View.xhtml";
+      //else
+        // return "/face/articulo/View.xhtml";
     }
 
     public String prepareCreate() {
         current = new Articulo();
         selectedItemIndex = -1;
-        return "Create";
+        return "/articulo/Create";
     }
 
     public String create() {
         try {
+            current.setAsunto(current.getAsunto());
+            current.setArchivo(current.getArchivo());
+            current.setAgregacionRecurso(current.getAgregacionRecurso());
+            current.setCodigo(current.getCodigo());
+            current.setCosto(current.getCosto());
+            current.setCreador(current.getCreador());
+            current.setDescripcion(current.getDescripcion());
+            //current.setDescuentoArticulo(current.getDescuentoArticulo());
+            current.setModUpdate(new  Date());
             current.setFechaRegistro(new Date());
-            getFacade().create(current);
+            current.setFechaCreacion(current.getFechaCreacion());
+            current.setFormato(current.getFormato());
+            current.setFormatoDigital(current.getFormatoDigital());
+            current.setProveedorList(current.getProveedorList());
+
+
+            
+             getFacade().create(current);
             JsfUtil.addSuccessMessage(("Articulo Created"));
-            return prepareView(current,1);
+            return prepareView(current);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -347,6 +280,7 @@ public class ArticuloController implements Serializable {
 
     public String update() {
         try {
+            current.setTipoArticulo(current.getTipoArticulo());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("Articulo Updated"));
             return "View";
