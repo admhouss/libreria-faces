@@ -19,20 +19,19 @@
                        <p:panel header="VER PROMOCION">
                             <center>
                                 <h:panelGrid columns="2" cellspacing="15">
-                    <h:outputText value="Articulo:"/>
-                    <h:outputText value="#{promocionController.selected.articulo.idTipo.descripcion}" title="#{bundle.ViewPromocionTitle_promocionPK_idArticulo}"/>
-                   
-                    <h:outputText value="Precio Publico"/>
-                    <h:outputText value="#{promocionController.selected.precioPublico}" title="#{bundle.ViewPromocionTitle_precioPublico}"/>
-                    <h:outputText value="Dia Inicio:"/>
-                    <h:outputText value="#{promocionController.selected.diaInicio}" title="#{bundle.ViewPromocionTitle_diaInicio}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                    <h:outputText value="Dia Fin:"/>
-                    <h:outputText value="#{promocionController.selected.diaFin}" title="#{bundle.ViewPromocionTitle_diaFin}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                </h:panelGrid>
+                                    <h:outputText value="Articulo:" styleClass="textoNEGRO"/>
+                                    <h:outputText value="#{promocionController.selected.articulo.titulo}" title="#{bundle.ViewPromocionTitle_promocionPK_idArticulo}"/>
+                                    <h:outputText value="Precio Publico" styleClass="textoNEGRO"/>
+                                    <h:outputText value="#{promocionController.selected.precioPublico}" title="#{bundle.ViewPromocionTitle_precioPublico}"/>
+                                    <h:outputText value="Dia Inicio:" styleClass="textoNEGRO"/>
+                                    <h:outputText value="#{promocionController.selected.diaInicio}" title="#{bundle.ViewPromocionTitle_diaInicio}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                    <h:outputText value="Dia Fin:" styleClass="textoNEGRO"/>
+                                     <h:outputText value="#{promocionController.selected.diaFin}" title="#{bundle.ViewPromocionTitle_diaFin}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </h:panelGrid>
                             </center>
                        </p:panel>
                 <br />  <br />
