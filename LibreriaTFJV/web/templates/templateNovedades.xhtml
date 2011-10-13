@@ -161,38 +161,38 @@
         <li>
 
 
-            <h:form>
-            <h:commandLink value="Derecho Fiscal" action="#{articuloController.prepareListByCategoria_one(1)}"/>
+            <h:form id="derechofiscal">
+                <h:commandLink value="Derecho Fiscal" action="#{publicacionController.prepareListByCategoria_one(1)}"/>
             </h:form>
 
         </li>
         <li>
-           <h:form>
-            <h:commandLink value="Derecho Internacinal" action="#{articuloController.prepareListByCategoria_one(2)}"/>
+           <h:form id="derechoInternacional">
+               <h:commandLink value="Derecho Internacinal" action="#{publicacionController.prepareListByCategoria_one(2)}"/>
             </h:form>
           <ul>
             <ul>
               <ul>
                 <li>
-             <h:form>
-            <h:commandLink value="Derecho Administrativo" action="#{articuloController.prepareListByCategoria_one(3)}"/>
+             <h:form id="DerechoAdministrativo">
+            <h:commandLink value="Derecho Administrativo" action="#{publicacionController.prepareListByCategoria_one(3)}"/>
             </h:form>
 
                 </li>
                 <li>
-              <h:form>
-            <h:commandLink value="Juicio en Linea" action="#{articuloController.prepareListByCategoria_one(4)}"/>
+              <h:form id="JuicioLinea">
+            <h:commandLink value="Juicio en Linea" action="#{publicacionController.prepareListByCategoria_one(4)}"/>
             </h:form>
                 </li>
                 <li>
-              <h:form>
-            <h:commandLink value="Juicios Orales" action="#{articuloController.prepareListByCategoria_one(5)}"/>
+              <h:form id="juicioOrales">
+            <h:commandLink value="Juicios Orales" action="#{publicacionController.prepareListByCategoria_one(5)}"/>
             </h:form>
                </li>
                 <li>
                     
-                    <h:form>
-            <h:commandLink value="Jurisprudencia" action="#{articuloController.prepareListByCategoria_one(6)}"/>
+                    <h:form id="JurisPrudencia">
+                        <h:commandLink value="Jurisprudencia" action="#{publicacionController.prepareListByCategoria_one(6)}"/>
             </h:form>
 
                 </li>
@@ -275,19 +275,18 @@
       <td scope="col">
 
       <ul id="icons" class="ui-widget ui-helper-clearfix">
-          <h:form id="buscarGenerica">
+       
          
            <li class="ui-state-default ui-corner-all" title="Buscar">
+               <h:form id="busqueda" >
+                    <h:commandLink action="#{publicacionController.buscarLibroGeneral}"  styleClass="ui-icon ui-icon-search" style="width:19px"/>
+             
+                     <h:inputText value="#{publicacionController.general}"  size="25" title="Palabra Clave" id="editorial" />
           
-               <h:commandLink action="#{articuloController.buscarLibroGeneral}" immediate="true" styleClass="ui-icon ui-icon-search" style="width:19px"/>
-               
-          
-               <h:inputText value="#{articuloController.titulo}" size="25"/>
-          
-
+              </h:form>
            </li>
 
-          </h:form>
+         
       </ul>
       </td>
     </tr>
@@ -311,16 +310,17 @@
     <tr>
       <td><table width="99%" border="0">
         <tr>
-          <td align="center"><p><img src="./../resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
+          <td align="center"><p><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
         </tr>
         <tr>
           <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
         </tr>
         <tr></tr>
         <tr>
-          <td align="right"><ul id="icons" class="ui-widget ui-helper-clearfix">
-           <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
+          <td align="right">
+          <ul id="icons" class="ui-widget ui-helper-clearfix">
+             <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
+             <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
             <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li>
             </a>            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
           </ul></td>
@@ -334,7 +334,7 @@
     <tr>
       <td><table width="99%" border="0">
         <tr>
-          <td align="center"><p><img src="./../resources/template/imgs/producto3.jpg" width="81" height="72" /></p></td>
+          <td align="center"><p><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto3.jpg" width="81" height="72" /></p></td>
         </tr>
         <tr>
           <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
@@ -378,7 +378,7 @@
   <p>&nbsp;</p>
   <table width="99%" border="0" align="center">
     <tr>
-      <td align="center" scope="col"><img src="./../resources/template/imgs/logo-paypal.jpg" width="129" height="141" /></td>
+      <td align="center" scope="col"><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/logo-paypal.jpg" width="129" height="141" /></td>
     </tr>
   </table>
 </div>
@@ -426,7 +426,9 @@
             <li><a href="#">Contacto</a></li>
           </ul>
         </li>
-        <li><a href="carrito_1.html">Productos</a>
+        <li>
+            <a href="carrito_1.html">Productos</a>
+            
           <ul>
             <li><a href="Libros.html">Libros</a></li>
             <li><a href="Suscripcidoss.html">Suscripcidoss</a></li>
@@ -435,7 +437,7 @@
         </li>
         <li><a class="MenuBarItemSubmenu" href="carrito_1.html">Mi Carrito </a>
           <ul>
-            <li><a href="#">Productos</a></li>
+            <li><a href="#{facesContext.externalContext.request.contextPath}/faces/carrito/Carrito.xhtml">Productos</a></li>
             <li><a href="#">Envíos</a></li>
           </ul>
         </li>
@@ -463,9 +465,12 @@
             <li class="ui-state-default ui-corner-all" title="Ayuda">
             <span class="ui-icon ui-icon-help"></span></li>
         </a>
-        <a ref="index.html">
+        
         <li class="ui-state-default ui-corner-all" title="Inicio">
-       <span class="ui-icon ui-icon-home"></span></li></a>
+       <span class="ui-icon ui-icon-home">
+           <!---<h:commandLink value="{facesContext.externalContext.request.contextPath}" />-->
+
+       </span></li>
       </ul></td>
       <td>&nbsp;</td>
     </tr>
