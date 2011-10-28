@@ -35,28 +35,28 @@
                         <f:facet name="header">
                             <h:outputText value="EXISTENCIA"/>
                         </f:facet>
-                        <h:outputText value="NO" rendered="#{item.existencia==false}"/>
-                        <h:outputText value="SI" rendered="#{item.existencia}"/>
+                        <h:outputText value="#{item.existencia}"/>
+                       
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="CONSIGNA"/>
                         </f:facet>
-                        <h:outputText  value="NO" rendered="#{item.enConsigna==false}" />
-                        <h:outputText value="SI"  rendered="#{item.enConsigna}"/>
+                        <h:outputText  value="#{item.enConsigna}" />
+                       
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="FIRME"/>
                         </f:facet>
-                        <h:outputText value="NO" rendered="#{item.enFirme==false}"/>
-                        <h:outputText value="SI" rendered="#{item.enFirme}"/>
+                        <h:outputText value="#{item.enFirme}"/>
+                        
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="ARTICULO"/>
                         </f:facet>
-                        <h:outputText value="#{item.articulo.idTipo.descripcion}"/>
+                        <h:outputText value="#{item.articulo.titulo}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
@@ -71,7 +71,7 @@
                         </h:commandLink>
                         <h:outputText value=" "/>
                         <h:commandLink action="#{almacenController.destroy(item)}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Eliminar"/>
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
