@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListBitacoraClienteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText escape="false" value="#{bundle.ListBitacoraClienteEmpty}" rendered="#{bitacoraClienteController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{bitacoraClienteController.items.rowCount > 0}">
+                <h:outputText value="#{bitacoraClienteController.pagination.pageFirstItem + 1}..#{bitacoraClienteController.pagination.pageLastItem + 1}/#{bitacoraClienteController.pagination.itemsCount}"/>&nbsp;
+                <h:commandLink action="#{bitacoraClienteController.previous}" value="#{bundle.Previous} #{bitacoraClienteController.pagination.pageSize}" rendered="#{bitacoraClienteController.pagination.hasPreviousPage}"/>&nbsp;
+                <h:commandLink action="#{bitacoraClienteController.next}" value="#{bundle.Next} #{bitacoraClienteController.pagination.pageSize}" rendered="#{bitacoraClienteController.pagination.hasNextPage}"/>&nbsp;
+                <h:dataTable value="#{bitacoraClienteController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListBitacoraClienteTitle_bitacoraClientePK_idMovimiento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.bitacoraClientePK.idMovimiento}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListBitacoraClienteTitle_fecha}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListBitacoraClienteTitle_estado}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.estado}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListBitacoraClienteTitle_cliente}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.cliente}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListBitacoraClienteTitle_articulo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.articulo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{bitacoraClienteController.prepareView}" value="#{bundle.ListBitacoraClienteViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{bitacoraClienteController.prepareEdit}" value="#{bundle.ListBitacoraClienteEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{bitacoraClienteController.destroy}" value="#{bundle.ListBitacoraClienteDestroyLink}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+            <br />
+            <h:commandLink action="#{bitacoraClienteController.prepareCreate}" value="#{bundle.ListBitacoraClienteCreateLink}"/>
+            <br />
+            <br />
+            <h:commandLink value="#{bundle.ListBitacoraClienteIndexLink}" action="/index" immediate="true" />
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

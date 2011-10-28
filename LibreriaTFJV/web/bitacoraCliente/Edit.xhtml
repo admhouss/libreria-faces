@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditBitacoraClienteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditBitacoraClienteLabel_bitacoraClientePK_idMovimiento}" for="bitacoraClientePK.idMovimiento" />
+                    <h:inputText id="bitacoraClientePK.idMovimiento" value="#{bitacoraClienteController.selected.bitacoraClientePK.idMovimiento}" title="#{bundle.EditBitacoraClienteTitle_bitacoraClientePK_idMovimiento}" required="true" requiredMessage="#{bundle.EditBitacoraClienteRequiredMessage_bitacoraClientePK_idMovimiento}"/>
+                    <h:outputLabel value="#{bundle.EditBitacoraClienteLabel_fecha}" for="fecha" />
+                    <h:inputText id="fecha" value="#{bitacoraClienteController.selected.fecha}" title="#{bundle.EditBitacoraClienteTitle_fecha}" required="true" requiredMessage="#{bundle.EditBitacoraClienteRequiredMessage_fecha}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditBitacoraClienteLabel_estado}" for="estado" />
+                    <h:inputText id="estado" value="#{bitacoraClienteController.selected.estado}" title="#{bundle.EditBitacoraClienteTitle_estado}" required="true" requiredMessage="#{bundle.EditBitacoraClienteRequiredMessage_estado}"/>
+                    <h:outputLabel value="#{bundle.EditBitacoraClienteLabel_cliente}" for="cliente" />
+                    <h:selectOneMenu id="cliente" value="#{bitacoraClienteController.selected.cliente}" title="#{bundle.EditBitacoraClienteTitle_cliente}" required="true" requiredMessage="#{bundle.EditBitacoraClienteRequiredMessage_cliente}">
+                        <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditBitacoraClienteLabel_articulo}" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{bitacoraClienteController.selected.articulo}" title="#{bundle.EditBitacoraClienteTitle_articulo}" required="true" requiredMessage="#{bundle.EditBitacoraClienteRequiredMessage_articulo}">
+                        <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{bitacoraClienteController.update}" value="#{bundle.EditBitacoraClienteSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditBitacoraClienteViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{bitacoraClienteController.prepareList}" value="#{bundle.EditBitacoraClienteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditBitacoraClienteIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
