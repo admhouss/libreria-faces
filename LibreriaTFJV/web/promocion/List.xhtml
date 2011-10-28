@@ -8,7 +8,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListPromocionTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
         <h:form id ="promocioncreate" styleClass="jsfcrud_list_form">
@@ -59,8 +59,9 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         <f:facet name="header">
                             <h:outputText value="ARTICULO"/>
                         </f:facet>
-                         <h:outputText value="#{item.articulo.idTipo.descripcion}"/>
+                         <h:outputText value="#{item.articulo.titulo}"/>
                     </p:column>
+                      
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
@@ -75,9 +76,9 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         </h:commandLink>
                        
                         <h:commandLink action="#{promocionController.destroy(item)}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Borrar"/>
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
-                        <h:commandLink action="#{promocionController.correo(item)}">
+                        <h:commandLink action="#{promocionController.sendCorreo(item)}">
                         <img src="./../resources/iconos/correo.png" alt="" title="Correo"/>
                         </h:commandLink>
                     </p:column>
