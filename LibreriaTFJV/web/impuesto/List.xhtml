@@ -34,7 +34,7 @@
                         <f:facet name="header">
                             <h:outputText value="idArticulo"/>
                         </f:facet>
-                        <h:outputText value="#{item.idArticulo}"/>
+                       <h:outputText value="#{item.articulo.id}"/>
                    </p:column>
                    <p:column>
                         <f:facet name="header">
@@ -44,7 +44,7 @@
                    </p:column>
                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Descripcion"/>
+                            <h:outputText value="Descripci&oacute;n"/>
                         </f:facet>
                         <h:outputText value="#{item.descripcion}"/>
                    </p:column>
@@ -52,7 +52,7 @@
                         <f:facet name="header">
                             <h:outputText value="Articulo"/>
                         </f:facet>
-                       <h:outputText value="#{item.articulo.idTipo.descripcion}"/>
+                       <h:outputText value="#{item.articulo.titulo}"/>
                    </p:column>
                    <p:column>
                         <f:facet name="header">
@@ -67,7 +67,7 @@
                         </h:commandLink>
                        
                         <h:commandLink action="#{impuestoController.destroy(item)}" >
-                            <img src="./../resources/iconos/quitar.png" alt="" title="eliminar"/>
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
                    </p:column>
                 </p:dataTable>
