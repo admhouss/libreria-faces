@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateComentarioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateComentarioLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{comentarioController.selected.id}" title="#{bundle.CreateComentarioTitle_id}" required="true" requiredMessage="#{bundle.CreateComentarioRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateComentarioLabel_fechaComentario}" for="fechaComentario" />
+                    <h:inputText id="fechaComentario" value="#{comentarioController.selected.fechaComentario}" title="#{bundle.CreateComentarioTitle_fechaComentario}" required="true" requiredMessage="#{bundle.CreateComentarioRequiredMessage_fechaComentario}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateComentarioLabel_comentario}" for="comentario" />
+                    <h:inputText id="comentario" value="#{comentarioController.selected.comentario}" title="#{bundle.CreateComentarioTitle_comentario}" required="true" requiredMessage="#{bundle.CreateComentarioRequiredMessage_comentario}"/>
+                    <h:outputLabel value="#{bundle.CreateComentarioLabel_autor}" for="autor" />
+                    <h:inputText id="autor" value="#{comentarioController.selected.autor}" title="#{bundle.CreateComentarioTitle_autor}" required="true" requiredMessage="#{bundle.CreateComentarioRequiredMessage_autor}"/>
+                    <h:outputLabel value="#{bundle.CreateComentarioLabel_articulo}" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{comentarioController.selected.articulo}" title="#{bundle.CreateComentarioTitle_articulo}" required="true" requiredMessage="#{bundle.CreateComentarioRequiredMessage_articulo}">
+                        <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{comentarioController.create}" value="#{bundle.CreateComentarioSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{comentarioController.prepareList}" value="#{bundle.CreateComentarioShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateComentarioIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

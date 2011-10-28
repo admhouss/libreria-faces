@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewComentarioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewComentarioLabel_id}"/>
+                    <h:outputText value="#{comentarioController.selected.id}" title="#{bundle.ViewComentarioTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewComentarioLabel_fechaComentario}"/>
+                    <h:outputText value="#{comentarioController.selected.fechaComentario}" title="#{bundle.ViewComentarioTitle_fechaComentario}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewComentarioLabel_comentario}"/>
+                    <h:outputText value="#{comentarioController.selected.comentario}" title="#{bundle.ViewComentarioTitle_comentario}"/>
+                    <h:outputText value="#{bundle.ViewComentarioLabel_autor}"/>
+                    <h:outputText value="#{comentarioController.selected.autor}" title="#{bundle.ViewComentarioTitle_autor}"/>
+                    <h:outputText value="#{bundle.ViewComentarioLabel_articulo}"/>
+                    <h:outputText value="#{comentarioController.selected.articulo}" title="#{bundle.ViewComentarioTitle_articulo}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{comentarioController.destroyAndView}" value="#{bundle.ViewComentarioDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewComentarioEditLink}"/>
+                <br />
+                <h:commandLink action="#{comentarioController.prepareCreate}" value="#{bundle.ViewComentarioCreateLink}" />
+                <br />
+                <h:commandLink action="#{comentarioController.prepareList}" value="#{bundle.ViewComentarioShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewComentarioIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
