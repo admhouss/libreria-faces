@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package escom.libreria.info.articulo.ejb;
+package escom.libreria.correo.conf.ejb;
 
-import escom.libreria.info.articulo.jpa.Almacen;
+import escom.libreria.correo.conf.Propiedades;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,52 +19,46 @@ import javax.persistence.criteria.Root;
  * @author xxx
  */
 @Stateless
-public class AlmacenFacade {
+public class PropiedadesFacade {
     @PersistenceContext(unitName = "LibreriaTFJVPU")
     private EntityManager em;
 
-    public void create(Almacen almacen) {
-        em.persist(almacen);
-        
-
+    public void create(Propiedades propiedades) {
+        em.persist(propiedades);
     }
 
-    public void edit(Almacen almacen) {
-        em.merge(almacen);
+    public void edit(Propiedades propiedades) {
+        em.merge(propiedades);
     }
 
-    public void remove(Almacen almacen) {
-        em.remove(em.merge(almacen));
+    public void remove(Propiedades propiedades) {
+        em.remove(em.merge(propiedades));
     }
 
-    public Almacen find(Object id) {
-        return em.find(Almacen.class, id);
+    public Propiedades find(Object id) {
+        return em.find(Propiedades.class, id);
     }
 
-    public List<Almacen> findAll() {
+    public List<Propiedades> findAll() {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(Almacen.class));
-        cq.distinct(true);
-
+        cq.select(cq.from(Propiedades.class));
         return em.createQuery(cq).getResultList();
     }
 
-    public List<Almacen> findRange(int[] range) {
+    public List<Propiedades> findRange(int[] range) {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(Almacen.class));
+        cq.select(cq.from(Propiedades.class));
         Query q = em.createQuery(cq);
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);
-
         return q.getResultList();
     }
 
     public int count() {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        Root<Almacen> rt = cq.from(Almacen.class);
+        Root<Propiedades> rt = cq.from(Propiedades.class);
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
-
         return ((Long) q.getSingleResult()).intValue();
     }
 

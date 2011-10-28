@@ -71,20 +71,12 @@ public class ArticuloFacade {
     }
 
     public List<Articulo> buscarLibro(String titulo, String autor, String editorial, String resumen,String anio) {
-              //TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.idIdc.editorial like :editorial and a.idIdc.anio like :anio",Articulo.class)
-
-                  editorial="%"+editorial+"%";
-                    System.out.println("Editoria"+editorial);
+          
+              editorial="%"+editorial+"%";
+               //System.out.println("Editoria"+editorial);
               TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.publicacion.editorial LIKE :editorial OR a.publicacion.anio LIKE :anio ",Articulo.class)
-
-             //.setParameter("titulo", resumen)
-
-            // .setParameter("autor",autor )
-
               .setParameter("editorial", editorial)
-              //.setParameter("resuemn", resumen)
               .setParameter("anio", anio+"%");
-
               List<Articulo> l=query.getResultList();
              
             

@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package escom.libreria.info.articulo.ejb;
+package escom.libreria.correo.conf.ejb;
 
-import escom.libreria.info.articulo.jpa.Almacen;
+import escom.libreria.correo.conf.ServidorCorreoConf;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,52 +19,46 @@ import javax.persistence.criteria.Root;
  * @author xxx
  */
 @Stateless
-public class AlmacenFacade {
+public class ServidorCorreoConfFacade {
     @PersistenceContext(unitName = "LibreriaTFJVPU")
     private EntityManager em;
 
-    public void create(Almacen almacen) {
-        em.persist(almacen);
-        
-
+    public void create(ServidorCorreoConf servidorCorreoConf) {
+        em.persist(servidorCorreoConf);
     }
 
-    public void edit(Almacen almacen) {
-        em.merge(almacen);
+    public void edit(ServidorCorreoConf servidorCorreoConf) {
+        em.merge(servidorCorreoConf);
     }
 
-    public void remove(Almacen almacen) {
-        em.remove(em.merge(almacen));
+    public void remove(ServidorCorreoConf servidorCorreoConf) {
+        em.remove(em.merge(servidorCorreoConf));
     }
 
-    public Almacen find(Object id) {
-        return em.find(Almacen.class, id);
+    public ServidorCorreoConf find(Object id) {
+        return em.find(ServidorCorreoConf.class, id);
     }
 
-    public List<Almacen> findAll() {
+    public List<ServidorCorreoConf> findAll() {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(Almacen.class));
-        cq.distinct(true);
-
+        cq.select(cq.from(ServidorCorreoConf.class));
         return em.createQuery(cq).getResultList();
     }
 
-    public List<Almacen> findRange(int[] range) {
+    public List<ServidorCorreoConf> findRange(int[] range) {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(Almacen.class));
+        cq.select(cq.from(ServidorCorreoConf.class));
         Query q = em.createQuery(cq);
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);
-
         return q.getResultList();
     }
 
     public int count() {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        Root<Almacen> rt = cq.from(Almacen.class);
+        Root<ServidorCorreoConf> rt = cq.from(ServidorCorreoConf.class);
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
-
         return ((Long) q.getSingleResult()).intValue();
     }
 

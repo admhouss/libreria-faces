@@ -5,7 +5,10 @@ import escom.libreria.info.proveedor.jpa.Proveedor;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.ProveedorFacade;
+import escom.libreria.info.articulo.jpa.Articulo;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +34,19 @@ public class ProveedorController implements Serializable{
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<Proveedor> listaProveedores;
+    private List<Proveedor> listaProveedoresByArticulo;
+
+    public List<Proveedor> getListaProveedoresByArticulo() {
+        if(listaProveedoresByArticulo==null){
+            listaProveedoresByArticulo=getFacade().findAll();
+        }
+        return listaProveedoresByArticulo;
+    }
+
+    public void setListaProveedoresByArticulo(List<Proveedor> listaProveedoresByArticulo) {
+        this.listaProveedoresByArticulo = listaProveedoresByArticulo;
+    }
+
 
     public ProveedorController() {
     }
@@ -47,6 +63,7 @@ public class ProveedorController implements Serializable{
         return ejbFacade;
     }
 
+   
     public List<Proveedor> getListProveedor(){
        listaProveedores=getFacade().findAll();
        return listaProveedores;
@@ -69,6 +86,28 @@ public class ProveedorController implements Serializable{
         return pagination;
     }
 
+  private Articulo articulo_proveedor;
+
+    public Articulo getArticulo_proveedor() {
+        return articulo_proveedor;
+    }
+
+    public void setArticulo_proveedor(Articulo articulo_proveedor) {
+        this.articulo_proveedor = articulo_proveedor;
+    }
+
+    public String prepreaListByArticulo(Articulo item){
+        item.setDivisa(item.getDivisa());
+        articulo_proveedor=item;
+        articulo_proveedor.setCosto(item.getCosto());
+
+        return "/articulo/ViewProveedor";
+    }
+    public void destroyByArticulo(Proveedor proveedor){
+       articulo_proveedor.getProveedorList().remove(proveedor);
+       listaProveedoresByArticulo.add(proveedor);
+       JsfUtil.addErrorMessage("Proveedor eliminado");
+    }
     public String prepareList() {
         //recreateModel();
         return "/proveedor/List";
@@ -86,15 +125,26 @@ public class ProveedorController implements Serializable{
         return "Create";
     }
 
+
+    public void agregar(Proveedor proveedor){
+        listaProveedoresByArticulo.remove(proveedor);
+        if(articulo_proveedor.getProveedorList()==null)
+            articulo_proveedor.setProveedorList(new ArrayList<Proveedor>());
+        articulo_proveedor.getProveedorList().add(proveedor);
+        JsfUtil.addSuccessMessage("Proveedor seleccionado satisfactoriamente");
+      // return "/articulo/ViewProveedor";
+    }
     public String create() {
         try {
-            //if(current!=null){
+            if(current!=null){
+
+                current.setMmod(new Date());
                 current.setFechaAlta(new Date());
                 current.setMmod(new Date());
                 current.setEstatus(true);
                 getFacade().create(current);
                 JsfUtil.addSuccessMessage("Proveedor Guardado Satisfactoriamente");
-             //}
+             }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -110,7 +160,7 @@ public class ProveedorController implements Serializable{
 
     public String update() {
         try {
-            current.setMmod(new Date());
+                current.setMmod(new Date());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("Proveedor actualizado"));
             return "View";

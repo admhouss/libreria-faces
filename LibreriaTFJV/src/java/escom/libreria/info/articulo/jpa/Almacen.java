@@ -9,8 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -33,19 +31,18 @@ import javax.persistence.Table;
 public class Almacen implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_ARTICULO")
     private Integer idArticulo;
     @Basic(optional = false)
     @Column(name = "EXISTENCIA")
-    private boolean existencia;
+    private int existencia;
     @Basic(optional = false)
     @Column(name = "EN_CONSIGNA")
-    private boolean enConsigna;
+    private int enConsigna;
     @Basic(optional = false)
     @Column(name = "EN_FIRME")
-    private boolean enFirme;
+    private int enFirme;
     @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Articulo articulo;
@@ -57,7 +54,7 @@ public class Almacen implements Serializable {
         this.idArticulo = idArticulo;
     }
 
-    public Almacen(Integer idArticulo, boolean existencia, boolean enConsigna, boolean enFirme) {
+    public Almacen(Integer idArticulo, int existencia, int enConsigna, int enFirme) {
         this.idArticulo = idArticulo;
         this.existencia = existencia;
         this.enConsigna = enConsigna;
@@ -72,27 +69,27 @@ public class Almacen implements Serializable {
         this.idArticulo = idArticulo;
     }
 
-    public boolean getExistencia() {
+    public int getExistencia() {
         return existencia;
     }
 
-    public void setExistencia(boolean existencia) {
+    public void setExistencia(int existencia) {
         this.existencia = existencia;
     }
 
-    public boolean getEnConsigna() {
+    public int getEnConsigna() {
         return enConsigna;
     }
 
-    public void setEnConsigna(boolean enConsigna) {
+    public void setEnConsigna(int enConsigna) {
         this.enConsigna = enConsigna;
     }
 
-    public boolean getEnFirme() {
+    public int getEnFirme() {
         return enFirme;
     }
 
-    public void setEnFirme(boolean enFirme) {
+    public void setEnFirme(int enFirme) {
         this.enFirme = enFirme;
     }
 

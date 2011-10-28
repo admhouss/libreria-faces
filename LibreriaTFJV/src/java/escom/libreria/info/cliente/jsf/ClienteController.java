@@ -4,13 +4,18 @@ import escom.libreria.info.cliente.jpa.Cliente;
 import escom.libreria.info.cliente.jsf.util.JsfUtil;
 import escom.libreria.info.cliente.jsf.util.PaginationHelper;
 import escom.libreria.info.cliente.ejb.ClienteFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,6 +27,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean (name="clienteController")
 @SessionScoped
@@ -36,7 +42,7 @@ public class ClienteController implements Serializable{
     private String confirmaCorreo;
     private int go;
     private List<Cliente> listSeleccionCliente;
-
+    private String nombre,correo;//Criterios de busqueda
     private String telefonoCasa,telefonoOficina;
 
     public String getTelefonoCasa() {
@@ -56,6 +62,11 @@ public class ClienteController implements Serializable{
     }
    
     public List<Cliente> getListSeleccionCliente() {
+        if(listSeleccionCliente==null || listSeleccionCliente.isEmpty())
+          listSeleccionCliente = getFacade().getListClientesActive();
+
+
+
         return listSeleccionCliente;
     }
 
@@ -75,6 +86,23 @@ public class ClienteController implements Serializable{
 
     public ClienteController() {
     }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
 
    
     public Cliente getSelected() {
@@ -115,58 +143,58 @@ public class ClienteController implements Serializable{
 
     public String prepareList() {
        // recreateModel();
+        
         current=null;
+
+         try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            String go = externalContext.getRequestContextPath()+"/";
+            externalContext.redirect(go);
+            return "";
+        } catch (IOException ex) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
        return "List";
      
     }
 
     public String prepareView(Cliente p) {
-       current=p;
-       
-      
+        current=p;
         return "/cliente/View";
     }
 
     public String prepareCreate() {
-        current = new Cliente();
-       
-
-       
-    //    selectedItemIndex = -1;
-        
+        current = new Cliente();     
         return "/cliente/Create";
-       
     }
-    public String prepareCreate2() {
-    //    current = new Cliente();
-        current=null;
+   
 
-        System.out.println("go");
-    //    selectedItemIndex = -1;
-        return "./../index.xhtml";
-
-       // return "./faces/cliente/Create";
-
+    public void buscarCliente(){
+        correo=getCorreo();
+        nombre=getNombre();
+        listSeleccionCliente=getFacade().buscarCliente(correo,nombre);
+        setCorreo("");setNombre("");
     }
 
     public String create() {
         try {
-             //List<Telefono> telefonos=new ArrayList<Telefono>();
+            
              
             if(confirmaCorreo.equals(current.getId())){
 
                  if(getFacade().find(current.getId())==null){
-                         current.setEstatus(true);
+                         current.setEstatus(false);
                          current.setFechaAlta(new Date());
                          current.setId(current.getId());
                          current.setModificacion(new Date());
                          current.setEmail(current.getEmail());
-                         confirmaCorreo="";
-                        getFacade().create(current);
-                        JsfUtil.addSuccessMessage("Cliente creado satisfactoriamente");
-                        return prepareView(current);
+                         setConfirmaCorreo("");
+                         getFacade().create(current);
+                         EnviarConfimarCorreo(current);
+                         JsfUtil.addSuccessMessage("Cliente creado satisfactoriamente");
+                         return prepareView(current);
                  }else{
-                     JsfUtil.addErrorMessage("La cuenta que intenta registrara ,ya existe!");
+                     JsfUtil.addErrorMessage("La cuenta que intenta registrar ,ya existe!");
                      current.setId(" ");
                      return "/cliente/Create";
                  }
@@ -181,6 +209,41 @@ public class ClienteController implements Serializable{
         }
     }
 
+
+
+    public void EnviarConfimarCorreo(Cliente cliente){
+        String query=null;
+        StringBuffer buffer=null;
+        try{
+
+            buffer=new StringBuffer();
+            ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
+            HttpServletRequest request = (HttpServletRequest) external.getRequest();
+
+            buffer.append("http://");
+             buffer.append("localhost:8080");
+            //buffer.append("www.libreria-tfjfa.com");
+            buffer.append(request.getContextPath());
+           
+            buffer.append("/ProcesarOlvidarContrasenia");
+            List<String> cliList=new ArrayList<String>();
+            cliList.add(cliente.getId());
+
+           /* Map<String,List<String>> map=new HashMap<String, List<String>>();
+            List<String> cliList=new ArrayList<String>();
+            cliList.add(cliente.getId());
+            cliList.add(cliente.getModificacion().toString());
+
+
+            map.put("correo",cliList);
+            */
+            request.getSession().setAttribute("correo",cliente.getId());
+            //request.getSession().setMaxInactiveInterval(3);
+            query="<form><a href=\""+buffer+"\">Confirmaci&oacute;n de tu cuenta:"+buffer+"?keycode="+request.getSession().getId()+"</a></form>";
+            System.out.println(query);
+            procesarJMail.enviarCorreo("Confirmacion Registro", query, cliList);
+        }catch(Exception e){e.printStackTrace();}
+    }
     public String prepareEdit(Cliente p) {
        current=p;
       
@@ -211,14 +274,13 @@ public class ClienteController implements Serializable{
     }
 
     public String destroy(Cliente p) {
-       current=p;
-       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        //performDestroy();
-        //recreateModel();
-       getFacade().remove(p);
-       current=null;
-       confirmaCorreo="";
-        return "List";
+      getFacade().remove(p);
+       //current=p;
+       //current.setEstatus(false);
+       //getFacade().edit(current);
+       current=null;confirmaCorreo="";
+       JsfUtil.addSuccessMessage("Cliente elminiado satisfactoriamente");
+       return "List";
     }
 
     public String destroyAndView() {

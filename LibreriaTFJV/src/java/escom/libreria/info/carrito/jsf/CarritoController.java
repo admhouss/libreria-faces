@@ -11,6 +11,8 @@ import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal;
 import escom.libreria.info.login.sistema.SistemaController;
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,11 +31,13 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name="carritoController")
 @SessionScoped
-public class CarritoController {
+public class CarritoController implements Serializable{
 
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
     @EJB private  escom.libreria.info.login.ejb.SistemaFacade sistemaFacade;
+
+    private List<CarritoDTO> listcarritoDTO;
 
 
     public SistemaController getSistemaController() {
@@ -82,8 +86,9 @@ public class CarritoController {
           carritoCompraTemporalLocal.removePublicacion(articulo);
     }
     public List<CarritoDTO> getListArticulos(){
-        return carritoCompraTemporalLocal.getListPublicacion();
-        //return null;
+         listcarritoDTO=carritoCompraTemporalLocal.getListPublicacion();
+         listcarritoDTO=listcarritoDTO==null?new ArrayList():listcarritoDTO;
+        return listcarritoDTO;
     }
 
      private CarritoCompraTemporalLocal carritoCompraTemporalLocal=ObtenerCarrito();//obetenemso carrito compra

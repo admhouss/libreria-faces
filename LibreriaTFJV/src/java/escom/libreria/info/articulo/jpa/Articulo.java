@@ -5,6 +5,7 @@
 
 package escom.libreria.info.articulo.jpa;
 
+import escom.libreria.info.cliente.jpa.BitacoraCliente;
 import escom.libreria.info.proveedor.jpa.Proveedor;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -150,10 +151,17 @@ public class Articulo implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
     private DescuentoArticulo descuentoArticulo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<Publicacion> publicacionList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private Almacen almacen;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<Impuesto> impuestoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<Comentario> comentarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<BitacoraCliente> bitacoraClienteList;
 
     public Articulo() {
-        //tipoArticulo.getDescripcion()
     }
 
     public Articulo(Integer id) {
@@ -178,6 +186,15 @@ public class Articulo implements Serializable {
         this.codigo = codigo;
     }
 
+    public List<BitacoraCliente> getBitacoraClienteList() {
+        return bitacoraClienteList;
+    }
+
+    public void setBitacoraClienteList(List<BitacoraCliente> bitacoraClienteList) {
+        this.bitacoraClienteList = bitacoraClienteList;
+    }
+
+    
     public Integer getId() {
         return id;
     }
@@ -410,12 +427,36 @@ public class Articulo implements Serializable {
         this.descuentoArticulo = descuentoArticulo;
     }
 
+    public List<Publicacion> getPublicacionList() {
+        return publicacionList;
+    }
+
+    public void setPublicacionList(List<Publicacion> publicacionList) {
+        this.publicacionList = publicacionList;
+    }
+
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+    }
+
     public List<Impuesto> getImpuestoList() {
         return impuestoList;
     }
 
     public void setImpuestoList(List<Impuesto> impuestoList) {
         this.impuestoList = impuestoList;
+    }
+
+    public List<Comentario> getComentarioList() {
+        return comentarioList;
+    }
+
+    public void setComentarioList(List<Comentario> comentarioList) {
+        this.comentarioList = comentarioList;
     }
 
     @Override

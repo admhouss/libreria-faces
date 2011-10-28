@@ -9,6 +9,7 @@ import escom.libreria.info.cliente.jpa.Cliente;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -64,24 +65,46 @@ public class ClienteFacade  {
     }
 
     public List<Cliente> getListClientesActive() {
-        
-        TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.estatus=1 ORDER BY c.nombre,c.paterno,c.materno",Cliente.class);
-        
-       List<Cliente> c= l.getResultList();
-       return c;
+        TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.estatus=1 AND c.recibeInfor=1 ORDER BY c.nombre,c.paterno,c.materno ASC",Cliente.class);
+        List<Cliente> c= l.getResultList();
+        return c;
     }
   private Cliente cliente;
     public Cliente buscarUsuario(String usuario, String password) {
         cliente=null;
         try{
-         TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.id=:correo AND c.password=:password",Cliente.class)
-        .setParameter("correo",usuario)
-        .setParameter("password", password).setMaxResults(1);
-         cliente=l.getSingleResult();
+            TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.id=:correo AND c.password=:password",Cliente.class)
+            .setParameter("correo",usuario)
+            .setParameter("password", password).setMaxResults(1);
+             cliente=l.getSingleResult();
         }catch(Exception e){}
          return cliente;
 
 
+    }
+     public Cliente buscarUsuario(String correo) {
+        cliente=null;
+        try{
+            TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.id=:correo",Cliente.class)
+            .setParameter("correo",correo)
+            .setMaxResults(1);
+             cliente=l.getSingleResult();
+        }catch(Exception e){}
+         return cliente;
+    }
+
+
+      public List<Cliente> buscarCliente(String correo,String nombre) {
+        List<Cliente> cliente=null;
+        try{
+            TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE (c.id=:correo  AND c.estatus=true) OR  c.nombre LIKE :nombre ORDER BY c.nombre ASC",Cliente.class)
+            .setParameter("correo",correo)
+            .setParameter("nombre", nombre+"%");
+            //.setParameter("paterno", nombre+"%")
+            //.setParameter("materno", nombre+"%");
+             cliente=l.getResultList();
+        }catch(Exception e){}
+         return cliente;
     }
 
 

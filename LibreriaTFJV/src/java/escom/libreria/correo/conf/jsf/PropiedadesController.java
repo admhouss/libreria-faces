@@ -1,12 +1,9 @@
-package escom.libreria.info.articulo.jsf;
+package escom.libreria.correo.conf.jsf;
 
-import escom.libreria.info.articulo.jpa.Impuesto;
-import escom.libreria.info.articulo.jsf.util.JsfUtil;
-import escom.libreria.info.articulo.jsf.util.PaginationHelper;
-import escom.libreria.info.articulo.ejb.ImpuestoFacade;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
+import escom.libreria.correo.conf.Propiedades;
+import escom.libreria.correo.conf.jsf.util.JsfUtil;
+import escom.libreria.correo.conf.jsf.util.PaginationHelper;
+import escom.libreria.correo.conf.ejb.PropiedadesFacade;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -20,42 +17,28 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean (name="impuestoController")
+@ManagedBean (name="propiedadesController")
 @SessionScoped
-public class ImpuestoController implements Serializable {
+public class PropiedadesController {
 
-    private Impuesto current;
+    private Propiedades current;
     private DataModel items = null;
-    @EJB private escom.libreria.info.articulo.ejb.ImpuestoFacade ejbFacade;
+    @EJB private escom.libreria.correo.conf.ejb.PropiedadesFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-
-    public ImpuestoController() {
+    public PropiedadesController() {
     }
 
-    public Impuesto getSelected() {
+    public Propiedades getSelected() {
         if (current == null) {
-            current = new Impuesto();
+            current = new Propiedades();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private List<Impuesto> listaImpuesto;
-
-    public void setListaImpuesto(List<Impuesto> listaImpuesto) {
-        this.listaImpuesto = listaImpuesto;
-    }
-    
-    public List<Impuesto> getListaImpuesto(){
-     
-        listaImpuesto= getFacade().findAll();
-        setListaImpuesto(listaImpuesto);
-        return listaImpuesto;
-    }
-
-    private ImpuestoFacade getFacade() {
+    private PropiedadesFacade getFacade() {
         return ejbFacade;
     }
 
@@ -79,62 +62,54 @@ public class ImpuestoController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "/impuesto/List";
+        return "List";
     }
 
-    public String prepareView(Impuesto p) {
-        current = p;//(Impuesto)getItems().getRowData();
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView() {
+        current = (Propiedades)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Impuesto();
+        current = new Propiedades();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            
-            current.setArticulo(current.getArticulo());
-            current.setDescripcion(current.getDescripcion());
-            current.setMontoImpuesto(current.getMontoImpuesto());
-
-           
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("ImpuestoCreated"));
-            return prepareView(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/MailConf").getString("PropiedadesCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/MailConf").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String prepareEdit(Impuesto p) {
-        current = p;//(Impuesto)getItems().getRowData();
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit() {
+        current = (Propiedades)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("ImpuestoUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/MailConf").getString("PropiedadesUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/MailConf").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String destroy(Impuesto p) {
-        current =p;// (Impuesto)getItems().getRowData();
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        //performDestroy();
-        //recreateModel();
-        getFacade().remove(current);
-        JsfUtil.addSuccessMessage("Impuesto eliminado satisfactoriamente");
+    public String destroy() {
+        current = (Propiedades)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
+        recreateModel();
         return "List";
     }
 
@@ -154,9 +129,9 @@ public class ImpuestoController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("ImpuestoDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/MailConf").getString("PropiedadesDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/MailConf").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -206,15 +181,15 @@ public class ImpuestoController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass=Impuesto.class)
-    public static class ImpuestoControllerConverter implements Converter {
+    @FacesConverter(forClass=Propiedades.class)
+    public static class PropiedadesControllerConverter implements Converter {
 
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ImpuestoController controller = (ImpuestoController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "impuestoController");
+            PropiedadesController controller = (PropiedadesController)facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "propiedadesController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -234,11 +209,11 @@ public class ImpuestoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Impuesto) {
-                Impuesto o = (Impuesto) object;
-                return getStringKey(o.getArticulo().getId());
+            if (object instanceof Propiedades) {
+                Propiedades o = (Propiedades) object;
+                return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+ImpuestoController.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+PropiedadesController.class.getName());
             }
         }
 

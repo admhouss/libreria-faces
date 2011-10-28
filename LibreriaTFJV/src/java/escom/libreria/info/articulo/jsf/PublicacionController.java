@@ -4,14 +4,26 @@ import escom.libreria.info.articulo.jpa.Publicacion;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.PublicacionFacade;
+import escom.libreria.info.articulo.jpa.CriteriosBusqueda;
+import escom.libreria.info.cliente.jpa.BitacoraCliente;
+import escom.libreria.info.cliente.jpa.BitacoraClientePK;
+import escom.libreria.info.login.sistema.SistemaController;
+import escom.libreria.info.usarioAdministrativo.jpa.Actividadusuario;
+import escom.libreria.info.usarioAdministrativo.jpa.Usuarioadministrativo;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -21,33 +33,100 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="publicacionController")
 @SessionScoped
-public class PublicacionController implements Serializable{
+public class PublicacionController extends CriteriosBusqueda implements Serializable{
 
     private Publicacion current;
     private DataModel items = null;
     @EJB private escom.libreria.info.articulo.ejb.PublicacionFacade ejbFacade;
+    @EJB private escom.libreria.info.cliente.ejb.BitacoraClienteFacade ejbFacadeBitacora;
+    @EJB private escom.libreria.info.usarioAdministrativo.ejb.ActividadusuarioFacade ejbActividadusuarioFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<Publicacion> listaPublicacion;
-   
-    
+    private List<Publicacion> listPublicacionByBusqueda;
+    private int selectCategoria;
+    private int redireccionarTo;
+    @ManagedProperty("#{sistemaController}")
+    private SistemaController sistemaController;
 
+     public PublicacionController() {}//constructor
+       
+
+     public boolean isActivate(){//retorna true si es diferente de null
+        return (listPublicacionByBusqueda==null || listPublicacionByBusqueda.isEmpty())?false:true;
+    }
+
+     public List<Publicacion> getListLibroByCategoria(){
+            setCategoria(getFacade().getCategoria(selectCategoria));
+            listPublicacionByBusqueda=getFacade().buscarLibroByCategoria(getCategoria());
+            return listPublicacionByBusqueda;
+    }
+
+     private void addbicatoraUsuarioAdministrador(Publicacion p,int selectOperacion){
+          if(sistemaController!=null && sistemaController.getUsuarioAdministrador()!=null){
+              Usuarioadministrativo user=sistemaController.getUsuarioAdministrador();
+              Actividadusuario actividad=new Actividadusuario();
+              actividad.setFecha(new Date());
+              actividad.setUsuarioadministrativo(user);
+              switch(selectOperacion){
+                  case 1://YES
+                      actividad.setActividad("CONSULTO PULIBACION: "+ p.getArticulo().getTitulo());
+                      actividad.setQuery("SELECT p.* FROM publicacion AS p,articulo AS a WHERE p.ID_DC="+p.getIdDc()+" AND p.ID_ARTICULO=a.ID ORDER BY a.titulo DESC;");
+                   break;
+                    case 2://NO
+                      actividad.setActividad("ACTUALIZACION PULIBACION:" + p.getArticulo().getTitulo());
+                      actividad.setQuery("UPDATE WHERE p.ID_DC="+p.getIdDc()+" AND p.ID_ARTICULO=a.ID ORDER BY a.titulo DESC;");
+                   break;
+                    case 3://YES
+                      actividad.setActividad("ELIMINO PULIBACION: " + p.getArticulo().getTitulo());
+                      actividad.setQuery("DELETE FROM publicacion AS p,articulo AS a WHERE p.ID_DC="+p.getIdDc()+" AND p.ID_ARTICULO=a.ID ORDER BY a.titulo DESC;");
+                   break;
+                   default://NO
+                      actividad.setActividad("AGREGO PULIBACION" + p.getArticulo().getTitulo());
+                      actividad.setQuery("INSERT INTO  publicacion AS p,articulo AS a WHERE p.ID_DC="+p.getIdDc()+" AND p.ID_ARTICULO=a.ID ORDER BY a.titulo DESC;");
+              }
+
+              ejbActividadusuarioFacade.create(actividad);
+
+          }
+     }
     
-   
+    public String buscar(){
+        listPublicacionByBusqueda=getFacade().buscarArticulo(getAutor(),getTitulo(),getTema(),getPeriodo(),getNumero(),getISSN(),getISBN(),getEditorial(),getAsunto());
+        if(!isActivate())
+        JsfUtil.addSuccessMessage("No se encontrarn ninguna coincidencias");
+        return "/busqueda/List";
+    }
+
+     public String buscarLibroRelacionados(Publicacion p){
+       listPublicacionByBusqueda=getFacade().buscarArticulo(p.getArticulo().getCreador(),p.getArticulo().getTitulo(),p.getArticulo().getDescripcion(),p.getPeriodoMes(),p.getNumero(), p.getIssn(),p.getIsbn(),p.getEditorial(),p.getArticulo().getAsunto());
+       addBitacoraCliente(p);
+       addbicatoraUsuarioAdministrador(p,1);
+       if(!isActivate())
+       JsfUtil.addSuccessMessage("No se encontraron coincidencias!");
+       return "/busqueda/List";
+    }
+
+    public List<Publicacion> getListNovedadesPublicacion(){
+            listPublicacionByBusqueda=getFacade().buscarArticuloNovedades();
+            if(!isActivate())
+            JsfUtil.addSuccessMessage("No se encontrarn ninguna coincidencias");
+            return listPublicacionByBusqueda;
+    }
      
 
-    public List<Publicacion> getListaPublicacion() {
-        return getFacade().findAll();
-         //return listaPublicacion;
+    public String prepareListByCategoria_one(int i,int render){
+        try {
+            selectCategoria = i;
+            redireccionarTo = render;
+            setCategoria(getFacade().getCategoria(selectCategoria));
+            JsfUtil.getDispacher("/faces/busqueda/ListCategoria.xhtml");
+            return null;
+        } catch (IOException ex) {
+            Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
-
-    public void setListaPublicacion(List<Publicacion> listaPublicacion) {
-        this.listaPublicacion = listaPublicacion;
-    }
-
-    public PublicacionController() {
-    }
-
     public Publicacion getSelected() {
         if (current == null) {
             current = new Publicacion();
@@ -58,6 +137,64 @@ public class PublicacionController implements Serializable{
 
     private PublicacionFacade getFacade() {
         return ejbFacade;
+    }
+
+    public List<Publicacion> getListPublicacionByBusqueda() {
+        return listPublicacionByBusqueda;
+    }
+
+
+
+   
+    public String buscarLibroGeneral(){
+       listPublicacionByBusqueda=getFacade().buscarArticulo(getGeneral(),getGeneral(),getGeneral(),new Date(), 1, 1, getGeneral(),getGeneral(), getGeneral());
+       if(!isActivate()){
+        JsfUtil.addSuccessMessage("No se encontraron coincidencias!");
+       }
+       setGeneral("");
+       return "/busqueda/List";
+    }
+
+    public void setListPublicacionByBusqueda(List<Publicacion> listPublicacionByBusqueda) {
+        this.listPublicacionByBusqueda = listPublicacionByBusqueda;
+    }
+
+    public String volverIndex(){
+        try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            String go = externalContext.getRequestContextPath()+"/";
+            externalContext.redirect(go);
+            return "";
+        } catch (IOException ex) {
+            Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+     public String volverBusquedaList(){
+         String go="";
+         String tem;
+        try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            go = externalContext.getRequestContextPath();
+            externalContext.redirect(go+"/faces/busqueda/List.xhtml");
+            return "";
+        } catch (IOException ex) {
+            Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+     public String volverBusquedaListCategoria(){
+         String go="";
+         String tem;
+        try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+             go = externalContext.getRequestContextPath();
+            externalContext.redirect(go+"/faces/busqueda/ListCategoria.xhtml");
+            return "";
+        } catch (IOException ex) {
+            Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
     }
 
     public PaginationHelper getPagination() {
@@ -82,10 +219,51 @@ public class PublicacionController implements Serializable{
         
         return "/publicacion/List";
     }
+/*
+ *
+ * 1: Novedades
+ * 2: Categoria
+ * 3: Busqueda
 
-    public String prepareView(Publicacion p) {
+ */
+
+    private void addBitacoraCliente(Publicacion p){
+           try{
+        if(sistemaController!=null && sistemaController.getCliente()!=null){
+            BitacoraClientePK bitacoraPK=new BitacoraClientePK();
+            BitacoraCliente bitacoraCliente=new BitacoraCliente();
+            bitacoraPK.setIdArticulo(p.getArticulo().getId());
+            bitacoraPK.setIdCliente(sistemaController.getCliente().getId());
+            bitacoraCliente.setBitacoraClientePK(bitacoraPK);
+            bitacoraCliente.setArticulo(p.getArticulo());
+            bitacoraCliente.setFecha(new Date());
+            bitacoraCliente.setEstado(true);
+            bitacoraCliente.setCliente(sistemaController.getCliente());
+            ejbFacadeBitacora.create(bitacoraCliente);
+        }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public String prepareView(Publicacion p,int render,int operacion) {
+
+        
+        addBitacoraCliente(p);
+        addbicatoraUsuarioAdministrador(p,operacion);
+        redireccionarTo=render;
         current=p;
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "/publicacion/ViewVenta";
+    }
+    public String prepareView(Publicacion p,int render) {
+
+
+        addBitacoraCliente(p);
+        redireccionarTo=render;
+        current=p;
+        return "/publicacion/ViewVenta";
+    }
+     public String prepareView(Publicacion p) {
+        //redireccionarTo=render;
+        addbicatoraUsuarioAdministrador(p,1);
+        current=p;
         return "/publicacion/View";
     }
 
@@ -99,9 +277,7 @@ public class PublicacionController implements Serializable{
         try {
             if(current!=null){
               getFacade().create(current);
-              JsfUtil.addSuccessMessage(("Publicacion Created"));
-              
-              
+              JsfUtil.addSuccessMessage(("Publicacion Creada Satisfactoriamente"));
             }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -112,16 +288,16 @@ public class PublicacionController implements Serializable{
 
     public String prepareEdit(Publicacion p) {
         current=p;
-       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "/publicacion/Edit";
 
     }
 
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(("Publicacion Updated"));
-            return "View";
+            addbicatoraUsuarioAdministrador(current, 2);
+            JsfUtil.addSuccessMessage(("Publicacion Actualizada Satisfactoriamente"));
+            return "/publicacion/View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -129,15 +305,12 @@ public class PublicacionController implements Serializable{
     }
 
     public String destroy(Publicacion p) {
-       current=p;
-       getListaPublicacion().remove(current);
-       getFacade().remove(current);
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        //performDestroy();
-        //recreateModel();
-       JsfUtil.addSuccessMessage("Publicacion Eliminada Satisfactoriamente");
-
-        return "List";
+        current=p;
+        getListaPublicacion().remove(current);
+        getFacade().remove(current);
+        addbicatoraUsuarioAdministrador(p, 3);
+        JsfUtil.addSuccessMessage("Publicacion Eliminada Satisfactoriamente");
+        return "/publicacion/List";
     }
 
     public String destroyAndView() {
@@ -245,5 +418,32 @@ public class PublicacionController implements Serializable{
         }
 
     }
+
+     
+    public int getRedireccionarTo() {
+        return redireccionarTo;
+    }
+
+    public void setRedireccionarTo(int redireccionarTo) {
+        this.redireccionarTo = redireccionarTo;
+    }
+
+
+    public SistemaController getSistemaController() {
+        return sistemaController;
+    }
+
+    public void setSistemaController(SistemaController sistemaController) {
+        this.sistemaController = sistemaController;
+    }
+
+    public List<Publicacion> getListaPublicacion() {
+           return getFacade().findAll();
+    }
+
+    public void setListaPublicacion(List<Publicacion> listaPublicacion) {
+        this.listaPublicacion = listaPublicacion;
+    }
+    
 
 }

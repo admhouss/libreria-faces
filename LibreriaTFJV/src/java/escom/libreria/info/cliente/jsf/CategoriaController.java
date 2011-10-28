@@ -4,6 +4,7 @@ import escom.libreria.info.cliente.jpa.Categoria;
 import escom.libreria.info.cliente.jsf.util.JsfUtil;
 import escom.libreria.info.cliente.jsf.util.PaginationHelper;
 import escom.libreria.info.cliente.ejb.CategoriaFacade;
+import java.io.Serializable;
 import java.util.List;
 
 import java.util.ResourceBundle;
@@ -20,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="categoriaController")
 @SessionScoped
-public class CategoriaController {
+public class CategoriaController implements Serializable{
 
     private Categoria current;
     private DataModel items = null;
