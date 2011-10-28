@@ -17,37 +17,34 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
 
-            <h1>Mi cuenta</h1>
+            <h1>Recuperar cuenta</h1>
             <p>&nbsp;</p>
 
             
              <h:panelGroup>
 
 
-                 <p:panel header="Proporciona tus datos: " style="font-size:12px;">
+                 <p:panel header="Olvido su contrasenia?: " style="font-size:12px;">
                      <br/>
                      <center>
 
                          <table width="538" border="0" cellpadding="0" cellspacing="0" align="center">
-  <!--<tr>
+  <tr>
     <td width="14" bgcolor="#FFFFFF" >&nbsp;</td>
-    <td colspan="2" bgcolor="#FFFFFF" ><h3>Proporciona tus datos: </h3></td>
-    <td width="97" bgcolor="#FFFFFF" >&nbsp;</td>
-    <td width="146" bgcolor="#FFFFFF" >&nbsp;</td>
-    <td width="17" bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="5" bgcolor="#FFFFFF" >
+        <p>
+            Ingresa tu direccio&oacute;n de correo para reconfigurar tu contrasenia. <br/>
+            Podr&iacute;as necesitar  revisar tu carpeta de spam o desbloquear libreria@libreria-tfjfa.com.  </p></td>
+    
   </tr>
-  -->
+ 
   <tr>
     <td colspan="6" bgcolor="#FFFFFF" >&nbsp;</td>
     </tr>
   <tr>
     <td bgcolor="#FFFFFF" >&nbsp;</td>
-    <td width="105" bgcolor="#FFFFFF" >&nbsp;&nbsp;<h:outputLabel value="E-mail:" styleClass="textoNEGRO"/></td>
-    <td width="159"  > 
-        <h:inputText value="#{sistemaController.usuario}" id="idUsuario" >
-             <f:validator  validatorId="EmailValidator"/>
-        </h:inputText>
-    </td>
+    <td width="105" bgcolor="#FFFFFF" >&nbsp;&nbsp;</td>
+    <td width="159"  ></td>
     <td colspan="2" bgcolor="#FFFFFF" >&nbsp;</td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
@@ -59,8 +56,12 @@
   </tr>
   <tr>
     <td bgcolor="#FFFFFF" >&nbsp;</td>
-    <td bgcolor="#FFFFFF" >&nbsp;<h:outputLabel value="Password:" styleClass="textoNEGRO"/></td>
-    <td bgcolor="#FFFFFF" >   <h:inputSecret value="#{sistemaController.password}" maxlength="10"  id="password"/></td>
+    <td bgcolor="#FFFFFF" >&nbsp;<h:outputLabel value="E-mail:" styleClass="textoNEGRO" for="mail"/></td>
+    <td bgcolor="#FFFFFF" >
+        <h:inputText value="#{sistemaController.usuario}" required="true" id="mail" requiredMessage="Es requerido la camptura del Campo">
+             <f:validator  validatorId="EmailValidator"/>
+        </h:inputText>
+    </td>
     <td colspan="2" bgcolor="#FFFFFF" >&nbsp;&nbsp;&nbsp;<h:outputLabel value="M&aacute;ximo 10 caracteres:" styleClass="textoROJO"/></td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
@@ -70,7 +71,7 @@
   <tr>
     <td bgcolor="#FFFFFF">&nbsp;</td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><h:commandButton value="Entrar" action="#{sistemaController.loginAcces}"/></td>
+    <td bgcolor="#FFFFFF"><h:commandButton value="Enviar" action="#{sistemaController.olvideContrasenia}"/></td>
     <td bgcolor="#FFFFFF"></td>
     <td bgcolor="#FFFFFF"></td>
     <td bgcolor="#FFFFFF"></td>
@@ -81,12 +82,15 @@
   <tr>
     <td bgcolor="#FFFFFF">&nbsp;</td>
     <td colspan="2" bgcolor="#FFFFFF">
-        
-          <a href="#{facesContext.externalContext.request.contextPath}/faces/login/OlvideContrasenia.xhtml">&iquest;Olvidaste tu password?</a>
+
+      
+
+
+       <!-- <h:commandLink value="&iquest;Olvidaste tu password?" action="{sistemaController.olvideContrasenia}"/>-->
         <!-- <a href="#" >&iquest;Olvidaste tu password?</a>-->
         
     </td>
-    <td colspan="2" bgcolor="#FFFFFF"><a href="#{facesContext.externalContext.request.contextPath}/faces/cliente/Create.xhtml">Registrarse</a></td>
+    <td colspan="2" bgcolor="#FFFFFF"></td>
     <td bgcolor="#FFFFFF"></td>
   </tr>
 </table>
