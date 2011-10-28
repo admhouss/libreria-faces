@@ -20,18 +20,18 @@
                     <center>
                 <h:panelGrid columns="2">
                    
-                    <h:outputText value="#{bundle.ViewAlmacenLabel_existencia}"/>
-                    <h:outputText value="NO" rendered="#{almacenController.selected.existencia==false}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
-                     <h:outputText value="SI" rendered="#{almacenController.selected.existencia}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
-                    <h:outputText value="Consigna:"/>
-                    <h:outputText value="NO" rendered="#{almacenController.selected.enConsigna==false}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
-                     <h:outputText value="SI" rendered="#{almacenController.selected.existencia}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                    <h:outputText value="Existencia:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{almacenController.selected.existencia}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                     
+                    <h:outputText value="Consigna:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{almacenController.selected.enConsigna}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                    
+                    <h:outputText value="Firme:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{almacenController.selected.enFirme}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
 
-                    <h:outputText value="Firme:"/>
-                    <h:outputText value="NO" rendered="#{almacenController.selected.enFirme==false}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
-                    <h:outputText value="SI" rendered="#{almacenController.selected.enFirme}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
-                    <h:outputText value="#{bundle.ViewAlmacenLabel_articulo}"/>
-                    <h:outputText value="#{almacenController.selected.articulo.idTipo.descripcion}" title="#{bundle.ViewAlmacenTitle_articulo}"/>
+
+                    <h:outputText value="Articulo:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{almacenController.selected.articulo.titulo}" title="#{bundle.ViewAlmacenTitle_articulo}"/>
                 </h:panelGrid>
                     </center>
                 </p:panel>
