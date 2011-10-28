@@ -29,7 +29,7 @@
  <p:panel header="CATALOGO DE PROVEEDORES" >
      <p:dataTable value="#{proveedorController.listProveedor}" var="item" paginator="true" rows="5">
                    
-                    <p:column style="width:15px;">
+                    <p:column style="width:100px;">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
@@ -67,7 +67,7 @@
                         </h:commandLink>
                         
                         <h:commandLink action="#{proveedorController.destroy(item)}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Eliminar"/>
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
                    </p:column>
                 </p:dataTable>

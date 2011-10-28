@@ -28,20 +28,43 @@
                 <p:panel header="BUSQUEDA AVANZADA">
                     <center>
                         <h:panelGrid columns="3" cellspacing="10" cellpadding="12">
-                            <h:outputText value="Titulo:" styleClass="textoNEGRO" />
-                            <h:inputText value="#{publicacionController.titulo}" size="25"/>
-                            <h:outputText value=""/>
-                            <h:outputText value="Autor:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{publicacionController.autor}"/>
-                            <h:outputText value=""/>
-                            <h:outputText value="Editorial:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{publicacionController.editorial}" />
-                            <h:outputText value=""/>
-                            <h:outputText value="Resumen:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{publicacionController.resumen}"/>
-                            <h:outputText value=""/>
-                            <h:outputText value="A&ntilde;o:" styleClass="textoNEGRO"/>
-                            <h:inputText size="25" value="#{publicacionController.anio}"/>
+                             <h:outputText value="Autor:" styleClass="textoNEGRO"/>
+                             <h:inputText size="25" id="autor" value="#{publicacionController.autor}"/>
+                             <h:outputText value=""/>
+                             <h:outputText value="T&iacute;tulo:" styleClass="textoNEGRO" />
+                             <h:inputText id="titulo" value="#{publicacionController.titulo}" size="25"/>
+                             <h:outputText value=""/>
+                             <h:outputText value="Tema:" styleClass="textoNEGRO"/>
+                             <h:inputText id="tema" size="25" value="#{publicacionController.tema}" />
+                             <h:outputText value=""/>
+                             <h:outputText value="Periodo:" styleClass="textoNEGRO"/>
+                             <p:calendar id="periodo"  immediate="true"  value="#{publicacionController.periodo}"
+                                pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true"/>
+                             <h:outputText value=""/>
+
+                             <h:outputText value="N&uacute;mero:" styleClass="textoNEGRO"/>
+                             <h:inputText size="25" value="#{publicacionController.numero}"/>
+                             <h:outputText value=""/>
+
+                              <h:outputText value="ISSN:" styleClass="textoNEGRO"/>
+                              <h:inputText size="25" value="#{publicacionController.ISSN}"/>
+                              <h:outputText value=""/>
+
+                               <h:outputText value="ISBN:" styleClass="textoNEGRO"/>
+                               <h:inputText size="25" value="#{publicacionController.ISBN}"/>
+                              <h:outputText value=""/>
+
+                               <h:outputText value="Editorial:" styleClass="textoNEGRO"/>
+                               <h:inputText size="25" value="#{publicacionController.editorial}"/>
+                              <h:outputText value=""/>
+
+                               <h:outputText value="Categoria:" styleClass="textoNEGRO"/>
+                               <h:inputText size="25" value="#{publicacionController.categoria}"/>
+                              <h:outputText value=""/>
+
+                               <h:outputText value="Asunto:" styleClass="textoNEGRO"/>
+                               <h:inputText size="25" value="#{publicacionController.asunto}"/>
+
                             
                             <h:commandButton value="Buscar" action="#{publicacionController.buscar}" />
                             
@@ -67,7 +90,7 @@
                         <table width="99%" border="0">
   <tr>
     <td width="13%" rowspan="8" scope="col">
-        <img src="./../#{item.articulo.imagen}" width="83" height="122" /></td>
+        <img src="#{item.articulo.imagen}" width="83" height="122" /></td>
       <td width="79%" class="Titulo_articulo" scope="col"><h:outputText value="#{item.articulo.titulo}"/></td>
 
   </tr>
@@ -97,12 +120,17 @@
 
       </li>
       <li class="ui-state-default ui-corner-all" title="Agregar un comentario">
-          <a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a>
+         <span class="ui-icon ui-icon-comment">
+             <h:commandLink  action="#{publicacionController.prepareView(item,3)}" immediate="true" styleClass="ui-icon ui-icon-comment" style="width:23px;" />
+
+         </span>
+
       </li>
         <li class="ui-state-default ui-corner-all" title="Ver detalles"  >
             <span class="ui-icon ui-icon-info">
             
-                <h:commandLink  action="#{publicacionController.prepareView(item)}" immediate="true" styleClass="ui-icon ui-icon-info" style="width:23px;" />
+                <h:commandLink  action="#{publicacionController.prepareView(item,3,1)}" immediate="true" styleClass="ui-icon ui-icon-info" style="width:23px;" />
+
             </span>
            
             
@@ -118,7 +146,10 @@
       
 
       
-      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados">
+          <span class="ui-icon ui-icon-link">
+              <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" styleClass="ui-icon ui-icon-link"/></span>
+      </li>
     </ul></td>
   </tr>
   <tr></tr>
