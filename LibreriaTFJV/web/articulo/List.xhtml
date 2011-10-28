@@ -11,78 +11,79 @@
             <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
-        <h:form styleClass="jsfcrud_list_form">
+        <h:form styleClass="jsfcrud_list_form" id="altaArticulo">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
 
-            <br/>
-            <br/>
-            <div align="right">
 
-                <h:commandButton action="#{articuloController.prepareCreate}" value="Crear Nuevo"/>
+            <br />
+             <div align="right">
+                 <h:commandButton action="#{articuloController.prepareCreate}" value="Crear Nuevo"/>
 
-            </div>
-            <br/>  <br/>
-            <p:panel header="CATALOG DE ARTICULO">
+             </div>
+
+
+
+<br/>  <br/>
+                          <p:panel header="CATALOGO ARTICULOS">
+
             <h:panelGroup >
-               
-                <p:dataTable value="#{articuloController.listArticulos}" var="item"  paginator="true" rows="5" 
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		rowsPerPageTemplate="9,12,15"
-                             >
-
-                      <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ID"/>
-                        </f:facet>
-                        <h:outputText value="#{item.id}"/>
-                    </p:column>
-                    
-                    <p:column style="width:15px">
-                        <f:facet name="header">
-                            <h:outputText value="CATEGORIA"/>
-                        </f:facet>
-                        <h:outputText value="#{item.tipoArticulo.descripcion}"/>
-                    </p:column>
+                <p:dataTable value="#{articuloController.listArticulos}" var="item" paginator="true"  rows="5">
                    
-                    <p:column style="width:15px;">
-                        <f:facet name="header">
-                            <h:outputText value="COSTO"/>
-                        </f:facet>
-                        <h:outputText value="#{item.costo}"/>
-                    </p:column>
-                   <p:column style="width:15px;">
-                        <f:facet name="header">
-                            <h:outputText value="PROVEEDOR" style="width:15px;"/>
-                        </f:facet>
-                       <h:outputText value="XX"/>
-                    </p:column>
                     
-                  
-                   
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="TIPO"/>
+                            <h:outputText value="CODIGO"/>
                         </f:facet>
-                        <h:outputText value="#{item.tipoArticulo.descripcion}"/>
+                        <h:outputText  value="#{item.codigo}" />
+                        
                     </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="IDIOMA"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idioma}"/>
+                        
+                    </p:column>
+
+                    
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="TITULO"/>
+                        </f:facet>
+                         <h:outputText value="#{item.titulo}"/>
+
+                    </p:column>
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="AUTOR"/>
+                        </f:facet>
+                         <h:outputText value="#{item.creador}"/>
+
+                    </p:column>
+                   
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{articuloController.prepareView(item,1)}">
-                              <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        <h:commandLink action="#{articuloController.prepareView(item)}">
+                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
                         </h:commandLink>
-                        
-                        
-
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{articuloController.prepareEdit(item)}" >
+                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                        </h:commandLink>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{articuloController.destroy(item)}">
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                        </h:commandLink>
                     </p:column>
-                 </p:dataTable>
+                </p:dataTable>
             </h:panelGroup>
-            </p:panel>
-           
-           
+                          </p:panel>
+
+            
         </h:form>
         </ui:define>
     </ui:composition>

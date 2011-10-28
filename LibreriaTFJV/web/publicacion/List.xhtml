@@ -9,10 +9,10 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListPublicacionTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
-        <h:form styleClass="jsfcrud_list_form">
+        <h:form id="listpublicaciones" styleClass="jsfcrud_list_form">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
@@ -29,6 +29,12 @@
                 <p:panel header="CATALOGO PUBLICACIONES">
                
                     <p:dataTable value="#{publicacionController.listaPublicacion}" var="item" paginator="true" rows="6">
+                        <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                            <h:outputText value="#{item.idDc}"/>
+                   </p:column>
                         <p:column style="width:15px;">
                         <f:facet name="header">
                             <h:outputText value="EDITORIAL"/>
@@ -80,7 +86,7 @@
                         </h:commandLink>
                         <h:outputText value=" "/>
                         <h:commandLink action="#{publicacionController.destroy(item)}">
-                             <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                             <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
                     </p:column>

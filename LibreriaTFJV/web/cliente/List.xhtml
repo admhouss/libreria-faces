@@ -11,7 +11,7 @@
             <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
-        <h:form styleClass="jsfcrud_list_form">
+        <h:form  id="listcliente" styleClass="jsfcrud_list_form">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
@@ -23,20 +23,53 @@
                     <h:commandButton action="#{clienteController.prepareCreate}" value="Crear Nuevo"/>
                 </div>
                 <br/> <br/>
-                <p:panel header="CATALOGO DE CLIENTE">
-                    <p:dataTable value="#{clienteController.listaClientes}" var="item" paginator="true" rows="5" >
+                <p:panel header="BUSCAR CLIENTE">
+                  
+                    <center>
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="NOMBRE" styleClass="textoNEGRO" for="nombre"/>
+                        <h:inputText value="#{clienteController.nombre}" id="nombre"/>
+                        <h:outputLabel value=""/>
+                        <h:outputLabel value="E-MAIL" styleClass="textoNEGRO" for="correo"/>
+                        <h:inputText value="#{clienteController.correo}" id="correo"/>
+                        <h:commandLink  action="#{clienteController.buscarCliente}">
+                             <img src="./../resources/iconos/sver.png" alt="" title="Buscador"/>
+                        </h:commandLink>
+
+                    </h:panelGrid>
+
+                    </center>
                    
-                    <p:column >
+
+                    
+                </p:panel>
+
+                <br/> <br/>
+
+                
+                <p:panel header="CATALOGO DE CLIENTE">
+                    <p:dataTable value="#{clienteController.listSeleccionCliente}" var="item" paginator="true" rows="5" >
+                    <p:column style="width:100px;">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
                         <h:outputText value="#{item.nombre} #{item.paterno} #{item.materno}"/>
                     </p:column>
-                        <p:column >
+                    <p:column style="width:10px;">
                         <f:facet name="header">
                             <h:outputText value="EMAIL"/>
                         </f:facet>
                             <h:outputText value="#{item.id}"/>
+                    </p:column>
+                        
+                   
+
+                   
+                     <p:column style="width:20px;">
+                        <f:facet name="header">
+                            <h:outputText value="CATEGORIA"/>
+                        </f:facet>
+                         <h:outputText value="#{item.categoria.concepto}"/>
                     </p:column>
                    
                     
@@ -55,7 +88,10 @@
                         </h:commandLink>
                         <h:outputText value=" "/>
                         <h:commandLink action="#{clienteController.destroy(item)}" >
-                               <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                               <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                        </h:commandLink>
+                         <h:commandLink action="#" >
+                               <img src="./../resources/iconos/fichame.png" alt="" title="Quitar"/>
                         </h:commandLink>
                         
                     </p:column>
