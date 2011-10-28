@@ -32,11 +32,11 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
     <td><p><strong>Autor:</strong> Francisco Javier Corjon Gomez</p></td>
   </tr>
   <tr>
-      <td><p><strong>Editorial:</strong><h:outputText value="#{articuloController.selected.idIdc.editorial}"/></p></td>
+      <td><p><strong>Editorial:</strong><h:outputText value="#{articuloController.selected.publicacion.editorial}"/></p></td>
 
   </tr>
   <tr>
-      <td><strong>ISBN: </strong><h:outputText value="#{articuloController.selected.idIdc.isbn}"/></td>
+      <td><strong>ISBN: </strong><h:outputText value="#{articuloController.selected.publicacion.isbn}"/></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -86,11 +86,11 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
                     <h:outputText value="Proveedor:"/>
-                    <h:outputText value="#{articuloController.selected.idProveedor.nombre}" title="idProveedor"/>
+                    <h:outputText value="#{articuloController.selected.proveedor.nombre}" title="idProveedor"/>
 
                    
                     <h:outputText value="Tipo Articulo:"/>
-                    <h:outputText value="#{articuloController.selected.idTipo.descripcion}" title="idTipo"/>
+                    <h:outputText value="#{articuloController.selected.tipoArticulo.descripcion}" title="idTipo"/>
                     </h:panelGrid>
                         </p:tab>
                         <p:tab title="Comentario">

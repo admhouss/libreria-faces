@@ -4,55 +4,234 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
- xmlns:p="http://primefaces.prime.com.tr/ui"
-      >
+xmlns:p="http://primefaces.prime.com.tr/ui">
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewPublicacionTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form>
-                <p:panel header="Ver Publicacion">
-                    <center>
-                <h:panelGrid columns="2">
-                   
-                    <h:outputText value="Periodo Mes:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{publicacionController.selected.periodoMes}" title="#{bundle.ViewPublicacionTitle_periodoMes}">
-                        <f:convertDateTime pattern="MM/dd/yyyy " />
-                    </h:outputText>
-                    <h:outputText value="Periodo Anio:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{publicacionController.selected.periodoAnio}" title="#{bundle.ViewPublicacionTitle_periodoAnio}">
-                        <f:convertDateTime pattern="MM/dd/yyyy " />
-                    </h:outputText>
-                    <h:outputText value="Epoca:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{publicacionController.selected.epoca}" title="#{bundle.ViewPublicacionTitle_epoca}"/>
-                    <h:outputText value="Anio:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{publicacionController.selected.anio}" title="#{bundle.ViewPublicacionTitle_anio}"/>
-                    <h:outputText value="Numero:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{publicacionController.selected.numero}" title="#{bundle.ViewPublicacionTitle_numero}"/>
-                    <h:outputText value="Issn:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{publicacionController.selected.issn}" title="#{bundle.ViewPublicacionTitle_issn}"/>
-                    <h:outputText value="Isbn:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{publicacionController.selected.isbn}" title="#{bundle.ViewPublicacionTitle_isbn}"/>
-                    <h:outputText value="Tomo:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{publicacionController.selected.tomo}" title="#{bundle.ViewPublicacionTitle_tomo}"/>
-                    <h:outputText value="Editorial:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{publicacionController.selected.editorial}" title="#{bundle.ViewPublicacionTitle_editorial}"/>
-                </h:panelGrid>
-                    </center>
-                <br />
+            <h:form id="articuloview">
 
-                </p:panel>
+                <br/><br/><br/>
+
+                       <p:tabView>
+                    <center>
+                        <p:tab title="Descripci&oacute;n General">
+                       <table width="99%" border="0">
+  <tr>
+    <td width="13%" rowspan="8" scope="col">
+        <img src="#{publicacionController.selected.articulo.imagen}" width="83" height="122" /></td>
+      <td width="79%" class="Titulo_articulo" scope="col">
+
+         <!-- Mediaci&oacute;n y Arbitraje-->
+         <h:outputLabel value="#{publicacionController.selected.articulo.titulo}"/>
+
+      </td>
+
+  </tr>
+  <tr>
+      <td><p><strong>Autor:</strong> <h:outputText value="#{publicacionController.selected.articulo.creador}"/></p></td>
+  </tr>
+  <tr>
+      <td><p><strong>Idioma:</strong> <h:outputText value="#{publicacionController.selected.articulo.idioma}"/>
+          </p></td>
+
+  </tr>
+  <tr>
+      <td><strong>Unidad: </strong><h:outputText value="#{publicacionController.selected.articulo}"/></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+
+    <td align="left">
+     <ul id="icons" class="ui-widget ui-helper-clearfix">
+      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Mas información">
+    <!-- <h:commandLink  action="./../index.xhtml" >
+          <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+      </h:commandLink>
+    -->
+      <a href="Articulo.html">
+      <span class="ui-icon ui-icon-info"></span>
+      </a>
+      </li>
+      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+    </ul>
+    </td>
+  </tr>
+  <tr></tr>
+  <tr></tr>
+
+</table>
+
+
+
+
+                        </p:tab>
+                        <p:tab title="Detalle">
+                            <center>
+                          
+                            <table width="99%" border="0">
+                    <tr>
+                            <td >
+                                <table>
+                                    <tr>
+                                        <td>
+                                <img src="./../#{publicacionController.selected.articulo.imagen}" width="83" height="122"/>
+                                        </td>
+                                    </tr>
+                                   
+                                </table>
+                          </td>
+                        <td width="79%" class="Titulo_articulo" scope="col">
+
+                                 <h:outputLabel value="#{publicacionController.selected.articulo.titulo}"/>
+
+                        </td>
+
+                    </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+
+                                        <h:panelGrid columns="2" cellspacing="10">
+                            <h:outputText value="Titulo:" styleClass="Titulo_articulo"/>
+                            <h:outputLabel value="#{publicacionController.selected.articulo.titulo}" styleClass="Titulo_articulo"/>
+
+                            <h:outputText value="Autor:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.articulo.creador}" title="Autor"/>
+                            <h:outputText value="Publisher:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.articulo.publicador}" title="publicacdor"/>
+                            
+                            <h:outputText value="Editorial:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.editorial}" title="Editorial"/>
+
+                            <h:outputText value="A&ntilde;o:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.anio}" title="Anio:"/>
+                            <h:outputText value="Epoca:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.epoca}" title="Epoca"/>
+                            <h:outputText value="ISBN:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.isbn}" title="ISBN"/>
+
+                            <h:outputText value="ISSN:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.issn}" title="ISSN"/>
+                            <h:outputText value="Numero:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.numero}" title="Numero"/>
+                            <h:outputText value="Tomo:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.tomo}" title="Tomo"/>
+                            <h:outputText value="Periodo A&ntilde;io:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.periodoAnio}" title="Periodo Anio">
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="Periodo Mes:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.periodoMes}" title="Periodo Mes">
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="Agregacion Recurso:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.articulo.agregacionRecurso}" title="Agregacion Recurso"/>
+                            <h:outputText value="Asunto:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.articulo.asunto}" title="Asunto"/>
+                            <h:outputText value="Costo:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.articulo.costo}" title="Costo"/>
+                            <h:outputText value="Descripcion:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.articulo.descripcion}" title="Descripcion"/>
+                            <h:outputText value="Divisia:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.articulo.divisa}" title="Divisa"/>
+                            <h:outputText value="Fecha Creacion:" styleClass="textoNEGRO">
+                                
+                            </h:outputText>
+                            <h:outputText value="#{publicacionController.selected.articulo.fechaCreacion}" title="Fecha ">
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="Fecha Disponibilidad:" styleClass="textoNEGRO">
+                                
+                            </h:outputText>
+                            <h:outputText value="#{publicacionController.selected.articulo.fechaDisponibilidad}" title="idTipo">
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="Formato:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.articulo.formato}" title="idTipo"/>
+                            <h:outputText value="Formato Digital:" styleClass="textoNEGRO"/>
+                            <h:outputText value="#{publicacionController.selected.articulo.formatoDigital}" title="idTipo"/>
+
+
+                            
+
+                    </h:panelGrid>
+                                    </td>
+                                </tr>
+                            </table>
+                            </center>
+
+                        </p:tab>
+
+
+                         
+                         <p:tab title="Comentario">
+
+                             <div id="tabs-3">
+                                 <p:dataGrid var="item" value="#{comentarioController.listaComentarios}" columns="1" paginator="true" rows="5">
+                                     <p:column> 
+                                         <h:panelGrid columns="1">
+                                             <h:outputText value="#{item.autor}" styleClass="textoNEGRO"/>
+                                            <ul id="icons" class="ui-widget ui-helper-clearfix">
+                                                <li class="ui-state-default ui-corner-all" title=".ui-icon-person"><span class="ui-icon ui-icon-person"></span></li>
+                                            </ul>
+                                            <h:outputText value="#{item.comentario}" />
+                                        </h:panelGrid>
+                                     </p:column>
+
+                                 
+                                 
+                                 </p:dataGrid>
+
+
+                                 
+                             </div>
+                             <br/><br/>
+
+                            <p:commandButton value="Comentar" onclick="dlg1.show();" type="button"/>
+                            <p:dialog header="Agrega tu comentario" widgetVar="dlg1" showEffect="bounce"  hideEffect="explode">
+
+                                <h:inputTextarea   value="#{comentarioController.comentario}" styleClass="textoNEGRO"  rows="10" cols="40"/>
+                                <br/><br/>
+                                <div align="right">
+
+                                    <h:commandButton value="Comentar" action="#{comentarioController.addComentario(sistemaController.cliente,publicacionController.selected.articulo)}"/>
+                                </div>
+                            </p:dialog>
+
+
+                        </p:tab>
+
+
+                    </center>
+                       </p:tabView>
+
                 <br/><br/>
-                <p:panel>
-                    <div align="center">
-                        <h:commandButton action="#{publicacionController.prepareList}" value="Volver"/>
-                    </div>
-                </p:panel>
+
+
+
+                <br/>  <br/>
+
+
+
+                <div align="center">
+                    <p:panel >
+
+                        
+                        <h:commandButton action="#{publicacionController.prepareList}" value="VOLVER" />
+                        
+
+                    </p:panel>
+                </div>
 
             </h:form>
         </ui:define>
