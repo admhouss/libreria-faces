@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListComentarioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText escape="false" value="#{bundle.ListComentarioEmpty}" rendered="#{comentarioController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{comentarioController.items.rowCount > 0}">
+                <h:outputText value="#{comentarioController.pagination.pageFirstItem + 1}..#{comentarioController.pagination.pageLastItem + 1}/#{comentarioController.pagination.itemsCount}"/>&nbsp;
+                <h:commandLink action="#{comentarioController.previous}" value="#{bundle.Previous} #{comentarioController.pagination.pageSize}" rendered="#{comentarioController.pagination.hasPreviousPage}"/>&nbsp;
+                <h:commandLink action="#{comentarioController.next}" value="#{bundle.Next} #{comentarioController.pagination.pageSize}" rendered="#{comentarioController.pagination.hasNextPage}"/>&nbsp;
+                <h:dataTable value="#{comentarioController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListComentarioTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListComentarioTitle_fechaComentario}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaComentario}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListComentarioTitle_comentario}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.comentario}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListComentarioTitle_autor}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.autor}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListComentarioTitle_articulo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.articulo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{comentarioController.prepareView}" value="#{bundle.ListComentarioViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{comentarioController.prepareEdit}" value="#{bundle.ListComentarioEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{comentarioController.destroy}" value="#{bundle.ListComentarioDestroyLink}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+            <br />
+            <h:commandLink action="#{comentarioController.prepareCreate}" value="#{bundle.ListComentarioCreateLink}"/>
+            <br />
+            <br />
+            <h:commandLink value="#{bundle.ListComentarioIndexLink}" action="/index" immediate="true" />
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
