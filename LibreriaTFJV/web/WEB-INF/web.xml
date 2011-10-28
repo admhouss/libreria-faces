@@ -9,9 +9,17 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>ProcesarOlvidarContrasenia</servlet-name>
+        <servlet-class>escom.procesar.olvidarcontrasenia.ProcesarOlvidarContrasenia</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarOlvidarContrasenia</servlet-name>
+        <url-pattern>/ProcesarOlvidarContrasenia</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -21,13 +29,18 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-   
     <error-page>
-        
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/faces/login/Create.xhtml</location>
     </error-page>
-
+    <error-page>
+        <error-code>404</error-code>
+        <location>/faces/login/Create.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/faces/login/Create.xhtml</location>
+    </error-page>
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <filter-class>
@@ -39,7 +52,7 @@
         </init-param>
         <init-param>
             <param-name>uploadDirectory</param-name>
-            <param-value>c:/opt/expedientes/</param-value>
+            <param-value>/home/libreria/tmp/expediente/</param-value>
         </init-param>
     </filter>
     <filter-mapping>
