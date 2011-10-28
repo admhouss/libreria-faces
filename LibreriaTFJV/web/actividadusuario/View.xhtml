@@ -22,13 +22,13 @@
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
                     
-                    <h:outputText value="#{bundle.ViewActividadusuarioLabel_actividad}"/>
+                    <h:outputText value="Actividad:"/>
                     <h:outputText value="#{actividadusuarioController.selected.actividad}" title="#{bundle.ViewActividadusuarioTitle_actividad}"/>
-                    <h:outputText value="#{bundle.ViewActividadusuarioLabel_fecha}"/>
+                    <h:outputText value="Fecha:"/>
                     <h:outputText value="#{actividadusuarioController.selected.fecha}" title="#{bundle.ViewActividadusuarioTitle_fecha}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
-                    <h:outputText value="Administrativo"/>
+                    <h:outputText value="Administrativo:"/>
                     <h:outputText value="#{actividadusuarioController.selected.usuarioadministrativo.cargo}" title="#{bundle.ViewActividadusuarioTitle_usuarioadministrativo}"/>
                 </h:panelGrid>
                 </center>
