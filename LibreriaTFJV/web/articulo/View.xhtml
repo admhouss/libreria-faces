@@ -24,19 +24,25 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                        <table width="99%" border="0">
   <tr>
     <td width="13%" rowspan="8" scope="col">
-       <img src="./../resources/template/imgs/producto6.jpg" width="83" height="122" /></td>
-      <td width="79%" class="Titulo_articulo" scope="col">Mediaci&oacute;n y Arbitraje</td>
+        <img src="#{articuloController.selected.imagen}" width="83" height="122" /></td>
+      <td width="79%" class="Titulo_articulo" scope="col">
+
+         <!-- Mediaci&oacute;n y Arbitraje-->
+         <h:outputLabel value="#{articuloController.selected.titulo}"/>
+
+      </td>
 
   </tr>
   <tr>
-    <td><p><strong>Autor:</strong> Francisco Javier Corjon Gomez</p></td>
+      <td><p><strong>Autor:</strong> <h:outputText value="#{articuloController.selected.creador}"/></p></td>
   </tr>
   <tr>
-      <td><p><strong>Editorial:</strong><h:outputText value="#{articuloController.selected.idIdc.editorial}"/></p></td>
+      <td><p><strong>Idioma:</strong> <h:outputText value="#{articuloController.selected.idioma}"/>
+          </p></td>
 
   </tr>
   <tr>
-      <td><strong>ISBN: </strong><h:outputText value="#{articuloController.selected.idIdc.isbn}"/></td>
+      <td><strong>Unidad: </strong><h:outputText value="#{articuloController.selected.unidad}"/></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -70,102 +76,96 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
 
                         </p:tab>
                         <p:tab title="Detalle">
+                            <center>
                             <h:panelGrid columns="2" cellspacing="15">
-                     <h:outputText value="Unidad:"/>
+                             <h:outputText value="Unidad:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{articuloController.selected.unidad}" title="unidad"/>
-                    <h:outputText value="Divisa:"/>
+                    <h:outputText value="Divisa:" styleClass="textoNEGRO" />
                     <h:outputText value="#{articuloController.selected.divisa}" title="divisa"/>
-                    <h:outputText value="Costo:"/>
+                    <h:outputText value="Costo:" styleClass="textoNEGRO" />
                     <h:outputText value="#{articuloController.selected.costo}" title="costo"/>
-                    <h:outputText value="Precio Unitario:"/>
+                    <h:outputText value="Precio Unitario:" styleClass="textoNEGRO" />
                     <h:outputText value="#{articuloController.selected.precioUnitario}" title="precio Unitario:"/>
-                    <h:outputText value="Descripcion:"/>
+                    <h:outputText value="Descripcion:" styleClass="textoNEGRO" />
                     <h:outputText value="#{articuloController.selected.descripcion}" title="Descripcion"/>
-                    <h:outputText value="Fecha Registro:"/>
+                    <h:outputText value="Fecha Registro:" styleClass="textoNEGRO" />
                     <h:outputText value="#{articuloController.selected.fechaRegistro}" title="Fecha Registro">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
-                    <h:outputText value="Proveedor:"/>
-                    <h:outputText value="#{articuloController.selected.idProveedor.nombre}" title="idProveedor"/>
-
-                   
-                    <h:outputText value="Tipo Articulo:"/>
-                    <h:outputText value="#{articuloController.selected.idTipo.descripcion}" title="idTipo"/>
+                    <h:outputText value="Tipo Articulo:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{articuloController.selected.tipoArticulo.descripcion}" title="idTipo"/>
+                    
                     </h:panelGrid>
+                            </center>
                         </p:tab>
-                        <p:tab title="Comentario">
-                            
+                       
+
+                         <p:tab title="Proveedores del Articulo">
+                             <h:panelGroup>
+
+                                 <p:dataTable value="#{articuloController.selected.proveedorList}" var="item" paginator="true" rows="4">
+                                      <p:column style="width:20px;">
+                        <f:facet name="header">
+                            <h:outputText value="NOMBRE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                   </p:column>
+                   <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="SIGLA"/>
+                        </f:facet>
+                       <h:outputText value="#{item.sigla}"/>
+                   </p:column>
+                  <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="CD"/>
+                        </f:facet>
+                      <h:outputText value="#{item.cd}"/>
+                   </p:column>
+
+                      <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="RFC"/>
+                        </f:facet>
+                        <h:outputText value="#{item.rfc}"/>
+                   </p:column>
+                                 </p:dataTable>
+
+                             </h:panelGroup>
+
                         </p:tab>
+                         <p:tab title="Comentario">
+
+                             <div id="tabs-3">
+                                 <p:dataGrid var="item" value="#{articuloController.selected.comentarioList}" columns="1" paginator="true" rows="4">
+                                     <p:column>
+                                         <h:panelGrid columns="1">
+                                             <h:outputText value="#{item.autor}" styleClass="textoNEGRO"/>
+                                            <ul id="icons" class="ui-widget ui-helper-clearfix">
+                                                <li class="ui-state-default ui-corner-all" title=".ui-icon-person"><span class="ui-icon ui-icon-person"></span></li>
+                                            </ul>
+                                            <h:outputText value="#{item.comentario}" />
+                                        </h:panelGrid>
+                                     </p:column>
+
+
+
+                                 </p:dataGrid>
+
+
+
+                             </div>
+
+
+                        </p:tab>
+
                 
                     </center>
                        </p:tabView>
                 
                 <br/><br/>
 
-                <p:accordionPanel>
-                    <p:tab title="Promoci&oacute;n Articulo">
-                      
-                            <p:dataTable value="#{promocionController.listPromocion}" var="item" paginator="true" rows="7">
-
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="PRECIO"/>
-                        </f:facet>
-                        <h:outputText id="precio" value="#{item.precioPublico}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="DIA INICIO"/>
-                        </f:facet>
-                        <h:outputText value="#{item.diaInicio}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="DIA FIN"/>
-                        </f:facet>
-                        <h:outputText value="#{item.diaFin}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                    </p:column>
-                     <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ARTICULO"/>
-                        </f:facet>
-                         <h:outputText value="#{item.articulo.idTipo.descripcion}"/>
-                    </p:column>
-                    
-                </p:dataTable>
-                      
-                    </p:tab>
-                    <p:tab title="Impuesto">
-                          <p:dataTable value="#{impuestoController.listaImpuesto}" var="item" paginator="true" rows="5">
-                  
-                   <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="IMPUESTO"/>
-                        </f:facet>
-                        <h:outputText value="#{item.montoImpuesto}"/>
-                   </p:column>
-                   <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="DESCRIPCION"/>
-                        </f:facet>
-                        <h:outputText value="#{item.descripcion}"/>
-                   </p:column>
-                   <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ARTICULO"/>
-                        </f:facet>
-                       <h:outputText value="#{item.articulo.id}"/>
-                   </p:column>
-                   
-                </p:dataTable>
-
-                    </p:tab>
-                </p:accordionPanel>
+               
 
                 <br/>  <br/>
 
@@ -174,7 +174,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                 <div align="center">
                     <p:panel >
 
-                        <h:commandButton action="#{articuloController.prepareList}" value="VOLVER"/>
+                        <h:commandButton action="#{articuloController.prepareList}" value="VOLVER ARTICULO"/>
                     </p:panel>
                 </div>
 
