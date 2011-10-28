@@ -24,16 +24,17 @@
                       <h:panelGrid columns="2" cellspacing="12">
                     
                     <h:outputText value="Nombre:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.nombre} #{clienteController.selected.paterno} #{clienteController.selected.materno}" title="nombre}"/>
-                   
-                    <h:outputText value="Telefono Casa:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.telefonoList[0].telefono}" title="telefono"/>
-                    <h:outputText value="Telefono Oficina:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{clienteController.selected.telefonoList[1].telefono}" title="telefono"/>
+                    <h:outputText value="#{clienteController.selected.nombre} #{clienteController.selected.paterno} #{clienteController.selected.materno}" title="nombre"/>
+                                   
                     <h:outputText value="Fax:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{clienteController.selected.fax}" title="fax"/>
                     <h:outputText value="Email:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{clienteController.selected.id}" title="email"/>
+                    <h:outputText value="Email Alternativo:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{clienteController.selected.email}" title="email alternativo"/>
+                    <h:outputText value="Tel&eacute;fono:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{clienteController.selected.telefono}" title="telefono"/>
+                    
                     <h:outputText value="Password:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{clienteController.selected.password}" title="password"/>
                     <h:outputText value="Fecha Alta:" styleClass="textoNEGRO"/>
@@ -42,6 +43,8 @@
                     </h:outputText>
                     <h:outputText value="Estado:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{clienteController.selected.estado.nombre}" title="estado"/>
+                    <h:outputText value="Categoria:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{clienteController.selected.categoria.concepto}" title="categoria"/>
                 </h:panelGrid>
                   </center>
 
