@@ -36,7 +36,7 @@
       <table width="99%" border="0">
   <tr>
     <td width="13%" rowspan="8" scope="col">
-        <img src="#{facesContext.externalContext.request.contextPath}#{item.articulo.imagen}" width="83" height="122" /></td>
+        <img src="#{item.articulo.imagen}" width="83" height="122" /></td>
       <td width="79%" class="Titulo_articulo" scope="col"><h:outputText value="#{item.articulo.titulo}"/></td>
 
   </tr>
@@ -64,14 +64,17 @@
 
       </li>
       <li class="ui-state-default ui-corner-all" title="Agregar un comentario">
-          <a href="Articulo.html">
-              <span class="ui-icon ui-icon-comment"></span>
-          </a>
+          
+              <span class="ui-icon ui-icon-comment">
+                   <h:commandLink  action="#{publicacionController.prepareView(item,2,1)}" immediate="true" styleClass="ui-icon ui-icon-comment"/>
+
+              </span>
+          
       </li>
-     <li   class="ui-state-default ui-corner-all" title="Mas información">
+            <li   class="ui-state-default ui-corner-all" title="Mas informaci&oacute;n">
        <span class="ui-icon ui-icon-info">
 
-           <h:commandLink  action="#{publicacionController.prepareView(item)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
+           <h:commandLink  action="#{publicacionController.prepareView(item,2,1)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
 
 
        </span>
@@ -79,7 +82,7 @@
      </li>
       <li class="ui-state-default ui-corner-all" title="Articulos Relacionados">
      <span class="ui-icon ui-icon-link">
-
+         <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" styleClass="ui-icon ui-icon-link"/>
      </span>
       </li>
     </ul></td>
