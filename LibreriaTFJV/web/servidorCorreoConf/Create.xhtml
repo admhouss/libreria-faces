@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateServidorCorreoConfTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateServidorCorreoConfLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{servidorCorreoConfController.selected.id}" title="#{bundle.CreateServidorCorreoConfTitle_id}" required="true" requiredMessage="#{bundle.CreateServidorCorreoConfRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateServidorCorreoConfLabel_usuario}" for="usuario" />
+                    <h:inputText id="usuario" value="#{servidorCorreoConfController.selected.usuario}" title="#{bundle.CreateServidorCorreoConfTitle_usuario}" />
+                    <h:outputLabel value="#{bundle.CreateServidorCorreoConfLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{servidorCorreoConfController.selected.descripcion}" title="#{bundle.CreateServidorCorreoConfTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateServidorCorreoConfRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="#{bundle.CreateServidorCorreoConfLabel_contrasenia}" for="contrasenia" />
+                    <h:inputText id="contrasenia" value="#{servidorCorreoConfController.selected.contrasenia}" title="#{bundle.CreateServidorCorreoConfTitle_contrasenia}" required="true" requiredMessage="#{bundle.CreateServidorCorreoConfRequiredMessage_contrasenia}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{servidorCorreoConfController.create}" value="#{bundle.CreateServidorCorreoConfSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{servidorCorreoConfController.prepareList}" value="#{bundle.CreateServidorCorreoConfShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateServidorCorreoConfIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
