@@ -110,7 +110,7 @@
   </tr>
   <tr>
     <td>
-        <h:inputText id="usuario" value="#{sistemaController.usuario}" size="20"/>
+        <h:inputText id="usuario" value="#{sistemaController.usuarioAdmin}" size="20"/>
        <!-- <input name="textfield2" type="text" id="textfield2" size="15" />-->
 
     </td>
@@ -120,13 +120,13 @@
   </tr>
   <tr>
     <td>
-        <h:inputSecret id="password" value="#{sistemaController.password}" size="20"/>
+        <h:inputSecret id="password" value="#{sistemaController.passwordAdmin}" size="20"/>
         <!--<input name="textfield3" type="text" id="textfield3" size="15" />-->
         
         <center>
         <ul id="icons" class="ui-widget ui-helper-clearfix" >
           <li class="ui-state-default ui-corner-all" style="width:25px;"  title="Ingresar" >
-            <h:commandLink action="#{sistemaController.loginAcces}" styleClass="ui-icon ui-icon-key" title="Ingresar" />
+              <h:commandLink action="#{sistemaController.accesoAdministrador}" styleClass="ui-icon ui-icon-key" title="Ingresar" />
 
 
 
@@ -162,37 +162,37 @@
 
 
             <h:form id="derechofiscal">
-                <h:commandLink value="Derecho Fiscal" action="#{publicacionController.prepareListByCategoria_one(1)}"/>
+                <h:commandLink value="Derecho Fiscal" action="#{publicacionController.prepareListByCategoria_one(1,2)}"/>
             </h:form>
 
         </li>
         <li>
            <h:form id="derechoInternacional">
-               <h:commandLink value="Derecho Internacinal" action="#{publicacionController.prepareListByCategoria_one(2)}"/>
+               <h:commandLink value="Derecho Internacinal" action="#{publicacionController.prepareListByCategoria_one(2,2)}"/>
             </h:form>
           <ul>
             <ul>
               <ul>
                 <li>
              <h:form id="DerechoAdministrativo">
-            <h:commandLink value="Derecho Administrativo" action="#{publicacionController.prepareListByCategoria_one(3)}"/>
+            <h:commandLink value="Derecho Administrativo" action="#{publicacionController.prepareListByCategoria_one(3,2)}"/>
             </h:form>
 
                 </li>
                 <li>
               <h:form id="JuicioLinea">
-            <h:commandLink value="Juicio en Linea" action="#{publicacionController.prepareListByCategoria_one(4)}"/>
+            <h:commandLink value="Juicio en Linea" action="#{publicacionController.prepareListByCategoria_one(4,2)}"/>
             </h:form>
                 </li>
                 <li>
               <h:form id="juicioOrales">
-            <h:commandLink value="Juicios Orales" action="#{publicacionController.prepareListByCategoria_one(5)}"/>
+            <h:commandLink value="Juicios Orales" action="#{publicacionController.prepareListByCategoria_one(5,2)}"/>
             </h:form>
                </li>
                 <li>
                     
                     <h:form id="JurisPrudencia">
-                        <h:commandLink value="Jurisprudencia" action="#{publicacionController.prepareListByCategoria_one(6)}"/>
+                        <h:commandLink value="Jurisprudencia" action="#{publicacionController.prepareListByCategoria_one(6,2)}"/>
             </h:form>
 
                 </li>
@@ -247,15 +247,93 @@
     <th align="left" scope="col"><h2>Administración</h2>
       <ul class="list navigation">
         <li><a href="Reporte_Ventas.html">Ventas General </a></li>
-        <li><a href="#{facesContext.externalContext.request.contextPath}/faces/ventaDetalle/List.xhtml">Ventas Detalles</a>
+        <li>
+            <a href="#{facesContext.externalContext.request.contextPath}/faces/ventaDetalle/List.xhtml">Ventas Detalles</a>
           <ul>
             <ul>
               <ul>
-                <li><a href="#{facesContext.externalContext.request.contextPath}/faces/cliente/List.xhtml">Clientes</a></li>
                 <li>
-                    <a href="#{facesContext.externalContext.request.contextPath}/faces/articulo/List.xhtml">Catalogos</a></li>
-                <li><a href="#">Estadisticas</a></li>
-                <li></li>
+                    <h:form id="ClientesForm">
+
+                        <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/cliente/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}">
+                            <h:outputText value="Clientes"/>
+                        </h:outputLink>
+                    </h:form>
+                </li>
+                <li>
+                    <h:form id="CatalogosForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/articulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                             <h:outputText value="Articulos"/>
+                       </h:outputLink>
+
+                    </h:form>
+                </li>
+               
+                <li>
+                     <h:form id="PublicacionForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/publicacion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Publicaci&oacute;nes"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                 <li>
+                     <h:form id="PromocionForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/promocion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Promoci&oacute;nes"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                  <li>
+                     <h:form id="ProveedorForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/proveedor/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Proveedores"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                   <li>
+                     <h:form id="ImpuestoForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/impuesto/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Impuesto"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                   <li>
+                     <h:form id="AlmacenForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/almacen/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Almacen"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                   <li>
+                     <h:form id="descuentoArticuloForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/descuentoArticulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Descuento Articulo"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                   <li><a href="#">Estadisticas</a></li>
               </ul>
             </ul>
           </ul>
@@ -389,6 +467,11 @@
   <center>
       <h3><h:outputLabel value="BIENVENIDO #{sistemaController.cliente.nombre}  #{sistemaController.cliente.paterno}  #{sistemaController.cliente.materno}" rendered="#{sistemaController.cliente!=null}"/></h3>
   </center>
+   <center>
+       <h3>
+           <h:outputLabel value="BIENVENIDO #{sistemaController.usuarioAdministrador.nombre}  #{sistemaController.usuarioAdministrador.paterno}  #{sistemaController.usuarioAdministrador.materno}" rendered="#{sistemaController.usuarioAdmin!=null}"/>
+       </h3>
+  </center>
   <p>&nbsp;</p>
   <!-- acordion -->
 
@@ -449,7 +532,17 @@
           </ul>
         </li>
       </ul></th>
-      <th colspan="2" align="right" scope="col"><a href="#"> X Cerrar Sesion</a></th>
+      <th colspan="2" align="right" scope="col">
+         <!-- <a href="#"> X Cerrar Sesion</a>-->
+         
+
+           <h:form id="cerrarSession" >
+               <h:commandLink action="#{sistemaController.cerrarCession}" value="X Cerrar Sesion"/>
+
+                   
+           </h:form>
+       
+      </th>
     </tr>
     <tr>
       <td>&nbsp;</td>
