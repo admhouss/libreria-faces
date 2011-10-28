@@ -8,7 +8,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateUsuarioadministrativoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
@@ -19,19 +19,23 @@
                 <br/><br/>
                          <p:panel header="ALTA USUARIO ADMINISTRATIVO">
                         <center>
-                    <h:panelGrid columns="2" cellspacing="15">
-                    <h:outputLabel value="ID:" for="idUsuario" styleClass="textoNEGRO" />
-                    <h:inputText id="idUsuario" value="#{usuarioadministrativoController.selected.idUsuario}" title="#{bundle.CreateUsuarioadministrativoTitle_idUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioadministrativoRequiredMessage_idUsuario}"/>
-                    <h:outputLabel value="#{bundle.CreateUsuarioadministrativoLabel_nombre}" for="nombre" styleClass="textoNEGRO"/>
-                    <h:inputText id="nombre" value="#{usuarioadministrativoController.selected.nombre}" title="#{bundle.CreateUsuarioadministrativoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateUsuarioadministrativoRequiredMessage_nombre}"/>
-                    <h:outputLabel value="#{bundle.CreateUsuarioadministrativoLabel_paterno}" for="paterno" styleClass="textoNEGRO"/>
-                    <h:inputText id="paterno" value="#{usuarioadministrativoController.selected.paterno}" title="#{bundle.CreateUsuarioadministrativoTitle_paterno}" required="true" requiredMessage="#{bundle.CreateUsuarioadministrativoRequiredMessage_paterno}"/>
-                    <h:outputLabel value="#{bundle.CreateUsuarioadministrativoLabel_materno}" for="materno" styleClass="textoNEGRO"/>
-                    <h:inputText id="materno" value="#{usuarioadministrativoController.selected.materno}" title="#{bundle.CreateUsuarioadministrativoTitle_materno}" required="true" requiredMessage="#{bundle.CreateUsuarioadministrativoRequiredMessage_materno}"/>
-                    <h:outputLabel value="#{bundle.CreateUsuarioadministrativoLabel_password}" for="password" styleClass="textoNEGRO" />
-                    <p:password feedback="false" id="password" value="#{usuarioadministrativoController.selected.password}" title="#{bundle.CreateUsuarioadministrativoTitle_password}" required="true" requiredMessage="#{bundle.CreateUsuarioadministrativoRequiredMessage_password}" minLength="4"/>
-                    <h:outputLabel value="#{bundle.CreateUsuarioadministrativoLabel_cargo}" for="cargo" styleClass="textoNEGRO" />
-                    <h:inputText id="cargo" value="#{usuarioadministrativoController.selected.cargo}" title="#{bundle.CreateUsuarioadministrativoTitle_cargo}" required="true" requiredMessage="#{bundle.CreateUsuarioadministrativoRequiredMessage_cargo}"/>
+                     <h:panelGrid columns="3" cellspacing="15">
+
+                    <h:outputLabel value="Nombre:" for="nombre" />
+                    <h:inputText id="nombre" value="#{usuarioadministrativoController.selected.nombre}" title="nombre" required="true" requiredMessage="RequiredMessage_nombre"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="Paterno:" for="paterno" />
+                    <h:inputText id="paterno" value="#{usuarioadministrativoController.selected.paterno}" title="paterno" required="true" requiredMessage="RequiredMessage_paterno"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="Materno:" for="materno" />
+                    <h:inputText id="materno" value="#{usuarioadministrativoController.selected.materno}" title="materno" required="true" requiredMessage="RequiredMessage_materno"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="Password:" for="password" />
+                    <h:inputSecret id="password" value="#{usuarioadministrativoController.selected.password}" title="password" required="true" requiredMessage="RequiredMessage_password"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="Cargo:" for="cargo" />
+                    <h:inputText id="cargo" value="#{usuarioadministrativoController.selected.cargo}" title="Title_cargo}" required="true" requiredMessage="RequiredMessage_cargo"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
                 </h:panelGrid>
                         </center>
                          </p:panel>

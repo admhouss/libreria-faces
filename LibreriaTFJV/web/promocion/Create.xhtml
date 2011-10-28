@@ -19,18 +19,21 @@
                 <br/>  <br/>
                 <p:panel header="ALTA PROMOCION">
                     <center>
-                <h:panelGrid columns="2" cellspacing="15">
+                <h:panelGrid columns="3" cellspacing="15">
                     
-                    <h:outputLabel  value="Precio:" for="precio" styleClass="textoNEGRO"/>
+                    <h:outputLabel  value="Precio:" for="precio" styleClass="textoNEGRO" />
                     <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="#{bundle.CreatePromocionTitle_precioPublico}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_precioPublico}"/>
-                    <h:outputLabel value="Dia Inicio:" for="diaInicio" styleClass="textoNEGRO"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"  />
+                    <h:outputLabel value="Dia Inicio:" for="diaInicio" styleClass="textoNEGRO" />
                     <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="#{bundle.CreatePromocionTitle_diaInicio}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_diaInicio}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </p:calendar>
-                    <h:outputLabel value="Dia Fin:" for="diaFin" styleClass="textoNEGRO"/>
+                     <h:outputLabel value="*"  styleClass="textoROJO"  />
+                    <h:outputLabel value="Dia Fin:" for="diaFin" styleClass="textoNEGRO" />
                      <p:calendar id="diaFin" value="#{promocionController.selected.diaFin}" title="#{bundle.CreatePromocionTitle_diaFin}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_diaFin}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                      </p:calendar>
+                     <h:outputLabel value="*"  styleClass="textoROJO"  />
 
                 </h:panelGrid>
                 </center>
@@ -40,25 +43,21 @@
             <h:panelGroup >
 
                 <p:dataTable value="#{articuloController.listArticulos}" var="item"  paginator="true" rows="5">
+                     <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="TITULO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.titulo}"/>
+                    </p:column>
                     <p:column style="width:15px;">
                         <f:facet name="header">
-                            <h:outputText value="PROVEEDOR"/>
+                            <h:outputText value="IDIOMA"/>
                         </f:facet>
-                        <h:outputText value="#{item.idProveedor.nombre}"/>
+                        <h:outputText value="#{item.idioma}"/>
                     </p:column>
 
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="UNIDAD"/>
-                        </f:facet>
-                        <h:outputText value="#{item.unidad}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="DIVISA"/>
-                        </f:facet>
-                        <h:outputText value="#{item.divisa}"/>
-                    </p:column>
+                   
+                    
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="COSTO"/>
@@ -73,7 +72,7 @@
                         <f:facet name="header">
                             <h:outputText value="TIPO"/>
                         </f:facet>
-                        <h:outputText value="#{item.idTipo.descripcion}"/>
+                        <h:outputText value="#{item.tipoArticulo.descripcion}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
