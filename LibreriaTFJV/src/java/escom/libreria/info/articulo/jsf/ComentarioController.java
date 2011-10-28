@@ -1,15 +1,19 @@
 package escom.libreria.info.articulo.jsf;
 
-import escom.libreria.info.articulo.jpa.Almacen;
+import escom.libreria.info.articulo.jpa.Comentario;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
-import escom.libreria.info.articulo.ejb.AlmacenFacade;
+import escom.libreria.info.articulo.ejb.ComentarioFacade;
+import escom.libreria.info.articulo.jpa.Articulo;
+import escom.libreria.info.cliente.jpa.Cliente;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -19,31 +23,97 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean (name="almacenController")
+@ManagedBean (name="comentarioController")
 @SessionScoped
-public class AlmacenController implements Serializable{
+public class ComentarioController implements Serializable{
 
-    private Almacen current;
+    private Comentario current;
     private DataModel items = null;
-    @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade ejbFacade;
+    @EJB private escom.libreria.info.articulo.ejb.ComentarioFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private String comentario;
+    private List<Comentario> listaComentarios;
+    @ManagedProperty("#{publicacionController}")
+    PublicacionController publicacionController;
 
-    public AlmacenController() {
+    public PublicacionController getPublicacionController() {
+        return publicacionController;
     }
 
-    public Almacen getSelected() {
+    public void setPublicacionController(PublicacionController publicacionController) {
+        this.publicacionController = publicacionController;
+    }
+
+
+    public List<Comentario> getListaComentarios() {
+        if(listaComentarios==null){
+            List<Comentario> l=getFacade().getComentariosByArticulo(publicacionController.getSelected().getArticulo());
+            if(l!=null)
+            listaComentarios=l;
+            
+
+        }
+        return listaComentarios;
+    }
+
+    public void setListaComentarios(List<Comentario> listaComentarios) {
+        this.listaComentarios = listaComentarios;
+    }
+
+
+
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+
+    private void  addBitacora(Cliente cliente ,Articulo articulo){
+
+        //String Query
+    }
+    public String addComentario(Cliente cliente,Articulo articulo){
+
+        if(cliente==null){
+            JsfUtil.addErrorMessage("Usuario no identificado");
+            return "/login/Create";
+        }
+
+        try{
+
+             current=new Comentario();
+             current.setArticulo(articulo);
+             current.setAutor(cliente.getNombre()+" "+cliente.getPaterno());
+             current.setComentario(comentario);
+             current.setFechaComentario(new Date());
+             getFacade().create(current);
+             listaComentarios=getFacade().getComentariosByArticulo(articulo);
+             JsfUtil.addSuccessMessage("Comentario Agregado Satisfactoriamente");
+             setComentario("");
+        }catch(Exception e){e.printStackTrace();}
+        
+        return "/busqueda/List";
+    }
+
+    public ComentarioController() {
+    }
+
+
+
+    public Comentario getSelected() {
         if (current == null) {
-            current = new Almacen();
+            current = new Comentario();
             selectedItemIndex = -1;
         }
         return current;
     }
-    public List<Almacen> getListaAlmacen(){
-        return getFacade().findAll();
-    }
 
-    private AlmacenFacade getFacade() {
+    private ComentarioFacade getFacade() {
         return ejbFacade;
     }
 
@@ -70,62 +140,51 @@ public class AlmacenController implements Serializable{
         return "List";
     }
 
-    public String prepareView(Almacen p) {
-        current=p;
-       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView() {
+        current = (Comentario)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Almacen();
+        current = new Comentario();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-           
-            current.setIdArticulo(current.getArticulo().getId());
-            current.setArticulo(current.getArticulo());
             getFacade().create(current);
-
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Almacen").getString("AlmacenCreated"));
-            return prepareView(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Comentario").getString("ComentarioCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Almacen").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Comentario").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String prepareEdit(Almacen p) {
-        current=p;
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit() {
+        current = (Comentario)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
-
-          
-            current.setArticulo(current.getArticulo());
-            current.setIdArticulo(current.getArticulo().getId());
             getFacade().edit(current);
-
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Almacen").getString("AlmacenUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Comentario").getString("ComentarioUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Almacen").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Comentario").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String destroy(Almacen p) {
-        current=p;
-        /*selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String destroy() {
+        current = (Comentario)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
-        recreateModel();*/
-        getFacade().remove(current);
-        JsfUtil.addSuccessMessage("Almacen eliminado satisfacotiramente");
+        recreateModel();
         return "List";
     }
 
@@ -145,9 +204,9 @@ public class AlmacenController implements Serializable{
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Almacen").getString("AlmacenDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Comentario").getString("ComentarioDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Almacen").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Comentario").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -197,15 +256,15 @@ public class AlmacenController implements Serializable{
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass=Almacen.class)
-    public static class AlmacenControllerConverter implements Converter {
+    @FacesConverter(forClass=Comentario.class)
+    public static class ComentarioControllerConverter implements Converter {
 
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AlmacenController controller = (AlmacenController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "almacenController");
+            ComentarioController controller = (ComentarioController)facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "comentarioController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -225,11 +284,11 @@ public class AlmacenController implements Serializable{
             if (object == null) {
                 return null;
             }
-            if (object instanceof Almacen) {
-                Almacen o = (Almacen) object;
-                return getStringKey(o.getIdArticulo());
+            if (object instanceof Comentario) {
+                Comentario o = (Comentario) object;
+                return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+AlmacenController.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+ComentarioController.class.getName());
             }
         }
 

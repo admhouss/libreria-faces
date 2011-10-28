@@ -6,7 +6,7 @@
 package escom.libreria.info.articulo.jpa;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,19 +18,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author xxx
  */
 @Entity
-@Table(name = "impuesto")
+@Table(name = "comentario")
 @NamedQueries({
-    @NamedQuery(name = "Impuesto.findAll", query = "SELECT i FROM Impuesto i"),
-    @NamedQuery(name = "Impuesto.findById", query = "SELECT i FROM Impuesto i WHERE i.id = :id"),
-    @NamedQuery(name = "Impuesto.findByMontoImpuesto", query = "SELECT i FROM Impuesto i WHERE i.montoImpuesto = :montoImpuesto"),
-    @NamedQuery(name = "Impuesto.findByDescripcion", query = "SELECT i FROM Impuesto i WHERE i.descripcion = :descripcion")})
-public class Impuesto implements Serializable {
+    @NamedQuery(name = "Comentario.findAll", query = "SELECT c FROM Comentario c"),
+    @NamedQuery(name = "Comentario.findById", query = "SELECT c FROM Comentario c WHERE c.id = :id"),
+    @NamedQuery(name = "Comentario.findByFechaComentario", query = "SELECT c FROM Comentario c WHERE c.fechaComentario = :fechaComentario"),
+    @NamedQuery(name = "Comentario.findByComentario", query = "SELECT c FROM Comentario c WHERE c.comentario = :comentario"),
+    @NamedQuery(name = "Comentario.findByAutor", query = "SELECT c FROM Comentario c WHERE c.autor = :autor")})
+public class Comentario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,26 +41,31 @@ public class Impuesto implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "MONTO_IMPUESTO")
-    private BigDecimal montoImpuesto;
+    @Column(name = "FECHA_COMENTARIO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaComentario;
     @Basic(optional = false)
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
+    @Column(name = "COMENTARIO")
+    private String comentario;
+    @Basic(optional = false)
+    @Column(name = "AUTOR")
+    private String autor;
     @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Articulo articulo;
 
-    public Impuesto() {
+    public Comentario() {
     }
 
-    public Impuesto(Integer id) {
+    public Comentario(Integer id) {
         this.id = id;
     }
 
-    public Impuesto(Integer id, BigDecimal montoImpuesto, String descripcion) {
+    public Comentario(Integer id, Date fechaComentario, String comentario, String autor) {
         this.id = id;
-        this.montoImpuesto = montoImpuesto;
-        this.descripcion = descripcion;
+        this.fechaComentario = fechaComentario;
+        this.comentario = comentario;
+        this.autor = autor;
     }
 
     public Integer getId() {
@@ -68,20 +76,28 @@ public class Impuesto implements Serializable {
         this.id = id;
     }
 
-    public BigDecimal getMontoImpuesto() {
-        return montoImpuesto;
+    public Date getFechaComentario() {
+        return fechaComentario;
     }
 
-    public void setMontoImpuesto(BigDecimal montoImpuesto) {
-        this.montoImpuesto = montoImpuesto;
+    public void setFechaComentario(Date fechaComentario) {
+        this.fechaComentario = fechaComentario;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getComentario() {
+        return comentario;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     public Articulo getArticulo() {
@@ -102,10 +118,10 @@ public class Impuesto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Impuesto)) {
+        if (!(object instanceof Comentario)) {
             return false;
         }
-        Impuesto other = (Impuesto) object;
+        Comentario other = (Comentario) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -114,7 +130,7 @@ public class Impuesto implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.articulo.jpa.Impuesto[id=" + id + "]";
+        return "escom.libreria.info.articulo.jpa.Comentario[id=" + id + "]";
     }
 
 }

@@ -49,6 +49,19 @@ public class Actividadusuario implements Serializable {
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne(optional = false)
     private Usuarioadministrativo usuarioadministrativo;
+    @Basic(optional = false)
+    @Column(name = "QUERY")
+    private String query;
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    
 
     public Actividadusuario() {
     }

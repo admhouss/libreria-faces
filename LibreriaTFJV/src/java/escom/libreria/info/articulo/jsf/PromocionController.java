@@ -37,6 +37,16 @@ public class PromocionController implements Serializable{
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private PromocionPK p;
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
 
 
     public PromocionController() {
@@ -79,14 +89,22 @@ public class PromocionController implements Serializable{
         return "List";
     }
 
+    public String sendCorreo(Promocion promocion){
+        current=promocion;
+        return "/promocion/SendMail";
+    }
+
     public void correo(Promocion promocion){
        List<Cliente> l= clieteFacade.getListClientesActive();
        List<String> destinatarios=new ArrayList<String>();
        for(Cliente cliente:l)
         destinatarios.add(cliente.getId());
        if(destinatarios.size()>0){
-       jMail.enviarCorreo("Hola", "Nueva Promocion de libro"+promocion.getArticulo().getDescripcion(), destinatarios);
+       jMail.enviarCorreo("Libreria", value +promocion.getArticulo().getTitulo(), destinatarios);
+       JsfUtil.addSuccessMessage("Promocion Enviada Satisfactoriamente");
         }
+
+        value="";
        
        
    }
@@ -107,6 +125,7 @@ public class PromocionController implements Serializable{
       p=new PromocionPK();
       p.setIdArticulo(a.getId());
       current.setPromocionPK(p);
+      current.setArticulo(a);
      JsfUtil.addSuccessMessage("Articulo seleccionado satisfactoriamente");
      
     }

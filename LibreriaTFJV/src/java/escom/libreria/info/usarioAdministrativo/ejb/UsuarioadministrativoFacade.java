@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -60,6 +61,21 @@ public class UsuarioadministrativoFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public Usuarioadministrativo buscarUsuarioAdmin(String usuarioAdmin, String passwordAdmin) {
+        Usuarioadministrativo admin=null;
+
+        try{
+                TypedQuery<Usuarioadministrativo> query=em.createQuery("SELECT u FROM Usuarioadministrativo u WHERE u.idUsuario=:usuario AND u.password=:password", Usuarioadministrativo.class)
+                .setParameter("usuario", usuarioAdmin)
+                .setParameter("password", passwordAdmin).setMaxResults(1);
+                admin=query.getSingleResult();
+        }catch(Exception e){}
+
+         return admin;
+
+         
     }
 
 }

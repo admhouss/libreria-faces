@@ -58,10 +58,9 @@ import org.primefaces.model.StreamedContent;
 public class SubirFiles  implements Serializable{
 
 
-    private String urlFile="C:/Users/xxx/Documents/NetBeansProjects/respaldo/LibreriaTFJV/web/resources/images/";
-    private String urlVirtual="/resources/images/";
+    private String urlFile="/home/libreria/www/articulos/";                ///"C:/Users/xxx/Documents/NetBeansProjects/respaldo/LibreriaTFJV/web/resources/images/";
+    private String urlVirtual="http://www.libreria-tfjfa.com/articulos/"; //"/resources/images/";
     private static final int BUFFER_SIZE = 9124;
-    private StreamedContent imagemEnviada = new DefaultStreamedContent();
     private String imagemTemporaria;
     private CroppedImage croppedImage;
     private String extension;
@@ -159,7 +158,7 @@ public void crearArchivo(byte[] bytes, String arquivo) {
     public void handleFileUpload(FileUploadEvent event) {
 
             //System.out.println(event.getFile().getFileName());
- int posicion;
+ int posicion=-1;
                 
                if(descargarArchivo(event)){
 
@@ -172,8 +171,7 @@ public void crearArchivo(byte[] bytes, String arquivo) {
                      articuloController.getSelected().setImagen(urlVirtual);
                    }
                 
-                 //catalogolibroController.getSelected().setUrlImagen(event.getFile().getFileName());
-                 //catalogolibroController.setBandera(false);
+                
                }else{
                   JsfUtil.addErrorMessage("No fue posible cargar el archivo");
                }

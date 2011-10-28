@@ -1,12 +1,9 @@
-package escom.libreria.info.articulo.jsf;
+package escom.libreria.info.cliente.jsf;
 
-import escom.libreria.info.articulo.jpa.Impuesto;
-import escom.libreria.info.articulo.jsf.util.JsfUtil;
-import escom.libreria.info.articulo.jsf.util.PaginationHelper;
-import escom.libreria.info.articulo.ejb.ImpuestoFacade;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
+import escom.libreria.info.cliente.jpa.BitacoraCliente;
+import escom.libreria.info.cliente.jsf.util.JsfUtil;
+import escom.libreria.info.cliente.jsf.util.PaginationHelper;
+import escom.libreria.info.cliente.ejb.BitacoraClienteFacade;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -20,42 +17,28 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean (name="impuestoController")
+@ManagedBean (name="bitacoraClienteController")
 @SessionScoped
-public class ImpuestoController implements Serializable {
+public class BitacoraClienteController {
 
-    private Impuesto current;
+    private BitacoraCliente current;
     private DataModel items = null;
-    @EJB private escom.libreria.info.articulo.ejb.ImpuestoFacade ejbFacade;
+    @EJB private escom.libreria.info.cliente.ejb.BitacoraClienteFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-
-    public ImpuestoController() {
+    public BitacoraClienteController() {
     }
 
-    public Impuesto getSelected() {
+    public BitacoraCliente getSelected() {
         if (current == null) {
-            current = new Impuesto();
+            current = new BitacoraCliente();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private List<Impuesto> listaImpuesto;
-
-    public void setListaImpuesto(List<Impuesto> listaImpuesto) {
-        this.listaImpuesto = listaImpuesto;
-    }
-    
-    public List<Impuesto> getListaImpuesto(){
-     
-        listaImpuesto= getFacade().findAll();
-        setListaImpuesto(listaImpuesto);
-        return listaImpuesto;
-    }
-
-    private ImpuestoFacade getFacade() {
+    private BitacoraClienteFacade getFacade() {
         return ejbFacade;
     }
 
@@ -79,62 +62,54 @@ public class ImpuestoController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "/impuesto/List";
+        return "List";
     }
 
-    public String prepareView(Impuesto p) {
-        current = p;//(Impuesto)getItems().getRowData();
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView() {
+        current = (BitacoraCliente)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Impuesto();
+        current = new BitacoraCliente();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            
-            current.setArticulo(current.getArticulo());
-            current.setDescripcion(current.getDescripcion());
-            current.setMontoImpuesto(current.getMontoImpuesto());
-
-           
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("ImpuestoCreated"));
-            return prepareView(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BitacoraCliente").getString("BitacoraClienteCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BitacoraCliente").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String prepareEdit(Impuesto p) {
-        current = p;//(Impuesto)getItems().getRowData();
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit() {
+        current = (BitacoraCliente)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("ImpuestoUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BitacoraCliente").getString("BitacoraClienteUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BitacoraCliente").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String destroy(Impuesto p) {
-        current =p;// (Impuesto)getItems().getRowData();
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        //performDestroy();
-        //recreateModel();
-        getFacade().remove(current);
-        JsfUtil.addSuccessMessage("Impuesto eliminado satisfactoriamente");
+    public String destroy() {
+        current = (BitacoraCliente)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
+        recreateModel();
         return "List";
     }
 
@@ -154,9 +129,9 @@ public class ImpuestoController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("ImpuestoDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BitacoraCliente").getString("BitacoraClienteDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BitacoraCliente").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -206,27 +181,38 @@ public class ImpuestoController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass=Impuesto.class)
-    public static class ImpuestoControllerConverter implements Converter {
+    @FacesConverter(forClass=BitacoraCliente.class)
+    public static class BitacoraClienteControllerConverter implements Converter {
+
+        private static final String SEPARATOR = "#";
+        private static final String SEPARATOR_ESCAPED = "\\#";
 
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ImpuestoController controller = (ImpuestoController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "impuestoController");
+            BitacoraClienteController controller = (BitacoraClienteController)facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "bitacoraClienteController");
             return controller.ejbFacade.find(getKey(value));
         }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        escom.libreria.info.cliente.jpa.BitacoraClientePK getKey(String value) {
+            escom.libreria.info.cliente.jpa.BitacoraClientePK key;
+            String values[] = value.split(SEPARATOR_ESCAPED);
+            key = new escom.libreria.info.cliente.jpa.BitacoraClientePK();
+            key.setIdMovimiento(Integer.parseInt(values[0]));
+            key.setIdCliente(values[1]);
+            key.setIdArticulo(Integer.parseInt(values[2]));
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(escom.libreria.info.cliente.jpa.BitacoraClientePK value) {
             StringBuffer sb = new StringBuffer();
-            sb.append(value);
+            sb.append(value.getIdMovimiento());
+            sb.append(SEPARATOR);
+            sb.append(value.getIdCliente());
+            sb.append(SEPARATOR);
+            sb.append(value.getIdArticulo());
             return sb.toString();
         }
 
@@ -234,11 +220,11 @@ public class ImpuestoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Impuesto) {
-                Impuesto o = (Impuesto) object;
-                return getStringKey(o.getArticulo().getId());
+            if (object instanceof BitacoraCliente) {
+                BitacoraCliente o = (BitacoraCliente) object;
+                return getStringKey(o.getBitacoraClientePK());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+ImpuestoController.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+BitacoraClienteController.class.getName());
             }
         }
 

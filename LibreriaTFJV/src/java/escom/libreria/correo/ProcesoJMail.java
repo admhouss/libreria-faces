@@ -5,6 +5,8 @@
 
 package escom.libreria.correo;
 
+import escom.libreria.correo.conf.Propiedades;
+import escom.libreria.correo.conf.ServidorCorreoConf;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,9 +30,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-//import nexttech.facto.mail.jpa.EnumTokensMail;
-//import nexttech.facto.mail.jpa.Propiedades;
-//import nexttech.facto.mail.jpa.ServidorCorreoConf;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -41,50 +40,19 @@ import javax.faces.context.FacesContext;
 @Stateless
 @LocalBean
 public class ProcesoJMail {
-    //@EJB nexttech.gal.mail.ejb.ServidorCorreoConfFacade sConfFacade;
+    @EJB private escom.libreria.correo.conf.ejb.ServidorCorreoConfFacade sConfFacade;
+    private List<Propiedades> listPropiedades;
 
     public void enviaCorreo(MensajeCorreoDTO mensaje){
-       Properties props = new Properties();
-        props.put("mail.transport.protocol","smntp");
-        props.put("mail.host","smtp.mail.yahoo.com");
-        props.put("mail.smtp.auth","true");
 
-        props.put("mail.smtp.ssl.enable","true");
-               
+        ServidorCorreoConf serverMail=sConfFacade.find(2);
+        listPropiedades=serverMail.getPropiedadesList();
+        Properties props = new Properties();
+        for(Propiedades propiedad:listPropiedades)
+         props.put(propiedad.getLlave(),propiedad.getValor());
 
-       /* props.put("mail.transport.protocol","smtp");
-        //props.put("mail.host","smtp.mail.yahoo.com");
-        props.put("mail.host","localhost");//no
-        props.put("mail.smtp.auth","true");
-        props.put("mail.smtp.port","25");//no
-        //props.put("mail.smtp.ssl.enable","true");
-        //servidor
-*/
-        //String from="libreria@libreria-tfjfa.com";
-        //String from ="yamildelgado99@yahoo.com";
-
-
-      // String password=getPassword();
-        String from="yamildelgado99@yahoo.com";
-
-      
-      
-
-        String password=getPassword();
-
-
-
-
-        
-        System.out.println("Haber si llega hasta aki" + props);
-        ///ServidorCorreoConf sConf = sConfFacade.find(correoConfId);
-
-        //for(Propiedades p:sConf.getPropiedadesList()) {
-          //  props.put(p.getLlave(), p.getValor());
-        //}
-
-
-        Session session = Session.getInstance(props,new PopupAuthenticator(from,password));
+         Session session = Session.getInstance(props,new PopupAuthenticator(serverMail.getUsuario(),serverMail.getContrasenia()));
+        //Session session = Session.getInstance(props,new PopupAuthenticator("yamildelgado99@yahoo.com","refigerador"));
         session.setDebug(true);
         System.out.println("session creada"+session);
         MimeMessage msg = new MimeMessage(session);
@@ -92,19 +60,19 @@ public class ProcesoJMail {
 
         try {
             msg.setSubject(mensaje.getAsunto());
-            msg.setFrom(new InternetAddress(from));
+            msg.setFrom(new InternetAddress(serverMail.getUsuario()));
 
-        InternetAddress direcciones=null;
+            InternetAddress direcciones=null;
            for(String destinatario:mensaje.getDestinatarioList()){
                direcciones=new InternetAddress(destinatario);
                msg.setRecipient(Message.RecipientType.TO, direcciones);
-               System.out.println(destinatario);
-           Multipart multipart = new MimeMultipart();
-            BodyPart messageBodyPart = new MimeBodyPart();
+              
+                Multipart multipart = new MimeMultipart();
+                BodyPart messageBodyPart = new MimeBodyPart();
 
-            messageBodyPart.setContent(mensaje.getCuerpo(), mensaje.getTipoMensaje());
+                messageBodyPart.setContent(mensaje.getCuerpo(), mensaje.getTipoMensaje());
 
-            multipart.addBodyPart(messageBodyPart);
+                multipart.addBodyPart(messageBodyPart);
 
             for(String adjunto:mensaje.getAdjuntoList()){
                 File f = new File(adjunto);
@@ -133,17 +101,16 @@ public class ProcesoJMail {
         }
          
     }
-    private String getPassword(){
-             //return "marlon23";
-            return "refigerador";
-         }
+
+
+    
          
     public void enviarCorreo(String Asunto,String Cuerpo,List<String> correos) {
     MensajeCorreoDTO mensaje = new MensajeCorreoDTO();
     mensaje.setAsunto(Asunto);
 
-    String cadena="<html><head></head><body><p>"+Cuerpo+"</p>"+"<A HREF=\"http://www.google.com\">Ver Promocion</A></p></body></html>";
-    mensaje.setCuerpo(cadena);
+    String cadena="<html><head></head><body><p>"+Cuerpo+"</p></body></html>";
+    mensaje.setCuerpo(Cuerpo);
     //mensaje.setAdjuntoList(c);
     
     for (String s : correos) {

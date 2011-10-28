@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,13 +22,13 @@ import javax.persistence.Table;
  * @author xxx
  */
 @Entity
-@Table(name = "impuesto")
+@Table(name = "descuento")
 @NamedQueries({
-    @NamedQuery(name = "Impuesto.findAll", query = "SELECT i FROM Impuesto i"),
-    @NamedQuery(name = "Impuesto.findById", query = "SELECT i FROM Impuesto i WHERE i.id = :id"),
-    @NamedQuery(name = "Impuesto.findByMontoImpuesto", query = "SELECT i FROM Impuesto i WHERE i.montoImpuesto = :montoImpuesto"),
-    @NamedQuery(name = "Impuesto.findByDescripcion", query = "SELECT i FROM Impuesto i WHERE i.descripcion = :descripcion")})
-public class Impuesto implements Serializable {
+    @NamedQuery(name = "Descuento.findAll", query = "SELECT d FROM Descuento d"),
+    @NamedQuery(name = "Descuento.findById", query = "SELECT d FROM Descuento d WHERE d.id = :id"),
+    @NamedQuery(name = "Descuento.findByPorcentaje", query = "SELECT d FROM Descuento d WHERE d.porcentaje = :porcentaje"),
+    @NamedQuery(name = "Descuento.findByDescripcion", query = "SELECT d FROM Descuento d WHERE d.descripcion = :descripcion")})
+public class Descuento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,25 +36,22 @@ public class Impuesto implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "MONTO_IMPUESTO")
-    private BigDecimal montoImpuesto;
+    @Column(name = "PORCENTAJE")
+    private BigDecimal porcentaje;
     @Basic(optional = false)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Articulo articulo;
 
-    public Impuesto() {
+    public Descuento() {
     }
 
-    public Impuesto(Integer id) {
+    public Descuento(Integer id) {
         this.id = id;
     }
 
-    public Impuesto(Integer id, BigDecimal montoImpuesto, String descripcion) {
+    public Descuento(Integer id, BigDecimal porcentaje, String descripcion) {
         this.id = id;
-        this.montoImpuesto = montoImpuesto;
+        this.porcentaje = porcentaje;
         this.descripcion = descripcion;
     }
 
@@ -68,12 +63,12 @@ public class Impuesto implements Serializable {
         this.id = id;
     }
 
-    public BigDecimal getMontoImpuesto() {
-        return montoImpuesto;
+    public BigDecimal getPorcentaje() {
+        return porcentaje;
     }
 
-    public void setMontoImpuesto(BigDecimal montoImpuesto) {
-        this.montoImpuesto = montoImpuesto;
+    public void setPorcentaje(BigDecimal porcentaje) {
+        this.porcentaje = porcentaje;
     }
 
     public String getDescripcion() {
@@ -82,14 +77,6 @@ public class Impuesto implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public Articulo getArticulo() {
-        return articulo;
-    }
-
-    public void setArticulo(Articulo articulo) {
-        this.articulo = articulo;
     }
 
     @Override
@@ -102,10 +89,10 @@ public class Impuesto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Impuesto)) {
+        if (!(object instanceof Descuento)) {
             return false;
         }
-        Impuesto other = (Impuesto) object;
+        Descuento other = (Descuento) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -114,7 +101,7 @@ public class Impuesto implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.articulo.jpa.Impuesto[id=" + id + "]";
+        return "escom.libreria.info.articulo.jpa.Descuento[id=" + id + "]";
     }
 
 }

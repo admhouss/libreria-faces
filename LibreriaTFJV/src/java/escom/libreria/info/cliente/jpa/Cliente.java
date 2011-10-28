@@ -7,7 +7,9 @@ package escom.libreria.info.cliente.jpa;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,7 +40,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Cliente.findByFechaAlta", query = "SELECT c FROM Cliente c WHERE c.fechaAlta = :fechaAlta"),
     @NamedQuery(name = "Cliente.findByRecibeInfor", query = "SELECT c FROM Cliente c WHERE c.recibeInfor = :recibeInfor"),
     @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
-    @NamedQuery(name = "Cliente.findByModificacion", query = "SELECT c FROM Cliente c WHERE c.modificacion = :modificacion")})
+    @NamedQuery(name = "Cliente.findByModificacion", query = "SELECT c FROM Cliente c WHERE c.modificacion = :modificacion"),
+    @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono")})
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -75,12 +79,17 @@ public class Cliente implements Serializable {
     @Column(name = "MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modificacion;
+    @Basic(optional = false)
+    @Column(name = "TELEFONO")
+    private String telefono;
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Estado estado;
     @JoinColumn(name = "ID_CATEGORIA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Categoria categoria;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<BitacoraCliente> bitacoraClienteList;
 
     public Cliente() {
     }
@@ -89,7 +98,7 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public Cliente(String id, String nombre, String paterno, String materno, boolean estatus, String password, Date fechaAlta, boolean recibeInfor, String email, Date modificacion) {
+    public Cliente(String id, String nombre, String paterno, String materno, boolean estatus, String password, Date fechaAlta, boolean recibeInfor, String email, Date modificacion, String telefono) {
         this.id = id;
         this.nombre = nombre;
         this.paterno = paterno;
@@ -100,6 +109,7 @@ public class Cliente implements Serializable {
         this.recibeInfor = recibeInfor;
         this.email = email;
         this.modificacion = modificacion;
+        this.telefono = telefono;
     }
 
     public String getId() {
@@ -190,6 +200,14 @@ public class Cliente implements Serializable {
         this.modificacion = modificacion;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public Estado getEstado() {
         return estado;
     }
@@ -204,6 +222,14 @@ public class Cliente implements Serializable {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public List<BitacoraCliente> getBitacoraClienteList() {
+        return bitacoraClienteList;
+    }
+
+    public void setBitacoraClienteList(List<BitacoraCliente> bitacoraClienteList) {
+        this.bitacoraClienteList = bitacoraClienteList;
     }
 
     @Override
