@@ -22,7 +22,8 @@
                 <p:panel header="NUEVA PUBLICACIONES">
                      <center>
                          <h:panelGrid columns="2" cellspacing="12">
-                   
+                   <h:outputLabel value="ID:" for="ID" />
+                   <h:inputText id="ID" value="#{publicacionController.selected.idDc}" title="#{bundle.CreatePublicacionTitle_epoca}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_epoca}"/>
                     <h:outputLabel value="Periodo Mes:" for="periodoMes" styleClass="textoNEGRO"/>
                     <p:calendar id="periodoMes" value="#{publicacionController.selected.periodoMes}" title="#{bundle.CreatePublicacionTitle_periodoMes}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_periodoMes}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -45,6 +46,10 @@
                     <h:inputText id="tomo" value="#{publicacionController.selected.tomo}" title="#{bundle.CreatePublicacionTitle_tomo}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_tomo}"/>
                     <h:outputLabel value="Editorial" for="editorial" styleClass="textoNEGRO"/>
                     <h:inputText id="editorial" value="#{publicacionController.selected.editorial}" title="#{bundle.CreatePublicacionTitle_editorial}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_editorial}" size="20"/>
+                    <h:outputLabel value="Articulo" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{publicacionController.selected.articulo}" title="#{bundle.CreateAlmacenTitle_articulo}" required="true" requiredMessage="articulo">
+                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
                 </center>
                 </p:panel>
