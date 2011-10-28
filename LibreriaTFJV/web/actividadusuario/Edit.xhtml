@@ -21,15 +21,15 @@
                     <h:panelGrid columns="2" cellspacing="15">
 
                    
-                    <h:outputLabel value="#{bundle.CreateActividadusuarioLabel_fecha}" for="fecha" styleClass="textoNEGRO"/>
+                    <h:outputLabel value="Fecha:" for="fecha" />
                     <p:calendar id="fecha" value="#{actividadusuarioController.selected.fecha}" title="#{bundle.CreateActividadusuarioTitle_fecha}" required="true" requiredMessage="#{bundle.CreateActividadusuarioRequiredMessage_fecha}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </p:calendar>
-                    <h:outputLabel value="Administrativo" for="usuarioadministrativo" styleClass="textoNEGRO" />
+                    <h:outputLabel value="Administrativo:" for="usuarioadministrativo" />
                     <h:selectOneMenu id="usuarioadministrativo" value="#{actividadusuarioController.selected.usuarioadministrativo}" title="#{bundle.CreateActividadusuarioTitle_usuarioadministrativo}" required="true" requiredMessage="#{bundle.CreateActividadusuarioRequiredMessage_usuarioadministrativo}">
                         <f:selectItems value="#{usuarioadministrativoController.listaUsuarioAdministrativo}" var="item" itemValue="#{item}" itemLabel="#{item.cargo}"/>
                     </h:selectOneMenu>
-                     <h:outputLabel value="#{bundle.CreateActividadusuarioLabel_actividad}" for="actividad" styleClass="textoNEGRO"/>
+                     <h:outputLabel value="Actividad:" for="actividad" />
                      <h:inputTextarea id="actividad" value="#{actividadusuarioController.selected.actividad}" title="#{bundle.CreateActividadusuarioTitle_actividad}" required="true" requiredMessage="#{bundle.CreateActividadusuarioRequiredMessage_actividad}"/>
 
 
