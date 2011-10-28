@@ -30,21 +30,21 @@
                     <p:dataTable value="#{descuentoArticuloController.listaDescuentoArticulo}" var="item" paginator="true" rows="6">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListDescuentoArticuloTitle_idArticulo}"/>
+                            <h:outputText value="idArticulo"/>
                         </f:facet>
                         <h:outputText value="#{item.idArticulo}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListDescuentoArticuloTitle_descuento}"/>
+                            <h:outputText value="Descuento"/>
                         </f:facet>
                         <h:outputText value="#{item.descuento}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListDescuentoArticuloTitle_articulo}"/>
+                            <h:outputText value="Articulo"/>
                         </f:facet>
-                        <h:outputText value="#{item.articulo.idTipo.descripcion}"/>
+                        <h:outputText value="#{item.articulo.tipoArticulo.descripcion}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">

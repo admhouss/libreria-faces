@@ -35,7 +35,7 @@
                     
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListContactoTitle_puesto}"/>
+                            <h:outputText value="PUESTO"/>
                         </f:facet>
                         <h:outputText value="#{item.puesto}"/>
                     </p:column>
@@ -59,7 +59,7 @@
                         </h:commandLink>
                         
                         <h:commandLink action="#{contactoController.destroy(item)}" >
-                              <img src="./../resources/iconos/quitar.png" alt="" title="Borrar"/>
+                              <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
