@@ -27,9 +27,15 @@
                 <br/><br/>
                 <p:panel header="CATALOGO TIPO DE ARTICULO">
                 <p:dataTable value="#{tipoArticuloController.listTipoArticulo}" var="item" >
-                    <p:column>
+                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
+                        </f:facet>
+                         <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="SIGLA"/>
                         </f:facet>
                         <h:outputText value="#{item.sigla}"/>
                     </p:column>
@@ -52,7 +58,7 @@
                         </h:commandLink>
                         <h:outputText value=" "/>
                         <h:commandLink action="#{tipoArticuloController.destroy(item)}" >
-                             <img src="./../resources/iconos/quitar.png" alt="" title="Eliminar"/>
+                             <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
