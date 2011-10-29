@@ -33,14 +33,7 @@
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/faces/login/Create.xhtml</location>
     </error-page>
-    <error-page>
-        <error-code>404</error-code>
-        <location>/faces/login/Create.xhtml</location>
-    </error-page>
-    <error-page>
-        <error-code>500</error-code>
-        <location>/faces/login/Create.xhtml</location>
-    </error-page>
+    
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <filter-class>
