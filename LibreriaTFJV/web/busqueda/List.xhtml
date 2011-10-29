@@ -11,7 +11,7 @@
             <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
-        <h:form styleClass="jsfcrud_list_form">
+        <h:form id="buscarArticulo" styleClass="jsfcrud_list_form">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
@@ -58,8 +58,8 @@
                                <h:inputText size="25" value="#{publicacionController.editorial}"/>
                               <h:outputText value=""/>
 
-                               <h:outputText value="Categoria:" styleClass="textoNEGRO"/>
-                               <h:inputText size="25" value="#{publicacionController.categoria}"/>
+                               <h:outputText value="Tipo Articulo:" styleClass="textoNEGRO"/>
+                               <h:inputText size="25" value="#{publicacionController.tipoArticulo}"/>
                               <h:outputText value=""/>
 
                                <h:outputText value="Asunto:" styleClass="textoNEGRO"/>
