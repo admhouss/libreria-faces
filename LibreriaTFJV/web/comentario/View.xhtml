@@ -3,43 +3,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewComentarioTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewComentarioLabel_id}"/>
-                    <h:outputText value="#{comentarioController.selected.id}" title="#{bundle.ViewComentarioTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewComentarioLabel_fechaComentario}"/>
-                    <h:outputText value="#{comentarioController.selected.fechaComentario}" title="#{bundle.ViewComentarioTitle_fechaComentario}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+            <h:form id="verComentario">
+                <h:panelGrid columns="2" cellspacing="15">
+                    
+                    <h:outputText value="Fecha:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{comentarioController.selected.fechaComentario}" title="Fecha Comentario">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
-                    <h:outputText value="#{bundle.ViewComentarioLabel_comentario}"/>
-                    <h:outputText value="#{comentarioController.selected.comentario}" title="#{bundle.ViewComentarioTitle_comentario}"/>
-                    <h:outputText value="#{bundle.ViewComentarioLabel_autor}"/>
-                    <h:outputText value="#{comentarioController.selected.autor}" title="#{bundle.ViewComentarioTitle_autor}"/>
-                    <h:outputText value="#{bundle.ViewComentarioLabel_articulo}"/>
-                    <h:outputText value="#{comentarioController.selected.articulo}" title="#{bundle.ViewComentarioTitle_articulo}"/>
+                    <h:outputText value="Autor:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{comentarioController.selected.autor}" title="autor"/>
+                    <h:outputText value="Articulo:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{comentarioController.selected.articulo}" title="articulo"/>
+                    <h:outputText value="Comentario:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{comentarioController.selected.comentario}" title="comentario"/>
                 </h:panelGrid>
-                <br />
-                <h:commandLink action="#{comentarioController.destroyAndView}" value="#{bundle.ViewComentarioDestroyLink}"/>
-                <br />
-                <br />
-                <h:commandLink action="Edit" value="#{bundle.ViewComentarioEditLink}"/>
-                <br />
-                <h:commandLink action="#{comentarioController.prepareCreate}" value="#{bundle.ViewComentarioCreateLink}" />
-                <br />
-                <h:commandLink action="#{comentarioController.prepareList}" value="#{bundle.ViewComentarioShowAllLink}"/>
+
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.ViewComentarioIndexLink}" action="/index" immediate="true" />
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{comentarioController.prepareList}" value="VOLVER"/>
+                    </p:panel>
+                </div>
+                
+               
 
             </h:form>
         </ui:define>
