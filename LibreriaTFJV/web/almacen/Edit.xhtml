@@ -17,20 +17,27 @@
             <h:form id="NovedadesCreate">
 
                 <br/>  <br/>
-                <p:panel header="CREAR NUEVO ALAMACEN">
+                <p:panel header="EDITAR ALAMACEN">
                 <center>
-                    <h:panelGrid columns="2" cellspacing="15">
+                    <h:panelGrid columns="3" cellspacing="15">
 
-                    <h:outputLabel value="Existencia:" for="existencia" />
-                    <h:inputText id="existencia" value="#{almacenController.selected.existencia}" title="#{bundle.CreateAlmacenTitle_existencia}" required="true" requiredMessage="existencia}"/>
-                    <h:outputLabel value="En Consigna:" for="enConsigna" />
-                   <h:inputText id="enConsigna" value="#{almacenController.selected.enConsigna}" title="#{bundle.CreateAlmacenTitle_enConsigna}" required="true" requiredMessage="enConsigna}"/>
-                    <h:outputLabel value="En Firme:" for="enFirme" />
-                    <h:inputText id="enFirme" value="#{almacenController.selected.enFirme}" title="#{bundle.CreateAlmacenTitle_enFirme}" required="true" requiredMessage="enFirme}"/>
-                    <h:outputLabel value="Articulo:" for="articulo" />
-                    <h:selectOneMenu id="articulo" value="#{almacenController.selected.articulo}" title="#{bundle.CreateAlmacenTitle_articulo}" required="true" requiredMessage="articulo">
+                    <h:outputLabel value="Existencia:" for="existencia" styleClass="textoNEGRO" />
+                    <h:inputText id="existencia" value="#{almacenController.selected.existencia}" title="Existencia" required="true" requiredMessage="existencia" >
+
+                    </h:inputText>
+                    <h:outputLabel value="*"  styleClass="textoROJO" />
+                    <h:outputLabel value="En Consigna:" for="enConsigna" styleClass="textoNEGRO" />
+                    <h:inputText id="enConsigna" value="#{almacenController.selected.enConsigna}" title="Consigna" required="true" requiredMessage="enConsigna"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO" />
+                    <h:outputLabel value="En Firme:" for="enFirme" styleClass="textoNEGRO" />
+                    <h:inputText id="enFirme" value="#{almacenController.selected.enFirme}" title="Firme" required="true" requiredMessage="enFirme"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO" />
+                    <h:outputLabel value="Articulo:" for="articulo"  styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="articulo" value="#{almacenController.selected.articulo}" title="Articulo" required="true" requiredMessage="articulo">
+
                         <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
                     </h:selectOneMenu>
+                    <h:outputLabel value="*"  styleClass="textoROJO" />
                 </h:panelGrid>
                 </center>
                 </p:panel>
