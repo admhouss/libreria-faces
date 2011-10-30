@@ -25,7 +25,31 @@
             
             <h:panelGroup >
 
-                <p:panel header="BUSQUEDA AVANZADA">
+                <p:panel header="BUSQUEDA AVANZADA" toggleable="true">
+                    <center>
+                    <h:panelGrid columns="4" cellspacing="10" cellpadding="12">
+                          <h:outputText value="Consulta por:" styleClass="textoNEGRO"/>
+                          <h:selectOneMenu  id="generico" value="#{publicacionController.selectCategoria}" >
+                              <f:selectItem id="item_1" itemLabel="Autor"  itemValue="p.articulo.creador" />
+                              <f:selectItem id="item_2" itemLabel="Titulo" itemValue="p.articulo.titulo" />
+                              <f:selectItem id="item_3" itemLabel="Tema" itemValue="p.articulo.tablaContenidos"/>
+                              <f:selectItem id="item_4" itemLabel="Periodo" itemValue="p.periodoMes"/>
+                              <f:selectItem id="item_5" itemLabel="Numero" itemValue="p.numero"/>
+                              <f:selectItem id="item_6" itemLabel="ISSN" itemValue="p.issn"/>
+                              <f:selectItem id="item_7" itemLabel="ISBN" itemValue="p.isbn"/>
+                              <f:selectItem id="item_8" itemLabel="Editorial" itemValue="p.editorial"/>
+                              <f:selectItem id="item_9" itemLabel="Articulo" itemValue="p.articulo.tipoArticulo.descripcion"/>
+                              <f:selectItem id="item_10" itemLabel="Categoria" itemValue="p.articulo.asunto"/>
+                          </h:selectOneMenu>
+                          <h:inputText value="#{publicacionController.general}" id="querygeneral"/>
+                          <h:commandButton value="Buscar" action="#{publicacionController.buscarDinamica}" />
+
+                    </h:panelGrid>
+                    </center>
+
+                </p:panel>
+                <br/>
+                <p:panel header="BUSQUEDA ARTICULO" toggleable="true">
                     <center>
                         <h:panelGrid columns="3" cellspacing="10" cellpadding="12">
                              <h:outputText value="Autor:" styleClass="textoNEGRO"/>
@@ -62,7 +86,7 @@
                                <h:inputText size="25" value="#{publicacionController.tipoArticulo}"/>
                               <h:outputText value=""/>
 
-                               <h:outputText value="Asunto:" styleClass="textoNEGRO"/>
+                               <h:outputText value="Categoria:" styleClass="textoNEGRO"/>
                                <h:inputText size="25" value="#{publicacionController.asunto}"/>
 
                             
