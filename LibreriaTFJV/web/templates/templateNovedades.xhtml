@@ -9,7 +9,7 @@
 
        <!--<h:outputStylesheet name="css/stylesheet.css"/>-->
        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css" />
-       <link href="#{facesContext.externalContext.request.contextPath}/resources/template/css/style.css" rel="stylesheet" type="text/css" />
+       <link href="#{facesContext.externalContext.request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
 
         <link href="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
 
@@ -513,7 +513,11 @@
             <a href="carrito_1.html">Productos</a>
             
           <ul>
-            <li><a href="Libros.html">Libros</a></li>
+            <li>
+                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/publicacion/Libros.xhtml">
+                    <h:outputText value="Libros"/>
+                </h:outputLink>
+            </li>
             <li><a href="Suscripcidoss.html">Suscripcidoss</a></li>
             <li><a href="Aceesorios.html">Accesorios</a></li>
           </ul>
