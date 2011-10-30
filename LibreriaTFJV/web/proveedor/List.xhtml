@@ -27,7 +27,7 @@
 
  <br/> <br/>
  <p:panel header="CATALOGO DE PROVEEDORES" >
-     <p:dataTable value="#{proveedorController.listProveedor}" var="item" paginator="true" rows="5">
+     <p:dataTable value="#{proveedorController.listProveedor}" var="item" paginator="true" rows="5" selectionMode="single"  >
                    
                     <p:column style="width:100px;">
                         <f:facet name="header">
