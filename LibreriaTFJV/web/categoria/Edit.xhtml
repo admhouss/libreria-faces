@@ -17,10 +17,11 @@
             <h:form id="categoriaEditar">
                  <p:panel header="Nueva Categoria">
                 <center>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="3">
 
-                    <h:outputLabel value="#{bundle.CreateCategoriaLabel_concepto}" for="concepto" />
-                    <h:inputText id="concepto" value="#{categoriaController.selected.concepto}" title="#{bundle.CreateCategoriaTitle_concepto}" required="true" requiredMessage="#{bundle.CreateCategoriaRequiredMessage_concepto}"/>
+                    <h:outputLabel value="Concepto:" for="concepto" styleClass="textoNEGRO"/>
+                    <h:inputText id="concepto" value="#{categoriaController.selected.concepto}" title="Concepto" required="true" requiredMessage="Requierido el campo Concepto"/>
+                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                 </h:panelGrid>
                 </center>
                  </p:panel>
