@@ -30,7 +30,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                 <br/>  <br/>
                 <p:panel header="CATALOGO DE PROMOCIONES">
                         
-                            <p:dataTable value="#{promocionController.listPromocion}" var="item" paginator="true" rows="7">
+                    <p:dataTable value="#{promocionController.listPromocion}" var="item" paginator="true" rows="7" selectionMode="single" >
                     
                     
                       <p:column style="width: 15px;">
@@ -55,7 +55,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                     </p:column>
-                     <p:column style="width:15px">
+                    <p:column style="width:140px;" filterBy="#{item.articulo.titulo}" >
                         <f:facet name="header">
                             <h:outputText value="ARTICULO"/>
                         </f:facet>
