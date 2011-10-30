@@ -19,13 +19,15 @@
                 <br/>  <br/>
                 <p:panel header="VER IMPUESTO">
                 <center>
-                    <h:panelGrid columns="2" cellspacing="15">
+                    <h:panelGrid columns="3" cellspacing="15">
 
-                    <h:outputText value="Descuento:"/>
+                    <h:outputText value="Descuento:"  styleClass="textoNEGRO" />
                     <h:outputText value="#{descuentoArticuloController.selected.descuento}" title="#{bundle.ViewImpuestoTitle_montoImpuesto}"/>
+                    <h:outputLabel value=" %"  />
 
-                    <h:outputText value="Articulo:"/>
+                    <h:outputText value="Articulo:" styleClass="textoNEGRO" />
                     <h:outputText value="#{descuentoArticuloController.selected.articulo.tipoArticulo.descripcion}" title="#{bundle.ViewImpuestoTitle_articulo}"/>
+                    <h:outputLabel value=" "  />
                 </h:panelGrid>
                 </center>
                 </p:panel>
@@ -33,7 +35,7 @@
 
                 <div align="center">
                     <p:panel>
-                        <h:commandButton action="#{descuentoArticuloController.prepareList}" value="VOLVER CATALOGO" />
+                        <h:commandButton action="#{descuentoArticuloController.prepareList}" value="VOLVER" />
                     </p:panel>
                 </div>
 
