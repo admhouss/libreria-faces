@@ -4,6 +4,8 @@ import escom.libreria.info.cliente.jpa.BitacoraCliente;
 import escom.libreria.info.cliente.jsf.util.JsfUtil;
 import escom.libreria.info.cliente.jsf.util.PaginationHelper;
 import escom.libreria.info.cliente.ejb.BitacoraClienteFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="bitacoraClienteController")
 @SessionScoped
-public class BitacoraClienteController {
+public class BitacoraClienteController  implements Serializable{
 
     private BitacoraCliente current;
     private DataModel items = null;
@@ -42,6 +44,10 @@ public class BitacoraClienteController {
         return ejbFacade;
     }
 
+
+    public List<BitacoraCliente> getListBitacoracliente(){
+        return getFacade().findAll();
+    }
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -65,10 +71,10 @@ public class BitacoraClienteController {
         return "List";
     }
 
-    public String prepareView() {
-        current = (BitacoraCliente)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+    public String prepareView(BitacoraCliente cliente) {
+        current =cliente;//(BitacoraCliente)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "/bitacoraCliente/View";
     }
 
     public String prepareCreate() {
@@ -88,10 +94,10 @@ public class BitacoraClienteController {
         }
     }
 
-    public String prepareEdit() {
-        current = (BitacoraCliente)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+    public String prepareEdit(BitacoraCliente c) {
+        current = c;//(BitacoraCliente)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "/bitacoraCliente/Edit";
     }
 
     public String update() {
@@ -105,12 +111,11 @@ public class BitacoraClienteController {
         }
     }
 
-    public String destroy() {
-        current = (BitacoraCliente)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
-        return "List";
+    public String destroy(BitacoraCliente c) {
+        current =c;//(BitacoraCliente)getItems().getRowData();
+        getFacade().remove(current);
+        JsfUtil.addSuccessMessage("Registro eliminado satisfactoriamente");
+        return "/bitacoraCliente/List";
     }
 
     public String destroyAndView() {

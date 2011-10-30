@@ -94,19 +94,26 @@ public class PromocionController implements Serializable{
         return "/promocion/SendMail";
     }
 
+    private  List<Cliente> clientes;
+    private List<String> destinatarios;
+    private StringBuffer query;
     public void correo(Promocion promocion){
-       List<Cliente> l= clieteFacade.getListClientesActive();
-       List<String> destinatarios=new ArrayList<String>();
-       for(Cliente cliente:l)
-        destinatarios.add(cliente.getId());
+       clientes= clieteFacade.getListClientesActive();
+       destinatarios=new ArrayList<String>();
+       for(Cliente cliente:clientes)
+       destinatarios.add(cliente.getId().trim());
        if(destinatarios.size()>0){
-       jMail.enviarCorreo("Libreria", value +promocion.getArticulo().getTitulo(), destinatarios);
-       JsfUtil.addSuccessMessage("Promocion Enviada Satisfactoriamente");
-        }
+         query=new StringBuffer();
+         query.append("<center>");
+         query.append(value +"<br/>"+promocion.getArticulo().getTitulo()+"<br/>");
+         query.append("<img src=\""+promocion.getArticulo().getImagen()+"\"/>");
+         query.append("</center>");
+         jMail.enviarCorreo("Promocion Libreria", query.toString(), destinatarios);
+         setValue("");
+        JsfUtil.addSuccessMessage("Promocion Enviada Satisfactoriamente");
+       }
+       setValue("");
 
-        value="";
-       
-       
    }
 
 

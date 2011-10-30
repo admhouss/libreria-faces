@@ -56,6 +56,13 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
         return (listPublicacionByBusqueda==null || listPublicacionByBusqueda.isEmpty())?false:true;
     }
 
+
+     public List<Publicacion> getListLibros(){
+        List<Publicacion> l=getFacade().getListLibros();
+        return l;
+     }
+
+
      public List<Publicacion> getListLibroByCategoria(){
             setCategoria(getFacade().getCategoria(selectCategoria));
             listPublicacionByBusqueda=getFacade().buscarLibroByCategoria(getCategoria());
@@ -92,18 +99,29 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
      }
     
     public String buscar(){
-        listPublicacionByBusqueda=getFacade().buscarArticulo(getAutor(),getTitulo(),getTema(),getPeriodo(),getNumero(),getISSN(),getISBN(),getEditorial(),getAsunto());
+        listPublicacionByBusqueda=getFacade().buscarArticulo(getAutor(),getTitulo(),getTipoArticulo(),getPeriodo(),getNumero(),getISSN(),getISBN(),getEditorial(),getTema());
         if(!isActivate())
         JsfUtil.addSuccessMessage("No se encontrarn ninguna coincidencias");
         return "/busqueda/List";
     }
 
+     public String buscarDinamica(){
+        listPublicacionByBusqueda=getFacade().buscarDinamica(getSelectCategoria(), getGeneral());
+        if(!isActivate())
+        JsfUtil.addSuccessMessage("No se encontrarn ninguna coincidencias");
+        return "/busqueda/List";
+    }
+
+
+
      public String buscarLibroRelacionados(Publicacion p){
-       listPublicacionByBusqueda=getFacade().buscarArticulo(p.getArticulo().getCreador(),p.getArticulo().getTitulo(),p.getArticulo().getDescripcion(),p.getPeriodoMes(),p.getNumero(), p.getIssn(),p.getIsbn(),p.getEditorial(),p.getArticulo().getAsunto());
+       listPublicacionByBusqueda=getFacade().buscarArticulo(p.getArticulo().getCreador(),p.getArticulo().getTitulo(),p.getArticulo().getTipoArticulo().getDescripcion(),p.getPeriodoMes(),p.getNumero(), p.getIssn(),p.getIsbn(),p.getEditorial(),p.getArticulo().getAsunto());
        addBitacoraCliente(p);
        addbicatoraUsuarioAdministrador(p,1);
        if(!isActivate())
-       JsfUtil.addSuccessMessage("No se encontraron coincidencias!");
+        JsfUtil.addSuccessMessage("No se encontraron coincidencias!");
+       else
+        JsfUtil.addSuccessMessage("Se encontro "+listPublicacionByBusqueda.size()+" coincidencias!");
        return "/busqueda/List";
     }
 
@@ -275,10 +293,16 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
 
     public String create() {
         try {
-            if(current!=null){
+
+              Publicacion publica=getFacade().find(current.getIdDc());
+              if(publica!=null){
+                  JsfUtil.addErrorMessage("El id de la publicacion ya se existe");
+                  return  null;
+              }
+
               getFacade().create(current);
               JsfUtil.addSuccessMessage(("Publicacion Creada Satisfactoriamente"));
-            }
+          
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;

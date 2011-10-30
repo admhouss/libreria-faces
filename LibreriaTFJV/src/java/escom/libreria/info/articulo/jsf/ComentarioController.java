@@ -57,6 +57,10 @@ public class ComentarioController implements Serializable{
         return listaComentarios;
     }
 
+    public List<Comentario> getListaComentariosGeneral(){
+        return getFacade().findAll();
+    }
+
     public void setListaComentarios(List<Comentario> listaComentarios) {
         this.listaComentarios = listaComentarios;
     }
@@ -140,10 +144,9 @@ public class ComentarioController implements Serializable{
         return "List";
     }
 
-    public String prepareView() {
-        current = (Comentario)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+    public String prepareView(Comentario c) {
+        current=c;
+        return "/comentario/View";
     }
 
     public String prepareCreate() {
@@ -163,16 +166,15 @@ public class ComentarioController implements Serializable{
         }
     }
 
-    public String prepareEdit() {
-        current = (Comentario)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+    public String prepareEdit(Comentario c) {
+        current=c;
+        return "/comentario/Edit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Comentario").getString("ComentarioUpdated"));
+            JsfUtil.addSuccessMessage(("ComentarioUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Comentario").getString("PersistenceErrorOccured"));
@@ -180,12 +182,10 @@ public class ComentarioController implements Serializable{
         }
     }
 
-    public String destroy() {
-        current = (Comentario)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
-        return "List";
+    public String destroy(Comentario c) {
+        current=c;
+        JsfUtil.addSuccessMessage("Comentario eliminado satisfactoriamente");
+        return "/comentario/List";
     }
 
     public String destroyAndView() {

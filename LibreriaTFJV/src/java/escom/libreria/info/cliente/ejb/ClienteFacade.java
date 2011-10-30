@@ -65,7 +65,7 @@ public class ClienteFacade  {
     }
 
     public List<Cliente> getListClientesActive() {
-        TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.estatus=1 AND c.recibeInfor=1 ORDER BY c.nombre,c.paterno,c.materno ASC",Cliente.class);
+        TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.estatus=true AND c.recibeInfor=1 ORDER BY c.nombre,c.paterno,c.materno ASC",Cliente.class);
         List<Cliente> c= l.getResultList();
         return c;
     }
@@ -97,7 +97,7 @@ public class ClienteFacade  {
       public List<Cliente> buscarCliente(String correo,String nombre) {
         List<Cliente> cliente=null;
         try{
-            TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE (c.id=:correo  AND c.estatus=true) OR  c.nombre LIKE :nombre ORDER BY c.nombre ASC",Cliente.class)
+            TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.id=:correo OR  c.nombre LIKE :nombre ORDER BY c.nombre ASC",Cliente.class)
             .setParameter("correo",correo)
             .setParameter("nombre", nombre+"%");
             //.setParameter("paterno", nombre+"%")

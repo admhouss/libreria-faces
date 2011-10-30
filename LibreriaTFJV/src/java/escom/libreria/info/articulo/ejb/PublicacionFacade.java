@@ -91,6 +91,21 @@ public class PublicacionFacade {
     }
 
 
+ private String queryTemporal=null;
+
+ private int convertirNumero;
+    public List<Publicacion> buscarDinamica(String campo,Object dinamico){
+        
+     queryTemporal="SELECT p FROM Publicacion p WHERE "+campo+" LIKE :general  ORDER BY p.articulo.titulo ASC";
+     TypedQuery<Publicacion> query=em.createQuery(queryTemporal,Publicacion.class);
+     if(campo.equals("p.numero") || campo.equals("p.issn")){
+        convertirNumero=Integer.parseInt((String)dinamico);
+        query.setParameter("general",convertirNumero);//y
+     }else
+     query.setParameter("general",dinamico+"%");//y
+     List<Publicacion>l=query.getResultList();return l;
+
+    }
 
 
 
@@ -100,28 +115,34 @@ public class PublicacionFacade {
         GregorianCalendar calendario=new GregorianCalendar(fechaActual.getYear(), fechaActual.getMonth(),1);
         Date fechaInicial=calendario.getTime();
 
-                    TypedQuery<Publicacion> query=em.createQuery(" SELECT p FROM Publicacion p WHERE p.articulo.fechaRegistro >=:fi  AND p.articulo.fechaRegistro <=:fa ",Publicacion.class)
-                    .setParameter("fa", fechaActual,TemporalType.TIMESTAMP)
-                    .setParameter("fi", fechaInicial,TemporalType.TIMESTAMP);
-                    List<Publicacion>l=query.getResultList();
-                    return l;
-
-
+        TypedQuery<Publicacion> query=em.createQuery(" SELECT p FROM Publicacion p WHERE p.articulo.fechaRegistro >=:fi  AND p.articulo.fechaRegistro <=:fa ",Publicacion.class)            .setParameter("fa", fechaActual,TemporalType.TIMESTAMP)
+        .setParameter("fi", fechaInicial,TemporalType.TIMESTAMP);
+        List<Publicacion>l=query.getResultList();
+        return l;
     }
 
-    public List<Publicacion> buscarArticulo(String autor, String titulo, String tema, Date periodo, int numero, int iSSN, String iSBN, String editorial,String asunto) {
+    public List<Publicacion> buscarArticulo(String autor, String titulo, String tipoArticulo, Date periodo, int numero, int iSSN, String iSBN, String editorial,String asunto) {
 
-        TypedQuery<Publicacion> query=em.createQuery(" SELECT p FROM Publicacion p WHERE (p.editorial LIKE :editorial AND p.articulo.titulo LIKE :titulo) OR p.articulo.descripcion LIKE :tema OR p.articulo.creador LIKE :autor OR p.periodoMes =:periodo   OR p.numero =:numero OR p.issn=:ISSN OR p.isbn LIKE :ISBN OR p.articulo.asunto LIKE :asunto ORDER BY p.articulo.titulo ASC",Publicacion.class)
-                    .setParameter("autor",autor+"%")//y
-                    .setParameter("asunto",asunto+"%")//yes
-                    .setParameter("titulo",titulo+"%")//y
-                    .setParameter("tema","%"+ tema+"%") //y
-                    .setParameter("periodo",periodo,TemporalType.TIMESTAMP)//y
-                    .setParameter("numero", numero)//y
-                    .setParameter("ISSN", iSSN)//Y
-                    .setParameter("ISBN", iSBN+"%")//Y
-                    .setParameter("editorial", editorial+"%");//y
 
+                    TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE (p.editorial LIKE :editorial AND p.articulo.titulo LIKE :titulo) OR ( p.articulo.tipoArticulo.descripcion LIKE :tipo OR p.articulo.creador LIKE :autor OR p.periodoMes =:periodo   OR p.numero =:numero OR p.issn=:ISSN OR p.isbn LIKE :ISBN OR p.articulo.asunto LIKE :asunto) ORDER BY p.articulo.titulo ASC",Publicacion.class)
+                    .setParameter("autor","%"+autor+"%")//y
+                    .setParameter("asunto","%"+asunto+"%")//yes
+                    .setParameter("titulo","%"+titulo+"%")//yes
+                    .setParameter("tipo","%"+ tipoArticulo+"%") //yes
+                    .setParameter("periodo",periodo,TemporalType.TIMESTAMP)//yes
+                    .setParameter("numero", numero)//yes
+                    .setParameter("ISSN", iSSN)//Yes
+                    .setParameter("ISBN", "%"+iSBN+"%")//Yes
+                    .setParameter("editorial","%"+editorial+"%");//yes
+
+                    List<Publicacion>l=query.getResultList();
+                    return l;
+    }
+
+    public List<Publicacion> getListLibros() {
+
+                    TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE p.articulo.tipoArticulo.descripcion LIKE :tipo  ORDER BY p.articulo.titulo ASC",Publicacion.class)
+                    .setParameter("tipo","libro%"); //yes
                     List<Publicacion>l=query.getResultList();
                     return l;
     }
