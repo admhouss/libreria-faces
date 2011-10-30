@@ -21,8 +21,8 @@
                              
                              <h:panelGrid columns="3" cellspacing="7">
                                  <h:outputLabel value="Los campos con * son requeridos." style="font-size:12px"/>
-                                  <h:outputLabel value=" "styleClass="textoROJO"/>
-                                 <h:outputLabel value=" "styleClass="textoROJO"/>
+                                  <h:outputLabel value="" styleClass="textoROJO" />
+                                 <h:outputLabel value="" styleClass="textoROJO" />
 
                                  <h:outputLabel value="Direcci&oacute;n de correo:" for="email" styleClass="textoNEGRO"/>
                                  <h:inputText id="email" value="#{clienteController.selected.id}" title="email" required="true" requiredMessage="RequiredMessage_email" size="25">
@@ -60,25 +60,21 @@
 
                     <h:outputLabel value="Fax:" for="fax" styleClass="textoNEGRO"/>
                     <h:inputText id="fax" value="#{clienteController.selected.fax}" title="fax"  size="25"/>
-                    <h:outputLabel value=" "styleClass="textoROJO"/>
+                    <h:outputLabel value=" " styleClass="textoROJO" />
                    
                      
                     
                     <h:outputLabel value="Password:" for="password" styleClass="textoNEGRO"/>
-                    <p:password feedback="true" id="password" value="#{clienteController.selected.password}" title="password" required="true" requiredMessage="RequiredMessage_password}" size="25" minLength="3"/>
+                    <p:password feedback="true" id="password" value="#{clienteController.selected.password}" title="password" required="true" requiredMessage="Password requerido}" size="25" minLength="3"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                                         
                     <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="estado" value="#{clienteController.selected.estado}" title="estado" required="true" requiredMessage="RequiredMessage_estado">
+                    <h:selectOneMenu id="estado" value="#{clienteController.selected.estado}" title="estado" required="true" requiredMessage="estado requerido">
                         <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}"  itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value=" " styleClass="textoROJO"/>
 
-                    <h:outputLabel value="Categoria:" for="categoria" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="categoria" value="#{clienteController.selected.categoria}" title="categoria" required="true" requiredMessage="Requere captura de categoria">
-                        <f:selectItems value="#{categoriaController.listAllCategoria}" var="item" itemValue="#{item}"  itemLabel="#{item.concepto}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    
                     
                 </h:panelGrid>
                              <h:selectBooleanCheckbox value="#{clienteController.selected.recibeInfor}" id="recibe"/>
@@ -93,7 +89,8 @@
                     <div align="center">
                         
                         <h:commandButton action="#{clienteController.create}" value="Aceptar" />
-                        <input type="reset"  value="Salir" />
+                        <label>&nbsp;</label>
+                        <input type="reset"  value="Cancelar" />
                     </div>
                 </p:panel>
             </h:form>
