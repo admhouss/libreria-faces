@@ -8,7 +8,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListCategoriaTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
         <h:form styleClass="jsfcrud_list_form">
@@ -22,17 +22,17 @@
                      <h:commandButton  action="#{categoriaController.prepareCreate}" value="Crear Nuevo"/>
                  </div>
                  <br /> <br />
-                 <p:panel header="Catalogo de Categoria">
+                 <p:panel header="CATALOGO CATEGORIA ARTICULO">
                 <p:dataTable value="#{categoriaController.listAllCategoria}" var="item"  paginator="true" rows="7">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListCategoriaTitle_id}"/>
+                            <h:outputText value="ID"/>
                         </f:facet>
                         <h:outputText value="#{item.id}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListCategoriaTitle_concepto}"/>
+                            <h:outputText value="CONCEPTO"/>
                         </f:facet>
                         <h:outputText value="#{item.concepto}"/>
                     </p:column>

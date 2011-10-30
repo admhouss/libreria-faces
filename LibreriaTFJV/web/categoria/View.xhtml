@@ -19,11 +19,11 @@
 
                 <p:panel header="VER CATEGORIA">
                     <center>
-                <h:panelGrid columns="2">
-                    <h:outputText value="ID:"/>
-                    <h:outputText value="#{categoriaController.selected.id}" title="#{bundle.ViewCategoriaTitle_id}"/>
-                    <h:outputText value="CONCEPTO:"/>
-                    <h:outputText value="#{categoriaController.selected.concepto}" title="#{bundle.ViewCategoriaTitle_concepto}"/>
+                        <h:panelGrid columns="2" cellspacing="15">
+                     <h:outputText value="ID:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{categoriaController.selected.id}" title="ID"/>
+                    <h:outputText value="CONCEPTO:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{categoriaController.selected.concepto}" title="CONCEPTO"/>
                 </h:panelGrid>
                     </center>
                 </p:panel>
