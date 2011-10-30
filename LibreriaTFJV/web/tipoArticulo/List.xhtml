@@ -9,10 +9,10 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListTipoArticuloTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
-        <h:form styleClass="jsfcrud_list_form">
+        <h:form id="tipoArticulo" styleClass="jsfcrud_list_form">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
@@ -26,19 +26,9 @@
                 </div>
                 <br/><br/>
                 <p:panel header="CATALOGO TIPO DE ARTICULO">
-                <p:dataTable value="#{tipoArticuloController.listTipoArticulo}" var="item" >
-                     <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ID"/>
-                        </f:facet>
-                         <h:outputText value="#{item.id}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="SIGLA"/>
-                        </f:facet>
-                        <h:outputText value="#{item.sigla}"/>
-                    </p:column>
+                    <p:dataTable value="#{tipoArticuloController.listTipoArticulo}" var="item"  paginator="true" rows="5" >
+                     
+            
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="DESCRIPCION"/>
