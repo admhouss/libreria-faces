@@ -34,19 +34,21 @@
                             <h:inputText id="siglas" value="#{proveedorController.selected.sigla}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
                             <h:outputLabel value="*" styleClass="textoROJO"/>
                             <h:outputLabel value="Contacto:" for="contacto" styleClass="textoNEGRO" />
-                            <h:inputText id="contacto" value="#{proveedorController.selected.contacto}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="contacto" value="#{proveedorController.selected.contacto}" title="Contacto"  requiredMessage="RequiredMessage_nombre}" size="35"/>
                             <h:outputLabel value="*" styleClass="textoROJO"/>
                             <h:outputLabel value="Puesto:" for="puesto" styleClass="textoNEGRO" />
-                            <h:inputText id="puesto" value="#{proveedorController.selected.puesto}" title="siglas" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="puesto" value="#{proveedorController.selected.puesto}" title="Puesto" requiredMessage="RequiredMessage_nombre}" size="35"/>
                             <h:outputLabel value=" "styleClass="textoROJO"/>
                             <h:outputLabel value="Telefono:" for="telefono" styleClass="textoNEGRO" />
-                            <h:inputText id="telefono" value="#{proveedorController.selected.telefono}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="telefono" value="#{proveedorController.selected.telefono}" title="telefono"  requiredMessage="RequiredMessage_nombre}" size="35"/>
                             <h:outputLabel value=" " styleClass="textoROJO"/>
                             <h:outputLabel value="Fax:" for="fax" styleClass="textoNEGRO" />
-                            <h:inputText id="fax" value="#{proveedorController.selected.fax}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="fax" value="#{proveedorController.selected.fax}" title="Fax"  requiredMessage="RequiredMessage_nombre}" size="35"/>
                             <h:outputLabel value="*" styleClass="textoROJO"/>
                             <h:outputLabel value="Mail:" for="mail" styleClass="textoNEGRO" />
-                            <h:inputText id="mail" value="#{proveedorController.selected.mail}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="mail" value="#{proveedorController.selected.mail}" title="Mail"  requiredMessage="RequiredMessage_nombre}" size="35">
+                                 <f:validator  validatorId="EmailValidator"/>
+                            </h:inputText>
                             <h:outputLabel value=" " styleClass="textoROJO"/>
                      </h:panelGrid>
                     </center>

@@ -46,7 +46,9 @@
                             <h:inputText id="fax" value="#{proveedorController.selected.fax}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
                             <h:outputLabel value="*" styleClass="textoROJO"/>
                             <h:outputLabel value="Mail:" for="mail" styleClass="textoNEGRO" />
-                            <h:inputText id="mail" value="#{proveedorController.selected.mail}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="mail" value="#{proveedorController.selected.mail}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35">
+                                 <f:validator  validatorId="EmailValidator"/>
+                            </h:inputText>
                             <h:outputLabel value=" " styleClass="textoROJO"/>
                      </h:panelGrid>
                     </center>
