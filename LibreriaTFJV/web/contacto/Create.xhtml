@@ -8,7 +8,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateContactoTitle}"></h:outputText>
+            <h:outputText value="Title}"></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
@@ -18,20 +18,29 @@
                 <br/>  <br/>
                 <p:panel header="ALTA CONTACTO">
                     <center>
-                        <h:panelGrid columns="2" cellspacing="15">
+                        <h:panelGrid columns="3" cellspacing="15">
                    
-                    <h:outputLabel value="#{bundle.CreateContactoLabel_nombre}" for="nombre" styleClass="textoNEGRO" />
-                    <h:inputText id="nombre" value="#{contactoController.selected.nombre}" title="#{bundle.CreateContactoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_nombre}"/>
-                    <h:outputLabel value="#{bundle.CreateContactoLabel_paterno}" for="paterno" styleClass="textoNEGRO" />
-                    <h:inputText id="paterno" value="#{contactoController.selected.paterno}" title="#{bundle.CreateContactoTitle_paterno}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_paterno}"/>
-                    <h:outputLabel value="#{bundle.CreateContactoLabel_materno}" for="materno" styleClass="textoNEGRO" />
-                    <h:inputText id="materno" value="#{contactoController.selected.materno}" title="#{bundle.CreateContactoTitle_materno}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_materno}"/>
-                    <h:outputLabel value="#{bundle.CreateContactoLabel_puesto}" for="puesto" styleClass="textoNEGRO"/>
-                    <h:inputText id="puesto" value="#{contactoController.selected.puesto}" title="#{bundle.CreateContactoTitle_puesto}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_puesto}"/>
+                    <h:outputLabel value="Nombre:" for="nombre" styleClass="textoNEGRO" />
+                    <h:inputText id="nombre" value="#{contactoController.selected.nombre}" title="nombre" required="true" requiredMessage="Falta por capturar el campo nombre"/>
+                    <h:outputLabel value="*" styleClass="textoROJO" />
+                    <h:outputLabel value="Paterno:" for="paterno" styleClass="textoNEGRO" />
+                    <h:inputText id="paterno" value="#{contactoController.selected.paterno}" title="paterno" required="true" requiredMessage="Falta por capturar el campo paterno"/>
+                    <h:outputLabel value="*" styleClass="textoROJO" />
+                    <h:outputLabel value="Materno:" for="materno" styleClass="textoNEGRO" />
+                    <h:inputText id="materno" value="#{contactoController.selected.materno}" title="materno" required="true" requiredMessage="Falta por capturar el campo materno"/>
+                    <h:outputLabel value="*" styleClass="textoROJO" />
+                    <h:outputLabel value="Puesto:" for="puesto" styleClass="textoNEGRO"/>
+                    <h:inputText id="puesto" value="#{contactoController.selected.puesto}" title="puesto" required="true" requiredMessage="Falta por capturar el campo puesto"/>
+                    <h:outputLabel value="*" styleClass="textoROJO" />
+                    <h:outputLabel value="Telefono:" for="telefono" styleClass="textoNEGRO"/>
+                    <h:inputText id="telefono" value="#{contactoController.selected.telefono}" title="telefono" required="true" requiredMessage="Falta por capturar el campo puesto"/>
+                    <h:outputLabel value="*" styleClass="textoROJO" />
                     <h:outputLabel value="Cliente:" for="idCliente" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="idCliente" value="#{contactoController.selected.idCliente}" title="#{bundle.CreateContactoTitle_idCliente}" required="true" requiredMessage="#{bundle.CreateContactoRequiredMessage_idCliente}">
-                        <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
+                    <h:selectOneMenu id="idCliente" value="#{contactoController.selected.idCliente}" title="idCliente}" required="true" requiredMessage="Falta por capturar el campo idCliente">
+
+                        <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.id}"/>
                     </h:selectOneMenu>
+                    <h:outputLabel value="*" styleClass="textoROJO" />
                 </h:panelGrid>
                     </center>
                 </p:panel>

@@ -16,21 +16,19 @@
             </h:panelGroup>
             <h:form>
 
-                <br/> <br/> <br/>
+                <br/> <br/> 
                 <p:panel header="VER CONTACTO">
                     <center>
-                <h:panelGrid columns="2">
+                        <h:panelGrid columns="2" cellspacing="15">
                     
-                    <h:outputText value="Nombre:"/>
-                    <h:outputText value="#{contactoController.selected.nombre}" title="nombre}"/>
-                    <h:outputText value="Paterno:"/>
-                    <h:outputText value="#{contactoController.selected.paterno}" title="paterno}"/>
-                    <h:outputText value="Materno:"/>
-                    <h:outputText value="#{contactoController.selected.materno}" title="materno}"/>
-                    <h:outputText value="Puesto:"/>
-                    <h:outputText value="#{contactoController.selected.puesto}" title="puesto}"/>
-                    <h:outputText value="Cliente:"/>
-                    <h:outputText value="#{contactoController.selected.idCliente}" title="idCliente}"/>
+                    <h:outputText value="Nombre:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{contactoController.selected.nombre} #{contactoController.selected.paterno} #{contactoController.selected.materno}" title="nombre"/>
+                    <h:outputText value="Puesto:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{contactoController.selected.puesto}" title="puesto"/>
+                    <h:outputText value="Cliente:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{contactoController.selected.idCliente}" title="idCliente"/>
+                    <h:outputText value="Telefono:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{contactoController.selected.telefono}" title="idCliente"/>
                 </h:panelGrid>
                     </center>
                 </p:panel>
