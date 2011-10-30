@@ -100,8 +100,6 @@ public class ImpuestoController implements Serializable {
             current.setArticulo(current.getArticulo());
             current.setDescripcion(current.getDescripcion());
             current.setMontoImpuesto(current.getMontoImpuesto());
-
-           
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("ImpuestoCreated"));
             return prepareView(current);

@@ -48,29 +48,29 @@ public class SistemaController implements Serializable {
     public void setUsuarioAdministrador(Usuarioadministrativo usuarioAdministrador) {
         this.usuarioAdministrador = usuarioAdministrador;
     }
-    public String  loginAcces(){
-        String go="";
-        
-            if (usuario != null && password != null) {
-                cliente = clienteFacade.buscarUsuario(usuario, password);
-                if(cliente==null){
-                    JsfUtil.addErrorMessage("Usuario no identificado ");
-                    go="/login/Create";
+    public String  loginAcces(){      
+                cliente = clienteFacade.buscarUsuario(usuario, password);//proceso de logeo
+                if(cliente==null){// el usuario no existe aparentemente
+                 cliente=clienteFacade.find(usuario);
+                       if(cliente==null)//el usuario no existe delplano
+                            JsfUtil.addErrorMessage("Usuario no identificado ");
+                        else{
+                            JsfUtil.addErrorMessage("Contraseña no valida");
+                            return "/login/Create";
+                         }
                 }
                 else{
-                    try {
-                        limpiarLogin();
-                        JsfUtil.addSuccessMessage("Usuario identificado");
-                        ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
-                        external.redirect(external.getRequestContextPath() + "/faces/index.xhtml");
-                    } catch (IOException ex) {
-                         Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                        try {
+                       
+                            JsfUtil.addSuccessMessage("Usuario a iniciado session satisfactoriamente");
+                            ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
+                            external.redirect(external.getRequestContextPath() + "/faces/index.xhtml");
+                        } catch (IOException ex) {
+                             Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                }
-                
-            } //usuario no valido
-
-        return go;
+                limpiarLogin();
+                return "/cliente/Create";
 
     }
 
@@ -79,7 +79,7 @@ private  void limpiarLogin(){
             setPasswordAdmin("");
             setUsuario("");
             setPassword("");
-  }
+}
     public String accesoAdministrador(){
         String go="";
             usuarioAdministrador=adminFacade.buscarUsuarioAdmin(usuarioAdmin,passwordAdmin);
@@ -148,47 +148,24 @@ private  void limpiarLogin(){
 
     }
 
+    private List<String> cliList=null;
+    private String query;
     public String olvideContrasenia(){
-           List<String> cliList=null;
-           Cliente cliente=clienteFacade.buscarUsuario(getUsuario());
-           if(cliente!=null){
-               cliList=new ArrayList<String>();
-               cliList.add(cliente.getId());
-           }
-
-           if(cliente==null){
+           
+           Cliente clienteX=clienteFacade.buscarUsuario(getUsuario());
+           if(clienteX==null){
                JsfUtil.addErrorMessage("No se encontro ningun registro para este correo");
-               return "/login/OlvideContrasenia" ;
            }
-           else if(cliente.getEstatus()==false){
-
-
-        String query=null;
-        StringBuffer buffer=null;
-        try{
-
-            buffer=new StringBuffer();
-            ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
-            HttpServletRequest request = (HttpServletRequest) external.getRequest();
-            buffer.append("http://");
-            
-            buffer.append("localhost:8080");
-            //buffer.append("www.libreria-tfjfa.com");
-            buffer.append(request.getContextPath());
-            buffer.append("/ProcesarOlvidarContrasenia");
-            request.getSession().setAttribute("correo",cliente.getId());
-            request.getSession().setMaxInactiveInterval(3);
-            query="<form><a href=\""+buffer+"\">Confirmaci&oacute;n de tu cuenta:"+buffer+"?keycode="+request.getSession().getId()+"</a></form>";
-            System.out.println(query);
-            jMail.enviarCorreo("Confirmacion Registro", query, cliList);
-        }catch(Exception e){e.printStackTrace();}
-
+           else if(clienteX.getEstatus()==false){
+               jMail.EnviarConfimarCorreo(clienteX);
+               JsfUtil.addSuccessMessage("Su cuenta se enucnetra desactivada,necesita ir a su bandeja!");
+           } else {
+               cliList=new ArrayList<String>();
+               cliList.add(clienteX.getId());
+               query="Apreciable "+clienteX.getNombre()+" "+clienteX.getPaterno()+" "+clienteX.getMaterno()+" <br/> Usuario:"+clienteX.getId() +"<br/> Passwrod:"+clienteX.getPassword()+"<br/>";
+               jMail.enviarCorreo("Libreria", query, cliList);
            }
-           else{
-                
-                String query="Estimado "+cliente.getNombre()+" "+cliente.getPaterno()+" "+cliente.getMaterno()+" <br/> Usuario:"+cliente.getId() +"<br/> Passwrod:"+cliente.getPassword()+"<br/>";
-                jMail.enviarCorreo("Libreria", query, cliList);
-           }
+           setUsuario("");
            return "/login/OlvideContrasenia" ;
     }
 

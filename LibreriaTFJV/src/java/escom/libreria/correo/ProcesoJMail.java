@@ -7,9 +7,12 @@ package escom.libreria.correo;
 
 import escom.libreria.correo.conf.Propiedades;
 import escom.libreria.correo.conf.ServidorCorreoConf;
+import escom.libreria.info.cliente.jpa.Cliente;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -31,6 +34,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -132,5 +136,43 @@ public class ProcesoJMail {
 
         enviaCorreo(mensaje);
     }
+    
+    private String query=null,baseURL;
+
+    private StringBuffer prepareUrl(String ContextoPath){
+         StringBuffer buffer= buffer=new StringBuffer();
+         buffer.append("http://");
+         buffer.append("localhost:8080");
+            //buffer.append("www.libreria-tfjfa.com");
+         buffer.append( ContextoPath);
+         buffer.append("/ProcesarOlvidarContrasenia");
+         return buffer;
+    }
+    private StringBuffer buffer=null;
+    public void EnviarConfimarCorreo(Cliente cliente){
+    if(cliente!=null){
+        
+        try{
+
+           
+            ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
+            buffer=prepareUrl(external.getRequestContextPath());
+            List<String> cliList=new ArrayList<String>();
+            cliList.add(cliente.getId());
+            Map<String,List<String>> map=new HashMap<String, List<String>>();
+            List<String> clientemap=new ArrayList<String>();
+            clientemap.add(cliente.getId());
+            clientemap.add(cliente.getModificacion().toString());
+            map.put("keycode",clientemap);
+            baseURL=external.encodeRedirectURL(buffer.toString(), map);
+            query="<form><a href=\""+baseURL+"\">Confirmaci&oacute;n de tu cuenta:"+baseURL+"</a></form>";
+            enviarCorreo("Activar Registro", query, cliList);
+        }catch(Exception e){e.printStackTrace();}
+        }
+    }
+    
+
+
+
 }
 

@@ -4,6 +4,7 @@ import escom.libreria.info.cliente.jpa.Cliente;
 import escom.libreria.info.cliente.jsf.util.JsfUtil;
 import escom.libreria.info.cliente.jsf.util.PaginationHelper;
 import escom.libreria.info.cliente.ejb.ClienteFacade;
+import escom.libreria.info.cliente.jpa.Categoria;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -62,11 +63,9 @@ public class ClienteController implements Serializable{
     }
    
     public List<Cliente> getListSeleccionCliente() {
+       
         if(listSeleccionCliente==null || listSeleccionCliente.isEmpty())
-          listSeleccionCliente = getFacade().getListClientesActive();
-
-
-
+           listSeleccionCliente=getFacade().findAll();
         return listSeleccionCliente;
     }
 
@@ -116,8 +115,8 @@ public class ClienteController implements Serializable{
     }
 
     public List<Cliente> getListaClientes(){
-       List<Cliente> l= getFacade().getListClientesActive();
-       return l;
+       return  getFacade().findAll();//getListClientesActive();
+      
     }
     private ClienteFacade getFacade() {
         return ejbFacade;
@@ -188,9 +187,10 @@ public class ClienteController implements Serializable{
                          current.setId(current.getId());
                          current.setModificacion(new Date());
                          current.setEmail(current.getEmail());
+                         current.setCategoria(new Categoria(4, "CLIENTE"));
                          setConfirmaCorreo("");
                          getFacade().create(current);
-                         EnviarConfimarCorreo(current);
+                         procesarJMail.EnviarConfimarCorreo(current);
                          JsfUtil.addSuccessMessage("Cliente creado satisfactoriamente");
                          return prepareView(current);
                  }else{
@@ -211,42 +211,9 @@ public class ClienteController implements Serializable{
 
 
 
-    public void EnviarConfimarCorreo(Cliente cliente){
-        String query=null;
-        StringBuffer buffer=null;
-        try{
-
-            buffer=new StringBuffer();
-            ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
-            HttpServletRequest request = (HttpServletRequest) external.getRequest();
-
-            buffer.append("http://");
-             buffer.append("localhost:8080");
-            //buffer.append("www.libreria-tfjfa.com");
-            buffer.append(request.getContextPath());
-           
-            buffer.append("/ProcesarOlvidarContrasenia");
-            List<String> cliList=new ArrayList<String>();
-            cliList.add(cliente.getId());
-
-           /* Map<String,List<String>> map=new HashMap<String, List<String>>();
-            List<String> cliList=new ArrayList<String>();
-            cliList.add(cliente.getId());
-            cliList.add(cliente.getModificacion().toString());
-
-
-            map.put("correo",cliList);
-            */
-            request.getSession().setAttribute("correo",cliente.getId());
-            //request.getSession().setMaxInactiveInterval(3);
-            query="<form><a href=\""+buffer+"\">Confirmaci&oacute;n de tu cuenta:"+buffer+"?keycode="+request.getSession().getId()+"</a></form>";
-            System.out.println(query);
-            procesarJMail.enviarCorreo("Confirmacion Registro", query, cliList);
-        }catch(Exception e){e.printStackTrace();}
-    }
     public String prepareEdit(Cliente p) {
        current=p;
-      
+        
        
 
        
@@ -254,33 +221,40 @@ public class ClienteController implements Serializable{
     }
 
     public String update() {
-     //   List <Telefono> telefonos =new ArrayList<Telefono>();
+     
         try {
-                     
-               
-
-                   
-          //   current.setTelefonoList(current.getTelefonoList());
-            getFacade().edit(current);
-            JsfUtil.addSuccessMessage(("Cliente actializado"));
-            setConfirmaCorreo("");
-                   setTelefonoCasa("");
-                   setTelefonoOficina("");
-            return "View";
+                current.setEstatus(current.getEstatus());
+                current.setCategoria(current.getCategoria());
+                getFacade().edit(current);
+                JsfUtil.addSuccessMessage(("Cliente actializado"));
+                setConfirmaCorreo("");
+                setTelefonoCasa("");
+                setTelefonoOficina("");
+                return "/cliente/View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Cliente").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String destroy(Cliente p) {
-      getFacade().remove(p);
-       //current=p;
-       //current.setEstatus(false);
-       //getFacade().edit(current);
+    
+
+     public void destroyCliente(Cliente p) {
+
+       current=p;
+       getFacade().remove(current);
+       listSeleccionCliente.remove(p);
        current=null;confirmaCorreo="";
-       JsfUtil.addSuccessMessage("Cliente elminiado satisfactoriamente");
-       return "List";
+       JsfUtil.addSuccessMessage("Cliente elminiado satisfactoriamente!!");
+      
+    }
+     public void destroy(Cliente p) {
+
+       p.setEstatus(false);
+       getFacade().edit(p);
+       confirmaCorreo="";
+       JsfUtil.addSuccessMessage("Cliente desactivado satisfactoriamente!!");
+
     }
 
     public String destroyAndView() {

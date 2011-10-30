@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,6 +37,7 @@ public class ProcesarOlvidarContrasenia extends HttpServlet {
      */
 
     @EJB private escom.libreria.info.cliente.ejb.ClienteFacade clienteFacade;
+    private Date date=null;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -47,50 +49,54 @@ public class ProcesarOlvidarContrasenia extends HttpServlet {
        // ServletConversationManager conversationManager = (ServletConversationManager)request.getSession().getServletContext();
         //BeanStore beanStore = conversationManager.getBeanStore("correo");
         //String clienteConfirmado= (String)beanStore.get("correo").getInstance();
-        String clienteConfirmado=(String)request.getSession().getAttribute("correo");
+        String clienteConfirmado=(String)request.getParameter("keycode");
+      //  String fechaSendCorreo=(String)request.getParameter("keycode");
+        //date=new Date(fechaSendCorreo);
+        
 
-        
-        
-       
 
          if(clienteConfirmado==null){
-            //JsfUtil.addErrorMessage("Intente acceder con otro Explorador!");
+           out.println("No se encuentra ningun registro de este usuario");
          }else{
             Cliente cliente=clienteFacade.buscarUsuario(clienteConfirmado);
-            if(cliente!=null){
-
-              if(cliente.getEstatus()==false){
+            if(cliente!=null && cliente.getEstatus()==false){
                     cliente.setEstatus(true);
                     cliente.setModificacion(new Date());
                     clienteFacade.edit(cliente);
-                   // JsfUtil.addSuccessMessage("Confirmacion realizada satisfactoiramente!!");
                     response.sendRedirect(request.getContextPath()+"/faces/login/Create.xhtml");
-             }else{
-                    //JsfUtil.addErrorMessage("session caducada!");
              }
-       
+             else{  out.println("La cuenta ya se encuentra activada");}
+        }//else
+        out.close();
 
-         
+    }
 
-
+    private void showMessage(String cadena,PrintWriter out){
         try {
            // TODO output your page here
+            out.flush();
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProcesarOlvidarContrasenia</title>");  
+            out.println("<title>Recepci&oacute;n de correo electronico");
+
+
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Procese un cliente  " +cliente.getNombre() + "</h1>");
+            out.println("<h1>" +cadena + "</h1>");
             out.println("</body>");
             out.println("</html>");
-            
-        } finally { 
+
+        } finally {
             out.close();
         }
-             }
-        }
+    }
 
-    } 
+
+
+   
+        
+        
+       
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

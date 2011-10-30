@@ -49,6 +49,9 @@ public class Contacto implements Serializable {
     @Column(name = "MATERNO")
     private String materno;
     @Basic(optional = false)
+    @Column(name = "TELEFONO")
+    private String telefono;
+    @Basic(optional = false)
     @Column(name = "PUESTO")
     private String puesto;
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
@@ -61,6 +64,16 @@ public class Contacto implements Serializable {
     public Contacto(Integer id) {
         this.id = id;
     }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    
 
     public Contacto(Integer id, String nombre, String paterno, String materno, String puesto) {
         this.id = id;

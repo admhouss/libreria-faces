@@ -23,6 +23,26 @@ public abstract class CriteriosBusqueda {
 	private String  categoria;
 	private String  Asunto; //(Dublin core)
         private String general;
+        private String tipoArticulo;
+        private String selectCategoria;
+
+    public String getSelectCategoria() {
+        return selectCategoria;
+    }
+
+    public void setSelectCategoria(String selectCategoria) {
+        this.selectCategoria = selectCategoria;
+    }
+        
+
+    public String getTipoArticulo() {
+        return tipoArticulo;
+    }
+
+    public void setTipoArticulo(String tipoArticulo) {
+        this.tipoArticulo = tipoArticulo;
+    }
+
 
     public String getGeneral() {
         return general;
