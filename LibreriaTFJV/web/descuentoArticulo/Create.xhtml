@@ -8,7 +8,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateImpuestoTitle}"></h:outputText>
+            <h:outputText value=" Title}"></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
@@ -18,13 +18,14 @@
                 <br/>  <br/>
                 <p:panel header="CREAR DESCUENTO">
                 <center>
-                    <h:panelGrid columns="2" cellspacing="15">
+                    <h:panelGrid columns="3" cellspacing="15">
 
                     <h:outputLabel value="Descuento:" for="montoImpuesto" styleClass="textoNEGRO" />
-                    <h:inputText id="montoImpuesto" value="#{descuentoArticuloController.selected.descuento}" title="descuento" required="true" requiredMessage="#{bundle.CreateImpuestoRequiredMessage_montoImpuesto}"/>
+                    <h:inputText id="montoImpuesto" value="#{descuentoArticuloController.selected.descuento}" title="descuento" required="true" requiredMessage="RequiredMessage_montoImpuesto"/>
+                    <h:outputLabel value="%"  styleClass="textoNEGRO"/>
 
                     <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{descuentoArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="#{bundle.CreateImpuestoRequiredMessage_articulo}">
+                    <h:selectOneMenu id="articulo" value="#{descuentoArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="RequiredMessage_articulo">
                         <f:selectItems value="#{articuloController.listArticulos}" itemValue="#{item}" var="item" itemLabel="#{item.titulo}"/>
                     </h:selectOneMenu>
                      
