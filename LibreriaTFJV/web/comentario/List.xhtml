@@ -3,72 +3,79 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:composition template="/template.xhtml">
+     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListComentarioTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
-        <h:form styleClass="jsfcrud_list_form">
+        <ui:define name="bodyNovedades">
+        <h:form id="comentariosClientes" styleClass="jsfcrud_list_form">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:outputText escape="false" value="#{bundle.ListComentarioEmpty}" rendered="#{comentarioController.items.rowCount == 0}"/>
-            <h:panelGroup rendered="#{comentarioController.items.rowCount > 0}">
-                <h:outputText value="#{comentarioController.pagination.pageFirstItem + 1}..#{comentarioController.pagination.pageLastItem + 1}/#{comentarioController.pagination.itemsCount}"/>&nbsp;
-                <h:commandLink action="#{comentarioController.previous}" value="#{bundle.Previous} #{comentarioController.pagination.pageSize}" rendered="#{comentarioController.pagination.hasPreviousPage}"/>&nbsp;
-                <h:commandLink action="#{comentarioController.next}" value="#{bundle.Next} #{comentarioController.pagination.pageSize}" rendered="#{comentarioController.pagination.hasNextPage}"/>&nbsp;
-                <h:dataTable value="#{comentarioController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                    <h:column>
+            
+            <h:panelGroup >
+
+                <br/><br/>
+
+
+                <p:panel header="CATALOGO DE COMENTARIO" >
+                <p:dataTable value="#{comentarioController.listaComentariosGeneral}" paginator="true" rows="10">
+                    
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListComentarioTitle_id}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.id}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListComentarioTitle_fechaComentario}"/>
+                            <h:outputText value="FECHA"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaComentario}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column style="width:20px;">
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListComentarioTitle_comentario}"/>
+                            <h:outputText value="COMENTARIO"/>
                         </f:facet>
                         <h:outputText value="#{item.comentario}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListComentarioTitle_autor}"/>
+                            <h:outputText value="AUTOR"/>
                         </f:facet>
                         <h:outputText value="#{item.autor}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListComentarioTitle_articulo}"/>
+                            <h:outputText value="ARTICULO"/>
                         </f:facet>
                         <h:outputText value="#{item.articulo}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{comentarioController.prepareView}" value="#{bundle.ListComentarioViewLink}"/>
-                        <h:outputText value=" "/>
-                        <h:commandLink action="#{comentarioController.prepareEdit}" value="#{bundle.ListComentarioEditLink}"/>
-                        <h:outputText value=" "/>
-                        <h:commandLink action="#{comentarioController.destroy}" value="#{bundle.ListComentarioDestroyLink}"/>
-                    </h:column>
-                </h:dataTable>
+                        <h:commandLink action="#{comentarioController.prepareView(item)}" >
+                               <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                       
+                        <h:commandLink action="#{comentarioController.prepareEdit(item)}">
+                               <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                        </h:commandLink>
+                        
+                        <h:commandLink action="#{comentarioController.destroy(item)}" >
+                               <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+                    </p:column>
+                </p:dataTable>
+                </p:panel>
             </h:panelGroup>
-            <br />
-            <h:commandLink action="#{comentarioController.prepareCreate}" value="#{bundle.ListComentarioCreateLink}"/>
-            <br />
-            <br />
-            <h:commandLink value="#{bundle.ListComentarioIndexLink}" action="/index" immediate="true" />
+            <br/><br/>
+            <div align="center">
+                <p:panel>
+                    <h:commandButton value="SALIR" action="/index" immediate="true" />
+                </p:panel>
+            </div>
         </h:form>
         </ui:define>
     </ui:composition>
