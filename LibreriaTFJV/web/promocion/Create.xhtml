@@ -22,15 +22,15 @@
                 <h:panelGrid columns="3" cellspacing="15">
                     
                     <h:outputLabel  value="Precio:" for="precio" styleClass="textoNEGRO" />
-                    <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="#{bundle.CreatePromocionTitle_precioPublico}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_precioPublico}"/>
+                    <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="Precio Publico" required="true" requiredMessage="Elcampo precioPublico es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"  />
                     <h:outputLabel value="Dia Inicio:" for="diaInicio" styleClass="textoNEGRO" />
-                    <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="#{bundle.CreatePromocionTitle_diaInicio}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_diaInicio}">
+                    <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="Dia Inicio" required="true" requiredMessage="El campo  dia Inicio es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </p:calendar>
                      <h:outputLabel value="*"  styleClass="textoROJO"  />
                     <h:outputLabel value="Dia Fin:" for="diaFin" styleClass="textoNEGRO" />
-                     <p:calendar id="diaFin" value="#{promocionController.selected.diaFin}" title="#{bundle.CreatePromocionTitle_diaFin}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_diaFin}">
+                     <p:calendar id="diaFin" value="#{promocionController.selected.diaFin}" title="Dia Fin" required="true" requiredMessage="El campo dia fin es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                      </p:calendar>
                      <h:outputLabel value="*"  styleClass="textoROJO"  />
@@ -78,9 +78,7 @@
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink  action="#{articuloController.prepareView(item,2)}">
-                              <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
-                        </h:commandLink>
+                        
                         <h:commandLink action="#{promocionController.InitialArticulo(item)}">
                               <img src="./../resources/iconos/agregar.png" alt="" title="Ver"/>
                         </h:commandLink>

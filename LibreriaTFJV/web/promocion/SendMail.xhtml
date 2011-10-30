@@ -41,11 +41,7 @@
 
                 <p:editor value="#{promocionController.value}" widgetVar="editor" width="600"/>
 
-    <h:panelGrid columns="2" style="margin-top:10px">
-        <h:commandButton value="Enviar" action="#{promocionController.correo(promocionController.selected)}" />
-        <p:commandButton type="button" value="Clear" onclick="editor.clear()"
-                        image="ui-icon ui-icon-close" />
-    </h:panelGrid>
+  
 
    
 
@@ -53,6 +49,9 @@
                 <br />  <br />
                 <div align="center">
                     <p:panel>
+
+                        <h:commandButton value="ENVIAR" action="#{promocionController.correo(promocionController.selected)}" />
+                        &nbsp;
                         <h:commandButton action="#{promocionController.prepareList}" value="VOLVER"/>
                     </p:panel>
                 </div>
