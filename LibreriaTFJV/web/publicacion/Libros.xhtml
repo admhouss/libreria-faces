@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+
+            <h2> </h2>
+                <p>&nbsp;</p>
+            <br/>
+            <br/>
+           
+         
+
+            <p:accordionPanel autoHeight="false" >
+                    <p:tab title="Libro">
+               <h:panelGroup >
+                   <p:dataGrid value="#{publicacionController.listLibros}" var="item"  rows="12" paginator="true" effect="true" columns="1"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="9,12,15">
+
+
+                    <p:column>
+      <table width="99%" border="0">
+  <tr>
+    <td width="13%" rowspan="8" scope="col">
+        <img src="#{item.articulo.imagen}" width="83" height="122" /></td>
+      <td width="79%" class="Titulo_articulo" scope="col"><h:outputText value="#{item.articulo.titulo}"/></td>
+
+  </tr>
+  <tr>
+      <td><p><strong>Autor:</strong> <h:outputText value="#{item.articulo.creador}"/></p></td>
+  </tr>
+  <tr>
+      <td><p><strong>Editorial:</strong><h:outputText value="#{item.editorial}"/></p></td>
+
+  </tr>
+  <tr>
+      <td><strong>ISBN: </strong><h:outputText value="#{item.isbn}"/></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+
+    <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
+      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito">
+
+          <h:commandLink action="#{carritoController.agregarArticulo(item)}">
+              <span class="ui-icon ui-icon-cart"></span>
+          </h:commandLink>
+
+      </li>
+      <li class="ui-state-default ui-corner-all" title="Agregar un comentario">
+          
+              <span class="ui-icon ui-icon-comment">
+                   <h:commandLink  action="#{publicacionController.prepareView(item,2,1)}" immediate="true" styleClass="ui-icon ui-icon-comment"/>
+
+              </span>
+          
+      </li>
+            <li   class="ui-state-default ui-corner-all" title="Mas informaci&oacute;n">
+       <span class="ui-icon ui-icon-info">
+
+           <h:commandLink  action="#{publicacionController.prepareView(item,2,1)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
+
+
+       </span>
+
+     </li>
+      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados">
+     <span class="ui-icon ui-icon-link">
+         <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" styleClass="ui-icon ui-icon-link"/>
+     </span>
+      </li>
+    </ul></td>
+  </tr>
+  <tr></tr>
+  <tr></tr>
+
+</table>
+
+
+                       
+
+                    </p:column>
+                   </p:dataGrid>
+            </h:panelGroup>
+                    </p:tab>
+                </p:accordionPanel>
+          
+           
+           
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
