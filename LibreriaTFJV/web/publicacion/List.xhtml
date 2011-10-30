@@ -28,8 +28,8 @@
                 <br/>
                 <p:panel header="CATALOGO PUBLICACIONES">
                
-                    <p:dataTable value="#{publicacionController.listaPublicacion}" var="item" paginator="true" rows="6">
-                        <p:column style="width:15px;">
+                    <p:dataTable value="#{publicacionController.listaPublicacion}" var="item" paginator="true" rows="6" selectionMode="single">
+                        <p:column style="width:15px;" filterBy="#{item.idDc}">
                         <f:facet name="header">
                             <h:outputText value="ID"/>
                         </f:facet>
@@ -45,7 +45,7 @@
                    
                     <p:column style="width:10px;">
                         <f:facet name="header">
-                            <h:outputText value="PERIODO ANIO"/>
+                            <h:outputText value="PERIODO"/>
                         </f:facet>
                         <h:outputText value="#{item.periodoAnio}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -53,9 +53,9 @@
                     </p:column>
                     
                    
-                    <p:column>
+                        <p:column  style="width:12px;">
                         <f:facet name="header">
-                            <h:outputText value="ANIO"/>
+                            <h:outputText value="A&Ntilde;O"/>
                         </f:facet>
                         <h:outputText value="#{item.anio}"/>
                     </p:column>
@@ -65,12 +65,7 @@
                         </f:facet>
                         <h:outputText value="#{item.issn}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ISBN"/>
-                        </f:facet>
-                        <h:outputText value="#{item.isbn}"/>
-                    </p:column>
+                   
                     
                     
                     <p:column>

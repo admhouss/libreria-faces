@@ -18,19 +18,22 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
 
                 <br/><br/><br/>
 
-                       <p:tabView>
+                <p:tabView  >
                     <center>
-                        <p:tab title="Descripci&oacute;n General">
+                        <p:tab title="Descripci&oacute;n General"  >
                        <table width="99%" border="0">
   <tr>
-    <td width="13%" rowspan="8" scope="col">
-        <img src="#{publicacionController.selected.articulo.imagen}" width="83" height="122" /></td>
+      <td width="13%" rowspan="8" scope="col" valign="top" >
+
+        <img src="#{publicacionController.selected.articulo.imagen}" width="83" height="122" />
+    </td>
       <td width="79%" class="Titulo_articulo" scope="col">
 
-         <!-- Mediaci&oacute;n y Arbitraje-->
-         <h:outputLabel value="#{publicacionController.selected.articulo.titulo}"/>
+        
+          <h:outputLabel value="#{publicacionController.selected.articulo.titulo}" />
 
       </td>
+
 
   </tr>
   <tr>
@@ -77,97 +80,137 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         </p:tab>
                         <p:tab title="Detalle">
                             <center>
-                          
-                            <table width="99%" border="0">
-                    <tr>
-                            <td >
-                                <table>
-                                    <tr>
-                                        <td>
-                                <img src="#{publicacionController.selected.articulo.imagen}" width="83" height="122"/>
-                                        </td>
-                                    </tr>
-                                   
-                                </table>
-                          </td>
-                        <td width="79%" class="Titulo_articulo" scope="col">
+                                <table width="99%" border="0" cellspacing="5">
+  <tr>
+      <td width="13%" rowspan="20" scope="col"  >
+        <img src="#{publicacionController.selected.articulo.imagen}" width="83" height="122" />
+      </td>
+      <td width="79%" class="Titulo_articulo" scope="col">
 
-                                 <h:outputLabel value="#{publicacionController.selected.articulo.titulo}"/>
+         
+         <h:outputLabel value="#{publicacionController.selected.articulo.titulo}"/>
 
-                        </td>
+      </td>
 
-                    </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>
+  </tr>
+  <tr>
+      <td><p><strong>Autor:</strong> <h:outputText value="#{publicacionController.selected.articulo.creador}"/></p></td>
 
-                                        <h:panelGrid columns="2" cellspacing="10">
-                            <h:outputText value="Titulo:" styleClass="Titulo_articulo"/>
-                            <h:outputLabel value="#{publicacionController.selected.articulo.titulo}" styleClass="Titulo_articulo"/>
 
-                            <h:outputText value="Autor:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.articulo.creador}" title="Autor"/>
-                            <h:outputText value="Publisher:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.articulo.publicador}" title="publicacdor"/>
-                            
-                            <h:outputText value="Editorial:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.editorial}" title="Editorial"/>
+  </tr>
+  <tr>
+      <td><p><strong>Publisher:</strong> <h:outputText value="#{publicacionController.selected.articulo.publicador}"/>
+          </p></td>
 
-                            <h:outputText value="A&ntilde;o:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.anio}" title="Anio:"/>
-                            <h:outputText value="Epoca:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.epoca}" title="Epoca"/>
-                            <h:outputText value="ISBN:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.isbn}" title="ISBN"/>
+  </tr>
+  <tr>
+      <td><strong>Editorial:</strong><h:outputText value="#{publicacionController.selected.editorial}"/></td>
+  </tr>
+  <tr>
+       <td><strong>A&ntilde;o: </strong><h:outputText value="#{publicacionController.selected.anio}"/></td>
+  </tr>
 
-                            <h:outputText value="ISSN:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.issn}" title="ISSN"/>
-                            <h:outputText value="Numero:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.numero}" title="Numero"/>
-                            <h:outputText value="Tomo:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.tomo}" title="Tomo"/>
-                            <h:outputText value="Periodo A&ntilde;io:" styleClass="textoNEGRO"/>
+   <tr>
+       <td><strong>Epoca:</strong><h:outputText value="#{publicacionController.selected.epoca}" title="Epoca"/></td>
+  </tr>
+
+  <tr>
+        <td><strong>ISBN:</strong><h:outputText value="#{publicacionController.selected.isbn}" title="ISBN"/></td>
+  </tr>
+
+<tr>
+        <td><strong>ISSN:</strong> <h:outputText value="#{publicacionController.selected.issn}" title="ISSN"/></td>
+</tr>
+
+<tr>
+    <td><strong>N&uacute;mero:</strong><h:outputText value="#{publicacionController.selected.numero}" title="Numero"/></td>
+</tr>
+
+<tr>
+    <td><strong>Tomo:</strong> <h:outputText value="#{publicacionController.selected.tomo}" title="Tomo"/></td>
+</tr>
+
+<tr>
+    <td><strong>Periodo A&ntilde;o:</strong>
                             <h:outputText value="#{publicacionController.selected.periodoAnio}" title="Periodo Anio">
                                  <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                            <h:outputText value="Periodo Mes:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.periodoMes}" title="Periodo Mes">
-                                 <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                            <h:outputText value="Agregacion Recurso:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.articulo.agregacionRecurso}" title="Agregacion Recurso"/>
-                            <h:outputText value="Asunto:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.articulo.asunto}" title="Asunto"/>
-                            <h:outputText value="Costo:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.articulo.costo}" title="Costo"/>
-                            <h:outputText value="Descripcion:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.articulo.descripcion}" title="Descripcion"/>
-                            <h:outputText value="Divisia:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.articulo.divisa}" title="Divisa"/>
-                            <h:outputText value="Fecha Creacion:" styleClass="textoNEGRO">
-                                
-                            </h:outputText>
-                            <h:outputText value="#{publicacionController.selected.articulo.fechaCreacion}" title="Fecha ">
-                                 <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                            <h:outputText value="Fecha Disponibilidad:" styleClass="textoNEGRO">
-                                
-                            </h:outputText>
-                            <h:outputText value="#{publicacionController.selected.articulo.fechaDisponibilidad}" title="idTipo">
-                                 <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                            <h:outputText value="Formato:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.articulo.formato}" title="idTipo"/>
-                            <h:outputText value="Formato Digital:" styleClass="textoNEGRO"/>
-                            <h:outputText value="#{publicacionController.selected.articulo.formatoDigital}" title="idTipo"/>
+    </td>
+</tr>
 
 
-                            
+<tr>
+    <td><strong>Periodo Mes:</strong>
+        <h:outputText value="#{publicacionController.selected.periodoMes}" title="Periodo Mes">
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+       </h:outputText>
+    </td>
+</tr>
+<tr>
+    <td><strong>Agregaci&oacute;n Recurso:</strong><h:outputText value="#{publicacionController.selected.articulo.agregacionRecurso}" title="Agregacion Recurso"/></td>
+</tr>
+<tr>
+    <td><strong>Asunto:</strong> <h:outputText value="#{publicacionController.selected.articulo.asunto}" title="Asunto"/></td>
+</tr>
+<tr>
+    <td><strong>Descripci&oacute;n:</strong> <h:outputText value="#{publicacionController.selected.articulo.descripcion}" title="Descripcion"/></td>
+</tr>
+<tr>
+    <td><strong>Divisia:</strong> <h:outputText value="#{publicacionController.selected.articulo.divisa}" title="Divisa"/></td>
+</tr>
+<tr>
+    <td><strong>Fecha Creaci&oacute;n</strong> <h:outputText value="#{publicacionController.selected.articulo.fechaCreacion}" title="Fecha ">
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+    </td>
+</tr>
+<tr>
+    <td><strong>Fecha Disponibilidad:</strong>
+        <h:outputText value="#{publicacionController.selected.articulo.fechaDisponibilidad}" title="fecha disponible">
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+        </h:outputText>
+    </td>
+</tr>
+<tr>
+    <td><strong>Formato:</strong><h:outputText value="#{publicacionController.selected.articulo.formato}" title="Formato"/></td>
+</tr>
+<tr>
+    <td><strong>Formato Digital:</strong> <h:outputText value="#{publicacionController.selected.articulo.formatoDigital}" title="formatoDigital"/>
+</td>
+</tr>
 
-                    </h:panelGrid>
-                                    </td>
-                                </tr>
-                            </table>
+
+
+
+
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+ <td>&nbsp;</td>
+    <td align="left">
+     <ul id="icons" class="ui-widget ui-helper-clearfix">
+      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Mas información">
+    <!-- <h:commandLink  action="./../index.xhtml" >
+          <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+      </h:commandLink>
+    -->
+      <a href="Articulo.html">
+      <span class="ui-icon ui-icon-info"></span>
+      </a>
+      </li>
+      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+    </ul>
+    </td>
+  </tr>
+  <tr></tr>
+  <tr></tr>
+
+</table>
+
+                           
                             </center>
 
                         </p:tab>
@@ -196,16 +239,23 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                                  
                              </div>
                              <br/><br/>
+                             <div align="right">
+                                 <p:commandButton value="Comentar" onclick="dlg1.show();" type="button" image="ui-icon ui-icon-copy"/>
+                             </div>
 
-                            <p:commandButton value="Comentar" onclick="dlg1.show();" type="button"/>
-                            <p:dialog header="Agrega tu comentario" widgetVar="dlg1" showEffect="bounce"  hideEffect="explode">
+                             <br/><br/>
 
-                                <h:inputTextarea   value="#{comentarioController.comentario}" styleClass="textoNEGRO"  rows="10" cols="40"/>
-                                <br/><br/>
-                                <div align="right">
 
+                             <p:dialog header="Postear Articulo" widgetVar="dlg1"   showEffect="bounce" hideEffect="explode"  position="center" resizable="true">
+
+                              <h:inputTextarea   value="#{comentarioController.comentario}" styleClass="textoNEGRO"  rows="10" cols="40"/>
+                               <br/><br/>
+                               <div align="right">
                                     <h:commandButton value="Comentar" action="#{comentarioController.addComentario(sistemaController.cliente,publicacionController.selected.articulo)}"/>
-                                </div>
+                                    &nbsp;
+                                    <p:commandButton value="Cancelar" onclick="dlg1.hide()" type="button" />
+                               </div>
+
                             </p:dialog>
 
 
@@ -219,7 +269,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
 
 
 
-                <br/>  <br/>
+                
 
 
 

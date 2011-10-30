@@ -22,36 +22,42 @@
                 <p:panel header="NUEVA PUBLICACIONES">
                      <center>
                          <h:panelGrid columns="2" cellspacing="12">
-
+                   
                     <h:outputLabel value="Periodo Mes:" for="periodoMes" styleClass="textoNEGRO"/>
-                    <p:calendar id="periodoMes" value="#{publicacionController.selected.periodoMes}" title="#{bundle.CreatePublicacionTitle_periodoMes}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_periodoMes}">
+                    <p:calendar id="periodoMes" value="#{publicacionController.selected.periodoMes}" title="Periodo Mes" required="true" requiredMessage="El campo  periodo Mes es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </p:calendar>
-                    <h:outputLabel value="Periodo Anio:" for="periodoAnio" styleClass="textoNEGRO" />
-                    <p:calendar id="periodoAnio" value="#{publicacionController.selected.periodoAnio}" title="#{bundle.CreatePublicacionTitle_periodoAnio}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_periodoAnio}">
+                    <h:outputLabel value="Periodo Anio:" for="periodoAnio" styleClass="textoNEGRO"/>
+                    <p:calendar id="periodoAnio" value="#{publicacionController.selected.periodoAnio}" title="Periodo A&ntilde;o" required="true" requiredMessage="El campo Periodo Anio es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </p:calendar>
                     <h:outputLabel value="Epoca:" for="epoca" styleClass="textoNEGRO"/>
-                    <h:inputText id="epoca" value="#{publicacionController.selected.epoca}" title="#{bundle.CreatePublicacionTitle_epoca}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_epoca}"/>
-                    <h:outputLabel value="Anio:" for="anio" styleClass="textoNEGRO"/>
-                    <h:inputText id="anio" value="#{publicacionController.selected.anio}" title="#{bundle.CreatePublicacionTitle_anio}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_anio}"/>
-                    <h:outputLabel value="Numero:" for="numero" styleClass="textoNEGRO"/>
-                    <h:inputText id="numero" value="#{publicacionController.selected.numero}" title="#{bundle.CreatePublicacionTitle_numero}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_numero}"/>
-                    <h:outputLabel value="ISSN:" for="issn" styleClass="textoNEGRO" />
-                    <h:inputText id="issn" value="#{publicacionController.selected.issn}" title="#{bundle.CreatePublicacionTitle_issn}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_issn}"/>
+                    <h:inputText id="epoca" value="#{publicacionController.selected.epoca}" title="Epoca" required="true" requiredMessage="El campo epoca es requerido"/>
+                    <h:outputLabel value="A&ntilde;o:" for="anio" styleClass="textoNEGRO" />
+                    <h:inputText id="anio" value="#{publicacionController.selected.anio}" title="A&&ntilde;" required="true" requiredMessage="El campo anio es requerido"/>
+                    <h:outputLabel value="Numero:" for="numero" styleClass="textoNEGRO" />
+                    <h:inputText id="numero" value="#{publicacionController.selected.numero}" title="Numero" required="true" requiredMessage="El campo numero es requerido">
+                        
+                    </h:inputText>
+                    <h:outputLabel value="ISSN:" for="issn" styleClass="textoNEGRO"/>
+                    <h:inputText id="issn" value="#{publicacionController.selected.issn}" title="ISSN" required="true" requiredMessage="El campo ISSN es requerido"/>
                     <h:outputLabel value="ISBN" for="isbn" styleClass="textoNEGRO"/>
-                    <h:inputText id="isbn" value="#{publicacionController.selected.isbn}" title="#{bundle.CreatePublicacionTitle_isbn}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_isbn}"/>
+                    <h:inputText id="isbn" value="#{publicacionController.selected.isbn}" title="ISBN" required="true" requiredMessage="El campo ISBN es requerido"/>
                     <h:outputLabel value="Tomo" for="tomo" styleClass="textoNEGRO"/>
-                    <h:inputText id="tomo" value="#{publicacionController.selected.tomo}" title="#{bundle.CreatePublicacionTitle_tomo}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_tomo}"/>
+                    <h:inputText id="tomo" value="#{publicacionController.selected.tomo}" title="Tomo" required="true" requiredMessage="El campo tomo es requerido}"/>
                     <h:outputLabel value="Editorial" for="editorial" styleClass="textoNEGRO"/>
-                    <h:inputText id="editorial" value="#{publicacionController.selected.editorial}" title="#{bundle.CreatePublicacionTitle_editorial}" required="true" requiredMessage="#{bundle.CreatePublicacionRequiredMessage_editorial}" size="20"/>
+                    <h:inputText id="editorial" value="#{publicacionController.selected.editorial}" title="Editorial" required="true" requiredMessage="El campo editorial es requerido" size="20"/>
+                    <h:outputLabel value="Articulo" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{publicacionController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido">
+                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
                 </center>
                 </p:panel>
                 <br /><br />
                 <p:panel >
                     <div align="center">
-                        <h:commandButton action="#{publicacionController.update}" value="Guardar" />
+                    <h:commandButton action="#{publicacionController.update}" value="Guardar" />
                     </div>
                 </p:panel>
 
