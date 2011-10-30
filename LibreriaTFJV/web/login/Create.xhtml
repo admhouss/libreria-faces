@@ -42,9 +42,9 @@
     </tr>
   <tr>
     <td bgcolor="#FFFFFF" >&nbsp;</td>
-    <td width="105" bgcolor="#FFFFFF" >&nbsp;&nbsp;<h:outputLabel value="E-mail:" styleClass="textoNEGRO"/></td>
+    <td width="105" bgcolor="#FFFFFF" >&nbsp;&nbsp;<h:outputLabel value="E-mail:" styleClass="textoNEGRO" for="idUsuario"/></td>
     <td width="159"  > 
-        <h:inputText value="#{sistemaController.usuario}" id="idUsuario" >
+        <h:inputText value="#{sistemaController.usuario}" id="idUsuario"  required="true" requiredMessage="Falta por capturar el campo usuario">
              <f:validator  validatorId="EmailValidator"/>
         </h:inputText>
     </td>
@@ -59,9 +59,9 @@
   </tr>
   <tr>
     <td bgcolor="#FFFFFF" >&nbsp;</td>
-    <td bgcolor="#FFFFFF" >&nbsp;<h:outputLabel value="Password:" styleClass="textoNEGRO"/></td>
-    <td bgcolor="#FFFFFF" >   <h:inputSecret value="#{sistemaController.password}" maxlength="10"  id="password"/></td>
-    <td colspan="2" bgcolor="#FFFFFF" >&nbsp;&nbsp;&nbsp;<h:outputLabel value="M&aacute;ximo 10 caracteres:" styleClass="textoROJO"/></td>
+    <td bgcolor="#FFFFFF" >&nbsp;<h:outputLabel value="Password:" styleClass="textoNEGRO"   /></td>
+    <td bgcolor="#FFFFFF" >   <h:inputSecret value="#{sistemaController.password}" maxlength="10"  id="password" required="true" requiredMessage="Falta por camptura el campo Password"/></td>
+    <td colspan="2" bgcolor="#FFFFFF" >&nbsp;&nbsp;&nbsp;<h:outputLabel value="M&aacute;ximo 10 caracteres:" styleClass="textoROJO" for="password" /></td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
   <tr>
