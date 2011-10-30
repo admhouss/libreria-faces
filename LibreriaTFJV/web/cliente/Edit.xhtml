@@ -21,18 +21,18 @@
 
                              <h:panelGrid columns="3" cellspacing="7">
                                  <h:outputLabel value="Los campos con * son requeridos." style="font-size:12px"/>
-                                  <h:outputLabel value=" " styleClass="textoROJO"/>
-                                 <h:outputLabel value=" "styleClass="textoROJO"/>
+                                  <h:outputLabel value=" " styleClass="textoROJO" />
+                                 <h:outputLabel value=" " styleClass="textoROJO" />
 
 
                                  <h:outputLabel value="Nombre:" for="nombre" styleClass="textoNEGRO"/>
-                                 <h:inputText id="nombre" value="#{clienteController.selected.nombre}" title="nombre" required="true" requiredMessage="RequiredMessage_nombre" size="25"/>
-                                 <h:outputLabel value="*" styleClass="textoROJO"/>
-                                 <h:outputLabel value="Paterno:" for="paterno" styleClass="textoNEGRO"/>
-                                 <h:inputText id="paterno" value="#{clienteController.selected.paterno}" title="paterno" required="true" requiredMessage="RequiredMessage_paterno" size="25"/>
+                                 <h:inputText id="nombre" value="#{clienteController.selected.nombre}" title="nombre" required="true" requiredMessage="RequiredMessage_nombre" size="25" />
+                                 <h:outputLabel value="*" styleClass="textoROJO" />
+                                 <h:outputLabel value="Paterno:" for="paterno" styleClass="textoNEGRO" />
+                                 <h:inputText id="paterno" value="#{clienteController.selected.paterno}" title="paterno" required="true" requiredMessage="RequiredMessage_paterno" size="25" />
                                  <h:outputLabel value="*" styleClass="textoROJO"/>
                                  <h:outputLabel value="Materno:" for="materno" styleClass="textoNEGRO"/>
-                                 <h:inputText id="materno" value="#{clienteController.selected.materno}" title="materno" required="true" requiredMessage="RequiredMessage_materno" size="25"/>
+                                 <h:inputText id="materno" value="#{clienteController.selected.materno}" title="materno" required="true" requiredMessage="RequiredMessage_materno" size="25" />
                                  <h:outputLabel value="*" styleClass="textoROJO"/>
                                  <h:outputLabel value="Telefono:" for="telefono" styleClass="textoNEGRO"/>
                                  <h:inputText id="telefono" value="#{clienteController.selected.telefono}" title="telefono" required="true" requiredMessage="RequiredMessage_telefono" size="25"/>
@@ -47,6 +47,10 @@
 
                                 <h:outputLabel value="Fax:" for="fax" styleClass="textoNEGRO"/>
                                 <h:inputText id="fax" value="#{clienteController.selected.fax}" title="fax"  size="25"/>
+                                <h:outputLabel value=" "/>
+
+                                 <h:outputLabel value="Estatus:" for="estatus" styleClass="textoNEGRO"/>
+                                 <h:selectBooleanCheckbox id="estatus" value="#{clienteController.selected.estatus}" title="estatus"  />
                                 <h:outputLabel value=" "/>
 
 

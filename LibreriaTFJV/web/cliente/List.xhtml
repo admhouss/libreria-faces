@@ -17,7 +17,7 @@
             </h:panelGroup>
             <h:panelGroup >
                  <br/>
-                <div align="right">
+                 <div align="right" id="demo-notes">
 
 
                     <h:commandButton action="#{clienteController.prepareCreate}" value="Crear Nuevo"/>
@@ -48,14 +48,14 @@
 
                 
                 <p:panel header="CATALOGO DE CLIENTE">
-                    <p:dataTable value="#{clienteController.listSeleccionCliente}" var="item" paginator="true" rows="5" >
+                    <p:dataTable value="#{clienteController.listSeleccionCliente}" var="item" paginator="true" rows="5" selectionMode="single" rowStyleClass="#{item.estatus == false ? 'clienteDesactivado' :  null  }">
                     <p:column style="width:100px;">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
                         <h:outputText value="#{item.nombre} #{item.paterno} #{item.materno}"/>
                     </p:column>
-                    <p:column style="width:10px;">
+                    <p:column style="width:10px;" filterBy="#{item.id}" filterStyle="width: 120px">
                         <f:facet name="header">
                             <h:outputText value="EMAIL"/>
                         </f:facet>
@@ -91,7 +91,7 @@
                                <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
                          <h:commandLink action="#" >
-                               <img src="./../resources/iconos/fichame.png" alt="" title="Quitar"/>
+                               <img src="./../resources/iconos/fichame.png" alt="" title="factura"/>
                         </h:commandLink>
                         
                     </p:column>
