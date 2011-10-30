@@ -18,20 +18,22 @@
                 <br/>  <br/>
                 <p:panel header="VER ALAMCEN">
                     <center>
-                <h:panelGrid columns="2">
+                        <h:panelGrid columns="2" cellspacing="15">
                    
                     <h:outputText value="Existencia:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{almacenController.selected.existencia}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                    <h:outputText value="#{almacenController.selected.existencia}"  title="Existencia" />
+                    
                      
                     <h:outputText value="Consigna:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{almacenController.selected.enConsigna}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                    <h:outputText value="#{almacenController.selected.enConsigna}"  title="Consigna"/>
                     
                     <h:outputText value="Firme:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{almacenController.selected.enFirme}"  title="#{bundle.ViewAlmacenTitle_existencia}"/>
+                    <h:outputText value="#{almacenController.selected.enFirme}"  title="Firme"/>
+                    
 
 
                     <h:outputText value="Articulo:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{almacenController.selected.articulo.titulo}" title="#{bundle.ViewAlmacenTitle_articulo}"/>
+                    <h:outputText value="#{almacenController.selected.articulo.titulo}" title="Articulo"/>
                 </h:panelGrid>
                     </center>
                 </p:panel>
