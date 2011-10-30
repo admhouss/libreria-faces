@@ -30,27 +30,22 @@
                 <center>
              
                     <p:dataTable value="#{impuestoController.listaImpuesto}" var="item" paginator="true" rows="5">
-                   <p:column>
+                        <p:column style="width:12px;">
                         <f:facet name="header">
-                            <h:outputText value="idArticulo"/>
+                            <h:outputText value="ID ARTICULO"/>
                         </f:facet>
                        <h:outputText value="#{item.articulo.id}"/>
                    </p:column>
                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Impuesto"/>
+                            <h:outputText value="IMPUESTO"/>
                         </f:facet>
                         <h:outputText value="#{item.montoImpuesto}"/>
                    </p:column>
-                   <p:column>
+                  
+                        <p:column filterBy="#{item.articulo.titulo}">
                         <f:facet name="header">
-                            <h:outputText value="Descripci&oacute;n"/>
-                        </f:facet>
-                        <h:outputText value="#{item.descripcion}"/>
-                   </p:column>
-                   <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Articulo"/>
+                            <h:outputText value="ARTICULO"/>
                         </f:facet>
                        <h:outputText value="#{item.articulo.titulo}"/>
                    </p:column>
@@ -67,7 +62,7 @@
                         </h:commandLink>
                        
                         <h:commandLink action="#{impuestoController.destroy(item)}" >
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                            <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
                         </h:commandLink>
                    </p:column>
                 </p:dataTable>
