@@ -86,9 +86,17 @@ public class CarritoController implements Serializable{
           carritoCompraTemporalLocal.removePublicacion(articulo);
     }
     public List<CarritoDTO> getListArticulos(){
+        if(carritoCompraTemporalLocal!=null){
          listcarritoDTO=carritoCompraTemporalLocal.getListPublicacion();
-         listcarritoDTO=listcarritoDTO==null?new ArrayList():listcarritoDTO;
+         listcarritoDTO=listcarritoDTO==null?new ArrayList<CarritoDTO>():listcarritoDTO;
+        }
         return listcarritoDTO;
+    }
+
+    public int getcountElement(){
+        if(carritoCompraTemporalLocal!=null)
+        return carritoCompraTemporalLocal.getCount();
+        return 0;
     }
 
      private CarritoCompraTemporalLocal carritoCompraTemporalLocal=ObtenerCarrito();//obetenemso carrito compra

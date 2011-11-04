@@ -43,51 +43,37 @@ public class ProcesarOlvidarContrasenia extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
-
-
-       // ServletConversationManager conversationManager = (ServletConversationManager)request.getSession().getServletContext();
-        //BeanStore beanStore = conversationManager.getBeanStore("correo");
-        //String clienteConfirmado= (String)beanStore.get("correo").getInstance();
         String clienteConfirmado=(String)request.getParameter("keycode");
-      //  String fechaSendCorreo=(String)request.getParameter("keycode");
-        //date=new Date(fechaSendCorreo);
-        
-
-
+      
          if(clienteConfirmado==null){
-           out.println("No se encuentra ningun registro de este usuario");
+                 showMessage("No se encuentra ningun registro asociado a esta cuenta", out);
          }else{
-            Cliente cliente=clienteFacade.buscarUsuario(clienteConfirmado);
+            Cliente cliente=clienteFacade.find(clienteConfirmado.trim());
             if(cliente!=null && cliente.getEstatus()==false){
                     cliente.setEstatus(true);
                     cliente.setModificacion(new Date());
                     clienteFacade.edit(cliente);
                     response.sendRedirect(request.getContextPath()+"/faces/login/Create.xhtml");
              }
-             else{  out.println("La cuenta ya se encuentra activada");}
-        }//else
-        out.close();
-
+             else{  showMessage("La cuenta ya se encuentra activada",out);}
+        }//end else
     }
 
     private void showMessage(String cadena,PrintWriter out){
         try {
            // TODO output your page here
-            out.flush();
+            
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Recepci&oacute;n de correo electronico");
-
-
+            out.println("<title>Recepci&oacute;n de correo electronico </title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>" +cadena + "</h1>");
+            out.println("<center><h1>" +cadena + "</h1></center>");
             out.println("</body>");
             out.println("</html>");
 
         } finally {
-            out.close();
+           out.close();
         }
     }
 

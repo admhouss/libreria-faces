@@ -54,10 +54,12 @@ public class ArticuloController implements Serializable {
 
     @ManagedProperty("#{impuestoController}")
     ImpuestoController impuestoController; //descargando beann impuesto de session
-    @ManagedProperty("#{descuentoController}")
-    ArticuloController descuentoController; //descargando bean  descuento de session;
+    @ManagedProperty("#{descuentoArticuloController}")
+    DescuentoArticuloController  descuentoController; //descargando bean  descuento de session;
     @ManagedProperty("#{promocionController}")
     PromocionController promController; //descargando bean promocion de session;
+    @ManagedProperty("#{almanceController}")
+    AlmacenController almacenController; //descargando bean almancen de session;
 
     public AlmacenController getAlmacenController() {
         return almacenController;
@@ -67,13 +69,15 @@ public class ArticuloController implements Serializable {
         this.almacenController = almacenController;
     }
 
-    public ArticuloController getDescuentoController() {
+    public DescuentoArticuloController getDescuentoController() {
         return descuentoController;
     }
 
-    public void setDescuentoController(ArticuloController descuentoController) {
+    public void setDescuentoController(DescuentoArticuloController descuentoController) {
         this.descuentoController = descuentoController;
     }
+
+    
 
     public ImpuestoController getImpuestoController() {
         return impuestoController;
@@ -90,8 +94,7 @@ public class ArticuloController implements Serializable {
     public void setPromController(PromocionController promController) {
         this.promController = promController;
     }
-    @ManagedProperty("#{almanceController}")
-    AlmacenController almacenController; //descargando bean almancen de session;
+    
 
 
 
@@ -223,19 +226,7 @@ public class ArticuloController implements Serializable {
     public String prepareView(Articulo p) {
       current=p;
       current.setProveedorList(current.getProveedorList());
-      
-     // formward=go;
-      
-     // if(go==1){
-          //promController.setListPromocion(promocionFacade.buscarPromocionByarticulo(p));
-          //impuestoController.setListaImpuesto(impuestoFacade.buscarImpuestoByarticulo(p));
-
-          return "/articulo/View";
-       //}
-      //else if(go==2)
-        //return "./../articulo/View.xhtml";
-      //else
-        // return "/face/articulo/View.xhtml";
+      return "/articulo/View";
     }
 
     public String prepareCreate() {
@@ -253,16 +244,13 @@ public class ArticuloController implements Serializable {
             current.setCosto(current.getCosto());
             current.setCreador(current.getCreador());
             current.setDescripcion(current.getDescripcion());
-            //current.setDescuentoArticulo(current.getDescuentoArticulo());
             current.setModUpdate(new  Date());
             current.setFechaRegistro(new Date());
             current.setFechaCreacion(current.getFechaCreacion());
             current.setFormato(current.getFormato());
             current.setFormatoDigital(current.getFormatoDigital());
             current.setProveedorList(current.getProveedorList());
-
-
-            
+            current.setImagen(current.getImagen());
              getFacade().create(current);
             JsfUtil.addSuccessMessage(("Articulo Created"));
             return prepareView(current);

@@ -58,15 +58,24 @@ import org.primefaces.model.StreamedContent;
 public class SubirFiles  implements Serializable{
 
 
-    private String urlFile="/home/libreria/www/articulos/";                ///"C:/Users/xxx/Documents/NetBeansProjects/respaldo/LibreriaTFJV/web/resources/images/";
-    private String urlVirtual="http://www.libreria-tfjfa.com/articulos/"; //"/resources/images/";
+    private String carpetaPortadas="/home/libreria/www/articulos/";//"C:/Users/xxx/Documents/NetBeansProjects/respaldo/LibreriaTFJV/web/resources/images/";
+    private String urlPortada=     "http://www.libreria-tfjfa.com/articulos/";
+    private String urlDownloads="/home/libreria/public_ftp/incoming/";
     private static final int BUFFER_SIZE = 9124;
     private String imagemTemporaria;
-    private CroppedImage croppedImage;
-    private String extension;
- 
+    private String extension,menssageOut;
+
     @ManagedProperty("#{articuloController}")
-    ArticuloController articuloController;
+    private ArticuloController articuloController;
+
+    public String getMenssageOut() {
+        return menssageOut;
+    }
+
+    public void setMenssageOut(String menssageOut) {
+        this.menssageOut = menssageOut;
+    }
+
 
     public ArticuloController getArticuloController() {
         return articuloController;
@@ -99,38 +108,38 @@ public void crearArchivo(byte[] bytes, String arquivo) {
    }
 
     public void handleFileUpload0(FileUploadEvent event) {
-        int posicion=-1;
+        try{
+             posExtension=-1;
+             String documento="";
+             articuloController.getSelected().setArchivo("");
               if(descargarArchivo(event)){
-
-                      urlVirtual+=event.getFile().getFileName();
-                      posicion=event.getFile().getFileName().indexOf(".");
-                  if(posicion==-1){
-                        JsfUtil.addErrorMessage("El archivo, no cuenta con extension!");
-                  }else{
-                     extension=event.getFile().getFileName().substring(posicion);
-                     articuloController.getSelected().setFormato(extension);
+                      documento=event.getFile().getFileName();
+                      posExtension=documento.indexOf(".");
+                  if( posExtension==-1 || documento==null){
+                     setMenssageOut("El archivo, no cuenta con extension!");
+                  }else
+                  {
+                     extension=documento.substring(posExtension);
                      articuloController.getSelected().setFormatoDigital(extension);
-                     articuloController.getSelected().setArchivo(urlVirtual);
+                     articuloController.getSelected().setArchivo(urlDownloads+documento);
                    }
 
               }
-      
 
-
-
+        }catch(Exception e){setMenssageOut("No fue posible subir el archivo");}
     }
 
    private byte[] bufferTemporal = new byte[BUFFER_SIZE];
   
     public boolean descargarArchivo(FileUploadEvent event) {
-       // ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
+      
        
-      System.out.println("Ruta a guardar[ " + urlFile + event.getFile().getFileName());
+      System.out.println("Ruta a guardar[ " + carpetaPortadas + event.getFile().getFileName());
         
         try {
             FileOutputStream fileOutputStream = null;
             File result = null;
-            result = new File(urlFile + event.getFile().getFileName());
+            result = new File(carpetaPortadas + event.getFile().getFileName());
            
             fileOutputStream = new FileOutputStream(result);
 
@@ -151,33 +160,22 @@ public void crearArchivo(byte[] bytes, String arquivo) {
            return true;
         } catch (IOException e) {
         System.out.println("Error handleFileUpload" + e);
-            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Logo 1 no puede ser cargado", ""));
         return false;
     }
 }
+    private int posExtension;
     public void handleFileUpload(FileUploadEvent event) {
-
-            //System.out.println(event.getFile().getFileName());
- int posicion=-1;
-                
+                setMenssageOut("");
+                posExtension=-1;
+                String nombrePortada="";
+                articuloController.getSelected().setImagen("");
                if(descargarArchivo(event)){
+                    nombrePortada=event.getFile().getFileName();   
+                    articuloController.getSelected().setImagen(urlPortada+nombrePortada);
+               }else
+                    setMenssageOut("No fue posible cargar el archivo");
+                }
 
-                      urlVirtual+=event.getFile().getFileName();
-                      posicion=event.getFile().getFileName().indexOf(".");
-                  if(posicion==-1){
-                        JsfUtil.addErrorMessage("El archivo, no cuenta con extension!");
-                  }else{
-                     extension=event.getFile().getFileName().substring(posicion);
-                     articuloController.getSelected().setImagen(urlVirtual);
-                   }
-                
-                
-               }else{
-                  JsfUtil.addErrorMessage("No fue posible cargar el archivo");
-               }
-               
-                
-    }
      
     
 

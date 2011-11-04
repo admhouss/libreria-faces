@@ -25,9 +25,18 @@ public abstract class CriteriosBusqueda {
         private String general;
         private String tipoArticulo;
         private String selectCategoria;
+        private String selectCategoriaPeriodo;
 
     public String getSelectCategoria() {
         return selectCategoria;
+    }
+
+    public String getSelectCategoriaPeriodo() {
+        return selectCategoriaPeriodo;
+    }
+
+    public void setSelectCategoriaPeriodo(String selectCategoriaPeriodo) {
+        this.selectCategoriaPeriodo = selectCategoriaPeriodo;
     }
 
     public void setSelectCategoria(String selectCategoria) {

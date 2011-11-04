@@ -25,6 +25,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.facelets.FaceletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @ManagedBean (name="sistemaController")
@@ -38,6 +39,20 @@ public class SistemaController implements Serializable {
     private @EJB escom.libreria.info.cliente.ejb.ClienteFacade clienteFacade;
     private @EJB escom.libreria.info.usarioAdministrativo.ejb.UsuarioadministrativoFacade adminFacade;
     private @EJB escom.libreria.correo.ProcesoJMail jMail;
+    private String menssageBienvenida;
+
+    public String getMenssageBienvenida() {
+
+        if(menssageBienvenida==null)
+            return "";
+        
+        return  menssageBienvenida.toUpperCase();
+    }
+
+    public void setMenssageBienvenida(String menssageBienvenida) {
+        this.menssageBienvenida = menssageBienvenida;
+    }
+
 
     public SistemaController() {}
 
@@ -48,26 +63,34 @@ public class SistemaController implements Serializable {
     public void setUsuarioAdministrador(Usuarioadministrativo usuarioAdministrador) {
         this.usuarioAdministrador = usuarioAdministrador;
     }
-    public String  loginAcces(){      
+    public String  loginAcces(){
+                setUsuarioAdministrador(null);
                 cliente = clienteFacade.buscarUsuario(usuario, password);//proceso de logeo
+
                 if(cliente==null){// el usuario no existe aparentemente
-                 cliente=clienteFacade.find(usuario);
-                       if(cliente==null)//el usuario no existe delplano
+                  cliente=clienteFacade.find(usuario);
+                   if(cliente==null)//el usuario no existe delplano
                             JsfUtil.addErrorMessage("Usuario no identificado ");
-                        else{
+                   else{
                             JsfUtil.addErrorMessage("Contraseña no valida");
                             return "/login/Create";
-                         }
+                    }
                 }
                 else{
+
+                   if(cliente.getEstatus()==true){
                         try {
-                       
-                            JsfUtil.addSuccessMessage("Usuario a iniciado session satisfactoriamente");
+                            setMenssageBienvenida("BIENVENIDO "+cliente.getNombre()+" "+cliente.getPaterno()+" "+cliente.getMaterno());
+                            JsfUtil.addSuccessMessage("Usuario a iniciado sesion satisfactoriamente");
                             ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
                             external.redirect(external.getRequestContextPath() + "/faces/index.xhtml");
                         } catch (IOException ex) {
                              Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                    }else{
+                          JsfUtil.addErrorMessage("Su cuenta se encuentra desactivada ,necesita activarla");
+                          return "/login/Create";
+                    }
                }
                 limpiarLogin();
                 return "/cliente/Create";
@@ -82,14 +105,17 @@ private  void limpiarLogin(){
 }
     public String accesoAdministrador(){
         String go="";
+        setCliente(null);
             usuarioAdministrador=adminFacade.buscarUsuarioAdmin(usuarioAdmin,passwordAdmin);
             if(usuarioAdministrador==null)
-                JsfUtil.addErrorMessage("Personal no identificado ");
+                JsfUtil.addErrorMessage("Usuario no identificado ");
             else{
-                       
+                       setMenssageBienvenida("BIENVENIDO "+usuarioAdministrador.getNombre()+" "+usuarioAdministrador.getPaterno()+" "+usuarioAdministrador.getMaterno());
                         setCliente(null);
                         limpiarLogin();
-                        JsfUtil.addSuccessMessage("Usuario identificado");
+                        JsfUtil.addSuccessMessage("Usuario a inisiado sesion satisfactoriamente");
+                      //  setMenssageBienvenida("BIENVENIDO "+usuarioAdministrador.getNombre()+" "+usuarioAdministrador.getPaterno()+" "+usuarioAdministrador.getMaterno());
+
             }
                  ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
             try {
@@ -141,18 +167,13 @@ private  void limpiarLogin(){
 
     }
 
-    public void cerrrarSession(){
-         usuarioAdministrador=null;
-         cliente=null;
-         JsfUtil.addSuccessMessage("Se cerro la session Satisfactoriamente");
-
-    }
+   
 
     private List<String> cliList=null;
     private String query;
     public String olvideContrasenia(){
            
-           Cliente clienteX=clienteFacade.buscarUsuario(getUsuario());
+           Cliente clienteX=clienteFacade.find(getUsuario().trim());
            if(clienteX==null){
                JsfUtil.addErrorMessage("No se encontro ningun registro para este correo");
            }
@@ -161,9 +182,9 @@ private  void limpiarLogin(){
                JsfUtil.addSuccessMessage("Su cuenta se enucnetra desactivada,necesita ir a su bandeja!");
            } else {
                cliList=new ArrayList<String>();
-               cliList.add(clienteX.getId());
+               cliList.add(clienteX.getId().trim());
                query="Apreciable "+clienteX.getNombre()+" "+clienteX.getPaterno()+" "+clienteX.getMaterno()+" <br/> Usuario:"+clienteX.getId() +"<br/> Passwrod:"+clienteX.getPassword()+"<br/>";
-               jMail.enviarCorreo("Libreria", query, cliList);
+               jMail.enviarCorreo("Recuperar Contrase&ntilde;a", query, cliList);
            }
            setUsuario("");
            return "/login/OlvideContrasenia" ;
@@ -203,17 +224,24 @@ private  void limpiarLogin(){
 
 
 public String cerrarCession(){
-    cliente=null;
-    usuarioAdministrador =null;
-    JsfUtil.addSuccessMessage("Session Cerrada Satisfactoriamente");
-         ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            cliente = null;
+            usuarioAdministrador = null;
+            ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
             try {
-                external.redirect(external.getRequestContextPath());
-            } catch (IOException ex) {
+                HttpSession session = (HttpSession) external.getSession(false);
+                session.invalidate();
+            } catch (Exception ex) {
+                ex.printStackTrace();
                 Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
             }
-         
-   return "";
+            JsfUtil.addSuccessMessage("Session Cerrada Satisfactoriamente");
+            external.redirect(external.getRequestContextPath()+"/");
+            return "";
+        } catch (IOException ex) {
+            Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
    }
 
     }

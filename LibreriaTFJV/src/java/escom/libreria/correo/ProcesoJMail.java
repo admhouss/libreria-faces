@@ -49,7 +49,7 @@ public class ProcesoJMail {
 
     public void enviaCorreo(MensajeCorreoDTO mensaje){
 
-        ServidorCorreoConf serverMail=sConfFacade.find(2);
+        ServidorCorreoConf serverMail=sConfFacade.find(1);
         listPropiedades=serverMail.getPropiedadesList();
         Properties props = new Properties();
         for(Propiedades propiedad:listPropiedades)
@@ -142,8 +142,7 @@ public class ProcesoJMail {
     private StringBuffer prepareUrl(String ContextoPath){
          StringBuffer buffer= buffer=new StringBuffer();
          buffer.append("http://");
-         buffer.append("localhost:8080");
-            //buffer.append("www.libreria-tfjfa.com");
+         buffer.append("www.libreria-tfjfa.com");
          buffer.append( ContextoPath);
          buffer.append("/ProcesarOlvidarContrasenia");
          return buffer;
