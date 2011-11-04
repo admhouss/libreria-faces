@@ -58,7 +58,8 @@ public class ComentarioController implements Serializable{
     }
 
     public List<Comentario> getListaComentariosGeneral(){
-        return getFacade().findAll();
+      List<Comentario> l=getFacade().findAll();
+      return l;
     }
 
     public void setListaComentarios(List<Comentario> listaComentarios) {
@@ -183,9 +184,13 @@ public class ComentarioController implements Serializable{
     }
 
     public String destroy(Comentario c) {
+        try{
         current=c;
+        getFacade().remove(current);
         JsfUtil.addSuccessMessage("Comentario eliminado satisfactoriamente");
         return "/comentario/List";
+        }catch(Exception e){e.printStackTrace();}
+         return "/comentario/List";
     }
 
     public String destroyAndView() {

@@ -96,13 +96,13 @@ public class ClienteFacade  {
 
       public List<Cliente> buscarCliente(String correo,String nombre) {
         List<Cliente> cliente=null;
+        
+        System.out.println("nombre"+nombre+"correo"+correo);
         try{
-            TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.id=:correo OR  c.nombre LIKE :nombre ORDER BY c.nombre ASC",Cliente.class)
-            .setParameter("correo",correo)
-            .setParameter("nombre", nombre+"%");
-            //.setParameter("paterno", nombre+"%")
-            //.setParameter("materno", nombre+"%");
-             cliente=l.getResultList();
+            TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE c.id LIKE :correo OR  c.nombre LIKE :nombre OR  c.paterno LIKE :nombre  OR  c.materno LIKE :nombre  ORDER BY c.nombre,c.id ASC",Cliente.class)
+            .setParameter("correo","%"+correo+"%")
+            .setParameter("nombre", "%"+nombre+"%");
+            cliente=l.getResultList();
         }catch(Exception e){}
          return cliente;
     }

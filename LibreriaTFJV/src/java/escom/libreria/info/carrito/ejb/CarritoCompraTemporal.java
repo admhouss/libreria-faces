@@ -31,13 +31,12 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
 
           carritoDTO_Temporal=buscarArticulo(articulo);
           if(carritoDTO_Temporal==null){// no existe
-              carritoDTO_Temporal=new CarritoDTO(articulo,1, BigDecimal.ZERO,listaPublicacion.size()+1);
-              carritoDTO_Temporal.doCalculoTotal();
+              carritoDTO_Temporal=new CarritoDTO(null,articulo,1, BigDecimal.ZERO,listaPublicacion.size()+1);
               listaPublicacion.add(carritoDTO_Temporal);
 
           }else{ //ya existe articulo
              carritoDTO_Temporal.setCantidad(carritoDTO_Temporal.getCantidad()+1);
-             carritoDTO_Temporal.doCalculoTotal();
+           
           }
     }
 
@@ -54,16 +53,20 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
 
     @Override
     public boolean Emtity() {
-       return listaPublicacion.isEmpty();
+       return listaPublicacion.isEmpty();//true no tiene elementos
     }
 
     @Override
     public int getCount() {
-        return listaPublicacion.size();
+        if(Emtity())
+         return 0;
+         return listaPublicacion.size();
+
     }
 
     @Override
     public List<CarritoDTO> getListPublicacion() {
+
         return listaPublicacion;
     }
 

@@ -63,10 +63,9 @@ public class ClienteController implements Serializable{
     }
    
     public List<Cliente> getListSeleccionCliente() {
-       
-        if(listSeleccionCliente==null || listSeleccionCliente.isEmpty())
-           listSeleccionCliente=getFacade().findAll();
-        return listSeleccionCliente;
+       if(listSeleccionCliente==null)
+       listSeleccionCliente=getFacade().findAll();
+       return listSeleccionCliente;
     }
 
     public void setListSeleccionCliente(List<Cliente> listSeleccionCliente) {
@@ -169,8 +168,13 @@ public class ClienteController implements Serializable{
    
 
     public void buscarCliente(){
-        correo=getCorreo();
-        nombre=getNombre();
+        correo=getCorreo().trim()==null?"":getCorreo().trim();
+        nombre=getNombre()==null?"":getNombre();
+        if(correo.equals("") && !nombre.equals("")){
+            correo=nombre;
+        }else if(nombre.equals("") && !correo.equals(""))
+         nombre=correo;
+        
         listSeleccionCliente=getFacade().buscarCliente(correo,nombre);
         setCorreo("");setNombre("");
     }
@@ -212,12 +216,10 @@ public class ClienteController implements Serializable{
 
 
     public String prepareEdit(Cliente p) {
+       if(p==null)
+       return "/login/Create";
        current=p;
-        
-       
-
-       
-        return "/cliente/Edit";
+       return "/cliente/Edit";
     }
 
     public String update() {

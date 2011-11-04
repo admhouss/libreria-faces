@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package escom.libreria.info.articulo.jpa;
+package escom.libreria.info.cliente.ejb;
 
+import escom.libreria.info.articulo.jpa.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;

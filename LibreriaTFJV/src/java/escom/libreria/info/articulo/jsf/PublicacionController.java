@@ -10,7 +10,11 @@ import escom.libreria.info.cliente.jpa.BitacoraClientePK;
 import escom.libreria.info.login.sistema.SistemaController;
 import escom.libreria.info.usarioAdministrativo.jpa.Actividadusuario;
 import escom.libreria.info.usarioAdministrativo.jpa.Usuarioadministrativo;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +35,18 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.xml.DOMConfigurator;
+
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+import propertiesConfig.XMLReference;
+
 @ManagedBean (name="publicacionController")
 @SessionScoped
 public class PublicacionController extends CriteriosBusqueda implements Serializable{
@@ -48,8 +64,33 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     private int redireccionarTo;
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
+    private static final Logger logPublicacion = Logger.getLogger(PublicacionController.class.getName());
 
-     public PublicacionController() {}//constructor
+     public PublicacionController() {
+        {
+            InputStream log4jConfigStream = null;
+            try {
+                log4jConfigStream =XMLReference.class.getResourceAsStream("log4j.configure.xml");
+                DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                Document log4jDocument = docBuilder.parse(log4jConfigStream);
+                DOMConfigurator.configure((Element) log4jDocument.getFirstChild());
+               
+            } catch (SAXException ex) {
+                Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+           
+            } catch (ParserConfigurationException ex) {
+                Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    log4jConfigStream.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+     }//constructor
        
 
      public boolean isActivate(){//retorna true si es diferente de null
@@ -99,6 +140,20 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
      }
     
     public String buscar(){
+        setAutor(getAutor().trim()==null?"":getAutor());
+        setTitulo(getTitulo().trim()==null?"":getTitulo());
+        setTipoArticulo(getTipoArticulo().trim()==null?"":getTipoArticulo());
+        setPeriodo(getPeriodo()==null?new Date():getPeriodo());
+        setISBN(getISBN().trim()==null?"":getISBN());
+        setEditorial(getEditorial().trim()==null?"":getEditorial());
+        setTema(getTema().trim()==null?"":getEditorial());
+
+
+
+
+        
+          System.out.print("Autor:"+getAutor()+" Titulo"+getTitulo() +"Tipo Articulo:"+getTipoArticulo()+ "Periodo"+getPeriodo() +"ISBN"+getISBN()+"Editorial"+getEditorial()+"Asunto"+getTema());
+
         listPublicacionByBusqueda=getFacade().buscarArticulo(getAutor(),getTitulo(),getTipoArticulo(),getPeriodo(),getNumero(),getISSN(),getISBN(),getEditorial(),getTema());
         if(!isActivate())
         JsfUtil.addSuccessMessage("No se encontrarn ninguna coincidencias");
@@ -106,9 +161,20 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     }
 
      public String buscarDinamica(){
-        listPublicacionByBusqueda=getFacade().buscarDinamica(getSelectCategoria(), getGeneral());
+        if(getSelectCategoria()!=null && getGeneral().trim()!=null && !getGeneral().trim().equals("")){
+          listPublicacionByBusqueda=getFacade().buscarDinamica(getSelectCategoria(), getGeneral());
+         }
         if(!isActivate())
         JsfUtil.addSuccessMessage("No se encontrarn ninguna coincidencias");
+        setGeneral("");
+        return "/busqueda/List";
+    }
+       public String buscarDinamicaPeriodo(){
+        if(getSelectCategoria()!=null && getPeriodo()!=null)
+        listPublicacionByBusqueda=getFacade().buscarDinamicaPeriodo(getSelectCategoriaPeriodo(), getPeriodo());
+        if(!isActivate())
+        JsfUtil.addSuccessMessage("No se encontrarn ninguna coincidencias");
+        //setPeriodo(null);
         return "/busqueda/List";
     }
 
@@ -118,11 +184,13 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
        listPublicacionByBusqueda=getFacade().buscarArticulo(p.getArticulo().getCreador(),p.getArticulo().getTitulo(),p.getArticulo().getTipoArticulo().getDescripcion(),p.getPeriodoMes(),p.getNumero(), p.getIssn(),p.getIsbn(),p.getEditorial(),p.getArticulo().getAsunto());
        addBitacoraCliente(p);
        addbicatoraUsuarioAdministrador(p,1);
+       logPublicacion.info("BUSCANDO LIBROS RELACIONADOS");
        if(!isActivate())
         JsfUtil.addSuccessMessage("No se encontraron coincidencias!");
        else
         JsfUtil.addSuccessMessage("Se encontro "+listPublicacionByBusqueda.size()+" coincidencias!");
        return "/busqueda/List";
+
     }
 
     public List<Publicacion> getListNovedadesPublicacion(){
@@ -165,6 +233,8 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
 
    
     public String buscarLibroGeneral(){
+
+       setGeneral(getGeneral().trim()==null?"":getGeneral());
        listPublicacionByBusqueda=getFacade().buscarArticulo(getGeneral(),getGeneral(),getGeneral(),new Date(), 1, 1, getGeneral(),getGeneral(), getGeneral());
        if(!isActivate()){
         JsfUtil.addSuccessMessage("No se encontraron coincidencias!");
@@ -263,7 +333,9 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     }
     public String prepareView(Publicacion p,int render,int operacion) {
 
-        
+        logPublicacion.info("Consultando libro");
+        logPublicacion.severe("error");
+        logPublicacion.warning("hola");
         addBitacoraCliente(p);
         addbicatoraUsuarioAdministrador(p,operacion);
         redireccionarTo=render;
@@ -318,6 +390,7 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
 
     public String update() {
         try {
+
             getFacade().edit(current);
             addbicatoraUsuarioAdministrador(current, 2);
             JsfUtil.addSuccessMessage(("Publicacion Actualizada Satisfactoriamente"));

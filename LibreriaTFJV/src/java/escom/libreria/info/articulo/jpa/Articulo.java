@@ -140,14 +140,18 @@ public class Articulo implements Serializable {
     @Basic(optional = false)
     @Column(name = "CODIGO")
     private String codigo;
-    @JoinTable(name = "proveedor_articulo", joinColumns = {
+    @JoinColumn(name = "ID_TIPO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private TipoArticulo tipoArticulo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<Suscripcion> suscripcionList;
+    
+     @JoinTable(name = "proveedor_articulo", joinColumns = {
         @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID")})
     @ManyToMany
     private List<Proveedor> proveedorList;
-    @JoinColumn(name = "ID_TIPO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private TipoArticulo tipoArticulo;
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
     private DescuentoArticulo descuentoArticulo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
@@ -186,6 +190,14 @@ public class Articulo implements Serializable {
         this.codigo = codigo;
     }
 
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+    }
+
     public List<BitacoraCliente> getBitacoraClienteList() {
         return bitacoraClienteList;
     }
@@ -194,7 +206,48 @@ public class Articulo implements Serializable {
         this.bitacoraClienteList = bitacoraClienteList;
     }
 
+    public List<Comentario> getComentarioList() {
+        return comentarioList;
+    }
+
+    public void setComentarioList(List<Comentario> comentarioList) {
+        this.comentarioList = comentarioList;
+    }
+
+    public DescuentoArticulo getDescuentoArticulo() {
+        return descuentoArticulo;
+    }
+
+    public void setDescuentoArticulo(DescuentoArticulo descuentoArticulo) {
+        this.descuentoArticulo = descuentoArticulo;
+    }
+
+    public List<Impuesto> getImpuestoList() {
+        return impuestoList;
+    }
+
+    public void setImpuestoList(List<Impuesto> impuestoList) {
+        this.impuestoList = impuestoList;
+    }
+
+    public List<Proveedor> getProveedorList() {
+        return proveedorList;
+    }
+
+    public void setProveedorList(List<Proveedor> proveedorList) {
+        this.proveedorList = proveedorList;
+    }
+
+    public List<Publicacion> getPublicacionList() {
+        return publicacionList;
+    }
+
+    public void setPublicacionList(List<Publicacion> publicacionList) {
+        this.publicacionList = publicacionList;
+    }
+
     
+
     public Integer getId() {
         return id;
     }
@@ -403,14 +456,6 @@ public class Articulo implements Serializable {
         this.codigo = codigo;
     }
 
-    public List<Proveedor> getProveedorList() {
-        return proveedorList;
-    }
-
-    public void setProveedorList(List<Proveedor> proveedorList) {
-        this.proveedorList = proveedorList;
-    }
-
     public TipoArticulo getTipoArticulo() {
         return tipoArticulo;
     }
@@ -419,45 +464,15 @@ public class Articulo implements Serializable {
         this.tipoArticulo = tipoArticulo;
     }
 
-    public DescuentoArticulo getDescuentoArticulo() {
-        return descuentoArticulo;
+    public List<Suscripcion> getSuscripcionList() {
+        return suscripcionList;
     }
 
-    public void setDescuentoArticulo(DescuentoArticulo descuentoArticulo) {
-        this.descuentoArticulo = descuentoArticulo;
+    public void setSuscripcionList(List<Suscripcion> suscripcionList) {
+        this.suscripcionList = suscripcionList;
     }
 
-    public List<Publicacion> getPublicacionList() {
-        return publicacionList;
-    }
-
-    public void setPublicacionList(List<Publicacion> publicacionList) {
-        this.publicacionList = publicacionList;
-    }
-
-    public Almacen getAlmacen() {
-        return almacen;
-    }
-
-    public void setAlmacen(Almacen almacen) {
-        this.almacen = almacen;
-    }
-
-    public List<Impuesto> getImpuestoList() {
-        return impuestoList;
-    }
-
-    public void setImpuestoList(List<Impuesto> impuestoList) {
-        this.impuestoList = impuestoList;
-    }
-
-    public List<Comentario> getComentarioList() {
-        return comentarioList;
-    }
-
-    public void setComentarioList(List<Comentario> comentarioList) {
-        this.comentarioList = comentarioList;
-    }
+   
 
     @Override
     public int hashCode() {
