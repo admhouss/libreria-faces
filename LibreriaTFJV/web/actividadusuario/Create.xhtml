@@ -29,7 +29,7 @@
                     <h:selectOneMenu id="usuarioadministrativo" value="#{actividadusuarioController.selected.usuarioadministrativo}" title="#{bundle.CreateActividadusuarioTitle_usuarioadministrativo}" required="true" requiredMessage="#{bundle.CreateActividadusuarioRequiredMessage_usuarioadministrativo}">
                         <f:selectItems value="#{usuarioadministrativoController.listaUsuarioAdministrativo}" var="item" itemValue="#{item}" itemLabel="#{item.cargo}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateActividadusuarioLabel_actividad}" for="actividad" styleClass="textoNEGRO"/>
+                    <h:outputLabel value="Actividad:" for="actividad" styleClass="textoNEGRO"/>
                     <h:inputTextarea id="actividad" value="#{actividadusuarioController.selected.actividad}" title="#{bundle.CreateActividadusuarioTitle_actividad}" required="true" requiredMessage="#{bundle.CreateActividadusuarioRequiredMessage_actividad}"/>
                     
                     
