@@ -29,10 +29,10 @@
                           <p:panel header="CATALOGO ARTICULOS">
 
             <h:panelGroup >
-                <p:dataTable value="#{articuloController.listArticulos}" var="item" paginator="true"  rows="5">
+                <p:dataTable value="#{articuloController.listArticulos}" var="item" paginator="true"  rows="10" selectionMode="single">
                    
                     
-                    <p:column>
+                    <p:column filterBy="#{item.codigo}" style="width:12px;">
                         <f:facet name="header">
                             <h:outputText value="CODIGO"/>
                         </f:facet>
@@ -48,14 +48,14 @@
                     </p:column>
 
                     
-                     <p:column>
+                    <p:column style="width:12px;">
                         <f:facet name="header">
                             <h:outputText value="TITULO"/>
                         </f:facet>
                          <h:outputText value="#{item.titulo}"/>
 
                     </p:column>
-                     <p:column>
+                     <p:column style="width:12px;">
                         <f:facet name="header">
                             <h:outputText value="AUTOR"/>
                         </f:facet>

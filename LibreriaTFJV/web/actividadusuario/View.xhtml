@@ -28,8 +28,11 @@
                     <h:outputText value="#{actividadusuarioController.selected.fecha}" title="#{bundle.ViewActividadusuarioTitle_fecha}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
-                    <h:outputText value="Administrativo:" styleClass="textoNEGRO" />
+                    <h:outputText value="Cargo:" styleClass="textoNEGRO" />
                     <h:outputText value="#{actividadusuarioController.selected.usuarioadministrativo.cargo}" title="#{bundle.ViewActividadusuarioTitle_usuarioadministrativo}"/>
+                    <h:outputText value="Query:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{actividadusuarioController.selected.query}" title="#{bundle.ViewActividadusuarioTitle_usuarioadministrativo}" style="width:60px;"/>
+
                 </h:panelGrid>
                 </center>
                 </p:panel>
