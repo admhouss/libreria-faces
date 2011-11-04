@@ -48,7 +48,7 @@
 
                 
                 <p:panel header="CATALOGO DE CLIENTE">
-                    <p:dataTable value="#{clienteController.listSeleccionCliente}" var="item" paginator="true" rows="5" selectionMode="single" rowStyleClass="#{item.estatus == false ? 'clienteDesactivado' :  null  }">
+                    <p:dataTable value="#{clienteController.listSeleccionCliente}" var="item" paginator="true" rows="10" selectionMode="single" rowStyleClass="#{item.estatus == false ? 'clienteDesactivado' :  null  }">
                     <p:column style="width:100px;">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
@@ -90,9 +90,7 @@
                         <h:commandLink action="#{clienteController.destroy(item)}" >
                                <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
-                         <h:commandLink action="#" >
-                               <img src="./../resources/iconos/fichame.png" alt="" title="factura"/>
-                        </h:commandLink>
+                        
                         
                     </p:column>
                </p:dataTable>

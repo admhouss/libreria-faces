@@ -22,7 +22,7 @@
 
 
                 <p:panel header="CATALOGO DE COMENTARIO" >
-                <p:dataTable value="#{comentarioController.listaComentariosGeneral}" paginator="true" rows="10">
+                    <p:dataTable value="#{comentarioController.listaComentariosGeneral}"  var="item" paginator="true" rows="10">
                     
                     <p:column>
                         <f:facet name="header">
@@ -58,9 +58,7 @@
                                <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
                         </h:commandLink>
                        
-                        <h:commandLink action="#{comentarioController.prepareEdit(item)}">
-                               <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
-                        </h:commandLink>
+                       
                         
                         <h:commandLink action="#{comentarioController.destroy(item)}" >
                                <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
