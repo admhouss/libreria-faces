@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <!--<h:outputText escape="false" value="#{bundle.ListDescuentoEmpty}" rendered="#{descuentoController.items.rowCount == 0}"/>-->
+            <h:panelGroup >
+               <br/><br/>
+               
+               <div align="right">
+                   
+                   <h:commandButton action="#{descuentoController.prepareCreate}" value="Crear Nuevo"/>
+               </div>
+            <br />
+            <br />
+               <p:panel header="CATALOGO DE DESCUENTOS">
+                <p:dataTable value="#{descuentoController.listDescuentos}" var="item" paginator="true" rows="10" >
+                   
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="PORCENTAJE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.porcentaje}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DESCRIPCION"/>
+                        </f:facet>
+                        <h:outputText value="#{item.descripcion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{descuentoController.prepareView(item)}" >
+                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                     
+                        <h:commandLink action="#{descuentoController.prepareEdit(item)}" >
+                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                        </h:commandLink>
+                        
+                        <h:commandLink action="#{descuentoController.destroy(item)}" >
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+                    </p:panel>
+            </h:panelGroup>
+           <br/><br/>
+
+            <div align="center">
+                <p:panel>
+                    <h:commandButton value="Home" action="/index" immediate="true" />
+                </p:panel>
+            </div>
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
