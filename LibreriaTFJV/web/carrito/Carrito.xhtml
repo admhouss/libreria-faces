@@ -17,76 +17,78 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
 
-            <h2>Carrito de Compra</h2>
-            <br/><br/>
-
-            <h:panelGroup>
+            <h1>Carrito de Compra</h1>
+            <h:outputLabel value="No existe ningun articulo agregado a su carrito" rendered="#{carritoController.countElement==0}" escape="false"/>
+            <h:panelGroup rendered="#{carritoController.countElement > 0}">
             <p:accordionPanel autoHeight="false">
                 
                 <p:tab title="Articulos">
- 
-     <h:dataTable var="item" value="#{carritoController.listArticulos}" cellpadding="2">
+
+                 
+                    <h:dataTable var="item" value="#{carritoController.listArticulos}" headerClass="ui-state-focus">
                        
 
-                         <h:column  >
+
+                        
+                        <h:column>
                             
-                            <f:facet name="header">
-                                <h:outputLabel value="Descripci&oacute;n" styleClass="ui-state-focus" />
+                            <f:facet name="header" >
+                                <h:outputLabel value="Descripci&oacute;n"  />
                             </f:facet>
                             <table border="0">
                                 <tr style="width:60px;">
-                                    <td class="ui-state-highlight" width="10%">
-                                        <h:outputText value="#{item.indice}" styleClass="ui-state-highlight"/></td>
+                                    <td colspan="4" class="ui-state-highlight"> <h:outputText value="#{item.indice}"/></td>
+                                    
                                     <td>
                                        
                                 <h:outputText value="#{item.publicacion.articulo.titulo}" styleClass="textoNEGRO" /><br/>
                                 <h:outputText value="#{item.publicacion.articulo.creador}" /><br/>
-                                <h:outputText value="#{item.publicacion.articulo.tipoArticulo.descripcion}" /><br/>
-                               <h:outputText value="#{item.publicacion.articulo.descripcion}" /><br/>
+                                <h:outputText value="#{item.publicacion.articulo.asunto}" /><br/>
+                               
                             
                                     </td>
                                 </tr>
                             </table>
-                        </h:column>
-                        <h:column>
+                         </h:column>
+                         <h:column>
                             <f:facet name="header">
-                                <h:outputLabel value="Descripci&oacute;n" styleClass="ui-state-focus" />
+                                <h:outputLabel value="Cantidad"  />
                             </f:facet>
                             <h:outputText value="#{item.cantidad}" />
-                        </h:column>
-                        <h:column>
+                         </h:column>
+                         <h:column>
                             <f:facet name="header">
-                               <h:outputLabel value="Costo" styleClass="ui-state-focus"/>
+                               <h:outputLabel value="Precio" />
                             </f:facet>
-                            <h:outputText value="#{item.publicacion.articulo.costo}" />
-                        </h:column>
-                        <h:column>
+                             <h:outputText value="$ #{item.publicacion.articulo.costo}" />
+                         </h:column>
+                         <h:column>
                             <f:facet name="header">
-                              <h:outputLabel value="Desc" styleClass="ui-state-focus"/>
+                              <h:outputLabel value="Descuento" />
                             </f:facet>
-                            <h:outputText value="0.00" />
-                        </h:column>
-                        <h:column>
+                             <h:outputText value="$ #{item.publicacion.articulo.descuentoArticulo.descuento}" />
+                         </h:column>
+                         <h:column>
                             <f:facet name="header">
-                                <h:outputLabel value="Total" styleClass="ui-state-focus"/>
+                                <h:outputLabel value="Total" />
                             </f:facet>
-                            <h:outputText value="100.00" />
-                        </h:column>
+                            <h:outputText value="$ #{item.total}" />
+                         </h:column>
 
-                            <h:column>
+                             <h:column>
                             <f:facet name="header">
-                                <h:outputLabel value="&nbsp;&nbsp;&nbsp;&nbsp;" styleClass="ui-state-focus"/>
+                                <h:outputLabel value="&nbsp;" />
                             </f:facet>
                            <ul id="icons" class="ui-widget ui-helper-clearfix">
                             <li class="ui-state-default ui-corner-all" title=".ui-icon-pencil">
                                 <span class="ui-icon ui-icon-pencil"></span>
                             </li>
                            </ul>
-                        </h:column>
+                         </h:column>
                     
 
                     </h:dataTable>
-                   
+                    
                     
                 </p:tab>
                 <p:tab title="Env&iacute;o y Facturaci&oacute;n">
