@@ -22,7 +22,7 @@
                     <center>
                         <h:panelGrid columns="2" cellspacing="12">
 
-                        <h:outputLabel value="Codigo:" for="codigo" styleClass="textoNEGRO"/>
+                            <h:outputLabel value="C&oacute;digo:" for="codigo" styleClass="textoNEGRO"/>
                         <h:inputText value="#{articuloController.selected.codigo}" id="codigo" size="25" required="true" requiredMessage="Requerido Codigo" />
                         <h:outputLabel value="Unidad:" for="unidad" styleClass="textoNEGRO" />
                         <h:inputText id="unidad" size="25"  value="#{articuloController.selected.unidad}" title="unidad" required="true" requiredMessage="RequiredMessage_unidad"/>
@@ -50,16 +50,18 @@
                             <h:outputLabel value="Titulo:" for="titulo" styleClass="textoNEGRO" />
                             <h:inputText id="titulo" value="#{articuloController.selected.titulo}" title="titulo recurso" required="true" requiredMessage="RequiredMessage_titulo"/>
                             <h:outputLabel value="Nombre Alternativo:" for="nombre_alternativo" styleClass="textoNEGRO" />
-                            <h:inputText id="nombre_alternativo" size="25" value="#{articuloController.selected.nombreAlternativo}" title="Resumen Recurso" required="true" requiredMessage="RequiredMessage_Idioma"/>
+                            <h:inputText id="nombre_alternativo" size="25" value="#{articuloController.selected.nombreAlternativo}" title="Resumen Recurso" required="true" requiredMessage="RequiredMessage_Nombre Alternativo"/>
 
                             <h:outputLabel value="Autor:" for="creador" styleClass="textoNEGRO" />
-                            <h:inputText id="creador" size="25" value="#{articuloController.selected.creador}" title="Resumen Recurso" required="true" requiredMessage="RequiredMessage_Idioma"/>
+                            <h:inputText id="creador" size="25" value="#{articuloController.selected.creador}" title="Resumen Recurso" required="true" requiredMessage="RequiredMessage_Asunto"/>
                             <h:outputLabel value="Idioma:" for="idioma" styleClass="textoNEGRO" />
                             <h:inputText id="idioma" size="25" value="#{articuloController.selected.idioma}" title="Idioma" required="true" requiredMessage="RequiredMessage_Idioma"/>
                             <h:outputLabel value="Publicador:" for="publicador" styleClass="textoNEGRO" />
-                            <h:inputText id="publicador" size="25" value="#{articuloController.selected.publicador}" title="Idioma" required="true" requiredMessage="RequiredMessage_Idioma"/>
+                            <h:inputText id="publicador" size="25" value="#{articuloController.selected.publicador}" title="Idioma" required="true" requiredMessage="RequiredMessage_Publicador"/>
                             <h:outputLabel value="Asunto:" for="asunto" styleClass="textoNEGRO" />
-                            <h:inputText id="asunto" size="25" value="#{articuloController.selected.asunto}" title="Asunto" required="true" requiredMessage="RequiredMessage_Idioma"/>
+                            <h:inputText id="asunto" size="25" value="#{articuloController.selected.asunto}" title="Asunto" required="true" requiredMessage="RequiredMessage_Asunto"/>
+                            <h:outputLabel value="Formato:" for="formato" styleClass="textoNEGRO" />
+                            <h:inputText id="formato" size="25" value="#{articuloController.selected.formato}" title="Formato" required="true" requiredMessage="RequiredMessage_Formato"/>
                              <h:outputLabel value="Tipo Articulo:" for="idTipo" styleClass="textoNEGRO" />
                             <h:selectOneMenu id="idTipo" value="#{articuloController.selected.tipoArticulo}" title="idTipo" required="true" requiredMessage="RequiredMessage_idTipo">
                                 <f:selectItems value="#{tipoArticuloController.listTipoArticulo}" itemValue="#{item}" var="item" itemLabel="#{item.descripcion}"/>
@@ -72,7 +74,7 @@
 
 
                             <h:outputLabel value="Resumen Recurso:" for="resumen" styleClass="textoNEGRO" />
-                            <h:inputTextarea id="resumen" value="#{articuloController.selected.resumenRecurso}" title="Resumen Recurso" required="true" requiredMessage="RequiredMessage_Idioma"/>
+                            <h:inputTextarea id="resumen" value="#{articuloController.selected.resumenRecurso}" title="Resumen Recurso" required="true" requiredMessage="RequiredMessage_Resumen Recurso"/>
 
 
 
@@ -92,22 +94,22 @@
                                     <h:panelGrid columns="2" cellspacing="12">
 
                             <h:outputLabel value="Fecha Disponible:" for="fecha_disponible" styleClass="textoNEGRO" />
-                            <p:calendar id="fecha_disponible" size="25" value="#{articuloController.selected.fechaDisponibilidad}" title="Resumen Recurso" required="true" requiredMessage="RequiredMessage_Idioma">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <p:calendar id="fecha_disponible" size="25" value="#{articuloController.selected.fechaDisponibilidad}" title="Fecha Disponible" required="true" requiredMessage="RequiredMessage_Fecha Disponible" pattern="dd/MM/yyyy" locale="es" effect="fadeIn"  navigator="true" readOnlyInputText="true" immediate="true" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </p:calendar>
 
 
                     <h:outputLabel value="Fecha Creaci&oacute;n:" for="fecha_creacion" styleClass="textoNEGRO" />
-                    <p:calendar id="fecha_creacion" size="25" value="#{articuloController.selected.fechaCreacion}" title="Resumen Recurso" required="true" requiredMessage="RequiredMessage_Idioma">
-                         <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <p:calendar id="fecha_creacion" size="25" value="#{articuloController.selected.fechaCreacion}" title="Fecha creacion" required="true" requiredMessage="RequiredMessage_Idioma" pattern="dd/MM/yyyy" locale="es" effect="fadeIn"  navigator="true" readOnlyInputText="true" immediate="true">
+                         <f:convertDateTime pattern="dd/MM/yyyy" />
                      </p:calendar>
 
 
                      <h:outputLabel value="Tabla contenidos:" for="tabla_contenidos" styleClass="textoNEGRO" />
-                     <h:inputTextarea id="tabla_contenidos" value="#{articuloController.selected.tablaContenidos}" title="titulo recurso" required="true" requiredMessage="RequiredMessage_titulo"/>
+                     <h:inputTextarea id="tabla_contenidos" value="#{articuloController.selected.tablaContenidos}" title="Tabla contenidos" required="true" requiredMessage="RequiredMessage_tabla contenidos"/>
 
-                      <h:outputLabel value="Agregacion Recurso:" for="agregacion_recurso" styleClass="textoNEGRO" />
-                      <h:inputTextarea id="agregacion_recurso" value="#{articuloController.selected.agregacionRecurso}" title="titulo recurso" required="true" requiredMessage="RequiredMessage_titulo"/>
+                     <h:outputLabel value="Agregaci&oacute;n Recurso:" for="agregacion_recurso" styleClass="textoNEGRO" />
+                      <h:inputTextarea id="agregacion_recurso" value="#{articuloController.selected.agregacionRecurso}" title="Agregacion Recurso" required="true" requiredMessage="RequiredMessage_Agregacion Recurso"/>
 
                 </h:panelGrid>
                     </center>
@@ -115,70 +117,72 @@
 
                   <br />
                  <br />
-                 <p:panel header="Cargar  Informaci&oacute;n Relacionada Libro" toggleable="true">
-                     <h:panelGrid columns="2" >
 
-                          <h:outputLabel value="Subir Portada del Libro" />
+                 <p:accordionPanel autoHeight="false">
+                     <p:tab title="SUBIR IMAGEN" >
+                         <center>
+                         <h:panelGrid columns="2" cellspacing="15" >
+                             <h:outputLabel value="Portada:" styleClass="textoNEGRO"/>
                           <p:fileUpload fileUploadListener="#{subirArchivo.handleFileUpload}" auto="true" label="Examinar"
-                                        allowTypes="*.jpg;*.png" description="*.jpg;*.png"  update="messages" />
+                                        allowTypes="*.jpg;*.png" description="*.jpg;*.png;*.gif"  update="result" />
+                         </h:panelGrid>
+                             <h:panelGroup id="result">
+                                 <img  src="#{articuloController.selected.imagen}" alt="0" border="0" title="Portada" width="120" height="120"/>
+                             </h:panelGroup>
 
-                    </h:panelGrid>
-                  </p:panel>
+                         </center>
+                     </p:tab>
 
-                 <br/><br/>
-
-                   <br />
-                 <br />
-                 <p:panel header="Cargar  Informaci&oacute;n Relacionada Libro" toggleable="true">
-                     <h:panelGrid columns="2" >
-
-                          <h:outputLabel value="Subir archivo" />
+                 
+                     <p:tab title="SUBIR DOCUMENTO" >
+                         <center>
+                         <h:panelGrid columns="2" cellspacing="15" >
+                         <h:outputLabel value="Documento:" styleClass="textoNEGRO" />
                           <p:fileUpload fileUploadListener="#{subirArchivo.handleFileUpload0}" auto="true" label="Examinar"
                                           update="messages" />
 
+
                     </h:panelGrid>
-                  </p:panel>
+                     </center>
+                     </p:tab>
+
+                 </p:accordionPanel>
 
                  <br/><br/>
 
 
-                 <p:panel header="Proveedores">
-                     <center>
+                 <p:panel header="PROVEEDORES DEL ARTICULO">
+                    
                      <h:panelGrid cellpadding="12" columns="2">
                       <h:outputLabel value="Proveedores:"  styleClass="textoNEGRO" />
                      <h:commandLink action="#{proveedorController.prepreaListByArticulo(articuloController.selected)}" immediate="true">
                             <img src="./../resources/iconos/sver.png" alt="" title="Ver Catalogo de Proveedor"/>
                      </h:commandLink>
                      </h:panelGrid>
-                     </center>
+                    
                      <br/><br/>
                  <h:panelGroup>
                      <p:dataTable value="#{articuloController.selected.proveedorList}" var="item" paginator="true" rows="5">
 
-                    <p:column style="width:20px;">
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
                         <h:outputText value="#{item.nombre}"/>
                    </p:column>
-                   <p:column style="width:15px;">
-                        <f:facet name="header">
-                            <h:outputText value="SIGLA"/>
-                        </f:facet>
-                       <h:outputText value="#{item.sigla}"/>
-                   </p:column>
+                  
                   <p:column style="width:15px;">
                         <f:facet name="header">
-                            <h:outputText value="CD"/>
+                            <h:outputText value="TELEFONO"/>
                         </f:facet>
-                      <h:outputText value="#{item.cd}"/>
+                      <h:outputText value="#{item.telefono}"/>
                    </p:column>
 
                       <p:column style="width:15px;">
                         <f:facet name="header">
-                            <h:outputText value="RFC"/>
+                            <h:outputText value="EMAIL"/>
                         </f:facet>
-                        <h:outputText value="#{item.rfc}"/>
+                          <h:outputText value="#{item.mail}"/>
                    </p:column>
                    <p:column>
                         <f:facet name="header">
@@ -194,6 +198,7 @@
                  </h:panelGroup>
                  </p:panel>
 
+                 <br/><br/>
                  <p:panel>
                      <div align="center">
                          <h:commandButton action="#{articuloController.update}" value="Guardar" />

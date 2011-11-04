@@ -19,24 +19,24 @@
             <h:form>
                  <br/>
                 <br/>
-                <p:panel header="NUEVA PUBLICACIONES">
+                <p:panel header="EDITAR PUBLICACION">
                      <center>
                          <h:panelGrid columns="2" cellspacing="12">
                    
                     <h:outputLabel value="Periodo Mes:" for="periodoMes" styleClass="textoNEGRO"/>
-                    <p:calendar id="periodoMes" value="#{publicacionController.selected.periodoMes}" title="Periodo Mes" required="true" requiredMessage="El campo  periodo Mes es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <p:calendar id="periodoMes" value="#{publicacionController.selected.periodoMes}" title="Periodo Mes" required="true" requiredMessage="El campo  periodo Mes es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:calendar>
                     <h:outputLabel value="Periodo Anio:" for="periodoAnio" styleClass="textoNEGRO"/>
-                    <p:calendar id="periodoAnio" value="#{publicacionController.selected.periodoAnio}" title="Periodo A&ntilde;o" required="true" requiredMessage="El campo Periodo Anio es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <p:calendar id="periodoAnio" value="#{publicacionController.selected.periodoAnio}" title="Periodo A&ntilde;o" required="true" requiredMessage="El campo Periodo Anio es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:calendar>
                     <h:outputLabel value="Epoca:" for="epoca" styleClass="textoNEGRO"/>
                     <h:inputText id="epoca" value="#{publicacionController.selected.epoca}" title="Epoca" required="true" requiredMessage="El campo epoca es requerido"/>
                     <h:outputLabel value="A&ntilde;o:" for="anio" styleClass="textoNEGRO" />
-                    <h:inputText id="anio" value="#{publicacionController.selected.anio}" title="A&&ntilde;" required="true" requiredMessage="El campo anio es requerido"/>
+                    <h:inputText id="anio" value="#{publicacionController.selected.anio}" title="A&ntilde;o" required="true" requiredMessage="El campo anio es requerido"/>
                     <h:outputLabel value="Numero:" for="numero" styleClass="textoNEGRO" />
-                    <h:inputText id="numero" value="#{publicacionController.selected.numero}" title="Numero" required="true" requiredMessage="El campo numero es requerido">
+                    <h:inputText id="numero" value="#{publicacionController.selected.numero}" title="Numero" required="true" requiredMessage="El campo numero es requerido" maxlength="4" >
                         
                     </h:inputText>
                     <h:outputLabel value="ISSN:" for="issn" styleClass="textoNEGRO"/>
@@ -47,7 +47,7 @@
                     <h:inputText id="tomo" value="#{publicacionController.selected.tomo}" title="Tomo" required="true" requiredMessage="El campo tomo es requerido}"/>
                     <h:outputLabel value="Editorial" for="editorial" styleClass="textoNEGRO"/>
                     <h:inputText id="editorial" value="#{publicacionController.selected.editorial}" title="Editorial" required="true" requiredMessage="El campo editorial es requerido" size="20"/>
-                    <h:outputLabel value="Articulo" for="articulo" />
+                    <h:outputLabel value="Articulo" for="articulo" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="articulo" value="#{publicacionController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido">
                         <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
                     </h:selectOneMenu>
