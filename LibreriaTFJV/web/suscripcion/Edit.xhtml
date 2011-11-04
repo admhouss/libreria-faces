@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSuscripcionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditSuscripcionLabel_suscripcionPK_idSuscripcion}" for="suscripcionPK.idSuscripcion" />
+                    <h:inputText id="suscripcionPK.idSuscripcion" value="#{suscripcionController.selected.suscripcionPK.idSuscripcion}" title="#{bundle.EditSuscripcionTitle_suscripcionPK_idSuscripcion}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_suscripcionPK_idSuscripcion}"/>
+                    <h:outputLabel value="#{bundle.EditSuscripcionLabel_numero}" for="numero" />
+                    <h:inputText id="numero" value="#{suscripcionController.selected.numero}" title="#{bundle.EditSuscripcionTitle_numero}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_numero}"/>
+                    <h:outputLabel value="#{bundle.EditSuscripcionLabel_articulo}" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{suscripcionController.selected.articulo}" title="#{bundle.EditSuscripcionTitle_articulo}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_articulo}">
+                        <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditSuscripcionLabel_articulo1}" for="articulo1" />
+                    <h:selectOneMenu id="articulo1" value="#{suscripcionController.selected.articulo1}" title="#{bundle.EditSuscripcionTitle_articulo1}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_articulo1}">
+                        <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{suscripcionController.update}" value="#{bundle.EditSuscripcionSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditSuscripcionViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{suscripcionController.prepareList}" value="#{bundle.EditSuscripcionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditSuscripcionIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
