@@ -39,23 +39,17 @@
                         <h:outputText  value="#{item.codigo}" />
                         
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="IDIOMA"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idioma}"/>
-                        
-                    </p:column>
+                   
 
                     
-                    <p:column style="width:12px;">
+                    <p:column style="width:150px;">
                         <f:facet name="header">
                             <h:outputText value="TITULO"/>
                         </f:facet>
                          <h:outputText value="#{item.titulo}"/>
 
                     </p:column>
-                     <p:column style="width:12px;">
+                     <p:column style="width:100px;">
                         <f:facet name="header">
                             <h:outputText value="AUTOR"/>
                         </f:facet>
@@ -77,6 +71,10 @@
                         <h:outputText value=" "/>
                         <h:commandLink action="#{articuloController.destroy(item)}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                        </h:commandLink>
+
+                        <h:commandLink action="#{articuloController.prepreaListByArticulo(item)}">
+                            <img src="./../resources/iconos/113.png" alt="" title="Ver"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
