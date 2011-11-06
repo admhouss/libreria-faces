@@ -25,31 +25,32 @@
                     <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="Precio Publico" required="true" requiredMessage="Elcampo precioPublico es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"  />
                     <h:outputLabel value="Dia Inicio:" for="diaInicio" styleClass="textoNEGRO" />
-                    <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="Dia Inicio" required="true" requiredMessage="El campo  dia Inicio es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="Dia Inicio" required="true" requiredMessage="El campo  dia Inicio es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:calendar>
                      <h:outputLabel value="*"  styleClass="textoROJO"  />
                     <h:outputLabel value="Dia Fin:" for="diaFin" styleClass="textoNEGRO" />
-                     <p:calendar id="diaFin" value="#{promocionController.selected.diaFin}" title="Dia Fin" required="true" requiredMessage="El campo dia fin es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                     <p:calendar id="diaFin" value="#{promocionController.selected.diaFin}" title="Dia Fin" required="true" requiredMessage="El campo dia fin es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                      </p:calendar>
                      <h:outputLabel value="*"  styleClass="textoROJO"  />
 
                 </h:panelGrid>
                 </center>
-                    <br/>
+                </p:panel>
+                    <br/>  <br/>
 
                      <p:panel header="ELEGIR PRECIO A ARTICULO">
             <h:panelGroup >
 
-                <p:dataTable value="#{articuloController.listArticulos}" var="item"  paginator="true" rows="5">
-                     <p:column style="width:15px;">
+                <p:dataTable value="#{promocionController.listaArticulosPromociones}" var="item"  paginator="true" rows="13" selectionMode="single">
+                     <p:column >
                         <f:facet name="header">
                             <h:outputText value="TITULO"/>
                         </f:facet>
                         <h:outputText value="#{item.titulo}"/>
                     </p:column>
-                    <p:column style="width:15px;">
+                    <p:column >
                         <f:facet name="header">
                             <h:outputText value="IDIOMA"/>
                         </f:facet>
@@ -90,8 +91,7 @@
             </h:panelGroup>
             </p:panel>
 
-                </p:panel>
-                <br />
+                              <br />
                 <div align="center">
                     <p:panel>
                 <h:commandButton action="#{promocionController.create}" value="Guardar" />
