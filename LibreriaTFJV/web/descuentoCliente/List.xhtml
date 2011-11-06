@@ -25,7 +25,7 @@
                 </div>
                 <br /> <br />
                 <p:panel header="CATALOGO DESCUENTO CLIENTE">
-                <p:dataTable value="#{descuentoClienteController.listDescuento}" var="item" paginator="true" rows="10" >
+                    <p:dataTable value="#{descuentoClienteController.listDescuento}" var="item" paginator="true" rows="10" selectionMode="single" >
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="INICIO"/>
