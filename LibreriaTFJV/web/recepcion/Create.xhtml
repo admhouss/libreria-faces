@@ -17,9 +17,16 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
 
-            <h1>Mi cuenta</h1>
+            <h1>Recepci&oacute;n</h1>
             <p>&nbsp;</p>
 
+        <f:metadata>
+            <f:viewParam id="idCorreo" name="correo" value="#{recepcionController.correo}" required="true" requiredMessage="Faltan campos por capturar" />
+              
+          
+              <f:event listener="#{recepcionController.init}"  type="preRenderView"/>
+
+        </f:metadata>
             
              <h:panelGroup>
 
@@ -43,7 +50,7 @@
   <tr>
     <td bgcolor="#FFFFFF" >&nbsp;</td>
     <td width="105" bgcolor="#FFFFFF" >&nbsp;&nbsp;<h:outputLabel value="E-mail:" styleClass="textoNEGRO"/></td>
-    <td width="159"  > <h:inputText value="#{sistemaController.usuario}" id="idUsuario" /></td>
+    <td width="159"  > <h:inputText value="#{recepcionController.correo}" id="idUsuario" /></td>
     <td colspan="2" bgcolor="#FFFFFF" >&nbsp;</td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
@@ -56,7 +63,7 @@
   <tr>
     <td bgcolor="#FFFFFF" >&nbsp;</td>
     <td bgcolor="#FFFFFF" >&nbsp;<h:outputLabel value="Password:" styleClass="textoNEGRO"/></td>
-    <td bgcolor="#FFFFFF" >   <h:inputSecret value="#{sistemaController.password}" maxlength="10"  id="password"/></td>
+    <td bgcolor="#FFFFFF" >   <h:inputSecret value="#{recepcionController.password}" maxlength="10"  id="password"/></td>
     <td colspan="2" bgcolor="#FFFFFF" >&nbsp;&nbsp;&nbsp;<h:outputLabel value="M&aacute;ximo 10 caracteres:" styleClass="textoROJO"/></td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
@@ -66,7 +73,7 @@
   <tr>
     <td bgcolor="#FFFFFF">&nbsp;</td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><h:commandButton value="Entrar" action="#{sistemaController.loginAcces}"/></td>
+    <td bgcolor="#FFFFFF"><h:commandButton value="Entrar" action="#{recepcionController.confirmarAlta}"/></td>
     <td bgcolor="#FFFFFF"></td>
     <td bgcolor="#FFFFFF"></td>
     <td bgcolor="#FFFFFF"></td>
