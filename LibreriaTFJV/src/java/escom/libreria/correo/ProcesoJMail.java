@@ -50,7 +50,7 @@ public class ProcesoJMail {
 
     public void enviaCorreo(MensajeCorreoDTO mensaje){
 
-        ServidorCorreoConf serverMail=sConfFacade.find(2);
+        ServidorCorreoConf serverMail=sConfFacade.find(1);
         listPropiedades=serverMail.getPropiedadesList();
         Properties props = new Properties();
         for(Propiedades propiedad:listPropiedades)
@@ -59,7 +59,7 @@ public class ProcesoJMail {
          Session session = Session.getInstance(props,new PopupAuthenticator(serverMail.getUsuario(),serverMail.getContrasenia()));
         //Session session = Session.getInstance(props,new PopupAuthenticator("yamildelgado99@yahoo.com","refigerador"));
         session.setDebug(true);
-        System.out.println("session creada"+session);
+       
         MimeMessage msg = new MimeMessage(session);
         
 
@@ -143,8 +143,8 @@ public class ProcesoJMail {
     private StringBuffer prepareUrl(String ContextoPath){
          StringBuffer buffer= buffer=new StringBuffer();
          buffer.append("http://");
-         buffer.append("localhost:8080");
-        // buffer.append("www.libreria-tfjfa.com");
+        // buffer.append("localhost:8080");
+         buffer.append("www.libreria-tfjfa.com");
          buffer.append( ContextoPath);
          buffer.append("/faces/login/Create.xhtml");
          return buffer;

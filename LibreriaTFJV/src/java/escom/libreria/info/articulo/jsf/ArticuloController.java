@@ -6,6 +6,7 @@ import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.ArticuloFacade;
 import escom.libreria.info.articulo.jpa.Promocion;
 import escom.libreria.info.articulo.jpa.TipoArticulo;
+import escom.libreria.info.proveedor.jpa.Proveedor;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -41,6 +42,7 @@ public class ArticuloController implements Serializable {
     @EJB private escom.libreria.info.articulo.ejb.DescuentoArticuloFacade  descuentoFacade;
     @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
     @EJB private escom.libreria.info.articulo.ejb.TipoArticuloFacade tipoArticuloejbFacade;
+     @EJB private escom.libreria.info.articulo.ejb.ProveedorFacade proveedorFacade;
     
 
     private PaginationHelper pagination;
@@ -77,6 +79,12 @@ public class ArticuloController implements Serializable {
         this.descuentoController = descuentoController;
     }
 
+    public String prepreaListByArticulo(Articulo p){
+        current=p;
+        current.setProveedorList(current.getProveedorList());
+        return "/articulo/ViewProveedor";
+    }
+
     
 
     public ImpuestoController getImpuestoController() {
@@ -97,7 +105,15 @@ public class ArticuloController implements Serializable {
     
 
 
+  public String eliminarProveedorArticulo(Proveedor p){
+      current.getPublicacionList().remove(p);
 
+      current.setProveedorList(current.getProveedorList());
+     // proveedorFacade.remove(current);
+      JsfUtil.addSuccessMessage("Proveedor Elimado satisfactoriamente");
+      return "/articulo/ViewProveedor";
+
+  }
     
 
 

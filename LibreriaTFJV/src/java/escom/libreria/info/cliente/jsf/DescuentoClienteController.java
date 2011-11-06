@@ -107,14 +107,14 @@ public class DescuentoClienteController implements Serializable{
         current=p;
         current.setCliente(current.getCliente());
         current.setDescuentoClientePK(current.getDescuentoClientePK());
+        current.setDescuento(current.getDescuento());
         return "/descuentoCliente/Edit";
     }
 
     public String update() {
         try {
 
-
-             getFacade().find(current);
+            
 
             DescuentoClientePK descuentoID=current.getDescuentoClientePK();
             current.setCliente(current.getCliente());
@@ -122,12 +122,14 @@ public class DescuentoClienteController implements Serializable{
             current.setFechaFin(current.getFechaFin());
             current.setFechaInicio(current.getFechaFin());
             descuentoID.setIdCliente(current.getCliente().getId());
-            descuentoID.setIdDescuento(current.getDescuento().getId().intValue());
+            descuentoID.setIdDescuento(current.getDescuento().getId());
 
             current.setDescuentoClientePK(descuentoID);
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("DescuentoCliente Updated"));
-            return "View";
+
+              return "/descuentoCliente/View";
+            
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;

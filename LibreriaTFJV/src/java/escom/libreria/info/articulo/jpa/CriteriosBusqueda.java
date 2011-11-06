@@ -16,8 +16,8 @@ public abstract class CriteriosBusqueda {
 	private String  Titulo;
 	private String  Tema;
 	private Date  Periodo;// (Mes Año)
-	private int  Numero;
-	private int  ISSN ;
+	private String  Numero;
+	private String  ISSN ;
 	private String  ISBN ;
 	private String  Editorial;
 	private String  categoria;
@@ -95,21 +95,23 @@ public abstract class CriteriosBusqueda {
         this.ISBN = ISBN;
     }
 
-    public int getISSN() {
+    public String getISSN() {
         return ISSN;
     }
 
-    public void setISSN(int ISSN) {
+    public void setISSN(String ISSN) {
         this.ISSN = ISSN;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return Numero;
     }
 
-    public void setNumero(int Numero) {
+    public void setNumero(String Numero) {
         this.Numero = Numero;
     }
+
+   
 
     public Date getPeriodo() {
         return Periodo;
