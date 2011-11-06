@@ -160,11 +160,14 @@ public class ProcesoJMail {
             ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
             buffer=prepareUrl(external.getRequestContextPath());
             List<String> cliList=new ArrayList<String>();
+            List<String> ckey=new ArrayList<String>();
             cliList.add(cliente.getId());
             Map<String,List<String>> map=new HashMap<String, List<String>>();
             List<String> clientemap=new ArrayList<String>();
             clientemap.add(cliente.getId());
+            ckey.add(1+"");
             map.put("correo",clientemap);
+            map.put("bandera",ckey);
             baseURL=external.encodeRedirectURL(buffer.toString(), map);
             GeneradorHTML generadorHTML=new GeneradorHTML();
             query= generadorHTML.generdarHTMLConfirmar(cliente.getId(),cliente.getPassword(),nombreCliente, baseURL);

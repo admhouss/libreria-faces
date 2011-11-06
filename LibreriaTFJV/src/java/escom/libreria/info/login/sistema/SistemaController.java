@@ -42,7 +42,18 @@ public class SistemaController implements Serializable {
     private @EJB escom.libreria.info.usarioAdministrativo.ejb.UsuarioadministrativoFacade adminFacade; //para administrador
     private @EJB escom.libreria.correo.ProcesoJMail jMail; //enviar correos
     private String menssageBienvenida;
+    private String bandera;
 
+    public String getBandera() {
+        return bandera;
+    }
+
+    public void setBandera(String bandera) {
+        this.bandera = bandera;
+    }
+
+
+    
     public String getMenssageBienvenida() {
 
         if(menssageBienvenida==null)
@@ -56,7 +67,7 @@ public class SistemaController implements Serializable {
     public void init() {
 
         try{
-            if(getCorreo()!=null && !getCorreo().trim().equals("") && getPassword().equals("")){
+            if((getCorreo()!=null && !getCorreo().trim().equals("") && getBandera()!=null && getBandera().equals("1"))){
                 cliente=clienteFacade.find(getCorreo().trim());
                 if(cliente!=null && cliente.getEstatus()==false){
                     cliente.setEstatus(true);
