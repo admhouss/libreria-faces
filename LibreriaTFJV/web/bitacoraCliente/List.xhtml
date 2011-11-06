@@ -33,7 +33,8 @@
                         <f:facet name="header">
                             <h:outputText value="ESTADO"/>
                         </f:facet>
-                        <h:outputText value="#{item.estado}"/>
+                        <h:outputText value="COMPRO" rendered="#{item.estado==false}"/>
+                        <h:outputText  value ="CONSULTO" rendered="#{item.estado}"/>
                     </p:column>
                     <p:column filterBy="#{item.cliente}" >
                         <f:facet name="header">
