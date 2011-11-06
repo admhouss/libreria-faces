@@ -18,7 +18,7 @@
             <h:form id="DescuentoCliente">
 
                 <br/>  <br/>
-                <p:panel header="ALTA DESCUENTO CLIENTE">
+                <p:panel header="ACTUALIZAR DESCUENTO CLIENTE">
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
                     <h:outputLabel value="Fecha Inicio:" for="fechaInicio" styleClass="textoNEGRO" />
@@ -29,10 +29,7 @@
                     <p:calendar  pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" id="fechaFin" value="#{descuentoClienteController.selected.fechaFin}" title="fechaFin" required="true" requiredMessage="RequiredMessage_fechaFin" readOnlyInputText="true">
 
                     </p:calendar>
-                    <h:outputLabel value="Cliente:" for="cliente" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="cliente" value="#{descuentoClienteController.selected.cliente}" title="cliente" required="true" requiredMessage="RequiredMessage_cliente">
-                        <f:selectItems value="#{clienteController.listaClientes}"  var="item" itemValue="#{item}" itemLabel="#{item.id}"/>
-                    </h:selectOneMenu>
+                   
                     <h:outputLabel value="Descuento:" for="descuento" styleClass="textoNEGRO" />
                     <h:selectOneMenu id="descuento" value="#{descuentoClienteController.selected.descuento}" title="descuento" required="true" requiredMessage="RequiredMessage_descuento">
                         <f:selectItems value="#{descuentoController.listDescuentos}"  var="item" itemValue="#{item}" itemLabel="#{item.descripcion}" />
