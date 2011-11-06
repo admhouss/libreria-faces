@@ -29,18 +29,13 @@
  <p:panel header="CATALOGO DE PROVEEDORES" >
      <p:dataTable value="#{proveedorController.listProveedor}" var="item" paginator="true" rows="10" selectionMode="single"  >
                    
-                    <p:column style="width:100px;">
+         <p:column style="width:150px;" filterBy="#{item.nombre}">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
                         <h:outputText value="#{item.nombre}"/>
                    </p:column>
-                   <p:column style="width:15px;">
-                        <f:facet name="header">
-                            <h:outputText value="SIGLA"/>
-                        </f:facet>
-                       <h:outputText value="#{item.sigla}"/>
-                   </p:column>
+                   
                   <p:column style="width:15px;">
                         <f:facet name="header">
                             <h:outputText value="CD"/>
