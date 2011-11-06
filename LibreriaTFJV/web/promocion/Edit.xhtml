@@ -8,7 +8,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreatePromocionTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
@@ -17,80 +17,33 @@
             <h:form id="prompcion">
 
                 <br/>  <br/>
-                <p:panel header="ALTA PROMOCION">
+                <p:panel header="EDITAR PROMOCION ARTICULO">
                     <center>
                 <h:panelGrid columns="3" cellspacing="15">
 
                     <h:outputLabel  value="Precio:" for="precio" styleClass="textoNEGRO" />
                     <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="Precio Publico" required="true" requiredMessage="Elcampo precioPublico es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"  />
-                    <h:outputLabel value="Dia Inicio:" for="diaInicio" styleClass="textoNEGRO" />
-                    <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="Dia Inicio" required="true" requiredMessage="El campo  dia Inicio es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <h:outputLabel value="Inicio:" for="diaInicio" styleClass="textoNEGRO" />
+                    <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="Dia Inicio" required="true" requiredMessage="El campo  dia Inicio es requerido" locale="es" effect="fadeIn" showOn="button" navigator="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:calendar>
                      <h:outputLabel value="*"  styleClass="textoROJO"  />
-                    <h:outputLabel value="Dia Fin:" for="diaFin" styleClass="textoNEGRO" />
-                     <p:calendar id="diaFin" value="#{promocionController.selected.diaFin}" title="Dia Fin" required="true" requiredMessage="El campo dia fin es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <h:outputLabel value="Fin:" for="diaFin" styleClass="textoNEGRO" />
+                     <p:calendar id="diaFin" value="#{promocionController.selected.diaFin}" title="Dia Fin" required="true" requiredMessage="El campo dia fin es requerido"  locale="es" effect="fadeIn" showOn="button" navigator="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                      </p:calendar>
                      <h:outputLabel value="*"  styleClass="textoROJO"  />
 
                 </h:panelGrid>
+
                 </center>
+                </p:panel>
                     <br/>
 
-                     <p:panel header="ELEGIR PRECIO A ARTICULO">
-            <h:panelGroup >
+                 
 
-                <p:dataTable value="#{articuloController.listArticulos}" var="item"  paginator="true" rows="5">
-                     <p:column style="width:15px;">
-                        <f:facet name="header">
-                            <h:outputText value="TITULO"/>
-                        </f:facet>
-                        <h:outputText value="#{item.titulo}"/>
-                    </p:column>
-                    <p:column style="width:15px;">
-                        <f:facet name="header">
-                            <h:outputText value="IDIOMA"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idioma}"/>
-                    </p:column>
-
-
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="COSTO"/>
-                        </f:facet>
-                        <h:outputText value="#{item.costo}"/>
-                    </p:column>
-
-
-
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="TIPO"/>
-                        </f:facet>
-                        <h:outputText value="#{item.tipoArticulo.descripcion}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
-                        </f:facet>
-
-                        <h:commandLink action="#{promocionController.InitialArticulo(item)}">
-                              <img src="./../resources/iconos/agregar.png" alt="" title="Ver"/>
-                        </h:commandLink>
-
-
-
-                    </p:column>
-                 </p:dataTable>
-            </h:panelGroup>
-            </p:panel>
-
-                </p:panel>
+             
                 <br />
                 <div align="center">
                     <p:panel>
