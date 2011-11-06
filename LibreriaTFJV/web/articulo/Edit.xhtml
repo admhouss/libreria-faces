@@ -79,7 +79,7 @@
 
 
 
-                            <h:outputLabel value="Descripcion:" for="descripcion" styleClass="textoNEGRO" />
+                            <h:outputLabel value="Descripci&oacute;n:" for="descripcion" styleClass="textoNEGRO" />
                             <h:inputTextarea id="descripcion" value="#{articuloController.selected.descripcion}" title="descripcion" required="true" requiredMessage="RequiredMessage_descripcion"/>
 
 
@@ -94,13 +94,13 @@
                                     <h:panelGrid columns="2" cellspacing="12">
 
                             <h:outputLabel value="Fecha Disponible:" for="fecha_disponible" styleClass="textoNEGRO" />
-                            <p:calendar id="fecha_disponible" size="25" value="#{articuloController.selected.fechaDisponibilidad}" title="Fecha Disponible" required="true" requiredMessage="RequiredMessage_Fecha Disponible" pattern="dd/MM/yyyy" locale="es" effect="fadeIn"  navigator="true" readOnlyInputText="true" immediate="true" >
+                            <p:calendar id="fecha_disponible" size="25" value="#{articuloController.selected.fechaDisponibilidad}" title="Fecha Disponible" required="true" requiredMessage="RequiredMessage_Fecha Disponible" pattern="dd/MM/yyyy" locale="es" effect="fadeIn"  navigator="true" readOnlyInputText="true" >
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </p:calendar>
 
 
                     <h:outputLabel value="Fecha Creaci&oacute;n:" for="fecha_creacion" styleClass="textoNEGRO" />
-                    <p:calendar id="fecha_creacion" size="25" value="#{articuloController.selected.fechaCreacion}" title="Fecha creacion" required="true" requiredMessage="RequiredMessage_Idioma" pattern="dd/MM/yyyy" locale="es" effect="fadeIn"  navigator="true" readOnlyInputText="true" immediate="true">
+                    <p:calendar id="fecha_creacion" size="25" value="#{articuloController.selected.fechaCreacion}" title="Fecha creacion" required="true" requiredMessage="RequiredMessage_Idioma" pattern="dd/MM/yyyy" locale="es" effect="fadeIn"  navigator="true" readOnlyInputText="true" >
                          <f:convertDateTime pattern="dd/MM/yyyy" />
                      </p:calendar>
 
@@ -127,13 +127,13 @@
                                         allowTypes="*.jpg;*.png" description="*.jpg;*.png;*.gif"  update="result" />
                          </h:panelGrid>
                              <h:panelGroup id="result">
-                                 <img  src="#{articuloController.selected.imagen}" alt="0" border="0" title="Portada" width="120" height="120"/>
+                                 <img  src="#{articuloController.selected.imagen}" alt="PORTADA" border="0" title="Portada" width="120" height="120"/>
                              </h:panelGroup>
 
                          </center>
                      </p:tab>
 
-                 
+
                      <p:tab title="SUBIR DOCUMENTO" >
                          <center>
                          <h:panelGrid columns="2" cellspacing="15" >
@@ -151,52 +151,6 @@
                  <br/><br/>
 
 
-                 <p:panel header="PROVEEDORES DEL ARTICULO">
-                    
-                     <h:panelGrid cellpadding="12" columns="2">
-                      <h:outputLabel value="Proveedores:"  styleClass="textoNEGRO" />
-                     <h:commandLink action="#{proveedorController.prepreaListByArticulo(articuloController.selected)}" immediate="true">
-                            <img src="./../resources/iconos/sver.png" alt="" title="Ver Catalogo de Proveedor"/>
-                     </h:commandLink>
-                     </h:panelGrid>
-                    
-                     <br/><br/>
-                 <h:panelGroup>
-                     <p:dataTable value="#{articuloController.selected.proveedorList}" var="item" paginator="true" rows="5">
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="NOMBRE"/>
-                        </f:facet>
-                        <h:outputText value="#{item.nombre}"/>
-                   </p:column>
-                  
-                  <p:column style="width:15px;">
-                        <f:facet name="header">
-                            <h:outputText value="TELEFONO"/>
-                        </f:facet>
-                      <h:outputText value="#{item.telefono}"/>
-                   </p:column>
-
-                      <p:column style="width:15px;">
-                        <f:facet name="header">
-                            <h:outputText value="EMAIL"/>
-                        </f:facet>
-                          <h:outputText value="#{item.mail}"/>
-                   </p:column>
-                   <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
-                        </f:facet>
-
-                        <h:commandLink action="#{proveedorController.destroy(item)}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Eliminar"/>
-                        </h:commandLink>
-                   </p:column>
-                </p:dataTable>
-
-                 </h:panelGroup>
-                 </p:panel>
 
                  <br/><br/>
                  <p:panel>

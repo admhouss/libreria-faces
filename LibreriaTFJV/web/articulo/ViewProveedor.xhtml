@@ -8,7 +8,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewArticuloTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
@@ -16,27 +16,23 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
             </h:panelGroup>
             <h:form id="articuloview">
 
-               
-               
 
-                <br/>  <br/>
+                <div align="right">
+                    <h:commandButton value="Nuevo Proveedor" />
+                </div>
+                <br/>
+                <br/>
+                <p:panel header="PROVEEDORES ASIGNADOS AL ARTICULO">
 
-                <p:panel header="CATALOGO DE PROVEEDORES">
+                    <p:dataTable value="#{articuloController.selected.proveedorList}" var="item" paginator="true" rows="5">
 
-                <p:dataTable value="#{proveedorController.listaProveedoresByArticulo}" var="item" paginator="true" rows="5">
-
-                    <p:column style="width:20px;">
+                    <p:column style="width:200px;">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
                         <h:outputText value="#{item.nombre}"/>
                    </p:column>
-                   <p:column style="width:15px;">
-                        <f:facet name="header">
-                            <h:outputText value="SIGLA"/>
-                        </f:facet>
-                       <h:outputText value="#{item.sigla}"/>
-                   </p:column>
+                  
                   <p:column style="width:15px;">
                         <f:facet name="header">
                             <h:outputText value="CD"/>
@@ -54,18 +50,23 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
+                       <h:commandLink action="#" >
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
                        <h:commandLink action="#{proveedorController.prepareView(item)}" >
                             <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
                         </h:commandLink>
 
-                        <h:commandLink action="#{proveedorController.agregar(item)}" >
-                            <img src="./../resources/iconos/agregar.png" alt="" title="Ver"/>
-                        </h:commandLink>
 
-                        
                    </p:column>
                 </p:dataTable>
                 </p:panel>
+               
+
+                <br/>  <br/>
+
+              
                 <br/><br/>
 
 
@@ -73,7 +74,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                 <div align="center">
                     <p:panel >
 
-                        <h:commandButton action="/articulo/Create" value="VOLVER ARTICULO"/>
+                        <h:commandButton action="#{articuloController.prepareList}" value="VOLVER ARTICULO"/>
                     </p:panel>
                 </div>
 
