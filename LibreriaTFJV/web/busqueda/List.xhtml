@@ -41,8 +41,8 @@
                              <h:inputText id="tema" size="25" value="#{publicacionController.tema}" />
                              <h:outputText value=""/>
                              <h:outputText value="Periodo:" styleClass="textoNEGRO"/>
-                             <p:calendar id="periodo"  immediate="true"  value="#{publicacionController.periodo}"
-                                         pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true"/>
+                             <p:calendar id="periodo"  immediate="true"  value="#{publicacionController.periodo}" size="20"
+                                pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true"/>
                              <h:outputText value=""/>
 
                              <h:outputText value="N&uacute;mero:" styleClass="textoNEGRO"/>
@@ -62,7 +62,10 @@
                               <h:outputText value=""/>
 
                                <h:outputText value="Tipo Articulo:" styleClass="textoNEGRO"/>
-                               <h:inputText size="25" value="#{publicacionController.tipoArticulo}"/>
+
+                               <h:selectOneMenu   value="#{publicacionController.tipoArticulo}" >
+                                   <f:selectItems value="#{tipoArticuloController.listTipoArticulo}" var="item" itemValue="#{item.descripcion}" itemLabel="#{item.descripcion}"/>
+                               </h:selectOneMenu>
                               <h:outputText value=""/>
 
                                <h:outputText value="Categoria:" styleClass="textoNEGRO"/>
@@ -103,7 +106,8 @@
                           <h:outputText value="Consulta por:" styleClass="textoNEGRO"/>
                           <h:selectOneMenu  id="genericoCategoria" value="#{publicacionController.selectCategoriaPeriodo}" >
 
-                              <f:selectItem id="item_4" itemLabel="Periodo" itemValue="p.periodoMes"/>
+                              <f:selectItem id="item_4" itemLabel="Periodo Mes" itemValue="p.periodoMes"/>
+                              <f:selectItem id="item_11" itemLabel="Periodo A&ntilde;o" itemValue="p.periodoAnio"/>
 
                           </h:selectOneMenu>
                           <p:calendar  value="#{publicacionController.periodo}" id="queryPeriodo" pattern="dd/MM/yyyy" locale="es" effect="fadeIn"  navigator="true" readOnlyInputText="true"/>
