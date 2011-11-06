@@ -4,12 +4,14 @@ import escom.libreria.info.contacto.jpa.Direnvio;
 import escom.libreria.info.contacto.jsf.util.JsfUtil;
 import escom.libreria.info.contacto.jsf.util.PaginationHelper;
 import escom.libreria.info.contacto.ejb.DirenvioFacade;
+import escom.libreria.info.login.sistema.SistemaController;
 import java.io.Serializable;
 import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -29,6 +31,39 @@ public class DirenvioController implements Serializable{
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    @ManagedProperty("#{sistemaController}")
+    SistemaController sistemaController;
+
+    public SistemaController getSistemaController() {
+        return sistemaController;
+    }
+
+    public void setSistemaController(SistemaController sistemaController) {
+        this.sistemaController = sistemaController;
+    }
+    
+
+    public String irMenu(){
+        return "/cliente/modulo";
+    }
+
+    private List<Direnvio> listaDirEnvioCliente;
+
+    public List<Direnvio> getListaDirEnvioCliente() {
+        try{
+         List<Direnvio> dirEnvio=getFacade().getListDirEnvioByCliente(sistemaController.getCliente().getId());
+         return dirEnvio;
+        }catch(Exception e){}
+        return null;
+
+        //return listaDirEnvioCliente;
+    }
+
+    public void setListaDirEnvioCliente(List<Direnvio> listaDirEnvioCliente) {
+        this.listaDirEnvioCliente = listaDirEnvioCliente;
+    }
+
+
     public DirenvioController() {
     }
 
@@ -40,8 +75,11 @@ public class DirenvioController implements Serializable{
         return current;
     }
 
+
+
     public List<Direnvio> getListDireccionEnvio(){
-        return getFacade().findAll();
+       List<Direnvio> l= getFacade().findAll();
+       return l;
 
     }
 
@@ -69,13 +107,13 @@ public class DirenvioController implements Serializable{
 
     public String prepareList() {
         recreateModel();
-        return "List";
+        return "/direnvio/List";
     }
 
     public String prepareView(Direnvio p) {
        current=p;//
        // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "/direnvio/View";
     }
 
     public String prepareCreate() {
@@ -86,27 +124,33 @@ public class DirenvioController implements Serializable{
 
     public String create() {
         try {
-            current.setIdCliente(current.getIdCliente());
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Direccion").getString("DirenvioCreated"));
-            return prepareView(current);
+            current.setIdCliente(sistemaController.getCliente());
+            if(current.getIdCliente()!=null){
+             getFacade().create(current);
+              JsfUtil.addSuccessMessage(("DirenvioCreated"));
+              return prepareView(current);
+            }
+            JsfUtil.addErrorMessage("No existe cliente asociado");
+            return "/login/Create";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Direccion").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
+    
+
     public String prepareEdit(Direnvio p) {
        current=p;//
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+       current.setIdCliente(p.getIdCliente());
+        return "/direnvio/Edit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Direccion").getString("DirenvioUpdated"));
-            return "View";
+            JsfUtil.addSuccessMessage(("DirenvioUpdated"));
+            return "/direnvio/View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Direccion").getString("PersistenceErrorOccured"));
             return null;
@@ -117,10 +161,7 @@ public class DirenvioController implements Serializable{
        current=p;//
        ejbFacade.remove(current);
        JsfUtil.addSuccessMessage("Direccion Eliminada satisfactoriamente");
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        //performDestroy();
-        //recreateModel();
-        return "List";
+        return "/direnvio/List";
     }
 
     public String destroyAndView() {

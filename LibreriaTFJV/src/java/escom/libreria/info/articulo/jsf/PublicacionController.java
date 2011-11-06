@@ -68,7 +68,7 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
 
      public PublicacionController() {
         {
-            InputStream log4jConfigStream = null;
+            /*InputStream log4jConfigStream = null;
             try {
                 log4jConfigStream =XMLReference.class.getResourceAsStream("log4j.configure.xml");
                 DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -88,7 +88,7 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
                 } catch (IOException ex) {
                     Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            }*/
         }
      }//constructor
        
@@ -138,26 +138,154 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
 
           }
      }
-    
+
+
     public String buscar(){
-        setAutor(getAutor().trim()==null?"":getAutor());
-        setTitulo(getTitulo().trim()==null?"":getTitulo());
-        setTipoArticulo(getTipoArticulo().trim()==null?"":getTipoArticulo());
-        setPeriodo(getPeriodo()==null?new Date():getPeriodo());
-        setISBN(getISBN().trim()==null?"":getISBN());
-        setEditorial(getEditorial().trim()==null?"":getEditorial());
-        setTema(getTema().trim()==null?"":getEditorial());
+        
+        String queryTemporal="SELECT p FROM Publicacion p WHERE ";
+        int acciones=0;//0,1,2;
+
+        if(getAsunto().trim()!=null  && !getAsunto().trim().equals("")){
+         queryTemporal+="p.articulo.asunto LIKE :asunto ";
+         acciones=1;
+        }
+
+        if(getAutor().trim()!=null  && !getAutor().trim().equals("")){
+            switch(acciones){
+                case 0:
+                queryTemporal+="p.articulo.creador LIKE :autor ";
+                acciones=1;
+                break;
+                case 1:
+                queryTemporal+="AND p.articulo.creador LIKE :autor ";
+                acciones=1;
+                break;
+
+            }
+        }
+           
+       
+        if(getTitulo().trim()!=null  && !getTitulo().trim().equals("")){
+                switch(acciones){
+                 case 0:
+                    queryTemporal+="p.articulo.titulo LIKE :titulo ";
+                    acciones=1;
+                 break;
+                case 1:
+                    queryTemporal+="AND p.articulo.titulo LIKE :titulo ";
+                   acciones=1;
+                 break;
+                }
+
+        }
+        
+        if(getTipoArticulo().trim()!=null  && !getTipoArticulo().trim().equals("")){
+             switch(acciones){
+                 case 0:
+                   queryTemporal+="p.articulo.tipoArticulo.descripcion LIKE :tipo ";
+                    acciones=1;
+                 break;
+                  case 1:
+                   queryTemporal+="AND p.articulo.tipoArticulo.descripcion LIKE :tipo ";
+                  acciones=1;
+                 break;
+            }
+        }
+        
+        if(getPeriodo()!=null ){
+            switch(acciones){
+                 case 0:
+                    queryTemporal+="p.periodoMes =:periodo ";
+                    acciones=1;
+                 break;
+                 case 1:
+                    queryTemporal+="OR p.periodoMes =:periodo ";
+                    acciones=1;
+                 break;
+            }
+        }
+
+        if(getISBN().trim()!=null  && !getISBN().trim().equals("")){
+             switch(acciones){
+                 case 0:
+                    queryTemporal+="p.isbn LIKE :ISBN ";
+                    acciones=1;
+                 break;
+
+             case 1:
+                queryTemporal+="AND p.isbn LIKE :ISBN ";
+                acciones=1;
+              break;
+
+        }
+        }
+      
+
+        if(getEditorial().trim()!=null  && !getEditorial().trim().equals("")){
+           switch(acciones){
+                 case 0:
+                queryTemporal+="p.editorial LIKE :editorial ";
+                acciones=1;
+                break;
+           case 1:
+                queryTemporal+="AND p.editorial LIKE :editorial ";
+                acciones=1;
+                break;
+            }
+         }
+
+        if(getISSN()!=0){
+
+            switch(acciones){
+                 case 0:
+                 queryTemporal+="p.issn=:ISSN ";
+                 acciones=1;
+                break;
+            case 1:
+                 queryTemporal+="AND p.issn=:ISSN ";
+                 acciones=1;
+                break;
+
+        }
+        }
+
+         if(getNumero()!=0){
+
+             switch(acciones){
+                 case 0:
+                  queryTemporal+="p.numero =:numero ";
+                   acciones=1;
+                break;
+            case 1:
+                
+                 queryTemporal+="AND p.numero =:numero ";
+                   acciones=1;
+                   break;
+             }
+            }
+       
+        queryTemporal+="ORDER BY p.articulo.titulo ASC";
+
+
+        System.out.println(queryTemporal);
+
 
 
 
 
         
-          System.out.print("Autor:"+getAutor()+" Titulo"+getTitulo() +"Tipo Articulo:"+getTipoArticulo()+ "Periodo"+getPeriodo() +"ISBN"+getISBN()+"Editorial"+getEditorial()+"Asunto"+getTema());
+       
 
-        listPublicacionByBusqueda=getFacade().buscarArticulo(getAutor(),getTitulo(),getTipoArticulo(),getPeriodo(),getNumero(),getISSN(),getISBN(),getEditorial(),getTema());
+
+
+        
+         
+
+        listPublicacionByBusqueda=getFacade().buscarArticuloDinamico(getAutor(),getTitulo(),getTipoArticulo(),getPeriodo(),getNumero(),getISSN(),getISBN(),getEditorial(),getAsunto(),queryTemporal);
         if(!isActivate())
         JsfUtil.addSuccessMessage("No se encontrarn ninguna coincidencias");
         return "/busqueda/List";
+    
     }
 
      public String buscarDinamica(){
@@ -368,7 +496,7 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
 
               Publicacion publica=getFacade().find(current.getIdDc());
               if(publica!=null){
-                  JsfUtil.addErrorMessage("El id de la publicacion ya se existe");
+                  JsfUtil.addErrorMessage("El ID de la publicacion ya se existe");
                   return  null;
               }
 
@@ -384,6 +512,7 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
 
     public String prepareEdit(Publicacion p) {
         current=p;
+        current.setArticulo(current.getArticulo());
         return "/publicacion/Edit";
 
     }
@@ -391,6 +520,7 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     public String update() {
         try {
 
+            current.setArticulo(current.getArticulo());
             getFacade().edit(current);
             addbicatoraUsuarioAdministrador(current, 2);
             JsfUtil.addSuccessMessage(("Publicacion Actualizada Satisfactoriamente"));

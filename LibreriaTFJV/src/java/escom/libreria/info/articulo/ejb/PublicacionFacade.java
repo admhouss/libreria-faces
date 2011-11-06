@@ -148,6 +148,7 @@ public class PublicacionFacade {
 
 
                     TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE  (p.articulo.titulo LIKE :titulo AND  p.articulo.tipoArticulo.descripcion LIKE :tipo AND p.articulo.creador LIKE :autor AND p.articulo.asunto LIKE :asunto ) OR p.editorial LIKE :editorial OR p.periodoMes =:periodo  OR p.numero =:numero OR p.issn=:ISSN OR p.isbn LIKE :ISBN  ORDER BY p.articulo.titulo ASC",Publicacion.class)
+
                     .setParameter("autor","%"+autor+"%")//y
                     .setParameter("asunto","%"+asunto+"%")//yes
                     .setParameter("titulo","%"+titulo+"%")//yes
@@ -157,6 +158,34 @@ public class PublicacionFacade {
                     .setParameter("ISSN", iSSN)//Yes
                     .setParameter("ISBN", "%"+iSBN+"%")//Yes
                     .setParameter("editorial","%"+editorial+"%");//yes
+                    List<Publicacion>l=query.getResultList();
+                    return l;
+    }
+
+    public List<Publicacion> buscarArticuloDinamico(String autor, String titulo, String tipoArticulo, Date periodo, int numero, int iSSN, String iSBN, String editorial,String asunto,String querySQL) {
+
+
+                    TypedQuery<Publicacion> query=em.createQuery(querySQL,Publicacion.class);
+                    if(numero!=0)
+                    query.setParameter("numero", numero);//yes
+                    if(iSSN!=0)
+                    query.setParameter("ISSN", iSSN);//Yes
+
+                    if(!autor.trim().equals(""))
+                    query.setParameter("autor","%"+autor+"%");//y
+                    if(!asunto.trim().equals(""))
+                    query.setParameter("asunto","%"+asunto+"%");//yes
+                    if(!titulo.trim().equals(""))
+                    query.setParameter("titulo","%"+titulo+"%");//yes
+                    if(!tipoArticulo.trim().equals(""))
+                    query.setParameter("tipo","%"+ tipoArticulo+"%"); //yes
+                    if(periodo!=null)
+                    query.setParameter("periodo",periodo,TemporalType.TIMESTAMP);//yes
+
+                    if(!iSBN.trim().equals(""))
+                    query.setParameter("ISBN", "%"+iSBN+"%");//Yes
+                    if(!editorial.trim().equals(""))
+                    query.setParameter("editorial","%"+editorial+"%");//yes
                     List<Publicacion>l=query.getResultList();
                     return l;
     }

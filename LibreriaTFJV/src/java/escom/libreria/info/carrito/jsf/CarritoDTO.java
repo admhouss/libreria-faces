@@ -68,6 +68,7 @@ public class CarritoDTO {
     public BigDecimal getTotal() {
 
        this.total=doCalculoTotal();
+       this.total=this.total.setScale(2,BigDecimal.ROUND_UP);
        return this.total;
     }
 

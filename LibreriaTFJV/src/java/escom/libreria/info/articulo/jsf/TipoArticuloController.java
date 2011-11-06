@@ -86,7 +86,7 @@ public class TipoArticuloController implements Serializable{
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipoArticuloCreated"));
+            JsfUtil.addSuccessMessage(("Tipo Articulo Created"));
             return prepareView(current);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));

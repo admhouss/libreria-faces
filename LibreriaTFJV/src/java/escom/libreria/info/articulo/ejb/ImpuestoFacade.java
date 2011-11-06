@@ -67,6 +67,7 @@ public class ImpuestoFacade {
     public List<Impuesto> buscarImpuestoByarticulo(Articulo p) {
         TypedQuery<Impuesto> q=em.createQuery("SELECT i FROM Impuesto  i WHERE i.articulo=:id ",Impuesto.class).setParameter("id", p);
         List<Impuesto> l=q.getResultList();
+        
         return l;
 
     }

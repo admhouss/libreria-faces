@@ -112,20 +112,21 @@ public class DescuentoArticuloController implements Serializable {
 
     public String prepareEdit(DescuentoArticulo p) {
       current=p;
-       
-        return "Edit";
+      current.setArticulo(current.getArticulo());
+      current.setIdArticulo(current.getArticulo().getId());
+      return "Edit";
     }
 
     public String update() {
         try {
-            DescuentoArticulo descuento=getFacade().find(current.getIdArticulo());
-            if(descuento!=null){
-                JsfUtil.addErrorMessage("Ya existe un descuento para este articulo");
-                return null;
-            }
+           // DescuentoArticulo descuento=getFacade().find(current.getIdArticulo());
+            //if(descuento!=null){
+              //  JsfUtil.addErrorMessage("Ya existe un descuento para este articulo");
+               // return null;
+            //}
 
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("DescuentoArticuloUpdated"));
+            JsfUtil.addSuccessMessage(("Descuento Articulo Actualizado"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));

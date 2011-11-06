@@ -85,7 +85,7 @@ public class DescuentoController implements Serializable{
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DescuentoCreated"));
+            JsfUtil.addSuccessMessage(("Descuento Createado satisfactoriamente"));
             return prepareView(current);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -102,7 +102,7 @@ public class DescuentoController implements Serializable{
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DescuentoUpdated"));
+            JsfUtil.addSuccessMessage(("Descuento Actualizado"));
             return "/descuento/View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
