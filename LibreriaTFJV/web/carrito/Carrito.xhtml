@@ -66,13 +66,16 @@
                             <f:facet name="header">
                               <h:outputLabel value="Descuento" />
                             </f:facet>
-                             <h:outputText value="$ #{item.publicacion.articulo.descuentoArticulo.descuento}" />
+                             <h:outputText value="% #{item.publicacion.articulo.descuentoArticulo.descuento}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                                 <h:outputLabel value="Total" />
                             </f:facet>
-                            <h:outputText value="$ #{item.total}" />
+
+                            <h:outputText value="$ #{item.total}" >
+
+                            </h:outputText>
                          </h:column>
 
                              <h:column>
@@ -81,7 +84,7 @@
                             </f:facet>
                            <ul id="icons" class="ui-widget ui-helper-clearfix">
                             <li class="ui-state-default ui-corner-all" title=".ui-icon-pencil">
-                                <span class="ui-icon ui-icon-pencil"></span>
+                                <span class="ui-icon ui-icon-pencil"> <h:commandLink action="#{carritoController.destroy(item)}"/></span>
                             </li>
                            </ul>
                          </h:column>
