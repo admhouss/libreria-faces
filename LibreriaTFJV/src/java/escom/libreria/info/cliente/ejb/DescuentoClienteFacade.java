@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -60,6 +61,17 @@ public class DescuentoClienteFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public DescuentoCliente buscarDescuentoCliente(String id, Integer id0) {
+        DescuentoCliente descuento=null;
+        try{
+        TypedQuery<DescuentoCliente> query=em.createQuery("SELECT d FROM DescuentoCliente d WHERE  d.descuentoClientePK.idCliente=:cliente AND d.descuentoClientePK.idDescuento=:descuento ",DescuentoCliente.class)
+        .setParameter("cliente", id)
+        .setParameter("descuento", id0).setMaxResults(1);
+        descuento=query.getSingleResult();
+        }catch(Exception e){}
+        return descuento;
     }
 
 }

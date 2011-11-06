@@ -234,7 +234,7 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
             }
          }
 
-        if(getISSN()!=0){
+        if(getISSN().trim()!=null  && !getISSN().trim().equals("")){
 
             switch(acciones){
                  case 0:
@@ -249,7 +249,7 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
         }
         }
 
-         if(getNumero()!=0){
+         if(getNumero().trim()!=null && !getNumero().trim().equals("") ){
 
              switch(acciones){
                  case 0:

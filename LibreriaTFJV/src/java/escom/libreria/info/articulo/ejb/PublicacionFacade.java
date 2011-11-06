@@ -5,6 +5,7 @@
 
 package escom.libreria.info.articulo.ejb;
 
+import escom.libreria.comun.ValidarNumero;
 import escom.libreria.info.articulo.jpa.Publicacion;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -93,20 +94,22 @@ public class PublicacionFacade {
 
  private String queryTemporal=null;
 
- private int convertirNumero;
+ private int convertirNumero=0;
     public List<Publicacion> buscarDinamica(String campo,Object dinamico){
-        
+
+        ValidarNumero validarNumero=new ValidarNumero();
      try{
             queryTemporal="SELECT p FROM Publicacion p WHERE "+campo+" LIKE :general  ORDER BY p.articulo.titulo ASC";
             
             TypedQuery<Publicacion> query=em.createQuery(queryTemporal,Publicacion.class);
             if(campo.equals("p.numero") || campo.equals("p.issn")){
-
-                    String numero=dinamico.toString().trim();
-                    convertirNumero=Integer.parseInt(numero);
-                    queryTemporal="SELECT p FROM Publicacion p WHERE "+campo+" =:general  ORDER BY p.articulo.titulo ASC";
-                    query=em.createQuery(queryTemporal,Publicacion.class);
-                    query.setParameter("general",convertirNumero);//y
+                    if(validarNumero.validarNumero(dinamico.toString().trim())){
+                        String numero=dinamico.toString().trim();
+                        convertirNumero=Integer.parseInt(numero);
+                     }
+                     queryTemporal="SELECT p FROM Publicacion p WHERE "+campo+" =:general  ORDER BY p.articulo.titulo ASC";
+                     query=em.createQuery(queryTemporal,Publicacion.class);
+                     query.setParameter("general",convertirNumero);//y
 
              }else{
               query.setParameter("general","%" + (String)dinamico+ "%");//y
@@ -162,14 +165,29 @@ public class PublicacionFacade {
                     return l;
     }
 
-    public List<Publicacion> buscarArticuloDinamico(String autor, String titulo, String tipoArticulo, Date periodo, int numero, int iSSN, String iSBN, String editorial,String asunto,String querySQL) {
+    public List<Publicacion> buscarArticuloDinamico(String autor, String titulo, String tipoArticulo, Date periodo, String numero, String iSSN, String iSBN, String editorial,String asunto,String querySQL) {
 
-
+      int numeroEntero=0,numeroISSN=0;
+      ValidarNumero validarNumero=new ValidarNumero();
                     TypedQuery<Publicacion> query=em.createQuery(querySQL,Publicacion.class);
-                    if(numero!=0)
-                    query.setParameter("numero", numero);//yes
-                    if(iSSN!=0)
-                    query.setParameter("ISSN", iSSN);//Yes
+                    if(!numero.trim().equals("")){
+                        if(validarNumero.validarNumero(numero)){
+                                   numeroEntero=Integer.parseInt(numero);
+                                   query.setParameter("numero", numeroEntero);//yes
+                        }else{
+                             query.setParameter("numero", numeroEntero);//yes
+                        }
+                     }
+                    if(!iSSN.trim().equals("")){
+                         if(validarNumero.validarNumero(iSSN)){
+                                  numeroISSN=Integer.parseInt(iSSN);
+                                  query.setParameter("ISSN", numeroISSN);//Yes
+                        }else{
+                             query.setParameter("ISSN",numeroISSN);//yes
+                        }
+                        
+                       
+                     }
 
                     if(!autor.trim().equals(""))
                     query.setParameter("autor","%"+autor+"%");//y
