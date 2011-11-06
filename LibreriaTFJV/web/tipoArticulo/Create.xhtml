@@ -9,7 +9,7 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateTipoArticuloTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
@@ -19,10 +19,10 @@
                  <br /> <br />
                 <p:panel header="ALTA TIPO ARTICULO">
                     <center>
-                <h:panelGrid columns="2">
+                        <h:panelGrid columns="2" cellspacing="15">
                    
                     <h:outputLabel value="Descripci&oacute;n:" for="descripcion" styleClass="textoNEGRO"/>
-                    <h:inputText id="descripcion" value="#{tipoArticuloController.selected.descripcion}" title="descripcion" required="true" requiredMessage="descripcion}" size="35"/>
+                    <h:inputTextarea id="descripcion" value="#{tipoArticuloController.selected.descripcion}" title="descripcion" required="true" requiredMessage="descripcion}" />
                 </h:panelGrid>
                     </center>
                 </p:panel>
