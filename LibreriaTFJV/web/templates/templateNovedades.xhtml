@@ -381,7 +381,7 @@
                      <h:form id="PromocionForm">
 
                        <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/promocion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
-                           <h:outputText value="Promocio;nes"/>
+                           <h:outputText value="Promociones"/>
                        </h:outputLink>
 
                     </h:form>
@@ -617,7 +617,11 @@
                 <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml" rendered="#{sistemaController.cliente==null}">
                     <h:outputText value="Mi cuenta"/>
                 </h:outputLink>
-                <h:commandLink value="Mi cuenta" action="#{clienteController.prepareEdit(sistemaController.cliente)}" rendered="#{sistemaController.cliente!=null}"/>
+
+                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/cliente/modulo.xhtml" rendered="#{sistemaController.cliente!=null}">
+                    <h:outputText value="Mi cuenta"/>
+                </h:outputLink>
+               
             </h:form>
             <!--<a href="{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml">Mi cuenta</a>-->
           <ul>
