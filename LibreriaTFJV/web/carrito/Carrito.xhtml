@@ -50,7 +50,7 @@
                                 </tr>
                             </table>
                          </h:column>
-                         <h:column>
+                         <h:column  >
                             <f:facet name="header">
                                 <h:outputLabel value="Cantidad"  />
                             </f:facet>
@@ -84,7 +84,9 @@
                             </f:facet>
                            <ul id="icons" class="ui-widget ui-helper-clearfix">
                             <li class="ui-state-default ui-corner-all" title=".ui-icon-pencil">
-                                <span class="ui-icon ui-icon-pencil"> <h:commandLink action="#{carritoController.destroy(item)}"/></span>
+                                <h:commandLink action="#{carritoController.destroy(item)}" immediate="true"> 
+                                    <span class="ui-icon ui-icon-pencil"></span>
+                                </h:commandLink>
                             </li>
                            </ul>
                          </h:column>
