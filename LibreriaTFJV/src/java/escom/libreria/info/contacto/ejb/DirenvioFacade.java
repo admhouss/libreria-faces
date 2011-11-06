@@ -5,12 +5,14 @@
 
 package escom.libreria.info.contacto.ejb;
 
+import escom.libreria.info.cliente.jpa.Cliente;
 import escom.libreria.info.contacto.jpa.Direnvio;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -60,6 +62,12 @@ public class DirenvioFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<Direnvio> getListDirEnvioByCliente(String correo) {
+        TypedQuery<Direnvio> query=em.createQuery("SELECT d FROM Direnvio d WHERE d.idCliente.id=:correo", Direnvio.class).setParameter("correo", correo);
+        List<Direnvio> l=query.getResultList();
+        return l;
     }
 
 }

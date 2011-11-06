@@ -6,6 +6,7 @@
 package escom.libreria.info.contacto.jpa;
 
 import escom.libreria.info.cliente.jpa.Cliente;
+import escom.libreria.info.cliente.jpa.Estado;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -34,7 +35,6 @@ import javax.persistence.Table;
     @NamedQuery(name = "Direnvio.findByNoInterior", query = "SELECT d FROM Direnvio d WHERE d.noInterior = :noInterior"),
     @NamedQuery(name = "Direnvio.findByColonia", query = "SELECT d FROM Direnvio d WHERE d.colonia = :colonia"),
     @NamedQuery(name = "Direnvio.findByDelMunicipio", query = "SELECT d FROM Direnvio d WHERE d.delMunicipio = :delMunicipio"),
-    @NamedQuery(name = "Direnvio.findByCiudad", query = "SELECT d FROM Direnvio d WHERE d.ciudad = :ciudad"),
     @NamedQuery(name = "Direnvio.findByCp", query = "SELECT d FROM Direnvio d WHERE d.cp = :cp"),
     @NamedQuery(name = "Direnvio.findByReferencia", query = "SELECT d FROM Direnvio d WHERE d.referencia = :referencia"),
     @NamedQuery(name = "Direnvio.findByTelefono", query = "SELECT d FROM Direnvio d WHERE d.telefono = :telefono")})
@@ -64,9 +64,6 @@ public class Direnvio implements Serializable {
     @Column(name = "DEL_MUNICIPIO")
     private String delMunicipio;
     @Basic(optional = false)
-    @Column(name = "CIUDAD")
-    private String ciudad;
-    @Basic(optional = false)
     @Column(name = "CP")
     private int cp;
     @Basic(optional = false)
@@ -75,6 +72,9 @@ public class Direnvio implements Serializable {
     @Basic(optional = false)
     @Column(name = "TELEFONO")
     private String telefono;
+    @JoinColumn(name = "ID_EDO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Estado idEdo;
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Cliente idCliente;
@@ -86,7 +86,7 @@ public class Direnvio implements Serializable {
         this.id = id;
     }
 
-    public Direnvio(Integer id, String atencion, String calle, String noExterior, String noInterior, String colonia, String delMunicipio, String ciudad, int cp, String referencia, String telefono) {
+    public Direnvio(Integer id, String atencion, String calle, String noExterior, String noInterior, String colonia, String delMunicipio, int cp, String referencia, String telefono) {
         this.id = id;
         this.atencion = atencion;
         this.calle = calle;
@@ -94,7 +94,6 @@ public class Direnvio implements Serializable {
         this.noInterior = noInterior;
         this.colonia = colonia;
         this.delMunicipio = delMunicipio;
-        this.ciudad = ciudad;
         this.cp = cp;
         this.referencia = referencia;
         this.telefono = telefono;
@@ -156,14 +155,6 @@ public class Direnvio implements Serializable {
         this.delMunicipio = delMunicipio;
     }
 
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
     public int getCp() {
         return cp;
     }
@@ -186,6 +177,14 @@ public class Direnvio implements Serializable {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public Estado getIdEdo() {
+        return idEdo;
+    }
+
+    public void setIdEdo(Estado idEdo) {
+        this.idEdo = idEdo;
     }
 
     public Cliente getIdCliente() {

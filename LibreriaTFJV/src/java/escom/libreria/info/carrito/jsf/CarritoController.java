@@ -93,6 +93,14 @@ public class CarritoController implements Serializable{
         return listcarritoDTO;
     }
 
+    public String destroy(CarritoDTO  item){
+
+        borrarArticulo(item.getPublicacion());
+        JsfUtil.addSuccessMessage("Articulo Eliminado satisfactoriamente!!");
+        return "/carrito/Carrito";
+
+    }
+
     public int getcountElement(){
         if(carritoCompraTemporalLocal!=null)
         return carritoCompraTemporalLocal.getCount();

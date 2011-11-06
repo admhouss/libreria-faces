@@ -86,7 +86,6 @@ public class DescuentoClienteController implements Serializable{
     public String create() {
         try {
             DescuentoClientePK descuentoID=new DescuentoClientePK();
-
             current.setCliente(current.getCliente());
             current.setDescuento(current.getDescuento());
             descuentoID.setIdCliente(current.getCliente().getId());
@@ -96,7 +95,7 @@ public class DescuentoClienteController implements Serializable{
             current.setFechaInicio(current.getFechaFin());
 
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DescuentoClienteCreated"));
+            JsfUtil.addSuccessMessage(("DescuentoCliente Creatado"));
             return prepareView(current);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -106,22 +105,28 @@ public class DescuentoClienteController implements Serializable{
 
     public String prepareEdit(DescuentoCliente p) {
         current=p;
+        current.setCliente(current.getCliente());
+        current.setDescuentoClientePK(current.getDescuentoClientePK());
         return "/descuentoCliente/Edit";
     }
 
     public String update() {
         try {
-             DescuentoClientePK descuentoID=new DescuentoClientePK();
 
+
+             getFacade().find(current);
+
+            DescuentoClientePK descuentoID=current.getDescuentoClientePK();
             current.setCliente(current.getCliente());
             current.setDescuento(current.getDescuento());
-            descuentoID.setIdCliente(current.getCliente().getId());
-            descuentoID.setIdDescuento(current.getDescuento().getId());
-            current.setDescuentoClientePK(descuentoID);
             current.setFechaFin(current.getFechaFin());
             current.setFechaInicio(current.getFechaFin());
+            descuentoID.setIdCliente(current.getCliente().getId());
+            descuentoID.setIdDescuento(current.getDescuento().getId().intValue());
+
+            current.setDescuentoClientePK(descuentoID);
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DescuentoClienteUpdated"));
+            JsfUtil.addSuccessMessage(("DescuentoCliente Updated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));

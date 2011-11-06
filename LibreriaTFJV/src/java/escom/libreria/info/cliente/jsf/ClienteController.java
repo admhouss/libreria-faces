@@ -199,7 +199,6 @@ public class ClienteController implements Serializable{
                          return prepareView(current);
                  }else{
                      JsfUtil.addErrorMessage("La cuenta que intenta registrar ,ya existe!");
-                     current.setId(" ");
                      return "/cliente/Create";
                  }
             }

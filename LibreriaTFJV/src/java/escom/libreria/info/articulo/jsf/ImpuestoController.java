@@ -95,14 +95,21 @@ public class ImpuestoController implements Serializable {
     }
 
     public String create() {
+        List<Impuesto> impuestoPrueba=null;
         try {
-            
+
             current.setArticulo(current.getArticulo());
-            current.setDescripcion(current.getDescripcion());
-            current.setMontoImpuesto(current.getMontoImpuesto());
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("ImpuestoCreated"));
-            return prepareView(current);
+            impuestoPrueba=getFacade().buscarImpuestoByarticulo(current.getArticulo());
+            if(impuestoPrueba==null|| impuestoPrueba.isEmpty()){
+                current.setArticulo(current.getArticulo());
+                current.setDescripcion(current.getDescripcion());
+                current.setMontoImpuesto(current.getMontoImpuesto());
+                getFacade().create(current);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("ImpuestoCreated"));
+                return prepareView(current);
+            }
+            JsfUtil.addErrorMessage("Ya existe un impuesto para este articulo");
+            return "/impuesto/Create";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));
             return null;
@@ -112,6 +119,8 @@ public class ImpuestoController implements Serializable {
     public String prepareEdit(Impuesto p) {
         current = p;//(Impuesto)getItems().getRowData();
         //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        current.setArticulo(current.getArticulo());
+        
         return "Edit";
     }
 

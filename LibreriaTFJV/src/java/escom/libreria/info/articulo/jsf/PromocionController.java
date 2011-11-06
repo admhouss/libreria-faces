@@ -34,10 +34,27 @@ public class PromocionController implements Serializable{
     @EJB private escom.libreria.info.articulo.ejb.PromocionFacade ejbFacade;
     @EJB private escom.libreria.info.cliente.ejb.ClienteFacade clieteFacade;
     @EJB private escom.libreria.correo.ProcesoJMail jMail;
+    @EJB private escom.libreria.info.articulo.ejb.ArticuloFacade articuloFacade;
+
+
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private PromocionPK p;
     private String value;
+    private List<Articulo> listaArticulosPromociones;
+
+    public List<Articulo> getListaArticulosPromociones() {
+       
+         listaArticulosPromociones=articuloFacade.findAll();
+      
+        return listaArticulosPromociones;
+    }
+
+    public void setListaArticulosPromociones(List<Articulo> listaArticulosPromociones) {
+        this.listaArticulosPromociones = listaArticulosPromociones;
+    }
+    
+
 
     public String getValue() {
         return value;
@@ -129,10 +146,12 @@ public class PromocionController implements Serializable{
         return "Create";
     }
     public void InitialArticulo(Articulo a){
+
       p=new PromocionPK();
       p.setIdArticulo(a.getId());
       current.setPromocionPK(p);
       current.setArticulo(a);
+      listaArticulosPromociones.remove(a);
      JsfUtil.addSuccessMessage("Articulo seleccionado satisfactoriamente");
      
     }
@@ -181,7 +200,7 @@ public class PromocionController implements Serializable{
 
     public String prepareEdit(Promocion prom) {
         current=prom;
-        System.out.println("PROMOCION PK:"+current.getPromocionPK().getId());
+        current.setArticulo(current.getArticulo());
         return "/promocion/Edit";
     }
 

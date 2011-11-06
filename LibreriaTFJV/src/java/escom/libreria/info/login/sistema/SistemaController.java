@@ -7,6 +7,7 @@ package escom.libreria.info.login.sistema;
 
 
 
+import escom.libreria.comun.GeneradorHTML;
 import escom.libreria.info.cliente.jpa.Cliente;
 import escom.libreria.info.cliente.jsf.util.JsfUtil;
 import escom.libreria.info.usarioAdministrativo.jpa.Usuarioadministrativo;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -34,11 +36,11 @@ public class SistemaController implements Serializable {
 
     private Usuarioadministrativo  usuarioAdministrador;
     private Cliente cliente;
-    private String usuario,password;//cliente
+    private String correo,password;//cliente
     private String usuarioAdmin,passwordAdmin;//administrador;
     private @EJB escom.libreria.info.cliente.ejb.ClienteFacade clienteFacade;
-    private @EJB escom.libreria.info.usarioAdministrativo.ejb.UsuarioadministrativoFacade adminFacade;
-    private @EJB escom.libreria.correo.ProcesoJMail jMail;
+    private @EJB escom.libreria.info.usarioAdministrativo.ejb.UsuarioadministrativoFacade adminFacade; //para administrador
+    private @EJB escom.libreria.correo.ProcesoJMail jMail; //enviar correos
     private String menssageBienvenida;
 
     public String getMenssageBienvenida() {
@@ -47,6 +49,24 @@ public class SistemaController implements Serializable {
             return "";
         
         return  menssageBienvenida.toUpperCase();
+    }
+
+
+    @PostConstruct
+    public void init() {
+
+        try{
+            if(getCorreo()!=null && !getCorreo().trim().equals("") && getPassword().equals("")){
+                cliente=clienteFacade.find(getCorreo().trim());
+                if(cliente!=null && cliente.getEstatus()==false){
+                    cliente.setEstatus(true);
+                    clienteFacade.edit(cliente);
+                    JsfUtil.addSuccessMessage("Cliente registrado satisfactoriamente!!");
+                }else{JsfUtil.addErrorMessage("El Cliente ya se encuentra registrado!!");}
+            }
+        }catch(Exception e){
+        
+        }
     }
 
     public void setMenssageBienvenida(String menssageBienvenida) {
@@ -65,21 +85,16 @@ public class SistemaController implements Serializable {
     }
     public String  loginAcces(){
                 setUsuarioAdministrador(null);
-                cliente = clienteFacade.buscarUsuario(usuario, password);//proceso de logeo
+                cliente = clienteFacade.buscarUsuario(correo.trim(), password);//proceso de logeo
+                if(cliente==null){
 
-                if(cliente==null){// el usuario no existe aparentemente
-                  cliente=clienteFacade.find(usuario);
-                   if(cliente==null)//el usuario no existe delplano
-                            JsfUtil.addErrorMessage("Usuario no identificado ");
-                   else{
-                            JsfUtil.addErrorMessage("Contraseña no valida");
+                            JsfUtil.addErrorMessage("Usuario o Contraseña  invalida");
                             return "/login/Create";
-                    }
                 }
                 else{
-
                    if(cliente.getEstatus()==true){
                         try {
+                            limpiarLogin();
                             setMenssageBienvenida("BIENVENIDO "+cliente.getNombre()+" "+cliente.getPaterno()+" "+cliente.getMaterno());
                             JsfUtil.addSuccessMessage("Usuario a iniciado sesion satisfactoriamente");
                             ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
@@ -92,7 +107,7 @@ public class SistemaController implements Serializable {
                           return "/login/Create";
                     }
                }
-                limpiarLogin();
+                
                 return "/cliente/Create";
 
     }
@@ -100,7 +115,7 @@ public class SistemaController implements Serializable {
 private  void limpiarLogin(){
             setUsuarioAdmin("");
             setPasswordAdmin("");
-            setUsuario("");
+            setCorreo("");
             setPassword("");
 }
     public String accesoAdministrador(){
@@ -114,8 +129,7 @@ private  void limpiarLogin(){
                         setCliente(null);
                         limpiarLogin();
                         JsfUtil.addSuccessMessage("Usuario a inisiado sesion satisfactoriamente");
-                      //  setMenssageBienvenida("BIENVENIDO "+usuarioAdministrador.getNombre()+" "+usuarioAdministrador.getPaterno()+" "+usuarioAdministrador.getMaterno());
-
+                    
             }
                  ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
             try {
@@ -173,7 +187,7 @@ private  void limpiarLogin(){
     private String query;
     public String olvideContrasenia(){
            
-           Cliente clienteX=clienteFacade.find(getUsuario().trim());
+           Cliente clienteX=clienteFacade.find(getCorreo().trim());
            if(clienteX==null){
                JsfUtil.addErrorMessage("No se encontro ningun registro para este correo");
            }
@@ -183,10 +197,13 @@ private  void limpiarLogin(){
            } else {
                cliList=new ArrayList<String>();
                cliList.add(clienteX.getId().trim());
-               query="Apreciable "+clienteX.getNombre()+" "+clienteX.getPaterno()+" "+clienteX.getMaterno()+" <br/> Usuario:"+clienteX.getId() +"<br/> Passwrod:"+clienteX.getPassword()+"<br/>";
-               jMail.enviarCorreo("Recuperar Contrase&ntilde;a", query, cliList);
+               query=clienteX.getNombre()+" "+clienteX.getPaterno()+" "+clienteX.getMaterno();
+               GeneradorHTML generar=new GeneradorHTML();
+               query=generar.generdarHTMLOlvideContrasenia(clienteX.getId(),clienteX.getPassword(),query);
+               jMail.enviarCorreo("Recuperar Contraseña", query, cliList);
            }
-           setUsuario("");
+           setCorreo("");
+           setPassword("");
            return "/login/OlvideContrasenia" ;
     }
 
@@ -214,13 +231,15 @@ private  void limpiarLogin(){
         this.password = password;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
+
+    
 
 
 public String cerrarCession(){

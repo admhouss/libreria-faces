@@ -5,6 +5,7 @@
 
 package escom.libreria.correo;
 
+import escom.libreria.comun.GeneradorHTML;
 import escom.libreria.correo.conf.Propiedades;
 import escom.libreria.correo.conf.ServidorCorreoConf;
 import escom.libreria.info.cliente.jpa.Cliente;
@@ -49,7 +50,7 @@ public class ProcesoJMail {
 
     public void enviaCorreo(MensajeCorreoDTO mensaje){
 
-        ServidorCorreoConf serverMail=sConfFacade.find(1);
+        ServidorCorreoConf serverMail=sConfFacade.find(2);
         listPropiedades=serverMail.getPropiedadesList();
         Properties props = new Properties();
         for(Propiedades propiedad:listPropiedades)
@@ -113,7 +114,7 @@ public class ProcesoJMail {
     MensajeCorreoDTO mensaje = new MensajeCorreoDTO();
     mensaje.setAsunto(Asunto);
 
-    String cadena="<html><head></head><body><p>"+Cuerpo+"</p></body></html>";
+   // String cadena="<html><head></head><body><p>"+Cuerpo+"</p></body></html>";
     mensaje.setCuerpo(Cuerpo);
     //mensaje.setAdjuntoList(c);
     
@@ -142,15 +143,17 @@ public class ProcesoJMail {
     private StringBuffer prepareUrl(String ContextoPath){
          StringBuffer buffer= buffer=new StringBuffer();
          buffer.append("http://");
-         buffer.append("www.libreria-tfjfa.com");
+         buffer.append("localhost:8080");
+        // buffer.append("www.libreria-tfjfa.com");
          buffer.append( ContextoPath);
-         buffer.append("/ProcesarOlvidarContrasenia");
+         buffer.append("/faces/login/Create.xhtml");
          return buffer;
     }
     private StringBuffer buffer=null;
     public void EnviarConfimarCorreo(Cliente cliente){
+        String nombreCliente="";
     if(cliente!=null){
-        
+        nombreCliente=cliente.getNombre() +" "+cliente.getPaterno()+" "+cliente.getMaterno();
         try{
 
            
@@ -161,10 +164,10 @@ public class ProcesoJMail {
             Map<String,List<String>> map=new HashMap<String, List<String>>();
             List<String> clientemap=new ArrayList<String>();
             clientemap.add(cliente.getId());
-            clientemap.add(cliente.getModificacion().toString());
-            map.put("keycode",clientemap);
+            map.put("correo",clientemap);
             baseURL=external.encodeRedirectURL(buffer.toString(), map);
-            query="<form><a href=\""+baseURL+"\">Confirmaci&oacute;n de tu cuenta:"+baseURL+"</a></form>";
+            GeneradorHTML generadorHTML=new GeneradorHTML();
+            query= generadorHTML.generdarHTMLConfirmar(cliente.getId(),cliente.getPassword(),nombreCliente, baseURL);
             enviarCorreo("Activar Registro", query, cliList);
         }catch(Exception e){e.printStackTrace();}
         }

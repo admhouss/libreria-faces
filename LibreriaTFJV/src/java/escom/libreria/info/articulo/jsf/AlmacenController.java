@@ -83,14 +83,20 @@ public class AlmacenController implements Serializable{
     }
 
     public String create() {
+        Almacen  buscarAlmacen=null;
         try {
-           
-            current.setIdArticulo(current.getArticulo().getId());
-            current.setArticulo(current.getArticulo());
-            getFacade().create(current);
 
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Almacen").getString("AlmacenCreated"));
-            return prepareView(current);
+            buscarAlmacen=getFacade().find(current.getArticulo().getId());
+            if(buscarAlmacen==null){
+                current.setIdArticulo(current.getArticulo().getId());
+                current.setArticulo(current.getArticulo());
+                getFacade().create(current);
+                JsfUtil.addSuccessMessage(("Almacen Creado Satisfactoriamente"));
+                return prepareView(current);
+            }
+
+            JsfUtil.addErrorMessage("El articulo ya fue registrado anteriormente");
+            return "/almacen/Create";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Almacen").getString("PersistenceErrorOccured"));
             return null;
@@ -99,8 +105,8 @@ public class AlmacenController implements Serializable{
 
     public String prepareEdit(Almacen p) {
         current=p;
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        current.setArticulo(current.getArticulo());
+        return "/almacen/Edit";
     }
 
     public String update() {
