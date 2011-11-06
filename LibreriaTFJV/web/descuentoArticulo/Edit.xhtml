@@ -24,10 +24,7 @@
                     <h:inputText id="montoImpuesto" value="#{descuentoArticuloController.selected.descuento}" title="descuento" required="true" requiredMessage="Falta por capturar el campo descuento"/>
                     <h:outputLabel value="%"  styleClass="textoNEGRO"/>
 
-                    <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{descuentoArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="Falta por capturar el campo articulo">
-                        <f:selectItems value="#{articuloController.listArticulos}" itemValue="#{item}" var="item" itemLabel="#{item.titulo}"/>
-                    </h:selectOneMenu>
+                   
 
                 </h:panelGrid>
                 </center>
