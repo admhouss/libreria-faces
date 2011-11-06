@@ -32,8 +32,11 @@
                     </h:outputText>
                     <h:outputText value="Cliente:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{descuentoClienteController.selected.cliente.nombre} #{descuentoClienteController.selected.cliente.paterno} #{descuentoClienteController.selected.cliente.materno}" title="#{bundle.ViewDescuentoClienteTitle_cliente}"/>
+                    <h:outputText value="Descripci&oacute;n:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{descuentoClienteController.selected.descuento.descripcion}" title="#{bundle.ViewDescuentoClienteTitle_descuento}"/>
                     <h:outputText value="Descuento:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{descuentoClienteController.selected.descuento.porcentaje} %" title="#{bundle.ViewDescuentoClienteTitle_descuento}"/>
+
                 </h:panelGrid>
             </center>
                 </p:panel>

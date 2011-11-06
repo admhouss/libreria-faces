@@ -30,10 +30,7 @@
 
                     </p:calendar>
                    
-                    <h:outputLabel value="Descuento:" for="descuento" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="descuento" value="#{descuentoClienteController.selected.descuento}" title="descuento" required="true" requiredMessage="RequiredMessage_descuento">
-                        <f:selectItems value="#{descuentoController.listDescuentos}"  var="item" itemValue="#{item}" itemLabel="#{item.descripcion}" />
-                    </h:selectOneMenu>
+                    
                 </h:panelGrid>
                 </center>
                 </p:panel>
