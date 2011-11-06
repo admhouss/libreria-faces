@@ -20,6 +20,14 @@
             <h1>Mi cuenta</h1>
             <p>&nbsp;</p>
 
+             <f:metadata>
+                 <f:viewParam id="idCorreo" name="correo" value="#{sistemaController.correo}"  />
+
+
+                 <f:event listener="#{sistemaController.init}"  type="preRenderView"/>
+
+        </f:metadata>
+
             
              <h:panelGroup>
 
@@ -44,7 +52,7 @@
     <td bgcolor="#FFFFFF" >&nbsp;</td>
     <td width="105" bgcolor="#FFFFFF" >&nbsp;&nbsp;<h:outputLabel value="E-mail:" styleClass="textoNEGRO" for="idUsuario"/></td>
     <td width="159"  > 
-        <h:inputText value="#{sistemaController.usuario}" id="idUsuario"  required="true" requiredMessage="Falta por capturar el campo usuario">
+        <h:inputText value="#{sistemaController.correo}" id="idUsuario"  required="true" requiredMessage="Falta por capturar el campo usuario">
              <f:validator  validatorId="EmailValidator"/>
         </h:inputText>
     </td>
