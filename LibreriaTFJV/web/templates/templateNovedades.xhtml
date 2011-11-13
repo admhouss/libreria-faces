@@ -7,73 +7,12 @@
     <h:head>
        
 
-       <!--<h:outputStylesheet name="css/stylesheet.css"/>-->
-       <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css" />
+       
+        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css"  media="screen"/>
        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
-
         <link href="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
 
-        
-        <!-- InstanceEndEditable -->
-<style type="text/css">
-#apDiv1 {
-	position:absolute;
-	left:10px;
-	top:123px;
-	width:214px;
-	height:551px;
-	z-index:1;
-	background:url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/left_end.gif);
-	background-repeat:no-repeat;
-
-}
-#apDiv2 {
-	position:absolute;
-	left:226px;
-	top:122px;
-	width:590px;
-	height:132px;
-	z-index:5;
-	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/img1.jpg);
-}
-#apDiv3 {
-	position:absolute;
-	left:819px;
-	top:122px;
-	width:191px;
-	height:552px;
-	z-index:3;
-	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/head_der.jpg);
-	background-repeat:no-repeat;
-}
-#apDiv4 {
-	position:absolute;
-	left:224px;
-	top:258px;
-	width:592px;
-	height:417px;
-	z-index:4;
-}
-#apDiv5 {
-	position:absolute;
-	left:10px;
-	top:11px;
-	width:1000px;
-	height:111px;
-	z-index:1;
-	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/head.jpg);
-}
-
-#apDiv6 {
-	position:absolute;
-	left:10px;
-	top:679px;
-	width:1001px;
-	height:66px;
-	z-index:6;
-}
-</style>
-
+ 
 <!-- InstanceBeginEditable name="head" -->
 
 
@@ -162,37 +101,59 @@
 
 
             <h:form id="derechofiscal">
-                <h:commandLink value="Derecho Fiscal" action="#{publicacionController.prepareListByCategoria_one(1,2)}"/>
+                <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=1">
+                    <h:outputText value="Derecho Fiscal"/>
+                </h:outputLink>
+
             </h:form>
 
         </li>
         <li>
            <h:form id="derechoInternacional">
-               <h:commandLink value="Derecho Internacinal" action="#{publicacionController.prepareListByCategoria_one(2,2)}"/>
+              <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=2">
+                    <h:outputText value="Derecho Internacional"/>
+              </h:outputLink>
             </h:form>
           <ul>
             <ul>
               <ul>
                 <li>
              <h:form id="DerechoAdministrativo">
-            <h:commandLink value="Derecho Administrativo" action="#{publicacionController.prepareListByCategoria_one(3,2)}"/>
+
+             <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=3">
+                    <h:outputText value="Derecho Administrativo"/>
+             </h:outputLink>
+
             </h:form>
 
                 </li>
                 <li>
               <h:form id="JuicioLinea">
-            <h:commandLink value="Juicio en Linea" action="#{publicacionController.prepareListByCategoria_one(4,2)}"/>
+            
+             <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=4">
+                    <h:outputText value="Juicio en Linea"/>
+             </h:outputLink>
+
             </h:form>
                 </li>
                 <li>
               <h:form id="juicioOrales">
-            <h:commandLink value="Juicios Orales" action="#{publicacionController.prepareListByCategoria_one(5,2)}"/>
+            
+            <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=5">
+                    <h:outputText value="Juicios Orales"/>
+            </h:outputLink>
+
             </h:form>
                </li>
                 <li>
                     
                     <h:form id="JurisPrudencia">
-                        <h:commandLink value="Jurisprudencia" action="#{publicacionController.prepareListByCategoria_one(6,2)}"/>
+
+                        
+                         <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=6">
+                         <h:outputText value="Jurisprudencia"/>
+                         </h:outputLink>
+
             </h:form>
 
                 </li>
