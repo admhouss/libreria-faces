@@ -24,23 +24,40 @@
                     <h:commandButton action="#{descuentoArticuloController.prepareCreate}" value="Crear Nuevo"/>
                  </div>
                 <br/>  <br/>
-                <p:panel header="CATALO DE DESCUENTO ARTICULO">
+                <p:panel header="CATALOGO DE DESCUENTO ARTICULO">
                 <center>
            
-                    <p:dataTable value="#{descuentoArticuloController.listaDescuentoArticulo}" var="item" paginator="true" rows="6">
-                   
-                    <p:column>
+                    <p:dataTable value="#{descuentoArticuloController.listaDescuentoArticulo}" var="item" paginator="true" rows="10" selectionMode="single" >
+
+                    <p:column style="width:29px;">
+                        <f:facet name="header">
+                            <h:outputText value="FECHA.FIN"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaFin}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column style="width:29px;">
+                        <f:facet name="header">
+                            <h:outputText value="FECHA.INICIO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaInicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column style="width:29px;">
                         <f:facet name="header">
                             <h:outputText value="DESCUENTO"/>
                         </f:facet>
                         <h:outputText value="#{item.descuento}"/>
                     </p:column>
-                    <p:column>
+                        <p:column style="width:150px;">
                         <f:facet name="header">
                             <h:outputText value="ARTICULO"/>
                         </f:facet>
                         <h:outputText value="#{item.articulo.titulo}"/>
                     </p:column>
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>

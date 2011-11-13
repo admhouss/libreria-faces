@@ -28,6 +28,12 @@
                     <h:selectOneMenu id="articulo" value="#{descuentoArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="RequiredMessage_articulo">
                         <f:selectItems value="#{articuloController.listArticulos}" itemValue="#{item}" var="item" itemLabel="#{item.titulo}"/>
                     </h:selectOneMenu>
+                    <h:outputLabel value=" "/>
+                    <h:outputLabel value="Fecha Inicio:" for="fecha_inicio" styleClass="textoNEGRO" />
+                    <p:calendar id="fecha_inicio" value="#{descuentoArticuloController.selected.fechaInicio}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" required="true" readOnlyInputText="true" requiredMessage="Falta por capturar el campo fecha inicio!" />
+                     <h:outputLabel value=" "/>
+                    <h:outputLabel value="Fecha Fin:" for="fecha_fin" styleClass="textoNEGRO" />
+                    <p:calendar id="fecha_fin" value="#{descuentoArticuloController.selected.fechaFin}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" required="true" readOnlyInputText="true" requiredMessage="Falta por capturar el campo fecha fin!" />
                      
                 </h:panelGrid>
                 </center>
