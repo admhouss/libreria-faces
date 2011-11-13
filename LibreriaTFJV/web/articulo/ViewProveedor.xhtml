@@ -17,11 +17,25 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
             <h:form id="articuloview">
 
 
-                <div align="right">
-                    <h:commandButton value="Nuevo Proveedor" />
-                </div>
+               
                 <br/>
                 <br/>
+
+                <p:panel>
+                    <center>
+                        <h:panelGrid  columns="3">
+                            <h:outputLabel value="Proveedor:"  styleClass="textoNEGRO"></h:outputLabel>
+                            <h:selectOneMenu  value="#{articuloController.proveedor}">
+
+                               <f:selectItems  value="#{proveedorController.listProveedor}" var="proveedor" itemValue="#{proveedor}" itemLabel="#{proveedor.nombre}"/>
+                             </h:selectOneMenu>
+                            <h:commandButton action="#{articuloController.createArticulo}" value="Agregar"/>
+
+                        </h:panelGrid>
+                    </center>
+                </p:panel>
+   <br/>
+
                 <p:panel header="PROVEEDORES ASIGNADOS AL ARTICULO">
 
                     <p:dataTable value="#{articuloController.selected.proveedorList}" var="item" paginator="true" rows="5">
@@ -40,25 +54,28 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                       <h:outputText value="#{item.cd}"/>
                    </p:column>
 
-                      <p:column style="width:15px;">
+                   <p:column style="width:15px;">
                         <f:facet name="header">
                             <h:outputText value="RFC"/>
                         </f:facet>
                         <h:outputText value="#{item.rfc}"/>
                    </p:column>
+                       <p:column>
+                            <f:facet name="header">
+                            <h:outputText value="CANTIDAD"/>
+                        </f:facet>
+
+                         
+                        </p:column>
                    <p:column>
+
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                       <h:commandLink action="#" >
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
-                        </h:commandLink>
-
-                       <h:commandLink action="#{proveedorController.prepareView(item)}" >
-                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
-                        </h:commandLink>
-
-
+                       <h:commandLink action="#{articuloController.eliminarProveedorArticulo(item)}" >
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                     </h:commandLink>
+            
                    </p:column>
                 </p:dataTable>
                 </p:panel>
