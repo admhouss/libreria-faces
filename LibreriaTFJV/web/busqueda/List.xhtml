@@ -32,7 +32,7 @@
                     <center>
                         <h:panelGrid columns="3" cellspacing="10" cellpadding="12">
                              <h:outputText value="Autor:" styleClass="textoNEGRO"/>
-                             <h:inputText size="25" id="autor" value="#{publicacionController.autor}"/>
+                             <p:autoComplete size="25" id="autor" value="#{publicacionController.autor}" completeMethod="#{publicacionController.complete}" forceSelection="true" />
                              <h:outputText value=""/>
                              <h:outputText value="T&iacute;tulo:" styleClass="textoNEGRO" />
                              <h:inputText id="titulo" value="#{publicacionController.titulo}" size="25"/>
@@ -176,7 +176,7 @@
         <li class="ui-state-default ui-corner-all" title="Ver detalles"  >
             <span class="ui-icon ui-icon-info">
             
-                <h:commandLink  action="#{publicacionController.prepareView(item,3,1)}" immediate="true" styleClass="ui-icon ui-icon-info" style="width:23px;" />
+                <h:commandLink  action="#{publicacionController.prepareView(item,3)}" immediate="true" styleClass="ui-icon ui-icon-info" style="width:23px;" />
 
             </span>
            

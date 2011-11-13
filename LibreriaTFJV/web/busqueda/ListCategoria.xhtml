@@ -17,6 +17,12 @@
             </h:panelGroup>
 
 
+        <f:metadata>
+            <f:viewParam id="idBanderaCategoria" name="banderaCategoria" value="#{publicacionController.banderaCategoria}"  />
+                 <f:event listener="#{publicacionController.init}"  type="preRenderView"/>
+
+        </f:metadata>
+
             <h2>Categoria #{publicacionController.categoria}</h2>
                 <p>&nbsp;</p>
             <br/>
@@ -66,7 +72,7 @@
       <li class="ui-state-default ui-corner-all" title="Agregar un comentario">
           
               <span class="ui-icon ui-icon-comment">
-                   <h:commandLink  action="#{publicacionController.prepareView(item,2,1)}" immediate="true" styleClass="ui-icon ui-icon-comment"/>
+                   <h:commandLink  action="#{publicacionController.prepareView(item,2)}" immediate="true" styleClass="ui-icon ui-icon-comment"/>
 
               </span>
           
@@ -74,7 +80,7 @@
             <li   class="ui-state-default ui-corner-all" title="Mas informaci&oacute;n">
        <span class="ui-icon ui-icon-info">
 
-           <h:commandLink  action="#{publicacionController.prepareView(item,2,1)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
+           <h:commandLink  action="#{publicacionController.prepareView(item,2)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
 
 
        </span>
