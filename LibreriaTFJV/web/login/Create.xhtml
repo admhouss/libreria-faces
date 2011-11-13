@@ -20,8 +20,9 @@
             <h1>Mi cuenta</h1>
             <p>&nbsp;</p>
 
-             <f:metadata>
+         <f:metadata>
                  <f:viewParam id="idCorreo" name="correo" value="#{sistemaController.correo}"  />
+                  <f:viewParam id="idBandera" name="bandera" value="#{sistemaController.bandera}"  />
 
 
                  <f:event listener="#{sistemaController.init}"  type="preRenderView"/>
