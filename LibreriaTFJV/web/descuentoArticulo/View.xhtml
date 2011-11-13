@@ -9,7 +9,7 @@
     <ui:composition template="/templates/templateNovedades.xhtml">
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewImpuestoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
@@ -22,12 +22,23 @@
                     <h:panelGrid columns="3" cellspacing="15">
 
                     <h:outputText value="Descuento:"  styleClass="textoNEGRO" />
-                    <h:outputText value="#{descuentoArticuloController.selected.descuento}" title="#{bundle.ViewImpuestoTitle_montoImpuesto}"/>
+                    <h:outputText value="#{descuentoArticuloController.selected.descuento}" title="Descuento"/>
                     <h:outputLabel value=" %"  />
 
                     <h:outputText value="Articulo:" styleClass="textoNEGRO" />
-                    <h:outputText value="#{descuentoArticuloController.selected.articulo.tipoArticulo.descripcion}" title="#{bundle.ViewImpuestoTitle_articulo}"/>
+                    <h:outputText value="#{descuentoArticuloController.selected.articulo.titulo}" title="descuento aplicado articulo"/>
                     <h:outputLabel value=" "  />
+                    <h:outputText value="Fecha Inicio:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{descuentoArticuloController.selected.fechaInicio}" title="Fecha Inicio">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                    <h:outputLabel value=" "  />
+                    <h:outputText value="Fecha Fin:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{descuentoArticuloController.selected.fechaFin}" title="Fecha fin">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                    <h:outputLabel value=" "  />
+                    
                 </h:panelGrid>
                 </center>
                 </p:panel>
