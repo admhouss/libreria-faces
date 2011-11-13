@@ -19,16 +19,15 @@
             <h:form id="Publicacion">
                  <br/>
                 <br/>
-                <p:panel header="NUEVA PUBLICACIONES">
+                <p:panel header="NUEVA PUBLICACION">
                      <center>
                          <h:panelGrid columns="2" cellspacing="12">
-                    <h:outputLabel value="ID:" for="ID"  styleClass="textoNEGRO"/>
-                   <h:inputText id="ID" value="#{publicacionController.selected.idDc}" title="ID" required="true" requiredMessage="El campo epoca es requerido"/>
+                    
                     <h:outputLabel value="Periodo Mes:" for="periodoMes" styleClass="textoNEGRO"/>
                     <p:calendar id="periodoMes" value="#{publicacionController.selected.periodoMes}" title="Periodo Mes" required="true" requiredMessage="El campo  periodo Mes es requerido" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:calendar>
-                    <h:outputLabel value="Periodo Anio:" for="periodoAnio" styleClass="textoNEGRO"/>
+                    <h:outputLabel value="Periodo A&ntilde;o:" for="periodoAnio" styleClass="textoNEGRO"/>
                     <p:calendar id="periodoAnio" value="#{publicacionController.selected.periodoAnio}" title="Periodo A&ntilde;o" required="true" requiredMessage="El campo Periodo Anio es requerido"  locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true" >
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:calendar>
