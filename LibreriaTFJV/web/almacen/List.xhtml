@@ -31,28 +31,28 @@
             <h:panelGroup >
                 <p:dataTable value="#{almacenController.listaAlmacen}" var="item" paginator="true"  rows="5">
                    
-                    <p:column>
+                    <p:column style="width:30px;">
                         <f:facet name="header">
                             <h:outputText value="EXISTENCIA"/>
                         </f:facet>
                         <h:outputText value="#{item.existencia}"/>
                        
                     </p:column>
-                    <p:column>
+                    <p:column style="width:30px;">
                         <f:facet name="header">
                             <h:outputText value="CONSIGNA"/>
                         </f:facet>
                         <h:outputText  value="#{item.enConsigna}" />
                        
                     </p:column>
-                    <p:column>
+                   <p:column style="width:60px;">
                         <f:facet name="header">
                             <h:outputText value="FIRME"/>
                         </f:facet>
                         <h:outputText value="#{item.enFirme}"/>
                         
                     </p:column>
-                    <p:column>
+                    <p:column style="width:150px;">
                         <f:facet name="header">
                             <h:outputText value="ARTICULO"/>
                         </f:facet>
