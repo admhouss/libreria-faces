@@ -24,11 +24,11 @@
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputText value="Fecha Inicio" styleClass="textoNEGRO"/>
                     <h:outputText value="#{descuentoClienteController.selected.fechaInicio}" title="#{bundle.ViewDescuentoClienteTitle_fechaInicio}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
                     <h:outputText value="Fecha Fin:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{descuentoClienteController.selected.fechaFin}" title="#{bundle.ViewDescuentoClienteTitle_fechaFin}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
                     <h:outputText value="Cliente:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{descuentoClienteController.selected.cliente.nombre} #{descuentoClienteController.selected.cliente.paterno} #{descuentoClienteController.selected.cliente.materno}" title="#{bundle.ViewDescuentoClienteTitle_cliente}"/>
