@@ -57,30 +57,24 @@ public class CarritoController implements Serializable{
     private CarritoCompraTemporalLocal ObtenerCarrito(){
          if(carritoCompraTemporalLocal==null){
             try{
-          carritoCompraTemporalLocal=sistemaFacade.getObtenerBandejaTemporal();
+                carritoCompraTemporalLocal=sistemaFacade.getObtenerBandejaTemporal();
             }catch(Exception e){
-                System.out.println("No carrito creado");
+                System.out.println("No carrito creado"+e.getMessage());
             }
         }
          return carritoCompraTemporalLocal;
     }
- public void agregarArticulo(Publicacion articulo){
+ public String agregarArticulo(Publicacion articulo){
+
          if(sistemaController.getCliente()!=null){
              carritoCompraTemporalLocal=ObtenerCarrito();
+             carritoCompraTemporalLocal.setCliente(sistemaController.getCliente());
              carritoCompraTemporalLocal.addPublicacion(articulo);
              JsfUtil.addSuccessMessage("Articulo agregado Satisfactoriamente");
-         }else{
-            
-              try {
-                        JsfUtil.addErrorMessage("Es necesario que se identifique");
-                        ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
-                        external.redirect(external.getRequestContextPath() + "/faces/login/Create.xhtml");
-
-              } catch (IOException ex) {
-                         Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
-              }
-
+             return "/carrito/Carrito";
          }
+          JsfUtil.addErrorMessage("Es necesario que se identifique");
+          return "/login/Create.xhtml";
     }
     public void borrarArticulo(Publicacion articulo){
           carritoCompraTemporalLocal.removePublicacion(articulo);
