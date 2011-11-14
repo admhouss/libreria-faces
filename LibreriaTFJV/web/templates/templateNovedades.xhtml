@@ -559,12 +559,15 @@
             
           <ul>
             <li>
-                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/publicacion/Libros.xhtml">
+                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=libros">
                     <h:outputText value="Libros"/>
                 </h:outputLink>
             </li>
             <li><a href="Suscripcidoss.html">Suscripciones</a></li>
-            <li><a href="Aceesorios.html">Accesorios</a></li>
+            <li>
+                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=accesorios">
+                    <h:outputText value="Accesorios"/>
+                </h:outputLink></li>
           </ul>
         </li>
         <li><a class="MenuBarItemSubmenu"  href="#{facesContext.externalContext.request.contextPath}/faces/carrito/Carrito.xhtml">Mi Carrito </a>
