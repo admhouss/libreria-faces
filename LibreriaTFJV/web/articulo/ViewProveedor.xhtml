@@ -26,9 +26,13 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         <h:panelGrid  columns="3">
                             <h:outputLabel value="Proveedor:"  styleClass="textoNEGRO"></h:outputLabel>
                             <h:selectOneMenu  value="#{articuloController.proveedor}">
+                             <f:selectItems  value="#{proveedorController.listProveedor}" var="proveedor" itemValue="#{proveedor}" itemLabel="#{proveedor.nombre}"/>
+                            </h:selectOneMenu>
+                            <h:outputLabel value=" "/>
+                           <h:outputLabel value="Cantidad:"  styleClass="textoNEGRO"></h:outputLabel>
+                           <h:inputText value="#{articuloController.cantidad}" />
 
-                               <f:selectItems  value="#{proveedorController.listProveedor}" var="proveedor" itemValue="#{proveedor}" itemLabel="#{proveedor.nombre}"/>
-                             </h:selectOneMenu>
+
                             <h:commandButton action="#{articuloController.createArticulo}" value="Agregar"/>
 
                         </h:panelGrid>
