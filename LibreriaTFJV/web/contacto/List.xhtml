@@ -26,14 +26,14 @@
                 <p:panel header="CATALOGO DE CONTACTOS">
                     <p:dataTable value="#{contactoController.listContactos}" var="item" paginator="true" rows="5">
                    
-                    <p:column style="width:12px;">
+                    <p:column style="width:150px;">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
                         <h:outputText value="#{item.nombre} #{item.paterno} #{item.materno}"/>
                     </p:column>
                     
-                    <p:column>
+                    <p:column style="width:40px;">
                         <f:facet name="header">
                             <h:outputText value="PUESTO"/>
                         </f:facet>
