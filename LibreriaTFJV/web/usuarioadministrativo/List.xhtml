@@ -8,10 +8,11 @@
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListUsuarioadministrativoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
         <h:form styleClass="jsfcrud_list_form">
+
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
@@ -28,9 +29,9 @@
                    <br/>  <br/>
                 <p:panel header="CATALOGO DE USUARIO ADMINISTRATIVO">
                 <center>
-                    <p:dataTable value="#{usuarioadministrativoController.listaUsuarioAdministrativo}" var="item" paginator="true" rows="5">
+                    <p:dataTable value="#{usuarioadministrativoController.listaUsuarioAdministrativo}" var="item" paginator="true" rows="5" selectionMode="single">
                     
-                    <p:column >
+                        <p:column style="width:200px;">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
@@ -45,12 +46,7 @@
                         </f:facet>
                         <h:outputText value="#{item.cargo}"/>
                     </p:column>
-                        <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ID"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idUsuario}"/>
-                    </p:column>
+                       
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
@@ -74,6 +70,13 @@
                 </center>
                 </p:panel>
             </h:panelGroup>
+            <br/><br/>
+            <div align="center">
+
+                <p:panel>
+                    <h:commandButton immediate="true" action="/index/" value="Salir"/>
+                </p:panel>
+            </div>
             
           
         </h:form>
