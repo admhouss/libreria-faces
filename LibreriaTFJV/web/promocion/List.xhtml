@@ -41,7 +41,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                     </p:column>
                     <p:column style="width:15px;">
                         <f:facet name="header">
-                            <h:outputText value="DIA INICIO"/>
+                            <h:outputText value="FECHA INICIO"/>
                         </f:facet>
                         <h:outputText value="#{item.diaInicio}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -49,7 +49,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                     </p:column>
                     <p:column style="width:15px;">
                         <f:facet name="header">
-                            <h:outputText value="DIA FIN"/>
+                            <h:outputText value="FECHA FIN"/>
                         </f:facet>
                         <h:outputText value="#{item.diaFin}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -85,6 +85,17 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                 </p:dataTable>
                        
                 </p:panel>
+
+                <br />
+                <br/>
+                <p:panel>
+                    <div align="center">
+
+
+                         <h:commandButton value="Salir" action="/index" immediate="true" />
+                    </div>
+                </p:panel>
+
             </h:panelGroup>
            
         </h:form>
