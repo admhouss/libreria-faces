@@ -16,7 +16,7 @@
             </h:panelGroup>
             <h:form styleClass="jsfcrud_list_form">
 
-                <p:panel header="ACTUALIZACI&Oacute; CLIENTE">
+                <p:panel header="ACTUALIZACI&Oacute;N CLIENTE">
                          <center>
 
                              <h:panelGrid columns="3" cellspacing="7">
@@ -49,9 +49,9 @@
                                 <h:inputText id="fax" value="#{clienteController.selected.fax}" title="fax"  size="25"/>
                                 <h:outputLabel value=" "/>
 
-                                 <h:outputLabel value="Estatus:" for="estatus" styleClass="textoNEGRO"/>
-                                 <h:selectBooleanCheckbox id="estatus" value="#{clienteController.selected.estatus}" title="estatus"  />
-                                <h:outputLabel value=" "/>
+                                <h:outputLabel value="Estatus:" for="estatus" styleClass="textoNEGRO" rendered="#{sistemaController.usuarioAdministrador!=null}" />
+                                 <h:selectBooleanCheckbox id="estatus" value="#{clienteController.selected.estatus}" title="estatus" rendered="#{sistemaController.usuarioAdministrador!=null}" />
+                                <h:outputLabel value=" " rendered="#{sistemaController.usuarioAdministrador!=null}"/>
 
 
 
@@ -65,11 +65,12 @@
                                     </h:selectOneMenu>
                                     <h:outputLabel value=" "/>
 
-                                <h:outputLabel value="Categoria:" for="categoria" styleClass="textoNEGRO"/>
-                                <h:selectOneMenu id="categoria" value="#{clienteController.selected.categoria}" title="categoria" required="true" requiredMessage="Requere captura de categoria">
+                                <h:outputLabel value="Categoria:" for="categoria" styleClass="textoNEGRO" rendered="#{sistemaController.usuarioAdministrador!=null}" />
+
+                                <h:selectOneMenu id="categoria" value="#{clienteController.selected.categoria}" title="categoria" required="true" requiredMessage="Requere captura de categoria" rendered="#{sistemaController.usuarioAdministrador!=null}">
                                     <f:selectItems value="#{categoriaController.listAllCategoria}" var="item" itemValue="#{item}"  itemLabel="#{item.concepto}"/>
                                 </h:selectOneMenu>
-                                <h:outputLabel value="*" styleClass="textoROJO"/>
+                                <h:outputLabel value="*" styleClass="textoROJO" rendered="#{sistemaController.usuarioAdministrador!=null}"/>
 
                 </h:panelGrid>
                              <h:selectBooleanCheckbox value="#{clienteController.selected.recibeInfor}" id="recibe"/>
@@ -82,8 +83,9 @@
                 <br/>
                 <p:panel>
                     <div align="center">
-
+                        <h:commandButton action="#{clienteController.prepareList}" value="Regresar" immediate="true"/>&nbsp;
                         <h:commandButton action="#{clienteController.update}" value="Guardar" />
+
                     </div>
                 </p:panel>
             </h:form>

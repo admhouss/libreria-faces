@@ -55,7 +55,7 @@
 
                <div align="center">
                     <p:panel>
-                        <h:commandButton action="#{clienteController.prepareList}" value="VOLVER"/>
+                        <h:commandButton action="#{clienteController.prepareList}" value="VOLVER" rendered="#{sistemaController.usuarioAdministrador!=null}"/>
                        
 
                         
