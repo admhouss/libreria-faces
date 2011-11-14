@@ -57,9 +57,9 @@ import org.primefaces.model.StreamedContent;
 
 public class SubirFiles  implements Serializable{
 
-
-    private String carpetaPortadas="/home/libreria/www/articulos/";//"C:/Users/xxx/Documents/NetBeansProjects/respaldo/LibreriaTFJV/web/resources/images/";
-    private String urlPortada=     "http://www.libreria-tfjfa.com/articulos/";
+    //String carpetaPortadas="/home/libreria/www/articulos/";
+    private String carpetaPortadas="C:/Users/xxx/Documents/NetBeansProjects/respaldo/LibreriaTFJV/web/resources/images/";
+    private String urlPortada=     "http://localhost:8080/LibreriaTFJV/";//urlPortada=     "http://www.libreria-tfjfa.com/articulos/";
     private String urlDownloads="/home/libreria/public_ftp/incoming/";
     private static final int BUFFER_SIZE = 9124;
     private String imagemTemporaria;
