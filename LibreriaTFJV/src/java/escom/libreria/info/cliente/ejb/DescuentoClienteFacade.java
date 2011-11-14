@@ -6,6 +6,7 @@
 package escom.libreria.info.cliente.ejb;
 
 import escom.libreria.info.cliente.jpa.DescuentoCliente;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -73,5 +74,16 @@ public class DescuentoClienteFacade {
         }catch(Exception e){}
         return descuento;
     }
+
+    public BigDecimal obtenerMaxioDescuento(String correo) {
+        BigDecimal max;
+        TypedQuery<BigDecimal> query=em.createQuery("SELECT MAX(d.descuento.porcentaje) FROM DescuentoCliente d WHERE  d.cliente.id=:cliente",BigDecimal.class)
+        .setParameter("cliente", correo);
+         max= query.getSingleResult();
+        return max;
+
+    }
+
+    //public  Big
 
 }
