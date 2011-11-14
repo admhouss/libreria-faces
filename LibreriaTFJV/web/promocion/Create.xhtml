@@ -24,12 +24,12 @@
                     <h:outputLabel  value="Precio:" for="precio" styleClass="textoNEGRO" />
                     <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="Precio Publico" required="true" requiredMessage="Elcampo precioPublico es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"  />
-                    <h:outputLabel value="Dia Inicio:" for="diaInicio" styleClass="textoNEGRO" />
+                    <h:outputLabel value="Fecha Inicio:" for="diaInicio" styleClass="textoNEGRO" />
                     <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="Dia Inicio" required="true" requiredMessage="El campo  dia Inicio es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:calendar>
                      <h:outputLabel value="*"  styleClass="textoROJO"  />
-                    <h:outputLabel value="Dia Fin:" for="diaFin" styleClass="textoNEGRO" />
+                    <h:outputLabel value="Fecha Fin:" for="diaFin" styleClass="textoNEGRO" />
                      <p:calendar id="diaFin" value="#{promocionController.selected.diaFin}" title="Dia Fin" required="true" requiredMessage="El campo dia fin es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                      </p:calendar>
