@@ -144,15 +144,15 @@ public class ClienteController implements Serializable{
         
         current=null;
 
-         try {
+       /*  try {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             String go = externalContext.getRequestContextPath()+"/";
             externalContext.redirect(go);
             return "";
         } catch (IOException ex) {
             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       return "List";
+        }*/
+       return "/cliente/List";
      
     }
 
@@ -174,10 +174,14 @@ public class ClienteController implements Serializable{
             correo=nombre;
         }else if(nombre.equals("") && !correo.equals(""))
          nombre=correo;
-        
         listSeleccionCliente=getFacade().buscarCliente(correo,nombre);
+        if(listSeleccionCliente.isEmpty())
+        JsfUtil.addSuccessMessage("El cliente no existe!");
+
         setCorreo("");setNombre("");
     }
+
+    
 
     public String create() {
         try {
@@ -195,17 +199,17 @@ public class ClienteController implements Serializable{
                          setConfirmaCorreo("");
                          getFacade().create(current);
                          procesarJMail.EnviarConfimarCorreo(current);
-                         JsfUtil.addSuccessMessage("Cliente creado satisfactoriamente");
+                         JsfUtil.addSuccessMessage("cliente creado satisfactoriamente!");
                          return prepareView(current);
                  }else{
-                     JsfUtil.addErrorMessage("La cuenta que intenta registrar ,ya existe!");
+                     JsfUtil.addErrorMessage("La cuenta ya fue registrada anteriormente!");
                      return "/cliente/Create";
                  }
             }
             setTelefonoCasa("");
             setTelefonoOficina("");
            JsfUtil.addErrorMessage("El correo y la confirmacion no coinciden");
-           return "Create";
+           return "/cliente/Create";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Cliente").getString("PersistenceErrorOccured"));
             return null;
