@@ -82,6 +82,14 @@ public class ArticuloFacade {
             
               return l;
     }
+
+    public List<String> buscarAutor(String autor) {
+
+        TypedQuery<String> query=em.createQuery("SELECT DISTINCT a.creador FROM Articulo a WHERE a.creador LIKE :autor ORDER BY a.creador ASC",String.class)
+        .setParameter("autor","%"+autor+"%");
+        List<String> l= query.getResultList();
+        return l;
+    }
    
 
     

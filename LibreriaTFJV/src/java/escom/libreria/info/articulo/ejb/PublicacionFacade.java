@@ -91,10 +91,18 @@ public class PublicacionFacade {
           return l.isEmpty()?null:l;
     }
 
+     public List<Publicacion> buscarAccesorio() {
+         TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE NOT(p.articulo.tipoArticulo.descripcion =:libro OR  p.articulo.tipoArticulo.descripcion =:libros ) ORDER BY p.articulo.titulo ASC",Publicacion.class)
+         .setParameter("libro","libro")
+         .setParameter("libros", "libros");
+          List<Publicacion> l=query.getResultList();
+          return l;
+    }
+
 
  private String queryTemporal=null;
-
  private int convertirNumero=0;
+
     public List<Publicacion> buscarDinamica(String campo,Object dinamico){
 
         ValidarNumero validarNumero=new ValidarNumero();
@@ -138,10 +146,12 @@ public class PublicacionFacade {
     public List<Publicacion> buscarArticuloNovedades() {
 
         Date fechaActual=new Date();
+
+
         GregorianCalendar calendario=new GregorianCalendar(fechaActual.getYear(), fechaActual.getMonth(),1);
         Date fechaInicial=calendario.getTime();
 
-        TypedQuery<Publicacion> query=em.createQuery(" SELECT p FROM Publicacion p WHERE p.articulo.fechaRegistro >=:fi  AND p.articulo.fechaRegistro <=:fa ",Publicacion.class)            .setParameter("fa", fechaActual,TemporalType.TIMESTAMP)
+        TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE (p.articulo.fechaRegistro >=:fi  AND p.articulo.fechaRegistro <=:fa) ORDER BY p.articulo.titulo ASC",Publicacion.class)            .setParameter("fa", fechaActual,TemporalType.TIMESTAMP)
         .setParameter("fi", fechaInicial,TemporalType.TIMESTAMP);
         List<Publicacion>l=query.getResultList();
         return l;
