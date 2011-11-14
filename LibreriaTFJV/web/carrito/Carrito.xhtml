@@ -66,19 +66,21 @@
                             <f:facet name="header">
                               <h:outputLabel value="Descuento" />
                             </f:facet>
-                             <h:outputText value="% #{item.publicacion.articulo.descuentoArticulo.descuento}" />
+                             <h:outputText value="% #{item.descuento}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                               <h:outputLabel value="Impuesto" />
                             </f:facet>
-                             <h:outputText value="impuesto" />
+                             <h:outputText value="#{item.impuesto}" />
                          </h:column>
                         <h:column>
                             <f:facet name="header">
-                              <h:outputLabel value="Fecha" />
+                              <h:outputLabel value="Fecha Compra" />
                             </f:facet>
-                             <h:outputText value="fecha" />
+                            <h:outputText value="#{item.fechaActual}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
                          </h:column>
 
                          <h:column>
@@ -86,7 +88,7 @@
                                 <h:outputLabel value="Total" />
                             </f:facet>
 
-                            <h:outputText value="$ #{item.total}" >
+                             <h:outputText value="$ #{item.subtotal}" >
 
                             </h:outputText>
                          </h:column>
@@ -122,6 +124,15 @@
 
 
             </h:panelGroup>
+
+
+            <br />
+            <br />
+            <div align="center">
+                <p:panel>
+                    <h:commandButton value="Salir" action="/index" immediate="true" />
+                </p:panel>
+            </div>
            
            
            
