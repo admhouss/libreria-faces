@@ -7,6 +7,7 @@ package escom.libreria.info.articulo.jpa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -39,6 +42,35 @@ public class DescuentoArticulo implements Serializable {
     @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Articulo articulo;
+    @Basic(optional=false)
+    @Column(name="FECHA_INICIO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaInicio;
+    @Basic(optional=false)
+    @Column(name="FECHA_FINAL")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaFin;
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+
+
+
+    
 
     public DescuentoArticulo() {
     }

@@ -147,10 +147,22 @@ public class Articulo implements Serializable {
     private List<Suscripcion> suscripcionList;
     
      @JoinTable(name = "proveedor_articulo", joinColumns = {
+        //@JoinColumn(name="CANTIDAD"),
+        //@JoinColumn(name="ULT_MOD"),
         @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID")})
-    @ManyToMany
-    private List<Proveedor> proveedorList;
+     @ManyToMany
+     private List<Proveedor> proveedorList;
+
+   /*  @Basic(optional = false)
+     @Column(name = "CANTIDAD")
+     private int cantidad;
+     @Basic(optional = false)
+     @Column(name = "ULT_MOD")
+     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+     private Date ultMod;
+    *
+    */
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
     private DescuentoArticulo descuentoArticulo;
@@ -167,6 +179,23 @@ public class Articulo implements Serializable {
 
     public Articulo() {
     }
+
+    /*public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Date getUltMod() {
+        return ultMod;
+    }
+
+    public void setUltMod(Date ultMod) {
+        this.ultMod = ultMod;
+    }
+    */
 
     public Articulo(Integer id) {
         this.id = id;
