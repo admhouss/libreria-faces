@@ -47,14 +47,12 @@ public class ComentarioController implements Serializable{
 
 
     public List<Comentario> getListaComentarios() {
-        if(listaComentarios==null){
-            List<Comentario> l=getFacade().getComentariosByArticulo(publicacionController.getSelected().getArticulo());
-            if(l!=null)
-            listaComentarios=l;
-            
-
-        }
+        try{
+        Articulo articulo=publicacionController.getSelected().getArticulo();
+        listaComentarios=getFacade().getComentariosByArticulo(articulo);
         return listaComentarios;
+        }catch(Exception e){}
+        return null;
     }
 
     public List<Comentario> getListaComentariosGeneral(){

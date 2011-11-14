@@ -10,6 +10,7 @@ import escom.libreria.info.proveedor.jpa.Proveedor;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,8 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.faces.view.facelets.FaceletContext;
+import org.primefaces.model.DualListModel;
+
 
 @ManagedBean (name="articuloController")
 @SessionScoped
@@ -42,13 +45,10 @@ public class ArticuloController implements Serializable {
     @EJB private escom.libreria.info.articulo.ejb.DescuentoArticuloFacade  descuentoFacade;
     @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
     @EJB private escom.libreria.info.articulo.ejb.TipoArticuloFacade tipoArticuloejbFacade;
-     @EJB private escom.libreria.info.articulo.ejb.ProveedorFacade proveedorFacade;
-    
-
+    @EJB private escom.libreria.info.articulo.ejb.ProveedorFacade proveedorFacade;
+    //private DualListModel<Proveedor> proveedores=null;
     private PaginationHelper pagination;
-    private int selectedItemIndex;
-    private int formward;//local
-   
+    private int selectedItemIndex,formward;
     private String catego;
     private String categoria;
     private int opc=-1;
@@ -75,6 +75,8 @@ public class ArticuloController implements Serializable {
         return descuentoController;
     }
 
+
+
     public void setDescuentoController(DescuentoArticuloController descuentoController) {
         this.descuentoController = descuentoController;
     }
@@ -85,8 +87,25 @@ public class ArticuloController implements Serializable {
         return "/articulo/ViewProveedor";
     }
 
-    
 
+
+    /*public void setProveedores(DualListModel<Proveedor> proveedores) {
+        this.proveedores = proveedores;
+    }
+
+
+
+
+    public DualListModel<Proveedor>  getProveedores(){
+        if(proveedores==null){
+            List<Proveedor> target = new ArrayList<Proveedor>();
+            List<Proveedor> source=proveedorFacade.findAll();
+            
+            proveedores=new DualListModel(source, target);
+        }
+        
+        return proveedores;
+    }*/
     public ImpuestoController getImpuestoController() {
         return impuestoController;
     }
@@ -102,14 +121,15 @@ public class ArticuloController implements Serializable {
     public void setPromController(PromocionController promController) {
         this.promController = promController;
     }
+
+
     
 
 
   public String eliminarProveedorArticulo(Proveedor p){
       current.getPublicacionList().remove(p);
-
       current.setProveedorList(current.getProveedorList());
-     // proveedorFacade.remove(current);
+      getFacade().edit(current);
       JsfUtil.addSuccessMessage("Proveedor Elimado satisfactoriamente");
       return "/articulo/ViewProveedor";
 
@@ -251,6 +271,36 @@ public class ArticuloController implements Serializable {
         return "/articulo/Create";
     }
 
+   private Proveedor proveedor;
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public String createArticulo(){
+            current.setAsunto(current.getAsunto());
+            current.setArchivo(current.getArchivo());
+            current.setAgregacionRecurso(current.getAgregacionRecurso());
+            current.setCodigo(current.getCodigo());
+            current.setCosto(current.getCosto());
+            current.setCreador(current.getCreador());
+            current.setDescripcion(current.getDescripcion());
+            current.setModUpdate(new  Date());
+            current.setFechaRegistro(new Date());
+            current.setFechaCreacion(current.getFechaCreacion());
+            current.setFormato(current.getFormato());
+            current.setFormatoDigital(current.getFormatoDigital());
+            current.getProveedorList().add(proveedor);
+            current.setProveedorList(current.getProveedorList());
+            current.setImagen(current.getImagen());
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(("Proveedor agregado Sastisfactoriamente"));
+            return "/articulo/ViewProveedor";
+    }
     public String create() {
         try {
             current.setAsunto(current.getAsunto());

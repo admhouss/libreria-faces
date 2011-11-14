@@ -5,6 +5,7 @@ import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.DescuentoArticuloFacade;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import java.util.ResourceBundle;
@@ -97,9 +98,12 @@ public class DescuentoArticuloController implements Serializable {
             current.setIdArticulo(current.getArticulo().getId());
             DescuentoArticulo  descuento=getFacade().find(current.getIdArticulo());
             if(descuento==null){
-                getFacade().create(current);
-                JsfUtil.addSuccessMessage(("Descuento Articulo Creado"));
-                return prepareView(current);
+               current.setFechaFin(current.getFechaFin());
+               current.setFechaInicio(current.getFechaInicio());
+               current.setArticulo(current.getArticulo());
+               getFacade().create(current);
+               JsfUtil.addSuccessMessage(("Descuento Articulo Creado satisfactoriamente"));
+              return prepareView(current);
             }else{
                 JsfUtil.addErrorMessage("Ya existe un descuento para este articulo");
             }
@@ -125,6 +129,10 @@ public class DescuentoArticuloController implements Serializable {
                // return null;
             //}
 
+            current.setArticulo(current.getArticulo());
+            current.setDescuento(current.getDescuento());
+            current.setFechaInicio(current.getFechaInicio());
+            current.setFechaFin(current.getFechaFin());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("Descuento Articulo Actualizado"));
             return "View";

@@ -1,5 +1,6 @@
 package escom.libreria.info.articulo.jsf;
 
+import escom.libreria.comun.ValidarNumero;
 import escom.libreria.info.articulo.jpa.Publicacion;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
@@ -16,12 +17,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -56,15 +59,27 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     @EJB private escom.libreria.info.articulo.ejb.PublicacionFacade ejbFacade;
     @EJB private escom.libreria.info.cliente.ejb.BitacoraClienteFacade ejbFacadeBitacora;
     @EJB private escom.libreria.info.usarioAdministrativo.ejb.ActividadusuarioFacade ejbActividadusuarioFacade;
+    @EJB private escom.libreria.info.articulo.ejb.ArticuloFacade articuloFacade;
+
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<Publicacion> listaPublicacion;
     private List<Publicacion> listPublicacionByBusqueda;
-    private int selectCategoria;
+    private String banderaCategoria="";
     private int redireccionarTo;
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
     private static final Logger logPublicacion = Logger.getLogger(PublicacionController.class.getName());
+
+    public String getBanderaCategoria() {
+        return banderaCategoria;
+    }
+
+    public void setBanderaCategoria(String banderaCategoria) {
+        this.banderaCategoria = banderaCategoria;
+    }
+
+
 
      public PublicacionController() {
         {
@@ -93,6 +108,14 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
      }//constructor
        
 
+
+    public List<String> complete(String cadena){
+       List<String>  autores=null;
+       autores=articuloFacade.buscarAutor(cadena.trim());
+       if(autores==null)
+       autores=new ArrayList<String>();
+       return autores;
+    }
      public boolean isActivate(){//retorna true si es diferente de null
         return (listPublicacionByBusqueda==null || listPublicacionByBusqueda.isEmpty())?false:true;
     }
@@ -105,10 +128,32 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
 
 
      public List<Publicacion> getListLibroByCategoria(){
-            setCategoria(getFacade().getCategoria(selectCategoria));
-            listPublicacionByBusqueda=getFacade().buscarLibroByCategoria(getCategoria());
+           
             return listPublicacionByBusqueda;
     }
+
+ private int opt;
+    @PostConstruct
+    public void init() {
+             if(getBanderaCategoria()!=null && !getBanderaCategoria().trim().equals("")){
+
+                   ValidarNumero validar=new ValidarNumero();
+                  if(validar.validarNumero(getBanderaCategoria())){
+                    opt =Integer.parseInt(banderaCategoria);
+                    setCategoria(getFacade().getCategoria(opt));
+                    listPublicacionByBusqueda=getFacade().buscarLibroByCategoria(getCategoria());
+                  }else{
+                       if(getBanderaCategoria().trim().equals("libros")){
+                          setCategoria("Libros");
+                          listPublicacionByBusqueda=getFacade().getListLibros();
+                      }else if(getBanderaCategoria().trim().equals("accesorios")){
+                          setCategoria("Accesorios");
+                          listPublicacionByBusqueda=getFacade().buscarAccesorio();
+                      }
+                  }
+
+             }
+     }
 
      private void addbicatoraUsuarioAdministrador(Publicacion p,int selectOperacion){
           if(sistemaController!=null && sistemaController.getUsuarioAdministrador()!=null){
@@ -119,11 +164,11 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
               switch(selectOperacion){
                   case 1://YES
                       actividad.setActividad("CONSULTO PULIBACION: "+ p.getArticulo().getTitulo());
-                      actividad.setQuery("SELECT p.* FROM publicacion AS p,articulo AS a WHERE p.ID_DC="+p.getIdDc()+" AND p.ID_ARTICULO=a.ID ORDER BY a.titulo DESC;");
+                      actividad.setQuery("SELECT t1.ID_DC, t1.ANIO, t1.ISSN, t1.EDITORIAL, t1.PERIODO_ANIO, t1.ISBN, t1.PERIODO_MES, t1.EPOCA, t1.NUMERO, t1.TOMO, t1.ID_ARTICULO FROM articulo t0, publicacion t1 WHERE (((t0.FECHA_REGISTRO >= ?) AND (t0.FECHA_REGISTRO <= ?)) AND (t0.ID = t1.ID_ARTICULO))"+ " AND t0.ID=" +p.getIdDc()+"ORDER BY t1.titulo DESC;");
                    break;
                     case 2://NO
                       actividad.setActividad("ACTUALIZACION PULIBACION:" + p.getArticulo().getTitulo());
-                      actividad.setQuery("UPDATE WHERE p.ID_DC="+p.getIdDc()+" AND p.ID_ARTICULO=a.ID ORDER BY a.titulo DESC;");
+                      actividad.setQuery("UPDATE from Publicacion AS p WHERE p.ID_DC="+p.getIdDc()+" AND p.ID_ARTICULO=a.ID ORDER BY a.titulo DESC;");
                    break;
                     case 3://YES
                       actividad.setActividad("ELIMINO PULIBACION: " + p.getArticulo().getTitulo());
@@ -288,6 +333,8 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     
     }
 
+
+
      public String buscarDinamica(){
         if(getSelectCategoria()!=null && getGeneral().trim()!=null && !getGeneral().trim().equals("")){
           listPublicacionByBusqueda=getFacade().buscarDinamica(getSelectCategoria(), getGeneral());
@@ -312,11 +359,8 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
        listPublicacionByBusqueda=getFacade().buscarArticulo(p.getArticulo().getCreador(),p.getArticulo().getTitulo(),p.getArticulo().getTipoArticulo().getDescripcion(),p.getPeriodoMes(),p.getNumero(), p.getIssn(),p.getIsbn(),p.getEditorial(),p.getArticulo().getAsunto());
        addBitacoraCliente(p);
        addbicatoraUsuarioAdministrador(p,1);
-       logPublicacion.info("BUSCANDO LIBROS RELACIONADOS");
        if(!isActivate())
         JsfUtil.addSuccessMessage("No se encontraron coincidencias!");
-       else
-        JsfUtil.addSuccessMessage("Se encontro "+listPublicacionByBusqueda.size()+" coincidencias!");
        return "/busqueda/List";
 
     }
@@ -324,16 +368,16 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     public List<Publicacion> getListNovedadesPublicacion(){
             listPublicacionByBusqueda=getFacade().buscarArticuloNovedades();
             if(!isActivate())
-            JsfUtil.addSuccessMessage("No se encontrarn ninguna coincidencias");
+            JsfUtil.addSuccessMessage("No se encontraron ninguna coincidencias");
             return listPublicacionByBusqueda;
     }
      
 
-    public String prepareListByCategoria_one(int i,int render){
+   public String prepareListByCategoria_one(int i,int render){
         try {
-            selectCategoria = i;
+            banderaCategoria = i+"";
             redireccionarTo = render;
-            setCategoria(getFacade().getCategoria(selectCategoria));
+            //setCategoria(getFacade().getCategoria(banderaCategoria));
             JsfUtil.getDispacher("/faces/busqueda/ListCategoria.xhtml");
             return null;
         } catch (IOException ex) {
@@ -459,18 +503,15 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
         }
         }catch(Exception e){e.printStackTrace();}
     }
-    public String prepareView(Publicacion p,int render,int operacion) {
+    public String prepareView(Publicacion p,int render) {
 
-        logPublicacion.info("Consultando libro");
-        logPublicacion.severe("error");
-        logPublicacion.warning("hola");
         addBitacoraCliente(p);
-        addbicatoraUsuarioAdministrador(p,operacion);
+        addbicatoraUsuarioAdministrador(p,1);
         redireccionarTo=render;
         current=p;
         return "/publicacion/ViewVenta";
     }
-    public String prepareView(Publicacion p,int render) {
+    public String prepareView1(Publicacion p,int render) {
 
 
         addBitacoraCliente(p);
@@ -494,12 +535,12 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     public String create() {
         try {
 
-              Publicacion publica=getFacade().find(current.getIdDc());
+    /*          Publicacion publica=getFacade().find(current.getIdDc());
               if(publica!=null){
                   JsfUtil.addErrorMessage("El ID de la publicacion ya se existe");
                   return  null;
               }
-
+*/
               getFacade().create(current);
               JsfUtil.addSuccessMessage(("Publicacion Creada Satisfactoriamente"));
           
