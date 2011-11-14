@@ -49,7 +49,7 @@
                 
                 <p:panel header="CATALOGO DE CLIENTE">
                     <p:dataTable value="#{clienteController.listSeleccionCliente}" var="item" paginator="true" rows="10" selectionMode="single" rowStyleClass="#{item.estatus == false ? 'clienteDesactivado' :  null  }">
-                    <p:column style="width:100px;">
+                    <p:column style="width:100px;" filterBy="#{item.nombre}">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
@@ -96,6 +96,17 @@
                </p:dataTable>
                 </p:panel>
             </h:panelGroup>
+
+
+             <br />
+                <br/>
+                <p:panel>
+                    <div align="center">
+
+                      
+                         <h:commandButton value="Salir" action="/index" immediate="true" />
+                    </div>
+                </p:panel>
             
            
         </h:form>
