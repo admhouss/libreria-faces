@@ -11,6 +11,7 @@ import escom.libreria.info.articulo.jpa.Publicacion;
 import escom.libreria.info.cliente.jpa.Cliente;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,17 +20,146 @@ import java.util.List;
  */
 public class CarritoDTO {
 
-    private Publicacion publicacion;
+    private String descripcion;
     private int cantidad;
-    private BigDecimal total;
+    private BigDecimal descuento;
+    private BigDecimal impuesto;
+    private Date  fechaActual;
+    private BigDecimal subtotal;
+    private Publicacion publicacion;
+    private int indice;
+    
+
+    public CarritoDTO(int indice,int cantidad, BigDecimal descuentoMaxCliente, Publicacion publicacion) {
+        this.cantidad = cantidad;
+        this.fechaActual=new Date();
+        this.publicacion = publicacion;
+        impuesto=getImpuesto(publicacion.getArticulo());
+        this.descuento=convieneDescuento(descuentoMaxCliente, publicacion.getArticulo().getDescuentoArticulo().getDescuento());
+        this.indice=indice;
+
+    }
+
+
+    private  BigDecimal convieneDescuento(BigDecimal descuentoA,BigDecimal descuentoB){
+        if(descuentoB==null)
+          descuentoB=BigDecimal.ZERO;
+
+        switch(descuentoA.compareTo(descuentoB)){
+            case 0:return descuentoA; //==son iguales;
+            case -1:return descuentoB; //
+            case 1: return descuentoA;
+        }
+        return descuentoA;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+   
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public BigDecimal getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(BigDecimal descuento) {
+        this.descuento = descuento;
+    }
+
+    public Date getFechaActual() {
+        return fechaActual;
+    }
+
+    public void setFechaActual(Date fechaActual) {
+        this.fechaActual = fechaActual;
+    }
+
+    public BigDecimal getImpuesto() {
+        return impuesto;
+    }
+
+    public void setImpuesto(BigDecimal impuesto) {
+        this.impuesto = impuesto;
+    }
+
+    public Publicacion getPublicacion() {
+        return publicacion;
+    }
+
+    public void setPublicacion(Publicacion publicacion) {
+        this.publicacion = publicacion;
+    }
+
+    public BigDecimal getSubtotal() {
+        subtotal=BigDecimal.TEN;
+        return subtotal;
+    }
+
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
+    }
+
+
+    public BigDecimal getImpuesto(Articulo articulo) {
+        List<Impuesto> listimpuestos=articulo.getImpuestoList();
+        impuesto=BigDecimal.ZERO;
+        for(Impuesto im:listimpuestos){
+            if(im.getMontoImpuesto()!=null)
+             impuesto=im.getMontoImpuesto();
+        }
+
+        return impuesto;
+    }
+
+      public int getIndice() {
+        return indice;
+    }
+
+    public void setIndice(int indice) {
+        this.indice = indice;
+    }
+
+   /* private Publicacion publicacion;
+    private int cantidad;
+    private BigDecimal subtotal;
+    private BigDecimal impuesto;
     private int indice;
     private  Cliente cliente;
-    public CarritoDTO(Cliente e,Publicacion publicacion, int cantidad, BigDecimal total, int indice) {
+    private Date fechaCompra;
+    private Articulo articulo;
+
+    
+
+    public void setImpuesto(BigDecimal impuesto) {
+        this.impuesto = impuesto;
+    }
+
+
+
+
+
+
+    public CarritoDTO(Cliente e,Publicacion publicacion, int cantidad, BigDecimal subtotal, int indice) {
         this.publicacion = publicacion;
         this.cantidad = cantidad;
-        this.total = total;
+        this.subtotal = subtotal;
         this.indice = indice;
         this.cliente=e;
+
+
     }
 
     public Cliente getCliente() {
@@ -38,6 +168,25 @@ public class CarritoDTO {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Date getFechaCompra() {
+        if(fechaCompra==null)
+          fechaCompra=new Date();
+
+        return fechaCompra;
+    }
+
+    public void setFechaCompra(Date fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+
+    public BigDecimal getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
     }
 
 
@@ -49,13 +198,7 @@ public class CarritoDTO {
         this.cantidad = cantidad;
     }
 
-    public int getIndice() {
-        return indice;
-    }
-
-    public void setIndice(int indice) {
-        this.indice = indice;
-    }
+  
 
     public Publicacion getPublicacion() {
         return publicacion;
@@ -65,41 +208,41 @@ public class CarritoDTO {
         this.publicacion = publicacion;
     }
 
-    public BigDecimal getTotal() {
+    public BigDecimal getsubtotal() {
 
-       this.total=doCalculoTotal();
-       this.total=this.total.setScale(2,BigDecimal.ROUND_UP);
-       return this.total;
+       this.subtotal=doCalculosubtotal();
+       this.subtotal=this.subtotal.setScale(2,BigDecimal.ROUND_UP);
+       return this.subtotal;
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
+    public void setsubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
     }
- private Articulo articulo;
-    private BigDecimal doCalculoTotal(){
+
+
+
+    private BigDecimal doCalculosubtotal(){
        articulo =publicacion.getArticulo();
        BigDecimal costoArticulo=articulo.getCosto();
-       BigDecimal impuestoTotal=BigDecimal.ZERO;
-       BigDecimal totalOperacion=BigDecimal.ZERO;
+       BigDecimal impuestosubtotal=BigDecimal.ZERO;
+       BigDecimal subtotalOperacion=BigDecimal.ZERO;
        BigDecimal  descuentoArticulo=BigDecimal.ONE;
 
        costoArticulo=costoArticulo.multiply(new BigDecimal(getCantidad()));
-       List<Impuesto> listimpuestos=articulo.getImpuestoList();
-        for(Impuesto im:listimpuestos){
-            if(im.getMontoImpuesto()!=null)
-            impuestoTotal=impuestoTotal.add(im.getMontoImpuesto());
-        }
-       totalOperacion=impuestoTotal.add(costoArticulo);
+       
+       subtotalOperacion=impuestosubtotal.add(costoArticulo);
 
         if(articulo.getDescuentoArticulo()!=null && articulo.getDescuentoArticulo().getDescuento()!=null){
             descuentoArticulo=articulo.getDescuentoArticulo().getDescuento();
-            descuentoArticulo=doCalcularDescuento(totalOperacion,descuentoArticulo);
-            totalOperacion=totalOperacion.subtract(descuentoArticulo);
+            descuentoArticulo=doCalcularDescuento(subtotalOperacion,descuentoArticulo);
+            subtotalOperacion=subtotalOperacion.subtract(descuentoArticulo);
         }
 
  
-       return totalOperacion;
+       return subtotalOperacion;
     }
+
+
 
 
     private BigDecimal doCalcularDescuento(BigDecimal to,BigDecimal descuento){
@@ -108,7 +251,7 @@ public class CarritoDTO {
          to=to.divide(new BigDecimal(100));
          return to;
     }
-
+*/
 
 
 }
