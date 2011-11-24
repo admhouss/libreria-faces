@@ -41,26 +41,12 @@ public class ClienteController implements Serializable{
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private String confirmaCorreo;
-    private int go;
+   // private int go;
     private List<Cliente> listSeleccionCliente;
     private String nombre,correo;//Criterios de busqueda
-    private String telefonoCasa,telefonoOficina;
+  
 
-    public String getTelefonoCasa() {
-        return telefonoCasa;
-    }
-
-    public void setTelefonoCasa(String telefonoCasa) {
-        this.telefonoCasa = telefonoCasa;
-    }
-
-    public String getTelefonoOficina() {
-        return telefonoOficina;
-    }
-
-    public void setTelefonoOficina(String telefonoOficina) {
-        this.telefonoOficina = telefonoOficina;
-    }
+   
    
     public List<Cliente> getListSeleccionCliente() {
        if(listSeleccionCliente==null)
@@ -139,21 +125,9 @@ public class ClienteController implements Serializable{
         return pagination;
     }
 
-    public String prepareList() {
-       // recreateModel();
-        
-        current=null;
-
-       /*  try {
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            String go = externalContext.getRequestContextPath()+"/";
-            externalContext.redirect(go);
-            return "";
-        } catch (IOException ex) {
-            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+    public String prepareList() {  
+       current=null;
        return "/cliente/List";
-     
     }
 
     public String prepareView(Cliente p) {
@@ -168,15 +142,27 @@ public class ClienteController implements Serializable{
    
 
     public void buscarCliente(){
-        correo=getCorreo().trim()==null?"":getCorreo().trim();
-        nombre=getNombre()==null?"":getNombre();
-        if(correo.equals("") && !nombre.equals("")){
-            correo=nombre;
-        }else if(nombre.equals("") && !correo.equals(""))
-         nombre=correo;
-        listSeleccionCliente=getFacade().buscarCliente(correo,nombre);
-        if(listSeleccionCliente.isEmpty())
-        JsfUtil.addSuccessMessage("El cliente no existe!");
+        int bandera=0;
+        String query="";
+
+
+       if(correo!=null && !correo.trim().equals("")){
+         query+="c.id LIKE :correo ";
+         bandera=1;
+       }
+       if(nombre!=null && !nombre.equals("")){
+           switch(bandera){
+               case 0:query+="c.nombre LIKE :nombre OR  c.paterno LIKE :nombre  OR  c.materno LIKE :nombre ";break;
+               case 1:query+="OR c.nombre LIKE :nombre OR  c.paterno LIKE :nombre  OR  c.materno LIKE :nombre ";break;
+           }
+        }
+        if(query.equals(""))
+         listSeleccionCliente=getFacade().findAll();//refill 
+        else{
+             listSeleccionCliente=getFacade().buscarCliente(query,correo,nombre);
+             if(listSeleccionCliente==null || listSeleccionCliente.isEmpty())
+             JsfUtil.addErrorMessage("El cliente no existe!");
+        }
 
         setCorreo("");setNombre("");
     }
@@ -206,8 +192,7 @@ public class ClienteController implements Serializable{
                      return "/cliente/Create";
                  }
             }
-            setTelefonoCasa("");
-            setTelefonoOficina("");
+           
            JsfUtil.addErrorMessage("El correo y la confirmacion no coinciden");
            return "/cliente/Create";
         } catch (Exception e) {
@@ -233,8 +218,6 @@ public class ClienteController implements Serializable{
                 getFacade().edit(current);
                 JsfUtil.addSuccessMessage(("Cliente actializado"));
                 setConfirmaCorreo("");
-                setTelefonoCasa("");
-                setTelefonoOficina("");
                 return "/cliente/View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Cliente").getString("PersistenceErrorOccured"));

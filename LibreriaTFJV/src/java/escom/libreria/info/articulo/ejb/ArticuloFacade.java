@@ -6,6 +6,7 @@
 package escom.libreria.info.articulo.ejb;
 
 import escom.libreria.info.articulo.jpa.Articulo;
+import escom.libreria.info.proveedor.jpa.ProveedorArticulo;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -89,6 +90,15 @@ public class ArticuloFacade {
         .setParameter("autor","%"+autor+"%");
         List<String> l= query.getResultList();
         return l;
+    }
+
+    public void borrarProveedorArticulo(Integer proveedorID,Integer articuloID) {
+        System.out.println("proveedor"+proveedorID+"articulo"+articuloID);
+         TypedQuery<ProveedorArticulo> query=em.createQuery("DELETE FROM ProveedorArticulo p WHERE p.proveedorArticuloPK.idArticulo = :idArticulo AND p.proveedorArticuloPK.idProveedor =:idProveedor",ProveedorArticulo.class)
+        .setParameter("idArticulo",articuloID)
+        .setParameter("idProveedor", proveedorID);
+         query.executeUpdate();
+         
     }
    
 

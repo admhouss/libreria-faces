@@ -120,13 +120,12 @@ public class DescuentoClienteController implements Serializable{
             current.setCliente(current.getCliente());
             current.setDescuento(current.getDescuento());
             current.setFechaFin(current.getFechaFin());
-            current.setFechaInicio(current.getFechaFin());
+            current.setFechaInicio(current.getFechaInicio());
             descuentoID.setIdCliente(current.getCliente().getId());
             descuentoID.setIdDescuento(current.getDescuento().getId());
-
             current.setDescuentoClientePK(descuentoID);
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(("DescuentoCliente Updated"));
+            JsfUtil.addSuccessMessage(("Descuento Cliente Actualizado"));
 
               return "/descuentoCliente/View";
             

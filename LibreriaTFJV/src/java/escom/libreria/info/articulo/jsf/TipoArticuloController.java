@@ -86,7 +86,7 @@ public class TipoArticuloController implements Serializable{
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(("Tipo Articulo Created"));
+            JsfUtil.addSuccessMessage(("Tipo Articulo Creado Satisfactoriamente"));
             return prepareView(current);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -103,7 +103,7 @@ public class TipoArticuloController implements Serializable{
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(("TipoArticulo Updated"));
+            JsfUtil.addSuccessMessage(("TipoArticulo Actualizado"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -114,6 +114,7 @@ public class TipoArticuloController implements Serializable{
     public String destroy(TipoArticulo p) {
         current=p;
         getFacade().remove(p);
+        JsfUtil.addSuccessMessage("Tipo Articulo eliminado satisfactoriamente");
         return "List";
     }
 

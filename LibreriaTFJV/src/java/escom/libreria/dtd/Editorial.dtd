@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/Editorial.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE Libro-maping SYSTEM "Editorial.dtd">
+
+    <Libro-maping>
+    ...
+    </Libro-maping>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Libro-maping (Libro)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Libro (Editorial)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Editorial (#PCDATA)>

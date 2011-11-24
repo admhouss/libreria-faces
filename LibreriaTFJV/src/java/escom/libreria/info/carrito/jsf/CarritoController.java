@@ -59,21 +59,23 @@ public class CarritoController implements Serializable{
             try{
                 carritoCompraTemporalLocal=sistemaFacade.getObtenerBandejaTemporal();
             }catch(Exception e){
+                
                 System.out.println("No carrito creado"+e.getMessage());
             }
         }
          return carritoCompraTemporalLocal;
     }
  public String agregarArticulo(Publicacion articulo){
-
+           try{
          if(sistemaController.getCliente()!=null){
              carritoCompraTemporalLocal=ObtenerCarrito();
-             carritoCompraTemporalLocal.setCliente(sistemaController.getCliente());
              carritoCompraTemporalLocal.addPublicacion(articulo);
              JsfUtil.addSuccessMessage("Articulo agregado Satisfactoriamente");
              return "/carrito/Carrito";
          }
-          JsfUtil.addErrorMessage("Es necesario que se identifique");
+
+     }catch(Exception e){ e.printStackTrace();}
+          JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
           return "/login/Create.xhtml";
     }
     public void borrarArticulo(Publicacion articulo){
@@ -88,9 +90,11 @@ public class CarritoController implements Serializable{
     }
 
     public String destroy(CarritoDTO  item){
-
-        borrarArticulo(item.getPublicacion());
-        JsfUtil.addSuccessMessage("Articulo Eliminado satisfactoriamente!!");
+         try{
+             borrarArticulo(item.getPublicacion());
+            JsfUtil.addSuccessMessage("Articulo Eliminado satisfactoriamente!!");
+            return "/carrito/Carrito";
+        }catch(Exception e){}
         return "/carrito/Carrito";
 
     }

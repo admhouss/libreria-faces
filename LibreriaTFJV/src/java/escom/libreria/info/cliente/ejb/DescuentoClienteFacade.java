@@ -7,11 +7,13 @@ package escom.libreria.info.cliente.ejb;
 
 import escom.libreria.info.cliente.jpa.DescuentoCliente;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -77,8 +79,11 @@ public class DescuentoClienteFacade {
 
     public BigDecimal obtenerMaxioDescuento(String correo) {
         BigDecimal max;
-        TypedQuery<BigDecimal> query=em.createQuery("SELECT MAX(d.descuento.porcentaje) FROM DescuentoCliente d WHERE  d.cliente.id=:cliente",BigDecimal.class)
-        .setParameter("cliente", correo);
+        Date fechaActual=new Date();
+        TypedQuery<BigDecimal> query=em.createQuery("SELECT MAX(d.descuento.porcentaje) FROM DescuentoCliente d WHERE  (d.cliente.id=:cliente  AND d.fechaInicio>=:fa  AND d.fechaFin<=:fa)",BigDecimal.class)
+        .setParameter("cliente", correo)
+        .setParameter("fa", fechaActual,TemporalType.TIMESTAMP);
+
          max= query.getSingleResult();
         return max;
 

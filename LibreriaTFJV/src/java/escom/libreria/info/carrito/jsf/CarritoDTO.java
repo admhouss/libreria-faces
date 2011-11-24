@@ -28,23 +28,22 @@ public class CarritoDTO {
     private BigDecimal subtotal;
     private Publicacion publicacion;
     private int indice;
-    
+
+
 
     public CarritoDTO(int indice,int cantidad, BigDecimal descuentoMaxCliente, Publicacion publicacion) {
         this.cantidad = cantidad;
         this.fechaActual=new Date();
         this.publicacion = publicacion;
-        impuesto=getImpuesto(publicacion.getArticulo());
-        this.descuento=convieneDescuento(descuentoMaxCliente, publicacion.getArticulo().getDescuentoArticulo().getDescuento());
+        impuesto=BigDecimal.TEN;
+        this.descuento=BigDecimal.ZERO;//convieneDescuento(descuentoMaxCliente, publicacion.getArticulo().getDescuentoArticulo().getDescuento());
         this.indice=indice;
-
     }
 
 
     private  BigDecimal convieneDescuento(BigDecimal descuentoA,BigDecimal descuentoB){
         if(descuentoB==null)
           descuentoB=BigDecimal.ZERO;
-
         switch(descuentoA.compareTo(descuentoB)){
             case 0:return descuentoA; //==son iguales;
             case -1:return descuentoB; //
@@ -88,6 +87,8 @@ public class CarritoDTO {
     }
 
     public BigDecimal getImpuesto() {
+        if(impuesto==null)
+         impuesto=BigDecimal.ZERO;
         return impuesto;
     }
 

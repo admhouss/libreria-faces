@@ -5,20 +5,20 @@
 
 package escom.libreria.info.proveedor.jpa;
 
-import escom.libreria.info.articulo.jpa.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -114,8 +114,8 @@ public class Proveedor implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTATUS")
     private boolean estatus;
-    @ManyToMany(mappedBy = "proveedorList")
-    private List<Articulo> articuloList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedor")
+    private List<ProveedorArticulo> proveedorArticuloList;
 
     public Proveedor() {
     }
@@ -309,12 +309,12 @@ public class Proveedor implements Serializable {
         this.estatus = estatus;
     }
 
-    public List<Articulo> getArticuloList() {
-        return articuloList;
+    public List<ProveedorArticulo> getProveedorArticuloList() {
+        return proveedorArticuloList;
     }
 
-    public void setArticuloList(List<Articulo> articuloList) {
-        this.articuloList = articuloList;
+    public void setProveedorArticuloList(List<ProveedorArticulo> proveedorArticuloList) {
+        this.proveedorArticuloList = proveedorArticuloList;
     }
 
     @Override
@@ -339,7 +339,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.articulo.jpa.Proveedor[id=" + id + "]";
+        return "escom.libreria.info.proveedor.jpa.Proveedor[id=" + id + "]";
     }
 
 }

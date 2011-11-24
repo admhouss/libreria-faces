@@ -20,7 +20,9 @@ package escom.libreria.info.subirArchivo;
 
 
 import escom.libreria.info.articulo.jsf.ArticuloController;
+import escom.libreria.info.articulo.jsf.PublicacionController;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -32,8 +34,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.Buffer;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -57,16 +61,20 @@ import org.primefaces.model.StreamedContent;
 
 public class SubirFiles  implements Serializable{
 
-    //String carpetaPortadas="/home/libreria/www/articulos/";
-    private String carpetaPortadas="C:/Users/xxx/Documents/NetBeansProjects/respaldo/LibreriaTFJV/web/resources/images/";
-    private String urlPortada=     "http://localhost:8080/LibreriaTFJV/";//urlPortada=     "http://www.libreria-tfjfa.com/articulos/";
+   
+    private String carpetaPortadas="/home/libreria/www/articulos/";
+    private String urlPortada="http://www.libreria-tfjfa.com/articulos/";
     private String urlDownloads="/home/libreria/public_ftp/incoming/";
+    private String urlXML="C:/Users/xxx/Documents/expedienteXML/";//"/home/libreria/public_ftp/";
     private static final int BUFFER_SIZE = 9124;
     private String imagemTemporaria;
     private String extension,menssageOut;
+    @EJB private escom.libreria.info.procesarEditorialXML.Editorialfacade editorialfacade;
 
     @ManagedProperty("#{articuloController}")
     private ArticuloController articuloController;
+    @ManagedProperty("#{publicacionController}")
+    private PublicacionController publicacionController;
 
     public String getMenssageOut() {
         return menssageOut;
@@ -163,6 +171,39 @@ public void crearArchivo(byte[] bytes, String arquivo) {
         return false;
     }
 }
+
+    public boolean descargarArchivoXML(FileUploadEvent event) {
+
+
+      System.out.println("Ruta a guardar[ " +urlXML + event.getFile().getFileName());
+
+        try {
+            FileOutputStream fileOutputStream = null;
+            File result = null;
+            result = new File(urlXML + event.getFile().getFileName());
+
+            fileOutputStream = new FileOutputStream(result);
+
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int bulk;
+            InputStream inputStream = event.getFile().getInputstream();
+            while (true) {
+                bulk = inputStream.read(buffer);
+                if (bulk < 0) {
+                    break;
+                 }
+       //       bufferTemporal[i++]=(byte)bulk;
+             fileOutputStream.write(buffer, 0, bulk);
+             fileOutputStream.flush();
+            }
+            fileOutputStream.close();
+            inputStream.close();
+           return true;
+        } catch (IOException e) {
+        System.out.println("Error handleFileUpload" + e);
+        return false;
+    }
+}
     private int posExtension;
     public void handleFileUpload(FileUploadEvent event) {
                 setMenssageOut("");
@@ -174,11 +215,23 @@ public void crearArchivo(byte[] bytes, String arquivo) {
                     articuloController.getSelected().setImagen(urlPortada+nombrePortada);
                }else
                     setMenssageOut("No fue posible cargar el archivo");
-                }
+      }
 
-     
-    
+    public void handleFileUploadXML(FileUploadEvent event){
+        if(descargarArchivoXML(event)){
+          List<String>editoriales=editorialfacade.getEditorialByXML(urlXML+event.getFile().getFileName());
+           publicacionController.setEditorialesList(editoriales);
+        }
+     }
+
+    public PublicacionController getPublicacionController() {
+        return publicacionController;
+    }
+
+    public void setPublicacionController(PublicacionController publicacionController) {
+        this.publicacionController = publicacionController;
+    }
 
 
-}
+   }
 
