@@ -39,11 +39,11 @@
                     <h:outputText value="#{clienteController.selected.password}" title="password"/>
                     <h:outputText value="Fecha Alta:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{clienteController.selected.fechaAlta}" title="fechaAlta">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
                     <h:outputText value="Estado:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{clienteController.selected.estado.nombre}" title="estado"/>
-                    <h:outputText value="Categoria:" styleClass="textoNEGRO"/>
+                    <h:outputText value="Categor&iacute;a:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{clienteController.selected.categoria.concepto}" title="categoria"/>
                 </h:panelGrid>
                   </center>
@@ -55,10 +55,8 @@
 
                <div align="center">
                     <p:panel>
-                        <h:commandButton action="#{clienteController.prepareList}" value="VOLVER" rendered="#{sistemaController.usuarioAdministrador!=null}"/>
-                       
-
-                        
+                        <h:commandButton action="/index" value="VOLVER" immediate="true"/>
+             
                     </p:panel>
                 </div>
               
