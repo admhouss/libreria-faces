@@ -24,14 +24,14 @@
                     <h:commandButton action="#{descuentoClienteController.prepareCreate}" value="Crear Nuevo"/>
                 </div>
                 <br /> <br />
-                <p:panel header="CATALOGO DESCUENTO CLIENTE">
+                <p:panel header="CAT&Aacute;LOGO DESCUENTO CLIENTE">
                     <p:dataTable value="#{descuentoClienteController.listDescuento}" var="item" paginator="true" rows="10" selectionMode="single" >
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="INICIO"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaInicio}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
                     <p:column>
@@ -39,14 +39,14 @@
                             <h:outputText value="FIN"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaFin}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="CLIENTE"/>
                         </f:facet>
-                        <h:outputText value="#{item.cliente}"/>
+                        <h:outputText value="#{item.cliente.id}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
