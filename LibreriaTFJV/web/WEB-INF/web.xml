@@ -4,6 +4,10 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>escom.libreria.comun.util.Listener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -13,6 +17,10 @@
         <servlet-name>ProcesarOlvidarContrasenia</servlet-name>
         <servlet-class>escom.procesar.olvidarcontrasenia.ProcesarOlvidarContrasenia</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PayPal</servlet-name>
+        <servlet-class>com.paypal.servlet.PayPal</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -20,6 +28,10 @@
     <servlet-mapping>
         <servlet-name>ProcesarOlvidarContrasenia</servlet-name>
         <url-pattern>/ProcesarOlvidarContrasenia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PayPal</servlet-name>
+        <url-pattern>/PayPal</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -33,7 +45,14 @@
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/faces/login/Create.xhtml</location>
     </error-page>
-    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/faces/login/Create.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/faces/login/Create.xhtml</location>
+    </error-page>
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <filter-class>
@@ -45,8 +64,8 @@
         </init-param>
         <init-param>
             <param-name>uploadDirectory</param-name>
-            <param-value>/home/libreria/tmp/expediente/</param-value>
-         
+            <!--<param-value>/home/libreria/tmp/expediente/</param-value>-->
+            <param-value>C:/opt/expedientes/</param-value>
         </init-param>
     </filter>
     <filter-mapping>
