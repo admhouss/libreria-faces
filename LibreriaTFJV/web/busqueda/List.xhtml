@@ -28,11 +28,11 @@
                 <p:accordionPanel autoHeight="false">
                    
                 
-                <p:tab title="BUSQUEDA ARTICULO" >
+                    <p:tab title="BUSQUEDA ART&Iacute;CULO" >
                     <center>
                         <h:panelGrid columns="3" cellspacing="10" cellpadding="12">
                              <h:outputText value="Autor:" styleClass="textoNEGRO"/>
-                             <p:autoComplete size="25" id="autor" value="#{publicacionController.autor}" completeMethod="#{publicacionController.complete}" forceSelection="true" />
+                             <h:inputText size="25" id="autor" value="#{publicacionController.autor}" />
                              <h:outputText value=""/>
                              <h:outputText value="T&iacute;tulo:" styleClass="textoNEGRO" />
                              <h:inputText id="titulo" value="#{publicacionController.titulo}" size="25"/>
@@ -61,14 +61,14 @@
                                <h:inputText size="25" value="#{publicacionController.editorial}"/>
                               <h:outputText value=""/>
 
-                               <h:outputText value="Tipo Articulo:" styleClass="textoNEGRO"/>
+                              <h:outputText value="Tipo Art&iacute;culo:" styleClass="textoNEGRO"/>
 
                                <h:selectOneMenu   value="#{publicacionController.tipoArticulo}" >
                                    <f:selectItems value="#{tipoArticuloController.listTipoArticulo}" var="item" itemValue="#{item.descripcion}" itemLabel="#{item.descripcion}"/>
                                </h:selectOneMenu>
                               <h:outputText value=""/>
 
-                               <h:outputText value="Categoria:" styleClass="textoNEGRO"/>
+                              <h:outputText value="Categor&iacute;a:" styleClass="textoNEGRO"/>
                                <h:inputText size="25" value="#{publicacionController.asunto}"/>
 
                             
@@ -93,8 +93,13 @@
                               <f:selectItem id="item_8" itemLabel="Editorial" itemValue="p.editorial"/>
                               <f:selectItem id="item_9" itemLabel="Articulo" itemValue="p.articulo.tipoArticulo.descripcion"/>
                               <f:selectItem id="item_10" itemLabel="Categoria" itemValue="p.articulo.asunto"/>
+                              <f:ajax execute="@this" event="change" render="consulta"/>
                           </h:selectOneMenu>
-                          <h:inputText value="#{publicacionController.general}" id="querygeneral"/>
+                          <h:panelGrid id="consulta">
+                              <h:selectOneMenu value="#{publicacionController.general}" id="querygeneral">
+                                  <f:selectItems value="#{publicacionController.listaString}" var="item" itemValue="#{item}" itemLabel="#{item}"/>
+                              </h:selectOneMenu>
+                          </h:panelGrid>
                           <h:commandButton value="Buscar" action="#{publicacionController.buscarDinamica}" />
 
                     </h:panelGrid>

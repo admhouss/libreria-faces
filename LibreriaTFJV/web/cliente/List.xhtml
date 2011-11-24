@@ -47,7 +47,7 @@
                 <br/> <br/>
 
                 
-                <p:panel header="CATALOGO DE CLIENTE">
+                <p:panel header="CAT&Aacute;LOGO DE CLIENTES">
                     <p:dataTable value="#{clienteController.listSeleccionCliente}" var="item" paginator="true" rows="10" selectionMode="single" rowStyleClass="#{item.estatus == false ? 'clienteDesactivado' :  null  }">
                     <p:column style="width:100px;" filterBy="#{item.nombre}">
                         <f:facet name="header">
@@ -67,7 +67,7 @@
                    
                      <p:column style="width:20px;">
                         <f:facet name="header">
-                            <h:outputText value="CATEGORIA"/>
+                            <h:outputText value="CATEGOR&Iacute;A"/>
                         </f:facet>
                          <h:outputText value="#{item.categoria.concepto}"/>
                     </p:column>
