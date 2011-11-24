@@ -26,7 +26,7 @@
 
 
 <br/>  <br/>
-                          <p:panel header="CATALOGO ARTICULOS">
+            <p:panel header="CAT&Aacute;LOGO ART&Iacute;CULOS">
 
             <h:panelGroup >
                 <p:dataTable value="#{articuloController.listArticulos}" var="item" paginator="true"  rows="10" selectionMode="single">
@@ -34,7 +34,7 @@
                     
                     <p:column filterBy="#{item.codigo}" style="width:12px;">
                         <f:facet name="header">
-                            <h:outputText value="CODIGO"/>
+                            <h:outputText value="C&Oacute;DIGO"/>
                         </f:facet>
                         <h:outputText  value="#{item.codigo}" />
                         
@@ -44,7 +44,7 @@
                     
                     <p:column style="width:150px;">
                         <f:facet name="header">
-                            <h:outputText value="TITULO"/>
+                            <h:outputText value="T&Iacute;TULO"/>
                         </f:facet>
                          <h:outputText value="#{item.titulo}"/>
 
