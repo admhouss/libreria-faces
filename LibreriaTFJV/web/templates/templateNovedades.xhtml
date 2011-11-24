@@ -95,7 +95,7 @@
 <h2>&nbsp;</h2>
 <table width="90%" border="0" align="right">
   <tr>
-    <th align="left" scope="col"><h2>Categorias</h2>
+      <th align="left" scope="col"><h2>Categor&iacute;as</h2>
       <ul class="list navigation">
         <li>
 
@@ -131,7 +131,7 @@
               <h:form id="JuicioLinea">
             
              <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=4">
-                    <h:outputText value="Juicio en Linea"/>
+                 <h:outputText value="Juicio en L&iacute;nea"/>
              </h:outputLink>
 
             </h:form>
@@ -217,7 +217,7 @@
                  <li>
                     <h:form id="ActividadUsuarioForm">
 
-                        <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/actividadusuario/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
+                        <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/actividadusuario/List.xhtml" rendered="#{sistemaController.operacionPerfilSuperAndGeneral}" >
                             <h:outputText value="Actividad Usuario"/>
                         </h:outputLink>
                     </h:form>
@@ -225,8 +225,8 @@
                  <li>
                      <h:form id="AlmacenForm">
 
-                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/almacen/List.xhtml"  rendered="#{sistemaController.operacionPerfilAdminCliente}" >
-                           <h:outputText value="Almacen"/>
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/almacen/List.xhtml"  rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Almac&eacute;n"/>
                        </h:outputLink>
 
                     </h:form>
@@ -235,7 +235,7 @@
                    <li>
                      <h:form id="BitacoraClienteForm">
 
-                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/bitacoraCliente/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/bitacoraCliente/List.xhtml" rendered="#{sistemaController.operacionPerfilSuperAndGeneral}" >
                            <h:outputText value="Bitacora cliente"/>
                        </h:outputLink>
 
@@ -280,8 +280,8 @@
                 <li>
                     <h:form id="CatalogosForm">
 
-                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/articulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
-                             <h:outputText value="Articulos"/>
+                        <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/articulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                            <h:outputText value="Art&iacute;culos"/>
                        </h:outputLink>
 
                     </h:form>
@@ -290,8 +290,8 @@
                    <li>
                     <h:form id="DescuentoForm">
 
-                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/descuento/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
-                             <h:outputText value="Descuento"/>
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/descuento/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Descuento Producto"/>
                        </h:outputLink>
 
                     </h:form>
@@ -299,8 +299,8 @@
                  <li>
                     <h:form id="DescuentoArticuloForm">
 
-                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/descuentoArticulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
-                             <h:outputText value="Descuento Articulo"/>
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/descuentoArticulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                           <h:outputText value="Descuento Art&iacute;culo"/>
                        </h:outputLink>
 
                     </h:form>
@@ -318,7 +318,7 @@
                   <li>
                     <h:form id="EstadoForm">
 
-                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/estado/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
+                        <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/estado/List.xhtml" rendered="#{sistemaController.operacionPerfilSuperAndGeneral}" >
                              <h:outputText value="Estados"/>
                        </h:outputLink>
 
@@ -328,7 +328,7 @@
                  <li>
                      <h:form id="ImpuestoForm">
 
-                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/impuesto/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/impuesto/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
                            <h:outputText value="Impuesto"/>
                        </h:outputLink>
 
@@ -341,7 +341,7 @@
                  <li>
                      <h:form id="PromocionForm">
 
-                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/promocion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/promocion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
                            <h:outputText value="Promociones"/>
                        </h:outputLink>
 
@@ -351,7 +351,7 @@
                   <li>
                      <h:form id="PublicacionForm">
 
-                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/publicacion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/publicacion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
                            <h:outputText value="Publicaciones"/>
                        </h:outputLink>
 
@@ -362,7 +362,7 @@
                   <li>
                      <h:form id="ProveedorForm">
 
-                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/proveedor/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/proveedor/List.xhtml" rendered="#{sistemaController.operacionPerfilSuperAndGeneral}" >
                            <h:outputText value="Proveedores"/>
                        </h:outputLink>
 
@@ -375,14 +375,25 @@
                    <li>
                      <h:form id="tipoArticuloForm">
 
-                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/tipoArticulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
-                           <h:outputText value="Tipo Articulo"/>
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/tipoArticulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Tipo Art&iacute;culo"/>
                        </h:outputLink>
 
                     </h:form>
 
                 </li>
-                   <li><a href="#">Estadisticas</a></li>
+
+                  <li>
+                     <h:form id="UsuarioAdministrativoForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/usuarioadministrativo/List.xhtml" rendered="#{sistemaController.operacionPerfilSuperAndGeneral}" >
+                           <h:outputText value="Usuario Administrativo"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                  <li><a href="#">Estad&iacute;sticas</a></li>
               </ul>
             </ul>
           </ul>
@@ -547,7 +558,7 @@
     <tr>
       <th width="462" height="19" nowrap="nowrap" scope="col">&nbsp;</th>
       <th width="392" scope="col"><ul id="MenuBar1" class="MenuBarHorizontal">
-        <li><a class="MenuBarItemSubmenu" href="#">Conocenos</a>
+          <li><a class="MenuBarItemSubmenu" href="#">Con&oacute;cenos</a>
           <ul>
             <li><a href="#">Acerca de Nosotros</a></li>
             <li><a href="#">Sucursales</a></li>
@@ -577,20 +588,23 @@
           </ul>
         </li>
         <li>
-            <h:form id="CuentaCliente" >
-                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml" rendered="#{sistemaController.cliente==null}">
-                    <h:outputText value="Mi cuenta"/>
-                </h:outputLink>
-
-                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/cliente/modulo.xhtml" rendered="#{sistemaController.cliente!=null}">
-                    <h:outputText value="Mi cuenta"/>
-                </h:outputLink>
+           
+               <a href="#">Mi cuenta</a>
                
-            </h:form>
+           
             <!--<a href="{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml">Mi cuenta</a>-->
           <ul>
             <li><a href="#{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml">Ingresar</a></li>
-            <li><a href="#">Perfil</a></li>
+            <li>
+                 <h:form id="PerfilCliente" >
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml" rendered="#{sistemaController.cliente==null}">
+                    <h:outputText value="Perfil"/>
+                </h:outputLink>
+                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/cliente/modulo.xhtml" rendered="#{sistemaController.cliente!=null}">
+                    <h:outputText value="Perfil"/>
+                </h:outputLink>
+                 </h:form>
+            </li>
             <li><a href="#">Pedidos</a></li>
           </ul>
         </li>
@@ -600,7 +614,7 @@
          
 
            <h:form id="cerrarSession" >
-               <h:commandLink action="#{sistemaController.cerrarCession}" value="X Cerrar Sesion"/>
+               <h:commandLink action="#{sistemaController.cerrarCession}" value="X Cerrar Sesi&oacute;n"/>
 
                    
            </h:form>
@@ -623,10 +637,14 @@
         </a>
         
         <li class="ui-state-default ui-corner-all" title="Inicio">
+            <h:outputLink value="#{facesContext.externalContext.request.contextPath}/">
        <span class="ui-icon ui-icon-home">
-           <!---<h:commandLink value="{facesContext.externalContext.request.contextPath}" />-->
+           
 
-       </span></li>
+       </span>
+        </h:outputLink>
+
+        </li>
       </ul></td>
       <td>&nbsp;</td>
     </tr>

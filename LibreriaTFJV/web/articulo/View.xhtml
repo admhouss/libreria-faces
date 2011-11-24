@@ -44,9 +44,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
   <tr>
       <td><strong>Unidad: </strong><h:outputText value="#{articuloController.selected.unidad}"/></td>
   </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
+  
   <tr>
 
     <td align="left">
@@ -86,13 +84,13 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                     <h:outputText value="#{articuloController.selected.costo}" title="costo"/>
                     <h:outputText value="Precio Unitario:" styleClass="textoNEGRO" />
                     <h:outputText value="#{articuloController.selected.precioUnitario}" title="precio Unitario:"/>
-                    <h:outputText value="Descripcion:" styleClass="textoNEGRO" />
+                    <h:outputText value="Descripci&oacute;n:" styleClass="textoNEGRO" />
                     <h:outputText value="#{articuloController.selected.descripcion}" title="Descripcion"/>
                     <h:outputText value="Fecha Registro:" styleClass="textoNEGRO" />
                     <h:outputText value="#{articuloController.selected.fechaRegistro}" title="Fecha Registro">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
-                    <h:outputText value="Tipo Articulo:" styleClass="textoNEGRO" />
+                    <h:outputText value="Tipo Art&iacute;culo:" styleClass="textoNEGRO" />
                     <h:outputText value="#{articuloController.selected.tipoArticulo.descripcion}" title="idTipo"/>
                      <h:outputText value="Formato:" styleClass="textoNEGRO" />
                      <h:outputText value="#{articuloController.selected.formato}" title="Formato"/>
@@ -105,26 +103,26 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                          <p:tab title="Proveedor">
                              <h:panelGroup>
 
-                                 <p:dataTable value="#{articuloController.selected.proveedorList}" var="item" paginator="true" rows="4" selectionMode="single">
+                                 <p:dataTable value="#{articuloController.selected.proveedorArticulos}" var="item" paginator="true" rows="4" selectionMode="single">
                                       <p:column >
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
-                        <h:outputText value="#{item.nombre}"/>
+                                          <h:outputText value="#{item.proveedor.nombre}"/>
                    </p:column>
                   
                   <p:column style="width:15px;">
                         <f:facet name="header">
-                            <h:outputText value="TELEFONO"/>
+                            <h:outputText value="TEL&Egrave;FONO"/>
                         </f:facet>
-                      <h:outputText value="#{item.telefono}"/>
+                      <h:outputText value="#{item.proveedor.telefono}"/>
                    </p:column>
 
                       <p:column style="width:15px;">
                         <f:facet name="header">
                             <h:outputText value="E-MAIL"/>
                         </f:facet>
-                          <h:outputText value="#{item.mail}"/>
+                          <h:outputText value="#{item.proveedor.mail}"/>
                    </p:column>
                                  </p:dataTable>
 
