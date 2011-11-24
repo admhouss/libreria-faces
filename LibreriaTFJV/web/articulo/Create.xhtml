@@ -22,7 +22,7 @@
                     <center>
                         <h:panelGrid columns="2" cellspacing="12">
 
-                            <h:outputLabel value="C&oacute;digo:" for="codigo" styleClass="textoNEGRO"/>
+                        <h:outputLabel value="C&oacute;digo:" for="codigo" styleClass="textoNEGRO"/>
                         <h:inputText value="#{articuloController.selected.codigo}" id="codigo" size="25" required="true" requiredMessage="Requerido Codigo" />
                         <h:outputLabel value="Unidad:" for="unidad" styleClass="textoNEGRO" />
                         <h:inputText id="unidad" size="25"  value="#{articuloController.selected.unidad}" title="unidad" required="true" requiredMessage="RequiredMessage_unidad"/>
@@ -33,7 +33,7 @@
                         <h:outputLabel value="Precio Unitario:" for="precioUnitario" styleClass="textoNEGRO" />
                         <h:inputText id="precioUnitario" size="25" value="#{articuloController.selected.precioUnitario}" title="precioUnitario" required="true" requiredMessage="RequiredMessage_precioUnitario"/>
                         <h:outputLabel value="Requerido:" for="requerido" styleClass="textoNEGRO" />
-                        <h:inputText id="requerido" value="#{articuloController.selected.requerido}" title="descripcion" required="true" requiredMessage="RequiredMessage_descripcion"/>
+                        <h:inputText id="requerido" value="#{articuloController.selected.requerido}" title="descripcion" required="true" requiredMessage="RequiredMessage_descripcion" size="25"/>
 
 
 
@@ -47,7 +47,7 @@
                     <p:panel header="DETALLE LIBRO">
                          <center>
                             <h:panelGrid columns="2" cellspacing="12">
-                            <h:outputLabel value="Titulo:" for="titulo" styleClass="textoNEGRO" />
+                            <h:outputLabel value="T&iacute;tulo:" for="titulo" styleClass="textoNEGRO" />
                             <h:inputText id="titulo" value="#{articuloController.selected.titulo}" title="titulo recurso" required="true" requiredMessage="RequiredMessage_titulo"/>
                             <h:outputLabel value="Nombre Alternativo:" for="nombre_alternativo" styleClass="textoNEGRO" />
                             <h:inputText id="nombre_alternativo" size="25" value="#{articuloController.selected.nombreAlternativo}" title="Resumen Recurso" required="true" requiredMessage="RequiredMessage_Nombre Alternativo"/>
@@ -62,7 +62,7 @@
                             <h:inputText id="asunto" size="25" value="#{articuloController.selected.asunto}" title="Asunto" required="true" requiredMessage="RequiredMessage_Asunto"/>
                             <h:outputLabel value="Formato:" for="formato" styleClass="textoNEGRO" />
                             <h:inputText id="formato" size="25" value="#{articuloController.selected.formato}" title="Formato" required="true" requiredMessage="RequiredMessage_Formato"/>
-                             <h:outputLabel value="Tipo Articulo:" for="idTipo" styleClass="textoNEGRO" />
+                            <h:outputLabel value="Tipo Art&iacute;culo:" for="idTipo" styleClass="textoNEGRO" />
                             <h:selectOneMenu id="idTipo" value="#{articuloController.selected.tipoArticulo}" title="idTipo" required="true" requiredMessage="RequiredMessage_idTipo">
                                 <f:selectItems value="#{tipoArticuloController.listTipoArticulo}" itemValue="#{item}" var="item" itemLabel="#{item.descripcion}"/>
                             </h:selectOneMenu>
@@ -156,6 +156,8 @@
                  <p:panel>
                      <div align="center">
                          <h:commandButton action="#{articuloController.create}" value="Guardar" />
+                         &nbsp;
+                         <h:commandButton action="#{articuloController.prepareList}" value="Salir" immediate="true"/>
                      </div>
                  </p:panel>
 
