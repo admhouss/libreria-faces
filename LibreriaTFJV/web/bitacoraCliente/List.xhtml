@@ -18,7 +18,7 @@
             </h:panelGroup>
            <br/><br/> <br/><br/>
             <h:panelGroup >
-                <p:panel header="CONSULTA GENERAL BITACORA CLIENTES">
+                <p:panel header="CAT&Aacute;LOGO BIT&Aacute;CORA CLIENTES">
                 <p:dataTable value="#{bitacoraClienteController.listBitacoracliente}" var="item"   paginator="true" rows="10">
                     
                     <p:column>
@@ -42,11 +42,11 @@
                         </f:facet>
                         <h:outputText value="#{item.cliente}"/>
                     </p:column>
-                    <p:column>
+                    <p:column style="width:70px;">
                         <f:facet name="header">
-                            <h:outputText value="ARTICULO"/>
+                            <h:outputText value="ART&Iacute;CULO"/>
                         </f:facet>
-                        <h:outputText value="#{item.articulo}"/>
+                        <h:outputText value="#{item.articulo.titulo}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">

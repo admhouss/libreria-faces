@@ -26,13 +26,13 @@
 
 
             <h:panelGroup >
-                 <p:panel header="CATALOGO IMPUESTO ">
+                <p:panel header="CAT&Aacute;LOGO IMPUESTO ">
                 <center>
              
                     <p:dataTable value="#{impuestoController.listaImpuesto}" var="item" paginator="true" rows="10">
                         <p:column style="width:12px;">
                         <f:facet name="header">
-                            <h:outputText value="ID ARTICULO"/>
+                            <h:outputText value="ID ART&Iacute;CULO"/>
                         </f:facet>
                        <h:outputText value="#{item.articulo.id}"/>
                    </p:column>
@@ -45,7 +45,7 @@
                   
                         <p:column filterBy="#{item.articulo.titulo}">
                         <f:facet name="header">
-                            <h:outputText value="ARTICULO"/>
+                            <h:outputText value="ART&Iacute;CULO"/>
                         </f:facet>
                        <h:outputText value="#{item.articulo.titulo}"/>
                    </p:column>
