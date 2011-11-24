@@ -23,12 +23,12 @@
                  </div>
                 <br/> 
                 <br/>
-                <p:panel header="CATALOGO DE CONTACTOS">
+                <p:panel header="CAT&Aacute;LOGO  CONTACTOS">
                     <p:dataTable value="#{contactoController.listContactos}" var="item" paginator="true" rows="5">
                    
                     <p:column style="width:150px;">
                         <f:facet name="header">
-                            <h:outputText value="NOMBRE"/>
+                            <h:outputText value="CONTACTO"/>
                         </f:facet>
                         <h:outputText value="#{item.nombre} #{item.paterno} #{item.materno}"/>
                     </p:column>

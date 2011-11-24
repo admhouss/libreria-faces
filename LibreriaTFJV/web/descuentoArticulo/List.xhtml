@@ -24,7 +24,7 @@
                     <h:commandButton action="#{descuentoArticuloController.prepareCreate}" value="Crear Nuevo"/>
                  </div>
                 <br/>  <br/>
-                <p:panel header="CATALOGO DE DESCUENTO ARTICULO">
+                <p:panel header="CAT&Aacute;LOGO DE DESCUENTO ART&Iacute;CULO">
                 <center>
            
                     <p:dataTable value="#{descuentoArticuloController.listaDescuentoArticulo}" var="item" paginator="true" rows="10" selectionMode="single" >
@@ -53,7 +53,7 @@
                     </p:column>
                         <p:column style="width:150px;">
                         <f:facet name="header">
-                            <h:outputText value="ARTICULO"/>
+                            <h:outputText value="ART&Iacute;CULO"/>
                         </f:facet>
                         <h:outputText value="#{item.articulo.titulo}"/>
                     </p:column>
