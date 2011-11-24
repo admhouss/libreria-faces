@@ -7,6 +7,8 @@ import escom.libreria.info.articulo.ejb.ArticuloFacade;
 import escom.libreria.info.articulo.jpa.Promocion;
 import escom.libreria.info.articulo.jpa.TipoArticulo;
 import escom.libreria.info.proveedor.jpa.Proveedor;
+import escom.libreria.info.proveedor.jpa.ProveedorArticulo;
+import escom.libreria.info.proveedor.jpa.ProveedorArticuloPK;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -52,6 +54,7 @@ public class ArticuloController implements Serializable {
     private String catego;
     private String categoria;
     private int opc=-1;
+    private int cantidad;
     //Titulo Dinamico tipo de categoria
 
     @ManagedProperty("#{impuestoController}")
@@ -66,6 +69,15 @@ public class ArticuloController implements Serializable {
     public AlmacenController getAlmacenController() {
         return almacenController;
     }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
 
     public void setAlmacenController(AlmacenController almacenController) {
         this.almacenController = almacenController;
@@ -83,8 +95,12 @@ public class ArticuloController implements Serializable {
 
     public String prepreaListByArticulo(Articulo p){
         current=p;
-        current.setProveedorList(current.getProveedorList());
+       // current.setProveedorList(current.getProveedorList());
         return "/articulo/ViewProveedor";
+    }
+
+    public String prepareListProveedorArticulo(){
+        return "/articulo/proveedor_articulo/Create";
     }
 
 
@@ -126,10 +142,9 @@ public class ArticuloController implements Serializable {
     
 
 
-  public String eliminarProveedorArticulo(Proveedor p){
-      current.getPublicacionList().remove(p);
-      current.setProveedorList(current.getProveedorList());
-      getFacade().edit(current);
+  public String eliminarProveedorArticulo(ProveedorArticulo p){
+      current.getProveedorArticulos().remove(p);
+      getFacade().borrarProveedorArticulo(p.getProveedor().getId(),p.getArticulo().getId());
       JsfUtil.addSuccessMessage("Proveedor Elimado satisfactoriamente");
       return "/articulo/ViewProveedor";
 
@@ -233,19 +248,6 @@ public class ArticuloController implements Serializable {
     }
 
     public String prepareList() {
-       /* String ir=null;
-        if(formward==1){
-        recreateModel();
-        return "List";
-        }else if(formward==2){
-           
-            ir="/promocion/Create";
-             formward=1;
-        }else{
-             ir="/promocion/Edit";
-        }
-        
-         return ir;*/
         return "/articulo/List";
     }
 
@@ -261,7 +263,7 @@ public class ArticuloController implements Serializable {
 
     public String prepareView(Articulo p) {
       current=p;
-      current.setProveedorList(current.getProveedorList());
+      //current.setProveedorList(current.getProveedorList());
       return "/articulo/View";
     }
 
@@ -282,24 +284,33 @@ public class ArticuloController implements Serializable {
     }
 
     public String createArticulo(){
-            current.setAsunto(current.getAsunto());
-            current.setArchivo(current.getArchivo());
-            current.setAgregacionRecurso(current.getAgregacionRecurso());
-            current.setCodigo(current.getCodigo());
-            current.setCosto(current.getCosto());
-            current.setCreador(current.getCreador());
-            current.setDescripcion(current.getDescripcion());
-            current.setModUpdate(new  Date());
-            current.setFechaRegistro(new Date());
-            current.setFechaCreacion(current.getFechaCreacion());
-            current.setFormato(current.getFormato());
-            current.setFormatoDigital(current.getFormatoDigital());
-            current.getProveedorList().add(proveedor);
-            current.setProveedorList(current.getProveedorList());
-            current.setImagen(current.getImagen());
-            getFacade().edit(current);
-            JsfUtil.addSuccessMessage(("Proveedor agregado Sastisfactoriamente"));
-            return "/articulo/ViewProveedor";
+
+         ProveedorArticulo proveedor_articulo=new ProveedorArticulo();
+         ProveedorArticuloPK primaryKey=new  ProveedorArticuloPK();
+         proveedor_articulo.setArticulo(current);
+         proveedor_articulo.setCantidad(getCantidad());
+         proveedor_articulo.setProveedor(proveedor);
+         proveedor_articulo.setUltMof(new Date());
+         proveedor_articulo.setProveedorArticuloPK(primaryKey);
+         primaryKey.setIdArticulo(current.getId());
+         primaryKey.setIdProveedor(proveedor.getId());
+         current.setAsunto(current.getAsunto());
+         current.setArchivo(current.getArchivo());
+         current.setAgregacionRecurso(current.getAgregacionRecurso());
+         current.setCodigo(current.getCodigo());
+         current.setCosto(current.getCosto());
+         current.setCreador(current.getCreador());
+         current.setDescripcion(current.getDescripcion());
+         current.setModUpdate(new  Date());
+         current.setFechaRegistro(new Date());
+         current.setFechaCreacion(current.getFechaCreacion());
+         current.setFormato(current.getFormato());
+         current.setFormatoDigital(current.getFormatoDigital());
+         current.getProveedorArticulos().add(proveedor_articulo); 
+         current.setImagen(current.getImagen());
+         getFacade().edit(current);
+         JsfUtil.addSuccessMessage(("Proveedor agregado Sastisfactoriamente"));
+         return "/articulo/ViewProveedor";
     }
     public String create() {
         try {
@@ -315,7 +326,7 @@ public class ArticuloController implements Serializable {
             current.setFechaCreacion(current.getFechaCreacion());
             current.setFormato(current.getFormato());
             current.setFormatoDigital(current.getFormatoDigital());
-            current.setProveedorList(current.getProveedorList());
+           // current.setProveedorList(current.getProveedorList());
             current.setImagen(current.getImagen());
              getFacade().create(current);
             JsfUtil.addSuccessMessage(("Articulo Created"));
@@ -336,7 +347,7 @@ public class ArticuloController implements Serializable {
         try {
             current.setTipoArticulo(current.getTipoArticulo());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(("Articulo Updated"));
+            JsfUtil.addSuccessMessage(("Articulo Actualizado Satisfactoriamente"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -423,6 +434,8 @@ public class ArticuloController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+
+
     @FacesConverter(forClass=Articulo.class)
     public static class ArticuloControllerConverter implements Converter {
 
@@ -486,4 +499,7 @@ public class ArticuloController implements Serializable {
 
         return "/busqueda/ListCategoria.xhtml";
     }
+
+    
+     
 }

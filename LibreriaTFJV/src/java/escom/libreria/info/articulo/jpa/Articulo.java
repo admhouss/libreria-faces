@@ -6,7 +6,9 @@
 package escom.libreria.info.articulo.jpa;
 
 import escom.libreria.info.cliente.jpa.BitacoraCliente;
+
 import escom.libreria.info.proveedor.jpa.Proveedor;
+import escom.libreria.info.proveedor.jpa.ProveedorArticulo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -145,25 +147,6 @@ public class Articulo implements Serializable {
     private TipoArticulo tipoArticulo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<Suscripcion> suscripcionList;
-    
-     @JoinTable(name = "proveedor_articulo", joinColumns = {
-        //@JoinColumn(name="CANTIDAD"),
-        //@JoinColumn(name="ULT_MOD"),
-        @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID")})
-     @ManyToMany
-     private List<Proveedor> proveedorList;
-
-   /*  @Basic(optional = false)
-     @Column(name = "CANTIDAD")
-     private int cantidad;
-     @Basic(optional = false)
-     @Column(name = "ULT_MOD")
-     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-     private Date ultMod;
-    *
-    */
-
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
     private DescuentoArticulo descuentoArticulo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
@@ -176,9 +159,39 @@ public class Articulo implements Serializable {
     private List<Comentario> comentarioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<BitacoraCliente> bitacoraClienteList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<ProveedorArticulo>  proveedorArticulos;
 
     public Articulo() {
     }
+
+    public List<ProveedorArticulo> getProveedorArticulos() {
+        return proveedorArticulos;
+    }
+
+    public void setProveedorArticulos(List<ProveedorArticulo> proveedorArticulos) {
+        this.proveedorArticulos = proveedorArticulos;
+    }
+
+     /*@JoinTable(name = "proveedor_articulo", joinColumns = {
+        //@JoinColumn(name="CANTIDAD"),
+        //@JoinColumn(name="ULT_MOD"),
+        @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID")})
+     @ManyToMany
+     private List<Proveedor> proveedorList;
+      *
+      */
+
+   /*  @Basic(optional = false)
+     @Column(name = "CANTIDAD")
+     private int cantidad;
+     @Basic(optional = false)
+     @Column(name = "ULT_MOD")
+     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+     private Date ultMod;
+    *
+    */
 
     /*public int getCantidad() {
         return cantidad;
@@ -197,6 +210,7 @@ public class Articulo implements Serializable {
     }
     */
 
+    
     public Articulo(Integer id) {
         this.id = id;
     }
@@ -259,13 +273,13 @@ public class Articulo implements Serializable {
         this.impuestoList = impuestoList;
     }
 
-    public List<Proveedor> getProveedorList() {
+  /*  public List<Proveedor> getProveedorList() {
         return proveedorList;
     }
 
     public void setProveedorList(List<Proveedor> proveedorList) {
         this.proveedorList = proveedorList;
-    }
+    }*/
 
     public List<Publicacion> getPublicacionList() {
         return publicacionList;
@@ -275,7 +289,7 @@ public class Articulo implements Serializable {
         this.publicacionList = publicacionList;
     }
 
-    
+
 
     public Integer getId() {
         return id;
@@ -501,7 +515,7 @@ public class Articulo implements Serializable {
         this.suscripcionList = suscripcionList;
     }
 
-   
+
 
     @Override
     public int hashCode() {

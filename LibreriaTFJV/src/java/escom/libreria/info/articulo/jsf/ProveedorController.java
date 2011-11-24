@@ -104,8 +104,8 @@ public class ProveedorController implements Serializable{
         return "/articulo/ViewProveedor";
     }
     public void destroyByArticulo(Proveedor proveedor){
-       articulo_proveedor.getProveedorList().remove(proveedor);
-       listaProveedoresByArticulo.add(proveedor);
+//       articulo_proveedor.getProveedorList().remove(proveedor);
+  //     listaProveedoresByArticulo.add(proveedor);
        JsfUtil.addErrorMessage("Proveedor eliminado");
     }
     public String prepareList() {
@@ -127,11 +127,11 @@ public class ProveedorController implements Serializable{
 
 
     public void agregar(Proveedor proveedor){
-        listaProveedoresByArticulo.remove(proveedor);
+    /*    listaProveedoresByArticulo.remove(proveedor);
         if(articulo_proveedor.getProveedorList()==null)
             articulo_proveedor.setProveedorList(new ArrayList<Proveedor>());
         articulo_proveedor.getProveedorList().add(proveedor);
-        JsfUtil.addSuccessMessage("Proveedor seleccionado satisfactoriamente");
+        JsfUtil.addSuccessMessage("Proveedor seleccionado satisfactoriamente");*/
       // return "/articulo/ViewProveedor";
     }
     public String create() {

@@ -103,7 +103,7 @@ public class CategoriaController implements Serializable{
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Categoria").getString("CategoriaUpdated"));
+            JsfUtil.addSuccessMessage(("Categoria Actualizada Satisfactoriamente"));
             return "/categoria/View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Categoria").getString("PersistenceErrorOccured"));

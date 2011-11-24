@@ -24,7 +24,6 @@ public interface CarritoCompraTemporalLocal {
     public boolean Emtity();//Si la lista esta vacia
     public int getCount();
     public CarritoDTO buscarArticulo(Publicacion p);//dado una publicacion retorna su DTO
-    public Cliente getCliente();
-    public void setCliente(Cliente e);
+    
     
 }

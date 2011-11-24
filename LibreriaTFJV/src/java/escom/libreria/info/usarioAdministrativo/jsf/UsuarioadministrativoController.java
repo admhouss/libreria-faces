@@ -85,9 +85,14 @@ public class UsuarioadministrativoController implements Serializable{
 
     public String create() {
         try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/UsuarioAdministrativo").getString("UsuarioadministrativoCreated"));
-            return prepareView(current);
+            Usuarioadministrativo userx=getFacade().find(current.getIdUsuario());
+            if(userx==null){
+                getFacade().create(current);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/UsuarioAdministrativo").getString("UsuarioadministrativoCreated"));
+                return prepareView(current);
+            }
+            JsfUtil.addErrorMessage("El usuario ya se encuentra registrado");
+            return "Create";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/UsuarioAdministrativo").getString("PersistenceErrorOccured"));
             return null;

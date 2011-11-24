@@ -71,6 +71,8 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     private SistemaController sistemaController;
     private static final Logger logPublicacion = Logger.getLogger(PublicacionController.class.getName());
 
+
+
     public String getBanderaCategoria() {
         return banderaCategoria;
     }
@@ -79,7 +81,12 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
         this.banderaCategoria = banderaCategoria;
     }
 
-
+public List<String> getListaString(){
+    if(getSelectCategoria()==null)
+        setSelectCategoria("p.articulo.creador");
+    List<String> l= getFacade().buscarDinamica(getSelectCategoria());
+    return  l;
+}
 
      public PublicacionController() {
         {
@@ -366,9 +373,7 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     }
 
     public List<Publicacion> getListNovedadesPublicacion(){
-            listPublicacionByBusqueda=getFacade().buscarArticuloNovedades();
-            if(!isActivate())
-            JsfUtil.addSuccessMessage("No se encontraron ninguna coincidencias");
+            listPublicacionByBusqueda=getFacade().findAll();
             return listPublicacionByBusqueda;
     }
      
@@ -714,4 +719,13 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     }
     
 
+      public List<String> editorialesList;
+
+    public List<String> getEditorialesList() {
+        return editorialesList;
+    }
+
+    public void setEditorialesList(List<String> editorialesList) {
+        this.editorialesList = editorialesList;
+    }
 }

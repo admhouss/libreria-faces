@@ -72,28 +72,20 @@ public class SistemaController implements Serializable {
                 if(cliente!=null && cliente.getEstatus()==false){
                     cliente.setEstatus(true);
                     clienteFacade.edit(cliente);
-                    JsfUtil.addSuccessMessage("Cliente registrado satisfactoriamente!!");
-                }else{JsfUtil.addErrorMessage("El Cliente ya se encuentra registrado!!");}
+                    JsfUtil.addSuccessMessage("Cliente registrado satisfactoriamente");
+                }else{JsfUtil.addErrorMessage("El Cliente ya se encuentra registrado");}
             }
         }catch(Exception e){
         
         }
     }
 
-    public void setMenssageBienvenida(String menssageBienvenida) {
-        this.menssageBienvenida = menssageBienvenida;
-    }
-
+    
 
     public SistemaController() {}
 
-    public Usuarioadministrativo getUsuarioAdministrador() {
-        return usuarioAdministrador;
-    }
+   
 
-    public void setUsuarioAdministrador(Usuarioadministrativo usuarioAdministrador) {
-        this.usuarioAdministrador = usuarioAdministrador;
-    }
     public String  loginAcces(){
                 setUsuarioAdministrador(null);
                 cliente = clienteFacade.buscarUsuario(correo.trim(), password);//proceso de logeo
@@ -130,20 +122,22 @@ private  void limpiarLogin(){
             setPassword("");
 }
     public String accesoAdministrador(){
-        String go="";
-        setCliente(null);
+            String go="";
+            setCliente(null);
             usuarioAdministrador=adminFacade.buscarUsuarioAdmin(usuarioAdmin,passwordAdmin);
-            if(usuarioAdministrador==null)
-                JsfUtil.addErrorMessage("Usuario no identificado ");
+            if(usuarioAdministrador==null){
+                JsfUtil.addErrorMessage("Acceso exclusivo para administradores");
+                return "/login/Create";
+            }
             else{
                        setMenssageBienvenida("BIENVENIDO "+usuarioAdministrador.getNombre()+" "+usuarioAdministrador.getPaterno()+" "+usuarioAdministrador.getMaterno());
-                        setCliente(null);
-                        limpiarLogin();
-                        JsfUtil.addSuccessMessage("Usuario a inisiado sesion satisfactoriamente");
-                    
+                       setCliente(null);
+                       limpiarLogin();
+                       JsfUtil.addSuccessMessage("Usuario a inisiado sesion satisfactoriamente");   
             }
-                 ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
+               
             try {
+                    ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
                     external.redirect(external.getRequestContextPath() + "/faces/index.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
@@ -162,34 +156,51 @@ private  void limpiarLogin(){
     public boolean isOperacionPerfilAdminProducto(){//operacion
             boolean permitido=false;
             String perfil="";
-
-            if(usuarioAdministrador==null)
-              permitido=false;
-            else{
-                perfil=usuarioAdministrador.getCargo().toUpperCase();
-                if(perfil.indexOf(LibreriaConst.SUPERUSARIO)!=-1 || perfil.indexOf(LibreriaConst.ADMINISTRADOR_PRODUCTO)!=-1)
+            if(isAdministrado()){
+                perfil=usuarioAdministrador.getCargo();
+                if(perfil.equalsIgnoreCase(LibreriaConst.SUPERUSARIO) ||
+                   perfil.equalsIgnoreCase(LibreriaConst.ADMINISTRADOR_PRODUCTO) ||
+                   perfil.equalsIgnoreCase(LibreriaConst.ADMINISTRADOR_GENERAL)
+                  )
                 permitido=true;
             }
-       
             return permitido;
-
     }
+    
+     
+
+
 
     public boolean isOperacionPerfilAdminCliente(){//perfil Admin Clientes
             boolean permitido=false;
             String perfil="";
-            if(usuarioAdministrador==null)
-                permitido=false;
-            else{
-                perfil=usuarioAdministrador.getCargo().toUpperCase();
-                if(perfil.indexOf(LibreriaConst.SUPERUSARIO)!=-1 || 
-                   perfil.indexOf(LibreriaConst.ADMINISTRADOR)!=-1 ||
-                   perfil.indexOf(LibreriaConst.ADMINISTRADOR_GENERAL)!=-1)
-                  permitido=true;
-            }
+            if(isAdministrado()){
+                perfil=usuarioAdministrador.getCargo();
+                if(perfil.equalsIgnoreCase(LibreriaConst.SUPERUSARIO) ||
+                   perfil.equalsIgnoreCase(LibreriaConst.ADMINISTRADOR_CLIENTES) ||
+                   perfil.equalsIgnoreCase(LibreriaConst.ADMINISTRADOR_GENERAL))
+                   permitido=true;
+                 }
 
             return permitido;
 
+    }
+    
+    public boolean isAdministrado(){
+        return usuarioAdministrador==null?false:true;
+    }
+
+    public boolean isOperacionPerfilSuperAndGeneral(){
+        boolean permitido=false;
+            String perfil="";
+            if(isAdministrado()){
+                perfil=usuarioAdministrador.getCargo();
+                if(perfil.equalsIgnoreCase(LibreriaConst.SUPERUSARIO) 
+                  )
+                 permitido=true;
+            }
+
+           return permitido;
     }
 
    
@@ -204,7 +215,7 @@ private  void limpiarLogin(){
            }
            else if(clienteX.getEstatus()==false){
                jMail.EnviarConfimarCorreo(clienteX);
-               JsfUtil.addSuccessMessage("Su cuenta se enucnetra desactivada,necesita ir a su bandeja!");
+               JsfUtil.addErrorMessage("Su cuenta se enucuentra desactivada,necesita ir a su bandeja de correo!");
            } else {
                cliList=new ArrayList<String>();
                cliList.add(clienteX.getId().trim());
@@ -249,8 +260,18 @@ private  void limpiarLogin(){
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+    public void setMenssageBienvenida(String menssageBienvenida) {
+        this.menssageBienvenida = menssageBienvenida;
+    }
 
-    
+
+     public Usuarioadministrativo getUsuarioAdministrador() {
+        return usuarioAdministrador;
+    }
+
+    public void setUsuarioAdministrador(Usuarioadministrativo usuarioAdministrador) {
+        this.usuarioAdministrador = usuarioAdministrador;
+    }
 
 
 public String cerrarCession(){

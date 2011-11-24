@@ -33,14 +33,28 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
    
 
    @EJB private escom.libreria.info.cliente.ejb.DescuentoClienteFacade descuentoClienteFacade;
+   @ManagedProperty("#{sistemaController}")
+   private SistemaController sistemaController;
+
+    public SistemaController getSistemaController() {
+        return sistemaController;
+    }
+
+    public void setSistemaController(SistemaController sistemaController) {
+        this.sistemaController = sistemaController;
+    }
+
+
 
 
     
 
 
-    private BigDecimal obtenerDescuentoMayor(){
-        String correo=getCliente().getId();
+    private BigDecimal obtenerDescuentoMayor(String idCorreo){
+        String correo=idCorreo;
         BigDecimal descuentoMax=descuentoClienteFacade.obtenerMaxioDescuento(correo);
+        if(descuentoMax==null)
+        descuentoMax=BigDecimal.ZERO;
         return descuentoMax;
     }
 
@@ -54,8 +68,9 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
           carritoDTO_Temporal=buscarArticulo(articulo);
 
           if(carritoDTO_Temporal==null){// no existe
-              tam=listaPublicacion.size()+1;
-              descuento=obtenerDescuentoMayor();
+              tam=getCount()+1;
+              //descuento=obtenerDescuentoMayor();
+              descuento=BigDecimal.ONE;
               carritoDTO_Temporal=new CarritoDTO(tam,tam,descuento,articulo);
               listaPublicacion.add(carritoDTO_Temporal);
           }else //ya existe articulo
@@ -111,15 +126,6 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
         return temporal;
     }
 
-    @Override
-    public Cliente getCliente() {
-
-        return cliente;
-    }
-
-    @Override
-    public void setCliente(Cliente e) {
-        cliente=e;//throw new UnsupportedOperationException("Not supported yet.");
-    }
+    
    
 }

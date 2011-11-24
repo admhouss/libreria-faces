@@ -100,7 +100,7 @@ public class ComentarioController implements Serializable{
              setComentario("");
         }catch(Exception e){e.printStackTrace();}
         
-        return "/busqueda/List";
+        return null;
     }
 
     public ComentarioController() {
