@@ -27,10 +27,11 @@
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" locale="es"/>
                     </h:outputText>
                     <h:outputText value="Estado:" styleClass="textoNEGRO" />
-                    <h:outputText value="#{bitacoraClienteController.selected.estado}" title="estado"/>
+                    <h:outputText value="COMPRO" rendered="#{bitacoraClienteController.selected.estado==false}"/>
+                    <h:outputText  value ="CONSULTO" rendered="#{bitacoraClienteController.selected.estado}"/>
                     <h:outputText value="Cliente:" styleClass="textoNEGRO" />
                     <h:outputText value="#{bitacoraClienteController.selected.cliente.id}" title="cliente"/>
-                    <h:outputText value="Articulo:" styleClass="textoNEGRO" />
+                    <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO" />
                     <h:outputText value="#{bitacoraClienteController.selected.articulo.titulo}" title="articulo"/>
                 </h:panelGrid>
                     </center>
