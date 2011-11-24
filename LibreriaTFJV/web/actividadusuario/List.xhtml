@@ -24,7 +24,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                      <h:commandButton action="#{actividadusuarioController.prepareCreate}" value="Crear Nuevo"/>
                  </div>
                  <br /> <br />
-                 <p:panel header="CATALOGO ACTIDAD USUARIO ADMINISTRATIVO">
+                 <p:panel header="CAT&Aacute;LOGO ACTIDAD USUARIO ADMINISTRATIVO">
                 <p:dataTable value="#{actividadusuarioController.listActividadUsuario}" var="item" paginator="true" rows="10">
                     
                     <p:column style="width:200px;" >
@@ -41,7 +41,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column>
+                    <p:column style="width:100px;">
                         <f:facet name="header">
                             <h:outputText value="CARGO"/>
                         </f:facet>
