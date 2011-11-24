@@ -31,7 +31,7 @@
                     <h:inputText id="materno" value="#{usuarioadministrativoController.selected.materno}" title="materno" required="true" requiredMessage="RequiredMessage_materno"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="Password:" for="password" />
-                    <h:inputSecret id="password" value="#{usuarioadministrativoController.selected.password}" title="password" required="true" requiredMessage="RequiredMessage_password"/>
+                    <p:password id="password" value="#{usuarioadministrativoController.selected.password}" title="password" required="true" requiredMessage="RequiredMessage_password" feedback="true" minLength="2" />
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="Cargo:" for="cargo" />
                     <h:inputText id="cargo" value="#{usuarioadministrativoController.selected.cargo}" title="Title_cargo}" required="true" requiredMessage="RequiredMessage_cargo"/>
