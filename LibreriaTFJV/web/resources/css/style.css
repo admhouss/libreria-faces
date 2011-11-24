@@ -10,7 +10,7 @@
 	cursor: pointer;
 	float: left;
 	list-style: none;
-	background-image: url('resources/css/primefaces-start/images/ui-bg_glass_45_0078ae_1x400.png');
+	background-image: url('./primefaces-start/images/ui-bg_glass_45_0078ae_1x400.png');
 }
 			ul#icons span.ui-icon {float: left; margin: 0 4px;}
 
@@ -143,4 +143,62 @@ h2 a:hover, h3 a:hover {
 }
 a img {
 	border:none;
+}
+
+
+#apDiv1 {
+	position:absolute;
+	left:10px;
+	top:123px;
+	width:214px;
+	height:551px;
+	z-index:1;
+	background:url('./../template/imgs/left_end.gif');
+	background-repeat:no-repeat;
+
+}
+#apDiv2 {
+	position:absolute;
+	left:226px;
+	top:122px;
+	width:590px;
+	height:132px;
+	z-index:5;
+	background-image: url('./../template/imgs/img1.jpg');
+}
+#apDiv3 {
+	position:absolute;
+	left:819px;
+	top:122px;
+	width:191px;
+	height:552px;
+	z-index:3;
+	background-image: url('./../template/imgs/head_der.jpg');
+	background-repeat:no-repeat;
+}
+#apDiv4 {
+	position:absolute;
+	left:224px;
+	top:258px;
+	width:592px;
+	height:417px;
+	z-index:4;
+}
+#apDiv5 {
+	position:absolute;
+	left:10px;
+	top:11px;
+	width:1000px;
+	height:111px;
+	z-index:1;
+	background-image: url('./../template/imgs/head.jpg');
+}
+
+#apDiv6 {
+	position:absolute;
+	left:10px;
+	top:679px;
+	width:1001px;
+	height:66px;
+	z-index:6;
 }
