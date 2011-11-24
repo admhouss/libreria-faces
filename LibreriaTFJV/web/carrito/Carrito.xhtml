@@ -22,7 +22,7 @@
             <h:panelGroup rendered="#{carritoController.countElement > 0}">
             <p:accordionPanel autoHeight="false">
                 
-                <p:tab title="Articulos">
+                <p:tab title="Art&iacute;culos">
 
                  
                     <h:dataTable var="item" value="#{carritoController.listArticulos}" headerClass="ui-state-focus">
@@ -112,11 +112,67 @@
                     
                 </p:tab>
                 <p:tab title="Env&iacute;o y Facturaci&oacute;n">
+                    
+                    <h:dataTable value="#{direnvioController.listaDirEnvioCliente}" var="item"  >
+
+                    <h:column>
+                        <f:facet name="header">
+                           <p><strong>Direcci&oacute;n de envio</strong></p>
+                        </f:facet>
+                        <table >
+
+                            <tr><td > <h:outputText value="#{item.atencion}" styleClass="textoNEGRO" /></td></tr>
+                     
+                            <tr>
+                                <td>Calle:</td>    
+                                <td><h:outputText value="#{item.calle}"/></td>
+                            </tr>
+                             <tr>
+                                   <td>Colonia:</td>
+                                    <td>
+                                        <h:outputText value="#{item.colonia}"/>
+                                    </td>
+                            </tr>
+
+                          <tr>
+                                <td>C.P:</td>
+                                <td><h:outputText value="#{item.cp}"/></td>
+                          </tr>
+                            <tr>
+                                <td>Tel&eacute;fono:</td>
+                                <td><h:outputText value="#{item.telefono}"/></td>
+
+                            </tr>
+                            <tr>
+                                <td>Estado:</td>
+                                <td><h:outputText value="#{item.idEdo.nombre}"/></td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                        <h:commandLink action="#{direnvioController.prepareView(item)}">
+                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                               
+                        <h:commandLink action="#{direnvioController.prepareEdit(item)}">
+                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                        </h:commandLink>
+                               
+                        <h:commandLink action="#{direnvioController.destroy(item)}">
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                                </td>
+                            </tr>
+                        </table>
+                      </h:column>
+                </h:dataTable>
 
 
                 </p:tab>
                  <p:tab title="Pago">
-
+                     <h:form >
+                         <h:commandButton value="Pagar" action="/PayPal/"/>
+                     </h:form>
 
                 </p:tab>
             </p:accordionPanel>
