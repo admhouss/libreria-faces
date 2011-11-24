@@ -17,7 +17,7 @@
             <h:form id="NovedadesCreate">
 
                 <br/>  <br/>
-                <p:panel header="EDITAR ALAMACEN">
+                <p:panel header="EDITAR ALAMAC&Eacute;N">
                 <center>
                     <h:panelGrid columns="3" cellspacing="15">
 
@@ -32,7 +32,7 @@
                     <h:outputLabel value="En Firme:" for="enFirme" styleClass="textoNEGRO" />
                     <h:inputText id="enFirme" value="#{almacenController.selected.enFirme}" title="Firme" required="true" requiredMessage="enFirme"/>
                     <h:outputLabel value="*"  styleClass="textoROJO" />
-                    <h:outputLabel value="Articulo:" for="articulo"  styleClass="textoNEGRO"/>
+                    <h:outputLabel value="Art&iacute;culo:" for="articulo"  styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="articulo" value="#{almacenController.selected.articulo}" title="Articulo" required="true" requiredMessage="articulo">
 
                         <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
