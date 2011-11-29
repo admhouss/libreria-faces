@@ -50,10 +50,10 @@
 
 
                                   <h:outputLabel value="Correo Alternativo:" for="correo_alternativo" styleClass="textoNEGRO"/>
-                                  <h:inputText id="correo_alternativo" value="#{clienteController.selected.email}" title="correo alternativo" required="true" requiredMessage="Correo Alternativo requerido" size="25">
+                                  <h:inputText id="correo_alternativo" value="#{clienteController.selected.email}" title="correo alternativo" required="false" requiredMessage="Correo Alternativo requerido" size="25">
                                       <f:validator  validatorId="EmailValidator"/>
                                   </h:inputText>
-                                 <h:outputLabel value="*" styleClass="textoROJO"/>
+                                 <h:outputLabel value=" " styleClass="textoROJO"/>
 
                                 
                                 
@@ -65,7 +65,7 @@
                      
                     
                     <h:outputLabel value="Password:" for="password" styleClass="textoNEGRO"/>
-                    <p:password feedback="true" id="password" value="#{clienteController.selected.password}" title="password" required="true" requiredMessage="Password requerido}" size="25" minLength="3"/>
+                    <p:password feedback="true" id="password" value="#{clienteController.selected.password}" title="password" required="true" requiredMessage="Password requerido"  maxlength="10" minLength="3" />
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                                         
                     <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
