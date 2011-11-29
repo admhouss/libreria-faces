@@ -170,9 +170,38 @@
 
                 </p:tab>
                  <p:tab title="Pago">
-                     <h:form >
-                         <h:commandButton value="Pagar" action="/PayPal/"/>
-                     </h:form>
+                     <div>
+      <h2>Selecciona tu forma de pago </h2>
+      <table align="center" border="0" cellpadding="0" cellspacing="4" width="400">
+        <tbody>
+          <tr>
+            <td width="6%" valign="top"><label>
+              <input name="cFormaPago" value="2" type="radio" />
+              </label></td>
+            <td width="80%"><div><img src="./../resources/iconos/pay_icono_paypal.gif" height="25" width="51" />PayPal</div>
+              <p>(Visa y MasterCard)</p></td>
+            <td width="14%"><ul id="icons" class="ui-widget ui-helper-clearfix">
+		<a href="webscr.htm"><li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e"><span class="ui-icon ui-icon-arrowthick-1-e"></span></li></a>
+
+            </ul></td>
+          </tr>
+          <tr>
+            <td valign="top"><label>
+              <input name="cFormaPago" value="0" type="radio" />
+            </label></td>
+              <td><div><img src="./../resources/iconos/icono_pago.png" height="28" width="37" />Dep&oacute;sito bancario/Transferencia electr&oacute;nica</div>
+                <p>(depositos en efectivo y pagos via banca electr&oacute;nica. <br />
+                <strong>Todos los bancos</strong>)</p></td>
+            <td><ul id="icons" class="ui-widget ui-helper-clearfix">
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e"><span class="ui-icon ui-icon-arrowthick-1-e"></span></li>
+
+            </ul></td>
+          </tr>
+        </tbody>
+      </table>
+<p>&nbsp;</p>
+    </div>
+                    
 
                 </p:tab>
             </p:accordionPanel>
