@@ -26,7 +26,7 @@
                 <p:panel header="BUSCAR CLIENTE">
                   
                     <center>
-                    <h:panelGrid columns="3">
+                        <h:panelGrid columns="3" cellspacing="12">
                         <h:outputLabel value="NOMBRE" styleClass="textoNEGRO" for="nombre"/>
                         <h:inputText value="#{clienteController.nombre}" id="nombre"/>
                         <h:outputLabel value=""/>
@@ -34,6 +34,10 @@
                         <h:inputText value="#{clienteController.correo}" id="correo"/>
                         <h:commandLink  action="#{clienteController.buscarCliente}">
                              <img src="./../resources/iconos/sver.png" alt="" title="Buscador"/>
+                        </h:commandLink>
+                        <h:outputLabel value="CONSULTA GENERAL:" styleClass="textoNEGRO" for="correo"/>
+                        <h:commandLink  action="#{clienteController.busquedaGeneral}">
+                             <img src="./../resources/iconos/RESPON2.png" alt="" title="Consulta General"/>
                         </h:commandLink>
 
                     </h:panelGrid>
