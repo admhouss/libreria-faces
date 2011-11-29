@@ -323,7 +323,7 @@ public class ArticuloController implements Serializable {
             current.setDescripcion(current.getDescripcion());
             current.setModUpdate(new  Date());
             current.setFechaRegistro(new Date());
-            current.setFechaCreacion(current.getFechaCreacion());
+            current.setFechaCreacion(new Date());
             current.setFormato(current.getFormato());
             current.setFormatoDigital(current.getFormatoDigital());
            // current.setProveedorList(current.getProveedorList());

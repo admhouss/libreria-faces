@@ -97,7 +97,7 @@ public class ClienteFacade  {
       public List<Cliente> buscarCliente(String query,String correo,String nombre) {
         List<Cliente> cliente=null;
 
-       System.out.println("SELECT c FROM Cliente c WHERE "+query+" ORDER BY c.nombre ASC");
+       //System.out.println("SELECT c FROM Cliente c WHERE "+query+" ORDER BY c.nombre ASC");
         try{
             TypedQuery<Cliente> l=em.createQuery("SELECT c FROM Cliente c WHERE "+query+" ORDER BY c.nombre ASC",Cliente.class);
             if(correo!=null && !correo.equals(""))
