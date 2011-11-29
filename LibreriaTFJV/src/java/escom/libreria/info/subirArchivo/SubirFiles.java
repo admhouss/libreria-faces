@@ -102,7 +102,7 @@ public class SubirFiles  implements Serializable{
     public SubirFiles() {
     }
 
-public void crearArchivo(byte[] bytes, String arquivo) {
+/*public void crearArchivo(byte[] bytes, String arquivo) {
       FileOutputStream fos;
       try {
          fos = new FileOutputStream(arquivo);
@@ -113,16 +113,20 @@ public void crearArchivo(byte[] bytes, String arquivo) {
       } catch (IOException ex) {
         ex.printStackTrace();
       }
-   }
+   }*/
 
-    public void handleFileUpload0(FileUploadEvent event) {
+    public void handleFileDocumentUpload(FileUploadEvent event) {
         try{
              posExtension=-1;
              String documento="";
+             setMenssageOut("");
              articuloController.getSelected().setArchivo("");
-              if(descargarArchivo(event)){
+              if(descargarArchivo(event,urlDownloads)){
+                  try{
                       documento=event.getFile().getFileName();
                       posExtension=documento.indexOf(".");
+                  }catch(Exception e){setMenssageOut("Error "+e.getMessage());}
+
                   if( posExtension==-1 || documento==null){
                      setMenssageOut("El archivo, no cuenta con extension!");
                   }else
@@ -130,6 +134,7 @@ public void crearArchivo(byte[] bytes, String arquivo) {
                      extension=documento.substring(posExtension);
                      articuloController.getSelected().setFormatoDigital(extension);
                      articuloController.getSelected().setArchivo(urlDownloads+documento);
+                     setMenssageOut("El archivo "+documento +" fue  Cargado Satisfactoriamente");
                    }
 
               }
@@ -139,15 +144,15 @@ public void crearArchivo(byte[] bytes, String arquivo) {
 
    private byte[] bufferTemporal = new byte[BUFFER_SIZE];
   
-    public boolean descargarArchivo(FileUploadEvent event) {
+    public boolean descargarArchivo(FileUploadEvent event,String urlFile) {
       
        
-      System.out.println("Ruta a guardar[ " + carpetaPortadas + event.getFile().getFileName());
+      System.out.println("Ruta a guardar[ " + urlFile + event.getFile().getFileName());
         
         try {
             FileOutputStream fileOutputStream = null;
             File result = null;
-            result = new File(carpetaPortadas + event.getFile().getFileName());
+            result = new File(urlFile+ event.getFile().getFileName());
            
             fileOutputStream = new FileOutputStream(result);
 
@@ -159,7 +164,6 @@ public void crearArchivo(byte[] bytes, String arquivo) {
                 if (bulk < 0) {
                     break;
                  }
-       //       bufferTemporal[i++]=(byte)bulk;
              fileOutputStream.write(buffer, 0, bulk);
              fileOutputStream.flush();
             }
@@ -172,7 +176,7 @@ public void crearArchivo(byte[] bytes, String arquivo) {
     }
 }
 
-    public boolean descargarArchivoXML(FileUploadEvent event) {
+   /* public boolean descargarArchivoXML(FileUploadEvent event) {
 
 
       System.out.println("Ruta a guardar[ " +urlXML + event.getFile().getFileName());
@@ -203,22 +207,21 @@ public void crearArchivo(byte[] bytes, String arquivo) {
         System.out.println("Error handleFileUpload" + e);
         return false;
     }
-}
+}*/
     private int posExtension;
     public void handleFileUpload(FileUploadEvent event) {
                 setMenssageOut("");
-                posExtension=-1;
                 String nombrePortada="";
                 articuloController.getSelected().setImagen("");
-               if(descargarArchivo(event)){
+               if(descargarArchivo(event,carpetaPortadas)){
                     nombrePortada=event.getFile().getFileName();   
                     articuloController.getSelected().setImagen(urlPortada+nombrePortada);
                }else
-                    setMenssageOut("No fue posible cargar el archivo");
+               setMenssageOut("No fue posible cargar el archivo");
       }
 
     public void handleFileUploadXML(FileUploadEvent event){
-        if(descargarArchivoXML(event)){
+        if(descargarArchivo(event,urlXML)){
           List<String>editoriales=editorialfacade.getEditorialByXML(urlXML+event.getFile().getFileName());
            publicacionController.setEditorialesList(editoriales);
         }

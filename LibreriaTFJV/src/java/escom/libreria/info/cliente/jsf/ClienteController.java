@@ -99,6 +99,10 @@ public class ClienteController implements Serializable{
         return current;
     }
 
+    public String busquedaGeneral(){
+     listSeleccionCliente=getListaClientes();
+      return "/cliente/List";
+    }
     public List<Cliente> getListaClientes(){
        return  getFacade().findAll();//getListClientesActive();
       
@@ -156,8 +160,10 @@ public class ClienteController implements Serializable{
                case 1:query+="OR c.nombre LIKE :nombre OR  c.paterno LIKE :nombre  OR  c.materno LIKE :nombre ";break;
            }
         }
-        if(query.equals(""))
-         listSeleccionCliente=getFacade().findAll();//refill 
+        if(query.equals("")){
+            listSeleccionCliente=getFacade().findAll();//refill
+            JsfUtil.addErrorMessage("El cliente no existe!");
+        }
         else{
              listSeleccionCliente=getFacade().buscarCliente(query,correo,nombre);
              if(listSeleccionCliente==null || listSeleccionCliente.isEmpty())

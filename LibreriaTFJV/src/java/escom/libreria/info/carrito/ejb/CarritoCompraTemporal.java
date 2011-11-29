@@ -12,6 +12,7 @@ import escom.libreria.info.cliente.jpa.Cliente;
 import escom.libreria.info.login.sistema.SistemaController;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.ejb.EJB;
@@ -126,6 +127,10 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
         return temporal;
     }
 
-    
+    private boolean descuentoArticuloValido(Articulo articulo_x){
+        Date fechaFin=articulo_x.getDescuentoArticulo().getFechaFin();
+        Date fechaInicio=articulo_x.getDescuentoArticulo().getFechaInicio();
+        return fechaInicio.compareTo(fechaFin)<0?true:false;
+    }
    
 }
