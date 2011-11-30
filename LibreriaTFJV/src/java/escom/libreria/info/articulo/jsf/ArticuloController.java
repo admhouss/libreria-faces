@@ -95,9 +95,12 @@ public class ArticuloController implements Serializable {
 
     public String prepreaListByArticulo(Articulo p){
         current=p;
-       // current.setProveedorList(current.getProveedorList());
         return "/articulo/ViewProveedor";
     }
+
+
+
+
 
     public String prepareListProveedorArticulo(){
         return "/articulo/proveedor_articulo/Create";

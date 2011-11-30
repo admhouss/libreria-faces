@@ -19,12 +19,17 @@ package escom.libreria.info.subirArchivo;
 
 
 
+import escom.libreria.info.articulo.jpa.Articulo;
 import escom.libreria.info.articulo.jsf.ArticuloController;
 import escom.libreria.info.articulo.jsf.PublicacionController;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
+import escom.libreria.mime.ejb.MimeFacade;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -44,6 +49,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.CroppedImage;
 import org.primefaces.model.DefaultStreamedContent;
@@ -64,12 +70,14 @@ public class SubirFiles  implements Serializable{
    
     private String carpetaPortadas="/home/libreria/www/articulos/";
     private String urlPortada="http://www.libreria-tfjfa.com/articulos/";
-    private String urlDownloads="/home/libreria/public_ftp/incoming/";
+    private String urlDownloads="C:/Users/xxx/Documents/expedienteXML/";///home/libreria/public_ftp/incoming/";
     private String urlXML="C:/Users/xxx/Documents/expedienteXML/";//"/home/libreria/public_ftp/";
-    private static final int BUFFER_SIZE = 9124;
+    private static final int BUFFER_SIZE = 10240;
+    private static final int DEFAULT_BUFFER_SIZE = 10240;
     private String imagemTemporaria;
     private String extension,menssageOut;
     @EJB private escom.libreria.info.procesarEditorialXML.Editorialfacade editorialfacade;
+    @EJB private escom.libreria.mime.ejb.MimeFacade mimeFacade;
 
     @ManagedProperty("#{articuloController}")
     private ArticuloController articuloController;
@@ -133,7 +141,7 @@ public class SubirFiles  implements Serializable{
                   {
                      extension=documento.substring(posExtension);
                      articuloController.getSelected().setFormatoDigital(extension);
-                     articuloController.getSelected().setArchivo(urlDownloads+documento);
+                     articuloController.getSelected().setArchivo(documento);
                      setMenssageOut("El archivo "+documento +" fue  Cargado Satisfactoriamente");
                    }
 
@@ -234,6 +242,73 @@ public class SubirFiles  implements Serializable{
     public void setPublicacionController(PublicacionController publicacionController) {
         this.publicacionController = publicacionController;
     }
+
+    private void download(String path, String nameFile, String tipoArchivo) throws IOException {
+
+        // Prepare.
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+
+        File file = new File(path,nameFile);
+        BufferedInputStream input = null;
+        BufferedOutputStream output = null;
+        //String url = "archivoPdf?path=" + path + "&fileName=" + nameFile + "&fileType=txt";
+        try {
+            input = new BufferedInputStream(new FileInputStream(file), DEFAULT_BUFFER_SIZE);
+
+            // Init servlet response.
+            response.reset();
+            response.setContentType(tipoArchivo);
+
+            response.setContentLength(Long.valueOf(file.length()).intValue());
+            response.setHeader("Content-disposition", "attachment; filename=\"" + nameFile + "\"");
+            output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
+
+            // Write file contents to response.
+            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+            int length;
+            while ((length = input.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+
+            // Finalize task.
+            output.flush();
+        } finally {
+            // Gently close streams.
+            close(output);
+            close(input);
+        }
+        facesContext.responseComplete();
+    }
+    private static void close(Closeable resource) {
+        if (resource != null) {
+            try {
+                resource.close();
+            } catch (IOException e) {
+                // Do your thing with the exception. Print it, log it or mail it. It may be useful to
+                // know that this will generally only be thrown when the client aborted the download.
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String descargarArchivoDocumento(Articulo articulo){
+        try {
+            String nombre = articulo.getArchivo();
+            String formato=articulo.getFormatoDigital().replaceAll(".","");
+            String mime=mimeFacade.buscarMimeType(formato);
+            //System.out.println("el mime es: "+formato.replaceAll(".",""));
+            download(urlDownloads, nombre, mime);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(SubirFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "/articulo/List";
+    }
+
+
 
 
    }
