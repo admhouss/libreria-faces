@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/templates/templateNovedades.xhtml">
+    <ui:composition template="/templates/templatePayPal.xhtml">
         <ui:define name="title">
             <h:outputText value=" "></h:outputText>
         </ui:define>
@@ -16,11 +16,250 @@
             </h:panelGroup>
             <h:form id="impuestoCreate">
                 <br/>  <br/>
-                <p:panel header="ALTA IMPUESTO">
+                <p:accordionPanel>
+                    <p:tab title="RELIZAR COMPRA">
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
                     
-                    <h:outputLabel value="Nombre:" for="montoImpuesto" styleClass="textoNEGRO" />
+                    <h:outputLabel value="Pais:" for="montoImpuesto" styleClass="textoNEGRO" />
+                    <h:selectOneMenu value="">
+                        <f:selectItem  id="" itemValue=""  itemLabel=""/>
+                        <f:selectItem id=" "  itemValue="AF" itemLabel="Afganistán"/>
+<f:selectItem id="1"  itemValue="AL" itemLabel="Albania"/>
+<f:selectItem id="2"  itemValue="DE" itemLabel="Alemania"/>
+<f:selectItem id="3"  itemValue="AD" itemLabel="Andorra"/>
+<f:selectItem id="4"  itemValue="AO" itemLabel="Angola"/>
+<f:selectItem id="5"  itemValue="AI" itemLabel="Anguilla"/>
+<f:selectItem id="6"  itemValue="AQ" itemLabel="Antártida"/>
+<f:selectItem id="7"  itemValue="AG" itemLabel="Antigua y Barbuda"/>
+<f:selectItem id="8"  itemValue="AN" itemLabel="Antillas Holandesas"/>
+<f:selectItem id="9"  itemValue="SA" itemLabel="Arabia Saudí"/>
+<f:selectItem id="10"  itemValue="DZ" itemLabel="Argelia"/>
+<f:selectItem id="11"  itemValue="AR" itemLabel="Argentina"/>
+<f:selectItem id="12"  itemValue="AM" itemLabel="Armenia"/>
+<f:selectItem id="13"  itemValue="AW" itemLabel="Aruba"/>
+<f:selectItem id="14"  itemValue="AU" itemLabel="Australia"/>
+<f:selectItem id="15"  itemValue="AT" itemLabel="Austria"/>
+<f:selectItem id="16"  itemValue="AZ" itemLabel="Azerbaiyán"/>
+<f:selectItem id="17"  itemValue="BS" itemLabel="Bahamas"/>
+<f:selectItem id="18"  itemValue="BH" itemLabel="Bahrein"/>
+<f:selectItem id="19"  itemValue="BD" itemLabel="Bangladesh"/>
+<f:selectItem id="20"  itemValue="BB" itemLabel="Barbados"/>
+<f:selectItem id="21"  itemValue="BE" itemLabel="Bélgica"/>
+<f:selectItem id="22"  itemValue="BZ" itemLabel="Belice"/>
+<f:selectItem id="23"  itemValue="BJ" itemLabel="Benin"/>
+<f:selectItem id="24"  itemValue="BM" itemLabel="Bermudas"/>
+<f:selectItem id="25"  itemValue="BY" itemLabel="Bielorrusia"/>
+<f:selectItem id="26"  itemValue="MM" itemLabel="Birmania"/>
+<f:selectItem id="27"  itemValue="BO" itemLabel="Bolivia"/>
+<f:selectItem id="28"  itemValue="BA" itemLabel="Bosnia y Herzegovina"/>
+<f:selectItem id="29"  itemValue="BW" itemLabel="Botswana"/>
+<f:selectItem id="30"  itemValue="BR" itemLabel="Brasil"/>
+<f:selectItem id="31"  itemValue="BN" itemLabel="Brunei"/>
+<f:selectItem id="32"  itemValue="BG" itemLabel="Bulgaria"/>
+<f:selectItem id="33"  itemValue="BF" itemLabel="Burkina Faso"/>
+<f:selectItem id="34"  itemValue="BI" itemLabel="Burundi"/>
+<f:selectItem id="35"  itemValue="BT" itemLabel="Bután"/>
+<f:selectItem id="36"  itemValue="CV" itemLabel="Cabo Verde"/>
+<f:selectItem id="37"  itemValue="KH" itemLabel="Camboya"/>
+<f:selectItem id="38"  itemValue="CM" itemLabel="Camerún"/>
+<f:selectItem id="39"  itemValue="CA" itemLabel="Canadá"/>
+<f:selectItem id="40"  itemValue="TD" itemLabel="Chad"/>
+<f:selectItem id="41"  itemValue="CL" itemLabel="Chile"/>
+<f:selectItem id="42"  itemValue="CN" itemLabel="China"/>
+<f:selectItem id="43"  itemValue="CY" itemLabel="Chipre"/>
+<f:selectItem id="44"  itemValue="VA" itemLabel="Ciudad del Vaticano (Santa Sede)"/>
+<f:selectItem id="45"  itemValue="CO" itemLabel="Colombia"/>
+<f:selectItem id="46"  itemValue="KM" itemLabel="Comores"/>
+<f:selectItem id="47"  itemValue="CG" itemLabel="Congo"/>
+<f:selectItem id="48"  itemValue="CD" itemLabel="Congo, República Democrática del"/>
+<f:selectItem id="49"  itemValue="KR" itemLabel="Corea"/>
+<f:selectItem id="50"  itemValue="KP" itemLabel="Corea del Norte"/>
+<f:selectItem id="51"  itemValue="CI" itemLabel="Costa de Marfíl"/>
+<f:selectItem id="52"  itemValue="CR" itemLabel="Costa Rica"/>
+<f:selectItem id="53"  itemValue="HR" itemLabel="Croacia (Hrvatska)"/>
+<f:selectItem id="54"  itemValue="CU" itemLabel="Cuba"/>
+<f:selectItem id="55"  itemValue="DK" itemLabel="Dinamarca"/>
+<f:selectItem id="56"  itemValue="DJ" itemLabel="Djibouti"/>
+<f:selectItem id="57"  itemValue="DM" itemLabel="Dominica"/>
+<f:selectItem id="58"  itemValue="EC" itemLabel="Ecuador"/>
+<f:selectItem id="59"  itemValue="EG" itemLabel="Egipto"/>
+<f:selectItem id="60"  itemValue="SV" itemLabel="El Salvador"/>
+<f:selectItem id="61"  itemValue="AE" itemLabel="Emiratos Árabes Unidos"/>
+<f:selectItem id="62"  itemValue="ER" itemLabel="Eritrea"/>
+<f:selectItem id="63"  itemValue="SI" itemLabel="Eslovenia"/>
+<f:selectItem id="64"  itemValue="ES" itemLabel="España"/>
+<f:selectItem id="65"  itemValue="US" itemLabel="Estados Unidos"/>
+<f:selectItem id="66"  itemValue="EE" itemLabel="Estonia"/>
+<f:selectItem id="67"  itemValue="ET" itemLabel="Etiopía"/>
+<f:selectItem id="68"  itemValue="FJ" itemLabel="Fiji"/>
+<f:selectItem id="69"  itemValue="PH" itemLabel="Filipinas"/>
+<f:selectItem id="70"  itemValue="FI" itemLabel="Finlandia"/>
+<f:selectItem id="71"  itemValue="FR" itemLabel="Francia"/>
+<f:selectItem id="72"  itemValue="GA" itemLabel="Gabón"/>
+<f:selectItem id="73"  itemValue="GM" itemLabel="Gambia"/>
+<f:selectItem id="74"  itemValue="GE" itemLabel="Georgia"/>
+<f:selectItem id="75"  itemValue="GH" itemLabel="Ghana"/>
+<f:selectItem id="76"  itemValue="GI" itemLabel="Gibraltar"/>
+<f:selectItem id="77"  itemValue="GD" itemLabel="Granada"/>
+<f:selectItem id="78"  itemValue="GR" itemLabel="Grecia"/>
+<f:selectItem id="79"  itemValue="GL" itemLabel="Groenlandia"/>
+<f:selectItem id="80"  itemValue="GP" itemLabel="Guadalupe"/>
+<f:selectItem id="81"  itemValue="GU" itemLabel="Guam"/>
+<f:selectItem id="82"  itemValue="GT" itemLabel="Guatemala"/>
+<f:selectItem id="83"  itemValue="GY" itemLabel="Guayana"/>
+<f:selectItem id="84"  itemValue="GF" itemLabel="Guayana Francesa"/>
+<f:selectItem id="85"  itemValue="GN" itemLabel="Guinea"/>
+<f:selectItem id="86"  itemValue="GQ" itemLabel="Guinea Ecuatorial"/>
+<f:selectItem id="87"  itemValue="GW" itemLabel="Guinea-Bissau"/>
+<f:selectItem id="88"  itemValue="HT" itemLabel="Haití"/>
+<f:selectItem id="89"  itemValue="HN" itemLabel="Honduras"/>
+<f:selectItem id="90"  itemValue="HU" itemLabel="Hungría"/>
+<f:selectItem id="91"  itemValue="IN" itemLabel="India"/>
+<f:selectItem id="92"  itemValue="ID" itemLabel="Indonesia"/>
+<f:selectItem id="93"  itemValue="IQ" itemLabel="Irak"/>
+<f:selectItem id="94"  itemValue="IR" itemLabel="Irán"/>
+<f:selectItem id="95"  itemValue="IE" itemLabel="Irlanda"/>
+<f:selectItem id="96"  itemValue="BV" itemLabel="Isla Bouvet"/>
+<f:selectItem id="97"  itemValue="CX" itemLabel="Isla de Christmas"/>
+<f:selectItem id="98"  itemValue="IS" itemLabel="Islandia"/>
+<f:selectItem id="99"  itemValue="KY" itemLabel="Islas Caimán"/>
+<f:selectItem id="100"  itemValue="CK" itemLabel="Islas Cook"/>
+<f:selectItem id="101"  itemValue="CC" itemLabel="Islas de Cocos o Keeling"/>
+<f:selectItem id="102"  itemValue="FO" itemLabel="Islas Faroe"/>
+<f:selectItem id="103"  itemValue="HM" itemLabel="Islas Heard y McDonald"/>
+<f:selectItem id="104"  itemValue="FK" itemLabel="Islas Malvinas"/>
+<f:selectItem id="105"  itemValue="MP" itemLabel="Islas Marianas del Norte"/>
+<f:selectItem id="106"  itemValue="MH" itemLabel="Islas Marshall"/>
+<f:selectItem id="107"  itemValue="UM" itemLabel="Islas menores de Estados Unidos"/>
+<f:selectItem id="108"  itemValue="PW" itemLabel="Islas Palau"/>
+<f:selectItem id="109"  itemValue="SB" itemLabel="Islas Salomón"/>
+<f:selectItem id="110"  itemValue="SJ" itemLabel="Islas Svalbard y Jan Mayen"/>
+<f:selectItem id="111"  itemValue="TK" itemLabel="Islas Tokelau"/>
+<f:selectItem id="112 "  itemValue="TC" itemLabel="Islas Turks y Caicos"/>
+<f:selectItem id="113"  itemValue="VI" itemLabel="Islas Vírgenes (EE.UU.)"/>
+<f:selectItem id="114"  itemValue="VG" itemLabel="Islas Vírgenes (Reino Unido)"/>
+<f:selectItem id="115"  itemValue="WF" itemLabel="Islas Wallis y Futuna"/>
+<f:selectItem id="116"  itemValue="IL" itemLabel="Israel"/>
+<f:selectItem id="117"  itemValue="IT" itemLabel="Italia"/>
+<f:selectItem id="118"  itemValue="JM" itemLabel="Jamaica"/>
+<f:selectItem id="119"  itemValue="JP" itemLabel="Japón"/>
+<f:selectItem id="120"  itemValue="JO" itemLabel="Jordania"/>
+<f:selectItem id="121"  itemValue="KZ" itemLabel="Kazajistán"/>
+<f:selectItem id="122"  itemValue="KE" itemLabel="Kenia"/>
+<f:selectItem id="123"  itemValue="KG" itemLabel="Kirguizistán"/>
+<f:selectItem id="124"  itemValue="KI" itemLabel="Kiribati"/>
+<f:selectItem id="125"  itemValue="KW" itemLabel="Kuwait"/>
+<f:selectItem id="126"  itemValue="LA" itemLabel="Laos"/>
+<f:selectItem id="127"  itemValue="LS" itemLabel="Lesotho"/>
+<f:selectItem id="128"  itemValue="LV" itemLabel="Letonia"/>
+<f:selectItem id="129"  itemValue="LB" itemLabel="Líbano"/>
+<f:selectItem id="130"  itemValue="LR" itemLabel="Liberia"/>
+<f:selectItem id="131"  itemValue="LY" itemLabel="Libia"/>
+<f:selectItem id="132"  itemValue="LI" itemLabel="Liechtenstein"/>
+<f:selectItem id="133"  itemValue="LT" itemLabel="Lituania"/>
+<f:selectItem id="134"  itemValue="LU" itemLabel="Luxemburgo"/>
+<f:selectItem id="135"  itemValue="MK" itemLabel="Macedonia, Ex-República Yugoslava de"/>
+<f:selectItem id="136"  itemValue="MG" itemLabel="Madagascar"/>
+<f:selectItem id="137"  itemValue="MY" itemLabel="Malasia"/>
+<f:selectItem id="138"  itemValue="MW" itemLabel="Malawi"/>
+<f:selectItem id="140"  itemValue="MV" itemLabel="Maldivas"/>
+<f:selectItem id="141"  itemValue="ML" itemLabel="Malí"/>
+<f:selectItem id="142"  itemValue="MT" itemLabel="Malta"/>
+<f:selectItem id="143"  itemValue="MA" itemLabel="Marruecos"/>
+<f:selectItem id="144"  itemValue="MQ" itemLabel="Martinica"/>
+<f:selectItem id="145"  itemValue="MU" itemLabel="Mauricio"/>
+<f:selectItem id="146"  itemValue="MR" itemLabel="Mauritania"/>
+<f:selectItem id="147"  itemValue="YT" itemLabel="Mayotte"/>
+<f:selectItem id="148"  itemValue="MX" itemLabel="México"/>
+<f:selectItem id="149"  itemValue="FM" itemLabel="Micronesia"/>
+<f:selectItem id="150"  itemValue="MD" itemLabel="Moldavia"/>
+<f:selectItem id="151"  itemValue="MC" itemLabel="Mónaco"/>
+<f:selectItem id="152"  itemValue="MN" itemLabel="Mongolia"/>
+<f:selectItem id="153"  itemValue="MS" itemLabel="Montserrat"/>
+<f:selectItem id="154"  itemValue="MZ" itemLabel="Mozambique"/>
+<f:selectItem id="155"  itemValue="NA" itemLabel="Namibia"/>
+<f:selectItem id="156"  itemValue="NR" itemLabel="Nauru"/>
+<f:selectItem id="157"  itemValue="NP" itemLabel="Nepal"/>
+<f:selectItem id="158"  itemValue="NI" itemLabel="Nicaragua"/>
+<f:selectItem id="159"  itemValue="NE" itemLabel="Níger"/>
+<f:selectItem id="160"  itemValue="NG" itemLabel="Nigeria"/>
+<f:selectItem id="161"  itemValue="NU" itemLabel="Niue"/>
+<f:selectItem id="162"  itemValue="NF" itemLabel="Norfolk"/>
+<f:selectItem id="163"  itemValue="NO" itemLabel="Noruega"/>
+<f:selectItem id="164"  itemValue="NC" itemLabel="Nueva Caledonia"/>
+<f:selectItem id="165"  itemValue="NZ" itemLabel="Nueva Zelanda"/>
+<f:selectItem id="166"  itemValue="OM" itemLabel="Omán"/>
+<f:selectItem id="167"  itemValue="NL" itemLabel="Países Bajos"/>
+<f:selectItem id="168"  itemValue="PA" itemLabel="Panamá"/>
+<f:selectItem id="169"  itemValue="PG" itemLabel="Papúa Nueva Guinea"/>
+<f:selectItem id="170"  itemValue="PK" itemLabel="Paquistán"/>
+<f:selectItem id="171"  itemValue="PY" itemLabel="Paraguay"/>
+<f:selectItem id="172"  itemValue="PE" itemLabel="Perú"/>
+<f:selectItem id="173"  itemValue="PN" itemLabel="Pitcairn"/>
+<f:selectItem id="174"  itemValue="PF" itemLabel="Polinesia Francesa"/>
+<f:selectItem id="175"  itemValue="PL" itemLabel="Polonia"/>
+<f:selectItem id="176"  itemValue="PT" itemLabel="Portugal"/>
+<f:selectItem id="177"  itemValue="PR" itemLabel="Puerto Rico"/>
+<f:selectItem id="178"  itemValue="QA" itemLabel="Qatar"/>
+<f:selectItem id="179"  itemValue="UK" itemLabel="Reino Unido"/>
+<f:selectItem id="180"  itemValue="CF" itemLabel="República Centroafricana"/>
+<f:selectItem id="181"  itemValue="CZ" itemLabel="República Checa"/>
+<f:selectItem id="182"  itemValue="ZA" itemLabel="República de Sudáfrica"/>
+<f:selectItem id="183"  itemValue="DO" itemLabel="República Dominicana"/>
+<f:selectItem id="184"  itemValue="SK" itemLabel="República Eslovaca"/>
+<f:selectItem id="185"  itemValue="RE" itemLabel="Reunión"/>
+<f:selectItem id="186"  itemValue="RW" itemLabel="Ruanda"/>
+<f:selectItem id="187"  itemValue="RO" itemLabel="Rumania"/>
+<f:selectItem id="188"  itemValue="RU" itemLabel="Rusia"/>
+<f:selectItem id="189"  itemValue="EH" itemLabel="Sahara Occidental"/>
+<f:selectItem id="190"  itemValue="KN" itemLabel="Saint Kitts y Nevis"/>
+<f:selectItem id="191"  itemValue="WS" itemLabel="Samoa"/>
+<f:selectItem id="192"  itemValue="AS" itemLabel="Samoa Americana"/>
+<f:selectItem id="193"  itemValue="SM" itemLabel="San Marino"/>
+<f:selectItem id="194"  itemValue="VC" itemLabel="San Vicente y Granadinas"/>
+<f:selectItem id="195"  itemValue="SH" itemLabel="Santa Helena"/>
+<f:selectItem id="196"  itemValue="LC" itemLabel="Santa Lucía"/>
+<f:selectItem id="197"  itemValue="ST" itemLabel="Santo Tomé y Príncipe"/>
+<f:selectItem id="198"  itemValue="SN" itemLabel="Senegal"/>
+<f:selectItem id="199"  itemValue="SC" itemLabel="Seychelles"/>
+<f:selectItem id="200"  itemValue="SL" itemLabel="Sierra Leona"/>
+<f:selectItem id="201"  itemValue="SG" itemLabel="Singapur"/>
+<f:selectItem id="202"  itemValue="SY" itemLabel="Siria"/>
+<f:selectItem id="203"  itemValue="SO" itemLabel="Somalia"/>
+<f:selectItem id="204"  itemValue="LK" itemLabel="Sri Lanka"/>
+<f:selectItem id="205"  itemValue="PM" itemLabel="St. Pierre y Miquelon"/>
+<f:selectItem id="206"  itemValue="SZ" itemLabel="Suazilandia"/>
+<f:selectItem id="207"  itemValue="SD" itemLabel="Sudán"/>
+<f:selectItem id="208"  itemValue="SE" itemLabel="Suecia"/>
+<f:selectItem id="209"  itemValue="CH" itemLabel="Suiza"/>
+<f:selectItem id="210"  itemValue="SR" itemLabel="Surinam"/>
+<f:selectItem id="211"  itemValue="TH" itemLabel="Tailandia"/>
+<f:selectItem id="213 "  itemValue="TW" itemLabel="Taiwán"/>
+<f:selectItem id="214"  itemValue="TZ" itemLabel="Tanzania"/>
+<f:selectItem id="215"  itemValue="TJ" itemLabel="Tayikistán"/>
+<f:selectItem id="216"  itemValue="TF" itemLabel="Territorios franceses del Sur"/>
+<f:selectItem id="217"  itemValue="TP" itemLabel="Timor Oriental"/>
+<f:selectItem id="218"  itemValue="TG" itemLabel="Togo"/>
+<f:selectItem id="219"  itemValue="TO" itemLabel="Tonga"/>
+<f:selectItem id="220"  itemValue="TT" itemLabel="Trinidad y Tobago"/>
+<f:selectItem id="221"  itemValue="TN" itemLabel="Túnez"/>
+<f:selectItem id="222"  itemValue="TM" itemLabel="Turkmenistán"/>
+<f:selectItem id="223"  itemValue="TR" itemLabel="Turquía"/>
+<f:selectItem id="224"  itemValue="TV" itemLabel="Tuvalu"/>
+<f:selectItem id="225"  itemValue="UA" itemLabel="Ucrania"/>
+<f:selectItem id="226"  itemValue="UG" itemLabel="Uganda"/>
+<f:selectItem id="227"  itemValue="UY" itemLabel="Uruguay"/>
+<f:selectItem id="228"  itemValue="UZ" itemLabel="Uzbekistán"/>
+<f:selectItem id="229"  itemValue="VU" itemLabel="Vanuatu"/>
+<f:selectItem id="300"  itemValue="VE" itemLabel="Venezuela"/>
+<f:selectItem id="301"  itemValue="VN" itemLabel="Vietnam"/>
+<f:selectItem id="302"  itemValue="YE" itemLabel="Yemen"/>
+<f:selectItem id="303"  itemValue="YU" itemLabel="Yugoslavia"/>
+<f:selectItem id="304"  itemValue="ZM" itemLabel="Zambia"/>
+<f:selectItem id="305"  itemValue="ZW" itemLabel="Zimbabue"/>
+
+                    </h:selectOneMenu>
                     <h:inputText id="montoImpuesto" value="#{impuestoController.selected.montoImpuesto}" title="Monto Impuesto" required="true" requiredMessage="Falta por campturar el campo Monto Impuesto"/>
                    
                     <h:outputLabel value="Apellido" for="articulo" styleClass="textoNEGRO" />
@@ -31,7 +270,8 @@
                      <h:inputTextarea id="descripcion" value="#{impuestoController.selected.descripcion}" title="Descripcion" required="true" requiredMessage="Falta por capturar Descripcion"/>
                 </h:panelGrid>
                 </center>
-                </p:panel>
+                    </p:tab>
+                </p:accordionPanel>
                 <br /> <br />
                 <div align="center">
                      <p:panel>
