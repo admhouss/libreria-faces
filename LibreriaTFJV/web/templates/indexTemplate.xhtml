@@ -1,295 +1,94 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.prime.com.tr/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-    
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
- 
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <!-- InstanceBeginEditable name="doctitle" -->
-        <h:outputStylesheet name="./resources/css/primefaces-start/theme.css"/>
-        <title>..::Libreria::..</title>
-        <!-- InstanceEndEditable -->
-<style type="text/css">
-#apDiv1 {
-	position:absolute;
-	left:10px;
-	top:123px;
-	width:214px;
-	height:551px;
-	z-index:1;
-	background:url(./resources/template/imgs/left_end.gif);
-	background-repeat:no-repeat;
-
-}
-#apDiv2 {
-	position:absolute;
-	left:226px;
-	top:122px;
-	width:590px;
-	height:132px;
-	z-index:5;
-	background-image: url(./resources/template/imgs/img1.jpg);
-}
-#apDiv3 {
-	position:absolute;
-	left:819px;
-	top:122px;
-	width:191px;
-	height:552px;
-	z-index:3;
-	background-image: url(./resources/template/imgs/head_der.jpg);
-	background-repeat:no-repeat;
-}
-#apDiv4 {
-	position:absolute;
-	left:224px;
-	top:258px;
-	width:592px;
-	height:417px;
-	z-index:4;
-}
-#apDiv5 {
-	position:absolute;
-	left:10px;
-	top:11px;
-	width:1000px;
-	height:111px;
-	z-index:1;
-	background-image: url(./resources/template/imgs/head.jpg);
-}
-</style>
-<link type="text/css" href="./resources/template/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-<link href="./resources/template/css/style.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="./resources/template/js/jquery-1.6.2.min.js"></script>
-		<script type="text/javascript" src="./resources/template/js/jquery-ui-1.8.16.custom.min.js"></script>
-		<script src="./resources/template/SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
-		<script type="text/javascript">
-			$(function(){
-
-				// Accordion
-				$("#accordion").accordion({ header: "h3" });
-
-				// Tabs
-				$('#tabs').tabs();
 
 
-				// Dialog
-				$('#dialog').dialog({
-					autoOpen: false,
-					width: 600,
-					buttons: {
-						"Ok": function() {
-							$(this).dialog("close");
-						},
-						"Cancel": function() {
-							$(this).dialog("close");
-						}
-					}
-				});
+       <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css"  media="screen"/>
+       <link href="#{facesContext.externalContext.request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
+       <!--<link href="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />-->
+       <link rel="stylesheet" type="text/css" href="{facesContext.externalContext.request.contextPath}/resources/template/webscrArchivos/country.css"/>
+       <link media="print" rel="stylesheet" type="text/css" href="#{facesContext.externalContext.request.contextPath}/resources/template/webscrArchivos/print.css"/>
 
-				// Dialog Link
-				$('#dialog_link').click(function(){
-					$('#dialog').dialog('open');
-					return false;
-				});
 
-				// Datepicker
-				$('#datepicker').datepicker({
-					inline: true
-				});
 
-				// Slider
-				$('#slider').slider({
-					range: true,
-					values: [17, 67]
-				});
-
-				// Progressbar
-				$("#progressbar").progressbar({
-					value: 20
-				});
-
-				//hover states on the static widgets
-				$('#dialog_link, ul#icons li').hover(
-					function() { $(this).addClass('ui-state-hover'); },
-					function() { $(this).removeClass('ui-state-hover'); }
-				);
-
-			});
-		</script>
-
-<style type="text/css">
-#apDiv6 {
-	position:absolute;
-	left:10px;
-	top:679px;
-	width:1001px;
-	height:66px;
-	z-index:6;
-}
-</style>
-<link href="./resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
 <!-- InstanceBeginEditable name="head" -->
 
 
 	<!-- InstanceEndEditable -->
 
+
     </h:head>
 
-     <h:body >
+
+
+    <h:body>
+
+
+<style type="text/css">
+body { border:none; background:none; background-color:#FFFFFF;}
+#page { width:auto; _height:1%; }
+#page #header, #page #headline, #page #main, #page #messageBox, #page #footerhps { width:760px; margin:0 auto; }
+#page #header, #stdpage #header { position:relative; overflow:hidden; border:2px solid #FFFFFF; background-color:#FFFFFF;  background-repeat:no-repeat; background-position:left; }
+#page #header h1 { position:relative; }
+#page #content { overflow:visible; margin:5px 10px 0; padding-top:15px; background:#fff url(/en_US/i/header/header_bg.gif) repeat-x 0 0; }
+#page #main { overflow:auto; padding:0 0 1em; }
+</style>
+      <script src="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBar.js" type="text/javascript"/>
+      <script type="text/javascript" src="webscr%20Archivos/global.js">
+          
+      </script>
+      <style type="text/css">form#rosetta {display:none;}</style>
+      <script type="text/javascript">PAYPAL.util.lazyLoadRoot = 'https://www.paypalobjects.com/MERCHANTPAYMENTWEB-640-20110822-1';</script>
+      <link rel="shortcut icon" href="https://www.paypalobjects.com/en_US/i/icon/pp_favicon_x.ico"/>
+      <link rel="apple-touch-icon" href="https://www.paypalobjects.com/en_US/i/pui/apple-touch-icon.png"/>
+
+
+            <ui:insert name="title"></ui:insert>
+
+
+            <ui:insert name="body">
+
+
+
+
+
 
 <div id="apDiv1">
   <h2>&nbsp;</h2>
-  <table width="90%" border="0" align="right">
-    <tr>
-      <td scope="col"><h3>Log-in </h3></td>
-    </tr>
-    <tr>
-    <td scope="col">Usuario</td>
-  </tr>
-  <tr>
-    <td><input name="textfield2" type="text" id="textfield2" size="15" /></td>
-  </tr>
-  <tr>
-    <td>Contraseña</td>
-  </tr>
-  <tr>
-    <td><input name="textfield3" type="text" id="textfield3" size="15" />
-      <ul id="icons" class="ui-widget ui-helper-clearfix">
-        <li class="ui-state-default ui-corner-all" title="Ingresar"><span class="ui-icon ui-icon-key"></span></li>
-      </ul></td>
-  </tr>
-  <tr>
-    <td align="right" class="current_page_item">
 
-       <a href="./faces/cliente/Create.xhtml">Registrarse</a>
-       
-       
-    </td>
-  </tr>
-</table>
-<p>&nbsp;</p>
-<h2>&nbsp;</h2>
-<h2>&nbsp;</h2>
-<h2>&nbsp;</h2>
-<h2>&nbsp;</h2>
-<h2>&nbsp;</h2>
-<h2>&nbsp;</h2>
-<table width="90%" border="0" align="right">
-  <tr>
-    <th align="left" scope="col"><h2>Categorias</h2>
-      <ul class="list navigation">
-        <li>
-            
-           
-            
-            <a href="/face/">Derecho Fiscal</a>
-            
-        </li>
-        <li><a href="#">Derecho internacional</a>
-          <ul>
-            <ul>
-              <ul>
-                <li><a href="#">Derecho Admimistrativo</a></li>
-                <li><a href="#">Juicio en Linea </a></li>
-                <li><a href="#">Juicios Orales</a></li>
-                <li><a href="#">Jurisprudencia</a></li>
-              </ul>
-            </ul>
-          </ul>
-        </li>
-      </ul>
-      <p></p></th>
-  </tr>
-</table>
-<h2>&nbsp;</h2>
-<h2>&nbsp;</h2>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<table width="90%" border="0" align="right">
-  <tr>
-    <th align="left" scope="col"><h2>Lo mas vendido</h2>
-      <ul class="list navigation">
-        <li><a href="#">Derecho físcal</a></li>
-        <li><a href="#">Derecho internacional</a>
-          <ul>
-            <ul>
-              <ul>
-                <li><a href="#">Derecho Admimistrativo</a></li>
-                <li><a href="#">Juicio en Linea</a></li>
-                <li><a href="#">Juicios Orales</a></li>
-                <li><a href="#">Jurisprudencia</a></li>
-              </ul>
-            </ul>
-          </ul>
-        </li>
-      </ul>
-      <p></p></th>
-  </tr>
-</table>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<table width="90%" border="0" align="right">
-  <tr>
-    <th align="left" scope="col"><h2>Administración</h2>
-      <ul class="list navigation">
-        <li><a href="Reporte_Ventas.html">Ventas General </a></li>
-        <li><a href="Ventas_Detalle.html">Ventas Detalles</a>
-          <ul>
-            <ul>
-              <ul>
-                <li><a href="./faces/cliente/List.xhtml">Clientes</a></li>
-                <li>
-                    <a href="./faces/publicacion/List.xhtml">Catalogos</a></li>
-                <li><a href="#">Estadisticas</a></li>
-                <li></li>
-              </ul>
-            </ul>
-          </ul>
-        </li>
-      </ul>
-      <p></p></th>
-  </tr>
-</table>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+  
 </div>
 <div id="apDiv2"> </div>
 <div id="apDiv3">
   <p>&nbsp;</p>
   <table width="97%" border="0" align="right">
     <tr>
-      <th scope="col">
-          <ul id="icons" class="ui-widget ui-helper-clearfix">
-             
-       
+      <td scope="col">
+
+      <ul id="icons" class="ui-widget ui-helper-clearfix">
+
+
            <li class="ui-state-default ui-corner-all" title="Buscar">
-           <span class="ui-icon ui-icon-search"></span>
+               <h:form id="busqueda" >
+                    <h:commandLink action="#{publicacionController.buscarLibroGeneral}"  styleClass="ui-icon ui-icon-search" style="width:19px"/>
+
+                     <h:inputText value="#{publicacionController.general}"  size="25" title="Palabra Clave" id="editorial" />
+
+              </h:form>
            </li>
-             
-          <input name="textfield" type="text" id="textfield" size="25" />
-             
-          <li> </li>
+
+
       </ul>
-      </th>
+      </td>
     </tr>
     <tr>
       <td align="right" class="current_page_item">
-          <a href="./faces/busqueda/List.xhtml">Busqueda Avanzada</a>
+          <a href="#{facesContext.externalContext.request.contextPath}/faces/busqueda/List.xhtml">Busqueda Avanzada</a>
       </td>
     </tr>
     <tr></tr>
@@ -307,17 +106,19 @@
     <tr>
       <td><table width="99%" border="0">
         <tr>
-          <td align="center"><p><img src="./resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
+          <td align="center"><p><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
         </tr>
         <tr>
           <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
         </tr>
         <tr></tr>
         <tr>
-          <td align="right"><ul id="icons" class="ui-widget ui-helper-clearfix">
-           <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li></a>            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+          <td align="right">
+          <ul id="icons" class="ui-widget ui-helper-clearfix">
+             <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
+             <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
+            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li>
+            </a>            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
           </ul></td>
         </tr>
         <tr></tr>
@@ -329,7 +130,7 @@
     <tr>
       <td><table width="99%" border="0">
         <tr>
-          <td align="center"><p><img src="./resources/template/imgs/producto3.jpg" width="81" height="72" /></p></td>
+          <td align="center"><p><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto3.jpg" width="81" height="72" /></p></td>
         </tr>
         <tr>
           <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
@@ -373,148 +174,24 @@
   <p>&nbsp;</p>
   <table width="99%" border="0" align="center">
     <tr>
-      <td align="center" scope="col"><img src="./resources/template/imgs/logo-paypal.jpg" width="129" height="141" /></td>
+      <td align="center" scope="col"><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/logo-paypal.jpg" width="129" height="141" /></td>
     </tr>
   </table>
 </div>
 <div id="apDiv4"><!-- InstanceBeginEditable name="Main" -->
-  <h2>Novedades</h2>
+  <!--<h2>Novedades</h2>
   <p>&nbsp;</p>
-  <div id="accordion">
-		  <div>
-		    <h3><a href="#">Libros </a></h3>
-		    <div>
-		      <table width="99%" border="0">
-		        <tr>
-		          <td width="13%" rowspan="8" scope="col">
-                         <img src="./resources/template/imgs/producto6.jpg" width="83" height="122" /></td>
-		          <td width="79%" class="Titulo_articulo" scope="col">Mediación y Arbitraje</td>
-	            </tr>
-		        <tr>
-		          <td><p><strong>Autor:</strong> Francisco Javier Corjon Gomez</p></td>
-	            </tr>
-		        <tr>
-		          <td><p><strong>Editorial:</strong> Tribunal de Justicia de Nuevo Léon</p></td>
-	            </tr>
-		        <tr>
-		          <td><strong>ISBN: </strong></td>
-	            </tr>
-		        <tr>
-		          <td>&nbsp;</td>
-	            </tr>
-		        <tr>
-		          <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
-           <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li></a>
-		            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
-		            </ul></td>
-	            </tr>
-		        <tr></tr>
-		        <tr></tr>
-	          </table>
-		      <table width="99%" border="0">
-		        <tr>
-		          <td width="13%" rowspan="8" scope="col"><img src="./resources/template/imgs/producto5.jpg" width="83" height="114" /></td>
-		          <td width="79%" class="Titulo_articulo"  scope="col">Mediación y Arbitraje 2</td>
-	            </tr>
-		        <tr>
-		          <td><p><strong>Autor:</strong> Francisco Javier Corjon Gomez</p></td>
-	            </tr>
-		        <tr>
-		          <td><p><strong>Editorial:</strong> Tribunal de Justicia de Nuevo Léon</p></td>
-	            </tr>
-		        <tr>
-		          <td><strong>ISBN: </strong></td>
-	            </tr>
-		        <tr>
-		          <td>&nbsp;</td>
-	            </tr>
-		        <tr>
-		          <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
-           <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li></a>
-		            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
-		            </ul></td>
-	            </tr>
-		        <tr></tr>
-		        <tr></tr>
-	          </table>
-		      <p>&nbsp;</p>
-	        </div>
-      </div>
-		  <div>
-		    <h3><a href="#">Suscripciones</a></h3>
-		    <div>
-		      <table width="99%" border="0">
-		        <tr>
-		          <td width="13%" rowspan="8" scope="col"><img src="./resources/template/imgs/producto4.jpg" width="79" height="123" /></td>
-		          <td width="79%" class="Titulo_articulo" scope="col">Constitucin Politica de los Estados Unidos Mexicano</td>
-	            </tr>
-		        <tr>
-		          <td><p><strong>Autor:</strong> Cras orci urna, blandit id, pretium vel</p></td>
-	            </tr>
-		        <tr>
-		          <td><p><strong>Editorial:</strong> Porrua</p></td>
-	            </tr>
-		        <tr>
-		          <td><strong>ISBN: </strong></td>
-	            </tr>
-		        <tr>
-		          <td>&nbsp;</td>
-	            </tr>
-		        <tr>
-		          <td align="right"><ul id="icons" class="ui-widget ui-helper-clearfix">
-           <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li></a>
-		            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
-		            </ul>
-		            &nbsp;</td>
-	            </tr>
-		        <tr></tr>
-		        <tr></tr>
-	          </table>
-		      <table width="99%" border="0">
-		        <tr>
-		          <td width="13%" rowspan="8" scope="col"><img src="./resources/template/imgs/producto6.jpg" width="83" height="122" /></td>
-		          <td width="79%" class="Titulo_articulo" scope="col">Mediación y Arbitraje</td>
-	            </tr>
-		        <tr>
-		          <td><p><strong>Autor:</strong> Francisco Javier Corjon Gomez</p></td>
-	            </tr>
-		        <tr>
-		          <td><p><strong>Editorial:</strong> Tribunal de Justicia de Nuevo Léon</p></td>
-	            </tr>
-		        <tr>
-		          <td><strong>ISBN: </strong></td>
-	            </tr>
-		        <tr>
-		          <td>&nbsp;</td>
-	            </tr>
-		        <tr>
-		          <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
-           <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
-            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li></a>
-		            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
-		            </ul></td>
-	            </tr>
-		        <tr></tr>
-		        <tr></tr>
-	          </table>
-		      <p>&nbsp;</p>
-	        </div>
-      </div>
-		  <div>
-		    <h3><a href="#">Accesorios</a></h3>
-		    <div>
-		      <p>Nam dui erat, auctor a, dignissim quis.asdf</p>
-		      <p>&nbsp;</p>
-</div>
-      </div>
-  </div>
+  -->
+  <center>
+      <h3><h:outputText value="#{sistemaController.menssageBienvenida}"/></h3>
+  </center>
+
+  <p>&nbsp;</p>
+  <!-- acordion -->
+
+
+  <ui:insert name="bodyNovedades"/>
+
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
@@ -531,7 +208,7 @@
   <p>&nbsp;</p>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
-  <div><img src="./resources/template/imgs/footes.jpg" width="592" height="50" /></div>
+  <div><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/footes.jpg" width="592" height="50" /></div>
   <p>&nbsp;</p>
 </div>
 <div id="apDiv5">
@@ -539,35 +216,68 @@
     <tr>
       <th width="462" height="19" nowrap="nowrap" scope="col">&nbsp;</th>
       <th width="392" scope="col"><ul id="MenuBar1" class="MenuBarHorizontal">
-        <li><a class="MenuBarItemSubmenu" href="#">Conocenos</a>
+          <li><a class="MenuBarItemSubmenu" href="#">Con&oacute;cenos</a>
           <ul>
             <li><a href="#">Acerca de Nosotros</a></li>
             <li><a href="#">Sucursales</a></li>
             <li><a href="#">Contacto</a></li>
           </ul>
         </li>
-        <li><a href="carrito_1.html">Productos</a>
+        <li>
+            <a href="carrito_1.html">Productos</a>
+
           <ul>
-            <li><a href="Libros.html">Libros</a></li>
-            <li><a href="Suscripciones.html">Suscripciones</a></li>
-            <li><a href="Aceesorios.html">Accesorios</a></li>
+            <li>
+                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=libros">
+                    <h:outputText value="Libros"/>
+                </h:outputLink>
+            </li>
+            <li><a href="Suscripcidoss.html">Suscripciones</a></li>
+            <li>
+                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=accesorios">
+                    <h:outputText value="Accesorios"/>
+                </h:outputLink></li>
           </ul>
         </li>
-        <li><a class="MenuBarItemSubmenu" href="carrito_1.html">Mi Carrito </a>
+        <li><a class="MenuBarItemSubmenu"  href="#{facesContext.externalContext.request.contextPath}/faces/carrito/Carrito.xhtml">Mi Carrito </a>
           <ul>
-            <li><a href="#">Productos</a></li>
+            <li><a href="#{facesContext.externalContext.request.contextPath}/faces/carrito/Carrito.xhtml">Productos</a></li>
             <li><a href="#">Envíos</a></li>
           </ul>
         </li>
-        <li><a href="#">Mi cuenta</a>
+        <li>
+
+               <a href="#">Mi cuenta</a>
+
+
+            <!--<a href="{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml">Mi cuenta</a>-->
           <ul>
-            <li><a href="MiCuenta.html">Ingresar</a></li>
-            <li><a href="#">Perfil</a></li>
+            <li><a href="#{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml">Ingresar</a></li>
+            <li>
+                 <h:form id="PerfilCliente" >
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml" rendered="#{sistemaController.cliente==null}">
+                    <h:outputText value="Perfil"/>
+                </h:outputLink>
+                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/cliente/modulo.xhtml" rendered="#{sistemaController.cliente!=null}">
+                    <h:outputText value="Perfil"/>
+                </h:outputLink>
+                 </h:form>
+            </li>
             <li><a href="#">Pedidos</a></li>
           </ul>
         </li>
       </ul></th>
-      <th colspan="2" align="right" scope="col"><a href="#"> X Cerrar Sesion</a></th>
+      <th colspan="2" align="right" scope="col">
+         <!-- <a href="#"> X Cerrar Sesion</a>-->
+
+
+           <h:form id="cerrarSession" >
+               <h:commandLink action="#{sistemaController.cerrarCession}" value="X Cerrar Sesi&oacute;n"/>
+
+
+           </h:form>
+
+      </th>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -583,20 +293,25 @@
             <li class="ui-state-default ui-corner-all" title="Ayuda">
             <span class="ui-icon ui-icon-help"></span></li>
         </a>
-        <a ref="index.html">
+
         <li class="ui-state-default ui-corner-all" title="Inicio">
-       <span class="ui-icon ui-icon-home"></span></li></a>
+            <h:outputLink value="#{facesContext.externalContext.request.contextPath}/">
+       <span class="ui-icon ui-icon-home">
+
+
+       </span>
+        </h:outputLink>
+
+        </li>
       </ul></td>
       <td>&nbsp;</td>
     </tr>
   </table>
 </div>
 <script type="text/javascript">
-var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"./resources/template/SpryAssets/SpryMenuBarDownHover.gif", imgRight:"../SpryAssets/SpryMenuBarRightHover.gif"});
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"./../resource/template/SpryAssets/SpryMenuBarDownHover.gif", imgRight:"./../resource/template/SpryAssets/SpryMenuBarRightHover.gif"});
 </script>
+            </ui:insert>
+    </h:body>
 
- </h:body>
-
-
-    
 </html>
