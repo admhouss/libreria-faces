@@ -78,13 +78,17 @@ public class DescuentoClienteFacade {
     }
 
     public BigDecimal obtenerMaxioDescuento(String correo) {
-        BigDecimal max;
+        BigDecimal max=null;
         Date fechaActual=new Date();
-        TypedQuery<BigDecimal> query=em.createQuery("SELECT MAX(d.descuento.porcentaje) FROM DescuentoCliente d WHERE  (d.cliente.id=:cliente  AND d.fechaInicio>=:fa  AND d.fechaFin<=:fa)",BigDecimal.class)
+        try{
+        TypedQuery<BigDecimal> query=em.createQuery("SELECT MAX(d.descuento.porcentaje) FROM DescuentoCliente d WHERE  (d.cliente.id=:cliente  AND d.fechaInicio<=d.fechaFin AND d.fechaFin<=:fa)",BigDecimal.class)
         .setParameter("cliente", correo)
         .setParameter("fa", fechaActual,TemporalType.TIMESTAMP);
 
-         max= query.getSingleResult();
+        max= query.getSingleResult();
+        }catch(Exception e){e.printStackTrace();}
+        if(max==null)
+        max=BigDecimal.ZERO;
         return max;
 
     }

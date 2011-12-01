@@ -7,6 +7,7 @@ package escom.libreria.info.articulo.ejb;
 
 import escom.libreria.info.articulo.jpa.Articulo;
 import escom.libreria.info.articulo.jpa.Impuesto;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -70,6 +71,21 @@ public class ImpuestoFacade {
         
         return l;
 
+    }
+
+    public BigDecimal getImpuestoTotalArticulo(int idArticulo) {
+        BigDecimal impuestoTOTOAL=null;
+        try{
+        TypedQuery<BigDecimal> q=em.createQuery("SELECT SUM(i.montoImpuesto) FROM Impuesto  i WHERE i.articulo.id=:id ",BigDecimal.class)
+        .setParameter("id", idArticulo);
+          impuestoTOTOAL=q.getSingleResult();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        if(impuestoTOTOAL==null){
+            impuestoTOTOAL=BigDecimal.ZERO;
+        }
+        return impuestoTOTOAL;
     }
 
 }

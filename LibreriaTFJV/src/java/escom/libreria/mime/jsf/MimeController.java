@@ -71,9 +71,9 @@ public class MimeController implements Serializable{
         return "List";
     }
 
-    public String prepareView() {
-        current = (Mime)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(Mime m) {
+        current = m;
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
@@ -86,17 +86,17 @@ public class MimeController implements Serializable{
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MimeCreated"));
-            return prepareCreate();
+            JsfUtil.addSuccessMessage(("Mime Createdo Satisfactoriamente"));
+            return prepareView(current);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String prepareEdit() {
-        current = (Mime)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(Mime m) {
+        current = m;
+       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
@@ -111,11 +111,10 @@ public class MimeController implements Serializable{
         }
     }
 
-    public String destroy() {
-        current = (Mime)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
+    public String destroy(Mime m) {
+        current = m;
+        getFacade().remove(m);
+        JsfUtil.addSuccessMessage("Tipo de documento eliminado Satisfactoriamente");
         return "List";
     }
 

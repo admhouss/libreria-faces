@@ -298,14 +298,17 @@ public class SubirFiles  implements Serializable{
             String nombre = articulo.getArchivo();
             String formato=articulo.getFormatoDigital().replaceAll(".","");
             String mime=mimeFacade.buscarMimeType(formato);
-            //System.out.println("el mime es: "+formato.replaceAll(".",""));
+            
             download(urlDownloads, nombre, mime);
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+
+           JsfUtil.addErrorMessage("El documento que intenta descargar no se encuentra disponible");
+           // ex.printStackTrace();
             Logger.getLogger(SubirFiles.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
         }
-        return "/articulo/List";
+        return null;
     }
 
 
