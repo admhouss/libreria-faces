@@ -6,13 +6,19 @@
 package escom.libreria.info.carrito.jsf;
 
 import escom.libreria.info.articulo.jpa.Articulo;
+import escom.libreria.info.articulo.jpa.DescuentoArticulo;
+import escom.libreria.info.articulo.jpa.Impuesto;
 import escom.libreria.info.articulo.jpa.Publicacion;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal;
+import escom.libreria.info.carrito.jpa.PublicacionDTO;
+import escom.libreria.info.cliente.jpa.Cliente;
 import escom.libreria.info.login.sistema.SistemaController;
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,8 +42,26 @@ public class CarritoController implements Serializable{
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
     @EJB private  escom.libreria.info.login.ejb.SistemaFacade sistemaFacade;
+    @EJB private escom.libreria.info.cliente.ejb.DescuentoClienteFacade descuentoClienteFacade;
+    @EJB private escom.libreria.info.articulo.ejb.DescuentoArticuloFacade descuentoArticuloFacade;
+    @EJB private escom.libreria.info.articulo.ejb.ImpuestoFacade impuestoFacade;
 
-    private List<CarritoDTO> listcarritoDTO;
+    private List<PublicacionDTO> listcarritoDTO;
+    private PublicacionDTO publicaciondto;
+
+    public String prepareEditPublicacion(PublicacionDTO item){
+        publicaciondto=item;
+        return "/carrito/Edit";
+    }
+
+    public PublicacionDTO getPublicaciondto() {
+        return publicaciondto;
+    }
+
+    public void setPublicaciondto(PublicacionDTO publicaciondto) {
+        this.publicaciondto = publicaciondto;
+    }
+    
 
 
     public SistemaController getSistemaController() {
@@ -59,39 +83,41 @@ public class CarritoController implements Serializable{
             try{
                 carritoCompraTemporalLocal=sistemaFacade.getObtenerBandejaTemporal();
             }catch(Exception e){
-                
                 System.out.println("No carrito creado"+e.getMessage());
             }
         }
          return carritoCompraTemporalLocal;
     }
- public String agregarArticulo(Publicacion articulo){
+ public String agregarArticulo(Publicacion publicacion){
            try{
          if(sistemaController.getCliente()!=null){
-             carritoCompraTemporalLocal=ObtenerCarrito();
-             carritoCompraTemporalLocal.addPublicacion(articulo);
+          PublicacionDTO publicacionDTO=procesarArticulo(publicacion);
+          carritoCompraTemporalLocal=ObtenerCarrito();
+          carritoCompraTemporalLocal.addPublicacion(publicacionDTO);
              JsfUtil.addSuccessMessage("Articulo agregado Satisfactoriamente");
              return "/carrito/Carrito";
+         }else {
+          JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
+          return "/login/Create.xhtml";
          }
 
      }catch(Exception e){ e.printStackTrace();}
-          JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
-          return "/login/Create.xhtml";
+
+         return "/carrito/Carrito";
     }
-    public void borrarArticulo(Publicacion articulo){
+    public void borrarArticulo(PublicacionDTO articulo){
           carritoCompraTemporalLocal.removePublicacion(articulo);
     }
-    public List<CarritoDTO> getListArticulos(){
-        if(carritoCompraTemporalLocal!=null){
-         listcarritoDTO=carritoCompraTemporalLocal.getListPublicacion();
-         listcarritoDTO=listcarritoDTO==null?new ArrayList<CarritoDTO>():listcarritoDTO;
-        }
+    public List<PublicacionDTO> getListArticulos(){
+        if(carritoCompraTemporalLocal!=null)
+        listcarritoDTO=carritoCompraTemporalLocal.getListPublicacion();
+        
         return listcarritoDTO;
     }
 
-    public String destroy(CarritoDTO  item){
+    public String destroy(PublicacionDTO  item){
          try{
-             borrarArticulo(item.getPublicacion());
+             borrarArticulo(item);
             JsfUtil.addSuccessMessage("Articulo Eliminado satisfactoriamente!!");
             return "/carrito/Carrito";
         }catch(Exception e){}
@@ -102,7 +128,44 @@ public class CarritoController implements Serializable{
     public int getcountElement(){
         if(carritoCompraTemporalLocal!=null)
         return carritoCompraTemporalLocal.getCount();
-        return 0;
+        return 1;
+    }
+
+
+    private PublicacionDTO procesarArticulo(Publicacion p){
+
+        PublicacionDTO publicacionDTO=new PublicacionDTO();
+        publicacionDTO.setIdArticulo(p.getArticulo().getId());
+        publicacionDTO.setIdPublicacion(p.getIdDc());
+        publicacionDTO.setEditorial(p.getEditorial());
+        publicacionDTO.setTitulo(p.getArticulo().getTitulo());
+        publicacionDTO.setAutor(p.getArticulo().getCreador());
+        publicacionDTO.setAsunto(p.getArticulo().getAsunto());
+        publicacionDTO.setCantidad(1);
+        publicacionDTO.setFechaCompra(new Date());
+        BigDecimal descuento=getDescuentoArticulo(publicacionDTO.getIdArticulo());
+        publicacionDTO.setDesc(descuento);
+        BigDecimal impuesto=getImpuesto(publicacionDTO.getIdArticulo());
+        publicacionDTO.setImpuesto(impuesto);
+        publicacionDTO.setPrecio(p.getArticulo().getPrecioUnitario());
+        return publicacionDTO;
+    }
+
+    private  BigDecimal getDescuentoArticulo(int idArticulo){
+          BigDecimal descuento=descuentoArticuloFacade.getDescuentoValidoArticulo(idArticulo);
+          return descuento;
+    }
+
+    public BigDecimal getImpuesto(int idArticulo) {
+        BigDecimal impuestoTOTAL=impuestoFacade.getImpuestoTotalArticulo(idArticulo);
+        return impuestoTOTAL;
+    }
+
+    public BigDecimal getDescuentoCliente(){
+
+         Cliente cliente=sistemaController.getCliente();
+         BigDecimal descuento=descuentoClienteFacade.obtenerMaxioDescuento(cliente.getId());
+         return descuento;
     }
 
      private CarritoCompraTemporalLocal carritoCompraTemporalLocal=ObtenerCarrito();//obetenemso carrito compra

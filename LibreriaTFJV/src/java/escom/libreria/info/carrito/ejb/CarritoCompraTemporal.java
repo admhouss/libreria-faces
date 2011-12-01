@@ -7,7 +7,8 @@ package escom.libreria.info.carrito.ejb;
 
 import escom.libreria.info.articulo.jpa.Articulo;
 import escom.libreria.info.articulo.jpa.Publicacion;
-import escom.libreria.info.carrito.jsf.CarritoDTO;
+import escom.libreria.info.carrito.jpa.PublicacionDTO;
+
 import escom.libreria.info.cliente.jpa.Cliente;
 import escom.libreria.info.login.sistema.SistemaController;
 import java.math.BigDecimal;
@@ -27,61 +28,31 @@ import javax.faces.bean.ManagedProperty;
 @Stateful
 @StatefulTimeout(unit = TimeUnit.MINUTES, value = 30)
 public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
-    private List<CarritoDTO> listaPublicacion=new ArrayList<CarritoDTO>();
-    private CarritoDTO carritoDTO_Temporal;
+    private List<PublicacionDTO> listaPublicacion=new ArrayList<PublicacionDTO>();
+    private PublicacionDTO carritoDTO_Temporal;
     private BigDecimal descuento;
     private Cliente cliente;
    
 
    @EJB private escom.libreria.info.cliente.ejb.DescuentoClienteFacade descuentoClienteFacade;
-   @ManagedProperty("#{sistemaController}")
-   private SistemaController sistemaController;
-
-    public SistemaController getSistemaController() {
-        return sistemaController;
-    }
-
-    public void setSistemaController(SistemaController sistemaController) {
-        this.sistemaController = sistemaController;
-    }
-
-
-
-
-    
-
-
-    private BigDecimal obtenerDescuentoMayor(String idCorreo){
-        String correo=idCorreo;
-        BigDecimal descuentoMax=descuentoClienteFacade.obtenerMaxioDescuento(correo);
-        if(descuentoMax==null)
-        descuentoMax=BigDecimal.ZERO;
-        return descuentoMax;
-    }
-
-
-
+  
     @Override
-    public void addPublicacion(Publicacion articulo) {
-          boolean inserta_update=false;
-          int tam;
-
+    public void addPublicacion(PublicacionDTO articulo) {
+         
+       
           carritoDTO_Temporal=buscarArticulo(articulo);
-
-          if(carritoDTO_Temporal==null){// no existe
-              tam=getCount()+1;
-              //descuento=obtenerDescuentoMayor();
-              descuento=BigDecimal.ONE;
-              carritoDTO_Temporal=new CarritoDTO(tam,tam,descuento,articulo);
-              listaPublicacion.add(carritoDTO_Temporal);
+          
+         if(carritoDTO_Temporal==null){// no existe
+              articulo.setIndice(getCount());
+              listaPublicacion.add(articulo);
           }else //ya existe articulo
              carritoDTO_Temporal.setCantidad(carritoDTO_Temporal.getCantidad()+1);
-           
+          
           
     }
 
     @Override
-    public void removePublicacion(Publicacion articulo) {
+    public void removePublicacion(PublicacionDTO articulo) {
         //throw new UnsupportedOperationException("Not supported yet.");
            carritoDTO_Temporal=buscarArticulo(articulo);
            if(listaPublicacion.contains(carritoDTO_Temporal)){
@@ -104,22 +75,22 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
     @Override
     public int getCount() {
         if(Emtity())
-         return 0;
-         return listaPublicacion.size();
+         return 1;
+         return listaPublicacion.size()+1;
 
     }
 
     @Override
-    public List<CarritoDTO> getListPublicacion() {
+    public List<PublicacionDTO> getListPublicacion() {
 
         return listaPublicacion;
     }
 
     @Override
-    public CarritoDTO buscarArticulo(Publicacion p) {
-        CarritoDTO temporal=null;
-        for(CarritoDTO publicacion:listaPublicacion){
-               if(publicacion.getPublicacion().equals(p)){ //ya existe el articulo
+    public PublicacionDTO buscarArticulo(PublicacionDTO p) {
+       PublicacionDTO temporal=null;
+        for(PublicacionDTO publicacion:listaPublicacion){
+               if(publicacion.getIdArticulo()==p.getIdArticulo() && publicacion.getIdPublicacion()==p.getIdPublicacion()){ //ya existe el articulo
                     temporal=publicacion;
                    break;
                }
@@ -127,10 +98,6 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
         return temporal;
     }
 
-    private boolean descuentoArticuloValido(Articulo articulo_x){
-        Date fechaFin=articulo_x.getDescuentoArticulo().getFechaFin();
-        Date fechaInicio=articulo_x.getDescuentoArticulo().getFechaInicio();
-        return fechaInicio.compareTo(fechaFin)<0?true:false;
-    }
+   
    
 }

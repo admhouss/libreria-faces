@@ -112,7 +112,6 @@ public class DirenvioController implements Serializable{
 
     public String prepareView(Direnvio p) {
        current=p;//
-       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "/direnvio/View";
     }
 
@@ -163,6 +162,13 @@ public class DirenvioController implements Serializable{
        JsfUtil.addSuccessMessage("Direccion Eliminada satisfactoriamente");
         return "/direnvio/List";
     }
+
+     public String destroysds() {
+        FacesContext faces = FacesContext.getCurrentInstance();
+        //faces.g
+        return null;
+
+     }
 
     public String destroyAndView() {
         performDestroy();
