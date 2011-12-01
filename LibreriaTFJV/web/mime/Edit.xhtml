@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateMimeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <br/><br/>
+                <p:panel header="Tipo de documento">
+                    <h:panelGrid columns="2" cellspacing="15">
+
+                    <h:outputLabel value="Descripcion" for="descripcion" styleClass="textoNEGRO"/>
+                    <h:inputText id="descripcion" value="#{mimeController.selected.descripcion}" title="#{bundle.CreateMimeTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateMimeRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="Extension:" for="extension" styleClass="textoNEGRO"/>
+                    <h:inputText id="extension" value="#{mimeController.selected.extension}" title="#{bundle.CreateMimeTitle_extension}" required="true" requiredMessage="#{bundle.CreateMimeRequiredMessage_extension}"/>
+                    <h:outputLabel value="Tipo Documento" for="mimeType" styleClass="textoNEGRO" />
+                    <h:inputText id="mimeType" value="#{mimeController.selected.mimeType}" title="#{bundle.CreateMimeTitle_mimeType}" required="true" requiredMessage="#{bundle.CreateMimeRequiredMessage_mimeType}"/>
+                </h:panelGrid>
+                </p:panel>
+
+                <br />
+                <h:commandButton action="#{mimeController.update}" value="Guardar" />
+                <br />
+                <br />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
