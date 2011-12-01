@@ -91,6 +91,12 @@
          <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" styleClass="ui-icon ui-icon-link"/>
      </span>
       </li>
+
+      <li class="ui-state-default ui-corner-all" title="Descargar Publicacion">
+     <span class="ui-icon ui-icon-document-b">
+         <h:commandLink  action="#{subirArchivo.descargarArchivoDocumento(item.articulo)}" immediate="true" styleClass="ui-icon ui-icon-document-b"/>
+     </span>
+      </li>
     </ul></td>
   </tr>
   <tr></tr>
