@@ -7,11 +7,29 @@
       xmlns:p="http://primefaces.prime.com.tr/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
+
+
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
             <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
+            <script type="text/javascript">
+function valid(form)
+{
+
+var Value = form["FormName:name"].value;
+if (Value == "")
+{
+alert("Please enter Subject");
+form["FormName:name"].focus();
+return false;
+}
+form.submit();
+return true;
+}
+</script>
+
         <h:form id="carritoCompra" styleClass="jsfcrud_list_form">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -41,9 +59,10 @@
                                     
                                     <td>
                                        
-                                <h:outputText value="#{item.publicacion.articulo.titulo}" styleClass="textoNEGRO" /><br/>
-                                <h:outputText value="#{item.publicacion.articulo.creador}" /><br/>
-                                <h:outputText value="#{item.publicacion.articulo.asunto}" /><br/>
+                                <h:outputText value="#{item.titulo}" styleClass="textoNEGRO" /><br/>
+                                <h:outputText value="#{item.autor}" /><br/>
+                                <h:outputText value="#{item.asunto}" /><br/>
+                                <h:outputText value="#{item.editorial}" /><br/>
                                
                             
                                     </td>
@@ -54,19 +73,19 @@
                             <f:facet name="header">
                                 <h:outputLabel value="Cantidad"  />
                             </f:facet>
-                            <h:outputText value="#{item.cantidad}" />
+                             <h:outputText value="#{item.cantidad}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                                <h:outputLabel value="Precio" />
                             </f:facet>
-                             <h:outputText value="$ #{item.publicacion.articulo.costo}" />
+                             <h:outputText value="$ #{item.precio}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                               <h:outputLabel value="Descuento" />
                             </f:facet>
-                             <h:outputText value="% #{item.descuento}" />
+                             <h:outputText value="% #{item.desc}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
@@ -78,7 +97,7 @@
                             <f:facet name="header">
                               <h:outputLabel value="Fecha Compra" />
                             </f:facet>
-                            <h:outputText value="#{item.fechaActual}">
+                            <h:outputText value="#{item.fechaCompra}">
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                          </h:column>
@@ -88,7 +107,7 @@
                                 <h:outputLabel value="Total" />
                             </f:facet>
 
-                             <h:outputText value="$ #{item.subtotal}" >
+                             <h:outputText value="$ #{item.total}" >
 
                             </h:outputText>
                          </h:column>
@@ -99,7 +118,7 @@
                             </f:facet>
                            <ul id="icons" class="ui-widget ui-helper-clearfix">
                             <li class="ui-state-default ui-corner-all" title=".ui-icon-pencil">
-                                <h:commandLink action="#{carritoController.destroy(item)}" immediate="true"> 
+                                <h:commandLink action="#{carritoController.prepareEditPublicacion(item)}" immediate="true">
                                     <span class="ui-icon ui-icon-pencil"></span>
                                 </h:commandLink>
                             </li>
@@ -117,7 +136,7 @@
 
                     <h:column>
                         <f:facet name="header">
-                           <p><strong>Direcci&oacute;n de envio</strong></p>
+                           <p><strong>Direcci&oacute;n de Envio</strong></p>
                         </f:facet>
                         <table >
 
@@ -180,10 +199,48 @@
               </label></td>
             <td width="80%"><div><img src="./../resources/iconos/pay_icono_paypal.gif" height="25" width="51" />PayPal</div>
               <p>(Visa y MasterCard)</p></td>
-            <td width="14%"><ul id="icons" class="ui-widget ui-helper-clearfix">
-		<a href="webscr.htm"><li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e"><span class="ui-icon ui-icon-arrowthick-1-e"></span></li></a>
+            <td width="14%">
+            <ul id="icons" class="ui-widget ui-helper-clearfix">
+		<a href="webscr.htm">
+              <li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e">
+              <span class="ui-icon ui-icon-arrowthick-1-e"></span>
+              </li>
+                </a>
 
-            </ul></td>
+            </ul>
+            </td>
+
+              <td width="14%">
+            <!--<ul id="icons" class="ui-widget ui-helper-clearfix">
+		<a href="webscr.htm">
+              <li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e">
+              <span class="ui-icon ui-icon-arrowthick-1-e"></span>
+              </li>
+                </a>
+
+            </ul>
+            -->
+            <h:form id="PayPalform">
+            <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post">-->
+<h:inputHidden id="cmd" value="_s-xclick" />
+<h:inputHidden id="hosted_button_id" value="8LLNADVXLW4RQ"/>
+<h:inputHidden id="first_name" value="JOCELIN"/>
+<h:inputHidden id="last_name" value="SALAS ALDANA"/>
+<h:inputHidden id='country' value='MX'/>
+<h:inputHidden id='address1' value='Board Walk at Argentuil'/>
+<h:inputHidden id='address2' value='Board Walk at Argentuil'/>
+<h:inputHidden id='item_price' value='20.00'/>
+<h:inputHidden id='zip' value='15420'/>
+<h:inputHidden id='state' value='Distrito federal'/>
+
+
+<h:commandButton  image="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" action="https://www.paypal.com/cgi-bin/webscr" immediate="true" type="submit" />
+<!--<input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea."/>-->
+<!--<img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1"/>-->
+
+                
+            </h:form>
+            </td>
           </tr>
           <tr>
             <td valign="top"><label>
