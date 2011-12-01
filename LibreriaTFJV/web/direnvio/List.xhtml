@@ -29,20 +29,20 @@
                      <p:panel header="CAT&Aacute;LOGO DIRECCI&Oacute;N DE ENVIO ">
                     <p:dataTable value="#{direnvioController.listaDirEnvioCliente}" var="item"  paginator="true" rows="5">
 
-                    <p:column>
+                        <p:column style="width:60px;">
                         <f:facet name="header">
                             <h:outputText value="ATENCI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.atencion}"/>
                       </p:column>
-                    <p:column>
+                    <p:column style="width:100px;">
                         <f:facet name="header">
                             <h:outputText value="CALLE"/>
                         </f:facet>
                         <h:outputText value="#{item.calle}"/>
                       </p:column>
                    
-                    <p:column>
+                    <p:column style="width:160px;">
                         <f:facet name="header">
                             <h:outputText value="COLONIA"/>
                         </f:facet>
@@ -50,13 +50,8 @@
                       </p:column>
                    
                     
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="CP"/>
-                        </f:facet>
-                        <h:outputText value="#{item.cp}"/>
-                      </p:column>
-                      <p:column>
+                   
+                      <p:column style="width:60px;">
                     
                         <f:facet name="header">
                             <h:outputText value="TEL&Eacute;FONO"/>
