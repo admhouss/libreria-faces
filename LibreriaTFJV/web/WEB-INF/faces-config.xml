@@ -71,12 +71,17 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
     </application>
    <validator>
             <validator-id>EmailValidator</validator-id>
             <validator-class>escom.libreria.correo.ValidadorCorreo</validator-class>
    </validator>
 </faces-config>
+
 
 
 
