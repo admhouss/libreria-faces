@@ -4,7 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.prime.com.tr/ui">
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
@@ -28,7 +28,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
   <br/>
               <p:panel header="PROVEEDORES ASIGNADOS AL ART&Iacute;CULO">
 
-                    <p:dataTable value="#{articuloController.selected.proveedorArticulos}" var="item" paginator="true" rows="5">
+                  <p:dataTable value="#{proveedorArticuloController.listProveedorArticulo}" var="item" paginator="true" rows="5">
 
                     <p:column style="width:220px;">
                         <f:facet name="header">
