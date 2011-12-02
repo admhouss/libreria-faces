@@ -77,7 +77,7 @@ public class PublicacionFacade {
                     case 2: categoria="Derecho Internacional"; break;
                     case 3: categoria="Derecho Administrativo"; break;
                     case 4: categoria="Juicio en  Linea"; break;
-                    case 5: categoria="Juicio Orales"; break;
+                    case 5: categoria="Juicios Orales"; break;
                     case 6: categoria="Jurisprudencia"; break;
                     default:
                      categoria = "Derecho Fiscal";
@@ -120,7 +120,7 @@ public class PublicacionFacade {
                      query.setParameter("general",convertirNumero);//y
 
              }else{
-              query.setParameter("general","%" + (String)dinamico+ "%");//y
+              query.setParameter("general","%" +(String)dinamico+ "%");//y
          }
                 List<Publicacion>l=query.getResultList();return l;
         }catch(Exception e){e.printStackTrace();}
