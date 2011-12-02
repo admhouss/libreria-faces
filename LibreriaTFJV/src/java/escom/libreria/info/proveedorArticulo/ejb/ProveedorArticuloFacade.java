@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -62,4 +63,22 @@ public class ProveedorArticuloFacade {
         return ((Long) q.getSingleResult()).intValue();
     }
 
+    public List<ProveedorArticulo> buscarProveedor(int articuloID) {
+        TypedQuery<ProveedorArticulo> query=em.createQuery("SELECT p FROM ProveedorArticulo p WHERE p.proveedorArticuloPK.idArticulo = :idArticulo",ProveedorArticulo.class)
+        .setParameter("idArticulo",articuloID);
+        List<ProveedorArticulo> l= query.getResultList();
+       return l;
+        
+    }
+
+
+
+     public void borrarProveedorArticulo(Integer proveedorID,Integer articuloID) {
+        System.out.println("proveedor"+proveedorID+"articulo"+articuloID);
+         TypedQuery<ProveedorArticulo> query=em.createQuery("DELETE FROM ProveedorArticulo p WHERE p.proveedorArticuloPK.idArticulo = :idArticulo AND p.proveedorArticuloPK.idProveedor =:idProveedor",ProveedorArticulo.class)
+        .setParameter("idArticulo",articuloID)
+        .setParameter("idProveedor", proveedorID);
+         query.executeUpdate();
+
+    }
 }
