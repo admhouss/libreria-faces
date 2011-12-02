@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewProveedorArticuloTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewProveedorArticuloLabel_cantidad}"/>
+                    <h:outputText value="#{proveedorArticuloController.selected.cantidad}" title="#{bundle.ViewProveedorArticuloTitle_cantidad}"/>
+                    <h:outputText value="#{bundle.ViewProveedorArticuloLabel_ultMof}"/>
+                    <h:outputText value="#{proveedorArticuloController.selected.ultMof}" title="#{bundle.ViewProveedorArticuloTitle_ultMof}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewProveedorArticuloLabel_proveedor}"/>
+                    <h:outputText value="#{proveedorArticuloController.selected.proveedor}" title="#{bundle.ViewProveedorArticuloTitle_proveedor}"/>
+                    <h:outputText value="#{bundle.ViewProveedorArticuloLabel_articulo}"/>
+                    <h:outputText value="#{proveedorArticuloController.selected.articulo}" title="#{bundle.ViewProveedorArticuloTitle_articulo}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{proveedorArticuloController.destroyAndView}" value="#{bundle.ViewProveedorArticuloDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewProveedorArticuloEditLink}"/>
+                <br />
+                <h:commandLink action="#{proveedorArticuloController.prepareCreate}" value="#{bundle.ViewProveedorArticuloCreateLink}" />
+                <br />
+                <h:commandLink action="#{proveedorArticuloController.prepareList}" value="#{bundle.ViewProveedorArticuloShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewProveedorArticuloIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
