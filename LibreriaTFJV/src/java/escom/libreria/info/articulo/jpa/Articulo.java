@@ -5,6 +5,7 @@
 
 package escom.libreria.info.articulo.jpa;
 
+
 import escom.libreria.info.cliente.jpa.BitacoraCliente;
 
 import escom.libreria.info.proveedor.jpa.Proveedor;
@@ -162,6 +163,19 @@ public class Articulo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<ProveedorArticulo>  proveedorArticulos;
 
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<Pedido> pedidoList;
+
+    public List<Pedido> getPedidoList() {
+        return pedidoList;
+    }
+
+    public void setPedidoList(List<Pedido> pedidoList) {
+        this.pedidoList = pedidoList;
+    }
+
+*/
+    
     public Articulo() {
     }
 
