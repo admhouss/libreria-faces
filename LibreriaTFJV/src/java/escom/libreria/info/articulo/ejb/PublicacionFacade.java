@@ -158,18 +158,10 @@ public class PublicacionFacade {
 
 
     public List<Publicacion> buscarArticuloNovedades() {
-
-       /* Date fechaActual=new Date();
-        GregorianCalendar calendario=new GregorianCalendar(fechaActual.getYear(), fechaActual.getMonth(),1);
-        Date fechaInicial=calendario.getTime();
-//WHERE (p.articulo.fechaRegistro >=:fi AND p.articulo.fechaRegistro<=:fa )
-        TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p  ORDER BY p.articulo.titulo ASC",Publicacion.class)
-        .setParameter("fa", fechaActual,TemporalType.DATE)
-        .setParameter("fi",fechaInicial,TemporalType.DATE);
-        List<Publicacion>l=query.getResultList();*/
-
-        //em.
-        return null;
+        TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE  p.articulo.fechaRegistro <= p.articulo.fechaDisponibilidad  ORDER BY p.articulo.titulo ASC",Publicacion.class);
+        List<Publicacion>l=query.getResultList();
+        return l;
+        
     }
 
     public List<Publicacion> buscarArticulo(String autor, String titulo, String tipoArticulo, Date periodo, int numero, int iSSN, String iSBN, String editorial,String asunto) {
