@@ -89,100 +89,97 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         <p:tab title="Detalle">
                             <center>
                                 <table width="99%" border="0" cellspacing="5">
-  <tr>
-      <td width="13%" rowspan="20" scope="col"  >
+  <tr align="left">
+      <td width="13%" rowspan="21" scope="col" >
         <img src="#{publicacionController.selected.articulo.imagen}" width="83" height="122" />
       </td>
       <td width="79%" class="Titulo_articulo" scope="col">
-
-         
          <h:outputLabel value="#{publicacionController.selected.articulo.titulo}"/>
-
       </td>
-
   </tr>
-  <tr>
+
+  <tr align="left">
       <td><p><strong>Autor:</strong> <h:outputText value="#{publicacionController.selected.articulo.creador}"/></p></td>
 
 
   </tr>
-  <tr>
+  <tr align="left">
       <td><p><strong>Publicador:</strong> <h:outputText value="#{publicacionController.selected.articulo.publicador}"/>
           </p></td>
 
   </tr>
-  <tr>
+  <tr align="left">
       <td><strong>Editorial:</strong><h:outputText value="#{publicacionController.selected.editorial}"/></td>
   </tr>
-  <tr>
+  <tr align="left">
        <td><strong>A&ntilde;o: </strong><h:outputText value="#{publicacionController.selected.anio}"/></td>
   </tr>
 
-   <tr>
+   <tr align="left">
        <td><strong>&Eacute;poca:</strong><h:outputText value="#{publicacionController.selected.epoca}" title="Epoca"/></td>
   </tr>
 
-  <tr>
+  <tr align="left">
         <td><strong>ISBN:</strong><h:outputText value="#{publicacionController.selected.isbn}" title="ISBN"/></td>
   </tr>
 
-<tr>
+<tr align="left">
         <td><strong>ISSN:</strong> <h:outputText value="#{publicacionController.selected.issn}" title="ISSN"/></td>
 </tr>
 
-<tr>
+<tr align="left">
     <td><strong>N&uacute;mero:</strong><h:outputText value="#{publicacionController.selected.numero}" title="Numero"/></td>
 </tr>
 
-<tr>
+<tr align="left">
     <td><strong>Tomo:</strong> <h:outputText value="#{publicacionController.selected.tomo}" title="Tomo"/></td>
 </tr>
 
-<tr>
+<tr align="left">
     <td><strong>Periodo A&ntilde;o:</strong>
                             <h:outputText value="#{publicacionController.selected.periodoAnio}" title="Periodo Anio">
-                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
     </td>
 </tr>
 
 
-<tr>
+<tr align="left">
     <td><strong>Periodo Mes:</strong>
         <h:outputText value="#{publicacionController.selected.periodoMes}" title="Periodo Mes">
-                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+                                 <f:convertDateTime pattern="dd/MM/yyyy" />
        </h:outputText>
     </td>
 </tr>
-<tr>
+<tr align="left">
     <td><strong>Agregaci&oacute;n Recurso:</strong><h:outputText value="#{publicacionController.selected.articulo.agregacionRecurso}" title="Agregacion Recurso"/></td>
 </tr>
-<tr>
+<tr align="left">
     <td><strong>Asunto:</strong> <h:outputText value="#{publicacionController.selected.articulo.asunto}" title="Asunto"/></td>
 </tr>
-<tr>
+<tr align="left">
     <td><strong>Descripci&oacute;n:</strong> <h:outputText value="#{publicacionController.selected.articulo.descripcion}" title="Descripcion"/></td>
 </tr>
-<tr>
+<tr align="left">
     <td><strong>Divisa:</strong> <h:outputText value="#{publicacionController.selected.articulo.divisa}" title="Divisa"/></td>
 </tr>
-<tr>
+<tr align="left">
     <td><strong>Fecha Creaci&oacute;n</strong> <h:outputText value="#{publicacionController.selected.articulo.fechaCreacion}" title="Fecha ">
                                  <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
     </td>
 </tr>
-<tr>
+<tr align="left">
     <td><strong>Fecha Disponibilidad:</strong>
         <h:outputText value="#{publicacionController.selected.articulo.fechaDisponibilidad}" title="fecha disponible">
                                  <f:convertDateTime pattern="MM/dd/yyyy" />
         </h:outputText>
     </td>
 </tr>
-<tr>
+<tr align="left">
     <td><strong>Formato:</strong><h:outputText value="#{publicacionController.selected.articulo.formato}" title="Formato"/></td>
 </tr>
-<tr>
+<tr align="left">
     <td><strong>Formato Digital:</strong> <h:outputText value="#{publicacionController.selected.articulo.formatoDigital}" title="formatoDigital"/>
 </td>
 </tr>
@@ -215,6 +212,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
   </tr>
   <tr></tr>
   <tr></tr>
+
 
 </table>
 
