@@ -373,7 +373,7 @@ public List<String> getListaString(){
     }
 
     public List<Publicacion> getListNovedadesPublicacion(){
-            listPublicacionByBusqueda=getFacade().findAll();
+            listPublicacionByBusqueda=getFacade().buscarArticuloNovedades();
             return listPublicacionByBusqueda;
     }
      

@@ -48,6 +48,8 @@ public class ArticuloController implements Serializable {
     @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
     @EJB private escom.libreria.info.articulo.ejb.TipoArticuloFacade tipoArticuloejbFacade;
     @EJB private escom.libreria.info.articulo.ejb.ProveedorFacade proveedorFacade;
+    @EJB private escom.libreria.info.proveedorArticulo.ejb.ProveedorArticuloFacade proveedorArticuloFacade;
+
     //private DualListModel<Proveedor> proveedores=null;
     private PaginationHelper pagination;
     private int selectedItemIndex,formward;
@@ -108,23 +110,7 @@ public class ArticuloController implements Serializable {
 
 
 
-    /*public void setProveedores(DualListModel<Proveedor> proveedores) {
-        this.proveedores = proveedores;
-    }
-
-
-
-
-    public DualListModel<Proveedor>  getProveedores(){
-        if(proveedores==null){
-            List<Proveedor> target = new ArrayList<Proveedor>();
-            List<Proveedor> source=proveedorFacade.findAll();
-            
-            proveedores=new DualListModel(source, target);
-        }
-        
-        return proveedores;
-    }*/
+  
     public ImpuestoController getImpuestoController() {
         return impuestoController;
     }
@@ -147,7 +133,8 @@ public class ArticuloController implements Serializable {
 
   public String eliminarProveedorArticulo(ProveedorArticulo p){
       current.getProveedorArticulos().remove(p);
-      getFacade().borrarProveedorArticulo(p.getProveedor().getId(),p.getArticulo().getId());
+      proveedorArticuloFacade.remove(p);
+      //getFacade().borrarProveedorArticulo(p.getProveedor().getId(),p.getArticulo().getId());
       JsfUtil.addSuccessMessage("Proveedor Elimado satisfactoriamente");
       return "/articulo/ViewProveedor";
 
