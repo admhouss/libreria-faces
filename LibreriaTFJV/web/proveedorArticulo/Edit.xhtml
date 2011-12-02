@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditProveedorArticuloTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditProveedorArticuloLabel_cantidad}" for="cantidad" />
+                    <h:inputText id="cantidad" value="#{proveedorArticuloController.selected.cantidad}" title="#{bundle.EditProveedorArticuloTitle_cantidad}" required="true" requiredMessage="#{bundle.EditProveedorArticuloRequiredMessage_cantidad}"/>
+                    <h:outputLabel value="#{bundle.EditProveedorArticuloLabel_ultMof}" for="ultMof" />
+                    <h:inputText id="ultMof" value="#{proveedorArticuloController.selected.ultMof}" title="#{bundle.EditProveedorArticuloTitle_ultMof}" required="true" requiredMessage="#{bundle.EditProveedorArticuloRequiredMessage_ultMof}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditProveedorArticuloLabel_proveedor}" for="proveedor" />
+                    <h:selectOneMenu id="proveedor" value="#{proveedorArticuloController.selected.proveedor}" title="#{bundle.EditProveedorArticuloTitle_proveedor}" required="true" requiredMessage="#{bundle.EditProveedorArticuloRequiredMessage_proveedor}">
+                        <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditProveedorArticuloLabel_articulo}" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{proveedorArticuloController.selected.articulo}" title="#{bundle.EditProveedorArticuloTitle_articulo}" required="true" requiredMessage="#{bundle.EditProveedorArticuloRequiredMessage_articulo}">
+                        <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{proveedorArticuloController.update}" value="#{bundle.EditProveedorArticuloSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditProveedorArticuloViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{proveedorArticuloController.prepareList}" value="#{bundle.EditProveedorArticuloShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditProveedorArticuloIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
