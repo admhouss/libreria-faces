@@ -9,6 +9,7 @@ package escom.libreria.info.carrito.ejb;
 import escom.libreria.info.articulo.jpa.Publicacion;
 import escom.libreria.info.carrito.jpa.PublicacionDTO;
 import escom.libreria.info.cliente.jpa.Cliente;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -24,6 +25,10 @@ public interface CarritoCompraTemporalLocal {
     public boolean Emtity();//Si la lista esta vacia
     public int getCount();
     public PublicacionDTO buscarArticulo(PublicacionDTO p);//dado una publicacion retorna su DTO
+    public PublicacionDTO buscarPublicacion(Publicacion p);
+    public BigDecimal getMontoTotal();
+    public int getPosArticulo(PublicacionDTO p);
+    public boolean actualizarArticulo(PublicacionDTO obj,int pos);
     
     
 }
