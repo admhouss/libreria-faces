@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPedidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText escape="false" value="#{bundle.ListPedidoEmpty}" rendered="#{pedidoController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{pedidoController.items.rowCount > 0}">
+                <h:outputText value="#{pedidoController.pagination.pageFirstItem + 1}..#{pedidoController.pagination.pageLastItem + 1}/#{pedidoController.pagination.itemsCount}"/>&nbsp;
+                <h:commandLink action="#{pedidoController.previous}" value="#{bundle.Previous} #{pedidoController.pagination.pageSize}" rendered="#{pedidoController.pagination.hasPreviousPage}"/>&nbsp;
+                <h:commandLink action="#{pedidoController.next}" value="#{bundle.Next} #{pedidoController.pagination.pageSize}" rendered="#{pedidoController.pagination.hasNextPage}"/>&nbsp;
+                <h:dataTable value="#{pedidoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPedidoTitle_pedidoPK_idPedido}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pedidoPK.idPedido}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPedidoTitle_noArticuloCategoria}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noArticuloCategoria}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPedidoTitle_categoria}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.categoria}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPedidoTitle_precioNeto}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.precioNeto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPedidoTitle_impuesto}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.impuesto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPedidoTitle_descuento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.descuento}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPedidoTitle_precioTotal}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.precioTotal}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPedidoTitle_tipoEnvio}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tipoEnvio}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPedidoTitle_articulo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.articulo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{pedidoController.prepareView}" value="#{bundle.ListPedidoViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{pedidoController.prepareEdit}" value="#{bundle.ListPedidoEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{pedidoController.destroy}" value="#{bundle.ListPedidoDestroyLink}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+            <br />
+            <h:commandLink action="#{pedidoController.prepareCreate}" value="#{bundle.ListPedidoCreateLink}"/>
+            <br />
+            <br />
+            <h:commandLink value="#{bundle.ListPedidoIndexLink}" action="/index" immediate="true" />
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
