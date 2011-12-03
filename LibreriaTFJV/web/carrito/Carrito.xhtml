@@ -91,7 +91,7 @@ return true;
                             <f:facet name="header">
                               <h:outputLabel value="Impuesto" />
                             </f:facet>
-                             <h:outputText value="#{item.impuesto}" />
+                             <h:outputText value="% #{item.impuesto}" />
                          </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -108,7 +108,7 @@ return true;
                             </f:facet>
 
                              <h:outputText value="$ #{item.total}" >
-
+                                 
                             </h:outputText>
                          </h:column>
 
@@ -127,6 +127,19 @@ return true;
                     
 
                     </h:dataTable>
+                    <div align="right">
+                    <table>
+          <tr>
+          <td valign="top">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ui-state-active">Total</td>
+          <td><h:outputLabel value="$ #{carritoController.montoTotal}"  /></td>
+          <td>&nbsp;</td>
+        </tr>
+                    </table>
+                    </div>
                     
                     
                 </p:tab>
@@ -221,8 +234,8 @@ return true;
             </ul>
             -->
             <h:form id="PayPalform">
-            <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post">-->
-<h:inputHidden id="cmd" value="_s-xclick" />
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <h:inputHidden id="cmd" value="_s-xclick" />
 <h:inputHidden id="hosted_button_id" value="8LLNADVXLW4RQ"/>
 <h:inputHidden id="first_name" value="JOCELIN"/>
 <h:inputHidden id="last_name" value="SALAS ALDANA"/>
@@ -232,11 +245,13 @@ return true;
 <h:inputHidden id='item_price' value='20.00'/>
 <h:inputHidden id='zip' value='15420'/>
 <h:inputHidden id='state' value='Distrito federal'/>
+            </form>
 
-
-<h:commandButton  image="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" action="https://www.paypal.com/cgi-bin/webscr" immediate="true" type="submit" />
-<!--<input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea."/>-->
-<!--<img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1"/>-->
+<h:outputLink  value="https://www.paypal.com/cgi-bin/webscr"  type="submit" >
+    <h:outputText value="hola"/>
+<input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea."/>
+<img alt="" border="0" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" width="1" height="1"/>
+</h:outputLink>
 
                 
             </h:form>
