@@ -12,6 +12,7 @@ import escom.libreria.info.carrito.jpa.PublicacionDTO;
 import escom.libreria.info.cliente.jpa.Cliente;
 import escom.libreria.info.login.sistema.SistemaController;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,19 +66,24 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
            
     }
 
-   
+
+
 
     @Override
     public boolean Emtity() {
-       return listaPublicacion.isEmpty();//true no tiene elementos
+       return listaPublicacion.size()==0?true:false;//true no tiene elementos
     }
 
     @Override
     public int getCount() {
+        try{
         if(Emtity())
          return 1;
          return listaPublicacion.size()+1;
-
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override
@@ -89,13 +95,62 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
     @Override
     public PublicacionDTO buscarArticulo(PublicacionDTO p) {
        PublicacionDTO temporal=null;
+      
         for(PublicacionDTO publicacion:listaPublicacion){
                if(publicacion.getIdArticulo()==p.getIdArticulo() && publicacion.getIdPublicacion()==p.getIdPublicacion()){ //ya existe el articulo
                     temporal=publicacion;
+                    //temporal=p;
+                   
                    break;
                }
+               
           }
         return temporal;
+    }
+
+    @Override
+    public BigDecimal getMontoTotal() {
+        BigDecimal montoTotal=BigDecimal.ZERO;
+         if(!Emtity()){
+          for(PublicacionDTO item:listaPublicacion){
+               montoTotal=montoTotal.add(new BigDecimal(item.getTotal()));
+          }
+        }
+              return montoTotal;
+    }
+
+    @Override
+    public int getPosArticulo(PublicacionDTO p) {
+        int  temporal=-1,count=0;
+
+        for(PublicacionDTO publicacion:listaPublicacion){
+               if(publicacion.getIdArticulo()==p.getIdArticulo() && publicacion.getIdPublicacion()==p.getIdPublicacion()){ //ya existe el articulo
+
+                 temporal=count;
+                  break;
+               }
+
+          }
+        return temporal;
+    }
+
+    @Override
+    public boolean actualizarArticulo(PublicacionDTO obj, int pos) {
+        try{
+        //listaPublicacion.remove(pos);
+        listaPublicacion.set(pos, obj);
+      
+        return true;
+        }catch(Exception e){e.printStackTrace();}
+        return false;
+    }
+
+    @Override
+    public PublicacionDTO buscarPublicacion(Publicacion p) {
+          PublicacionDTO dt=new PublicacionDTO();
+          dt.setIdArticulo(p.getArticulo().getId());
+          dt.setIdPublicacion(p.getIdDc());
+          return buscarArticulo(dt);
     }
 
    

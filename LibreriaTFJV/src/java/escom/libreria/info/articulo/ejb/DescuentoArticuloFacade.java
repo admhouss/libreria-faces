@@ -67,15 +67,18 @@ public class DescuentoArticuloFacade {
     }
 
     public BigDecimal getDescuentoValidoArticulo(int idArticulo) {
+         BigDecimal descuentoTOTAL=BigDecimal.ZERO;
         try{
-        TypedQuery<BigDecimal> l=em.createQuery("SELECT SUM(d.descuento) FROM DescuentoArticulo d WHERE ( d.fechaInicio <= d.fechaFin  AND  d.fechaFin <= :fechaActual ) AND d.articulo.id=:idArticulo ",BigDecimal.class)
+        TypedQuery<BigDecimal> l=em.createQuery("SELECT MAX(d.descuento) FROM DescuentoArticulo d WHERE ( d.fechaInicio <= d.fechaFin  AND  d.fechaFin >=:fechaActual ) AND d.articulo.id=:idArticulo ",BigDecimal.class)
         .setParameter("idArticulo", idArticulo)
-        .setParameter("fechaActual", new Date(), TemporalType.DATE);
+        .setParameter("fechaActual", new Date(), TemporalType.TIMESTAMP);
 
-        BigDecimal descuentoTOTAL=l.getSingleResult();
-        return descuentoTOTAL;
+        descuentoTOTAL=l.getSingleResult();
+        if(descuentoTOTAL==null)
+            return BigDecimal.ZERO;
         }catch(Exception e){e.printStackTrace();}
-        return BigDecimal.ZERO;
+         return descuentoTOTAL;
+         
     }
 
 }

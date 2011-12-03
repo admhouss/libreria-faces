@@ -81,7 +81,7 @@ public class DescuentoClienteFacade {
         BigDecimal max=null;
         Date fechaActual=new Date();
         try{
-        TypedQuery<BigDecimal> query=em.createQuery("SELECT MAX(d.descuento.porcentaje) FROM DescuentoCliente d WHERE  (d.cliente.id=:cliente  AND d.fechaInicio<=d.fechaFin AND d.fechaFin<=:fa)",BigDecimal.class)
+        TypedQuery<BigDecimal> query=em.createQuery("SELECT MAX(d.descuento.porcentaje) FROM DescuentoCliente d WHERE  (d.cliente.id=:cliente  AND d.fechaInicio<=d.fechaFin AND d.fechaFin>=:fa)",BigDecimal.class)
         .setParameter("cliente", correo)
         .setParameter("fa", fechaActual,TemporalType.TIMESTAMP);
 
