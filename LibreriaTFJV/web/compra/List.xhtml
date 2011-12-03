@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCompraTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText escape="false" value="#{bundle.ListCompraEmpty}" rendered="#{compraController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{compraController.items.rowCount > 0}">
+                <h:outputText value="#{compraController.pagination.pageFirstItem + 1}..#{compraController.pagination.pageLastItem + 1}/#{compraController.pagination.itemsCount}"/>&nbsp;
+                <h:commandLink action="#{compraController.previous}" value="#{bundle.Previous} #{compraController.pagination.pageSize}" rendered="#{compraController.pagination.hasPreviousPage}"/>&nbsp;
+                <h:commandLink action="#{compraController.next}" value="#{bundle.Next} #{compraController.pagination.pageSize}" rendered="#{compraController.pagination.hasNextPage}"/>&nbsp;
+                <h:dataTable value="#{compraController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_fechaEnvio}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaEnvio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_tipoEnvio}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tipoEnvio}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_pagoTotal}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pagoTotal}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_estado}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.estado}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_observaciones}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.observaciones}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_fecha}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_impuesto}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.impuesto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_pagoNeto}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pagoNeto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_descuento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.descuento}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_pedido}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pedido}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCompraTitle_cliente}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.cliente}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{compraController.prepareView}" value="#{bundle.ListCompraViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{compraController.prepareEdit}" value="#{bundle.ListCompraEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{compraController.destroy}" value="#{bundle.ListCompraDestroyLink}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+            <br />
+            <h:commandLink action="#{compraController.prepareCreate}" value="#{bundle.ListCompraCreateLink}"/>
+            <br />
+            <br />
+            <h:commandLink value="#{bundle.ListCompraIndexLink}" action="/index" immediate="true" />
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
