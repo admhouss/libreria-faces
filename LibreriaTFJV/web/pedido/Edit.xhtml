@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPedidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPedidoLabel_pedidoPK_idPedido}" for="pedidoPK.idPedido" />
+                    <h:inputText id="pedidoPK.idPedido" value="#{pedidoController.selected.pedidoPK.idPedido}" title="#{bundle.EditPedidoTitle_pedidoPK_idPedido}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_pedidoPK_idPedido}"/>
+                    <h:outputLabel value="#{bundle.EditPedidoLabel_noArticuloCategoria}" for="noArticuloCategoria" />
+                    <h:inputText id="noArticuloCategoria" value="#{pedidoController.selected.noArticuloCategoria}" title="#{bundle.EditPedidoTitle_noArticuloCategoria}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_noArticuloCategoria}"/>
+                    <h:outputLabel value="#{bundle.EditPedidoLabel_categoria}" for="categoria" />
+                    <h:inputText id="categoria" value="#{pedidoController.selected.categoria}" title="#{bundle.EditPedidoTitle_categoria}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_categoria}"/>
+                    <h:outputLabel value="#{bundle.EditPedidoLabel_precioNeto}" for="precioNeto" />
+                    <h:inputText id="precioNeto" value="#{pedidoController.selected.precioNeto}" title="#{bundle.EditPedidoTitle_precioNeto}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_precioNeto}"/>
+                    <h:outputLabel value="#{bundle.EditPedidoLabel_impuesto}" for="impuesto" />
+                    <h:inputText id="impuesto" value="#{pedidoController.selected.impuesto}" title="#{bundle.EditPedidoTitle_impuesto}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_impuesto}"/>
+                    <h:outputLabel value="#{bundle.EditPedidoLabel_descuento}" for="descuento" />
+                    <h:inputText id="descuento" value="#{pedidoController.selected.descuento}" title="#{bundle.EditPedidoTitle_descuento}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_descuento}"/>
+                    <h:outputLabel value="#{bundle.EditPedidoLabel_precioTotal}" for="precioTotal" />
+                    <h:inputText id="precioTotal" value="#{pedidoController.selected.precioTotal}" title="#{bundle.EditPedidoTitle_precioTotal}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_precioTotal}"/>
+                    <h:outputLabel value="#{bundle.EditPedidoLabel_tipoEnvio}" for="tipoEnvio" />
+                    <h:inputText id="tipoEnvio" value="#{pedidoController.selected.tipoEnvio}" title="#{bundle.EditPedidoTitle_tipoEnvio}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_tipoEnvio}"/>
+                    <h:outputLabel value="#{bundle.EditPedidoLabel_articulo}" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{pedidoController.selected.articulo}" title="#{bundle.EditPedidoTitle_articulo}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_articulo}">
+                        <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{pedidoController.update}" value="#{bundle.EditPedidoSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditPedidoViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{pedidoController.prepareList}" value="#{bundle.EditPedidoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditPedidoIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

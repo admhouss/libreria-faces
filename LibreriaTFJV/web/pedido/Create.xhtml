@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePedidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePedidoLabel_pedidoPK_idPedido}" for="pedidoPK.idPedido" />
+                    <h:inputText id="pedidoPK.idPedido" value="#{pedidoController.selected.pedidoPK.idPedido}" title="#{bundle.CreatePedidoTitle_pedidoPK_idPedido}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_pedidoPK_idPedido}"/>
+                    <h:outputLabel value="#{bundle.CreatePedidoLabel_noArticuloCategoria}" for="noArticuloCategoria" />
+                    <h:inputText id="noArticuloCategoria" value="#{pedidoController.selected.noArticuloCategoria}" title="#{bundle.CreatePedidoTitle_noArticuloCategoria}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_noArticuloCategoria}"/>
+                    <h:outputLabel value="#{bundle.CreatePedidoLabel_categoria}" for="categoria" />
+                    <h:inputText id="categoria" value="#{pedidoController.selected.categoria}" title="#{bundle.CreatePedidoTitle_categoria}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_categoria}"/>
+                    <h:outputLabel value="#{bundle.CreatePedidoLabel_precioNeto}" for="precioNeto" />
+                    <h:inputText id="precioNeto" value="#{pedidoController.selected.precioNeto}" title="#{bundle.CreatePedidoTitle_precioNeto}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_precioNeto}"/>
+                    <h:outputLabel value="#{bundle.CreatePedidoLabel_impuesto}" for="impuesto" />
+                    <h:inputText id="impuesto" value="#{pedidoController.selected.impuesto}" title="#{bundle.CreatePedidoTitle_impuesto}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_impuesto}"/>
+                    <h:outputLabel value="#{bundle.CreatePedidoLabel_descuento}" for="descuento" />
+                    <h:inputText id="descuento" value="#{pedidoController.selected.descuento}" title="#{bundle.CreatePedidoTitle_descuento}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_descuento}"/>
+                    <h:outputLabel value="#{bundle.CreatePedidoLabel_precioTotal}" for="precioTotal" />
+                    <h:inputText id="precioTotal" value="#{pedidoController.selected.precioTotal}" title="#{bundle.CreatePedidoTitle_precioTotal}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_precioTotal}"/>
+                    <h:outputLabel value="#{bundle.CreatePedidoLabel_tipoEnvio}" for="tipoEnvio" />
+                    <h:inputText id="tipoEnvio" value="#{pedidoController.selected.tipoEnvio}" title="#{bundle.CreatePedidoTitle_tipoEnvio}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_tipoEnvio}"/>
+                    <h:outputLabel value="#{bundle.CreatePedidoLabel_articulo}" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{pedidoController.selected.articulo}" title="#{bundle.CreatePedidoTitle_articulo}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_articulo}">
+                        <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{pedidoController.create}" value="#{bundle.CreatePedidoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{pedidoController.prepareList}" value="#{bundle.CreatePedidoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreatePedidoIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
