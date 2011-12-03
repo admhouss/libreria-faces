@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewCompraTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewCompraLabel_id}"/>
+                    <h:outputText value="#{compraController.selected.id}" title="#{bundle.ViewCompraTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewCompraLabel_fechaEnvio}"/>
+                    <h:outputText value="#{compraController.selected.fechaEnvio}" title="#{bundle.ViewCompraTitle_fechaEnvio}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewCompraLabel_tipoEnvio}"/>
+                    <h:outputText value="#{compraController.selected.tipoEnvio}" title="#{bundle.ViewCompraTitle_tipoEnvio}"/>
+                    <h:outputText value="#{bundle.ViewCompraLabel_pagoTotal}"/>
+                    <h:outputText value="#{compraController.selected.pagoTotal}" title="#{bundle.ViewCompraTitle_pagoTotal}"/>
+                    <h:outputText value="#{bundle.ViewCompraLabel_estado}"/>
+                    <h:outputText value="#{compraController.selected.estado}" title="#{bundle.ViewCompraTitle_estado}"/>
+                    <h:outputText value="#{bundle.ViewCompraLabel_observaciones}"/>
+                    <h:outputText value="#{compraController.selected.observaciones}" title="#{bundle.ViewCompraTitle_observaciones}"/>
+                    <h:outputText value="#{bundle.ViewCompraLabel_fecha}"/>
+                    <h:outputText value="#{compraController.selected.fecha}" title="#{bundle.ViewCompraTitle_fecha}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewCompraLabel_impuesto}"/>
+                    <h:outputText value="#{compraController.selected.impuesto}" title="#{bundle.ViewCompraTitle_impuesto}"/>
+                    <h:outputText value="#{bundle.ViewCompraLabel_pagoNeto}"/>
+                    <h:outputText value="#{compraController.selected.pagoNeto}" title="#{bundle.ViewCompraTitle_pagoNeto}"/>
+                    <h:outputText value="#{bundle.ViewCompraLabel_descuento}"/>
+                    <h:outputText value="#{compraController.selected.descuento}" title="#{bundle.ViewCompraTitle_descuento}"/>
+                    <h:outputText value="#{bundle.ViewCompraLabel_pedido}"/>
+                    <h:outputText value="#{compraController.selected.pedido}" title="#{bundle.ViewCompraTitle_pedido}"/>
+                    <h:outputText value="#{bundle.ViewCompraLabel_cliente}"/>
+                    <h:outputText value="#{compraController.selected.cliente}" title="#{bundle.ViewCompraTitle_cliente}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{compraController.destroyAndView}" value="#{bundle.ViewCompraDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewCompraEditLink}"/>
+                <br />
+                <h:commandLink action="#{compraController.prepareCreate}" value="#{bundle.ViewCompraCreateLink}" />
+                <br />
+                <h:commandLink action="#{compraController.prepareList}" value="#{bundle.ViewCompraShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewCompraIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
