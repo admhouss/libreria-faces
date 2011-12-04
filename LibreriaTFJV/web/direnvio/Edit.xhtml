@@ -42,7 +42,7 @@
                     <h:inputText id="telefono" value="#{direnvioController.selected.telefono}" title="Title_telefono}" required="true" requiredMessage="RequiredMessage_telefono"/>
                    
                      <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
-                     <h:selectOneMenu id="estado" value="#{direnvioController.selected.idEdo}" title="estado" required="true" requiredMessage="estado requerido">
+                     <h:selectOneMenu id="estado" value="#{direnvioController.selected.estado}" title="estado" required="true" requiredMessage="estado requerido">
                         <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}"  itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
