@@ -133,8 +133,32 @@ public class CarritoController implements Serializable{
 
          return "/carrito/Carrito";
     }
-    public void borrarArticulo(PublicacionDTO articulo){
+
+ public String editarCarritoCompra(PublicacionDTO editar){
+     try{
+           if(editar.getCantidad()>0){
+                BigDecimal total=calcularTotal(editar.getPrecio(), editar.getDesc(),editar.getImpuesto(), editar.getCantidad());
+                editar.setTotal(total.doubleValue());
+                carritoCompraTemporalLocal.actualizarArticulo(editar,editar.getIndice()-1);
+                listcarritoDTOTemporal.clear();
+                listcarritoDTOTemporal=null;
+                JsfUtil.addSuccessMessage("Carrito de compra Actualizado Satisfactoriamente");
+            }else if(editar.getCantidad()==0){
+                JsfUtil.addErrorMessage("Cantidad no puede ser cero");
+            }
+            else{
+                   JsfUtil.addErrorMessage("Error,cantidad consigno negativo");
+                    return "/carrito/Editar";
+            }
+     }catch(Exception e){
+         JsfUtil.addErrorMessage("Error problemas al editar informacion");
+     }
+      return "/carrito/Carrito";
+ }
+    public String borrarArticulo(PublicacionDTO articulo){
          carritoCompraTemporalLocal.removePublicacion(articulo);
+         JsfUtil.addSuccessMessage("Articulo eliminado Sastisfactoriamente");
+         return "/carrito/Carrito";
     }
     public List<PublicacionDTO> getListArticulos(){
         if(carritoCompraTemporalLocal!=null)
@@ -264,17 +288,10 @@ public class CarritoController implements Serializable{
          return descuento;
     }
 
-   /* public String editar(){
+   public String prepareList(){
 
-        try{
-
-            get
-
-        }catch(){
-
-        }
-
-    }*/
+       return "/carrito/Carrito";
+    }
 
      private CarritoCompraTemporalLocal carritoCompraTemporalLocal=ObtenerCarrito();//obetenemso carrito compra
 

@@ -49,7 +49,7 @@ public class Direnvio implements Serializable {
     @Column(name = "ATENCION")
     private String atencion;
     @Basic(optional = false)
-    @Column(name = "CALLE")
+    @Column(name = "CALLE") 
     private String calle;
     @Basic(optional = false)
     @Column(name = "NO_EXTERIOR")
@@ -74,10 +74,10 @@ public class Direnvio implements Serializable {
     private String telefono;
     @JoinColumn(name = "ID_EDO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Estado idEdo;
+    private Estado estado;
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Cliente idCliente;
+    private Cliente cliente;
 
     public Direnvio() {
     }
@@ -179,21 +179,24 @@ public class Direnvio implements Serializable {
         this.telefono = telefono;
     }
 
-    public Estado getIdEdo() {
-        return idEdo;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdEdo(Estado idEdo) {
-        this.idEdo = idEdo;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public Cliente getIdCliente() {
-        return idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
+    
+
+    
 
     @Override
     public int hashCode() {

@@ -68,12 +68,12 @@ import org.primefaces.model.StreamedContent;
 public class SubirFiles  implements Serializable{
 
    
-    private String carpetaPortadas="/home/libreria/www/articulos/";
-    private String urlPortada="http://www.libreria-tfjfa.com/articulos/";
-    private String urlDownloads="C:/Users/xxx/Documents/expedienteXML/";///home/libreria/public_ftp/incoming/";
-    private String urlXML="C:/Users/xxx/Documents/expedienteXML/";//"/home/libreria/public_ftp/";
-    private static final int BUFFER_SIZE = 10240;
-    private static final int DEFAULT_BUFFER_SIZE = 10240;
+    private static String carpetaPortadas="/home/libreria/www/articulos/";
+    private static String urlPortada="http://www.libreria-tfjfa.com/articulos/";//"C:/Users/xxx/Documents/NetBeansProjects/respaldo/LibreriaTFJV/web/resources/images/";
+    private static String urlDownloads="/home/libreria/public_ftp/incoming/"; // "C:/Users/xxx/Documents/expedienteXML/"; //
+    private static String urlXML="/home/libreria/public_ftp/"; //"C:/Users/xxx/Documents/expedienteXML/";
+    private static final int BUFFER_SIZE =9924;
+    private static final int DEFAULT_BUFFER_SIZE =9024;
     private String imagemTemporaria;
     private String extension,menssageOut;
     @EJB private escom.libreria.info.procesarEditorialXML.Editorialfacade editorialfacade;
@@ -140,6 +140,9 @@ public class SubirFiles  implements Serializable{
                   }else
                   {
                      extension=documento.substring(posExtension);
+
+                     articuloController.getSelected().setFormatoDigital("");
+                     articuloController.getSelected().setArchivo("");
                      articuloController.getSelected().setFormatoDigital(extension);
                      articuloController.getSelected().setArchivo(documento);
                      setMenssageOut("El archivo "+documento +" fue  Cargado Satisfactoriamente");
@@ -155,12 +158,11 @@ public class SubirFiles  implements Serializable{
     public boolean descargarArchivo(FileUploadEvent event,String urlFile) {
       
        
-      System.out.println("Ruta a guardar[ " + urlFile + event.getFile().getFileName());
-        
+     
         try {
             FileOutputStream fileOutputStream = null;
             File result = null;
-            result = new File(urlFile+ event.getFile().getFileName());
+            result = new File(urlFile,event.getFile().getFileName());
            
             fileOutputStream = new FileOutputStream(result);
 
@@ -182,6 +184,7 @@ public class SubirFiles  implements Serializable{
         System.out.println("Error handleFileUpload" + e);
         return false;
     }
+      
 }
 
    /* public boolean descargarArchivoXML(FileUploadEvent event) {
@@ -218,7 +221,8 @@ public class SubirFiles  implements Serializable{
 }*/
     private int posExtension;
     public void handleFileUpload(FileUploadEvent event) {
-                setMenssageOut("");
+            System.out.println("hola archivo");
+               setMenssageOut("");
                 String nombrePortada="";
                 articuloController.getSelected().setImagen("");
                if(descargarArchivo(event,carpetaPortadas)){
@@ -226,10 +230,11 @@ public class SubirFiles  implements Serializable{
                     articuloController.getSelected().setImagen(urlPortada+nombrePortada);
                }else
                setMenssageOut("No fue posible cargar el archivo");
-      }
+   }
 
     public void handleFileUploadXML(FileUploadEvent event){
         if(descargarArchivo(event,urlXML)){
+          editorialfacade.getEditorialByXML("");
           List<String>editoriales=editorialfacade.getEditorialByXML(urlXML+event.getFile().getFileName());
            publicacionController.setEditorialesList(editoriales);
         }

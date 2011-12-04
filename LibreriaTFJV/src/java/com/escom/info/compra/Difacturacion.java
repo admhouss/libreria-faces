@@ -3,10 +3,14 @@
  * and open the template in the editor.
  */
 
-package escom.libreria.info.cliente.jpa;
+package com.escom.info.compra;
 
+import escom.libreria.info.cliente.jpa.Cliente;
+import escom.libreria.info.cliente.jpa.Estado;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -63,12 +68,14 @@ public class Difacturacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "TELEFONO")
     private String telefono;
-    @JoinColumn(name = "ID_EDO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Estado idEdo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "difacturacion")
+    private List<Factura> facturaList;
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Cliente idCliente;
+    private Cliente cliente;
+    @JoinColumn(name = "ID_EDO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Estado estado;
 
     public Difacturacion() {
     }
@@ -161,20 +168,28 @@ public class Difacturacion implements Serializable {
         this.telefono = telefono;
     }
 
-    public Estado getIdEdo() {
-        return idEdo;
+    public List<Factura> getFacturaList() {
+        return facturaList;
     }
 
-    public void setIdEdo(Estado idEdo) {
-        this.idEdo = idEdo;
+    public void setFacturaList(List<Factura> facturaList) {
+        this.facturaList = facturaList;
     }
 
-    public Cliente getIdCliente() {
-        return idCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     @Override
@@ -199,7 +214,7 @@ public class Difacturacion implements Serializable {
 
     @Override
     public String toString() {
-        return "escom.libreria.info.cliente.jpa.Difacturacion[rfc=" + rfc + "]";
+        return "com.escom.info.compra.Difacturacion[rfc=" + rfc + "]";
     }
 
 }

@@ -5,6 +5,10 @@
 
 package escom.libreria.info.cliente.jpa;
 
+import com.escom.info.compra.Difacturacion;
+import com.escom.info.compra.Factura;
+import com.escom.info.compra.FacturaGeneral;
+import escom.libreria.info.contacto.jpa.Direnvio;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -41,6 +45,50 @@ public class Estado implements Serializable {
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
     private List<Cliente> clienteList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
+    private List<Factura> facturaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
+    private List<Difacturacion> difacturacionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
+    private List<FacturaGeneral> facturaGeneralList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
+    private List<Direnvio> direnvioList;
+
+
+
+    public List<Difacturacion> getDifacturacionList() {
+        return difacturacionList;
+    }
+
+    public void setDifacturacionList(List<Difacturacion> difacturacionList) {
+        this.difacturacionList = difacturacionList;
+    }
+
+    public List<Direnvio> getDirenvioList() {
+        return direnvioList;
+    }
+
+    public void setDirenvioList(List<Direnvio> direnvioList) {
+        this.direnvioList = direnvioList;
+    }
+
+    public List<FacturaGeneral> getFacturaGeneralList() {
+        return facturaGeneralList;
+    }
+
+    public void setFacturaGeneralList(List<FacturaGeneral> facturaGeneralList) {
+        this.facturaGeneralList = facturaGeneralList;
+    }
+
+    public List<Factura> getFacturaList() {
+        return facturaList;
+    }
+
+    public void setFacturaList(List<Factura> facturaList) {
+        this.facturaList = facturaList;
+    }
+
+
 
     public Estado() {
     }
