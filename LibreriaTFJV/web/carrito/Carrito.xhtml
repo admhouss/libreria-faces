@@ -177,7 +177,7 @@ return true;
                             </tr>
                             <tr>
                                 <td>Estado:</td>
-                                <td><h:outputText value="#{item.idEdo.nombre}"/></td>
+                                <td><h:outputText value="#{item.estado.nombre}"/></td>
 
                             </tr>
                             <tr>
@@ -214,48 +214,18 @@ return true;
               <p>(Visa y MasterCard)</p></td>
             <td width="14%">
             <ul id="icons" class="ui-widget ui-helper-clearfix">
-		<a href="webscr.htm">
+
+                <h:commandLink action="#{paypalController.procesarPago}">
+		
               <li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e">
               <span class="ui-icon ui-icon-arrowthick-1-e"></span>
               </li>
-                </a>
+                </h:commandLink>
 
             </ul>
             </td>
 
-              <td width="14%">
-            <!--<ul id="icons" class="ui-widget ui-helper-clearfix">
-		<a href="webscr.htm">
-              <li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e">
-              <span class="ui-icon ui-icon-arrowthick-1-e"></span>
-              </li>
-                </a>
-
-            </ul>
-            -->
-            <h:form id="PayPalform">
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-            <h:inputHidden id="cmd" value="_s-xclick" />
-<h:inputHidden id="hosted_button_id" value="8LLNADVXLW4RQ"/>
-<h:inputHidden id="first_name" value="JOCELIN"/>
-<h:inputHidden id="last_name" value="SALAS ALDANA"/>
-<h:inputHidden id='country' value='MX'/>
-<h:inputHidden id='address1' value='Board Walk at Argentuil'/>
-<h:inputHidden id='address2' value='Board Walk at Argentuil'/>
-<h:inputHidden id='item_price' value='20.00'/>
-<h:inputHidden id='zip' value='15420'/>
-<h:inputHidden id='state' value='Distrito federal'/>
-            </form>
-
-<h:outputLink  value="https://www.paypal.com/cgi-bin/webscr"  type="submit" >
-    <h:outputText value="hola"/>
-<input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea."/>
-<img alt="" border="0" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" width="1" height="1"/>
-</h:outputLink>
-
-                
-            </h:form>
-            </td>
+             
           </tr>
           <tr>
             <td valign="top"><label>
