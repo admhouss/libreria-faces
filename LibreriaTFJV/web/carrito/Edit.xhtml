@@ -20,66 +20,93 @@
                 <br/><br/>
                 <p:accordionPanel autoHeight="true">
                 <p:tab title="EDITAR CARRITO ARTICULO">
-                    <center>
+                   
                         <h:panelGrid columns="1" cellspacing="15">
 
-                            <p:dataTable value="#{carritoController.listcarritoDTOTemporal}" paginator="true" selectionMode="true" var="item">
-                                <p:column>
-                                   <f:facet name="header">
-                                       <h:outputLabel value="T&Iacute;TULO" />
-                                   </f:facet>
+                            <div align="left">
+                            <h:dataTable var="item" value="#{carritoController.listcarritoDTOTemporal}" headerClass="ui-state-focus">
 
-                                    <h:outputLabel value="#{item.titulo}"  />
-                              </p:column>
-                               
 
-                        <p:column>
-                                     <f:facet name="header">
-                                        <h:outputLabel value="EDITORIAL" />
-                                     </f:facet>
+
+
+                        <h:column>
+
+                            <f:facet name="header" >
+                                <h:outputLabel value="Descripci&oacute;n"  />
+                            </f:facet>
+                            <table border="0">
+                                <tr style="width:60px;">
+                                    <td colspan="4" class="ui-state-highlight"> <h:outputText value="#{item.indice}" id="indice"/></td>
+
+                                    <td>
+
+                                        <h:outputText value="#{item.titulo}" styleClass="textoNEGRO" id="titulo"/><br/>
+                                        <h:outputText value="#{item.autor}" id="autor"/><br/>
+                                        <h:outputText value="#{item.asunto}" id="asunto"/><br/>
+                                        <h:outputText value="#{item.editorial}" id="editorial"/><br/>
+
+
+                                    </td>
+                                </tr>
+                            </table>
+                         </h:column>
+                         <h:column >
+                            <f:facet name="header">
+                                <h:outputLabel value="Cantidad"  for="cantidad"/>
+                            </f:facet>
+                             <h:inputText value="#{item.cantidad}" id="cantidad" size="2" maxlength="2" required="true" requiredMessage="El campo cantidad es requerido"/>
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                               <h:outputLabel value="Precio" />
+                            </f:facet>
+                             <h:outputText value="$ #{item.precio}" id="precio"/>
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                              <h:outputLabel value="Descuento" />
+                            </f:facet>
+                             <h:outputText value="% #{item.desc}" id="descuento"/>
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                              <h:outputLabel value="Impuesto" />
+                            </f:facet>
+                             <h:outputText value="% #{item.impuesto}" id="impuesto"/>
+                         </h:column>
                         
-                                    <h:outputLabel   value="#{item.editorial}" title="divisa" />
-                                    
-                         </p:column>
-                          <p:column>
-                                    <f:facet name="header">
-                                        <h:outputLabel value="COSTO"/>
-                                    </f:facet>
-                                    <h:outputLabel id="costo"   value="#{item.precio}" title="costo" />
-                          </p:column>
-                          <p:column>
-                                    <f:facet name="header">
-                                        <h:outputLabel value="DESC"/>
-                                    </f:facet>
-                                    <h:outputLabel    value="#{item.desc}" title="desscuento" />
-                          </p:column>
-                          <p:column>
-                                    <f:facet name="header">
-                                        <h:outputLabel value="IMPUESTO"/>
-                                    </f:facet>
-                              <h:outputLabel    value="#{item.impuesto}" title="desscuento" />
-                          </p:column>
 
-                         <p:column>
-                             <f:facet name="header">
-                        <h:outputLabel value="Cantidad:"  />
-                             </f:facet>
-                             <h:inputText id="precioUnitario" size="4" value="#{item.cantidad}" maxlength="1"/>
-                         </p:column>
-                                <p:column>
-                             <f:facet name="header">
-                                 <h:outputLabel value="&nbsp;"  />
-                             </f:facet>
-                                    <h:commandLink action="#">
-                        <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
-                                    </h:commandLink>
-                                    <h:commandLink action="#{carritoController.borrarArticulo(item)}">
-                        <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
-                                    </h:commandLink>
-                         </p:column>
-                            </p:dataTable>
+                         <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Total" />
+                            </f:facet>
+
+                             <h:outputText value="$ #{item.total}" >
+
+                            </h:outputText>
+                         </h:column>
+
+                             <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="&nbsp;" />
+                            </f:facet>
+                           
+                            <h:commandLink action="#{carritoController.editarCarritoCompra(item)}">
+                                     <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                             </h:commandLink>
+                                 <h:commandLink action="#{carritoController.borrarArticulo(item)}" >
+                                     <img src="./../resources/iconos/quitar.png" alt="" title="Editar"/>
+                             </h:commandLink>
+                            
+                         </h:column>
+
+
+                    </h:dataTable>
+                            </div>
+                           
+                  
                         </h:panelGrid>
-                    </center>
+                    
                 </p:tab>
 
 
@@ -96,9 +123,9 @@
                  <br/><br/>
                  <p:panel>
                      <div align="center">
-                         <h:commandButton action="#{carritoController.editar}" value="Guardar" />
+                        
                          &nbsp;
-                         <h:commandButton action="#{articuloController.prepareList}" value="Salir" immediate="true"/>
+                         <h:commandButton action="#{carritoController.prepareList}" value="Salir" immediate="true"/>
                      </div>
                  </p:panel>
 
