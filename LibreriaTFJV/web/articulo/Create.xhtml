@@ -131,7 +131,7 @@
                          <h:panelGrid columns="2" cellspacing="15" >
                              <h:outputLabel value="Portada:" styleClass="textoNEGRO"/>
                           <p:fileUpload fileUploadListener="#{subirArchivo.handleFileUpload}" auto="true" label="Examinar"
-                                        allowTypes="*.jpg;*.png;" description="*.jpg;*.png;*.gif"  update="result" />
+                                        allowTypes="*.jpg;*.png;*.gif" description="*.jpg;*.png;*.gif"  update="result" />
                          </h:panelGrid>
                              <h:panelGroup id="result">
                                  <img  src="#{articuloController.selected.imagen}" alt="PORTADA" border="0" title="Portada" width="120" height="120"/>
