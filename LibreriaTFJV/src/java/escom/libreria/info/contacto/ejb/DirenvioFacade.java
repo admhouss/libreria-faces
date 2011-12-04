@@ -65,7 +65,7 @@ public class DirenvioFacade {
     }
 
     public List<Direnvio> getListDirEnvioByCliente(String correo) {
-        TypedQuery<Direnvio> query=em.createQuery("SELECT d FROM Direnvio d WHERE d.idCliente.id=:correo", Direnvio.class).setParameter("correo", correo);
+        TypedQuery<Direnvio> query=em.createQuery("SELECT d FROM Direnvio d WHERE d.cliente.id=:correo", Direnvio.class).setParameter("correo", correo);
         List<Direnvio> l=query.getResultList();
         return l;
     }

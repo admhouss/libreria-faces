@@ -122,9 +122,10 @@ public class DirenvioController implements Serializable{
     }
 
     public String create() {
+        
         try {
-            current.setIdCliente(sistemaController.getCliente());
-            if(current.getIdCliente()!=null){
+      current.setCliente(sistemaController.getCliente());
+            if(current.getCliente()!=null){
              getFacade().create(current);
               JsfUtil.addSuccessMessage(("DirenvioCreated"));
               return prepareView(current);
@@ -135,20 +136,21 @@ public class DirenvioController implements Serializable{
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Direccion").getString("PersistenceErrorOccured"));
             return null;
         }
+       
     }
 
     
 
     public String prepareEdit(Direnvio p) {
        current=p;//
-       current.setIdCliente(p.getIdCliente());
+       //current.setIdCliente(p.get);
         return "/direnvio/Edit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(("DirenvioUpdated"));
+            JsfUtil.addSuccessMessage(("Direncion Acutalizada Satisfactoriamente"));
             return "/direnvio/View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Direccion").getString("PersistenceErrorOccured"));

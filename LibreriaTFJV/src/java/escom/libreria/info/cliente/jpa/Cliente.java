@@ -5,7 +5,10 @@
 
 package escom.libreria.info.cliente.jpa;
 
+
+import com.escom.info.compra.Difacturacion;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -21,6 +24,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+
 
 /**
  *
@@ -90,6 +95,30 @@ public class Cliente implements Serializable {
     private Categoria categoria;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<BitacoraCliente> bitacoraClienteList;
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private Collection<Compra> compraCollection;*/
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Difacturacion> difacturacionList;//nuevo
+
+   /* public Collection<Compra> getCompraCollection() {
+        return compraCollection;
+    }
+
+    public void setCompraCollection(Collection<Compra> compraCollection) {
+        this.compraCollection = compraCollection;
+    }
+
+    */
+
+    public List<Difacturacion> getDifacturacionList() {
+        return difacturacionList;
+    }
+
+    public void setDifacturacionList(List<Difacturacion> difacturacionList) {
+        this.difacturacionList = difacturacionList;
+    }
+
+
 
     public Cliente() {
     }

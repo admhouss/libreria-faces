@@ -152,8 +152,8 @@ public class PayPalController implements Serializable{
 
     
     public String procesarPago(){
-        doPagoPayPal();
-        return "";
+        
+        return "/paypal/Create";
         
     }
     private void doPagoPayPal(){

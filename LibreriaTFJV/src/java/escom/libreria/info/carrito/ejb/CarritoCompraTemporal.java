@@ -55,14 +55,10 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
     @Override
     public void removePublicacion(PublicacionDTO articulo) {
         //throw new UnsupportedOperationException("Not supported yet.");
-           carritoDTO_Temporal=buscarArticulo(articulo);
+           carritoDTO_Temporal=articulo;
            if(listaPublicacion.contains(carritoDTO_Temporal)){
-             if(carritoDTO_Temporal.getCantidad()>1)
-             carritoDTO_Temporal.setCantidad(carritoDTO_Temporal.getCantidad()-1);
-             else
-             listaPublicacion.remove(carritoDTO_Temporal);
-
-        }
+               listaPublicacion.remove(carritoDTO_Temporal);
+            }
            
     }
 
