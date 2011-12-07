@@ -3,48 +3,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditPedidoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditPedidoLabel_pedidoPK_idPedido}" for="pedidoPK.idPedido" />
-                    <h:inputText id="pedidoPK.idPedido" value="#{pedidoController.selected.pedidoPK.idPedido}" title="#{bundle.EditPedidoTitle_pedidoPK_idPedido}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_pedidoPK_idPedido}"/>
-                    <h:outputLabel value="#{bundle.EditPedidoLabel_noArticuloCategoria}" for="noArticuloCategoria" />
-                    <h:inputText id="noArticuloCategoria" value="#{pedidoController.selected.noArticuloCategoria}" title="#{bundle.EditPedidoTitle_noArticuloCategoria}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_noArticuloCategoria}"/>
-                    <h:outputLabel value="#{bundle.EditPedidoLabel_categoria}" for="categoria" />
-                    <h:inputText id="categoria" value="#{pedidoController.selected.categoria}" title="#{bundle.EditPedidoTitle_categoria}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_categoria}"/>
-                    <h:outputLabel value="#{bundle.EditPedidoLabel_precioNeto}" for="precioNeto" />
-                    <h:inputText id="precioNeto" value="#{pedidoController.selected.precioNeto}" title="#{bundle.EditPedidoTitle_precioNeto}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_precioNeto}"/>
-                    <h:outputLabel value="#{bundle.EditPedidoLabel_impuesto}" for="impuesto" />
-                    <h:inputText id="impuesto" value="#{pedidoController.selected.impuesto}" title="#{bundle.EditPedidoTitle_impuesto}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_impuesto}"/>
-                    <h:outputLabel value="#{bundle.EditPedidoLabel_descuento}" for="descuento" />
-                    <h:inputText id="descuento" value="#{pedidoController.selected.descuento}" title="#{bundle.EditPedidoTitle_descuento}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_descuento}"/>
-                    <h:outputLabel value="#{bundle.EditPedidoLabel_precioTotal}" for="precioTotal" />
-                    <h:inputText id="precioTotal" value="#{pedidoController.selected.precioTotal}" title="#{bundle.EditPedidoTitle_precioTotal}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_precioTotal}"/>
-                    <h:outputLabel value="#{bundle.EditPedidoLabel_tipoEnvio}" for="tipoEnvio" />
-                    <h:inputText id="tipoEnvio" value="#{pedidoController.selected.tipoEnvio}" title="#{bundle.EditPedidoTitle_tipoEnvio}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_tipoEnvio}"/>
-                    <h:outputLabel value="#{bundle.EditPedidoLabel_articulo}" for="articulo" />
-                    <h:selectOneMenu id="articulo" value="#{pedidoController.selected.articulo}" title="#{bundle.EditPedidoTitle_articulo}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_articulo}">
-                        <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
+                <br/>  <br/>
+                <p:panel header="EDITAR PEDIDO ">
+                <center>
+                <h:panelGrid columns="2" cellspacing="15">
+
+                    <h:outputLabel value="No.ArticuloCategoria:" for="noArticuloCategoria" styleClass="textoNEGRO"/>
+                    <h:inputText id="noArticuloCategoria" value="#{pedidoController.selected.noArticuloCategoria}" title="noArticuloCategoria}" required="true" requiredMessage="El campo noArticuloCategoria es requerido"/>
+                    <h:outputLabel value="Categoria:" for="categoria" styleClass="textoNEGRO" />
+                    <h:inputText id="categoria" value="#{pedidoController.selected.categoria}" title="Categoria" required="true" requiredMessage="El campo categoria es requerido"/>
+                    <h:outputLabel value="Precio Neto:" for="precioNeto" styleClass="textoNEGRO" />
+                    <h:inputText id="precioNeto" value="#{pedidoController.selected.precioNeto}" title="Precio Neto" required="true" requiredMessage="El campo precio Neto es requerido"/>
+                    <h:outputLabel value="Impuesto:" for="impuesto" styleClass="textoNEGRO"/>
+                    <h:inputText id="impuesto" value="#{pedidoController.selected.impuesto}" title="Impuesto" required="true" requiredMessage="El campo impuesto es requerido"/>
+                    <h:outputLabel value="Descuento:" for="descuento" styleClass="textoNEGRO"/>
+                    <h:inputText id="descuento" value="#{pedidoController.selected.descuento}" title="Descuento" required="true" requiredMessage="El campo descuento es requerido"/>
+                    <h:outputLabel value="Precio Total:" for="precioTotal" styleClass="textoNEGRO"/>
+                    <h:inputText id="precioTotal" value="#{pedidoController.selected.precioTotal}" title="Precio Total" required="true" requiredMessage="El campo precio Total es requerido"/>
+                    <h:outputLabel value="Tipo Envio:" for="tipoEnvio" styleClass="textoNEGRO"/>
+                    <h:inputText id="tipoEnvio" value="#{pedidoController.selected.tipoEnvio}" title="Tipo Envio" required="true" requiredMessage="El campo tipo Envio es requerido"/>
+                    <h:outputLabel value="Articulo" for="articulo" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="articulo" value="#{pedidoController.selected.articulo}" title="articulo" required="true" requiredMessage="El campo articulo es requerido">
+                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
-                <h:commandLink action="#{pedidoController.update}" value="#{bundle.EditPedidoSaveLink}"/>
-                <br />
-                <br />
-                <h:commandLink action="View" value="#{bundle.EditPedidoViewLink}" immediate="true"/>
-                <br />
-                <h:commandLink action="#{pedidoController.prepareList}" value="#{bundle.EditPedidoShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:commandLink value="#{bundle.EditPedidoIndexLink}" action="/index" immediate="true" />
+</center>
+                </p:panel>
+                <br /><br />
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{pedidoController.update}" value="Guardar" />
+                    </p:panel>
+                </div>
+
             </h:form>
         </ui:define>
     </ui:composition>
