@@ -32,15 +32,10 @@
                     <h:outputLabel value="Puesto:" for="puesto" styleClass="textoNEGRO"/>
                     <h:inputText id="puesto" value="#{contactoController.selected.puesto}" title="puesto" required="true" requiredMessage="Falta por capturar el campo puesto"/>
                     <h:outputLabel value="*" styleClass="textoROJO" />
-                    <h:outputLabel value="Telefono:" for="telefono" styleClass="textoNEGRO"/>
+                    <h:outputLabel value="Tel&eacute;fono:" for="telefono" styleClass="textoNEGRO"/>
                     <h:inputText id="telefono" value="#{contactoController.selected.telefono}" title="telefono" required="true" requiredMessage="Falta por capturar el campo telefono"/>
                     <h:outputLabel value="*" styleClass="textoROJO" />
-                    <h:outputLabel value="Cliente:" for="idCliente" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="idCliente" value="#{contactoController.selected.idCliente}" title="correo" required="true" requiredMessage="Falta por capturar el campo idCliente">
-
-                        <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.id}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="*" styleClass="textoROJO" />
+                   
                 </h:panelGrid>
                     </center>
                 </p:panel>
