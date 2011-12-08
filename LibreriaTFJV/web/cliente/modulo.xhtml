@@ -45,6 +45,53 @@
                   </p:tab>
                   <p:tab title="CONTACTOS">
 
+                      <!--<p:panel header="CAT&Aacute;LOGO  CONTACTOS">-->
+                      <div align="right">
+                          <h:commandButton value="Crear Nuevo" action="#{contactoController.prepareCreate}"/>
+                      </div>
+                      <br/><br/>
+                    <p:dataTable value="#{contactoController.listContactoFromCliente}" var="item" paginator="true" rows="5">
+
+                    <p:column style="width:150px;">
+                        <f:facet name="header">
+                            <h:outputText value="CONTACTO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre} #{item.paterno} #{item.materno}"/>
+                    </p:column>
+
+                    <p:column style="width:40px;">
+                        <f:facet name="header">
+                            <h:outputText value="PUESTO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.puesto}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="CLIENTE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idCliente.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{contactoController.prepareView(item)}" >
+                              <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+
+                        <h:commandLink action="#{contactoController.prepareEdit(item)}" >
+                           <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                        </h:commandLink>
+
+                        <h:commandLink action="#{contactoController.destroy(item)}" >
+                              <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+                      <br/>
+                <!--</p:panel>-->
+
                   </p:tab>
                    <p:tab title="COMPRAS HISTORICAS">
 
