@@ -393,7 +393,7 @@
                 <p:tab title="Art&iacute;culos">
 
                     <div align="left">
-                    <h:dataTable var="item" value="#{carritoController.listArticulos}" headerClass="ui-state-focus">
+                        <h:dataTable var="item" value="#{pedidoController.listPedidosByCliente}" headerClass="ui-state-focus">
 
 
 
@@ -405,14 +405,14 @@
                             </f:facet>
                             <table border="0" style="width:5px;">
                                 <tr style="width:60px;">
-                                    <td colspan="4" class="ui-state-highlight"> <h:outputText value="#{item.indice}"/></td>
+                                    <td colspan="4" class="ui-state-highlight"> <h:outputText value="1"/></td>
 
                                     <td>
 
-                                <h:outputText value="#{item.titulo}" styleClass="textoNEGRO" /><br/>
-                                <h:outputText value="#{item.autor}" /><br/>
-                                <h:outputText value="#{item.asunto}" /><br/>
-                                <h:outputText value="#{item.editorial}" /><br/>
+                                <h:outputText value="#{item.articulo.titulo}" styleClass="textoNEGRO" /><br/>
+                                <h:outputText value="#{item.articulo.creador}" /><br/>
+                                <h:outputText value="#{item.articulo.asunto}" /><br/>
+                               
 
 
                                     </td>
@@ -423,19 +423,19 @@
                             <f:facet name="header">
                                 <h:outputLabel value="Cantidad"  />
                             </f:facet>
-                             <h:outputText value="#{item.cantidad}" />
+                             <h:outputText value="#{item.noArticuloCategoria}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                                <h:outputLabel value="Precio" />
                             </f:facet>
-                             <h:outputText value="$ #{item.precio}" />
+                             <h:outputText value="$ #{item.precioNeto}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                               <h:outputLabel value="Descuento" />
                             </f:facet>
-                             <h:outputText value="% #{item.desc}" />
+                             <h:outputText value="% #{item.descuento}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
@@ -450,7 +450,7 @@
                                 <h:outputLabel value="Fecha Compra" />
                             </f:facet>
 
-                            <h:outputLabel value="#{item.fechaCompra}" >
+                            <h:outputLabel value="#{item.fechaPedido}" >
                              <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputLabel>
                          </h:column>
@@ -459,7 +459,7 @@
                                 <h:outputLabel value="Total" />
                             </f:facet>
 
-                             <h:outputText value="$ #{item.total}" >
+                             <h:outputText value="$ #{item.precioTotal}" >
 
                             </h:outputText>
                          </h:column>
@@ -478,12 +478,15 @@
           <td align="center">&nbsp;</td>
           <td>&nbsp;</td>
           <td class="ui-state-active">Total</td>
-          <td><h:outputLabel value="$ #{carritoController.montoTotal}"  /></td>
+          <td><h:outputLabel value="$ #{pedidoController.montoTotal}"  /></td>
           <td>&nbsp;</td>
         </tr>
                     </table>
                     </div>
 
+
+                </p:tab>
+                <p:tab title="OtrosPedidos">
 
                 </p:tab>
                 </p:accordionPanel>
