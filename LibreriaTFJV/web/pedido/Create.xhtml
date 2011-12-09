@@ -38,6 +38,10 @@
                     <h:selectOneMenu id="articulo" value="#{pedidoController.selected.articulo}" title="articulo" required="true" requiredMessage="El campo articulo es requerido">
                         <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
                     </h:selectOneMenu>
+                    <h:outputLabel value="Cliente" for="cliente" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="cliente" value="#{pedidoController.selected.cliente}" title="articulo" required="true" requiredMessage="El campo cliente es requerido">
+                        <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
 </center>
                 </p:panel>
