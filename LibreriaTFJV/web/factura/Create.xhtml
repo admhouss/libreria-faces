@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+               <br/>  <br/>
+                <p:panel header="ALTA FACTURA">
+<center>
+                    <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputLabel value="facturaPK_folio:" for="facturaPK.folio" />
+                    <h:inputText id="facturaPK.folio" value="#{facturaController.selected.facturaPK.folio}" title="FacturaPK_folio" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_facturaPK_folio}"/>
+                    <h:outputLabel value="noInterno}" for="noInterno" />
+                    <h:inputText id="noInterno" value="#{facturaController.selected.noInterno}" title="noInterno" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_noInterno}"/>
+                    <h:outputLabel value="sucursal}" for="sucursal" />
+                    <h:inputText id="sucursal" value="#{facturaController.selected.sucursal}" title="sucursal" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_sucursal}"/>
+                    <h:outputLabel value="fechaCert:" for="fechaCert" />
+                    <h:inputText id="fechaCert" value="#{facturaController.selected.fechaCert}" title="fechaCert" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_fechaCert}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="noSerie}" for="noSerie" />
+                    <h:inputText id="noSerie" value="#{facturaController.selected.noSerie}" title="noSerie" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_noSerie}"/>
+                    <h:outputLabel value="fechaEmi}" for="fechaEmi" />
+                    <h:inputText id="fechaEmi" value="#{facturaController.selected.fechaEmi}" title="fechaEmi" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_fechaEmi}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="certEmi}" for="certEmi" />
+                    <h:inputText id="certEmi" value="#{facturaController.selected.certEmi}" title="certEmi" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_certEmi}"/>
+                    <h:outputLabel value="serie}" for="serie" />
+                    <h:inputText id="serie" value="#{facturaController.selected.serie}" title="serie" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_serie}"/>
+                    <h:outputLabel value="razonSocial}" for="razonSocial" />
+                    <h:inputText id="razonSocial" value="#{facturaController.selected.razonSocial}" title="razonSocial" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_razonSocial}"/>
+                    <h:outputLabel value="calle}" for="calle" />
+                    <h:inputText id="calle" value="#{facturaController.selected.calle}" title="calle" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_calle}"/>
+                    <h:outputLabel value="noExterior}" for="noExterior" />
+                    <h:inputText id="noExterior" value="#{facturaController.selected.noExterior}" title="noExterior" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_noExterior}"/>
+                    <h:outputLabel value="colonia}" for="colonia" />
+                    <h:inputText id="colonia" value="#{facturaController.selected.colonia}" title="colonia" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_colonia}"/>
+                    <h:outputLabel value="del}" for="del" />
+                    <h:inputText id="del" value="#{facturaController.selected.del}" title="del" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_del}"/>
+                    <h:outputLabel value="Pais:" for="pais" />
+                    <h:inputText id="pais" value="#{facturaController.selected.pais}" title="pais" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_pais}"/>
+                    <h:outputLabel value="CP:" for="cp" />
+                    <h:inputText id="cp" value="#{facturaController.selected.cp}" title="cp" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_cp}"/>
+                    <h:outputLabel value="Factura:" for="factura" />
+                    <h:inputTextarea rows="4" cols="30" id="factura" value="#{facturaController.selected.factura}" title="factura}" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_factura}"/>
+                    <h:outputLabel value="Comprobante:" for="comprobante" />
+                    <h:inputText id="comprobante" value="#{facturaController.selected.comprobante}" title="comprobante}" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_comprobante}"/>
+                    <h:outputLabel value="No.Folio:" for="noFolio" />
+                    <h:inputText id="noFolio" value="#{facturaController.selected.noFolio}" title="noFolio}" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_noFolio}"/>
+                    <h:outputLabel value="Difacturacion:" for="difacturacion" />
+                    <h:selectOneMenu id="difacturacion" value="#{facturaController.selected.difacturacion}" title="difacturacion}" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_difacturacion}">
+                        <f:selectItems value="#{difacturacionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Estado:" for="estado" />
+                    <h:selectOneMenu id="estado" value="#{facturaController.selected.estado}" title="estado}" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_estado}">
+                        <f:selectItems value="#{estadoController.listEstado}" var="item" value="#{item}" itemValue="#{item}" itemLabel="#{item.nombre}" />
+                    </h:selectOneMenu>
+                </h:panelGrid>
+</center>
+                </p:panel>
+                <br />
+                <h:commandLink action="#{facturaController.create}" value="#{bundle.CreateFacturaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{facturaController.prepareList}" value="#{bundle.CreateFacturaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateFacturaIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
