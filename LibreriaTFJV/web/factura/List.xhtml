@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+            <br/>  <br/>
+            <p:panel header="C&Aacute;LOGO DE FACTURACION">
+            <h:panelGroup>
+               
+                <p:dataTable value="#{facturaController.listFactura}" var="item" paginator="true">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Folio"/>
+                        </f:facet>
+                        <!--<h:outputText value="hola"/>-->
+                         <h:outputText value="#{item.facturaPK.folio}"/>
+                    </p:column>
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="noInterno}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noInterno}"/>
+                    </p:column>-->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="sucursal}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.sucursal}"/>
+                    </p:column>
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="fechaCert}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaCert}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>-->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="noSerie}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noSerie}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="fechaEmi}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaEmi}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="certEmi}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.certEmi}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="serie}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.serie}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="razonSocial}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.razonSocial}"/>
+                    </p:column>
+                   <!-- <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="calle}"/>
+                        </f:facet>
+                        <h:outputText value="{item.calle}"/>
+                    </p:column>-->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="noExterior}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noExterior}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="colonia}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.colonia}"/>
+                    </p:column>
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="del}"/>
+                        </f:facet>
+                        <h:outputText value="{item.del}"/>
+                    </p:column>-->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="pais}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pais}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="cp}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.cp}"/>
+                    </p:column>
+                    <!--
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="factura}"/>
+                        </f:facet>
+                        <h:outputText value="{item.factura}"/>
+                    </p:column>-->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="comprobante}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.comprobante}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="noFolio}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noFolio}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="difacturacion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.difacturacion}"/>
+                    </p:column>
+                    <!--
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="estado}"/>
+                        </f:facet>
+                        <h:outputText value="{item.estado}"/>
+                    </p:column>-->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{facturaController.prepareView}" value="#{bundle.ListFacturaViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{facturaController.prepareEdit}" value="#{bundle.ListFacturaEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{facturaController.destroy}" value="#{bundle.ListFacturaDestroyLink}"/>
+                    </p:column>
+                </p:dataTable>
+               
+            </h:panelGroup>
+            </p:panel>
+               
+
+            <br />
+            <h:commandLink action="#{facturaController.prepareCreate}" value="#{bundle.ListFacturaCreateLink}"/>
+            <br />
+            <br />
+            <h:commandLink value="#{bundle.ListFacturaIndexLink}" action="/index" immediate="true" />
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

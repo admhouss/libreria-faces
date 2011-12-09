@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditFacturaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_facturaPK_folio}" for="facturaPK.folio" />
+                    <h:inputText id="facturaPK.folio" value="#{facturaController.selected.facturaPK.folio}" title="#{bundle.EditFacturaTitle_facturaPK_folio}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_facturaPK_folio}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_noInterno}" for="noInterno" />
+                    <h:inputText id="noInterno" value="#{facturaController.selected.noInterno}" title="#{bundle.EditFacturaTitle_noInterno}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_noInterno}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_sucursal}" for="sucursal" />
+                    <h:inputText id="sucursal" value="#{facturaController.selected.sucursal}" title="#{bundle.EditFacturaTitle_sucursal}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_sucursal}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_fechaCert}" for="fechaCert" />
+                    <h:inputText id="fechaCert" value="#{facturaController.selected.fechaCert}" title="#{bundle.EditFacturaTitle_fechaCert}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_fechaCert}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_noSerie}" for="noSerie" />
+                    <h:inputText id="noSerie" value="#{facturaController.selected.noSerie}" title="#{bundle.EditFacturaTitle_noSerie}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_noSerie}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_fechaEmi}" for="fechaEmi" />
+                    <h:inputText id="fechaEmi" value="#{facturaController.selected.fechaEmi}" title="#{bundle.EditFacturaTitle_fechaEmi}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_fechaEmi}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_certEmi}" for="certEmi" />
+                    <h:inputText id="certEmi" value="#{facturaController.selected.certEmi}" title="#{bundle.EditFacturaTitle_certEmi}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_certEmi}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_serie}" for="serie" />
+                    <h:inputText id="serie" value="#{facturaController.selected.serie}" title="#{bundle.EditFacturaTitle_serie}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_serie}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_razonSocial}" for="razonSocial" />
+                    <h:inputText id="razonSocial" value="#{facturaController.selected.razonSocial}" title="#{bundle.EditFacturaTitle_razonSocial}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_razonSocial}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_calle}" for="calle" />
+                    <h:inputText id="calle" value="#{facturaController.selected.calle}" title="#{bundle.EditFacturaTitle_calle}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_calle}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_noExterior}" for="noExterior" />
+                    <h:inputText id="noExterior" value="#{facturaController.selected.noExterior}" title="#{bundle.EditFacturaTitle_noExterior}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_noExterior}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_colonia}" for="colonia" />
+                    <h:inputText id="colonia" value="#{facturaController.selected.colonia}" title="#{bundle.EditFacturaTitle_colonia}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_colonia}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_del}" for="del" />
+                    <h:inputText id="del" value="#{facturaController.selected.del}" title="#{bundle.EditFacturaTitle_del}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_del}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_pais}" for="pais" />
+                    <h:inputText id="pais" value="#{facturaController.selected.pais}" title="#{bundle.EditFacturaTitle_pais}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_pais}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_cp}" for="cp" />
+                    <h:inputText id="cp" value="#{facturaController.selected.cp}" title="#{bundle.EditFacturaTitle_cp}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_cp}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_factura}" for="factura" />
+                    <h:inputTextarea rows="4" cols="30" id="factura" value="#{facturaController.selected.factura}" title="#{bundle.EditFacturaTitle_factura}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_factura}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_comprobante}" for="comprobante" />
+                    <h:inputText id="comprobante" value="#{facturaController.selected.comprobante}" title="#{bundle.EditFacturaTitle_comprobante}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_comprobante}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_noFolio}" for="noFolio" />
+                    <h:inputText id="noFolio" value="#{facturaController.selected.noFolio}" title="#{bundle.EditFacturaTitle_noFolio}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_noFolio}"/>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_difacturacion}" for="difacturacion" />
+                    <h:selectOneMenu id="difacturacion" value="#{facturaController.selected.difacturacion}" title="#{bundle.EditFacturaTitle_difacturacion}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_difacturacion}">
+                        <f:selectItems value="#{difacturacionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditFacturaLabel_estado}" for="estado" />
+                    <h:selectOneMenu id="estado" value="#{facturaController.selected.estado}" title="#{bundle.EditFacturaTitle_estado}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_estado}">
+                        <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{facturaController.update}" value="#{bundle.EditFacturaSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditFacturaViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{facturaController.prepareList}" value="#{bundle.EditFacturaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditFacturaIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
