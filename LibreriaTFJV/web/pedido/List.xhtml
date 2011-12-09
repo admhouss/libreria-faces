@@ -24,9 +24,24 @@
             
                 </div>
                      <br /><br />
+                     <p:panel header="Buscar Pedido">
+                         <center>
+                             <h:panelGrid columns="3" cellspacing="15">
+                             <h:outputLabel value="Fecha Inicio:" styleClass="textoNEGRO"/>
+                             <p:calendar value="#{pedidoController.pedidoFecha}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true"/>
+                             <h:outputLabel value=" "/>
+                             <h:outputLabel value="Fecha Final:" styleClass="textoNEGRO"/>
+                             <p:calendar value="#{pedidoController.endpedidoFecha}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true"/>
+                             <h:commandLink action="#{pedidoController.publicacionByFecha}">
+                                 <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                             </h:commandLink>
+                         </h:panelGrid>
+                         </center>
+                     </p:panel>
+                     <br/><br/>
                 <p:panel header="CAT&Aacute;LOGO DE PEDIDOS">
                
-                <p:dataTable value="#{pedidoController.listPedidos}" var="item" paginator="true">
+                    <p:dataTable value="#{pedidoController.listaPedidosCliente}" var="item" paginator="true">
                     
                     <p:column>
                         <f:facet name="header">
@@ -71,7 +86,7 @@
                         </f:facet>
                         <h:outputText value="#{item.tipoEnvio}"/>
                     </p:column>
-                    <p:column>
+                    <p:column style="width:16px;">
                         <f:facet name="header">
                             <h:outputText value="ARTICULO"/>
                         </f:facet>
@@ -84,10 +99,11 @@
                         <h:commandLink action="#{pedidoController.prepareView(item)}">
                             <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
                         </h:commandLink>
-                        
-                        <h:commandLink action="#{pedidoController.prepareEdit(item)}">
+                        <!--
+                        <h:commandLink action="{pedidoController.prepareEdit(item)}">
                             <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
                         </h:commandLink>
+                        -->
                         
                         <h:commandLink action="#{pedidoController.destroy(item)}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
@@ -96,6 +112,13 @@
                 </p:dataTable>
                 </p:panel>
             </h:panelGroup>
+
+            <br/><br/>
+            <div align="center">
+                <p:panel>
+                    <h:commandButton action="/index" value="Salir" immediate="true"/>
+                </p:panel>
+            </div>
            
             
         </h:form>
