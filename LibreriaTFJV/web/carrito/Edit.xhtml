@@ -7,24 +7,29 @@
       xmlns:p="http://primefaces.prime.com.tr/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
+
+
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
             <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
+
+
+        <h:form id="carritoCompra" styleClass="jsfcrud_list_form">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form id="articuloALTA">
 
-                <br/><br/>
-                <p:accordionPanel autoHeight="true">
-                <p:tab title="EDITAR CARRITO ARTICULO">
-                   
-                        <h:panelGrid columns="1" cellspacing="15">
+            <h1>Carrito de Compra</h1>
+            <h:outputLabel value="Favor de registrase" rendered="#{sistemaController.cliente==null}" escape="false"/>
+            <h:panelGroup rendered="#{sistemaController.cliente!=null}">
+            <p:accordionPanel autoHeight="false">
 
-                            <div align="left">
-                            <h:dataTable var="item" value="#{carritoController.listcarritoDTOTemporal}" headerClass="ui-state-focus">
+                <p:tab title="Art&iacute;culos">
+
+
+                    <h:dataTable var="item" value="#{carritoController.listcarritoDTOTemporal}" headerClass="ui-state-focus">
 
 
 
@@ -36,43 +41,44 @@
                             </f:facet>
                             <table border="0">
                                 <tr style="width:60px;">
-                                    <td colspan="4" class="ui-state-highlight"> <h:outputText value="#{item.indice}" id="indice"/></td>
+                                    <td colspan="4" class="ui-state-highlight">
+                                        <h:outputText value="1"/></td>
 
                                     <td>
 
-                                        <h:outputText value="#{item.titulo}" styleClass="textoNEGRO" id="titulo"/><br/>
-                                        <h:outputText value="#{item.autor}" id="autor"/><br/>
-                                        <h:outputText value="#{item.asunto}" id="asunto"/><br/>
-                                        <h:outputText value="#{item.editorial}" id="editorial"/><br/>
+                                        <h:outputText value="#{item.articulo.titulo}"  style="color:black;" /><br/>
+                                        <h:outputText value="#{item.articulo.asunto}" /><br/>
+                                        <h:outputText value="#{item.articulo.nombreAlternativo}" /><br/>
+                               <!-- <h:outputText value="{item.editorial}" /><br/>-->
 
 
                                     </td>
                                 </tr>
                             </table>
                          </h:column>
-                         <h:column >
+                         <h:column  >
                             <f:facet name="header">
-                                <h:outputLabel value="Cantidad"  for="cantidad"/>
+                                <h:outputLabel value="Cantidad"  />
                             </f:facet>
-                             <h:inputText value="#{item.cantidad}" id="cantidad" size="2" maxlength="2" required="true" requiredMessage="El campo cantidad es requerido"/>
+                             <h:inputText value="#{item.noArticuloCategoria}" required="true" requiredMessage="El campo cantidad es requerido" size="1"/>
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                                <h:outputLabel value="Precio" />
                             </f:facet>
-                             <h:outputText value="$ #{item.precio}" id="precio"/>
+                             <h:outputText value="$ #{item.precioNeto}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                               <h:outputLabel value="Descuento" />
                             </f:facet>
-                             <h:outputText value="% #{item.desc}" id="descuento"/>
+                             <h:outputText value="% #{item.descuento}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                               <h:outputLabel value="Impuesto" />
                             </f:facet>
-                             <h:outputText value="% #{item.impuesto}" id="impuesto"/>
+                             <h:outputText value="% #{item.impuesto}" />
                          </h:column>
                         
 
@@ -81,7 +87,7 @@
                                 <h:outputLabel value="Total" />
                             </f:facet>
 
-                             <h:outputText value="$ #{item.total}" >
+                             <h:outputText value="$ #{item.precioTotal}" >
 
                             </h:outputText>
                          </h:column>
@@ -90,46 +96,156 @@
                             <f:facet name="header">
                                 <h:outputLabel value="&nbsp;" />
                             </f:facet>
-                           
-                            <h:commandLink action="#{carritoController.editarCarritoCompra(item)}">
-                                     <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
-                             </h:commandLink>
-                                 <h:commandLink action="#{carritoController.borrarArticulo(item)}" >
-                                     <img src="./../resources/iconos/quitar.png" alt="" title="Editar"/>
-                             </h:commandLink>
-                            
-                         </h:column>
+                                 <h:commandLink action="#{carritoController.editarCarritoCompra(item)}">
+                             <img src="./../resources/iconos/seditar.png" alt="" title="Actualizar carrito"/>
+                                 </h:commandLink>
 
+                                 <h:commandLink action="#{carritoController.borrarArticulo(item)}">
+                             <img src="./../resources/iconos/quitar.png" alt="" title="Quitar del carrito"/>
+                                 </h:commandLink>
+
+
+                         </h:column>
+                    
 
                     </h:dataTable>
-                            </div>
-                           
-                  
-                        </h:panelGrid>
-                    
+                    <div align="right">
+                    <table>
+          <tr>
+          <td valign="top">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ui-state-active">Total</td>
+          <td><h:outputLabel value="$ #{pedidoController.montoTotal}"  /></td>
+          <td>&nbsp;</td>
+        </tr>
+                    </table>
+                    </div>
+
+
                 </p:tab>
+                <p:tab title="Env&iacute;o y Facturaci&oacute;n">
+
+                    <h:dataTable value="#{direnvioController.listaDirEnvioCliente}" var="item"  >
+
+                    <h:column>
+                        <f:facet name="header">
+                           <p><strong>Direcci&oacute;n de Envio</strong></p>
+                        </f:facet>
+                        <table >
+
+                            <tr><td > <h:outputText value="#{item.atencion}" styleClass="textoNEGRO" /></td></tr>
+
+                            <tr>
+                                <td>Calle:</td>
+                                <td><h:outputText value="#{item.calle}"/></td>
+                            </tr>
+                             <tr>
+                                   <td>Colonia:</td>
+                                    <td>
+                                        <h:outputText value="#{item.colonia}"/>
+                                    </td>
+                            </tr>
+
+                          <tr>
+                                <td>C.P:</td>
+                                <td><h:outputText value="#{item.cp}"/></td>
+                          </tr>
+                            <tr>
+                                <td>Tel&eacute;fono:</td>
+                                <td><h:outputText value="#{item.telefono}"/></td>
+
+                            </tr>
+                            <tr>
+                                <td>Estado:</td>
+                                <td><h:outputText value="#{item.estado.nombre}"/></td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                        <h:commandLink action="#{direnvioController.prepareView(item)}">
+                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+                        <h:commandLink action="#{direnvioController.prepareEdit(item)}">
+                            <img src="./../resources/iconos/seditar.png" alt="" title="Actualizar"/>
+                        </h:commandLink>
+
+                        <h:commandLink action="#{direnvioController.destroy(item)}">
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                                </td>
+                            </tr>
+                        </table>
+                      </h:column>
+                </h:dataTable>
+
+
+                </p:tab>
+                 <p:tab title="Pago">
+                     <div>
+      <h2>Selecciona tu forma de pago </h2>
+      <table align="center" border="0" cellpadding="0" cellspacing="4" width="400">
+        <tbody>
+          <tr>
+            <td width="6%" valign="top"><label>
+              <input name="cFormaPago" value="2" type="radio" />
+              </label></td>
+            <td width="80%"><div><img src="./../resources/iconos/pay_icono_paypal.gif" height="25" width="51" />PayPal</div>
+              <p>(Visa y MasterCard)</p></td>
+            <td width="14%">
+            <ul id="icons" class="ui-widget ui-helper-clearfix">
+
+                <h:commandLink action="#{paypalController.procesarPago}">
+
+              <li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e">
+              <span class="ui-icon ui-icon-arrowthick-1-e"></span>
+              </li>
+                </h:commandLink>
+
+            </ul>
+            </td>
+
+
+          </tr>
+          <tr>
+            <td valign="top"><label>
+              <input name="cFormaPago" value="0" type="radio" />
+            </label></td>
+              <td><div><img src="./../resources/iconos/icono_pago.png" height="28" width="37" />Dep&oacute;sito bancario/Transferencia electr&oacute;nica</div>
+                <p>(depositos en efectivo y pagos via banca electr&oacute;nica. <br />
+                <strong>Todos los bancos</strong>)</p></td>
+            <td><ul id="icons" class="ui-widget ui-helper-clearfix">
+		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e"><span class="ui-icon ui-icon-arrowthick-1-e"></span></li>
+
+            </ul></td>
+          </tr>
+        </tbody>
+      </table>
+<p>&nbsp;</p>
+    </div>
+
+
+                </p:tab>
+            </p:accordionPanel>
 
 
 
+            </h:panelGroup>
 
 
-                    
-                 </p:accordionPanel>
+            <br />
+            <br />
+            <div align="center">
+                <p:panel>
+                    <h:commandButton value="Regresar Carrito" action="#{carritoController.prepareList}" immediate="true" />
+                </p:panel>
+            </div>
 
-                 <br/><br/>
 
 
-
-                 <br/><br/>
-                 <p:panel>
-                     <div align="center">
-                        
-                         &nbsp;
-                         <h:commandButton action="#{carritoController.prepareList}" value="Salir" immediate="true"/>
-                     </div>
-                 </p:panel>
-
-            </h:form>
+        </h:form>
         </ui:define>
     </ui:composition>
 
