@@ -131,61 +131,113 @@
                     
                 </p:tab>
                 <p:tab title="Env&iacute;o y Facturaci&oacute;n">
-                    
-                    <h:dataTable value="#{direnvioController.listaDirEnvioCliente}" var="item"  >
+                    <h2>Direcci&oacute;n de Env&iacute;o</h2><br/>
+                    <p:dataTable value="#{direnvioController.listaDirEnvioCliente}" var="item"  paginator="true" rows="5">
 
-                    <h:column>
+                        <p:column style="width:60px;">
                         <f:facet name="header">
-                           <p><strong>Direcci&oacute;n de Envio</strong></p>
+                            <h:outputText value="ATENCI&Oacute;N"/>
                         </f:facet>
-                        <table >
+                        <h:outputText value="#{item.atencion}"/>
+                      </p:column>
+                    <p:column style="width:100px;">
+                        <f:facet name="header">
+                            <h:outputText value="CALLE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.calle}"/>
+                      </p:column>
 
-                            <tr><td > <h:outputText value="#{item.atencion}" styleClass="textoNEGRO" /></td></tr>
-                     
-                            <tr>
-                                <td>Calle:</td>    
-                                <td><h:outputText value="#{item.calle}"/></td>
-                            </tr>
-                             <tr>
-                                   <td>Colonia:</td>
-                                    <td>
-                                        <h:outputText value="#{item.colonia}"/>
-                                    </td>
-                            </tr>
+                    <p:column style="width:130px;" >
+                        <f:facet name="header">
+                            <h:outputText value="COLONIA"/>
+                        </f:facet>
+                        <h:outputText value="#{item.colonia}"/>
+                      </p:column>
 
-                          <tr>
-                                <td>C.P:</td>
-                                <td><h:outputText value="#{item.cp}"/></td>
-                          </tr>
-                            <tr>
-                                <td>Tel&eacute;fono:</td>
-                                <td><h:outputText value="#{item.telefono}"/></td>
 
-                            </tr>
-                            <tr>
-                                <td>Estado:</td>
-                                <td><h:outputText value="#{item.estado.nombre}"/></td>
 
-                            </tr>
-                            <tr>
-                                <td>
+                      <p:column style="width:60px;">
+
+                        <f:facet name="header">
+                            <h:outputText value="TEL&Eacute;FONO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.telefono}"/>
+                      </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
                         <h:commandLink action="#{direnvioController.prepareView(item)}">
                             <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
                         </h:commandLink>
-                               
+                        <h:outputText value=" "/>
                         <h:commandLink action="#{direnvioController.prepareEdit(item)}">
                             <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
                         </h:commandLink>
-                               
+
                         <h:commandLink action="#{direnvioController.destroy(item)}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
                         </h:commandLink>
-                                </td>
-                            </tr>
-                        </table>
-                      </h:column>
-                </h:dataTable>
+                      </p:column>
+                </p:dataTable>
 
+
+                    <br/>
+                    <h2>Direci&oacute;n de Facturacion</h2><br/>
+                    <p:dataTable value="#{difacturacionController.lisDirfaDifacturacionsByCliente}" var="item" paginator="true" rows="6">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="RFC"/>
+                        </f:facet>
+                        <h:outputText value="#{item.rfc}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="RAZON SOCIAL"/>
+                        </f:facet>
+                        <h:outputText value="#{item.razonSocial}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="CALLE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.calle}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="COLONIA"/>
+                        </f:facet>
+                        <h:outputText value="#{item.colonia}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="CP"/>
+                        </f:facet>
+                        <h:outputText value="#{item.cp}"/>
+                    </p:column>
+
+
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{difacturacionController.prepareView(item)}">
+                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+                        <h:commandLink action="#{difacturacionController.prepareEdit(item)}">
+                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                        </h:commandLink>
+
+                        <h:commandLink action="#{difacturacionController.destroy(item)}">
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
 
                 </p:tab>
                  <p:tab title="Pago">
