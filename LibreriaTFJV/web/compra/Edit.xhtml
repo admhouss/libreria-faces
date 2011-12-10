@@ -43,10 +43,6 @@
                     <h:selectOneMenu id="pedido" value="#{compraController.selected.pedido}" title="#{bundle.EditCompraTitle_pedido}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_pedido}">
                         <f:selectItems value="#{pedidoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_cliente}" for="cliente" />
-                    <h:selectOneMenu id="cliente" value="#{compraController.selected.cliente}" title="#{bundle.EditCompraTitle_cliente}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_cliente}">
-                        <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                 </h:panelGrid>
                 <h:commandLink action="#{compraController.update}" value="#{bundle.EditCompraSaveLink}"/>
                 <br />
