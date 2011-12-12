@@ -5,12 +5,20 @@
 
 package com.paypal.jsf;
 
+import com.escom.info.compra.Compra;
+import com.escom.info.compra.Pedido;
+import com.escom.info.compra.jsf.DifacturacionController;
+import com.escom.info.compra.jsf.PedidoController;
+import com.escom.info.compra.jsf.util.JsfUtil;
+import escom.libreria.info.contacto.jsf.DirenvioController;
 import java.io.Serializable;
 
 /**
  *
  * @author xxx
- */
+ */import java.util.List;
+import javax.ejb.EJB;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -32,6 +40,41 @@ public class PayPalController implements Serializable{
     private String estado;
     private int codigoPostal;
     private String telefono,mail;
+    @ManagedProperty("#{direnvioController}")
+    private DirenvioController direnvioController;
+    @ManagedProperty("#{difacturacionController}")
+    private DifacturacionController difacturacionController;
+    @ManagedProperty("#{pedidoController}")
+    private PedidoController pedidoController;
+    
+
+    public PedidoController getPedidoController() {
+        return pedidoController;
+    }
+
+    public void setPedidoController(PedidoController pedidoController) {
+        this.pedidoController = pedidoController;
+    }
+
+
+
+    public DifacturacionController getDifacturacionController() {
+        return difacturacionController;
+    }
+
+    public void setDifacturacionController(DifacturacionController difacturacionController) {
+        this.difacturacionController = difacturacionController;
+    }
+
+
+    public DirenvioController getDirenvioController() {
+        return direnvioController;
+    }
+
+    public void setDirenvioController(DirenvioController direnvioController) {
+        this.direnvioController = direnvioController;
+    }
+
 
     public String getApellido() {
         return apellido;
@@ -152,17 +195,25 @@ public class PayPalController implements Serializable{
 
     
     public String procesarPago(){
+
+
+
+        if(direnvioController.getListaDirEnvioCliente()==null || direnvioController.getListaDirEnvioCliente().isEmpty()){
         
-        return "/paypal/Create";
+              JsfUtil.addErrorMessage("Es requerido agregar una direccion de envio");
+              return "/cliente/modulo";
+   
+        }
+        if(pedidoController.getListPedidosByCliente()==null || pedidoController.getListPedidosByCliente().isEmpty()){
+            JsfUtil.addErrorMessage("No existen publicaciones en su carrito de compra");
+            return "/carrito/Carrito";
+        }
+       
+        
+        return "/compra/Create";
         
     }
-    private void doPagoPayPal(){
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
-               //response.s
-        
-    }
+   
 
 }
 

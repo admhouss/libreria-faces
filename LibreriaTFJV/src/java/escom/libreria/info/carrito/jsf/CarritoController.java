@@ -5,6 +5,8 @@
 
 package escom.libreria.info.carrito.jsf;
 
+import com.escom.info.compra.Pedido;
+import com.escom.info.compra.PedidoPK;
 import escom.libreria.info.articulo.jpa.Articulo;
 import escom.libreria.info.articulo.jpa.DescuentoArticulo;
 import escom.libreria.info.articulo.jpa.Impuesto;
@@ -20,6 +22,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,35 +52,39 @@ public class CarritoController implements Serializable{
     @EJB private escom.libreria.info.cliente.ejb.DescuentoClienteFacade descuentoClienteFacade;
     @EJB private escom.libreria.info.articulo.ejb.DescuentoArticuloFacade descuentoArticuloFacade;
     @EJB private escom.libreria.info.articulo.ejb.ImpuestoFacade impuestoFacade;
+    @EJB private com.escom.info.compra.ejb.PedidoFacade pedidoFacade;
 
 
     private List<PublicacionDTO> listcarritoDTO;
-    private PublicacionDTO publicaciondto;
-    private List<PublicacionDTO> listcarritoDTOTemporal;
+    private Pedido publicaciondto;
+    private List<Pedido> listcarritoDTOTemporal;
 
-    public List<PublicacionDTO> getListcarritoDTOTemporal() {
+    public List<Pedido> getListcarritoDTOTemporal() {
         return listcarritoDTOTemporal;
     }
 
-    public void setListcarritoDTOTemporal(List<PublicacionDTO> listcarritoDTOTemporal) {
+    public void setListcarritoDTOTemporal(List<Pedido> listcarritoDTOTemporal) {
         this.listcarritoDTOTemporal = listcarritoDTOTemporal;
     }
 
 
-    public String prepareEditPublicacion(PublicacionDTO item){
+    public String prepareEditPublicacion(Pedido item){
         publicaciondto=item;
-        listcarritoDTOTemporal=new ArrayList<PublicacionDTO>();
+        publicaciondto.setArticulo(item.getArticulo());
+        listcarritoDTOTemporal=new ArrayList<Pedido>();
         listcarritoDTOTemporal.add(item);
         return "/carrito/Edit";
     }
 
-    public PublicacionDTO getPublicaciondto() {
+    public Pedido getPublicaciondto() {
         return publicaciondto;
     }
 
-    public void setPublicaciondto(PublicacionDTO publicaciondto) {
+    public void setPublicaciondto(Pedido publicaciondto) {
         this.publicaciondto = publicaciondto;
     }
+
+   
     
 
 
@@ -93,8 +101,24 @@ public class CarritoController implements Serializable{
 
         
     }
+private Date getHoy(){
+        try {
+            Date date = new Date();
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    private CarritoCompraTemporalLocal ObtenerCarrito(){
+            SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-MM-dd");
+            String cadena = formato2.format(date);
+            Date fechaOtra = formato2.parse(cadena);
+
+            String cadenaToday = formato.format(fechaOtra);
+            Date hoy = formato2.parse(cadenaToday);
+            return hoy;
+        } catch (ParseException ex) {
+            Logger.getLogger(CarritoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+}
+   /* private CarritoCompraTemporalLocal ObtenerCarrito(){
          if(carritoCompraTemporalLocal==null){
             try{
                 carritoCompraTemporalLocal=sistemaFacade.getObtenerBandejaTemporal();
@@ -103,27 +127,76 @@ public class CarritoController implements Serializable{
             }
         }
          return carritoCompraTemporalLocal;
-    }
+    }*/
  public String agregarArticulo(Publicacion publicacion){
      PublicacionDTO temporal=null;
-           try{
-         if(sistemaController.getCliente()!=null){
-          carritoCompraTemporalLocal=ObtenerCarrito();
-          temporal=carritoCompraTemporalLocal.buscarPublicacion(publicacion);
-         if(temporal==null){
-             PublicacionDTO publicacionDTO=procesarArticulo(publicacion,1);
-             carritoCompraTemporalLocal.addPublicacion(publicacionDTO);
-         }else{
-           int pos=carritoCompraTemporalLocal.getPosArticulo(temporal);
-           int indice=temporal.getIndice();
-           temporal=procesarArticulo(publicacion,temporal.getCantidad()+1);
-           temporal.setIndice(indice);
+     Cliente clienteOperando=sistemaController.getCliente();
+     Articulo articuloOperando=publicacion.getArticulo();
 
-           System.out.println("posicion"+indice);
-           carritoCompraTemporalLocal.actualizarArticulo(temporal,indice-1);
+           try{
+         if(clienteOperando!=null){
+//
+          Pedido pedidoDelDia= pedidoFacade.getListPedidoHotByCliernteOne(clienteOperando.getId(),getHoy());
+         
+          //carritoCompraTemporalLocal=ObtenerCarrito();
+            //temporal=carritoCompraTemporalLocal.buscarPublicacion(publicacion);
+         if(pedidoDelDia==null){
+             
+             Pedido pedido=new Pedido();
+             PedidoPK pedidoPK=new PedidoPK();
+             pedidoPK.setIdArticulo(publicacion.getArticulo().getId());
+             pedido.setCliente(clienteOperando);
+             pedido.setNoArticuloCategoria(1);
+             pedido.setCategoria(articuloOperando.getAsunto());
+             pedido.setPrecioNeto(articuloOperando.getPrecioUnitario());
+             pedido.setTipoEnvio("Electronico");
+             PublicacionDTO publicacionDTO=procesarArticulo(publicacion,1);
+             pedido.setDescuento(publicacionDTO.getDesc());
+             pedido.setFechaPedido(publicacionDTO.getFechaCompra());
+             pedido.setImpuesto(publicacionDTO.getImpuesto());
+             pedido.setPrecioTotal(new BigDecimal(publicacionDTO.getTotal()));
+             pedido.setPedidoPK(pedidoPK);
+             pedidoFacade.create(pedido);
+              
          }
+         else if(pedidoDelDia!=null){
+
+                    int idPedido=pedidoDelDia.getPedidoPK().getIdPedido();
+                    Pedido temporalPedido=pedidoFacade.getPedidoByCliente(clienteOperando.getId(),articuloOperando.getId(),idPedido);
+                    if(temporalPedido!=null){
+                        PublicacionDTO publicacionDTO=procesarArticulo(publicacion,temporalPedido.getNoArticuloCategoria()+1);
+                        temporalPedido.setDescuento(publicacionDTO.getDesc());
+                        temporalPedido.setImpuesto(publicacionDTO.getImpuesto());
+                        temporalPedido.setPrecioTotal(new BigDecimal(publicacionDTO.getTotal()));
+                        temporalPedido.setNoArticuloCategoria(temporalPedido.getNoArticuloCategoria()+1);
+                        pedidoFacade.edit(temporalPedido);
+                    }
+                          
+                    else {
+
+                        Pedido pedido=new Pedido();
+                        PedidoPK pedidoPK=new PedidoPK();
+                        pedidoPK.setIdArticulo(publicacion.getArticulo().getId());
+                        pedidoPK.setIdPedido(pedidoDelDia.getPedidoPK().getIdPedido());
+                        pedido.setCliente(clienteOperando);
+                        pedido.setNoArticuloCategoria(1);
+                        pedido.setCategoria(articuloOperando.getAsunto());
+                        pedido.setPrecioNeto(articuloOperando.getPrecioUnitario());
+                        pedido.setTipoEnvio("tipo envio");
+                        PublicacionDTO publicacionDTO=procesarArticulo(publicacion,1);
+                        pedido.setDescuento(publicacionDTO.getDesc());
+                        pedido.setFechaPedido(publicacionDTO.getFechaCompra());
+                        pedido.setImpuesto(publicacionDTO.getImpuesto());
+                        pedido.setPrecioTotal(new BigDecimal(publicacionDTO.getTotal()));
+                        pedido.setPedidoPK(pedidoPK);
+                        pedidoFacade.create(pedido);
+
+         }
+         }
+
           JsfUtil.addSuccessMessage("Articulo agregado Satisfactoriamente");
           return "/carrito/Carrito";
+         
          }else {
           JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
           return "/login/Create.xhtml";
@@ -134,16 +207,14 @@ public class CarritoController implements Serializable{
          return "/carrito/Carrito";
     }
 
- public String editarCarritoCompra(PublicacionDTO editar){
+ public String editarCarritoCompra(Pedido editar){
      try{
-           if(editar.getCantidad()>0){
-                BigDecimal total=calcularTotal(editar.getPrecio(), editar.getDesc(),editar.getImpuesto(), editar.getCantidad());
-                editar.setTotal(total.doubleValue());
-                carritoCompraTemporalLocal.actualizarArticulo(editar,editar.getIndice()-1);
-                listcarritoDTOTemporal.clear();
-                listcarritoDTOTemporal=null;
+           if(editar.getNoArticuloCategoria()>0){
+                BigDecimal total=calcularTotal(editar.getPrecioTotal(), editar.getDescuento(),editar.getImpuesto(), editar.getNoArticuloCategoria());
+                editar.setPrecioTotal(total);
+                pedidoFacade.edit(editar);
                 JsfUtil.addSuccessMessage("Carrito de compra Actualizado Satisfactoriamente");
-            }else if(editar.getCantidad()==0){
+            }else if(editar.getNoArticuloCategoria()==0){
                 JsfUtil.addErrorMessage("Cantidad no puede ser cero");
             }
             else{
@@ -155,40 +226,29 @@ public class CarritoController implements Serializable{
      }
       return "/carrito/Carrito";
  }
-    public String borrarArticulo(PublicacionDTO articulo){
-         carritoCompraTemporalLocal.removePublicacion(articulo);
+ 
+    public String borrarArticulo(Pedido articulo){
+         pedidoFacade.remove(articulo);
+         listcarritoDTOTemporal=null;
          JsfUtil.addSuccessMessage("Articulo eliminado Sastisfactoriamente");
          return "/carrito/Carrito";
     }
-    public List<PublicacionDTO> getListArticulos(){
-        if(carritoCompraTemporalLocal!=null)
-        listcarritoDTO=carritoCompraTemporalLocal.getListPublicacion();
-        
-        return listcarritoDTO;
-    }
+    
 
-    public BigDecimal getMontoTotal(){
+    /*public BigDecimal getMontoTotal(){
         carritoCompraTemporalLocal=ObtenerCarrito();
         BigDecimal monto= carritoCompraTemporalLocal.getMontoTotal();
         monto=monto.setScale(2,RoundingMode.HALF_DOWN);
         return monto;
     }
 
-    public String destroy(PublicacionDTO  item){
-         try{
-             borrarArticulo(item);
-            JsfUtil.addSuccessMessage("Articulo Eliminado satisfactoriamente!!");
-            return "/carrito/Carrito";
-        }catch(Exception e){}
-        return "/carrito/Carrito";
-
-    }
+    
 
     public int getcountElement(){
         if(carritoCompraTemporalLocal!=null)
         return carritoCompraTemporalLocal.getCount();
         return 1;
-    }
+    }*/
 
 
     private PublicacionDTO procesarArticulo(Publicacion p,int cantidad){
@@ -293,6 +353,6 @@ public class CarritoController implements Serializable{
        return "/carrito/Carrito";
     }
 
-     private CarritoCompraTemporalLocal carritoCompraTemporalLocal=ObtenerCarrito();//obetenemso carrito compra
+    /// private CarritoCompraTemporalLocal carritoCompraTemporalLocal=ObtenerCarrito();//obetenemso carrito compra
 
 }

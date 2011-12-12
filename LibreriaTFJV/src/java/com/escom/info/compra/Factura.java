@@ -108,9 +108,9 @@ public class Factura implements Serializable {
     @JoinColumn(name = "RFC", referencedColumnName = "RFC", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Difacturacion difacturacion;
-    /*@JoinColumn(name = "ID_COMPRA", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_COMPRA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Compra compra;*/
+    private Compra compra;
     @JoinColumn(name = "ID_EDO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Estado estado;
@@ -118,6 +118,7 @@ public class Factura implements Serializable {
     public Factura() {
     }
 
+    
     public Factura(FacturaPK facturaPK) {
         this.facturaPK = facturaPK;
     }
@@ -143,6 +144,15 @@ public class Factura implements Serializable {
         this.noFolio = noFolio;
     }
 
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    
     public Factura(String folio, String rfc) {
         this.facturaPK = new FacturaPK(folio, rfc);
     }

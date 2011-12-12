@@ -167,7 +167,7 @@ public class PublicacionFacade {
     public List<Publicacion> buscarArticulo(String autor, String titulo, String tipoArticulo, Date periodo, int numero, int iSSN, String iSBN, String editorial,String asunto) {
 
 
-                    TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE  (p.articulo.titulo LIKE :titulo AND  p.articulo.tipoArticulo.descripcion LIKE :tipo AND p.articulo.creador LIKE :autor AND p.articulo.asunto LIKE :asunto ) OR p.editorial LIKE :editorial OR p.periodoMes =:periodo  OR p.numero =:numero OR p.issn=:ISSN OR p.isbn LIKE :ISBN  ORDER BY p.articulo.titulo ASC",Publicacion.class)
+                    TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE  (p.articulo.titulo LIKE :titulo AND  p.articulo.tipoArticulo.descripcion LIKE :tipo AND p.articulo.creador LIKE :autor AND p.articulo.asunto LIKE :asunto ) AND p.editorial LIKE :editorial OR p.periodoMes =:periodo  OR p.numero =:numero OR p.issn=:ISSN OR p.isbn LIKE :ISBN  ORDER BY p.articulo.titulo ASC",Publicacion.class)
 
                     .setParameter("autor","%"+autor+"%")//y
                     .setParameter("asunto","%"+asunto+"%")//yes

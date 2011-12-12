@@ -124,6 +124,13 @@ private  void limpiarLogin(){
     public String accesoAdministrador(){
             String go="";
             setCliente(null);
+            
+            if(usuarioAdmin.indexOf("@")!=-1){
+                correo=usuarioAdmin;
+                password=passwordAdmin;
+                return loginAcces();
+            }else{
+
             usuarioAdministrador=adminFacade.buscarUsuarioAdmin(usuarioAdmin,passwordAdmin);
             if(usuarioAdministrador==null){
                 JsfUtil.addErrorMessage("Acceso exclusivo para administradores");
@@ -142,6 +149,7 @@ private  void limpiarLogin(){
             } catch (IOException ex) {
                 Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }//else para administradores
             return go;
     }
 

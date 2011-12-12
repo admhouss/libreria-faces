@@ -1,18 +1,15 @@
-package escom.libreria.info.contacto.jsf;
+package com.escom.info.compra.jsf;
 
-import escom.libreria.info.cliente.jpa.Cliente;
-import escom.libreria.info.contacto.jpa.Contacto;
-import escom.libreria.info.contacto.jsf.util.JsfUtil;
-import escom.libreria.info.contacto.jsf.util.PaginationHelper;
-import escom.libreria.info.contacto.ejb.ContactoFacade;
-import escom.libreria.info.login.sistema.SistemaController;
+import com.escom.info.compra.FacturaGeneral;
+import com.escom.info.compra.jsf.util.JsfUtil;
+import com.escom.info.compra.jsf.util.PaginationHelper;
+import com.escom.info.compra.ejb.FacturaGeneralFacade;
 import java.io.Serializable;
 import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,51 +19,33 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean (name="contactoController")
+@ManagedBean (name="facturaGeneralController")
 @SessionScoped
-public class ContactoController implements Serializable {
+public class FacturaGeneralController implements Serializable {
 
-    private Contacto current;
+    private FacturaGeneral current;
     private DataModel items = null;
-    @EJB private escom.libreria.info.contacto.ejb.ContactoFacade ejbFacade;
+    @EJB private com.escom.info.compra.ejb.FacturaGeneralFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    @ManagedProperty("#{sistemaController}")
-    private SistemaController sistemaController;
 
-    public SistemaController getSistemaController() {
-        return sistemaController;
-    }
-
-    public void setSistemaController(SistemaController sistemaController) {
-        this.sistemaController = sistemaController;
+    public FacturaGeneralController() {
     }
 
 
-private Cliente cliente;
-    public List<Contacto> getListContactoFromCliente(){
-        cliente=sistemaController.getCliente();
-        String idCliente=cliente.getId();
-        List<Contacto>  l=getFacade().getObtenerContactosByCliente(idCliente);
-        return l;
+    public List<FacturaGeneral> getListFacturaGeneral(){
+       List<FacturaGeneral> l= getFacade().findAll();
+       return l;
     }
-
-    public ContactoController() {
-    }
-
-    public Contacto getSelected() {
+    public FacturaGeneral getSelected() {
         if (current == null) {
-            current = new Contacto();
+            current = new FacturaGeneral();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    public List<Contacto> getListContactos(){
-        return getFacade().findAll();
-    }
-
-    private ContactoFacade getFacade() {
+    private FacturaGeneralFacade getFacade() {
         return ejbFacade;
     }
 
@@ -89,61 +68,56 @@ private Cliente cliente;
     }
 
     public String prepareList() {
-        //recreateModel();
-        return "/cliente/modulo";
+        recreateModel();
+        return "List";
     }
 
-    public String prepareView(Contacto p) {
-        current = p;//(Contacto)getItems().getRowData();
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "/contacto/View";
+    public String prepareView() {
+        current = (FacturaGeneral)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "View";
     }
 
     public String prepareCreate() {
-        current = new Contacto();
+        current = new FacturaGeneral();
         selectedItemIndex = -1;
-        return "/contacto/Create";
+        return "Create";
     }
 
     public String create() {
         try {
-           // Cliente cliente=sistemaController.getCliente();
-            current.setIdCliente(cliente);
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(("Contacto Creado Satisfactoriamente"));
-            return prepareView(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Facturacion").getString("FacturaGeneralCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Contacto").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Facturacion").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String prepareEdit(Contacto p ) {
-        current = p;//(Contacto)getItems().getRowData();
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-
-        return "/contacto/Edit";
+    public String prepareEdit() {
+        current = (FacturaGeneral)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "Edit";
     }
 
     public String update() {
         try {
-          //  Cliente cliente=sistemaController.getCliente();
-            current.setIdCliente(cliente);
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(("Contacto Actualizado Satisfactoriamente"));
-            return "/contacto/View";
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Facturacion").getString("FacturaGeneralUpdated"));
+            return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Contacto").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Facturacion").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String destroy(Contacto p) {
-        current = p;//(Contacto)getItems().getRowData();
-        current.setIdCliente(cliente);
-        ejbFacade.remove(current);
-        JsfUtil.addSuccessMessage("Contacto eliminado satisfactoriamente");
-        return "/cliente/modulo";
+    public String destroy() {
+        current = (FacturaGeneral)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
+        recreateModel();
+        return "List";
     }
 
     public String destroyAndView() {
@@ -162,9 +136,9 @@ private Cliente cliente;
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Contacto").getString("ContactoDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Facturacion").getString("FacturaGeneralDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Contacto").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Facturacion").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -214,25 +188,25 @@ private Cliente cliente;
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass=Contacto.class)
-    public static class ContactoControllerConverter implements Converter {
+    @FacesConverter(forClass=FacturaGeneral.class)
+    public static class FacturaGeneralControllerConverter implements Converter {
 
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ContactoController controller = (ContactoController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "contactoController");
+            FacturaGeneralController controller = (FacturaGeneralController)facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "facturaGeneralController");
             return controller.ejbFacade.find(getKey(value));
         }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(java.lang.String value) {
             StringBuffer sb = new StringBuffer();
             sb.append(value);
             return sb.toString();
@@ -242,11 +216,11 @@ private Cliente cliente;
             if (object == null) {
                 return null;
             }
-            if (object instanceof Contacto) {
-                Contacto o = (Contacto) object;
-                return getStringKey(o.getId());
+            if (object instanceof FacturaGeneral) {
+                FacturaGeneral o = (FacturaGeneral) object;
+                return getStringKey(o.getFolio());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+ContactoController.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+FacturaGeneralController.class.getName());
             }
         }
 
