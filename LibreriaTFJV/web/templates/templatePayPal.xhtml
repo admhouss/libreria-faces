@@ -2,12 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
        <title>  ..:::Libro:::..</title>
        <!--<h:outputStylesheet name="css/stylesheet.css"/>-->
        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css" />
-       <!--<link href="#{facesContext.externalContext.request.contextPath}/resources/template/css/style.css" rel="stylesheet" type="text/css" />-->
+       <!--<link href="{facesContext.externalContext.request.contextPath}/resources/template/css/style.css" rel="stylesheet" type="text/css" />-->
        <!--<link href="{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />-->
        <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.request.contextPath}/resources/template/webscrArchivos/country.css"/>
        <link media="print" rel="stylesheet" type="text/css" href="#{facesContext.externalContext.request.contextPath}/resources/template/webscrArchivos/print.css"/>
@@ -28,9 +29,9 @@ body { border:none; background:none; background-color:#FFFFFF;}
 #page #main { overflow:auto; padding:0 0 1em; }
 #apDiv9 {
 	position:absolute;
-	left:644px;
+	left:600px;
 	top:128px;
-	width:592px;
+	width:620px;
 	height:417px;
 	z-index:4;
 }
@@ -64,13 +65,14 @@ body { border:none; background:none; background-color:#FFFFFF;}
 
 
    <div id="messageBox">
-   </div><div>
+   </div>
+    <div>
     <div class="" id="stdpage">
         <div id="header">
             <img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/head.jpg" class="logo" alt="Librerias Gandhi SA de CV" border="0"/>
         </div>
     </div>
-       <div id="stdpage">
+       <div id="stdpage" >
        
         <div id="headline">
             <h1 class="accessAid">Seleccione una forma de pago</h1>
@@ -81,36 +83,45 @@ body { border:none; background:none; background-color:#FFFFFF;}
             </div>
    
    
-<div class="layout2f">
+<div class="layout2f" >
     <div class="col first">
-        <div class="rounded"><div class="top"><div>&nbsp;</div>
+        <div class="rounded" ><div class="top"><div>&nbsp;</div>
 
             </div>
             <div class="body clearfix" style="background-color:#BBBBBB;">
                 <div class="top"><div>&nbsp;</div>
 
                 </div>
-                <div style="height: 1226px;" id="miniCartContent" class="body clearfix">
+                <div style="height: 1226px;background-color:#FFFFFF;" id="miniCartContent" class="body clearfix">
                     <div id="miniCart" class="">
                         <h3>Resumen de su pedido</h3>
+                       
+
+
                         <div class="small head wrap">Descripciones<span class="amount">Importe</span></div>
+                        <p:dataList value="#{pedidoController.listPedidosByCliente}" var="item" type="ordered">
                         <ol class="small wrap items rprtlimit">
                             <li class="seller1"><ul>
                                     <li id="multiitem1" class="itmdet">
                                         <ul class="item1">
-                                       <li class="dark"><a class="autoTooltip" href="#name0" id="showname0">Libros Varios</a>
-                                           <span class="amount">$920.00</span>
+                                            <li class="dark">
+                                                
+                                                <a class="autoTooltip" href="#name0" id="showname0">
+                                                    <h:outputLabel value="#{item.articulo.titulo}" styleClass="textoNEGRO"/>
+                                                </a>
+                                                <span class="amount"><h:outputLabel value="#{item.precioTotal}"/></span>
                                        </li>
-                                            <li class="secondary">Precio del artículo: $135,00</li>
-                                            <li class="secondary">Cantidad:1</li>
+                                            <li class="secondary"><h:outputLabel value="Precio del Art&iacute;culo $ #{item.precioNeto}"/></li>
+                                            <li class="secondary"><h:outputLabel value="Cantidad $ #{item.noArticuloCategoria}"/></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
                         </ol>
+                         </p:dataList>
                         <div class="wrap items totals item1">
                             <ul>
-                                <li class="small heavy">Importe total<span class="amount">$920,00</span>
+                                <li class="small heavy">Importe total<span class="amount"><h:outputLabel value="$ #{pedidoController.montoTotal}"/></span>
                                 </li>
                                 <li>
                                  <div id="shippingHandling" class="resultRow">
@@ -120,12 +131,37 @@ body { border:none; background:none; background-color:#FFFFFF;}
                                      </label>
                                      <span class="amount highlight" id="shippingAmount">
                                          <img id="displayProgressIcon" src="#{facesContext.externalContext.request.contextPath}/resources/template/webscrArchivos/icon_animated_prog_18wx18h.gif" class="accessAid" alt="cargando..." border="0"/>
-                                         <span id="displayShippingAmount">$50,00</span></span>
-                                 </div></li></ul></div>
-                     <div class="small wrap items totals item1">
-                         <ul><li class="heavy highlight finalTotal"><span class="grandTotal amount highlight">Total $970,00 MXN</span></li></ul>
+                                         <span id="displayShippingAmount">$0,00</span>
+
+                                     </span>
+                                 </div></li></ul>
                     </div>
-                        
+                     <div class="small wrap items totals item1">
+                         <ul><li class="heavy highlight finalTotal"><span class="grandTotal amount highlight"><h:outputLabel value="Total $ #{pedidoController.montoTotal} MX"/></span></li></ul>
+                    </div>
+                       <!-- </p:dataList>-->
+                    </div>
+                    <div id="miniCart" class="">
+                        <div align="right">
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_xclick"/>
+<input type="hidden" name="cert_id" value="HZLB3XJSUYQUN"/>
+<input type="hidden" name="business" value="jcmc09@gmail.com"/>
+<input type="hidden" name="item_name" value="Monto Total"/>
+<input type="hidden" name="item_number" value="1"/>
+<input type="hidden" name="custom" value="sc-id-789"/>
+<input type="hidden" name="amount" value="#{pedidoController.montoTotal}"/>
+<input type="hidden" name="currency_code" value="MXN"/>
+<input type="hidden" name="no_note" value="1"/>
+<input type="hidden" name="cancel_return" value="http://libreria-tfjfa.com/LibreriaTFJV/"/> 
+<input type="hidden" name="hosted_button_id" value="5UCYTABCGUU9Y"/>
+<input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea."/>
+<img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1"/>
+</form>
+
+                        </div>
+                </div>
                 </div>
                 </div>
    </div>
@@ -134,7 +170,8 @@ body { border:none; background:none; background-color:#FFFFFF;}
 </div>
    </div>
         </div>
- </div>
+
+           
 
                 <div id="apDiv9"><!-- InstanceBeginEditable name="Main" -->
   <!--<h2>Novedades</h2>
