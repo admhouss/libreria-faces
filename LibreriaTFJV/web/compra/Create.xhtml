@@ -3,55 +3,240 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateCompraTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{compraController.selected.id}" title="#{bundle.CreateCompraTitle_id}" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_fechaEnvio}" for="fechaEnvio" />
-                    <h:inputText id="fechaEnvio" value="#{compraController.selected.fechaEnvio}" title="#{bundle.CreateCompraTitle_fechaEnvio}" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_fechaEnvio}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_tipoEnvio}" for="tipoEnvio" />
-                    <h:inputText id="tipoEnvio" value="#{compraController.selected.tipoEnvio}" title="#{bundle.CreateCompraTitle_tipoEnvio}" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_tipoEnvio}"/>
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_pagoTotal}" for="pagoTotal" />
-                    <h:inputText id="pagoTotal" value="#{compraController.selected.pagoTotal}" title="#{bundle.CreateCompraTitle_pagoTotal}" />
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_estado}" for="estado" />
-                    <h:inputText id="estado" value="#{compraController.selected.estado}" title="#{bundle.CreateCompraTitle_estado}" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_estado}"/>
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_observaciones}" for="observaciones" />
-                    <h:inputText id="observaciones" value="#{compraController.selected.observaciones}" title="#{bundle.CreateCompraTitle_observaciones}" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_observaciones}"/>
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_fecha}" for="fecha" />
-                    <h:inputText id="fecha" value="#{compraController.selected.fecha}" title="#{bundle.CreateCompraTitle_fecha}" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_fecha}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_impuesto}" for="impuesto" />
-                    <h:inputText id="impuesto" value="#{compraController.selected.impuesto}" title="#{bundle.CreateCompraTitle_impuesto}" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_impuesto}"/>
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_pagoNeto}" for="pagoNeto" />
-                    <h:inputText id="pagoNeto" value="#{compraController.selected.pagoNeto}" title="#{bundle.CreateCompraTitle_pagoNeto}" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_pagoNeto}"/>
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_descuento}" for="descuento" />
-                    <h:inputText id="descuento" value="#{compraController.selected.descuento}" title="#{bundle.CreateCompraTitle_descuento}" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_descuento}"/>
-                    <h:outputLabel value="#{bundle.CreateCompraLabel_pedido}" for="pedido" />
-                    <h:selectOneMenu id="pedido" value="#{compraController.selected.pedido}" title="#{bundle.CreateCompraTitle_pedido}" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_pedido}">
-                        <f:selectItems value="#{pedidoController.itemsAvailableSelectOne}"/>
+
+                <h2>Confirmaci&oacute;n de Compra</h2>
+                <p:accordionPanel >
+                    <p:tab title="Art&iacute;culos">
+
+                        <h:dataTable var="item" value="#{pedidoController.listPedidosByCliente}" headerClass="ui-state-focus">
+
+
+
+
+                        <h:column>
+
+                            <f:facet name="header" >
+                                <h:outputLabel value="Descripci&oacute;n"  />
+                            </f:facet>
+                            <table border="0">
+                                <tr style="width:60px;">
+                                    <td colspan="4" class="ui-state-highlight">
+                                        <h:outputText value="#{pedidoController.contador}"/></td>
+
+                                    <td>
+
+                                        <h:outputText value="#{item.articulo.titulo}" styleClass="textoNEGRO" /><br/>
+                                        <h:outputText value="#{item.articulo.asunto}" /><br/>
+                                        <h:outputText value="#{item.articulo.nombreAlternativo}" /><br/>
+                               <!-- <h:outputText value="{item.editorial}" /><br/>-->
+
+
+                                    </td>
+                                </tr>
+                            </table>
+                         </h:column>
+                         <h:column  >
+                            <f:facet name="header">
+                                <h:outputLabel value="Cantidad"  />
+                            </f:facet>
+                             <h:outputText value="#{item.noArticuloCategoria}" />
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                               <h:outputLabel value="Precio" />
+                            </f:facet>
+                             <h:outputText value="$ #{item.precioNeto}" />
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                              <h:outputLabel value="Descuento" />
+                            </f:facet>
+                             <h:outputText value="% #{item.descuento}" />
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                              <h:outputLabel value="Impuesto" />
+                            </f:facet>
+                             <h:outputText value="% #{item.impuesto}" />
+                         </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                              <h:outputLabel value="Fecha Compra" />
+                            </f:facet>
+                            <h:outputText value="#{item.fechaPedido}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                         </h:column>
+
+                         <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Total" />
+                            </f:facet>
+
+                             <h:outputText value="$ #{item.precioTotal}" >
+
+                            </h:outputText>
+                         </h:column>
+
+                            <!-- <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="&nbsp;" />
+                            </f:facet>
+                           <ul id="icons" class="ui-widget ui-helper-clearfix">
+                            <li class="ui-state-default ui-corner-all" title=".ui-icon-pencil">
+                                <h:commandLink action="{carritoController.prepareEditPublicacion(item)}" immediate="true">
+                                    <span class="ui-icon ui-icon-pencil"></span>
+                                </h:commandLink>
+                            </li>
+                           </ul>
+                         </h:column>-->
+
+
+                    </h:dataTable>
+                    <div align="right">
+                    <table>
+          <tr>
+          <td valign="top">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ui-state-active">Total</td>
+          <td><h:outputLabel value="$ #{pedidoController.montoTotal}"  /></td>
+          <td>&nbsp;</td>
+        </tr>
+                    </table>
+                    </div>
+
+
+                    </p:tab>
+
+                    <p:tab title="Modificar Tipo Envio">
+
+                       
+
+                            <p:dataTable value="#{pedidoController.listPedidosByCliente}" var="item" paginator="true">
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="CANTIDAD"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noArticuloCategoria}"/>
+                    </p:column>
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="CATEGORIA"/>
+                        </f:facet>
+                        <h:outputText value="{item.categoria}"/>
+                    </p:column>-->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="PRECIO NETO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.precioNeto}"/>
+                    </p:column>
+                   <!-- <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="IMPUESTO"/>
+                        </f:facet>
+                        <h:outputText value="{item.impuesto}"/>
+                    </p:column>-->
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DESCUENTO"/>
+                        </f:facet>
+                        <h:outputText value="{item.descuento}"/>
+                    </p:column>
+                    -->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="PRECIO TOTAL"/>
+                        </f:facet>
+                        <h:outputText value="#{item.precioTotal}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="TIPO ENVIO"/>
+                        </f:facet>
+                        <h:selectOneMenu value="#{item.tipoEnvio}" required="true" requiredMessage="El campo tipo en envio es requerido">
+                           <f:selectItem id="item_1" itemLabel="Electronico"  itemValue="Electronico" />
+                           <f:selectItem id="item_2" itemLabel="Fisico"  itemValue="Fisico" />
+                        </h:selectOneMenu>
+                    </p:column>
+                    <p:column style="width:16px;">
+                        <f:facet name="header">
+                            <h:outputText value="ARTICULO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.articulo.titulo}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        
+
+                        <h:commandLink action="#{pedidoController.actualizarTipoEnvio(item)}" immediate="true">
+                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar Tipo Envio"/>
+                        </h:commandLink>
+
+
+                       
+                    </p:column>
+                </p:dataTable>
+                
+                    </p:tab>
+
+                </p:accordionPanel>
+                <br/><br/>
+                <p:panel  header="CONFIRMACI&Oacute;N COMPRA">
+                    <center>
+                <h:panelGrid columns="2" cellspacing="15">
+                    
+
+                    <h:outputLabel value="Fecha Envio:" for="fechaEnvio" styleClass="textoNEGRO"/>
+                    <p:calendar id="fechaEnvio" value="#{compraController.selected.fechaEnvio}" title="Fecha Envio" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_fechaEnvio}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:calendar>
+      
+                    <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
+
+                    <h:selectOneMenu id="estado" value="#{compraController.selected.estado}" title="Estado" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_estado}">
+                        <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item.nombre}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
+
+
+                    <h:outputLabel value="Observaciones:" for="observaciones" styleClass="textoNEGRO"/>
+                    <h:inputText id="observaciones" value="#{compraController.selected.observaciones}" title="Observaciones" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_observaciones}"/>
+                    
+                    <h:outputLabel value="Requiere factura:" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu value="#{compraController.requiereFactura}">
+                        <f:selectItem id="item_value_0" itemValue="0" itemLabel="NO"/>
+                        <f:selectItem id="item_value_1" itemValue="0" itemLabel="SI"/>
+
+                    </h:selectOneMenu>
+                   
                 </h:panelGrid>
-                <br />
-                <h:commandLink action="#{compraController.create}" value="#{bundle.CreateCompraSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{compraController.prepareList}" value="#{bundle.CreateCompraShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:commandLink value="#{bundle.CreateCompraIndexLink}" action="/index" immediate="true" />
+                    </center>
+                     </p:panel>
+                
+                <br /><br />
+                <div align="center">
+                    <p:panel>
+                    <h:commandButton action="#{compraController.create}" value="Guardar" />
+                    </p:panel>
+                </div>
+                
             </h:form>
         </ui:define>
     </ui:composition>
