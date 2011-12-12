@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <br/>  <br/>
+                <p:panel header="ALTA FACTURA GENERAL">
+                <center>
+                <h:panelGrid columns="3" cellspacing="15">
+                    <h:outputLabel value="Folio:" for="folio" styleClass="textoNEGRO"/>
+                    <h:inputText id="folio" value="#{facturaGeneralController.selected.folio}" title="#{bundle.CreateFacturaGeneralTitle_folio}" required="true" requiredMessage="El campo folio es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Comprobante:" for="comprobante" styleClass="textoNEGRO"/>
+                    <h:inputText id="comprobante" value="#{facturaGeneralController.selected.comprobante}" title="#{bundle.CreateFacturaGeneralTitle_comprobante}" required="true" requiredMessage="El campo comprobante es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Fecha.Cert:" for="fechaCert" styleClass="textoNEGRO"/>
+                    <p:calendar id="fechaCert" value="#{facturaGeneralController.selected.fechaCert}" title="#{bundle.CreateFacturaGeneralTitle_fechaCert}" required="true" requiredMessage="El campo fechaCert es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:calendar>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="No.Serie:" for="noSerie" styleClass="textoNEGRO"/>
+                    <h:inputText id="noSerie" value="#{facturaGeneralController.selected.noSerie}" title="#{bundle.CreateFacturaGeneralTitle_noSerie}" required="true" requiredMessage="El campo no.Serie es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+
+                    <h:outputLabel value="Fecha.Emisor:" for="fechaEmi" styleClass="textoNEGRO"/>
+                    <p:calendar id="fechaEmi" value="#{facturaGeneralController.selected.fechaEmi}" title="#{bundle.CreateFacturaGeneralTitle_fechaEmi}" required="true" requiredMessage="El campo fechaEmi es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:calendar>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Cert.Emi" for="certEmi" styleClass="textoNEGRO"/>
+                    <h:inputText id="certEmi" value="#{facturaGeneralController.selected.certEmi}" title="#{bundle.CreateFacturaGeneralTitle_certEmi}" required="true" requiredMessage="El campo certEmi es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Serie:" for="serie" styleClass="textoNEGRO"/>
+                    <h:inputText id="serie" value="#{facturaGeneralController.selected.serie}" title="#{bundle.CreateFacturaGeneralTitle_serie}" required="true" requiredMessage="El campo serie es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="No.Folio:" for="noFolio" styleClass="textoNEGRO"/>
+                    <h:inputText id="noFolio" value="#{facturaGeneralController.selected.noFolio}" title="#{bundle.CreateFacturaGeneralTitle_noFolio}" required="true" requiredMessage="El campo no.Folio es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="No.Interno:" for="noInterno" styleClass="textoNEGRO"/>
+                    <h:inputText id="noInterno" value="#{facturaGeneralController.selected.noInterno}" title="#{bundle.CreateFacturaGeneralTitle_noInterno}" required="true" requiredMessage="El campo noInterno es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Sucursal:" for="sucursal" styleClass="textoNEGRO"/>
+                    <h:inputText id="sucursal" value="#{facturaGeneralController.selected.sucursal}" title="#{bundle.CreateFacturaGeneralTitle_sucursal}" required="true" requiredMessage="El campo sucursal es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="RFC:" for="rfc" styleClass="textoNEGRO"/>
+                    <h:inputText id="rfc" value="#{facturaGeneralController.selected.rfc}" title="#{bundle.CreateFacturaGeneralTitle_rfc}" required="true" requiredMessage="El campo rfc es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Raz&oacute;n Social:" for="razonSocial" styleClass="textoNEGRO" />
+                    <h:inputText id="razonSocial" value="#{facturaGeneralController.selected.razonSocial}" title="#{bundle.CreateFacturaGeneralTitle_razonSocial}" required="true" requiredMessage="El campo razonSocial es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Calle:" for="calle" styleClass="textoNEGRO" />
+                    <h:inputText id="calle" value="#{facturaGeneralController.selected.calle}" title="#{bundle.CreateFacturaGeneralTitle_calle}" required="true" requiredMessage="El campo calle}"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="No.Exterior:" for="noExterior" styleClass="textoNEGRO" />
+                    <h:inputText id="noExterior" value="#{facturaGeneralController.selected.noExterior}" title="#{bundle.CreateFacturaGeneralTitle_noExterior}" required="true" requiredMessage="El campo noExterior es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Colonia:" for="colonia" styleClass="textoNEGRO" />
+                    <h:inputText id="colonia" value="#{facturaGeneralController.selected.colonia}" title="#{bundle.CreateFacturaGeneralTitle_colonia}" required="true" requiredMessage="El campo colonia es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    
+                    <h:outputLabel value="Pa&iacute;s:" for="pais" styleClass="textoNEGRO"/>
+                    <h:inputText id="pais" value="#{facturaGeneralController.selected.pais}" title="#{bundle.CreateFacturaGeneralTitle_pais}" required="true" requiredMessage="El campo pais es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="CP:" for="cp" styleClass="textoNEGRO"/>
+                    <h:inputText id="cp" value="#{facturaGeneralController.selected.cp}" title="#{bundle.CreateFacturaGeneralTitle_cp}" required="true" requiredMessage="El campo cp es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="estado" value="#{facturaGeneralController.selected.estado}" title="#{bundle.CreateFacturaGeneralTitle_estado}" required="true" requiredMessage="El campo estado es requerido">
+
+                        <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                </h:panelGrid>
+</center>
+                </p:panel>
+                <br /> <br />
+                <div align="center">
+                    <p:panel>
+
+                        <h:commandButton action="#{facturaGeneralController.create}" value="Guardar" />
+
+      
+                    </p:panel>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
