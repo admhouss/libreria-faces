@@ -604,7 +604,17 @@
                 </h:outputLink>
                  </h:form>
             </li>
-            <li><a href="#">Pedidos</a></li>
+            <li>
+                <h:form id="PedidosCliente" >
+
+                <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml" rendered="#{sistemaController.cliente==null}">
+                    <h:outputText value="Pedidos"/>
+                </h:outputLink>
+                    <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/pedido/List.xhtml" rendered="#{sistemaController.cliente!=null}">
+                    <h:outputText value="Pedidos"/>
+                </h:outputLink>
+                </h:form>
+            </li>
           </ul>
         </li>
       </ul></th>
