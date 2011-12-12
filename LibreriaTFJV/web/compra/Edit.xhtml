@@ -39,10 +39,8 @@
                     <h:inputText id="pagoNeto" value="#{compraController.selected.pagoNeto}" title="#{bundle.EditCompraTitle_pagoNeto}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_pagoNeto}"/>
                     <h:outputLabel value="#{bundle.EditCompraLabel_descuento}" for="descuento" />
                     <h:inputText id="descuento" value="#{compraController.selected.descuento}" title="#{bundle.EditCompraTitle_descuento}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_descuento}"/>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_pedido}" for="pedido" />
-                    <h:selectOneMenu id="pedido" value="#{compraController.selected.pedido}" title="#{bundle.EditCompraTitle_pedido}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_pedido}">
-                        <f:selectItems value="#{pedidoController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditCompraLabel_idPedido}" for="idPedido" />
+                    <h:inputText id="idPedido" value="#{compraController.selected.idPedido}" title="#{bundle.EditCompraTitle_idPedido}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_idPedido}"/>
                 </h:panelGrid>
                 <h:commandLink action="#{compraController.update}" value="#{bundle.EditCompraSaveLink}"/>
                 <br />
