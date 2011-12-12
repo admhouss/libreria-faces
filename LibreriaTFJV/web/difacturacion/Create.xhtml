@@ -47,12 +47,7 @@
                     <h:outputLabel value="Tel&eacute;fono:" for="telefono" styleClass="textoNEGRO" />
                     <h:inputText id="telefono" value="#{difacturacionController.selected.telefono}" title="telefono}" required="true" requiredMessage="El campo telefono es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
-                    <h:outputLabel value="Cliente:" for="cliente" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="cliente" value="#{difacturacionController.selected.cliente}" title="cliente}" required="true" requiredMessage="El campo cliente es requerido">
-                        
-                        <f:selectItems value="#{clienteController.listaClientes}" var="cliente" itemValue="#{cliente}" itemLabel="#{cliente.nombre}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    
                     <h:outputLabel value="Estado" for="estado" styleClass="textoNEGRO" />
                     <h:selectOneMenu id="estado" value="#{difacturacionController.selected.estado}" title="Estado de la republica" required="true" requiredMessage="El campo estado es requerido">
                         <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
