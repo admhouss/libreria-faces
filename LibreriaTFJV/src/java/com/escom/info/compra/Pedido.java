@@ -6,8 +6,10 @@
 package com.escom.info.compra;
 
 import escom.libreria.info.articulo.jpa.Articulo;
+import escom.libreria.info.cliente.jpa.Cliente;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,12 +17,14 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -64,19 +68,70 @@ public class Pedido implements Serializable {
     @Basic(optional = false)
     @Column(name = "TIPO_ENVIO")
     private String tipoEnvio;
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
+   /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
     private List<Compra> compraList;*/
+    @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Articulo articulo;
+    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
+   
+    @ManyToOne(optional = false)
+    private Cliente cliente;
+
+    @Basic(optional = false)
+    @Column(name = "FECHA_PEDIDO")
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date fechaPedido;
+    
+
+
+    
+    public Date getFechaPedido() {
+        return fechaPedido;
+    }
+
+    public void setFechaPedido(Date fechaPedido) {
+        this.fechaPedido = fechaPedido;
+    }
+
+
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    /*public List<Compra> getCompraList() {
+        return compraList;
+    }
+
+    public void setCompraList(List<Compra> compraList) {
+        this.compraList = compraList;
+    }
+*/
+
+
     //@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     //private Enviorealizado enviorealizado;
     //@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
     //private List<EnvioFisico> envioFisicoList;
-    @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Articulo articulo;
 
     public Pedido() {
     }
 
+   /* public List<Compra> getCompraList() {
+        return compraList;
+    }
+
+    public void setCompraList(List<Compra> compraList) {
+        this.compraList = compraList;
+    }
+*/
+
+    
     public Pedido(PedidoPK pedidoPK) {
         this.pedidoPK = pedidoPK;
     }

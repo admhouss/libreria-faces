@@ -43,7 +43,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "FacturaGeneral.findByCalle", query = "SELECT f FROM FacturaGeneral f WHERE f.calle = :calle"),
     @NamedQuery(name = "FacturaGeneral.findByNoExterior", query = "SELECT f FROM FacturaGeneral f WHERE f.noExterior = :noExterior"),
     @NamedQuery(name = "FacturaGeneral.findByColonia", query = "SELECT f FROM FacturaGeneral f WHERE f.colonia = :colonia"),
-    @NamedQuery(name = "FacturaGeneral.findByDel", query = "SELECT f FROM FacturaGeneral f WHERE f.del = :del"),
+   
     @NamedQuery(name = "FacturaGeneral.findByPais", query = "SELECT f FROM FacturaGeneral f WHERE f.pais = :pais"),
     @NamedQuery(name = "FacturaGeneral.findByCp", query = "SELECT f FROM FacturaGeneral f WHERE f.cp = :cp")})
 public class FacturaGeneral implements Serializable {
@@ -96,18 +96,19 @@ public class FacturaGeneral implements Serializable {
     @Basic(optional = false)
     @Column(name = "COLONIA")
     private String colonia;
-    @Basic(optional = false)
-    @Column(name = "DEL")
-    private String del;
+    
     @Basic(optional = false)
     @Column(name = "PAIS")
     private String pais;
     @Basic(optional = false)
     @Column(name = "CP")
     private int cp;
-/*    @JoinColumn(name = "ID_COMPRA", referencedColumnName = "ID")
+
+    @JoinColumn(name = "ID_COMPRA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Compra compra;*/
+    private Compra compra;
+
+  
     @JoinColumn(name = "ID_EDO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Estado estado;
@@ -119,7 +120,15 @@ public class FacturaGeneral implements Serializable {
         this.folio = folio;
     }
 
-    public FacturaGeneral(String folio, String comprobante, Date fechaCert, String noSerie, Date fechaEmi, String certEmi, String serie, int noFolio, String noInterno, String sucursal, String rfc, String razonSocial, String calle, String noExterior, String colonia, String del, String pais, int cp) {
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public FacturaGeneral(String folio, String comprobante, Date fechaCert, String noSerie, Date fechaEmi, String certEmi, String serie, int noFolio, String noInterno, String sucursal, String rfc, String razonSocial, String calle, String noExterior, String colonia, String pais, int cp) {
         this.folio = folio;
         this.comprobante = comprobante;
         this.fechaCert = fechaCert;
@@ -135,10 +144,19 @@ public class FacturaGeneral implements Serializable {
         this.calle = calle;
         this.noExterior = noExterior;
         this.colonia = colonia;
-        this.del = del;
+       
         this.pais = pais;
         this.cp = cp;
     }
+
+  /* public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+*/
 
     public String getFolio() {
         return folio;
@@ -260,13 +278,7 @@ public class FacturaGeneral implements Serializable {
         this.colonia = colonia;
     }
 
-    public String getDel() {
-        return del;
-    }
-
-    public void setDel(String del) {
-        this.del = del;
-    }
+    
 
     public String getPais() {
         return pais;
@@ -280,18 +292,13 @@ public class FacturaGeneral implements Serializable {
         return cp;
     }
 
+
+
     public void setCp(int cp) {
         this.cp = cp;
     }
+  
 
-/*    public Compra getCompra() {
-        return compra;
-    }
-
-    public void setCompra(Compra compra) {
-        this.compra = compra;
-    }
-*/
     public Estado getEstado() {
         return estado;
     }

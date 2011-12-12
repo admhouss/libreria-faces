@@ -5,6 +5,7 @@ import escom.libreria.info.cliente.jsf.util.JsfUtil;
 import escom.libreria.info.cliente.jsf.util.PaginationHelper;
 import escom.libreria.info.cliente.ejb.ClienteFacade;
 import escom.libreria.info.cliente.jpa.Categoria;
+import escom.libreria.info.login.sistema.SistemaController;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
@@ -41,9 +43,20 @@ public class ClienteController implements Serializable{
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private String confirmaCorreo;
-   // private int go;
     private List<Cliente> listSeleccionCliente;
     private String nombre,correo;//Criterios de busqueda
+    @ManagedProperty("#{sistemaController}")
+    private SistemaController sistemaController;
+
+    public SistemaController getSistemaController() {
+        return sistemaController;
+    }
+
+    public void setSistemaController(SistemaController sistemaController) {
+        this.sistemaController = sistemaController;
+    }
+
+
   
 
    
@@ -136,7 +149,8 @@ public class ClienteController implements Serializable{
 
     public String prepareView(Cliente p) {
         current=p;
-        return "/cliente/View";
+        sistemaController.setCliente(current);
+        return "modulo";
     }
 
     public String prepareCreate() {

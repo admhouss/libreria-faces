@@ -6,7 +6,9 @@
 package escom.libreria.info.cliente.jpa;
 
 
+
 import com.escom.info.compra.Difacturacion;
+import com.escom.info.compra.Pedido;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -95,10 +97,31 @@ public class Cliente implements Serializable {
     private Categoria categoria;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<BitacoraCliente> bitacoraClienteList;
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private Collection<Compra> compraCollection;*/
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Difacturacion> difacturacionList;//nuevo
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Pedido> pedidoList;
+
+    //  @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    //private List<Compra> compraCollection;
+    public List<Pedido> getPedidoList() {
+        return pedidoList;
+    }
+
+    public void setPedidoList(List<Pedido> pedidoList) {
+        this.pedidoList = pedidoList;
+    }
+    
+
+    //public List<Compra> getCompraCollection() {
+      //  return compraCollection;
+    //}
+
+    /*public void setCompraCollection(List<Compra> compraCollection) {
+        this.compraCollection = compraCollection;
+    }*/
+
+
 
    /* public Collection<Compra> getCompraCollection() {
         return compraCollection;
