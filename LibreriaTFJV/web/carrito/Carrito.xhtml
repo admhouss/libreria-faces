@@ -184,7 +184,7 @@
 
 
                     <br/>
-                    <h2>Direci&oacute;n de Facturacion</h2><br/>
+                    <h2>Direci&oacute;n de Facturaci&oacute;n</h2><br/>
                     <p:dataTable value="#{difacturacionController.lisDirfaDifacturacionsByCliente}" var="item" paginator="true" rows="6">
                     <p:column>
                         <f:facet name="header">
@@ -221,22 +221,7 @@
 
 
 
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
-                        </f:facet>
-                        <h:commandLink action="#{difacturacionController.prepareView(item)}">
-                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
-                        </h:commandLink>
-
-                        <h:commandLink action="#{difacturacionController.prepareEdit(item)}">
-                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
-                        </h:commandLink>
-
-                        <h:commandLink action="#{difacturacionController.destroy(item)}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
-                        </h:commandLink>
-                    </p:column>
+                    
                 </p:dataTable>
 
                 </p:tab>
