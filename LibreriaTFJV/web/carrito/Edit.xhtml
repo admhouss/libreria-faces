@@ -24,9 +24,9 @@
             <h1>Carrito de Compra</h1>
             <h:outputLabel value="Favor de registrase" rendered="#{sistemaController.cliente==null}" escape="false"/>
             <h:panelGroup rendered="#{sistemaController.cliente!=null}">
-            <p:accordionPanel autoHeight="false">
+            <p:accordionPanel autoHeight="false" rendered="#{sistemaController.cliente!=null}">
 
-                <p:tab title="Art&iacute;culos">
+                <p:tab title="Editar Art&iacute;culo">
 
 
                     <h:dataTable var="item" value="#{carritoController.listcarritoDTOTemporal}" headerClass="ui-state-focus">
@@ -42,16 +42,13 @@
                             <table border="0">
                                 <tr style="width:60px;">
                                     <td colspan="4" class="ui-state-highlight">
-                                        <h:outputText value="1"/></td>
+                                        <h:outputText value="#{item.indice}"/></td>
 
                                     <td>
-
-                                        <h:outputText value="#{item.articulo.titulo}"  style="color:black;" /><br/>
-                                        <h:outputText value="#{item.articulo.asunto}" /><br/>
-                                        <h:outputText value="#{item.articulo.nombreAlternativo}" /><br/>
-                               <!-- <h:outputText value="{item.editorial}" /><br/>-->
-
-
+                                        <h:outputText value="#{item.titulo}"  styleClass="textoNEGRO" /><br/>
+                                        <h:outputText value="#{item.asunto}" /><br/>
+                                        <h:outputText value="#{item.autor}" /><br/>
+                                        <h:outputText value="#{item.editorial}" /><br/>
                                     </td>
                                 </tr>
                             </table>
@@ -60,19 +57,19 @@
                             <f:facet name="header">
                                 <h:outputLabel value="Cantidad"  />
                             </f:facet>
-                             <h:inputText value="#{item.noArticuloCategoria}" required="true" requiredMessage="El campo cantidad es requerido" size="1"/>
+                             <h:inputText value="#{item.cantidad}" required="true" requiredMessage="El campo cantidad es requerido" size="1"/>
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                                <h:outputLabel value="Precio" />
                             </f:facet>
-                             <h:outputText value="$ #{item.precioNeto}" />
+                             <h:outputText value="$ #{item.precio}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
                               <h:outputLabel value="Descuento" />
                             </f:facet>
-                             <h:outputText value="% #{item.descuento}" />
+                             <h:outputText value="% #{item.desc}" />
                          </h:column>
                          <h:column>
                             <f:facet name="header">
@@ -80,14 +77,21 @@
                             </f:facet>
                              <h:outputText value="% #{item.impuesto}" />
                          </h:column>
-                        
+                        <h:column>
+                            <f:facet name="header">
+                              <h:outputLabel value="Fecha" />
+                            </f:facet>
+                            <h:outputText value="#{item.fechaCompra}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                         </h:column>
 
                          <h:column>
                             <f:facet name="header">
                                 <h:outputLabel value="Total" />
                             </f:facet>
 
-                             <h:outputText value="$ #{item.precioTotal}" >
+                             <h:outputText value="$ #{item.total}" >
 
                             </h:outputText>
                          </h:column>
@@ -117,7 +121,7 @@
           <td align="center">&nbsp;</td>
           <td>&nbsp;</td>
           <td class="ui-state-active">Total</td>
-          <td><h:outputLabel value="$ #{pedidoController.montoTotal}"  /></td>
+          <td><h:outputLabel value="$ #{carritoController.montoTotal}"  /></td>
           <td>&nbsp;</td>
         </tr>
                     </table>
