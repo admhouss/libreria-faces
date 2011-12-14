@@ -18,7 +18,7 @@
 
                 <h2>Confirmaci&oacute;n de Compra</h2>
                 <p:accordionPanel >
-                    <p:tab title="Art&iacute;culos">
+                    <p:tab title="Lista de Pedidos">
 
                         <h:dataTable var="item" value="#{pedidoController.listPedidosByCliente}" headerClass="ui-state-focus">
 
@@ -73,7 +73,7 @@
                          </h:column>
                         <h:column>
                             <f:facet name="header">
-                              <h:outputLabel value="Fecha Compra" />
+                              <h:outputLabel value="Fecha" />
                             </f:facet>
                             <h:outputText value="#{item.fechaPedido}">
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -124,9 +124,25 @@
 
                     <p:tab title="Modificar Tipo Envio">
 
-                       
+                        <center>
+                        <h:panelGrid columns="6">
+                        <h:outputLabel value="Pedido:" styleClass="textoNEGRO"/>
 
-                            <p:dataTable value="#{pedidoController.listPedidosByCliente}" var="item" paginator="true">
+                        <h:selectOneMenu value="#{pedidoController.mycurrent}">
+                            <f:selectItems value="#{pedidoController.listPedidosByCliente}" var="item" itemValue="#{item}" itemLabel="#{item.articulo.titulo}"/>
+                        </h:selectOneMenu>
+                        &nbsp;
+                        <h:outputLabel value="Tipo Envio:" styleClass="textoNEGRO"/>
+                        <h:selectOneMenu value="#{pedidoController.tipoEnvio}">
+                        <f:selectItem   id="item_0"  itemValue="ELECTRONICO" itemLabel="ELECTRONICO"/>
+                        <f:selectItem   id="item_1" itemValue="FISICO" itemLabel="FISICO"/>
+                        </h:selectOneMenu>
+                        <h:commandButton value="Editar" action="#{pedidoController.updateConfig}" immediate="true"/>
+                        </h:panelGrid>
+                        </center>
+                       
+                   <br/><br/>
+                   <p:dataTable value="#{pedidoController.listPedidosByCliente}" var="item" paginator="true" rows="10" selectionMode="single">
 
                     <p:column>
                         <f:facet name="header">
@@ -169,10 +185,9 @@
                         <f:facet name="header">
                             <h:outputText value="TIPO ENVIO"/>
                         </f:facet>
-                        <h:selectOneMenu value="#{item.tipoEnvio}" required="true" requiredMessage="El campo tipo en envio es requerido">
-                           <f:selectItem id="item_1" itemLabel="Electronico"  itemValue="Electronico" />
-                           <f:selectItem id="item_2" itemLabel="Fisico"  itemValue="Fisico" />
-                        </h:selectOneMenu>
+
+                        <h:outputLabel value="#{item.tipoEnvio}"/>
+                        
                     </p:column>
                     <p:column style="width:16px;">
                         <f:facet name="header">
@@ -199,16 +214,17 @@
 
                 </p:accordionPanel>
                 <br/><br/>
-                <p:panel  header="CONFIRMACI&Oacute;N COMPRA">
+               
+               <p:panel  header="CONFIRMACI&Oacute;N COMPRA" >
                     <center>
                 <h:panelGrid columns="2" cellspacing="15">
-                    
+
 
                     <h:outputLabel value="Fecha Envio:" for="fechaEnvio" styleClass="textoNEGRO"/>
-                    <p:calendar id="fechaEnvio" value="#{compraController.selected.fechaEnvio}" title="Fecha Envio" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_fechaEnvio}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    <p:calendar id="fechaEnvio" value="#{compraController.selected.fechaEnvio}" title="Fecha Envio" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_fechaEnvio}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
+
                     </p:calendar>
-      
+
                     <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
 
                     <h:selectOneMenu id="estado" value="#{compraController.selected.estado}" title="Estado" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_estado}">
@@ -218,25 +234,24 @@
 
                     <h:outputLabel value="Observaciones:" for="observaciones" styleClass="textoNEGRO"/>
                     <h:inputText id="observaciones" value="#{compraController.selected.observaciones}" title="Observaciones" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_observaciones}"/>
-                    
+
                     <h:outputLabel value="Requiere factura:" styleClass="textoNEGRO"/>
                     <h:selectOneMenu value="#{compraController.requiereFactura}">
                         <f:selectItem id="item_value_0" itemValue="0" itemLabel="NO"/>
                         <f:selectItem id="item_value_1" itemValue="0" itemLabel="SI"/>
 
                     </h:selectOneMenu>
-                   
+
                 </h:panelGrid>
                     </center>
                      </p:panel>
-                
+
                 <br /><br />
                 <div align="center">
                     <p:panel>
                     <h:commandButton action="#{compraController.create}" value="Guardar" />
                     </p:panel>
                 </div>
-                
             </h:form>
         </ui:define>
     </ui:composition>
