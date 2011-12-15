@@ -230,5 +230,21 @@ public class PedidoFacade {
     }
 
 
+public Date getHoy(){
+        try {
+            Date date = new Date();
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+            SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-MM-dd");
+            String cadena = formato2.format(date);
+            Date fechaOtra = formato2.parse(cadena);
+
+            String cadenaToday = formato.format(fechaOtra);
+            Date hoy = formato2.parse(cadenaToday);
+            return hoy;
+        } catch (ParseException ex) {
+            Logger.getLogger(PedidoFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+}
 }

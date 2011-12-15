@@ -42,7 +42,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Factura.findByCalle", query = "SELECT f FROM Factura f WHERE f.calle = :calle"),
     @NamedQuery(name = "Factura.findByNoExterior", query = "SELECT f FROM Factura f WHERE f.noExterior = :noExterior"),
     @NamedQuery(name = "Factura.findByColonia", query = "SELECT f FROM Factura f WHERE f.colonia = :colonia"),
-    @NamedQuery(name = "Factura.findByDel", query = "SELECT f FROM Factura f WHERE f.del = :del"),
+    
     @NamedQuery(name = "Factura.findByPais", query = "SELECT f FROM Factura f WHERE f.pais = :pais"),
     @NamedQuery(name = "Factura.findByCp", query = "SELECT f FROM Factura f WHERE f.cp = :cp"),
     @NamedQuery(name = "Factura.findByComprobante", query = "SELECT f FROM Factura f WHERE f.comprobante = :comprobante"),
@@ -86,9 +86,7 @@ public class Factura implements Serializable {
     @Basic(optional = false)
     @Column(name = "COLONIA")
     private String colonia;
-    @Basic(optional = false)
-    @Column(name = "DEL")
-    private String del;
+   
     @Basic(optional = false)
     @Column(name = "PAIS")
     private String pais;
@@ -136,7 +134,6 @@ public class Factura implements Serializable {
         this.calle = calle;
         this.noExterior = noExterior;
         this.colonia = colonia;
-        this.del = del;
         this.pais = pais;
         this.cp = cp;
         this.factura = factura;
@@ -253,14 +250,7 @@ public class Factura implements Serializable {
         this.colonia = colonia;
     }
 
-    public String getDel() {
-        return del;
-    }
-
-    public void setDel(String del) {
-        this.del = del;
-    }
-
+  
     public String getPais() {
         return pais;
     }

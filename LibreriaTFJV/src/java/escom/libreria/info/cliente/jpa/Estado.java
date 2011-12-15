@@ -49,8 +49,7 @@ public class Estado implements Serializable {
     private List<Factura> facturaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
     private List<Difacturacion> difacturacionList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
-    private List<FacturaGeneral> facturaGeneralList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
     private List<Direnvio> direnvioList;
 
@@ -72,13 +71,7 @@ public class Estado implements Serializable {
         this.direnvioList = direnvioList;
     }
 
-    public List<FacturaGeneral> getFacturaGeneralList() {
-        return facturaGeneralList;
-    }
-
-    public void setFacturaGeneralList(List<FacturaGeneral> facturaGeneralList) {
-        this.facturaGeneralList = facturaGeneralList;
-    }
+    
 
     public List<Factura> getFacturaList() {
         return facturaList;

@@ -158,8 +158,10 @@ public class CompraController implements Serializable{
     public String create() {
         try {
 
+             Date hoy=pedidoFacade.getHoy();
+             String keyCliente=sistemaController.getCliente().getId();
 
-            Pedido Rootpedido=pedidoController.getSelected();
+            Pedido Rootpedido=pedidoFacade.getListPedidoHotByCliernteOne(keyCliente, hoy);
             if(getFacade().buscarCompra(Rootpedido.getPedidoPK().getIdPedido())==false){
 
                 CompraDTO result = pedidoFacade.getSuperTotal(Rootpedido.getPedidoPK().getIdPedido());
@@ -171,8 +173,10 @@ public class CompraController implements Serializable{
                 current.setPagoTotal(result.getTotalMonto());
                 current.setFecha(new Date());
                 current.setEstado(current.getEstado());
-                current.setIdcliente(Rootpedido.getCliente().getId());
+                current.setIdcliente(keyCliente);
                 current.setTipoEnvio("CAMPO INUTIL");
+                //current.setObservaciones("PROCESANDO");
+                //current.setFechaEnvio(new Date());
                 getFacade().create(current);
                 JsfUtil.addSuccessMessage(("Finalise su compra dando Click en el boton Comprar Ahora"));
                 return "/paypal/Create";

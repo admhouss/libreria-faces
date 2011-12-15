@@ -55,34 +55,46 @@ public class CarritoController implements Serializable{
     @EJB private com.escom.info.compra.ejb.PedidoFacade pedidoFacade;
 
 
-    private List<PublicacionDTO> listcarritoDTO;
-    private Pedido publicaciondto;
-    private List<Pedido> listcarritoDTOTemporal;
+    private List<PublicacionDTO> listcarritoDTO;//se usa para mostrar los pedidos en el carrito de compra
+    private PublicacionDTO publicaciondto;
 
-    public List<Pedido> getListcarritoDTOTemporal() {
+    private List<PublicacionDTO> listcarritoDTOTemporal;
+
+    public List<PublicacionDTO> getListcarritoDTOTemporal() {
+        return listcarritoDTOTemporal;
+    }
+
+    public void setListcarritoDTOTemporal(List<PublicacionDTO> listcarritoDTOTemporal) {
+        this.listcarritoDTOTemporal = listcarritoDTOTemporal;
+    }
+
+
+   /* public List<Pedido> getListcarritoDTOTemporal() {
         return listcarritoDTOTemporal;
     }
 
     public void setListcarritoDTOTemporal(List<Pedido> listcarritoDTOTemporal) {
         this.listcarritoDTOTemporal = listcarritoDTOTemporal;
     }
+*/
 
-
-    public String prepareEditPublicacion(Pedido item){
+    public String prepareEditPublicacion(PublicacionDTO item){
         publicaciondto=item;
-        publicaciondto.setArticulo(item.getArticulo());
-        listcarritoDTOTemporal=new ArrayList<Pedido>();
+       //publicaciondto.setArticulo(item.getArticulo());
+        listcarritoDTOTemporal=new ArrayList<PublicacionDTO>();
         listcarritoDTOTemporal.add(item);
         return "/carrito/Edit";
     }
 
-    public Pedido getPublicaciondto() {
+    public PublicacionDTO getPublicaciondto() {
         return publicaciondto;
     }
 
-    public void setPublicaciondto(Pedido publicaciondto) {
+    public void setPublicaciondto(PublicacionDTO publicaciondto) {
         this.publicaciondto = publicaciondto;
     }
+
+    
 
    
     
@@ -118,7 +130,7 @@ private Date getHoy(){
         }
         return null;
 }
-   /* private CarritoCompraTemporalLocal ObtenerCarrito(){
+   private CarritoCompraTemporalLocal ObtenerCarrito(){
          if(carritoCompraTemporalLocal==null){
             try{
                 carritoCompraTemporalLocal=sistemaFacade.getObtenerBandejaTemporal();
@@ -127,7 +139,55 @@ private Date getHoy(){
             }
         }
          return carritoCompraTemporalLocal;
-    }*/
+    }
+ public String agregarArticulo(Publicacion publicacion){
+     PublicacionDTO temporalDTO=null;//
+     Cliente clienteOperando=sistemaController.getCliente();//
+    // Articulo articuloOperando=publicacion.getArticulo();//
+
+           try{
+         if(clienteOperando!=null){
+
+          carritoCompraTemporalLocal=ObtenerCarrito();
+          temporalDTO=carritoCompraTemporalLocal.buscarPublicacion(publicacion);
+
+          if(temporalDTO==null){
+             temporalDTO=procesarArticulo(publicacion,1);
+             agregarCarrito(temporalDTO);
+             JsfUtil.addSuccessMessage("Publicacion agregada Satisfactoriamente");
+             return "/carrito/Carrito";
+          }else{
+                JsfUtil.addErrorMessage("Ya existe esta publicacion en su carrtio");
+                return "/carrito/Carrito";
+          }
+
+         
+         }
+
+          
+         
+        // }else {
+          //JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
+          //return "/login/Create.xhtml";
+         //}
+
+     }catch(Exception e){ e.printStackTrace();}
+
+         return "/carrito/Carrito";
+    }
+
+
+ public List<PublicacionDTO> getListPedidosDTO(){
+     return carritoCompraTemporalLocal.getListPublicacion();
+ }
+
+ public void agregarCarrito(PublicacionDTO p){
+     int posicion=carritoCompraTemporalLocal.getCount();
+     p.setIndice(posicion);
+     carritoCompraTemporalLocal.addPublicacion(p);
+ }
+ /*
+
  public String agregarArticulo(Publicacion publicacion){
      PublicacionDTO temporal=null;
      Cliente clienteOperando=sistemaController.getCliente();
@@ -137,11 +197,11 @@ private Date getHoy(){
          if(clienteOperando!=null){
 //
           Pedido pedidoDelDia= pedidoFacade.getListPedidoHotByCliernteOne(clienteOperando.getId(),getHoy());
-         
+
           //carritoCompraTemporalLocal=ObtenerCarrito();
             //temporal=carritoCompraTemporalLocal.buscarPublicacion(publicacion);
          if(pedidoDelDia==null){
-             
+
              Pedido pedido=new Pedido();
              PedidoPK pedidoPK=new PedidoPK();
              pedidoPK.setIdArticulo(publicacion.getArticulo().getId());
@@ -157,7 +217,7 @@ private Date getHoy(){
              pedido.setPrecioTotal(new BigDecimal(publicacionDTO.getTotal()));
              pedido.setPedidoPK(pedidoPK);
              pedidoFacade.create(pedido);
-              
+
          }
          else if(pedidoDelDia!=null){
 
@@ -171,7 +231,7 @@ private Date getHoy(){
                         temporalPedido.setNoArticuloCategoria(temporalPedido.getNoArticuloCategoria()+1);
                         pedidoFacade.edit(temporalPedido);
                     }
-                          
+
                     else {
 
                         Pedido pedido=new Pedido();
@@ -196,7 +256,7 @@ private Date getHoy(){
 
           JsfUtil.addSuccessMessage("Articulo agregado Satisfactoriamente");
           return "/carrito/Carrito";
-         
+
          }else {
           JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
           return "/login/Create.xhtml";
@@ -206,8 +266,9 @@ private Date getHoy(){
 
          return "/carrito/Carrito";
     }
-
- public String editarCarritoCompra(Pedido editar){
+*/
+ /*
+ public String editarCarritoCompra(PublicacionDTO editar){
      try{
            if(editar.getNoArticuloCategoria()>0){
                 BigDecimal total=calcularTotal(editar.getPrecioTotal(), editar.getDescuento(),editar.getImpuesto(), editar.getNoArticuloCategoria());
@@ -226,16 +287,38 @@ private Date getHoy(){
      }
       return "/carrito/Carrito";
  }
+ */
+ public String editarCarritoCompra(PublicacionDTO editar){
+     try{
+           if(editar.getCantidad()>0){
+                BigDecimal total=calcularTotal(new BigDecimal(editar.getTotal()), editar.getDesc(),editar.getImpuesto(), editar.getCantidad());
+                editar.setTotal(total.doubleValue());
+                int posicion=carritoCompraTemporalLocal.getPosArticulo(editar);
+                carritoCompraTemporalLocal.actualizarArticulo(editar, posicion);
+                JsfUtil.addSuccessMessage("Carrito de compra Actualizado Satisfactoriamente");
+            }else if(editar.getCantidad()<=0){
+                JsfUtil.addErrorMessage("Cantidad no puede ser cero");
+            }
+            else{
+                   JsfUtil.addErrorMessage("Error,cantidad consigno negativo");
+                    return "/carrito/Editar";
+            }
+     }catch(Exception e){
+         JsfUtil.addErrorMessage("Error problemas al editar informacion");
+     }
+      return "/carrito/Carrito";
+ }
  
-    public String borrarArticulo(Pedido articulo){
-         pedidoFacade.remove(articulo);
+    public String borrarArticulo(PublicacionDTO articulo){
+         //pedidoFacade.remove(articulo);
+         carritoCompraTemporalLocal.removePublicacion(articulo);
          listcarritoDTOTemporal=null;
          JsfUtil.addSuccessMessage("Articulo eliminado Sastisfactoriamente");
          return "/carrito/Carrito";
     }
     
 
-    /*public BigDecimal getMontoTotal(){
+    public BigDecimal getMontoTotal(){
         carritoCompraTemporalLocal=ObtenerCarrito();
         BigDecimal monto= carritoCompraTemporalLocal.getMontoTotal();
         monto=monto.setScale(2,RoundingMode.HALF_DOWN);
@@ -247,14 +330,14 @@ private Date getHoy(){
     public int getcountElement(){
         if(carritoCompraTemporalLocal!=null)
         return carritoCompraTemporalLocal.getCount();
-        return 1;
-    }*/
+        return 0;
+    }
 
 
     private PublicacionDTO procesarArticulo(Publicacion p,int cantidad){
-
         PublicacionDTO publicacionDTO=new PublicacionDTO();
         publicacionDTO.setIdArticulo(p.getArticulo().getId());
+        publicacionDTO.setArticulo(p.getArticulo());
         publicacionDTO.setIdPublicacion(p.getIdDc());
         publicacionDTO.setEditorial(p.getEditorial());
         publicacionDTO.setTitulo(p.getArticulo().getTitulo());
@@ -353,6 +436,6 @@ private Date getHoy(){
        return "/carrito/Carrito";
     }
 
-    /// private CarritoCompraTemporalLocal carritoCompraTemporalLocal=ObtenerCarrito();//obetenemso carrito compra
+     private CarritoCompraTemporalLocal carritoCompraTemporalLocal=ObtenerCarrito();//obetenemso carrito compra
 
 }

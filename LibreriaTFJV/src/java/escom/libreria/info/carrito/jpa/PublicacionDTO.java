@@ -5,6 +5,7 @@
 
 package escom.libreria.info.carrito.jpa;
 
+import escom.libreria.info.articulo.jpa.Articulo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -26,6 +27,16 @@ public class PublicacionDTO implements Serializable{
     private BigDecimal impuesto;
     private Date fechaCompra;
     private int indice;
+    private Articulo articulo;
+
+    public Articulo getArticulo() {
+        return articulo;
+    }
+
+    public void setArticulo(Articulo articulo) {
+        this.articulo = articulo;
+    }
+
 
     public int getIndice() {
         return indice;
