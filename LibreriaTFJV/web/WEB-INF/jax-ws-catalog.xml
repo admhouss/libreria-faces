@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://www.mysuitemex.com/fact/schema/fx_2010_c.xsd" uri="src/conf/xml-resources/jaxb/facturacionMysuit/www.mysuitemex.com/fact/schema/fx_2010_c.xsd"/>
+    <system systemId="file:/C:/Users/xxx/Documents/wsdl/factwsfront.wsdl" uri="wsdl/factwsfront.wsdl"/>
+</catalog>
