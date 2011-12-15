@@ -129,7 +129,7 @@
                         <h:outputLabel value="Pedido:" styleClass="textoNEGRO"/>
 
                         <h:selectOneMenu value="#{pedidoController.mycurrent}">
-                            <f:selectItems value="#{pedidoController.listPedidosByCliente}" var="item" itemValue="#{item}" itemLabel="#{item.articulo.titulo}"/>
+                            <f:selectItems value="#{pedidoController.listPedidosByCliente}" var="item"  itemValue="#{item}" itemLabel="#{item.articulo.titulo}"/>
                         </h:selectOneMenu>
                         &nbsp;
                         <h:outputLabel value="Tipo Envio:" styleClass="textoNEGRO"/>
@@ -137,7 +137,7 @@
                         <f:selectItem   id="item_0"  itemValue="ELECTRONICO" itemLabel="ELECTRONICO"/>
                         <f:selectItem   id="item_1" itemValue="FISICO" itemLabel="FISICO"/>
                         </h:selectOneMenu>
-                        <h:commandButton value="Editar" action="#{pedidoController.updateConfig}" immediate="true"/>
+                        <h:commandButton value="Editar" action="#{pedidoController.updateConfig}"/>
                         </h:panelGrid>
                         </center>
                        
@@ -195,19 +195,7 @@
                         </f:facet>
                         <h:outputText value="#{item.articulo.titulo}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
-                        </f:facet>
-                        
-
-                        <h:commandLink action="#{pedidoController.actualizarTipoEnvio(item)}" immediate="true">
-                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar Tipo Envio"/>
-                        </h:commandLink>
-
-
-                       
-                    </p:column>
+                 
                 </p:dataTable>
                 
                     </p:tab>
@@ -215,31 +203,16 @@
                 </p:accordionPanel>
                 <br/><br/>
                
-               <p:panel  header="CONFIRMACI&Oacute;N COMPRA" >
+               <p:panel  header="REQUIERE FACTURA" >
                     <center>
                 <h:panelGrid columns="2" cellspacing="15">
 
 
-                    <h:outputLabel value="Fecha Envio:" for="fechaEnvio" styleClass="textoNEGRO"/>
-                    <p:calendar id="fechaEnvio" value="#{compraController.selected.fechaEnvio}" title="Fecha Envio" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_fechaEnvio}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
-
-                    </p:calendar>
-
-                    <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
-
-                    <h:selectOneMenu id="estado" value="#{compraController.selected.estado}" title="Estado" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_estado}">
-                        <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item.nombre}" itemLabel="#{item.nombre}"/>
-                    </h:selectOneMenu>
-
-
-                    <h:outputLabel value="Observaciones:" for="observaciones" styleClass="textoNEGRO"/>
-                    <h:inputText id="observaciones" value="#{compraController.selected.observaciones}" title="Observaciones" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_observaciones}"/>
-
-                    <h:outputLabel value="Requiere factura:" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu value="#{compraController.requiereFactura}">
+                  
+                    <h:outputLabel value="Requiere factura:" styleClass="textoROJO"/>
+                    <h:selectOneMenu value="#{compraController.facturar}">
                         <f:selectItem id="item_value_0" itemValue="0" itemLabel="NO"/>
-                        <f:selectItem id="item_value_1" itemValue="0" itemLabel="SI"/>
-
+                        <f:selectItem id="item_value_1" itemValue="1" itemLabel="SI"/>
                     </h:selectOneMenu>
 
                 </h:panelGrid>
