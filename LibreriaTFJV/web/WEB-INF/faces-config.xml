@@ -83,12 +83,44 @@
             <base-name>/ProveedorArticulo</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Facturacion</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Pedido</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/ComprasCliente</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/micompra</base-name>
+            <var>bundle</var>
+        </resource-bundle>
     </application>
+
+    <!--<navigation-rule>
+        <from-view-id>/log.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>res</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>null</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>-->
+
    <validator>
             <validator-id>EmailValidator</validator-id>
             <validator-class>escom.libreria.correo.ValidadorCorreo</validator-class>
    </validator>
 </faces-config>
+
+
+
 
 
 
