@@ -163,23 +163,23 @@
                         </f:facet>
                         <h:outputText value="#{item.telefono}"/>
                       </p:column>
-
+<!--
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{direnvioController.prepareView(item)}">
+                        <h:commandLink action="{direnvioController.prepareView(item)}">
                             <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{direnvioController.prepareEdit(item)}">
+                        <h:commandLink action="{direnvioController.prepareEdit(item)}">
                             <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
                         </h:commandLink>
 
-                        <h:commandLink action="#{direnvioController.destroy(item)}">
+                        <h:commandLink action="{direnvioController.destroy(item)}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
                         </h:commandLink>
-                      </p:column>
+                      </p:column>-->
                 </p:dataTable>
 
 
