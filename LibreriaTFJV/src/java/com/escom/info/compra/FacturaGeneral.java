@@ -109,10 +109,10 @@ public class FacturaGeneral implements Serializable {
     private Compra compra;
 
   
-    @JoinColumn(name = "ID_EDO", referencedColumnName = "ID")
+  /*  @JoinColumn(name = "ID_EDO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Estado estado;
-
+*/
     public FacturaGeneral() {
     }
 
@@ -298,7 +298,7 @@ public class FacturaGeneral implements Serializable {
         this.cp = cp;
     }
   
-
+/*
     public Estado getEstado() {
         return estado;
     }
@@ -306,7 +306,7 @@ public class FacturaGeneral implements Serializable {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
-
+*/
     @Override
     public int hashCode() {
         int hash = 0;

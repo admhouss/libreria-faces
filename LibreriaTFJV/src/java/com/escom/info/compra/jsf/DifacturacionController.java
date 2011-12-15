@@ -137,10 +137,12 @@ private Cliente cliente;
         try {
             cliente=sistemaController.getCliente();
             current.setCliente(cliente);
+            current.setRfc(current.getRfc());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("Difacturacion Actualizada Satisfactoriamente"));
             return "View";
         } catch (Exception e) {
+            e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Facturacion").getString("PersistenceErrorOccured"));
             return null;
         }
@@ -148,9 +150,10 @@ private Cliente cliente;
 
     public String destroy(Difacturacion d) {
         current=d;
+        current.setCliente(d.getCliente());
         getFacade().remove(current);
         JsfUtil.addSuccessMessage("Direccion de Factura eliminada Satisfactoriamente");
-        return "List";
+        return "/difacturacion/List";
     }
 
     public String destroyAndView() {

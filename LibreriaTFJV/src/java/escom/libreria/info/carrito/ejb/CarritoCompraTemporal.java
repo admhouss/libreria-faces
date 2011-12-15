@@ -119,13 +119,14 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
     public int getPosArticulo(PublicacionDTO p) {
         int  temporal=-1,count=0;
 
+        //return listaPublicacion.lastIndexOf(p);
         for(PublicacionDTO publicacion:listaPublicacion){
-               if(publicacion.getIdArticulo()==p.getIdArticulo() && publicacion.getIdPublicacion()==p.getIdPublicacion()){ //ya existe el articulo
 
+               if(publicacion.getIdArticulo()==p.getIdArticulo() && publicacion.getIdPublicacion()==p.getIdPublicacion()){ //ya existe el articulo
                  temporal=count;
                   break;
                }
-
+               count++;
           }
         return temporal;
     }

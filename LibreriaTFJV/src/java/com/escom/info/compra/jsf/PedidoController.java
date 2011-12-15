@@ -42,8 +42,29 @@ public class PedidoController implements Serializable{
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
     public int contador=0;
-    private Date pedidoFecha=new Date();
-    private Date endpedidoFecha=new Date();
+    private Date pedidoFecha;
+    private Date endpedidoFecha;
+    private String tipoEnvio;
+     private Pedido mycurrent;
+
+    public Pedido getMycurrent() {
+        return mycurrent;
+    }
+
+    public void setMycurrent(Pedido mycurrent) {
+        this.mycurrent = mycurrent;
+    }
+
+
+
+    public String getTipoEnvio() {
+        return tipoEnvio;
+    }
+
+    public void setTipoEnvio(String tipoEnvio) {
+        this.tipoEnvio = tipoEnvio;
+    }
+
 
     public Date getEndpedidoFecha() {
         return endpedidoFecha;
@@ -112,13 +133,17 @@ public String publicacionByFecha(){
 
 public String actualizarTipoEnvio(Pedido p){
     try{
-        p.setTipoEnvio(p.getTipoEnvio());
+
+        current=p;
+       /* p.setTipoEnvio(p.getTipoEnvio());
         p.setArticulo(p.getArticulo());
         p.setCliente(p.getCliente());
         p.setPedidoPK(p.getPedidoPK());
         getFacade().edit(p);
         JsfUtil.addSuccessMessage("Pedido Actualizado Satisfactoriamente");
-        return "/compra/Create";
+        *
+        */
+        return "/compra/EditCompra";
     }catch(Exception e){e.printStackTrace();}
     JsfUtil.addErrorMessage("Error no fue posible actualizar su pedido");
     return "/compra/Create";
@@ -239,6 +264,22 @@ public String actualizarTipoEnvio(Pedido p){
         return "/pedido/Edit";
     }
 
+    public String updateConfig() {
+        try {
+            current=mycurrent;
+            PedidoPK pedido = current.getPedidoPK();
+            pedido.setIdArticulo(current.getArticulo().getId());
+            pedido.setIdPedido(pedido.getIdPedido());
+            current.setPedidoPK(pedido);
+            current.setTipoEnvio(getTipoEnvio());
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(("Pedido Actualizado Satisfactoriamente"));
+            return "/compra/Create";
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Pedido").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
     public String update() {
         try {
             PedidoPK pedido = current.getPedidoPK();
