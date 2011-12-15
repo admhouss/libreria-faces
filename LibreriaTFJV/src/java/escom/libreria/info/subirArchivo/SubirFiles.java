@@ -248,8 +248,9 @@ public class SubirFiles  implements Serializable{
         this.publicacionController = publicacionController;
     }
 
-    private void download(String path, String nameFile, String tipoArchivo) throws IOException {
+    public void download(String path, String nameFile, String tipoArchivo) throws IOException {
 
+      System.out.println("descargando el archivo"+path+nameFile);
         // Prepare.
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
@@ -286,6 +287,47 @@ public class SubirFiles  implements Serializable{
         }
         facesContext.responseComplete();
     }
+
+
+    /*public void download2(String path, String tipoArchivo) throws IOException {
+
+      System.out.println("descargando el archivo"+path);
+        // Prepare.
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+
+        File file = new File(path);
+        BufferedInputStream input = null;
+        BufferedOutputStream output = null;
+        //String url = "archivoPdf?path=" + path + "&fileName=" + nameFile + "&fileType=txt";
+        try {
+            input = new BufferedInputStream(new FileInputStream(file), DEFAULT_BUFFER_SIZE);
+
+            // Init servlet response.
+            response.reset();
+            response.setContentType(tipoArchivo);
+
+            response.setContentLength(Long.valueOf(file.length()).intValue());
+            response.setHeader("Content-disposition", "attachment; filename=\"" + nameFile + "\"");
+            output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
+
+            // Write file contents to response.
+            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+            int length;
+            while ((length = input.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+
+            // Finalize task.
+            output.flush();
+        } finally {
+            // Gently close streams.
+            close(output);
+            close(input);
+        }
+        facesContext.responseComplete();
+    }*/
     private static void close(Closeable resource) {
         if (resource != null) {
             try {

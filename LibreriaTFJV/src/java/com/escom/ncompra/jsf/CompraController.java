@@ -46,19 +46,26 @@ public class CompraController implements Serializable{
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
 
+    private String facturar;
+
+    public String getFacturar() {
+        return facturar;
+    }
+
+    public void setFacturar(String facturar) {
+        this.facturar = facturar;
+    }
+
+
+
+
     public SistemaController getSistemaController() {
         return sistemaController;
     }
 
-    private boolean requiereFactura;
+    
 
-    public boolean isRequiereFactura() {
-        return requiereFactura;
-    }
-
-    public void setRequiereFactura(boolean requiereFactura) {
-        this.requiereFactura = requiereFactura;
-    }
+   
 
 
     public void setSistemaController(SistemaController sistemaController) {
@@ -156,36 +163,48 @@ public class CompraController implements Serializable{
     }
 
     public String create() {
+        Pedido RootPedido;
         try {
 
-             Date hoy=pedidoFacade.getHoy();
+             //Date hoy=pedidoFacade.getHoy();
              String keyCliente=sistemaController.getCliente().getId();
 
-            Pedido Rootpedido=pedidoFacade.getListPedidoHotByCliernteOne(keyCliente, hoy);
-            if(getFacade().buscarCompra(Rootpedido.getPedidoPK().getIdPedido())==false){
+            List<Pedido> pedidosClienteActual=pedidoController.getListPedidosByCliente();
+            //pedidoFacade.getListPedidoHotByCliernteOne(keyCliente, hoy);
+            if(pedidosClienteActual!=null && !pedidosClienteActual.isEmpty()){
 
-                CompraDTO result = pedidoFacade.getSuperTotal(Rootpedido.getPedidoPK().getIdPedido());
+                RootPedido=pedidosClienteActual.get(0);
+                RootPedido.setPedidoPK(RootPedido.getPedidoPK());
 
-                current.setIdPedido(Rootpedido.getPedidoPK().getIdPedido());
+                int idPedido=RootPedido.getPedidoPK().getIdPedido();
+                System.out.println("ID-PEDIDO"+idPedido);
+
+                CompraDTO result = pedidoFacade.getSuperTotal(idPedido);
+                current=new Compra();
+                current.setIdPedido(idPedido);
                 current.setDescuento(result.getDescuento());
                 current.setImpuesto(result.getImpuesto());
                 current.setPagoNeto(result.getTotalMonto());
                 current.setPagoTotal(result.getTotalMonto());
                 current.setFecha(new Date());
-                current.setEstado(current.getEstado());
+               
                 current.setIdcliente(keyCliente);
                 current.setTipoEnvio("CAMPO INUTIL");
-                //current.setObservaciones("PROCESANDO");
-                //current.setFechaEnvio(new Date());
+                current.setObservaciones("PROCESANDO");
+                current.setFechaEnvio(new Date());
+                current.setEstado("NUEVA COMPRA");
                 getFacade().create(current);
-                JsfUtil.addSuccessMessage(("Finalise su compra dando Click en el boton Comprar Ahora"));
+                JsfUtil.addSuccessMessage(("Finalizar su compra dando Click en el boton Comprar Ahora"));
+
                 return "/paypal/Create";
             }
-            else{
-            JsfUtil.addSuccessMessage(("Ya existe una compra registrada"));
-            return "/paypal/Create";
+            else
+            {
+                JsfUtil.addSuccessMessage(("No existen pedidos"));
+                return "/paypal/Create";
             }
         } catch (Exception e) {
+            e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/micompra").getString("PersistenceErrorOccured"));
             return null;
         }
