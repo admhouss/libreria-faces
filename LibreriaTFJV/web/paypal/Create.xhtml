@@ -447,7 +447,7 @@
 
                         <h:column>
                             <f:facet name="header">
-                                <h:outputLabel value="Fecha Compra" />
+                                <h:outputLabel value="Fecha" />
                             </f:facet>
 
                             <h:outputLabel value="#{item.fechaPedido}" >
@@ -490,39 +490,7 @@
 
 
                 </p:tab>
-                <p:tab title="CONFIRMACI&Oacute;N DE COMPRA">
-
-                    <center>
-
-
-                     <h:panelGrid columns="2" cellspacing="15">
-                     <h:outputLabel value="Fecha Envio:" for="fechaEnvio" styleClass="textoNEGRO"/>
-                     <p:calendar id="fechaEnvio" value="#{compraController.selected.fechaEnvio}" title="Fecha Envio" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_fechaEnvio}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
-                        
-                    </p:calendar>
-                    <h:outputLabel value="Tipo Envio:" for="tipoEnvio" styleClass="textoNEGRO"/>
-                    <h:inputText id="tipoEnvio" value="#{compraController.selected.tipoEnvio}" title="tipo Envio" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_tipoEnvio}"/>
-
-                    <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
-
-                    <h:selectOneMenu id="estado" value="#{compraController.selected.estado}" title="Estado" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_estado}">
-                        <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item.nombre}" itemLabel="#{item.nombre}"/>
-                    </h:selectOneMenu>
-
-
-                    <h:outputLabel value="Observaciones:" for="observaciones" styleClass="textoNEGRO"/>
-                    <h:inputText id="observaciones" value="#{compraController.selected.observaciones}" title="Observaciones" required="true" requiredMessage="#{bundle.CreateCompraRequiredMessage_observaciones}"/>
-
-                   </h:panelGrid>
-                        <br/><br/>
-                       <div align="center">
-                    <p:panel>
-                    <h:commandButton action="#{compraController.create}" value="Guardar" />
-                    </p:panel>
-                </div>
-                    </center>
-
-                </p:tab>
+              
                 </p:accordionPanel>
 
                 
