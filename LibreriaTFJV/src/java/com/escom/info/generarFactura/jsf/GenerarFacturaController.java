@@ -23,8 +23,13 @@ import com.escom.libreria.mysuit.TFactDocMX.Identificacion;
 import com.escom.libreria.mysuit.TImportesDesglosados;
 import com.sun.faces.facelets.util.FastWriter;
 import escom.libreria.cdi.Comprobante;
+import escom.libreria.info.subirArchivo.SubirFiles;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
+import java.io.Closeable;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
@@ -35,7 +40,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.Marshaller;
 import webservicesFacturacionMysuit.facturafromDenegateImp;
 
@@ -50,8 +59,21 @@ public class GenerarFacturaController implements Serializable {
     @EJB private com.escom.info.generarFactura.GeneraraFacade generaraFacade;
     @EJB private com.escom.info.compra.ejb.DifacturacionFacade difacturacionFacade;
     @EJB private com.escom.info.compra.ejb.PedidoFacade pedidoFacade;
+     private static final int DEFAULT_BUFFER_SIZE =9024;
 
-    public String ruta_cdi="C:/Users/xxx/Desktop/facturasPrueba/";
+    @ManagedProperty("#{subirArchivo}")
+    private SubirFiles subirFiles;
+
+    public SubirFiles getSubirFiles() {
+        return subirFiles;
+    }
+
+    public void setSubirFiles(SubirFiles subirFiles) {
+        this.subirFiles = subirFiles;
+    }
+
+
+    public String ruta_cdi=  "/home/libreria/facturacion";//C:/Users/xxx/Desktop/facturasPrueba/";
     public String name_file;
 
     public GenerarFacturaController() {
@@ -77,11 +99,82 @@ public class GenerarFacturaController implements Serializable {
         return "/compra/List";
     }
 
-    public String facturar(Compra c){
+    public  void generarFactura_(Compra compra){
+        //generaraFacade.
+        Compra comp=compra;
+        Difacturacion clientef;
+        List<Difacturacion> direcion_facturacion_clientes=difacturacionFacade.getDireccionFacturaCliente(comp.getIdcliente());
+        if(direcion_facturacion_clientes==null || direcion_facturacion_clientes.isEmpty()){
+            JsfUtil.addSuccessMessage("Direccion de factura no encontrada");
+        }
+        clientef=direcion_facturacion_clientes.get(0);
+        if(generarXMLFactura(clientef, comp)){
+            JsfUtil.addSuccessMessage("CFD CREADO SATISFACTORIAMENTE");
+            //facturar(comp);
+        }else
+        {
+            JsfUtil.addErrorMessage("Error al crear CFE");
+        }
+    }
+
+
+public void download(String path, String nameFile, String tipoArchivo) throws IOException {
+
+      System.out.println("descargando el archivo"+path+nameFile);
+        // Prepare.
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+
+        File file = new File(path,nameFile);
+        BufferedInputStream input = null;
+        BufferedOutputStream output = null;
+        //String url = "archivoPdf?path=" + path + "&fileName=" + nameFile + "&fileType=txt";
         try {
-            name_file = "FACTCFD0" + c.getId() + ".xml";
+            input = new BufferedInputStream(new FileInputStream(file), DEFAULT_BUFFER_SIZE);
+
+            // Init servlet response.
+            response.reset();
+            response.setContentType(tipoArchivo);
+
+            response.setContentLength(Long.valueOf(file.length()).intValue());
+            response.setHeader("Content-disposition", "attachment; filename=\"" + nameFile + "\"");
+            output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
+
+            // Write file contents to response.
+            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+            int length;
+            while ((length = input.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+
+            // Finalize task.
+            output.flush();
+        } finally {
+            // Gently close streams.
+            close(output);
+            close(input);
+        }
+        facesContext.responseComplete();
+    }
+private static void close(Closeable resource) {
+        if (resource != null) {
+            try {
+                resource.close();
+            } catch (IOException e) {
+                // Do your thing with the exception. Print it, log it or mail it. It may be useful to
+                // know that this will generally only be thrown when the client aborted the download.
+                e.printStackTrace();
+            }
+        }
+    }
+    public String facturar(Compra c){
+
+        String super_cadena="";
+        try {
+            name_file = "FACTCFD0" + c.getId() ;
             facturafromDenegateImp faDenegateImp = new facturafromDenegateImp();
-            String error= faDenegateImp.connectedMysuitFactor(ruta_cdi + name_file);
+            String error= faDenegateImp.connectedMysuitFactor(ruta_cdi + name_file+".xml");
             if(faDenegateImp.isResult()){
 
 
@@ -89,28 +182,35 @@ public class GenerarFacturaController implements Serializable {
                 UnmarshalPrueba unma=new UnmarshalPrueba();
                 Comprobante comprobante =unma.cargaArchivoComprobante(documento);
 
-                System.out.println("Certificado:"+comprobante.getCertificado());
-                System.out.println("Folio:"+comprobante.getFolio());
-                System.out.println("Serie:"+comprobante.getSerie());
-                System.out.println("No.Certificado:"+comprobante.getNoCertificado());
-                System.out.println("FECHA CERTIFICADO"+comprobante.getFecha());
+                
+                super_cadena+=("Folio:"+comprobante.getFolio())+"\n";
+                super_cadena+=("Serie:"+comprobante.getSerie())+"\n";
+                super_cadena+=("No.Certificado:"+comprobante.getNoCertificado())+"\n";
+                super_cadena+=("FECHA CERTIFICADO"+comprobante.getFecha())+"\n";
 
-                System.out.println("CALLE:"+comprobante.getReceptor().getDomicilio().getCalle());
-                System.out.println("NO.INTERNO:"+comprobante.getEmisor().getDomicilioFiscal().getNoInterior());
-                System.out.println("PAIS:"+comprobante.getEmisor().getDomicilioFiscal().getPais());
-                System.out.println("MUNICIPIO:"+comprobante.getEmisor().getDomicilioFiscal().getMunicipio());
-                System.out.println("NO.EXTERIOR:"+comprobante.getEmisor().getDomicilioFiscal().getNoExterior());
-                System.out.println("COLONIA:"+comprobante.getEmisor().getDomicilioFiscal().getColonia());
-                System.out.println("RFC:"+comprobante.getEmisor().getRfc());
+                super_cadena+=("CALLE:"+comprobante.getReceptor().getDomicilio().getCalle())+"\n";
+                super_cadena+=("NO.INTERNO:"+comprobante.getEmisor().getDomicilioFiscal().getNoInterior())+"\n";
+                super_cadena+=("PAIS:"+comprobante.getEmisor().getDomicilioFiscal().getPais())+"\n";
+                super_cadena+=("MUNICIPIO:"+comprobante.getEmisor().getDomicilioFiscal().getMunicipio())+"\n";
+                super_cadena+=("NO.EXTERIOR:"+comprobante.getEmisor().getDomicilioFiscal().getNoExterior())+"\n";
+                super_cadena+=("COLONIA:"+comprobante.getEmisor().getDomicilioFiscal().getColonia())+"\n";
+                super_cadena+=("RFC:"+comprobante.getEmisor().getRfc())+"\n";
 
                 JsfUtil.addSuccessMessage("factura creada Satisfactoriamente");
+                JsfUtil.addSuccessMessage(super_cadena);
+
+                System.out.println(faDenegateImp.getDirectorio()+faDenegateImp.getName()+".pdf");
+
+              download(faDenegateImp.getDirectorio(),faDenegateImp.getName()+".pdf", "application/pdf");
+
             }
             else
-              JsfUtil.addSuccessMessage(error);
+             JsfUtil.addSuccessMessage(error);
 
            
         } catch (Exception ex) {
             ex.printStackTrace();
+            ex.fillInStackTrace();
            JsfUtil.addErrorMessage("LO SENTIMOS HAY UN PROBLEMA DE COMUNICACION CON MYSUIT");
         }
         return "/compra/List";

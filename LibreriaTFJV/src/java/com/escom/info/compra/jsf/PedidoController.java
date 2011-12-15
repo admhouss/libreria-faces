@@ -267,15 +267,17 @@ public String actualizarTipoEnvio(Pedido p){
     public String updateConfig() {
         try {
             current=mycurrent;
-            PedidoPK pedido = current.getPedidoPK();
+            PedidoPK pedido = mycurrent.getPedidoPK();
             pedido.setIdArticulo(current.getArticulo().getId());
             pedido.setIdPedido(pedido.getIdPedido());
             current.setPedidoPK(pedido);
             current.setTipoEnvio(getTipoEnvio());
+            current.setArticulo(current.getArticulo());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("Pedido Actualizado Satisfactoriamente"));
             return "/compra/Create";
         } catch (Exception e) {
+            e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Pedido").getString("PersistenceErrorOccured"));
             return null;
         }

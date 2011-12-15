@@ -42,12 +42,23 @@ import sun.misc.BASE64Decoder;
 public class facturafromDenegateImp implements facturafromClient{
 
 
-    public static String keyStore="C:/mikeystore/";
-    public static String rutas_factura="C:/Users/xxx/Desktop/facturasPrueba/";///home/tribunal/Documentos/resultados/";
+    public static String keyStore= "/home/libreria/mykeystore";
+    //C:/mikeystore/";
+    public static String rutas_factura="/home/libreria/facturacion";//C:/Users/xxx/Desktop/facturasPrueba/";///home/tribunal/Documentos/resultados/";
     public String cadenaExito;
     private String folio,serie;
     private boolean result=false;
     private String ruta_final;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     public String getRuta_final() {
         return ruta_final;
@@ -94,6 +105,15 @@ public class facturafromDenegateImp implements facturafromClient{
         this.serie = serie;
     }
 
+private String directorio;
+
+    public String getDirectorio() {
+        return directorio;
+    }
+
+    public void setDirectorio(String directorio) {
+        this.directorio = directorio;
+    }
 
     public String connectedMysuitFactor(String dato1) throws java.lang.Exception {
        
@@ -128,11 +148,14 @@ public class facturafromDenegateImp implements facturafromClient{
                 folio=transaccion.getIdentifier().getSerial();
                 serie=transaccion.getIdentifier().getBatch();
                 serie=serie.trim();
-                String directorio=crearDirectory(serie);
+                name="TFJ"+serie+folio;
+                directorio=crearDirectory(serie);
+                ruta_final=directorio+name;
                 String fdato1 = response.getRequestTransactionResult().getResponseData().getResponseData1();
                 String fdato2 = response.getRequestTransactionResult().getResponseData().getResponseData2();
                 String fdato3 = response.getRequestTransactionResult().getResponseData().getResponseData3();
-                ruta_final=directorio+"TFJ"+serie+folio;
+
+               
                 escribir_factura_document(directorio,fdato1,"xml");
                 escribir_factura_document(directorio,fdato2,"html");
                 escribir_factura_document_Byte(directorio,fdato3);
