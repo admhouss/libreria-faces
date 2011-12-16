@@ -1,0 +1,3645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+  targetNamespace="http://www.fact.com.mx/schema/fx" xmlns="http://www.fact.com.mx/schema/fx"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="FactDocsMX">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="FactDocMX" type="TFactDocMX"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FactDocMX" type="TFactDocMX"/>
+  <xs:complexType name="TFactDocMX">
+    <xs:sequence>
+      <xs:element fixed="4" name="Version" type="xs:integer"/>
+      <xs:element name="Identificacion">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element fixed="MX" name="CdgPaisEmisor" type="TSenderCountryCode">
+              <xs:annotation>
+                <xs:documentation>Obligatorio MX</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="TipoDeComprobante" type="TTipoDeDocumento">
+              <xs:annotation>
+                <xs:documentation>Uno de los tipos comunes de comprobante, que se transfroman a ingreso, egreso o traslado. </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="RFCEmisor" type="TRFC"/>
+            <xs:element name="RazonSocialEmisor">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="Usuario">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="NumeroInterno">
+              <xs:annotation>
+                <xs:documentation>Puede informarse otro identificador no fiscal.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="AsignacionSolicitada">
+              <xs:annotation>
+                <xs:documentation>Solo cfdv3 (cfdi).</xs:documentation>
+                <xs:documentation>Si existe, el motor tratará realizar la asignación.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" name="Serie" type="TSerie"/>
+                  <xs:element name="Folio" type="TFolio"/>
+                  <xs:element minOccurs="0" name="TiempoDeEmision" type="xs:dateTime">
+                    <xs:annotation>
+                      <xs:documentation>Si no existe, el motor asignará Now()</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="CadenaOriginal">
+              <xs:annotation>
+                <xs:documentation>No emplear este elemento.</xs:documentation>
+                <xs:documentation>Será incluido automáticamente.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:minLength value="1"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Cancelaciones">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="100" name="CancelaYSustituye">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Numero" type="TCode"/>
+                  <xs:element minOccurs="0" name="Fecha" type="xs:date"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Asignacion" type="TAsignacion">
+        <xs:annotation>
+          <xs:documentation>No emplear este elemento.</xs:documentation>
+          <xs:documentation>Solo para algunas implementaciones in-house con cfdv2.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Origen">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Area">
+              <xs:annotation>
+                <xs:documentation>TWEB, FIA, SUN, etc.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:minLength value="1"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Modulo">
+              <xs:annotation>
+                <xs:documentation>DOMICILIADOS, SUBSECUENTES, etc.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:minLength value="1"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Procesamiento" type="TDictionaries"> </xs:element>
+      <xs:element name="Emisor">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="DomicilioFiscal" type="TDomicilioMexicano"/>
+            <xs:element minOccurs="0" name="DomicilioDeEmision" type="TDomicilioMexicano"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Receptor">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="CdgPaisReceptor" type="TCountryCode"/>
+            <xs:element name="RFCReceptor" type="TRFC"/>
+            <xs:element minOccurs="0" name="TaxID" type="TCadenaPermitida">
+              <xs:annotation>
+                <xs:documentation>Para no mexicanos.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="NombreReceptor">
+              <xs:annotation>
+                <xs:documentation>Si el emisor es mexicano, se entiende como Razón Social.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="Domicilio">
+              <xs:complexType>
+                <xs:choice>
+                  <xs:element name="DomicilioFiscalMexicano" type="TDomicilioMexicano"/>
+                  <xs:element name="OtroDomicilio" type="TDomicilio"/>
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="DomicilioDeRecepcion">
+              <xs:complexType>
+                <xs:choice>
+                  <xs:element name="DomicilioFiscalMexicano" type="TDomicilioMexicano"/>
+                  <xs:element name="OtroDomicilio" type="TDomicilio"/>
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Conceptos">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="Concepto">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Cantidad" type="TQuantity"/>
+                  <xs:element name="UnidadDeMedida">
+                    <xs:simpleType>
+                      <xs:restriction base="TCadenaPermitida">
+                        <xs:maxLength value="32"/>
+                        <xs:pattern value="[^|]*"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="Codigo">
+                    <xs:simpleType>
+                      <xs:restriction base="TCadenaPermitida">
+                        <xs:maxLength value="32"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Descripcion">
+                    <xs:simpleType>
+                      <xs:restriction base="TCadenaPermitida"> </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="ValorUnitario" type="TNonNegativeAmount"/>
+                  <xs:element name="Importe" type="TNonNegativeAmount"/>
+                  <xs:element minOccurs="0" name="Opciones">
+                    <xs:complexType>
+                      <xs:choice minOccurs="0">
+                        <xs:element minOccurs="0" name="DatosDeImportacion">
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element maxOccurs="12" name="InformacionAduanera"
+                                type="TInformacionAduanera"/>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:choice>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="ConceptoEx" type="TConceptoEx"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Totales">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Moneda" type="TCurrencyCode"/>
+            <xs:element name="TipoDeCambioVenta">
+              <xs:simpleType>
+                <xs:restriction base="TConvFactor"/>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" name="SubTotalBruto" type="TNonNegativeAmount"/>
+            <xs:element name="SubTotal" type="TNonNegativeAmount"/>
+            <xs:element minOccurs="0" name="DescuentosYRecargos" type="TDescuentosYRecargos"> </xs:element>
+            <xs:element minOccurs="1" name="ResumenDeDescuentosYRecargos"
+              type="TResumenDeDescuentosYRecargos"/>
+            <xs:element minOccurs="0" name="Impuestos" type="TImpuestos"> </xs:element>
+            <xs:element minOccurs="1" name="ResumenDeImpuestos" type="TResumenDeImpuestos"/>
+            <xs:element name="Total" type="TNonNegativeAmount"/>
+            <xs:element name="TotalEnLetra">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="FormaDePago">
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:pattern
+                    value="PAGO EN UNA SOLA EXHIBICION|PARCIALIDAD\s[1-9]{1}[0-9]{0,3}\sDE\s[1-9]{1}[0-9]{0,3}"
+                  />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="ResumenAduanero" type="xs:token"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Complementos">
+        <xs:complexType>
+          <xs:all>
+            <xs:element minOccurs="0" name="Divisas" type="TComplementoDivisas"/>
+            <xs:element minOccurs="0" name="Donatarias">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="NumeroDeAutorizacion">
+                    <xs:simpleType>
+                      <xs:restriction base="TCadenaPermitida">
+                        <xs:maxLength value="20"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="FechaDeAutorizacion" type="TAllowedDate"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="ComprobanteEx" type="TComprobanteEx"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TEmbalaje">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cantidad" type="xs:positiveInteger"/>
+      <xs:element name="Tipo">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="EXCHANGE_PALLETS"/>
+            <xs:enumeration value="RETURN_PALLETS"/>
+            <xs:enumeration value="PALLET_80x100"/>
+            <xs:enumeration value="CASE"/>
+            <xs:enumeration value="BOX"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Descripcion" type="xs:token"/>
+      <xs:element name="PagoDeTransporte">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="PREPAID_BY_SELLER"/>
+            <xs:enumeration value="PAID_BY_BUYER"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="UnidadDeEmpaque">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="128"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TAllowedDate">
+    <xs:annotation>
+      <xs:documentation>A partir de 1900.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1900-01-01"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TAllowedDateTime">
+    <xs:annotation>
+      <xs:documentation>A partir de 1900.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:dateTime">
+      <xs:minInclusive value="1900-01-01T00:00:00"/>
+      <xs:maxInclusive value="9999-12-31T23:59:59"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TBase64">
+    <xs:annotation>
+      <xs:documentation>Solo carácteres permitidos en la codificación base64.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:pattern value="[A-Za-z0-9+/=]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TCode">
+    <xs:annotation>
+      <xs:documentation>Código alfanumérico de uso general. [A-Z0-9]{1,32}.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:maxLength value="64"/>
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TCommercialRelationship">
+    <xs:annotation>
+      <xs:documentation>Proveedor o contratista.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="PROVIDER"/>
+      <xs:enumeration value="SUPPLIER"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TConvFactor">
+    <xs:annotation>
+      <xs:documentation>Tipo de cambio de venta, dos a seis decimales, mayor que cero, para llegar a moneda nacional por multiplicación.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:minExclusive value="0.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TCountryCode">
+    <xs:annotation>
+      <xs:documentation>ISO 3166-1 alpha-2</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="AD"/>
+      <xs:enumeration value="AE"/>
+      <xs:enumeration value="AF"/>
+      <xs:enumeration value="AG"/>
+      <xs:enumeration value="AI"/>
+      <xs:enumeration value="AL"/>
+      <xs:enumeration value="AM"/>
+      <xs:enumeration value="AN"/>
+      <xs:enumeration value="AO"/>
+      <xs:enumeration value="AQ"/>
+      <xs:enumeration value="AR"/>
+      <xs:enumeration value="AS"/>
+      <xs:enumeration value="AT"/>
+      <xs:enumeration value="AU"/>
+      <xs:enumeration value="AW"/>
+      <xs:enumeration value="AX"/>
+      <xs:enumeration value="AZ"/>
+      <xs:enumeration value="BA"/>
+      <xs:enumeration value="BB"/>
+      <xs:enumeration value="BD"/>
+      <xs:enumeration value="BE"/>
+      <xs:enumeration value="BF"/>
+      <xs:enumeration value="BG"/>
+      <xs:enumeration value="BH"/>
+      <xs:enumeration value="BI"/>
+      <xs:enumeration value="BJ"/>
+      <xs:enumeration value="BL"/>
+      <xs:enumeration value="BM"/>
+      <xs:enumeration value="BN"/>
+      <xs:enumeration value="BO"/>
+      <xs:enumeration value="BR"/>
+      <xs:enumeration value="BS"/>
+      <xs:enumeration value="BT"/>
+      <xs:enumeration value="BV"/>
+      <xs:enumeration value="BW"/>
+      <xs:enumeration value="BY"/>
+      <xs:enumeration value="BZ"/>
+      <xs:enumeration value="CA"/>
+      <xs:enumeration value="CC"/>
+      <xs:enumeration value="CD"/>
+      <xs:enumeration value="CF"/>
+      <xs:enumeration value="CG"/>
+      <xs:enumeration value="CH"/>
+      <xs:enumeration value="CI"/>
+      <xs:enumeration value="CK"/>
+      <xs:enumeration value="CL"/>
+      <xs:enumeration value="CM"/>
+      <xs:enumeration value="CN"/>
+      <xs:enumeration value="CO"/>
+      <xs:enumeration value="CR"/>
+      <xs:enumeration value="CU"/>
+      <xs:enumeration value="CV"/>
+      <xs:enumeration value="CX"/>
+      <xs:enumeration value="CY"/>
+      <xs:enumeration value="CZ"/>
+      <xs:enumeration value="DE"/>
+      <xs:enumeration value="DJ"/>
+      <xs:enumeration value="DK"/>
+      <xs:enumeration value="DM"/>
+      <xs:enumeration value="DO"/>
+      <xs:enumeration value="DZ"/>
+      <xs:enumeration value="EC"/>
+      <xs:enumeration value="EE"/>
+      <xs:enumeration value="EG"/>
+      <xs:enumeration value="EH"/>
+      <xs:enumeration value="ER"/>
+      <xs:enumeration value="ES"/>
+      <xs:enumeration value="ET"/>
+      <xs:enumeration value="FI"/>
+      <xs:enumeration value="FJ"/>
+      <xs:enumeration value="FK"/>
+      <xs:enumeration value="FM"/>
+      <xs:enumeration value="FO"/>
+      <xs:enumeration value="FR"/>
+      <xs:enumeration value="GA"/>
+      <xs:enumeration value="GB"/>
+      <xs:enumeration value="GD"/>
+      <xs:enumeration value="GE"/>
+      <xs:enumeration value="GF"/>
+      <xs:enumeration value="GG"/>
+      <xs:enumeration value="GH"/>
+      <xs:enumeration value="GI"/>
+      <xs:enumeration value="GL"/>
+      <xs:enumeration value="GM"/>
+      <xs:enumeration value="GN"/>
+      <xs:enumeration value="GP"/>
+      <xs:enumeration value="GQ"/>
+      <xs:enumeration value="GR"/>
+      <xs:enumeration value="GS"/>
+      <xs:enumeration value="GT"/>
+      <xs:enumeration value="GU"/>
+      <xs:enumeration value="GW"/>
+      <xs:enumeration value="GY"/>
+      <xs:enumeration value="HK"/>
+      <xs:enumeration value="HM"/>
+      <xs:enumeration value="HN"/>
+      <xs:enumeration value="HR"/>
+      <xs:enumeration value="HT"/>
+      <xs:enumeration value="HU"/>
+      <xs:enumeration value="ID"/>
+      <xs:enumeration value="IE"/>
+      <xs:enumeration value="IL"/>
+      <xs:enumeration value="IM"/>
+      <xs:enumeration value="IN"/>
+      <xs:enumeration value="IO"/>
+      <xs:enumeration value="IQ"/>
+      <xs:enumeration value="IR"/>
+      <xs:enumeration value="IS"/>
+      <xs:enumeration value="IT"/>
+      <xs:enumeration value="JE"/>
+      <xs:enumeration value="JM"/>
+      <xs:enumeration value="JO"/>
+      <xs:enumeration value="JP"/>
+      <xs:enumeration value="KE"/>
+      <xs:enumeration value="KG"/>
+      <xs:enumeration value="KH"/>
+      <xs:enumeration value="KI"/>
+      <xs:enumeration value="KM"/>
+      <xs:enumeration value="KN"/>
+      <xs:enumeration value="KP"/>
+      <xs:enumeration value="KR"/>
+      <xs:enumeration value="KW"/>
+      <xs:enumeration value="KY"/>
+      <xs:enumeration value="KZ"/>
+      <xs:enumeration value="LA"/>
+      <xs:enumeration value="LB"/>
+      <xs:enumeration value="LC"/>
+      <xs:enumeration value="LI"/>
+      <xs:enumeration value="LK"/>
+      <xs:enumeration value="LR"/>
+      <xs:enumeration value="LS"/>
+      <xs:enumeration value="LT"/>
+      <xs:enumeration value="LU"/>
+      <xs:enumeration value="LV"/>
+      <xs:enumeration value="LY"/>
+      <xs:enumeration value="MA"/>
+      <xs:enumeration value="MC"/>
+      <xs:enumeration value="MD"/>
+      <xs:enumeration value="ME"/>
+      <xs:enumeration value="MF"/>
+      <xs:enumeration value="MG"/>
+      <xs:enumeration value="MH"/>
+      <xs:enumeration value="MK"/>
+      <xs:enumeration value="ML"/>
+      <xs:enumeration value="MM"/>
+      <xs:enumeration value="MN"/>
+      <xs:enumeration value="MO"/>
+      <xs:enumeration value="MP"/>
+      <xs:enumeration value="MQ"/>
+      <xs:enumeration value="MR"/>
+      <xs:enumeration value="MS"/>
+      <xs:enumeration value="MT"/>
+      <xs:enumeration value="MU"/>
+      <xs:enumeration value="MV"/>
+      <xs:enumeration value="MW"/>
+      <xs:enumeration value="MX"/>
+      <xs:enumeration value="MY"/>
+      <xs:enumeration value="MZ"/>
+      <xs:enumeration value="NA"/>
+      <xs:enumeration value="NC"/>
+      <xs:enumeration value="NE"/>
+      <xs:enumeration value="NF"/>
+      <xs:enumeration value="NG"/>
+      <xs:enumeration value="NI"/>
+      <xs:enumeration value="NL"/>
+      <xs:enumeration value="NO"/>
+      <xs:enumeration value="NP"/>
+      <xs:enumeration value="NR"/>
+      <xs:enumeration value="NU"/>
+      <xs:enumeration value="NZ"/>
+      <xs:enumeration value="OM"/>
+      <xs:enumeration value="PA"/>
+      <xs:enumeration value="PE"/>
+      <xs:enumeration value="PF"/>
+      <xs:enumeration value="PG"/>
+      <xs:enumeration value="PH"/>
+      <xs:enumeration value="PK"/>
+      <xs:enumeration value="PL"/>
+      <xs:enumeration value="PM"/>
+      <xs:enumeration value="PN"/>
+      <xs:enumeration value="PR"/>
+      <xs:enumeration value="PS"/>
+      <xs:enumeration value="PT"/>
+      <xs:enumeration value="PW"/>
+      <xs:enumeration value="PY"/>
+      <xs:enumeration value="QA"/>
+      <xs:enumeration value="RE"/>
+      <xs:enumeration value="RO"/>
+      <xs:enumeration value="RS"/>
+      <xs:enumeration value="RU"/>
+      <xs:enumeration value="RW"/>
+      <xs:enumeration value="SA"/>
+      <xs:enumeration value="SB"/>
+      <xs:enumeration value="SC"/>
+      <xs:enumeration value="SD"/>
+      <xs:enumeration value="SE"/>
+      <xs:enumeration value="SG"/>
+      <xs:enumeration value="SH"/>
+      <xs:enumeration value="SI"/>
+      <xs:enumeration value="SJ"/>
+      <xs:enumeration value="SK"/>
+      <xs:enumeration value="SL"/>
+      <xs:enumeration value="SM"/>
+      <xs:enumeration value="SN"/>
+      <xs:enumeration value="SO"/>
+      <xs:enumeration value="SR"/>
+      <xs:enumeration value="ST"/>
+      <xs:enumeration value="SV"/>
+      <xs:enumeration value="SY"/>
+      <xs:enumeration value="SZ"/>
+      <xs:enumeration value="TC"/>
+      <xs:enumeration value="TD"/>
+      <xs:enumeration value="TF"/>
+      <xs:enumeration value="TG"/>
+      <xs:enumeration value="TH"/>
+      <xs:enumeration value="TJ"/>
+      <xs:enumeration value="TK"/>
+      <xs:enumeration value="TL"/>
+      <xs:enumeration value="TM"/>
+      <xs:enumeration value="TN"/>
+      <xs:enumeration value="TO"/>
+      <xs:enumeration value="TR"/>
+      <xs:enumeration value="TT"/>
+      <xs:enumeration value="TV"/>
+      <xs:enumeration value="TW"/>
+      <xs:enumeration value="TZ"/>
+      <xs:enumeration value="UA"/>
+      <xs:enumeration value="UG"/>
+      <xs:enumeration value="UM"/>
+      <xs:enumeration value="US"/>
+      <xs:enumeration value="UY"/>
+      <xs:enumeration value="UZ"/>
+      <xs:enumeration value="VA"/>
+      <xs:enumeration value="VC"/>
+      <xs:enumeration value="VE"/>
+      <xs:enumeration value="VG"/>
+      <xs:enumeration value="VI"/>
+      <xs:enumeration value="VN"/>
+      <xs:enumeration value="VU"/>
+      <xs:enumeration value="WF"/>
+      <xs:enumeration value="WS"/>
+      <xs:enumeration value="YE"/>
+      <xs:enumeration value="YT"/>
+      <xs:enumeration value="ZA"/>
+      <xs:enumeration value="ZM"/>
+      <xs:enumeration value="ZW"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TCurrencyCode">
+    <xs:annotation>
+      <xs:documentation>ISO 4217.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:length value="3"/>
+      <xs:enumeration value="AED"/>
+      <xs:enumeration value="AFN"/>
+      <xs:enumeration value="ALL"/>
+      <xs:enumeration value="AMD"/>
+      <xs:enumeration value="ANG"/>
+      <xs:enumeration value="AOA"/>
+      <xs:enumeration value="ARS"/>
+      <xs:enumeration value="AUD"/>
+      <xs:enumeration value="AWG"/>
+      <xs:enumeration value="AZN"/>
+      <xs:enumeration value="BAM"/>
+      <xs:enumeration value="BBD"/>
+      <xs:enumeration value="BDT"/>
+      <xs:enumeration value="BGN"/>
+      <xs:enumeration value="BHD"/>
+      <xs:enumeration value="BIF"/>
+      <xs:enumeration value="BMD"/>
+      <xs:enumeration value="BND"/>
+      <xs:enumeration value="BOB"/>
+      <xs:enumeration value="BOV"/>
+      <xs:enumeration value="BRL"/>
+      <xs:enumeration value="BSD"/>
+      <xs:enumeration value="BTN"/>
+      <xs:enumeration value="BWP"/>
+      <xs:enumeration value="BYR"/>
+      <xs:enumeration value="BZD"/>
+      <xs:enumeration value="CAD"/>
+      <xs:enumeration value="CDF"/>
+      <xs:enumeration value="CHE"/>
+      <xs:enumeration value="CHF"/>
+      <xs:enumeration value="CHW"/>
+      <xs:enumeration value="CLF"/>
+      <xs:enumeration value="CLP"/>
+      <xs:enumeration value="CNY"/>
+      <xs:enumeration value="COP"/>
+      <xs:enumeration value="COU"/>
+      <xs:enumeration value="CRC"/>
+      <xs:enumeration value="CUP"/>
+      <xs:enumeration value="CVE"/>
+      <xs:enumeration value="CZK"/>
+      <xs:enumeration value="DJF"/>
+      <xs:enumeration value="DKK"/>
+      <xs:enumeration value="DOP"/>
+      <xs:enumeration value="DZD"/>
+      <xs:enumeration value="EEK"/>
+      <xs:enumeration value="EGP"/>
+      <xs:enumeration value="ERN"/>
+      <xs:enumeration value="ETB"/>
+      <xs:enumeration value="EUR"/>
+      <xs:enumeration value="FJD"/>
+      <xs:enumeration value="FKP"/>
+      <xs:enumeration value="GBP"/>
+      <xs:enumeration value="GEL"/>
+      <xs:enumeration value="GHS"/>
+      <xs:enumeration value="GIP"/>
+      <xs:enumeration value="GMD"/>
+      <xs:enumeration value="GNF"/>
+      <xs:enumeration value="GTQ"/>
+      <xs:enumeration value="GYD"/>
+      <xs:enumeration value="HKD"/>
+      <xs:enumeration value="HNL"/>
+      <xs:enumeration value="HRK"/>
+      <xs:enumeration value="HTG"/>
+      <xs:enumeration value="HUF"/>
+      <xs:enumeration value="IDR"/>
+      <xs:enumeration value="ILS"/>
+      <xs:enumeration value="INR"/>
+      <xs:enumeration value="IQD"/>
+      <xs:enumeration value="IRR"/>
+      <xs:enumeration value="ISK"/>
+      <xs:enumeration value="JMD"/>
+      <xs:enumeration value="JOD"/>
+      <xs:enumeration value="JPY"/>
+      <xs:enumeration value="KES"/>
+      <xs:enumeration value="KGS"/>
+      <xs:enumeration value="KHR"/>
+      <xs:enumeration value="KMF"/>
+      <xs:enumeration value="KPW"/>
+      <xs:enumeration value="KRW"/>
+      <xs:enumeration value="KWD"/>
+      <xs:enumeration value="KYD"/>
+      <xs:enumeration value="KZT"/>
+      <xs:enumeration value="LAK"/>
+      <xs:enumeration value="LBP"/>
+      <xs:enumeration value="LKR"/>
+      <xs:enumeration value="LRD"/>
+      <xs:enumeration value="LSL"/>
+      <xs:enumeration value="LTL"/>
+      <xs:enumeration value="LVL"/>
+      <xs:enumeration value="LYD"/>
+      <xs:enumeration value="MAD"/>
+      <xs:enumeration value="MDL"/>
+      <xs:enumeration value="MGA"/>
+      <xs:enumeration value="MKD"/>
+      <xs:enumeration value="MMK"/>
+      <xs:enumeration value="MNT"/>
+      <xs:enumeration value="MOP"/>
+      <xs:enumeration value="MRO"/>
+      <xs:enumeration value="MUR"/>
+      <xs:enumeration value="MVR"/>
+      <xs:enumeration value="MWK"/>
+      <xs:enumeration value="MXN"/>
+      <xs:enumeration value="MXV"/>
+      <xs:enumeration value="MYR"/>
+      <xs:enumeration value="MZN"/>
+      <xs:enumeration value="NAD"/>
+      <xs:enumeration value="NGN"/>
+      <xs:enumeration value="NIO"/>
+      <xs:enumeration value="NOK"/>
+      <xs:enumeration value="NPR"/>
+      <xs:enumeration value="NZD"/>
+      <xs:enumeration value="OMR"/>
+      <xs:enumeration value="PAB"/>
+      <xs:enumeration value="PEN"/>
+      <xs:enumeration value="PGK"/>
+      <xs:enumeration value="PHP"/>
+      <xs:enumeration value="PKR"/>
+      <xs:enumeration value="PLN"/>
+      <xs:enumeration value="PYG"/>
+      <xs:enumeration value="QAR"/>
+      <xs:enumeration value="RON"/>
+      <xs:enumeration value="RSD"/>
+      <xs:enumeration value="RUB"/>
+      <xs:enumeration value="RWF"/>
+      <xs:enumeration value="SAR"/>
+      <xs:enumeration value="SBD"/>
+      <xs:enumeration value="SCR"/>
+      <xs:enumeration value="SDG"/>
+      <xs:enumeration value="SEK"/>
+      <xs:enumeration value="SGD"/>
+      <xs:enumeration value="SHP"/>
+      <xs:enumeration value="SLL"/>
+      <xs:enumeration value="SOS"/>
+      <xs:enumeration value="SRD"/>
+      <xs:enumeration value="STD"/>
+      <xs:enumeration value="SYP"/>
+      <xs:enumeration value="SZL"/>
+      <xs:enumeration value="THB"/>
+      <xs:enumeration value="TJS"/>
+      <xs:enumeration value="TMT"/>
+      <xs:enumeration value="TND"/>
+      <xs:enumeration value="TOP"/>
+      <xs:enumeration value="TRY"/>
+      <xs:enumeration value="TTD"/>
+      <xs:enumeration value="TWD"/>
+      <xs:enumeration value="TZS"/>
+      <xs:enumeration value="UAH"/>
+      <xs:enumeration value="UGX"/>
+      <xs:enumeration value="USD"/>
+      <xs:enumeration value="USN"/>
+      <xs:enumeration value="USS"/>
+      <xs:enumeration value="UYU"/>
+      <xs:enumeration value="UZS"/>
+      <xs:enumeration value="VEF"/>
+      <xs:enumeration value="VND"/>
+      <xs:enumeration value="VUV"/>
+      <xs:enumeration value="WST"/>
+      <xs:enumeration value="XAF"/>
+      <xs:enumeration value="XAG"/>
+      <xs:enumeration value="XAU"/>
+      <xs:enumeration value="XBA"/>
+      <xs:enumeration value="XBB"/>
+      <xs:enumeration value="XBC"/>
+      <xs:enumeration value="XBD"/>
+      <xs:enumeration value="XCD"/>
+      <xs:enumeration value="XDR"/>
+      <xs:enumeration value="XFU"/>
+      <xs:enumeration value="XOF"/>
+      <xs:enumeration value="XPD"/>
+      <xs:enumeration value="XPF"/>
+      <xs:enumeration value="XPT"/>
+      <xs:enumeration value="XTS"/>
+      <xs:enumeration value="XXX"/>
+      <xs:enumeration value="YER"/>
+      <xs:enumeration value="ZAR"/>
+      <xs:enumeration value="ZMK"/>
+      <xs:enumeration value="ZWR"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TDigitsOnly">
+    <xs:annotation>
+      <xs:documentation>1 a 32 dígitos. [0-9]{1,32}</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[0-9]{1,32}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TEAN13">
+    <xs:annotation>
+      <xs:documentation>Código EAN de 13 dígitos (o código GLN).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[0-9]{13}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TGuid">
+    <xs:restriction base="xs:token">
+      <xs:minLength value="36"/>
+      <xs:maxLength value="36"/>
+      <xs:pattern
+        value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TNonNegativeAmountBase">
+    <xs:annotation>
+      <xs:documentation>Monto no negativo de 20 posiciones con u máximo de 2 decimales.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+      <xs:fractionDigits value="6"/>
+      <xs:totalDigits value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TNonNegativePercentage">
+    <xs:annotation>
+      <xs:documentation>Porcentaje no negativo. Diez porciento se expresa como 10 y no como 0.1</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="6"/>
+      <xs:minInclusive value="0"/>
+      <xs:totalDigits value="12"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TTargetProcessor">
+    <xs:annotation>
+      <xs:documentation>MYSUITE</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="MYSUITE"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TQuantity">
+    <xs:annotation>
+      <xs:documentation>Cantidad de 20 posiciones sin límite de decimales.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="20"/>
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TSenderCountryCode">
+    <xs:annotation>
+      <xs:documentation>ISO 3166-1 alpha-2 (solo se listan los implementados).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="MX"/>
+      <xs:enumeration value="GT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TYear">
+    <xs:annotation>
+      <xs:documentation>Año 4 digitos a partir de 1900.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1900"/>
+      <xs:totalDigits value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TWeight">
+    <xs:sequence>
+      <xs:element name="Unit" type="TCode"/>
+      <xs:element minOccurs="0" name="NetWeight" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="0" name="TareWeight" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="0" name="GrossWeight" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TVolume">
+    <xs:annotation>
+      <xs:documentation>Especificación de volúmen sin forzar la unidad.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Unit" type="TCode"/>
+      <xs:element name="Volume" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TEmailInstruction">
+    <xs:annotation>
+      <xs:documentation>Corresponde a Response de TransactionTag.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="To" type="TEmail"/>
+      <xs:element maxOccurs="10" minOccurs="0" name="Cc" type="TEmail"/>
+      <xs:element maxOccurs="10" minOccurs="0" name="Bcc" type="TEmail"/>
+      <xs:element maxOccurs="6" minOccurs="0" name="Att" type="xs:token"/>
+      <xs:element minOccurs="0" name="SMTPServer">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:maxLength value="254"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TSubCantidad">
+    <xs:sequence>
+      <xs:element name="Unidad">
+        <xs:simpleType>
+          <xs:restriction base="TCode">
+            <xs:pattern value="[^|]*"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Cantitad" type="TQuantity"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TFromTo">
+    <xs:sequence>
+      <xs:element name="Desde" type="TAllowedDateTime"/>
+      <xs:element name="Hasta" type="TAllowedDateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TEmailInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="From" type="xs:token"/>
+      <xs:element minOccurs="0" name="ReplyTo" type="xs:token"/>
+      <xs:element name="To" type="xs:token"/>
+      <xs:element minOccurs="0" name="Cc" type="xs:token"/>
+      <xs:element minOccurs="0" name="Bcc" type="xs:token"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TEmail">
+    <xs:restriction base="xs:token"/>
+  </xs:simpleType>
+  <xs:complexType name="TTax">
+    <xs:sequence>
+      <xs:element name="Contexto" type="TTaxContext"/>
+      <xs:element name="Operacion" type="TTaxOperation"/>
+      <xs:element name="Codigo" type="TCadenaPermitida">
+        <xs:annotation>
+          <xs:documentation>IVA (traslado y retención)</xs:documentation>
+          <xs:documentation>IEPS</xs:documentation>
+          <xs:documentation>ISR (traslado)</xs:documentation>
+          <xs:documentation>Impuestos locales: libre</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" name="Base" type="TNonNegativeAmount"/>
+      <xs:element name="Tasa" type="TNonNegativePercentage"/>
+      <xs:element name="Monto" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TTaxTotal">
+    <xs:sequence>
+      <xs:element name="Contexto" type="TTaxContext"/>
+      <xs:element name="Operacion" type="TTaxOperation"/>
+      <xs:element minOccurs="0" name="Codigo" type="xs:token"> </xs:element>
+      <xs:element name="Monto" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TTaxContext">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FEDERAL"/>
+      <xs:enumeration value="LOCAL"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TTaxOperation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RETENCION"/>
+      <xs:enumeration value="TRASLADO"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TDiscountOrRecharge">
+    <xs:sequence>
+      <xs:element name="Operacion" type="TAllowanceChargeType">
+        <xs:annotation>
+          <xs:documentation>allowanceChargeType</xs:documentation>
+          <xs:documentation>DESCUENTO</xs:documentation>
+          <xs:documentation>RECARGO</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" name="Imputacion" type="TSettlementType">
+        <xs:annotation>
+          <xs:documentation>settlementType</xs:documentation>
+          <xs:documentation>Imputación.</xs:documentation>
+          <xs:documentation>FUERA_DE_FACTURA = OFF_INVOICE</xs:documentation>
+          <xs:documentation>Para algunas addendas se convierte a BILL_BACK (reclamación).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="Servicio" type="TSpecialServicesType">
+        <xs:annotation>
+          <xs:documentation>specialServicesType</xs:documentation>
+          <xs:documentation>Ver enumeration</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Descripcion" type="xs:token"> </xs:element>
+      <xs:element name="Base" type="TNonNegativeAmount"/>
+      <xs:element name="Tasa" type="TNonNegativePercentage"/>
+      <xs:element name="Monto" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TAllowanceChargeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DESCUENTO"/>
+      <xs:enumeration value="RECARGO"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TAsignacion">
+    <xs:sequence>
+      <xs:element name="AnoDeAprobacion">
+        <xs:simpleType>
+          <xs:restriction base="xs:positiveInteger">
+            <xs:minInclusive value="2004"/>
+            <xs:maxInclusive value="9999"/>
+            <xs:fractionDigits value="0"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="NumeroDeAprobacion" type="xs:positiveInteger"/>
+      <xs:element minOccurs="0" name="Serie" type="TSerie"/>
+      <xs:element name="Folio" type="TFolio"> </xs:element>
+      <xs:element name="TiempoDeEmision">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime">
+            <xs:minInclusive value="2004-01-01T00:00:00"/>
+            <xs:maxInclusive value="9000-01-01T00:00:00"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="TiempoDeAutorizacion">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime">
+            <xs:minInclusive value="2004-01-01T00:00:00"/>
+            <xs:maxInclusive value="9000-01-01T00:00:00"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TCadenaPermitida">
+    <xs:annotation>
+      <xs:documentation>Solo deja pasar carácteres permitidos por el SAT.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="preserve"/>
+      <xs:minLength value="1"/>
+      <xs:pattern value="[^|]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TCadenaEstricta">
+    <xs:annotation>
+      <xs:documentation>Solo deja pasar carácteres permitidos por el SAT y por el EDI.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="preserve"/>
+      <xs:minLength value="1"/>
+      <xs:pattern value="[^||^&quot;|^&lt;|^>|^&amp;|^;|^'|^+|^:|^-]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TCodigoPostal">
+    <xs:annotation>
+      <xs:documentation>Codigo postal mexicano: exactamente cinco dígitos.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[0-9]{5}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TDescuentoPPP">
+    <xs:annotation>
+      <xs:documentation>Descuento por pronto pago.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PagoHasta" type="TAllowedDate"/>
+      <xs:element minOccurs="0" name="TasaDescuento" type="TNonNegativePercentage"/>
+      <xs:element minOccurs="0" name="ImporteDescuento" type="TNonNegativeAmount"/>
+      <xs:element name="ImporteAPagar" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TDocumentoReferenciado">
+    <xs:annotation>
+      <xs:documentation>Para identificar los documentos a los que hace referencia el Comprobante.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Tipo">
+        <xs:annotation>
+          <xs:documentation>factura, nota de crédito, o cualquer otro tipo o código de documento que sea requerido.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Numero" type="TCode"/>
+      <xs:element minOccurs="0" name="Fecha" type="TAllowedDate"/>
+      <xs:element minOccurs="0" name="ImporteTotal" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="0" name="Razon">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TDocumentosReferenciados"/>
+  <xs:complexType name="TDomicilio">
+    <xs:annotation>
+      <xs:documentation>Otro domicilio, nacional o extranjero.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Calle">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="NumeroExterior">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="NumeroInterior">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Localidad">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Referencia">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Colonia">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Municipio">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Estado">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" name="Pais">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="CodigoPostal">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TDomicilioComercial">
+    <xs:annotation>
+      <xs:documentation>Otro domicilio, nacional o extranjero.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Nombre">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Codigo" type="TCode">
+        <xs:annotation>
+          <xs:documentation>Ejemplo Soriana: 16 568 CEDIS LA PAZ: Nombre=CEDIS LA PAZ Codigo=568 Codigo2=16</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Codigo2" type="TCode">
+        <xs:annotation>
+          <xs:documentation>Ejemplo Soriana: 16 568 CEDIS LA PAZ: Nombre=CEDIS LA PAZ Codigo=568 Codigo2=16</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="GLNPrincipal" type="TEAN13"/>
+      <xs:element minOccurs="0" name="GLN" type="TEAN13"/>
+      <xs:element minOccurs="0" name="Domicilio" type="TDomicilio"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TDomicilioMexicano">
+    <xs:annotation>
+      <xs:documentation>Domicilio fiscal mexicano.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Calle">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="NumeroExterior">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="NumeroInterior">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Localidad">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Referencia">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Colonia">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Municipio">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Estado">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Pais">
+        <xs:simpleType>
+          <xs:restriction base="TMexico">
+            <xs:pattern value="[Mm][EeÉé][XxJj][Ii][Cc][Oo]|[Mm][Xx]|[Mm][Ee][Xx]"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="CodigoPostal" type="TCodigoPostal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TComplementoDivisas">
+    <xs:annotation>
+      <xs:documentation>Complemento Divisas.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TipoDeOperacion">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="compra"/>
+            <xs:enumeration value="venta"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TComplementoPrestadores">
+    <xs:annotation>
+      <xs:documentation>Complemento Prestadores Autorizados de servicios de CFD.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RFCPrestador" type="TRFC"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TComprobanteEx">
+    <xs:annotation>
+      <xs:documentation>Datos adicionales a nivel Comprobante que sirven para formar las addendas.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DatosDeNegocio">
+        <xs:annotation>
+          <xs:documentation>Del emisor.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Division">
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="128"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="LineaDeNegocio">
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="128"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Region">
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="128"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Sucursal">
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="128"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Ejecutivo">
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="128"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="ElaboradoPor">
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="128"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Vendedor">
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="128"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="DatosDeIntercambio">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="SenderId" type="xs:token"/>
+            <xs:element name="ReceiverId" type="xs:token"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="DatosComerciales">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="RelacionComercial" type="TRelacionComercial"/>
+            <xs:element minOccurs="0" name="NumeroDeProveedor" type="TCode"/>
+            <xs:element minOccurs="0" name="SubAddenda1" type="TCode"/>
+            <xs:element minOccurs="0" name="SubAddenda2" type="TCode"/>
+            <xs:element minOccurs="0" name="OrdenDeCompra" type="TReferenciaCorta"/>
+            <xs:element minOccurs="0" name="Contrarrecibo" type="TReferenciaCorta"/>
+            <xs:element minOccurs="0" name="NumeroDeDepartamento" type="TCode"/>
+            <xs:element minOccurs="0" name="NumeroDeCliente" type="TCode"/>
+            <xs:element minOccurs="0" name="OrdenDeVenta" type="TReferenciaCorta">
+              <xs:annotation>
+                <xs:documentation>Pedido.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Contrato" type="TReferenciaCorta"> </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="TerminosDePago">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="DiasDePago">
+              <xs:simpleType>
+                <xs:restriction base="xs:nonNegativeInteger">
+                  <xs:maxInclusive value="360"/>
+                  <xs:minInclusive value="0"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="FechaDeVencimiento" type="TAllowedDate"/>
+            <xs:element minOccurs="0" name="CodigoDeTerminoDePago" type="TCode">
+              <xs:annotation>
+                <xs:documentation>1 = BASIC_NET, y está bien para todas las addendas.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="MetodoDePago">
+              <xs:annotation>
+                <xs:documentation>CHEQUE, EFECTIVO, TRANSFERENCIA, est., pero es texto libre.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="64"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="MedioDePago">
+              <xs:annotation>
+                <xs:documentation>texto libre.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="64"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="CondicionesDePago">
+              <xs:annotation>
+                <xs:documentation>PREVIA ENTREGA DE MERCANCIA, SOLO TRANSFERENCIA, etc., pero es texto libre.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="64"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="PeriodoFacturado" type="TFromTo"/>
+            <xs:element minOccurs="0" name="PeriodoDeLiquidacion" type="TFromTo"/>
+            <xs:element minOccurs="0" name="FechaDePago" type="TAllowedDate"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="DescuentosPorProntoPago">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="6" name="Descuento" type="TDescuentoPPP"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="DatosDeEmbarque">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="LugarDeExpedicion" type="TDomicilioComercial"/>
+            <xs:element minOccurs="0" name="LugarDeEntrega" type="TDomicilioComercial"/>
+            <xs:element minOccurs="0" name="FechaDeEmbarque" type="TAllowedDate"/>
+            <xs:element minOccurs="0" name="MetodoDeEmbarque">
+              <xs:annotation>
+                <xs:documentation>Terrestre, marítimo, aéreo, etc.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="NumeroDeEmbarque">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="64"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="NumeroInternoDeEmbarque">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="64"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Entrada" type="TReferenciaCorta"/>
+            <xs:element minOccurs="0" name="Remision" type="TReferenciaCorta"/>
+            <xs:element minOccurs="0" name="Cita" type="TCode"/>
+            <xs:element minOccurs="0" name="FechaDeEntrega" type="TAllowedDate"/>
+            <xs:element minOccurs="0" name="TransporteACargoDe">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="VENDEDOR"/>
+                  <xs:enumeration value="COMPRADOR"/>
+                  <xs:enumeration value="TERCERO"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Transportista">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="NumeroDeTransporte">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="64"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Origen">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="64"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Destino">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="64"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="INCOTERMS">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="DatosAdicionalesDeEmisor" type="TDatosAdicionales"> </xs:element>
+      <xs:element minOccurs="0" name="DatosAdicionalesDeReceptor" type="TDatosAdicionales"> </xs:element>
+      <xs:element minOccurs="0" name="ReferenciasBancarias">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="ReferenciaBancaria" type="TReferenciaBancaria"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="DocumentosReferenciados">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="32" name="Documento" type="TDocumentoReferenciado"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="ImportesDesglosados">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="32" name="Importes" type="TImportesDesglosados"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Peso" type="TWeight"/>
+      <xs:element minOccurs="0" name="Volumen" type="TVolume"/>
+      <xs:element minOccurs="0" name="TotalCajas" type="xs:positiveInteger"/>
+      <xs:element minOccurs="0" name="TotalPiezas" type="xs:positiveInteger"/>
+      <xs:element minOccurs="0" name="Cotizaciones">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="12" name="Cotizacion">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Material">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:enumeration value="ORO"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="PrecioUnitario" type="TNonNegativeAmount"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="TextosDeCabecera" type="TTextoLibre"/>
+      <xs:element minOccurs="0" name="TextosDePie" type="TTextoLibre"/>
+      <xs:element minOccurs="0" name="Mapfre" type="TMTECabecera"/>
+      <xs:element minOccurs="0" name="Hotel">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Estancia">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" name="Reserva" type="xs:token"/>
+                  <xs:element minOccurs="0" name="Habitacion" type="xs:token"/>
+                  <xs:element minOccurs="0" name="Entrada" type="xs:dateTime"/>
+                  <xs:element minOccurs="0" name="Salida" type="xs:dateTime"/>
+                  <xs:element minOccurs="0" name="NombreHuesped" type="xs:token"/>
+                  <xs:element minOccurs="0" name="Referencia" type="xs:token"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Soriana">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="TipoBulto">
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:enumeration value="CAJAS"/>
+                  <xs:enumeration value="BOLSAS"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="CantidadBultos" type="TNonNegativeAmount"/>
+            <xs:element minOccurs="0" name="Servicios">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Tipo">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="Flete"/>
+                        <xs:enumeration value="ConsumosInternos"/>
+                        <xs:enumeration value="Construccion"/>
+                        <xs:enumeration value="Hospedaje"/>
+                        <xs:enumeration value="Publicidad"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element minOccurs="1" name="FolioReferencia" type="xs:integer"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Coppel">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="TotalLotes" type="xs:nonNegativeInteger"/>
+            <xs:element minOccurs="0" name="RegionCel">
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:enumeration value="1"/>
+                  <xs:enumeration value="2"/>
+                  <xs:enumeration value="3"/>
+                  <xs:enumeration value="4"/>
+                  <xs:enumeration value="5"/>
+                  <xs:enumeration value="6"/>
+                  <xs:enumeration value="7"/>
+                  <xs:enumeration value="8"/>
+                  <xs:enumeration value="9"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Transportistas">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="DescripcionDeCarga">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="24" minOccurs="0" name="Linea">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="Columna1" type="xs:token"/>
+                        <xs:element name="Columna2" type="xs:token"/>
+                        <xs:element name="Columna3" type="xs:token"/>
+                        <xs:element name="Columna4" type="xs:token"/>
+                        <xs:element name="Columna5" type="xs:token"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="ConceptosDeCobro">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="24" minOccurs="0" name="Concepto">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="Elemento" type="xs:token"/>
+                        <xs:element name="Valor" type="xs:token"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Unidad">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Operador">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Remolque">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Pedimento">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Contenedor">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="250"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Automotriz">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Vehiculo" type="TVehiculo"/>
+            <xs:element minOccurs="0" name="OrdenDeTrabajo" type="TOrdenDeTrabajo"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Chrysler">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Proveedor" type="TChryslerLocation"/>
+            <xs:element minOccurs="0" name="Origen" type="TChryslerLocation"/>
+            <xs:element minOccurs="0" name="Destino" type="TChryslerLocation"/>
+            <xs:element minOccurs="0" name="Receiving" type="TChryslerLocation"/>
+            <xs:choice minOccurs="0">
+              <xs:element minOccurs="0" name="Departamento">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Numero">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                          <xs:minLength value="1"/>
+                          <xs:maxLength value="4"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="NumeroCuenta">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                          <xs:minLength value="1"/>
+                          <xs:maxLength value="7"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Transportistas">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="15" name="Transportista">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Talon">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:token">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="15"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="NumeroCaja">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:token">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="20"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="CodigoTransportista">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:token">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="4"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="FechaRecibo" type="xs:date"/>
+                          <xs:element minOccurs="0" name="NombreUsuario">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:token">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="50"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="DireccionOrigen">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:token">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="150"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="DireccionDestino">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:token">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="150"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+            <xs:element minOccurs="0" name="Proyecto">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Numero">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="15"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="NumeroTrabajo">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="15"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="ChargeUnit">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="15"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="AETC">
+              <xs:annotation>
+                <xs:documentation>Authorization for Excess Transportation Charges (AETC) number:  must start with "CE" for DaimlerChrysler Expense, “SR" for supplier Responsible, "CR” for Carrier Responsible; and must be
+unique within the current model year</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Status">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:enumeration value="09"/>
+                        <xs:enumeration value="10"/>
+                        <xs:enumeration value="11"/>
+                        <xs:enumeration value="12"/>
+                        <xs:enumeration value="13"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Numero">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="20"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Responsable">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="15"/>
+                        <xs:pattern value="CE|SR|CR[\w]{0,13}"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="CargosCreditos">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="CargoCredito">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element minOccurs="0" name="ReferenciaChrysler">
+                          <xs:annotation>
+                            <xs:documentation>requerido excepto phr</xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="TCode">
+                              <xs:maxLength value="15"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Consecutivo">
+                          <xs:annotation>
+                            <xs:documentation>requerido excepto phr</xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="TCode">
+                              <xs:maxLength value="14"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="MontoLinea">
+                          <xs:annotation>
+                            <xs:documentation>Acepta negativos</xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:decimal">
+                              <xs:fractionDigits value="2"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Factura">
+                          <xs:simpleType>
+                            <xs:restriction base="TCode">
+                              <xs:maxLength value="15"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Archivo" type="xs:base64Binary">
+                          <xs:annotation>
+                            <xs:documentation>A ver si es cierto.</xs:documentation>
+                          </xs:annotation>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Volkswagen">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Origen">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Codigo">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="10"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="Nombre">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="35"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Destino">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Codigo">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="4"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="NaveReciboMaterial">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="7"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Transportistas">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Transportista">
+                    <xs:complexType>
+                      <xs:attribute name="numeroBFL">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:length value="12"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="guiaAereaMaster">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="20"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="guiaAereaHouse">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="20"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="BLMaster">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="20"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="BLHouse">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="20"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="codigoFlete" use="required">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="20"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="ETD" type="xs:date"/>
+                      <xs:attribute name="ETA" type="xs:date"/>
+                      <xs:attribute name="Usuario">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="50"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="direccionOrigen">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string"/>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="direccionDestino">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string"/>
+                        </xs:simpleType>
+                      </xs:attribute>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Referencias">
+              <xs:complexType>
+                <xs:attribute name="referenciaProveedor">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:minLength value="1"/>
+                      <xs:maxLength value="16"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="remision">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:minLength value="1"/>
+                      <xs:maxLength value="16"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="numeroASN">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:minLength value="1"/>
+                      <xs:maxLength value="20"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="unidadNegocios">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:minLength value="0"/>
+                      <xs:maxLength value="80"/>
+                      <xs:enumeration value="INFODE"/>
+                      <xs:enumeration value="VWSP"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Archivo">
+              <xs:complexType>
+                <xs:attribute name="datos" type="xs:base64Binary" use="required"/>
+                <xs:attribute name="tipo" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="XLS"/>
+                      <xs:enumeration value="PDF"/>
+                      <xs:enumeration value="ZIP"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="ServiciosDeAviacion">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" name="FechaDeOperacion" type="xs:date"> </xs:element>
+            <xs:element minOccurs="0" name="NumeroDeVuelo">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Llegada">
+                    <xs:simpleType>
+                      <xs:restriction base="TCadenaPermitida">
+                        <xs:maxLength value="100"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Salida">
+                    <xs:simpleType>
+                      <xs:restriction base="TCadenaPermitida">
+                        <xs:maxLength value="100"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Aeronave">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="100"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Matricula">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="50"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Ruta">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="100"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Estacion">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:maxLength value="100"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="HoraDeLlegada" type="xs:time"> </xs:element>
+            <xs:element minOccurs="0" name="HoraDeSalida" type="xs:time"> </xs:element>
+            <xs:element minOccurs="0" name="PasajerosDeLlegada" type="xs:nonNegativeInteger"> </xs:element>
+            <xs:element minOccurs="0" name="PasajerosDeSalida" type="xs:nonNegativeInteger"> </xs:element>
+            <xs:element minOccurs="0" name="CombustibleCargadoLitros" type="xs:decimal"> </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="Linea">
+              <xs:simpleType>
+                <xs:restriction base="TCadenaPermitida">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="3"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="AltosHornos">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Documento">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" name="Detalle">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element minOccurs="0" name="HojaServicio">
+                          <xs:complexType>
+                            <xs:attribute name="Num">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="10"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                          </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Transporte">
+                          <xs:complexType>
+                            <xs:attribute name="Num" type="xs:string"/>
+                          </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="CtaxPag">
+                          <xs:complexType>
+                            <xs:attribute name="Num" type="xs:string"/>
+                            <xs:attribute name="Ejercicio" type="xs:string"/>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="Anexos">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element maxOccurs="5" minOccurs="0" name="Anexo" type="xs:string"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute name="Clase">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="PE"/>
+                      <xs:enumeration value="PS"/>
+                      <xs:enumeration value="PA"/>
+                      <xs:enumeration value="AS"/>
+                      <xs:enumeration value="HS"/>
+                      <xs:enumeration value="FC"/>
+                      <xs:enumeration value="FV"/>
+                      <xs:enumeration value="AA"/>
+                      <xs:enumeration value="CO"/>
+                      <xs:enumeration value="KT"/>
+                      <xs:enumeration value="PT"/>
+                      <xs:enumeration value="AC"/>
+                      <xs:enumeration value="NC"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TConceptoEx">
+    <xs:annotation>
+      <xs:documentation>Datos adicionales a nivel Concepto (partida, item, detalle) que sirven para formar las addendas.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PrecioCombustibles" type="TNonNegativeAmount">
+        <xs:annotation>
+          <xs:documentation>Precio de combustible sobre el cual se calculará el IVA, de preferencia a 6 dígitos.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="PrecioSugerido" type="TNonNegativeAmount">
+        <xs:annotation>
+          <xs:documentation>Precio al publico; no se valida nunca.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="PrecioLista" type="TNonNegativeAmount">
+        <xs:annotation>
+          <xs:documentation>Valor sin descuentos, recargos ni impuestos.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="ImporteLista" type="TNonNegativeAmount">
+        <xs:annotation>
+          <xs:documentation>Importe sin descuentos, recargos ni impuestos. Cantidad * PrecioLista.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="DescuentosYRecargos" type="TDescuentosYRecargos"> </xs:element>
+      <xs:element minOccurs="0" name="Impuestos" type="TImpuestos"> </xs:element>
+      <xs:element minOccurs="0" name="ImporteTotal" type="TNonNegativeAmount">
+        <xs:annotation>
+          <xs:documentation>Importe más impuestos traslasados menos impuestos retenidos. Solo algunas addendas.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="LineaDeOrdenDeCompra" type="xs:positiveInteger"> </xs:element>
+      <xs:element minOccurs="0" name="CodigoEAN" type="TEAN13"/>
+      <xs:element minOccurs="0" name="CodigoSKU" type="TCode"> </xs:element>
+      <xs:element minOccurs="0" name="SubCantidad" type="TSubCantidad"/>
+      <xs:element minOccurs="0" name="Categoria">
+        <xs:annotation>
+          <xs:documentation>Mano de obra, material, etc.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="MATERIAL"/>
+            <xs:enumeration value="MANO DE OBRA"/>
+            <xs:enumeration value="SUB ARRENDADO"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Modelo" type="xs:token"/>
+      <xs:element minOccurs="0" name="NumeroDeLote" type="xs:token"/>
+      <xs:element minOccurs="0" name="CantidadDeLote" type="xs:positiveInteger"> </xs:element>
+      <xs:element minOccurs="0" name="NumeroDeSerie" type="xs:token"/>
+      <xs:element minOccurs="0" name="FechaDeProduccion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="FechaDeCaducidad" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="FechaDeRecepcion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Talla">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Codigo" type="xs:token"/>
+            <xs:element minOccurs="0" name="Talla" type="xs:token"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Composicion">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="64" name="Componente">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Material" type="xs:token"/>
+                  <xs:element minOccurs="0" name="Porcentaje" type="TNonNegativePercentage"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Composicion2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1" name="Material" type="xs:token"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="GramajeRelleno" type="TNonNegativeAmount"
+            />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Quilataje" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="0" name="Peso" type="TWeight"/>
+      <xs:element minOccurs="0" name="Volumen" type="TVolume"/>
+      <xs:element minOccurs="0" name="Embalaje" type="TEmbalaje"/>
+      <xs:element minOccurs="0" name="OrdenDeCompra" type="TReferenciaCorta"/>
+      <xs:element minOccurs="0" name="TextosDePosicion" type="TTextoLibre"/>
+      <xs:element minOccurs="0" name="Mapfre" type="TMTEConcepto"/>
+      <xs:element minOccurs="0" name="FechaDeConsumo" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Origen" type="xs:token"/>
+      <xs:element minOccurs="0" name="Chrysler">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="References">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="0" minOccurs="0" name="OrdenCompra">
+                    <xs:annotation>
+                      <xs:documentation>Ya se encuentra 2 niveles más arriba.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="ReleaseRequisicion">
+                    <xs:simpleType>
+                      <xs:restriction base="TCode">
+                        <xs:maxLength value="11"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="BillOfLading">
+                    <xs:simpleType>
+                      <xs:restriction base="TCode">
+                        <xs:maxLength value="15"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="PackingList">
+                    <xs:simpleType>
+                      <xs:restriction base="TCode">
+                        <xs:maxLength value="15"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="TipoFlete">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token">
+                        <xs:enumeration value="A"/>
+                        <xs:enumeration value="E"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="Ammendment">
+                    <xs:simpleType>
+                      <xs:restriction base="TCode">
+                        <xs:maxLength value="10"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="OtrosCargos">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="3" name="OtroCargo">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="Codigo">
+                          <xs:annotation>
+                            <xs:documentation>P = empaque; ahora no hay otras opciones</xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="TCode">
+                              <xs:enumeration value="P"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element maxOccurs="1" name="Monto" type="TNonNegativeAmount"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Volkswagen">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Partes">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="Parte">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="Referencias">
+                          <xs:complexType>
+                            <xs:attribute name="tipoCarga">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:minLength value="1"/>
+                                  <xs:maxLength value="3"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="numContenedorCajaEconomico">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:minLength value="1"/>
+                                  <xs:maxLength value="30"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TCuentaPredial">
+    <xs:annotation>
+      <xs:documentation>Número de cuenta predial del inmueble.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Numero">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TDescuentoDesglosado">
+    <xs:annotation>
+      <xs:documentation>Monto desglosado con descripción libre.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Motivo">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Tasa" type="TNonNegativePercentage"/>
+      <xs:element name="Importe" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TDescuentosDesglosados">
+    <xs:annotation>
+      <xs:documentation>Montos desglosado con descripción libre.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Motivo">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="TasaGlobalDescuento" type="TNonNegativePercentage"/>
+      <xs:element name="ImporteGlobalDescuento" type="TNonNegativeAmount"/>
+      <xs:element maxOccurs="12" minOccurs="0" name="Desglose" type="TImporteDesglosado"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TImporteDesglosado">
+    <xs:annotation>
+      <xs:documentation>Monto desglosado con descripción libre.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Motivo">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Tasa" type="TNonNegativePercentage"/>
+      <xs:element name="Importe" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TImportesDesglosados">
+    <xs:annotation>
+      <xs:documentation>Montos desglosado con descripción libre.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Motivo">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Tasa" type="TNonNegativePercentage"/>
+      <xs:element name="Importe" type="TNonNegativeAmount"/>
+      <xs:element maxOccurs="12" minOccurs="0" name="Desglose" type="TImporteDesglosado"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TTipoDeDocumento">
+    <xs:annotation>
+      <xs:documentation>Etiquetas de tipos de documento implementados.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="FACTURA"/>
+      <xs:enumeration value="NOTA_DE_CREDITO"/>
+      <xs:enumeration value="NOTA_DE_CARGO"/>
+      <xs:enumeration value="CARTA_PORTE"/>
+      <xs:enumeration value="RECIBO_DE_HONORARIOS"/>
+      <xs:enumeration value="RECIBO_DE_ARRENDAMIENTO"/>
+      <xs:enumeration value="RECIBO_DE_DONATIVOS"/>
+      <xs:enumeration value="RECIBO_DE_PAGO_DE_PRIMAS"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TImpuestosFederales">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Retenciones" type="TImpuestosRetenidos"/>
+      <xs:element minOccurs="0" name="Traslados" type="TImpuestosTrasladados"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TImpuestosLocales">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Retenciones" type="TImpuestosRetenidosLoc"/>
+      <xs:element minOccurs="0" name="Traslados" type="TImpuestosTrasladadosLoc"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TImpuestoLocal">
+    <xs:annotation>
+      <xs:documentation>Tipo, tasa y monto obligatotios.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Nombre">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Tasa" type="TNonNegativePercentage"/>
+      <xs:element name="Importe" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TImpuestosRetenidos">
+    <xs:annotation>
+      <xs:documentation>Suma y desglose de impuestos retenidos.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TotalRetenciones" type="TNonNegativeAmount"/>
+      <xs:element maxOccurs="1" name="Retencion">
+        <xs:complexType>
+          <xs:all>
+            <xs:element minOccurs="0" name="IVA100" type="TNonNegativeAmount"/>
+            <xs:element minOccurs="0" name="IVA4" type="TNonNegativeAmount"/>
+            <xs:element minOccurs="0" name="IVA" type="TNonNegativeAmount">
+              <xs:annotation>
+                <xs:documentation>A razon de dos terceras partes del monto del IVA trasladado.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="ISR10" type="TNonNegativeAmount"/>
+            <xs:element minOccurs="0" name="ISR" type="TNonNegativeAmount">
+              <xs:annotation>
+                <xs:documentation>Deprecated</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TImpuestosTrasladados">
+    <xs:annotation>
+      <xs:documentation>Suma y desglose de impuestos trasladados.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TotalTraslados" type="TNonNegativeAmount"/>
+      <xs:element maxOccurs="1" name="Traslado">
+        <xs:complexType>
+          <xs:all>
+            <xs:element minOccurs="0" name="IVA16" type="TNonNegativeAmount"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="IVA15" type="TNonNegativeAmount"/>
+            <xs:element minOccurs="0" name="IVA11" type="TNonNegativeAmount"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="IVA10" type="TNonNegativeAmount"/>
+            <xs:element minOccurs="0" name="IVA0">
+              <xs:simpleType>
+                <xs:restriction base="xs:decimal">
+                  <xs:minInclusive value="0"/>
+                  <xs:maxInclusive value="0"/>
+                  <xs:fractionDigits value="2"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TImpuestosRetenidosLoc">
+    <xs:annotation>
+      <xs:documentation>Suma y desglose de impuestos retenidos.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TotalRetenciones" type="TNonNegativeAmount"/>
+      <xs:element maxOccurs="12" name="Retencion" type="TImpuestoLocal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TImpuestosTrasladadosLoc">
+    <xs:annotation>
+      <xs:documentation>Suma y desglose de impuestos trasladados.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TotalTraslados" type="TNonNegativeAmount"/>
+      <xs:element maxOccurs="12" name="Traslado" type="TImpuestoLocal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TInformacionAduanera">
+    <xs:annotation>
+      <xs:documentation>Tipo definido para expresar información aduanera</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="NumeroDePedimento">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="FechaDePedimento" type="TAllowedDate"/>
+      <xs:element name="NombreDeAduana">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="60"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TMexico">
+    <xs:annotation>
+      <xs:documentation>Regex para varias ortografías de la palabra México.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[Mm][EeÉé][XxJj][Ii][Cc][Oo]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TReferenciaCorta">
+    <xs:annotation>
+      <xs:documentation>Para informar fecha y código.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Fecha" type="TAllowedDate"/>
+      <xs:element name="Numero" type="TCode"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="Tipo">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:minLength value="2"/>
+            <xs:maxLength value="4"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TReferenciaBancaria">
+    <xs:annotation>
+      <xs:documentation>Información de la cuenta bancaria.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Moneda" type="TCurrencyCode"/>
+      <xs:element name="Banco">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Sucursal">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Plaza" type="TCadenaPermitida"/>
+      <xs:element minOccurs="0" name="Titular">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Cuenta">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="CLABE">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Convenio">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="RefCliente">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TRelacionComercial">
+    <xs:annotation>
+      <xs:documentation>¿Proveedor o contratista? O ninguno de estos.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="PROVEEDOR"/>
+      <xs:enumeration value="CONTRATISTA"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TRepresentanteLegal">
+    <xs:annotation>
+      <xs:documentation>Datos del representante legal.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RFC" type="TRFC"/>
+      <xs:element name="Nombre">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TRFC">
+    <xs:annotation>
+      <xs:documentation>Valida el formato, pero no valida si 6 dígitos centrales forman una fecha válida.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="12"/>
+      <xs:maxLength value="13"/>
+      <xs:whiteSpace value="preserve"/>
+      <xs:pattern
+        value="[A-ZÑ&amp;]{3}[A-ZÑ]{0,1}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{3}"
+      />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TSerie">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-ZÑ]{1,10}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TTextoLibre">
+    <xs:annotation>
+      <xs:documentation>Texto libre.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="24" name="Texto">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="1500"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTEAgente">
+    <xs:sequence>
+      <xs:element name="Clave" type="TCode"/>
+      <xs:element name="Nombre">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTECabecera">
+    <xs:annotation>
+      <xs:documentation>Addenda MAPFRE.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdAreaAnterior">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="A001"/>
+            <xs:enumeration value="A003"/>
+            <xs:enumeration value="A010"/>
+            <xs:enumeration value="A015"/>
+            <xs:enumeration value="A016"/>
+            <xs:enumeration value="A017"/>
+            <xs:enumeration value="A018"/>
+            <xs:enumeration value="A019"/>
+            <xs:enumeration value="A020"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="IdArea">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="001"/>
+            <xs:enumeration value="005"/>
+            <xs:enumeration value="006"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="IdRevision">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="001"/>
+            <xs:enumeration value="003"/>
+            <xs:enumeration value="004"/>
+            <xs:enumeration value="005"/>
+            <xs:enumeration value="006"/>
+            <xs:enumeration value="008"/>
+            <xs:enumeration value="100"/>
+            <xs:enumeration value="010"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="ContactoEmisor" type="TMTEContactoEmisor"/>
+      <xs:element minOccurs="0" name="ContactoReceptor" type="TMTEContactoReceptor"/>
+      <xs:element minOccurs="0" name="Poliza" type="TMTEPoliza"/>
+      <xs:element minOccurs="0" name="Servicio" type="TMTEServicio"/>
+      <xs:element minOccurs="0" name="Vehiculo" type="TMTEVehiculo"/>
+      <xs:element minOccurs="0" name="Local" type="TMTELocal"/>
+      <xs:element minOccurs="0" name="ImportesAdicionales" type="TMTEImportesAdicionales"/>
+      <xs:element minOccurs="0" name="Agente" type="TMTEAgente"/>
+      <xs:element minOccurs="0" name="ReciboDePrimas" type="TMTEReciboPrimas"/>
+      <xs:element minOccurs="0" name="Fianza" type="TMTEFianza"/>
+      <xs:element minOccurs="0" name="Reaseguradora" type="TMTEReaseguradora"/>
+      <xs:element minOccurs="0" name="Oficina">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="RegistroComision">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTEConcepto">
+    <xs:annotation>
+      <xs:documentation>Addenda MAPFRE.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element fixed="0" name="TipoListaDePrecios">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element fixed="1" name="IndiceListaDePrecios">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Poliza" type="TMTEPoliza"/>
+      <xs:element minOccurs="0" name="Servicio" type="TMTEServicio"/>
+      <xs:element minOccurs="0" name="Vehiculo" type="TMTEVehiculo"/>
+      <xs:element minOccurs="0" name="Local" type="TMTELocal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTEContactoEmisor">
+    <xs:annotation>
+      <xs:documentation>Addenda MAPFRE.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TipoDeContacto">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="MATRIZ"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="NombreDePersona">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="60"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="EMail" type="TEmail"> </xs:element>
+      <xs:element name="Telefono">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="25"/>
+            <xs:pattern value="[0-9]{1,25}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Extension">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="25"/>
+            <xs:pattern value="[0-9]{1,25}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Fax">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="25"/>
+            <xs:pattern value="[0-9]{1,25}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTEContactoReceptor">
+    <xs:annotation>
+      <xs:documentation>Addenda MAPFRE.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TipoDeContacto">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="COORDINADOR"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="NombreDePersona">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="60"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="EMail" type="TEmail" minOccurs="0"> </xs:element>
+      <xs:element name="Telefono" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="25"/>
+            <xs:pattern value="[0-9]{1,25}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTELocal">
+    <xs:annotation>
+      <xs:documentation>Addenda MAPFRE.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Tipo">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="HOSPITAL"/>
+            <xs:enumeration value="LABORATORIO"/>
+            <xs:enumeration value="OTRO"/>
+            <xs:enumeration value="SUCURSAL"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Seccion">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="CAMA"/>
+            <xs:enumeration value="HABITACION"/>
+            <xs:enumeration value="OTRO"/>
+            <xs:enumeration value="PISO"/>
+            <xs:enumeration value="SECCION"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Numero">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTEImportesAdicionales">
+    <xs:annotation>
+      <xs:documentation>Addenda MAPFRE.</xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element minOccurs="0" name="Deducible" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="0" name="Reaseguro" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="0" name="Coaseguro" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="0" name="CoaseguroDeHonorarios" type="TNonNegativeAmount"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="TMTEPoliza">
+    <xs:annotation>
+      <xs:documentation>Addenda MAPFRE.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Tipo">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Numero">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Inciso">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="TipoCliente">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="1"/>
+            <xs:enumeration value="0"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="NroReporte">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Siniestro">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="128"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Tramitador">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Asegurado">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Endoso" type="xs:token"/>
+      <xs:element minOccurs="0" name="Vigencia" type="TFromTo"/>
+      <xs:element minOccurs="0" name="SerieRecibo">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="FechaDeExpedicion" type="TAllowedDateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTEServicio">
+    <xs:annotation>
+      <xs:documentation>Addenda MAPFRE.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Tipo">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="ABANDERAMIENTO"/>
+            <xs:enumeration value="AMBULANCIAS"/>
+            <xs:enumeration value="ARCHIVO MUERTO"/>
+            <xs:enumeration value="ARRASTRE"/>
+            <xs:enumeration value="ARTICULOS DE ESCRITORIO"/>
+            <xs:enumeration value="ASISTENCIA"/>
+            <xs:enumeration value="BANDERAZO"/>
+            <xs:enumeration value="CASETAS DE COBRO"/>
+            <xs:enumeration value="CONSUMIBLES DE COMPUTO"/>
+            <xs:enumeration value="ELECTRICO"/>
+            <xs:enumeration value="EQUIPO DE COMPUTO"/>
+            <xs:enumeration value="EQUIPO DE TRANSPORTE"/>
+            <xs:enumeration value="EQUIPO DIVERSO"/>
+            <xs:enumeration value="EQUIPO PERIFERICO"/>
+            <xs:enumeration value="FLETES"/>
+            <xs:enumeration value="FORMATOS IMPRESOS"/>
+            <xs:enumeration value="GASOLINA"/>
+            <xs:enumeration value="HOJALATERIA"/>
+            <xs:enumeration value="HOJALATERIA Y PINTURA"/>
+            <xs:enumeration value="HOSPITALARIO"/>
+            <xs:enumeration value="MANIOBRAS"/>
+            <xs:enumeration value="MANO DE OBRA"/>
+            <xs:enumeration value="MANTENIMIENTO"/>
+            <xs:enumeration value="MECANICO"/>
+            <xs:enumeration value="MEDICO"/>
+            <xs:enumeration value="MENSAJERIA"/>
+            <xs:enumeration value="MOBILIARIO Y EQUIPO DE OFICINA"/>
+            <xs:enumeration value="OTRO"/>
+            <xs:enumeration value="PENSION"/>
+            <xs:enumeration value="PINTURA"/>
+            <xs:enumeration value="PROCEDIMIENTO"/>
+            <xs:enumeration value="REFACCIONES"/>
+            <xs:enumeration value="TELEFONICO"/>
+            <xs:enumeration value="VIAL"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Numero">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTEVehiculo">
+    <xs:annotation>
+      <xs:documentation>Addenda MAPFRE.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Uso">
+        <xs:annotation>
+          <xs:documentation>PATRICULAR, COMERCIAL - pero mejor preguntar a MAPFRE en cada caso particular de IdArea/IdRevision.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="25"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Marca">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="SubMarca">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="60"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="AnoDeProduccion" type="TYear"/>
+      <xs:element name="Color">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="25"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Chasis">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Serie">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Motor">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Placas">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="10"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTEFianza">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="Numero" type="TCode"/>
+      <xs:element minOccurs="0" name="Monto" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="0" name="Vigencia" type="TFromTo"/>
+      <xs:element minOccurs="0" name="Obligacion" type="TCadenaPermitida"/>
+      <xs:element minOccurs="0" name="Beneficiario" type="TCadenaPermitida"/>
+      <xs:element minOccurs="0" name="Movimiento" type="TCode"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTEReciboPrimas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Serie" type="xs:token"/>
+      <xs:element name="Folio" type="xs:token"/>
+      <xs:element minOccurs="0" name="ExpedidoEn" type="xs:token"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TMTEReaseguradora">
+    <xs:sequence>
+      <xs:element name="Clave">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TDatosAdicionales">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RepresentanteLegal" type="TRepresentanteLegal"/>
+      <xs:element minOccurs="0" name="PaginaWeb" type="xs:token"> </xs:element>
+      <xs:element minOccurs="0" name="EmailCorporativo" type="TCadenaPermitida"/>
+      <xs:element minOccurs="0" name="TelCorporativo" type="TCadenaPermitida"/>
+      <xs:element minOccurs="0" name="FaxCorporativo" type="TCadenaPermitida"/>
+      <xs:element minOccurs="0" name="DomicilioDeCobro">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:maxLength value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="ContactoDeCobranza" type="TContacto"/>
+      <xs:element minOccurs="0" name="RegistroPublico">
+        <xs:simpleType>
+          <xs:restriction base="TCode">
+            <xs:maxLength value="40"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="EmailContacto1" type="TCadenaPermitida"/>
+      <xs:element minOccurs="0" name="EmailContacto2" type="TCadenaPermitida"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TDictionary">
+    <xs:sequence maxOccurs="1">
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Entry">
+        <xs:complexType>
+          <xs:attribute name="k" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:minLength value="1"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="v" use="optional">
+            <xs:simpleType>
+              <xs:restriction base="xs:string"> </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="TDictionaries">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Dictionary" type="TDictionary"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TImpuestos">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Impuesto" type="TTax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TDescuentosYRecargos">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="DescuentoORecargo" type="TDiscountOrRecharge"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TResumenDeImpuestos">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="TotalTrasladosFederales" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="1" name="TotalIVATrasladado" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="1" name="TotalIEPSTrasladado" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="1" name="TotalRetencionesFederales" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="1" name="TotalISRRetenido" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="1" name="TotalIVARetenido" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="1" name="TotalTrasladosLocales" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="1" name="TotalRetencionesLocales" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TResumenDeDescuentosYRecargos">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="TotalDescuentos" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="1" name="TotalRecargos" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TSettlementType">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="FUERA_DE_FACTURA"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TSpecialServicesType">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ABONO_POR_PUBLICIDAD"/>
+      <xs:enumeration value="AJUSTES"/>
+      <xs:enumeration value="CANTIDAD_DESCONTADA"/>
+      <xs:enumeration value="CARGO_FINANCIERO"/>
+      <xs:enumeration value="CARGO_POR_FLETE"/>
+      <xs:enumeration value="CARGO_POR_MANEJO_DE_MERCANCIA"/>
+      <xs:enumeration value="DESCUENTO"/>
+      <xs:enumeration value="DESCUENTOS_ESPECIALES"/>
+      <xs:enumeration value="DESCUENTO_COMERCIAL"/>
+      <xs:enumeration value="DESCUENTO_DEFECTUOSO"/>
+      <xs:enumeration value="DESCUENTO_DE_MERCANCIA_INVENDIBLE"/>
+      <xs:enumeration value="DESCUENTO_EFECTIVO"/>
+      <xs:enumeration value="DESCUENTO_LOGISTICO"/>
+      <xs:enumeration value="DESCUENTO_POR_CAMIONETA"/>
+      <xs:enumeration value="DESCUENTO_POR_FLETE"/>
+      <xs:enumeration value="DESCUENTO_POR_MERCANCIAS_GRATUITAS"/>
+      <xs:enumeration value="DESCUENTO_POR_PRONTA_COMPRA_DE_LOS_CLIENTES"/>
+      <xs:enumeration value="DESCUENTO_POR_PRONTO_PAGO"/>
+      <xs:enumeration value="DESCUENTO_POR_RECOLECCION"/>
+      <xs:enumeration value="DESCUENTO_POR_VOLUMEN"/>
+      <xs:enumeration value="DESCUENTO_PROMOCIONAL"/>
+      <xs:enumeration value="DESCUENTO_TEMPORAL"/>
+      <xs:enumeration value="IMPUESTOS"/>
+      <xs:enumeration value="IMPUESTO_ESTATAL"/>
+      <xs:enumeration value="MUTUAMENTE_DEFINIDO"/>
+      <xs:enumeration value="PAGO_CONTRA_ENTREGA"/>
+      <xs:enumeration value="PEDIDO_DE_UN_PALET_COMPLETO"/>
+      <xs:enumeration value="REBAJA"/>
+      <xs:enumeration value="REBAJA_O_DESCUENTO_MISCELANEO"/>
+      <xs:enumeration value="RECOLECCION"/>
+      <xs:enumeration value="COPPEL_DESC_POR_DIST_DE_BODEGA_A_TIENDA"/>
+      <xs:enumeration value="COPPEL_DESC_POR_RESGUARDAR_MERCANCIA"/>
+      <xs:enumeration value="COPPEL_DESC_POR_ENTREGA_EN_UNA_SOLA_BODEGA"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TFolio">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:totalDigits value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TContacto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Nombre" type="TCadenaPermitida"/>
+      <xs:element minOccurs="0" name="Telefono" type="TCadenaPermitida"/>
+      <xs:element minOccurs="0" name="EMail" type="TEmail"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TVehiculo">
+    <xs:sequence>
+      <xs:element name="Marca">
+        <xs:annotation>
+          <xs:documentation>NISSAN</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Linea" type="TCadenaPermitida">
+        <xs:annotation>
+          <xs:documentation>ESTACAS</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Tipo" type="TCadenaPermitida">
+        <xs:annotation>
+          <xs:documentation>NP300 ESTACAS DH VERSION ESPECIAL</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Modelo" type="TYear">
+        <xs:annotation>
+          <xs:documentation>2010</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Color">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="25"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Serie">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="SerieEnLetras">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="300"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Motor">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="MotorEnLetras">
+        <xs:simpleType>
+          <xs:restriction base="TCadenaPermitida">
+            <xs:maxLength value="300"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Cilindros">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="24"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="CapacidadDeCarga">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Unidad">
+              <xs:annotation>
+                <xs:documentation>KG T LBS ...</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:token"/>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="Capacidad" type="TNonNegativeAmount"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Combustible">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="GASOLINA"/>
+            <xs:enumeration value="DIESEL"/>
+            <xs:enumeration value="GAS LP"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Transmision">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="MANUAL"/>
+            <xs:enumeration value="AUTOMATICA"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Puertas">
+        <xs:simpleType>
+          <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="5"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Personas" type="xs:positiveInteger"/>
+      <xs:element name="Uso" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="PARTICULAR"/>
+            <xs:enumeration value="COMERCIAL"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="ClaveVehicular" type="TCode"/>
+      <xs:element name="Placas" minOccurs="0" type="TCode"> </xs:element>
+      <xs:element minOccurs="0" name="Kilometraje" type="TNonNegativeAmount"/>
+      <xs:element minOccurs="0" name="NumeroDeInventario" type="TCode"/>
+      <xs:element minOccurs="0" name="Pedido" type="TCode"/>
+      <xs:element minOccurs="0" name="CodigoDeLlave" type="TCode"/>
+      <xs:element minOccurs="0" name="TipoCodigoDeLlave" type="TCode"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TOrdenDeTrabajo">
+    <xs:sequence>
+      <xs:element name="Numero" type="xs:positiveInteger"/>
+      <xs:element minOccurs="0" name="Torre" type="TCode"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TChryslerLocation">
+    <xs:sequence>
+      <xs:element name="Codigo">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:minLength value="4"/>
+            <xs:maxLength value="7"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Nombre">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="65"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Sufijo">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="3"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TImporteOtraMoneda">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="Moneda" type="TCurrencyCode"/>
+      <xs:element minOccurs="1" name="Importe" type="TNonNegativeAmount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TNonNegativeAmount">
+    <xs:simpleContent>
+      <xs:extension base="TNonNegativeAmountBase">
+        <xs:attribute name="otraMoneda" type="TCurrencyCode"/>
+        <xs:attribute name="tipoCambioVenta" type="TNonNegativeAmountBase"/>
+        <xs:attribute name="importeOtraMoneda" type="TNonNegativeAmountBase"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>
