@@ -6,7 +6,7 @@
 package com.escom.info.generarFactura.jsf;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
-import com.sun.xml.internal.bind.v2.WellKnownNamespace;
+import com.sun.xml.bind.v2.WellKnownNamespace;
 
 /**
  *
