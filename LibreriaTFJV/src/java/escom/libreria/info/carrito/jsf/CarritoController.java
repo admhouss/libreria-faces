@@ -166,12 +166,12 @@ private Date getHoy(){
 
           
          
-        // }else {
-          //JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
-          //return "/login/Create.xhtml";
-         //}
+         else {
+          JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
+          return "/login/Create.xhtml";
+         }
 
-     }catch(Exception e){ e.printStackTrace();}
+     }catch(Exception e){ }
 
          return "/carrito/Carrito";
     }
