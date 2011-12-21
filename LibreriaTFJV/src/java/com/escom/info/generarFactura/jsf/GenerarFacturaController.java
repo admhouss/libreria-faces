@@ -73,7 +73,7 @@ public class GenerarFacturaController implements Serializable {
     }
 
 
-    public String ruta_cdi=  "/home/libreria/facturacion";//C:/Users/xxx/Desktop/facturasPrueba/";
+    public String ruta_cdi=  "/home/libreria/facturacion/";//C:/Users/xxx/Desktop/facturasPrueba/";
     public String name_file;
 
     public GenerarFacturaController() {
