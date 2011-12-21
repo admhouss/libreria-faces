@@ -22,23 +22,32 @@
                     <h:panelGrid columns="3" cellspacing="15">
 
                     <h:outputLabel value="Existencia:" for="existencia" styleClass="textoNEGRO" />
-                    <h:inputText id="existencia" value="#{almacenController.selected.existencia}" title="Existencia" required="true" requiredMessage="existencia" >
-
+                    <h:inputText id="existencia" value="#{almacenController.selected.existencia}" title="Existencia"   >
+                      <f:validator  validatorId="NumeroValidator"/>
                     </h:inputText>
                     <h:outputLabel value="*"  styleClass="textoROJO" />
                     <h:outputLabel value="En Consigna:" for="enConsigna" styleClass="textoNEGRO" />
-                    <h:inputText id="enConsigna" value="#{almacenController.selected.enConsigna}" title="Consigna" required="true" requiredMessage="enConsigna"/>
+                    <h:inputText id="enConsigna" value="#{almacenController.selected.enConsigna}" title="Consigna" required="true" requiredMessage="El campo Consigna es requerido">
+                         <f:validator  validatorId="NumeroValidator"/>
+                    </h:inputText>
                     <h:outputLabel value="*"  styleClass="textoROJO" />
                     <h:outputLabel value="En Firme:" for="enFirme" styleClass="textoNEGRO" />
-                    <h:inputText id="enFirme" value="#{almacenController.selected.enFirme}" title="Firme" required="true" requiredMessage="enFirme"/>
+                    <h:inputText id="enFirme" value="#{almacenController.selected.enFirme}" title="Firme" required="true" requiredMessage="El campo Firme es requerido">
+                         <f:validator  validatorId="NumeroValidator"/>
+                    </h:inputText>
                     <h:outputLabel value="*"  styleClass="textoROJO" />
-                    <h:outputLabel value="Art&iacute;culo:" for="articulo"  styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="articulo" value="#{almacenController.selected.articulo}" title="Articulo" required="true" requiredMessage="articulo">
+                     
+                   
 
-                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
+                    <h:outputLabel value="Art&iacute;culo:" for="articulo"  styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="articulo" value="#{almacenController.selected.articulo}" title="Articulo" required="true" 
+                                     requiredMessage="articulo" style="width:220px;" >
+
+                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="*"  styleClass="textoROJO" />
-                </h:panelGrid>
+                     </h:panelGrid>
+               
                 </center>
                 </p:panel>
 
