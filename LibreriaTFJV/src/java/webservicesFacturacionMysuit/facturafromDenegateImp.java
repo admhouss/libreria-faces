@@ -35,6 +35,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import sun.misc.BASE64Decoder;
 
+
 /**
  *
  * @author xxx
@@ -42,9 +43,9 @@ import sun.misc.BASE64Decoder;
 public class facturafromDenegateImp implements facturafromClient{
 
 
-    public static String keyStore= "/home/libreria/mykeystore";
+    public static String keyStore= "/home/libreria/mykeystore/";
     //C:/mikeystore/";
-    public static String rutas_factura="/home/libreria/facturacion";//C:/Users/xxx/Desktop/facturasPrueba/";///home/tribunal/Documentos/resultados/";
+    public static String rutas_factura="/home/libreria/facturacion/";//C:/Users/xxx/Desktop/facturasPrueba/";///home/tribunal/Documentos/resultados/";
     public String cadenaExito;
     private String folio,serie;
     private boolean result=false;

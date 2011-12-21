@@ -526,7 +526,7 @@ public List<String> getListaString(){
     }
      public String prepareView(Publicacion p) {
         //redireccionarTo=render;
-        addbicatoraUsuarioAdministrador(p,1);
+        //addbicatoraUsuarioAdministrador(p,1);
         current=p;
         return "/publicacion/View";
     }
@@ -550,6 +550,7 @@ public List<String> getListaString(){
               JsfUtil.addSuccessMessage(("Publicacion Creada Satisfactoriamente"));
           
         } catch (Exception e) {
+            e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
@@ -568,7 +569,7 @@ public List<String> getListaString(){
 
             current.setArticulo(current.getArticulo());
             getFacade().edit(current);
-            addbicatoraUsuarioAdministrador(current, 2);
+          //  addbicatoraUsuarioAdministrador(current, 2);
             JsfUtil.addSuccessMessage(("Publicacion Actualizada Satisfactoriamente"));
             return "/publicacion/View";
         } catch (Exception e) {
@@ -581,7 +582,7 @@ public List<String> getListaString(){
         current=p;
         getListaPublicacion().remove(current);
         getFacade().remove(current);
-        addbicatoraUsuarioAdministrador(p, 3);
+        //addbicatoraUsuarioAdministrador(p, 3);
         JsfUtil.addSuccessMessage("Publicacion Eliminada Satisfactoriamente");
         return "/publicacion/List";
     }

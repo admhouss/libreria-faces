@@ -17,6 +17,7 @@ import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -135,6 +137,18 @@ public class SessionOut implements Filter {
 	throws IOException, ServletException {
 	
 	if (debug) log("SessionOut:doFilter()");
+
+
+       /* HttpServletRequest respuesta=(HttpServletRequest) request;
+        HttpSession session = respuesta.getSession();
+       if(session.isNew()){
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/faces/login/Create.xhtml");
+             requestDispatcher.forward(request, response);
+
+        }
+*/
+
+
 
 	// Create wrappers for the request and response objects.
 	// Using these, you can extend the capabilities of the
