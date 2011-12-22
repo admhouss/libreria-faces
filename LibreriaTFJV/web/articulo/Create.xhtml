@@ -50,7 +50,7 @@
 
 
 
-                    <p:tab title="DETALLE LIBRO">
+                    <p:tab title="DETALLE PUBLICACION">
                          <center>
                             <h:panelGrid columns="3" cellspacing="12">
                             <h:outputLabel value="T&iacute;tulo:" for="titulo" styleClass="textoNEGRO" />
@@ -59,13 +59,13 @@
                             <h:outputLabel value="Nombre Alternativo:" for="nombre_alternativo" styleClass="textoNEGRO" />
                             <h:inputText id="nombre_alternativo" size="25" maxlength="200" value="#{articuloController.selected.nombreAlternativo}" title="Nombre Alternativo" />
                             <h:outputLabel value=" "  styleClass="textoROJO"/>
-                            <h:outputLabel value="Autor:" for="creador" styleClass="textoNEGRO" />
+                            <h:outputLabel value="Autor/Fabricante:" for="creador" styleClass="textoNEGRO" />
                             <h:inputText id="creador" size="25" value="#{articuloController.selected.creador}" title="Resumen Recurso" required="true" requiredMessage="El campo autor es requerido"/>
                             <h:outputLabel value="*"  styleClass="textoROJO"/>
                             <h:outputLabel value="Idioma:" for="idioma" styleClass="textoNEGRO" />
                             <h:inputText id="idioma" size="25" value="#{articuloController.selected.idioma}" title="Idioma" required="true" requiredMessage="El campo Idioma es requerido"/>
                             <h:outputLabel value="*"  styleClass="textoROJO"/>
-                            <h:outputLabel value="Publicador:" for="publicador" styleClass="textoNEGRO" />
+                            <h:outputLabel value="Publicador/Marca:" for="publicador" styleClass="textoNEGRO" />
                             <h:inputText id="publicador" size="25" value="#{articuloController.selected.publicador}" title="Publicador" required="true" requiredMessage="El campo publicador es requerido"/>
                             <h:outputLabel value="*"  styleClass="textoROJO"/>
                             <h:outputLabel value="Asunto:" for="asunto" styleClass="textoNEGRO" />
