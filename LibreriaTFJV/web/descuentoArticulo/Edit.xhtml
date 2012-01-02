@@ -18,11 +18,14 @@
                 <br/>  <br/>
                 <p:panel header="ACTULIZAR DESCUENTO">
                 <center>
+                    <h3><h:outputLabel value="#{descuentoArticuloController.selected.articulo.titulo}"/></h3>
+                 
+                 
                  <h:panelGrid columns="3" cellspacing="15">
 
                     <h:outputLabel value="Descuento:" for="montoImpuesto" styleClass="textoNEGRO" />
                     <h:inputText id="montoImpuesto" value="#{descuentoArticuloController.selected.descuento}" title="descuento" required="true" requiredMessage="Falta por capturar el campo descuento"/>
-                    <h:outputLabel value="%"  styleClass="textoNEGRO"/>   
+                    <h:outputLabel value="%"  styleClass="textoROJO"/>
                     <h:outputLabel value="Fecha Inicio:" for="fecha_inicio" styleClass="textoNEGRO" />
                     <p:calendar id="fecha_inicio" value="#{descuentoArticuloController.selected.fechaInicio}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" required="true" readOnlyInputText="true" requiredMessage="Falta por capturar el campo fecha inicio!" />
                      <h:outputLabel value=" "/>
