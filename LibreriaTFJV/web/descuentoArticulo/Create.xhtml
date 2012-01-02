@@ -25,8 +25,8 @@
                     <h:outputLabel value="%"  styleClass="textoNEGRO"/>
 
                     <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{descuentoArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="RequiredMessage_articulo">
-                        <f:selectItems value="#{articuloController.listArticulos}" itemValue="#{item}" var="item" itemLabel="#{item.titulo}"/>
+                    <h:selectOneMenu id="articulo" value="#{descuentoArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="RequiredMessage_articulo" style="width:220px;">
+                          <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value=" "/>
                     <h:outputLabel value="Fecha Inicio:" for="fecha_inicio" styleClass="textoNEGRO" />
