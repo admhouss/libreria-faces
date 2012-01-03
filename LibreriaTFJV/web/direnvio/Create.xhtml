@@ -19,33 +19,43 @@
                 <br/>  <br/>
                 <p:panel header="ALTA DIRECCION">
                 <center>
-                    <h:panelGrid columns="2" cellspacing="15">
+                    <h:panelGrid columns="3" cellspacing="15">
                    
                     <h:outputLabel value="Atencion:" for="atencion" styleClass="textoNEGRO"/>
-                    <h:inputText id="atencion" value="#{direnvioController.selected.atencion}" title="Title_atencion}" required="true" requiredMessage="RequiredMessage_atencion"/>
+                    <h:inputText id="atencion" value="#{direnvioController.selected.atencion}" title="atencion" required="true" requiredMessage="El campo atencion es requerido"/>
+                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Calle:" for="calle" styleClass="textoNEGRO"/>
-                    <h:inputText id="calle" value="#{direnvioController.selected.calle}" title="Title_calle}" required="true" requiredMessage="RequiredMessage_calle"/>
+                    <h:inputText id="calle" value="#{direnvioController.selected.calle}" title="calle" required="true" requiredMessage="El campo calle es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="No.Exterior:" for="noExterior" styleClass="textoNEGRO"/>
-                    <h:inputText id="noExterior" value="#{direnvioController.selected.noExterior}" title="Title_noExterior}" required="true" requiredMessage="RequiredMessage_noExterior"/>
+                    <h:inputText id="noExterior" value="#{direnvioController.selected.noExterior}" title="noExterior" required="true" requiredMessage="El campo noExterior es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="No.Interior:" for="noInterior" styleClass="textoNEGRO"/>
-                    <h:inputText id="noInterior" value="#{direnvioController.selected.noInterior}" title="Title_noInterior}" required="true" requiredMessage="RequiredMessage_noInterior"/>
+                    <h:inputText id="noInterior" value="#{direnvioController.selected.noInterior}" title="noInterior" required="true" requiredMessage="El campo noInterior es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Colonia:" for="colonia" styleClass="textoNEGRO"/>
-                    <h:inputText id="colonia" value="#{direnvioController.selected.colonia}" title="Title_colonia}" required="true" requiredMessage="RequiredMessage_colonia"/>
+                    <h:inputText id="colonia" value="#{direnvioController.selected.colonia}" title="colonia" required="true" requiredMessage="El campo colonia es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Municipio:" for="delMunicipio" styleClass="textoNEGRO"/>
-                    <h:inputText id="delMunicipio" value="#{direnvioController.selected.delMunicipio}" title="Title_delMunicipio}" required="true" requiredMessage="RequiredMessage_delMunicipio"/>
+                    <h:inputText id="delMunicipio" value="#{direnvioController.selected.delMunicipio}" title="delMunicipio" required="true" requiredMessage="El campo delMunicipio es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
                     
-                    <h:outputLabel value="Cp:" for="cp" styleClass="textoNEGRO" />
-                    <h:inputText id="cp" value="#{direnvioController.selected.cp}" title="Title_cp}" required="true" requiredMessage="RequiredMessage_cp"/>
+                    <h:outputLabel value="C.P:" for="cp" styleClass="textoNEGRO" />
+                    <h:inputText id="cp" value="#{direnvioController.selected.cp}" title="codigo postal" required="true" requiredMessage="El campo cp es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Referencia:" for="referencia" styleClass="textoNEGRO"/>
-                    <h:inputText id="referencia" value="#{direnvioController.selected.referencia}" title="Title_referencia}" required="true" requiredMessage="RequiredMessage_referencia"/>
+                    <h:inputText id="referencia" value="#{direnvioController.selected.referencia}" title="referencia" required="true" requiredMessage="El campo referencia es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Telefono:" for="telefono" styleClass="textoNEGRO"/>
-                    <h:inputText id="telefono" value="#{direnvioController.selected.telefono}" title="Title_telefono}" required="true" requiredMessage="RequiredMessage_telefono"/>
+                    <h:inputText id="telefono" value="#{direnvioController.selected.telefono}" title="telefono" required="true" requiredMessage="El campo telefono es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
                    
 
                      <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
-                     <h:selectOneMenu id="estado" value="#{direnvioController.selected.estado}" title="estado" required="true" requiredMessage="estado requerido">
+                     <h:selectOneMenu id="estado" value="#{direnvioController.selected.estado}" title="estado" required="true" requiredMessage="El campo estado es requerido">
                         <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}"  itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
+                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                 </h:panelGrid>
 
                 </center>
