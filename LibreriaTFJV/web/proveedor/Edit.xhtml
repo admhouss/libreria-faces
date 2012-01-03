@@ -28,25 +28,25 @@
                         <h:panelGrid columns="3" cellspacing="15">
 
                             <h:outputLabel value="Nombre:" for="nombre" styleClass="textoNEGRO"  />
-                            <h:inputText id="nombre" value="#{proveedorController.selected.nombre}" title="nombre" required="true" requiredMessage="RequiredMessage_nombre" size="35"/>
+                            <h:inputText id="nombre" value="#{proveedorController.selected.nombre}" title="nombre" required="true" requiredMessage="El campo nombre es requerido" size="35"/>
                             <h:outputLabel value="*" styleClass="textoROJO"/>
                             <h:outputLabel value="Siglas:" for="siglas" styleClass="textoNEGRO" />
-                            <h:inputText id="siglas" value="#{proveedorController.selected.sigla}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="siglas" value="#{proveedorController.selected.sigla}" title="siglas" required="true" requiredMessage="El campo siglas es requerido" size="35"/>
                             <h:outputLabel value="*" styleClass="textoROJO"/>
                             <h:outputLabel value="Contacto:" for="contacto" styleClass="textoNEGRO" />
-                            <h:inputText id="contacto" value="#{proveedorController.selected.contacto}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="contacto" value="#{proveedorController.selected.contacto}" title="siglas"  requiredMessage="El campo contacto es requerido" size="35"/>
                             <h:outputLabel value="*" styleClass="textoROJO"/>
                             <h:outputLabel value="Puesto:" for="puesto" styleClass="textoNEGRO" />
-                            <h:inputText id="puesto" value="#{proveedorController.selected.puesto}" title="siglas" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="puesto" value="#{proveedorController.selected.puesto}" title="siglas" requiredMessage="El campo puesto es requerido" size="35"/>
                             <h:outputLabel value=" " styleClass="textoROJO"/>
                             <h:outputLabel value="Telefono:" for="telefono" styleClass="textoNEGRO" />
-                            <h:inputText id="telefono" value="#{proveedorController.selected.telefono}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="telefono" value="#{proveedorController.selected.telefono}" title="siglas"  requiredMessage="El campo telefono es requerido" size="35"/>
                             <h:outputLabel value=" " styleClass="textoROJO"/>
                             <h:outputLabel value="Fax:" for="fax" styleClass="textoNEGRO" />
-                            <h:inputText id="fax" value="#{proveedorController.selected.fax}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                            <h:inputText id="fax" value="#{proveedorController.selected.fax}" title="siglas"  requiredMessage="El campo fax es requerido" size="35"/>
                             <h:outputLabel value="*" styleClass="textoROJO"/>
                             <h:outputLabel value="Mail:" for="mail" styleClass="textoNEGRO" />
-                            <h:inputText id="mail" value="#{proveedorController.selected.mail}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35">
+                            <h:inputText id="mail" value="#{proveedorController.selected.mail}" title="siglas"  requiredMessage="El campo mail es requerido" size="35">
                                  <f:validator  validatorId="EmailValidator"/>
                             </h:inputText>
                             <h:outputLabel value=" " styleClass="textoROJO"/>
@@ -58,19 +58,19 @@
                             <center>
                             <h:panelGrid columns="3" cellspacing="15" >
                     <h:outputLabel value="Calle:" for="calle" styleClass="textoNEGRO" />
-                    <h:inputText id="calle" value="#{proveedorController.selected.calle}" title="calle" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:inputText id="calle" value="#{proveedorController.selected.calle}" title="calle" required="true" requiredMessage="El campo calle es requerido" size="35"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="Colonia:" for="colonia" styleClass="textoNEGRO" />
-                    <h:inputText id="colonia" value="#{proveedorController.selected.colonia}" title="colonia" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:inputText id="colonia" value="#{proveedorController.selected.colonia}" title="colonia" required="true" requiredMessage="El campo colonia es requerido" size="35"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="Ciudad:" for="cd" styleClass="textoNEGRO" />
-                    <h:inputText id="cd" value="#{proveedorController.selected.cd}" title="cp" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:inputText id="cd" value="#{proveedorController.selected.cd}" title="cp" required="true" requiredMessage="El campo ciudad es requerido" size="35"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
-                    <h:outputLabel value="Cp:" for="siglas" styleClass="textoNEGRO" />
-                    <h:inputText id="cp" value="#{proveedorController.selected.cp}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="C.P:" for="siglas" styleClass="textoNEGRO" />
+                    <h:inputText id="cp" value="#{proveedorController.selected.cp}" title="siglas"  requiredMessage="El campo C.P es requerido" size="35"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="Zona:" for="zona" styleClass="textoNEGRO" />
-                    <h:inputText id="zona" value="#{proveedorController.selected.zona}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:inputText id="zona" value="#{proveedorController.selected.zona}" title="siglas" required="true" requiredMessage="El campo Zona es requerido" size="35"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                             </h:panelGrid>
                     </center>
@@ -82,25 +82,25 @@
 
 
                     <h:outputLabel value="Tipo:" for="tipo" styleClass="textoNEGRO" />
-                    <h:inputText id="tipo" value="#{proveedorController.selected.tipo}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:inputText id="tipo" value="#{proveedorController.selected.tipo}" title="siglas"  requiredMessage="El campo tipo es requerido" size="35"/>
                     <h:outputLabel value=" " styleClass="textoROJO"/>
                     <h:outputLabel value="Credito:" for="credito" styleClass="textoNEGRO" />
-                    <h:inputText id="credito" value="#{proveedorController.selected.credito}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:inputText id="credito" value="#{proveedorController.selected.credito}" title="siglas"  requiredMessage="El campo credito es requerido" size="35"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
 
 
-                    <h:outputLabel value="Descto:" for="descuento" styleClass="textoNEGRO" />
-                    <h:inputText id="descuento" value="#{proveedorController.selected.descto}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="Descuento:" for="descuento" styleClass="textoNEGRO" />
+                    <h:inputText id="descuento" value="#{proveedorController.selected.descto}" title="siglas" required="true" requiredMessage="El campo descuento es requerido" size="35"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
 
-                    <h:outputLabel value="Rfc:" for="rfc" styleClass="textoNEGRO" />
-                    <h:inputText id="rfc" value="#{proveedorController.selected.rfc}" title="siglas" required="true" requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:outputLabel value="RFC:" for="rfc" styleClass="textoNEGRO" />
+                    <h:inputText id="rfc" value="#{proveedorController.selected.rfc}" title="siglas" required="true" requiredMessage="El campo RFC es requerido" size="35"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
 
                     
                     
                     <h:outputLabel value="Cta div:" for="CTA_DIV" styleClass="textoNEGRO" />
-                    <h:inputText id="CTA_DIV" value="#{proveedorController.selected.ctaDiv}" title="siglas"  requiredMessage="RequiredMessage_nombre}" size="35"/>
+                    <h:inputText id="CTA_DIV" value="#{proveedorController.selected.ctaDiv}" title="siglas"  requiredMessage="El campo Cta div es requerido" size="35"/>
                     <h:outputLabel value=" " styleClass="textoROJO"/>
 
                   </h:panelGrid>
