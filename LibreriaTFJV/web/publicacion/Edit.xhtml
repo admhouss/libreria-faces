@@ -19,10 +19,14 @@
             <h:form>
                  <br/>
                 <br/>
-                <p:panel header="EDITAR PUBLICACION">
+                <p:panel header="EDITAR PUBLICACION ">
                      <center>
                          <h:panelGrid columns="2" cellspacing="12">
-                   
+                             <h:outputLabel value="Art&iacute;culo:"  styleClass="textoNEGRO"/>
+                             <h:outputLabel value="#{publicacionController.selected.articulo.codigo}-#{publicacionController.selected.articulo.titulo}" />
+                         </h:panelGrid>
+
+                   <h:panelGrid columns="2" cellspacing="12">
                     <h:outputLabel value="Periodo Mes:" for="periodoMes" styleClass="textoNEGRO"/>
                     <p:calendar id="periodoMes" value="#{publicacionController.selected.periodoMes}" title="Periodo Mes" required="true" requiredMessage="El campo  periodo Mes es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true" >
                         <f:convertDateTime pattern="dd/MM/yyyy" />

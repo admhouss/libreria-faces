@@ -33,10 +33,10 @@
                         <f:facet name="header">
                             <h:outputText value="CODIGO"/>
                         </f:facet>
-                            <h:outputText value="#{item.idDc}"/>
+                       <h:outputText value="#{item.articulo.codigo}"/>
                    </p:column>
 
-                         <p:column style="width:20px;">
+                         <p:column style="width:180px;">
                         <f:facet name="header">
                             <h:outputText value="ARTICULO"/>
                         </f:facet>
@@ -50,14 +50,7 @@
                     </p:column>
                    
                    
-                    <p:column style="width:10px;">
-                        <f:facet name="header">
-                            <h:outputText value="PERIODO"/>
-                        </f:facet>
-                        <h:outputText value="#{item.periodoAnio}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                    </p:column>
+                    
                     
                    
                         <p:column  style="width:12px;">
