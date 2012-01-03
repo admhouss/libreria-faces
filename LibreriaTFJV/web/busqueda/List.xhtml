@@ -156,6 +156,13 @@
   <tr>
       <td><strong>ISBN: </strong><h:outputText value="#{item.isbn}"/></td>
   </tr>
+
+  <tr>
+      <td><strong>Existencia: </strong>
+          <h:outputText value="PENDIENTE DE SUSTITUIR" rendered="#{item.articulo.almacen.existencia==null}"/>
+          <h:outputText value="#{item.articulo.almacen.existencia}"/>
+      </td>
+  </tr>
   <tr>
     <td>&nbsp;</td>
   </tr>
