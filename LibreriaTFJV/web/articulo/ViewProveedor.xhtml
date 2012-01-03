@@ -28,6 +28,9 @@
   <br/>
               <p:panel header="PROVEEDORES ASIGNADOS AL ART&Iacute;CULO">
 
+                  <h2><h:outputLabel value="#{articuloController.selected.codigo}-#{articuloController.selected.titulo}"/></h2>
+                  <br/>
+
                   <p:dataTable value="#{proveedorArticuloController.listProveedorArticulo}" var="item" paginator="true" rows="5">
 
                       <p:column style="width:200px;">
