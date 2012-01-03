@@ -43,11 +43,11 @@
                         <h:outputText value="#{item.montoImpuesto}"/>
                    </p:column>
                   
-                        <p:column filterBy="#{item.articulo.titulo}">
+                        <p:column filterBy="#{item.articulo.titulo}" style="width:250px;">
                         <f:facet name="header">
                             <h:outputText value="ART&Iacute;CULO"/>
                         </f:facet>
-                       <h:outputText value="#{item.articulo.titulo}"/>
+                       <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
                    </p:column>
                    <p:column>
                         <f:facet name="header">

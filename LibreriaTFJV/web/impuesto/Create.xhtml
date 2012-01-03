@@ -24,8 +24,8 @@
                     <h:inputText id="montoImpuesto" value="#{impuestoController.selected.montoImpuesto}" title="Monto Impuesto" required="true" requiredMessage="Falta por campturar el campo Monto Impuesto"/>
                    
                     <h:outputLabel value="Art&iacute;culo:" for="articulo" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{impuestoController.selected.articulo}" title="Articulo" required="true" requiredMessage="Falta por capturar articulo">
-                        <f:selectItems value="#{articuloController.listArticulos}" itemValue="#{item}" var="item" itemLabel="#{item.titulo}"/>
+                    <h:selectOneMenu id="articulo" value="#{impuestoController.selected.articulo}" title="Articulo" required="true" requiredMessage="Falta por capturar articulo" style="width:250px;">
+                        <f:selectItems value="#{articuloController.listArticulos}" itemValue="#{item}" var="item" itemLabel="#{item.codigo}-#{item.titulo}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="Descripci&oacute;n:" for="descripcion" styleClass="textoNEGRO" />
                      <h:inputTextarea id="descripcion" value="#{impuestoController.selected.descripcion}" title="Descripcion" required="true" requiredMessage="Falta por capturar Descripcion"/>
