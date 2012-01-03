@@ -22,10 +22,10 @@
                     <h:panelGrid columns="3" cellspacing="15">
 
                     <h:outputLabel value="Existencia:" for="existencia" styleClass="textoNEGRO" />
-                    <h:inputText id="existencia" value="#{almacenController.selected.existencia}" title="Existencia"   >
-                      <f:validator  validatorId="NumeroValidator"/>
-                    </h:inputText>
-                    <h:outputLabel value="*"  styleClass="textoROJO" />
+                    <h:outputLabel id="existencia" value="#{almacenController.selected.existencia}" title="Existencia"  /> 
+                      
+
+                    <h:outputLabel value=" "  styleClass="textoROJO" />
                     <h:outputLabel value="En Consigna:" for="enConsigna" styleClass="textoNEGRO" />
                     <h:inputText id="enConsigna" value="#{almacenController.selected.enConsigna}" title="Consigna" required="true" requiredMessage="El campo Consigna es requerido">
                          <f:validator  validatorId="NumeroValidator"/>

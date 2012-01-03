@@ -26,12 +26,12 @@
                       <h:outputText value="#{almacenController.selected.articulo.codigo}-#{almacenController.selected.articulo.titulo}" title="Articulo"/>
                        <h:outputLabel value=" "  styleClass="textoROJO" />
                     <h:outputLabel value="Existencia:" for="existencia" styleClass="textoNEGRO" />
-                    <h:inputText id="existencia" value="#{almacenController.selected.existencia}" title="Existencia" required="true" requiredMessage="existencia" >
+                    <h:outputText id="existencia" value="#{almacenController.selected.existencia}" title="Existencia" >
 
-                    </h:inputText>
+                    </h:outputText>
                     <h:outputLabel value="*"  styleClass="textoROJO" />
                     <h:outputLabel value="En Consigna:" for="enConsigna" styleClass="textoNEGRO" />
-                    <h:inputText id="enConsigna" value="#{almacenController.selected.enConsigna}" title="Consigna" required="true" requiredMessage="enConsigna"/>
+                    <h:outputText id="enConsigna" value="#{almacenController.selected.enConsigna}" title="Consigna" />
                     <h:outputLabel value="*"  styleClass="textoROJO" />
                     <h:outputLabel value="En Firme:" for="enFirme" styleClass="textoNEGRO" />
                     <h:inputText id="enFirme" value="#{almacenController.selected.enFirme}" title="Firme" required="true" requiredMessage="enFirme"/>
