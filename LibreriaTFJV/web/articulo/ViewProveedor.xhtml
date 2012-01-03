@@ -30,6 +30,12 @@
 
                   <p:dataTable value="#{proveedorArticuloController.listProveedorArticulo}" var="item" paginator="true" rows="5">
 
+                      <p:column style="width:200px;">
+                        <f:facet name="header">
+                            <h:outputText value="ART&Iacute;CULO"/>
+                        </f:facet>
+                          <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
+                   </p:column>
                     <p:column style="width:220px;">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
