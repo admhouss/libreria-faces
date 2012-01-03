@@ -19,16 +19,16 @@
                        <p:panel header="VER PROMOCION">
                             <center>
                                 <h:panelGrid columns="2" cellspacing="15">
-                                    <h:outputText value="Articulo:" styleClass="textoNEGRO"/>
-                                    <h:outputText value="#{promocionController.selected.articulo.titulo}" title="#{bundle.ViewPromocionTitle_promocionPK_idArticulo}"/>
+                                    <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO"/>
+                                    <h:outputText value="#{promocionController.selected.articulo.codigo}-#{promocionController.selected.articulo.titulo}" title="promocionPK_idArticulo}"/>
                                     <h:outputText value="Precio Publico" styleClass="textoNEGRO"/>
-                                    <h:outputText value="#{promocionController.selected.precioPublico}" title="#{bundle.ViewPromocionTitle_precioPublico}"/>
+                                    <h:outputText value="#{promocionController.selected.precioPublico}" title="precio Publico"/>
                                     <h:outputText value="Fecha Inicio:" styleClass="textoNEGRO"/>
-                                    <h:outputText value="#{promocionController.selected.diaInicio}" title="#{bundle.ViewPromocionTitle_diaInicio}">
+                                    <h:outputText value="#{promocionController.selected.diaInicio}" title="diaInicio">
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
                                     <h:outputText value="Fecha Fin:" styleClass="textoNEGRO"/>
-                                     <h:outputText value="#{promocionController.selected.diaFin}" title="#{bundle.ViewPromocionTitle_diaFin}">
+                                     <h:outputText value="#{promocionController.selected.diaFin}" title="diaFin">
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
                                 </h:panelGrid>
