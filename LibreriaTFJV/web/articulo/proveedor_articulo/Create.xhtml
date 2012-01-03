@@ -23,9 +23,14 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
 
                 <p:panel header="ALTA PROVEEDOR ART&Iacute;CULO">
                     <center>
-                        <h:panelGrid  columns="3">
-                            <h:outputLabel value="Proveedor:"  styleClass="textoNEGRO"></h:outputLabel>
-                            <h:selectOneMenu  value="#{articuloController.proveedor}" required="true" requiredMessage="Falta por capturar Proveedor">
+
+
+                        <h:panelGrid  columns="3" cellspacing="15">
+                            <h:outputLabel value="Art&iacute;culo:"  styleClass="textoNEGRO"></h:outputLabel>
+                             <h:outputLabel value="#{articuloController.selected.codigo}-#{articuloController.selected.titulo}"  styleClass="textoNEGRO"></h:outputLabel>
+                             <h:outputLabel value=" "  styleClass="textoNEGRO"></h:outputLabel>
+                             <h:outputLabel value="Proveedor:"  styleClass="textoNEGRO"></h:outputLabel>
+                             <h:selectOneMenu  value="#{articuloController.proveedor}" required="true" requiredMessage="Falta por capturar Proveedor">
                              <f:selectItems  value="#{proveedorController.listProveedor}" var="proveedor" itemValue="#{proveedor}" itemLabel="#{proveedor.nombre}"/>
                             </h:selectOneMenu>
                             <h:outputLabel value=" "/>
