@@ -116,7 +116,15 @@
    <validator>
             <validator-id>EmailValidator</validator-id>
             <validator-class>escom.libreria.correo.ValidadorCorreo</validator-class>
+
    </validator>
+   
+   <validator>
+            <validator-id>NumeroValidator</validator-id>
+            <validator-class>escom.libreria.correo.ValidarNumero</validator-class>
+   </validator>
+
+
 </faces-config>
 
 
