@@ -19,8 +19,12 @@
                 <br/>  <br/>
                 <p:panel header="EDITAR ALMAC&Eacute;N">
                 <center>
-                    <h:panelGrid columns="3" cellspacing="15">
 
+
+                    <h:panelGrid columns="3" cellspacing="15">
+                      <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO"/>
+                      <h:outputText value="#{almacenController.selected.articulo.codigo}-#{almacenController.selected.articulo.titulo}" title="Articulo"/>
+                       <h:outputLabel value=" "  styleClass="textoROJO" />
                     <h:outputLabel value="Existencia:" for="existencia" styleClass="textoNEGRO" />
                     <h:inputText id="existencia" value="#{almacenController.selected.existencia}" title="Existencia" required="true" requiredMessage="existencia" >
 
