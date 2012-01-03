@@ -30,8 +30,10 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                 <br/>  <br/>
                 <p:panel header="CATALOGO DE PROMOCIONES">
                         
-                    <p:dataTable value="#{promocionController.listPromocion}" var="item" paginator="true" rows="10" selectionMode="single" >
-                    
+                    <p:dataTable value="#{promocionController.listPromocion}" var="item" paginator="true" rows="10" selection="#{promocionController.selectPromocion}" selectionMode="single">
+                   
+
+        <p:column selectionMode="multiple" />
                     
                       <p:column style="width: 15px;">
                         <f:facet name="header">
@@ -55,11 +57,11 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column style="width:150px;" filterBy="#{item.articulo.titulo}" >
+                    <p:column style="width:130px;" filterBy="#{item.articulo.titulo}" >
                         <f:facet name="header">
                             <h:outputText value="ART&Iacute;CULO"/>
                         </f:facet>
-                         <h:outputText value="#{item.articulo.titulo}"/>
+                         <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
                     </p:column>
                       
                     <p:column>
@@ -78,10 +80,19 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         <h:commandLink action="#{promocionController.destroy(item)}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
-                        <h:commandLink action="#{promocionController.sendCorreo(item)}">
+                        <!--<h:commandLink action="{promocionController.sendCorreo(item)}">
                         <img src="./../resources/iconos/correo.png" alt="" title="Correo"/>
-                        </h:commandLink>
+                        </h:commandLink>-->
                     </p:column>
+
+        <f:facet name="footer">
+            <h:commandLink action="#{promocionController.sendCorreo}">
+                            
+                <img src="./../resources/iconos/correo.png" alt="" title="Correo"/>
+            </h:commandLink>
+
+
+        </f:facet>
                 </p:dataTable>
                        
                 </p:panel>
