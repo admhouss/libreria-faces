@@ -23,10 +23,10 @@
 
                     <h:outputText value="Descuento:"  styleClass="textoNEGRO" />
                     <h:outputText value="#{descuentoArticuloController.selected.descuento}" title="Descuento"/>
-                    <h:outputLabel value=" %"  />
+                    <h:outputLabel value=" %" styleClass="textoNEGRO" />
 
                     <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO" />
-                    <h:outputText value="#{descuentoArticuloController.selected.articulo.titulo}" title="descuento aplicado articulo"/>
+                    <h:outputText value="#{descuentoArticuloController.selected.articulo.codigo}-#{descuentoArticuloController.selected.articulo.titulo}" title="descuento aplicado articulo" styleClass="textoNEGRO"/>
                     <h:outputLabel value=" "  />
                     <h:outputText value="Fecha Inicio:" styleClass="textoNEGRO" />
                     <h:outputText value="#{descuentoArticuloController.selected.fechaInicio}" title="Fecha Inicio">
