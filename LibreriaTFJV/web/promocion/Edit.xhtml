@@ -17,10 +17,15 @@
             <h:form id="prompcion">
 
                 <br/>  <br/>
-                <p:panel header="EDITAR PROMOCION ARTICULO">
+                <p:panel header="EDITAR PROMOCION ART&Iacute;CULO">
                     <center>
-                <h:panelGrid columns="3" cellspacing="15">
 
+                        
+                       
+                <h:panelGrid columns="3" cellspacing="15">
+                    <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{promocionController.selected.articulo.codigo}-#{promocionController.selected.articulo.titulo}" title="#{bundle.ViewPromocionTitle_promocionPK_idArticulo}"/>
+                    <h:outputText value=" " styleClass="textoNEGRO"/>
                     <h:outputLabel  value="Precio:" for="precio" styleClass="textoNEGRO" />
                     <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="Precio Publico" required="true" requiredMessage="Elcampo precioPublico es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"  />
