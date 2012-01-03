@@ -18,12 +18,14 @@
                 <br/>  <br/>
                 <p:panel header="EDITAR IMPUESTO">
                 <center>
-                    <h:panelGrid columns="2" cellspacing="15">
+                    <h:panelGrid columns="3" cellspacing="15">
                     <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{impuestoController.selected.articulo.codigo}-#{impuestoController.selected.articulo.titulo}" title="Articulo"/>
+                    <h:outputLabel value=" "  styleClass="textoNEGRO" />
 
                     <h:outputLabel value="Impuesto:" for="montoImpuesto" styleClass="textoNEGRO" />
                     <h:inputText id="montoImpuesto" value="#{impuestoController.selected.montoImpuesto}" title="Monto Impuesto" required="true" requiredMessage="El campo Monto Impuesto falta por capturar"/>
+                    <h:outputLabel value="%"  styleClass="textoNEGRO" />
 
                     
                     <h:outputLabel value="Descripci&oacute;:" for="descripcion" styleClass="textoNEGRO" />
