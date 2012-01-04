@@ -164,11 +164,12 @@ a img {
 	width:590px;
 	height:132px;
 	z-index:5;
-	background-image: url('./../template/imgs/img1.jpg');
+        
+	/*background-image: url('./../template/imgs/img1.jpg');*/
 }
 #apDiv3 {
 	position:absolute;
-	left:819px;
+	left:900px;
 	top:122px;
 	width:191px;
 	height:552px;
