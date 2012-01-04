@@ -81,4 +81,19 @@ public class ProveedorArticuloFacade {
          query.executeUpdate();
 
     }
+
+    public ProveedorArticulo buscarArticuloProveedor(int idArticulo, int idProveedor) {
+        ProveedorArticulo pa=null;
+        try{
+            TypedQuery<ProveedorArticulo> query=em.createQuery("SELECT p FROM ProveedorArticulo p WHERE p.proveedorArticuloPK.idArticulo = :idArticulo AND p.proveedorArticuloPK.idProveedor =:idProveedor",ProveedorArticulo.class)
+            .setParameter("idArticulo",idArticulo)
+            .setParameter("idProveedor", idProveedor)
+            .setMaxResults(1);
+            pa=query.getSingleResult();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return pa;
+
+    }
 }
