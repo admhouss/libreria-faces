@@ -132,8 +132,10 @@
                 </p:tab>
                 <p:tab title="Env&iacute;o y Facturaci&oacute;n">
                     <h2>Direcci&oacute;n de Env&iacute;o</h2><br/>
-                    <p:dataTable value="#{direnvioController.listaDirEnvioCliente}" var="item"  paginator="true" rows="5">
-
+                    <p:dataTable value="#{direnvioController.listaDirEnvioCliente}" var="item"  
+                                 paginator="true" rows="5"  dynamic="true" update="display" selectionMode="single"
+                                 selection="#{direnvioController.direccionEnvioSelected}" >
+                        <p:column selectionMode="single" />
                         <p:column style="width:60px;">
                         <f:facet name="header">
                             <h:outputText value="ATENCI&Oacute;N"/>
@@ -169,9 +171,9 @@
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
                         <h:commandLink action="{direnvioController.prepareView(item)}">
-                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                            <img src="./../resources/iconos/INMUEB.png" alt="" title="Ver"/>
                         </h:commandLink>
-                        <h:outputText value=" "/>
+                    </p:column>
                         <h:commandLink action="{direnvioController.prepareEdit(item)}">
                             <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
                         </h:commandLink>
@@ -185,7 +187,12 @@
 
                     <br/>
                     <h2>Direci&oacute;n de Facturaci&oacute;n</h2><br/>
-                    <p:dataTable value="#{difacturacionController.lisDirfaDifacturacionsByCliente}" var="item" paginator="true" rows="6">
+                    <p:dataTable value="#{difacturacionController.lisDirfaDifacturacionsByCliente}" var="item" paginator="true" rows="6"
+                               dynamic="true" update="display" selectionMode="single"
+                               selection="#{difacturacionController.difacturacionSelected}"
+                                 >
+
+                    <p:column selectionMode="single"/>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="RFC"/>
