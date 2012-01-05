@@ -128,7 +128,7 @@
                         <h:panelGrid columns="6">
                         <h:outputLabel value="Pedido:" styleClass="textoNEGRO"/>
 
-                        <h:selectOneMenu value="#{pedidoController.mycurrent}">
+                        <h:selectOneMenu value="#{pedidoController.mycurrent}" style="width:100px;">
                             <f:selectItems value="#{pedidoController.listPedidosByCliente}" var="item"  itemValue="#{item}" itemLabel="#{item.articulo.titulo}"/>
                         </h:selectOneMenu>
                         &nbsp;
