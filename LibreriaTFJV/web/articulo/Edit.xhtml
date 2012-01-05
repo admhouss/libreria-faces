@@ -73,7 +73,11 @@
 
                             <h:outputLabel value="*"  styleClass="textoROJO"/>
                             <h:outputLabel value="Formato:" for="formato" styleClass="textoNEGRO" />
-                            <h:inputText id="formato" size="25" value="#{articuloController.selected.formato}" title="Formato" required="true" requiredMessage="El campo formato es requerido"/>
+                            <h:selectOneMenu id="formato"  value="#{articuloController.selected.formato}" title="Formato" required="true" requiredMessage="El campo formato es requerido">
+                                <f:selectItem id="item_1"  itemValue="Fisico" itemLabel="F&iacute;sico"/>
+                                <f:selectItem id="item_2"  itemValue="Electronico" itemLabel="Electr&oacute;nico"/>
+                                <f:selectItem id="item_3"  itemValue="Descarga" itemLabel="Descarga"/>
+                            </h:selectOneMenu>
                             <h:outputLabel value="*"  styleClass="textoROJO"/>
                             <h:outputLabel value="Tipo Art&iacute;culo:" for="idTipo" styleClass="textoNEGRO" />
                             <h:selectOneMenu id="idTipo" value="#{articuloController.selected.tipoArticulo}" title="Tipo Articulo" required="true" requiredMessage="El campo tipo articulo es requerido">
