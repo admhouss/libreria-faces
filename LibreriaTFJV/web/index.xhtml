@@ -9,7 +9,7 @@
     <h:head>
 
 
-       <!--<h:outputStylesheet name="css/stylesheet.css"/>-->
+       
        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css" />
        <link href="#{facesContext.externalContext.request.contextPath}/resources/template/css/style.css" rel="stylesheet" type="text/css" />
         <link href="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
@@ -36,7 +36,7 @@
     <h:form id="bienvenido" >
 
         <p:accordionPanel autoHeight="false" id="acordion">
-                    <p:tab title="Libro">
+                    <p:tab title="Publicaciones">
                         <h:panelGroup id="panelgrup">
                    <p:dataGrid value="#{publicacionController.listNovedadesPublicacion}" var="item"  rows="5" paginator="true"  columns="1"  >
 		   
@@ -63,7 +63,9 @@
       <td><strong>ISBN: </strong><h:outputText value="#{item.isbn}"/></td>
   </tr>
   <tr>
-      <td><strong>Existencia: </strong><h:outputText value="#{item.articulo.almacen.existencia}"/></td>
+      <td><strong>Existencia: </strong>
+          <h:outputText value="PENDIENTE DE SUSTITUIR" rendered="#{item.articulo.almacen.existencia==null}"/>
+          <h:outputText value="#{item.articulo.almacen.existencia}"/></td>
   </tr>
   <tr>
 
@@ -96,6 +98,12 @@
       <li class="ui-state-default ui-corner-all" title="Articulos Relacionados">
      <span class="ui-icon ui-icon-link">
         <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" styleClass="ui-icon ui-icon-link"/>
+     </span>
+      </li>
+
+      <li class="ui-state-default ui-corner-all" title="Descargar Publicacion">
+     <span class="ui-icon ui-icon-document-b">
+         <h:commandLink  action="#{subirArchivo.descargarArchivoDocumento(item.articulo)}" immediate="true" styleClass="ui-icon ui-icon-document-b"/>
      </span>
       </li>
     </ul></td>
