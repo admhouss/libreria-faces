@@ -18,7 +18,7 @@
 
                 <h2>Confirmaci&oacute;n de Compra</h2>
                 <p:accordionPanel >
-                    <p:tab title="Lista de Pedidos">
+                    <p:tab title="Lista de Pedidos Resientes">
 
                         <h:dataTable var="item" value="#{pedidoController.listPedidosByCliente}" headerClass="ui-state-focus">
 
@@ -71,14 +71,7 @@
                             </f:facet>
                              <h:outputText value="% #{item.impuesto}" />
                          </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                              <h:outputLabel value="Fecha" />
-                            </f:facet>
-                            <h:outputText value="#{item.fechaPedido}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </h:outputText>
-                         </h:column>
+                        
 
                          <h:column>
                             <f:facet name="header">
@@ -90,18 +83,16 @@
                             </h:outputText>
                          </h:column>
 
-                            <!-- <h:column>
+                            <h:column>
                             <f:facet name="header">
-                                <h:outputLabel value="&nbsp;" />
+                                <h:outputLabel value="Borrar" />
                             </f:facet>
-                           <ul id="icons" class="ui-widget ui-helper-clearfix">
-                            <li class="ui-state-default ui-corner-all" title=".ui-icon-pencil">
-                                <h:commandLink action="{carritoController.prepareEditPublicacion(item)}" immediate="true">
-                                    <span class="ui-icon ui-icon-pencil"></span>
+                         
+                                <h:commandLink action="#{pedidoController.eliminarPedido(item)}" >
+                                    <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                                 </h:commandLink>
-                            </li>
-                           </ul>
-                         </h:column>-->
+                           
+                         </h:column>
 
 
                     </h:dataTable>
@@ -122,95 +113,95 @@
 
                     </p:tab>
 
-                    <p:tab title="Modificar Tipo Envio">
+                    <!--<p:tab title="Modificar Tipo Envio">
 
                         <center>
                         <h:panelGrid columns="6">
                         <h:outputLabel value="Pedido:" styleClass="textoNEGRO"/>
 
-                        <h:selectOneMenu value="#{pedidoController.mycurrent}" style="width:100px;">
-                            <f:selectItems value="#{pedidoController.listPedidosByCliente}" var="item"  itemValue="#{item}" itemLabel="#{item.articulo.titulo}"/>
+                        <h:selectOneMenu value="{pedidoController.mycurrent}" style="width:100px;">
+                            <f:selectItems value="{pedidoController.listPedidosByCliente}" var="item"  itemValue="#{item}" itemLabel="#{item.articulo.titulo}"/>
                         </h:selectOneMenu>
                         &nbsp;
                         <h:outputLabel value="Tipo Envio:" styleClass="textoNEGRO"/>
-                        <h:selectOneMenu value="#{pedidoController.tipoEnvio}">
+                        <h:selectOneMenu value="{pedidoController.tipoEnvio}">
                         <f:selectItem   id="item_0"  itemValue="ELECTRONICO" itemLabel="ELECTRONICO"/>
                         <f:selectItem   id="item_1" itemValue="FISICO" itemLabel="FISICO"/>
                         </h:selectOneMenu>
-                        <h:commandButton value="Editar" action="#{pedidoController.updateConfig}"/>
+                        <h:commandButton value="Editar" action="{pedidoController.updateConfig}"/>
                         </h:panelGrid>
                         </center>
                        
                    <br/><br/>
-                   <p:dataTable value="#{pedidoController.listPedidosByCliente}" var="item" paginator="true" rows="10" selectionMode="single">
+                   <p:dataTable value="{pedidoController.listPedidosByCliente}" var="item" paginator="true" rows="10" selectionMode="single">
 
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="CANTIDAD"/>
                         </f:facet>
-                        <h:outputText value="#{item.noArticuloCategoria}"/>
+                        <h:outputText value="{item.noArticuloCategoria}"/>
                     </p:column>
-                    <!--<p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="CATEGORIA"/>
                         </f:facet>
                         <h:outputText value="{item.categoria}"/>
-                    </p:column>-->
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="PRECIO NETO"/>
                         </f:facet>
-                        <h:outputText value="#{item.precioNeto}"/>
+                        <h:outputText value="{item.precioNeto}"/>
                     </p:column>
-                   <!-- <p:column>
+                   <p:column>
                         <f:facet name="header">
                             <h:outputText value="IMPUESTO"/>
                         </f:facet>
                         <h:outputText value="{item.impuesto}"/>
-                    </p:column>-->
-                    <!--<p:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="DESCUENTO"/>
                         </f:facet>
                         <h:outputText value="{item.descuento}"/>
                     </p:column>
-                    -->
+                    
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="PRECIO TOTAL"/>
                         </f:facet>
-                        <h:outputText value="#{item.precioTotal}"/>
+                        <h:outputText value="{item.precioTotal}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="TIPO ENVIO"/>
                         </f:facet>
 
-                        <h:outputLabel value="#{item.tipoEnvio}"/>
+                        <h:outputLabel value="{item.tipoEnvio}"/>
                         
                     </p:column>
                     <p:column style="width:16px;">
                         <f:facet name="header">
                             <h:outputText value="ARTICULO"/>
                         </f:facet>
-                        <h:outputText value="#{item.articulo.titulo}"/>
+                        <h:outputText value="{item.articulo.titulo}"/>
                     </p:column>
                  
                 </p:dataTable>
                 
-                    </p:tab>
+                    </p:tab>-->
 
                 </p:accordionPanel>
                 <br/><br/>
                
-               <p:panel  header="REQUIERE FACTURA" >
+               <!--<p:panel  header="REQUIERE FACTURA" >
                     <center>
                 <h:panelGrid columns="2" cellspacing="15">
 
 
                   
                     <h:outputLabel value="Requiere factura:" styleClass="textoROJO"/>
-                    <h:selectOneMenu value="#{compraController.facturar}">
+                    <h:selectOneMenu value="{compraController.facturar}">
                         <f:selectItem id="item_value_0" itemValue="0" itemLabel="NO"/>
                         <f:selectItem id="item_value_1" itemValue="1" itemLabel="SI"/>
                     </h:selectOneMenu>
@@ -218,11 +209,11 @@
                 </h:panelGrid>
                     </center>
                      </p:panel>
-
+-->
                 <br /><br />
                 <div align="center">
                     <p:panel>
-                    <h:commandButton action="#{compraController.create}" value="Guardar" />
+                    <h:commandButton action="#{compraController.create}" value="Confirmar" />
                     </p:panel>
                 </div>
             </h:form>
