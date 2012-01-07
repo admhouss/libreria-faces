@@ -44,7 +44,7 @@
                                     <td colspan="4" class="ui-state-highlight"> 
                                         <h:outputText value="#{item.indice}"/></td>
                                     
-                                    <td>
+                                    <td style="width:160px;">
                                        
                                         <h:outputText value="#{item.titulo}" styleClass="textoNEGRO" /><br/>
                                         <h:outputText value="#{item.asunto}" /><br/>
@@ -80,14 +80,7 @@
                             </f:facet>
                              <h:outputText value="% #{item.impuesto}" />
                          </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                              <h:outputLabel value="Fecha" />
-                            </f:facet>
-                            <h:outputText value="#{item.fechaCompra}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </h:outputText>
-                         </h:column>
+                        
 
                          <h:column>
                             <f:facet name="header">
@@ -288,7 +281,7 @@
             <br />
             <div align="center">
                 <p:panel>
-                    <h:commandButton value="Salir" action="/index" immediate="true" />
+                    <h:commandButton value="Regresar" action="/index" immediate="true" />
                 </p:panel>
             </div>
            
