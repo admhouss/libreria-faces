@@ -22,9 +22,14 @@
             </h:panelGroup>
 
             <h1>Carrito de Compra</h1>
-            <h:outputLabel value="Favor de registrase" rendered="#{sistemaController.cliente==null}" escape="false"/>
-            <h:panelGroup rendered="#{sistemaController.cliente!=null}">
-            <p:accordionPanel autoHeight="false" rendered="#{sistemaController.cliente!=null}" >
+
+            <h:outputLabel value="Favor de registrase" rendered="#{carritoController.countElement==0}" escape="false"/>
+
+            <h:panelGroup rendered="#{carritoController.countElement!=0}">
+                
+               
+            
+                <p:accordionPanel autoHeight="false" rendered="#{sistemaController.cliente!=null}">
                 
                 <p:tab title="Art&iacute;culos">
 
@@ -258,10 +263,17 @@
               <td><div><img src="./../resources/iconos/icono_pago.png" height="28" width="37" />Dep&oacute;sito bancario/Transferencia electr&oacute;nica</div>
                 <p>(depositos en efectivo y pagos via banca electr&oacute;nica. <br />
                 <strong>Todos los bancos</strong>)</p></td>
-            <td><ul id="icons" class="ui-widget ui-helper-clearfix">
-		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e"><span class="ui-icon ui-icon-arrowthick-1-e"></span></li>
+            <td>
+           <ul id="icons" class="ui-widget ui-helper-clearfix">
+               <h:commandLink action="#{paypalController.procesarDeposito}">
 
-            </ul></td>
+              <li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e">
+              <span class="ui-icon ui-icon-arrowthick-1-e"></span>
+              </li>
+                </h:commandLink>
+            </ul>
+
+            </td>
           </tr>
         </tbody>
       </table>
@@ -271,7 +283,7 @@
 
                 </p:tab>
             </p:accordionPanel>
-
+            
 
 
             </h:panelGroup>
