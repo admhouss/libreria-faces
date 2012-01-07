@@ -18,9 +18,9 @@
 
           <f:metadata>
                  
-                  <f:viewParam id="key" name="pedidoCancelado" value="#{compraController.pedidoCancelado}"/>
+              <f:viewParam id="key" name="pedidoComprado" value="#{paypalController.pedidoComprado}"/>
                   
-                  <f:event listener="#{compraController.init}"  type="preRenderView"/>
+                  <f:event listener="#{paypalController.init}"  type="preRenderView"/>
 
         </f:metadata>
 
