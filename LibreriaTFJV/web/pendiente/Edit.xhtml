@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPendienteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPendienteLabel_idArticulo}" for="idArticulo" />
+                    <h:inputText id="idArticulo" value="#{pendienteController.selected.idArticulo}" title="#{bundle.EditPendienteTitle_idArticulo}" required="true" requiredMessage="#{bundle.EditPendienteRequiredMessage_idArticulo}"/>
+                    <h:outputLabel value="#{bundle.EditPendienteLabel_noArtSolicitados}" for="noArtSolicitados" />
+                    <h:inputText id="noArtSolicitados" value="#{pendienteController.selected.noArtSolicitados}" title="#{bundle.EditPendienteTitle_noArtSolicitados}" required="true" requiredMessage="#{bundle.EditPendienteRequiredMessage_noArtSolicitados}"/>
+                    <h:outputLabel value="#{bundle.EditPendienteLabel_fecha}" for="fecha" />
+                    <h:inputText id="fecha" value="#{pendienteController.selected.fecha}" title="#{bundle.EditPendienteTitle_fecha}" required="true" requiredMessage="#{bundle.EditPendienteRequiredMessage_fecha}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditPendienteLabel_observacones}" for="observacones" />
+                    <h:inputText id="observacones" value="#{pendienteController.selected.observacones}" title="#{bundle.EditPendienteTitle_observacones}" required="true" requiredMessage="#{bundle.EditPendienteRequiredMessage_observacones}"/>
+                    <h:outputLabel value="#{bundle.EditPendienteLabel_cliente}" for="cliente" />
+                    <h:selectOneMenu id="cliente" value="#{pendienteController.selected.cliente}" title="#{bundle.EditPendienteTitle_cliente}" required="true" requiredMessage="#{bundle.EditPendienteRequiredMessage_cliente}">
+                        <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPendienteLabel_articulo}" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{pendienteController.selected.articulo}" title="#{bundle.EditPendienteTitle_articulo}" required="true" requiredMessage="#{bundle.EditPendienteRequiredMessage_articulo}">
+                        <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{pendienteController.update}" value="#{bundle.EditPendienteSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditPendienteViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{pendienteController.prepareList}" value="#{bundle.EditPendienteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditPendienteIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
