@@ -36,12 +36,7 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column style="width:50px;">
-                        <f:facet name="header">
-                            <h:outputText value="TIPO ENVIO"/>
-                        </f:facet>
-                        <h:outputText value="#{item.tipoEnvio}"/>
-                    </p:column>
+                    
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="PAGO TOTAL"/>
@@ -78,7 +73,7 @@
                         <f:facet name="header">
                             <h:outputText value="Pedido"/>
                         </f:facet>
-                        <h:outputText value="#{item.idPedido}"/>
+                        <h:outputText value="#{item.pedido}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
