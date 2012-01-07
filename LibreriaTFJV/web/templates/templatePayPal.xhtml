@@ -106,9 +106,9 @@ body { border:none; background:none; background-color:#FFFFFF;}
                                         <ul class="item1">
                                             <li class="dark">
                                                 
-                                                <a class="autoTooltip" href="#name0" id="showname0">
-                                                    <h:outputLabel value="#{item.articulo.titulo}" styleClass="textoNEGRO"/>
-                                                </a>
+                                                <!--<a class="autoTooltip" href="#name0" id="showname0" >-->
+                                                <p><strong><h:outputLabel value="#{item.articulo.titulo}"  styleClass="autoTooltip" style="width:200px;color:#036fab"/></strong></p>
+                                                <!--</a>-->
                                                 <span class="amount"><h:outputLabel value="#{item.precioTotal}"/></span>
                                        </li>
                                             <li class="secondary"><h:outputLabel value="Precio del Art&iacute;culo $ #{item.precioNeto}"/></li>
@@ -154,7 +154,8 @@ body { border:none; background:none; background-color:#FFFFFF;}
 <input type="hidden" name="amount" value="#{pedidoController.montoTotal}"/>
 <input type="hidden" name="currency_code" value="MXN"/>
 <input type="hidden" name="no_note" value="1"/>
-<input type="hidden" name="cancel_return" value="http://libreria-tfjfa.com/LibreriaTFJV/"/> 
+<input type="hidden" name="cancel_return" value="#{pedidoController.urlcancelada}"/>
+<input type="hidden" name="return" value="#{pedidoController.urlcompra}"/>
 <input type="hidden" name="hosted_button_id" value="5UCYTABCGUU9Y"/>
 <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea."/>
 <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1"/>
