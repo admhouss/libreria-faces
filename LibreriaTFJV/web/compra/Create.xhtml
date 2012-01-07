@@ -35,8 +35,7 @@
                                     <td colspan="4" class="ui-state-highlight">
                                         <h:outputText value="#{pedidoController.contador}"/></td>
 
-                                    <td>
-
+                                     <td style="width:160px;">
                                         <h:outputText value="#{item.articulo.titulo}" styleClass="textoNEGRO" /><br/>
                                         <h:outputText value="#{item.articulo.asunto}" /><br/>
                                         <h:outputText value="#{item.articulo.nombreAlternativo}" /><br/>
@@ -79,7 +78,7 @@
                             </f:facet>
 
                              <h:outputText value="$ #{item.precioTotal}" >
-
+                                 
                             </h:outputText>
                          </h:column>
 
@@ -214,7 +213,10 @@
                 <div align="center">
                     <p:panel>
                     <h:commandButton action="#{compraController.create}" value="Confirmar" />
+                    &nbsp;
                     <h:commandButton action="#{compraController.borrar}" value="Cancelar" />
+                     &nbsp;
+                     <h:commandButton action="/index" value="Regresar" immediate="true"/>
                     </p:panel>
                 </div>
             </h:form>

@@ -24,19 +24,22 @@
 
         </f:metadata>
 
-                
+                <br/>
+                <p:accordionPanel  autoHeight="false">
 
+                    <p:tab title="Compra Satisfactoria">
+                <center> <h1>Compra realizada Satisfactoriamente</h1></center>
+               
                 <br /><br />
-                <p:accordionPanel autoHeight="false">
-
-                    <p:tab title="COMPRAS">
-                <div align="center">
-                   <h1>Compra cancelada Satisfactoriamente</h1>
-                   <br/><br/><br/>
-                        <h:commandButton action="/index" value="Regresar" immediate="true"/>
-                                    </div>
+               
                     </p:tab>
                 </p:accordionPanel>
+ <br /><br />
+                 <div align="center">
+                    <p:panel>
+                        <h:commandButton action="/index" value="Regresar" immediate="true"/>
+                    </p:panel>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
