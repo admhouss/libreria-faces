@@ -26,7 +26,7 @@
             <h:panelGroup rendered="#{sistemaController.cliente!=null}">
             <p:accordionPanel autoHeight="false" rendered="#{sistemaController.cliente!=null}">
 
-                <p:tab title="Editar Art&iacute;culo">
+                <p:tab title="Editar Art&iacute;lo">
 
 
                     <h:dataTable var="item" value="#{carritoController.listcarritoDTOTemporal}" headerClass="ui-state-focus">
@@ -44,7 +44,7 @@
                                     <td colspan="4" class="ui-state-highlight">
                                         <h:outputText value="#{item.indice}"/></td>
 
-                                    <td>
+                                    <td style="width:160px;">
                                         <h:outputText value="#{item.titulo}"  styleClass="textoNEGRO" /><br/>
                                         <h:outputText value="#{item.asunto}" /><br/>
                                         <h:outputText value="#{item.autor}" /><br/>
@@ -77,14 +77,7 @@
                             </f:facet>
                              <h:outputText value="% #{item.impuesto}" />
                          </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                              <h:outputLabel value="Fecha" />
-                            </f:facet>
-                            <h:outputText value="#{item.fechaCompra}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </h:outputText>
-                         </h:column>
+                        
 
                          <h:column>
                             <f:facet name="header">
@@ -129,109 +122,7 @@
 
 
                 </p:tab>
-                <p:tab title="Env&iacute;o y Facturaci&oacute;n">
-
-                    <h:dataTable value="#{direnvioController.listaDirEnvioCliente}" var="item"  >
-
-                    <h:column>
-                        <f:facet name="header">
-                           <p><strong>Direcci&oacute;n de Envio</strong></p>
-                        </f:facet>
-                        <table >
-
-                            <tr><td > <h:outputText value="#{item.atencion}" styleClass="textoNEGRO" /></td></tr>
-
-                            <tr>
-                                <td>Calle:</td>
-                                <td><h:outputText value="#{item.calle}"/></td>
-                            </tr>
-                             <tr>
-                                   <td>Colonia:</td>
-                                    <td>
-                                        <h:outputText value="#{item.colonia}"/>
-                                    </td>
-                            </tr>
-
-                          <tr>
-                                <td>C.P:</td>
-                                <td><h:outputText value="#{item.cp}"/></td>
-                          </tr>
-                            <tr>
-                                <td>Tel&eacute;fono:</td>
-                                <td><h:outputText value="#{item.telefono}"/></td>
-
-                            </tr>
-                            <tr>
-                                <td>Estado:</td>
-                                <td><h:outputText value="#{item.estado.nombre}"/></td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                        <h:commandLink action="#{direnvioController.prepareView(item)}">
-                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
-                        </h:commandLink>
-
-                        <h:commandLink action="#{direnvioController.prepareEdit(item)}">
-                            <img src="./../resources/iconos/seditar.png" alt="" title="Actualizar"/>
-                        </h:commandLink>
-
-                        <h:commandLink action="#{direnvioController.destroy(item)}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
-                        </h:commandLink>
-                                </td>
-                            </tr>
-                        </table>
-                      </h:column>
-                </h:dataTable>
-
-
-                </p:tab>
-                 <p:tab title="Pago">
-                     <div>
-      <h2>Selecciona tu forma de pago </h2>
-      <table align="center" border="0" cellpadding="0" cellspacing="4" width="400">
-        <tbody>
-          <tr>
-            <td width="6%" valign="top"><label>
-              <input name="cFormaPago" value="2" type="radio" />
-              </label></td>
-            <td width="80%"><div><img src="./../resources/iconos/pay_icono_paypal.gif" height="25" width="51" />PayPal</div>
-              <p>(Visa y MasterCard)</p></td>
-            <td width="14%">
-            <ul id="icons" class="ui-widget ui-helper-clearfix">
-
-                <h:commandLink action="#{paypalController.procesarPago}">
-
-              <li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e">
-              <span class="ui-icon ui-icon-arrowthick-1-e"></span>
-              </li>
-                </h:commandLink>
-
-            </ul>
-            </td>
-
-
-          </tr>
-          <tr>
-            <td valign="top"><label>
-              <input name="cFormaPago" value="0" type="radio" />
-            </label></td>
-              <td><div><img src="./../resources/iconos/icono_pago.png" height="28" width="37" />Dep&oacute;sito bancario/Transferencia electr&oacute;nica</div>
-                <p>(depositos en efectivo y pagos via banca electr&oacute;nica. <br />
-                <strong>Todos los bancos</strong>)</p></td>
-            <td><ul id="icons" class="ui-widget ui-helper-clearfix">
-		<li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e"><span class="ui-icon ui-icon-arrowthick-1-e"></span></li>
-
-            </ul></td>
-          </tr>
-        </tbody>
-      </table>
-<p>&nbsp;</p>
-    </div>
-
-
-                </p:tab>
+                
             </p:accordionPanel>
 
 
