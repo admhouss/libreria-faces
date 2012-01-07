@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form  id="pedidos">
+                <p:panel header="CREAR NUEVO PEDIDO">
+                    <center>
+                        <h:panelGrid columns="2" cellspacing="15">
+                    
+                    <h:outputLabel value="#{bundle.CreatePendienteLabel_noArtSolicitados}" for="noArtSolicitados" />
+                    <h:inputText id="noArtSolicitados" value="#{pendienteController.selected.noArtSolicitados}" title="#{bundle.CreatePendienteTitle_noArtSolicitados}" required="true" requiredMessage="#{bundle.CreatePendienteRequiredMessage_noArtSolicitados}"/>
+                    <h:outputLabel value="#{bundle.CreatePendienteLabel_fecha}" for="fecha" />
+                    <p:calendar id="fecha" value="#{pendienteController.selected.fecha}" title="#{bundle.CreatePendienteTitle_fecha}" required="true" requiredMessage="#{bundle.CreatePendienteRequiredMessage_fecha}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:calendar>
+                    <h:outputLabel value="#{bundle.CreatePendienteLabel_observacones}" for="observacones" />
+                    <h:inputText id="observacones" value="#{pendienteController.selected.observacones}" title="#{bundle.CreatePendienteTitle_observacones}" required="true" requiredMessage="#{bundle.CreatePendienteRequiredMessage_observacones}"/>
+                    <h:outputLabel value="#{bundle.CreatePendienteLabel_cliente}" for="cliente" />
+                    <h:selectOneMenu id="cliente" value="#{pendienteController.selected.cliente}" title="#{bundle.CreatePendienteTitle_cliente}" required="true" requiredMessage="#{bundle.CreatePendienteRequiredMessage_cliente}">
+                        <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.id}" />
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePendienteLabel_articulo}" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{pendienteController.selected.articulo}" title="#{bundle.CreatePendienteTitle_articulo}" required="true" requiredMessage="#{bundle.CreatePendienteRequiredMessage_articulo}" style="width:180px;">
+                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                    </center>
+                </p:panel>
+                <br />
+
+                <p:panel>
+                    <div align="center">
+                <h:commandButton action="#{pendienteController.create}" value="Guardar" />
+                &nbsp;
+
+                <h:commandButton value="#{bundle.CreatePendienteIndexLink}" action="/index" immediate="true" />
+                
+                    </div>
+                </p:panel>
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
