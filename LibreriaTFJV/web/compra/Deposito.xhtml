@@ -17,10 +17,30 @@
             <h:form>
 
                 <h2>Confirmaci&oacute;n de Compra</h2>
-                <p:accordionPanel >
+                <p:accordionPanel autoHeight="false">
+                    <p:tab title="Dep&oacute;sito bancario/Transferencia electr&oacute;nica">
+                        <center>
+                        <h:panelGrid columns="3" cellspacing="15" >
+                            <h:outputLabel  value="NO.REFERENCIA" for="referencia" styleClass="textoNEGRO"/>
+                            <h:inputText id="referencia" value="#{compraController.selected.noReferencia}" required="true"  requiredMessage="El campo no.referencia es requerido"/>
+                            <h:outputLabel value="*" styleClass="textoROJO"/>
+                            <h:outputLabel for="autorizacion" value="NO.AUTORIZACION"/>
+                            <h:inputText id="autorizacion" value="#{compraController.selected.noAutorizacion}" required="true"  requiredMessage="El campo no.autorizacion es requerido"/>
+                            <h:outputLabel value="*" styleClass="textoROJO"/>
+                            <h:outputLabel for="cuenta" value="CUENTA" styleClass="textoNEGRO"/>
+                            <h:inputText id="cuenta" value="#{compraController.selected.cuenta}" required="true"  requiredMessage="El campo cuenta es requerido"/>
+                            <h:outputLabel value="*" styleClass="textoROJO"/>
+                            <h:outputLabel for="ccd1" value="CCD"   styleClass="textoNEGRO"/>
+                            <h:inputText id="ccd1" value="#{compraController.selected.ccd}" required="true"  requiredMessage="El campo ccd es requerido"/>
+                            <h:outputLabel value="*" styleClass="textoROJO"/>
+                        </h:panelGrid>
+                        </center>
+                    </p:tab>
+                    
                     <p:tab title="Lista de Pedidos Resientes">
 
                         <h:dataTable var="item" value="#{pedidoController.listPedidosByCliente}" headerClass="ui-state-focus">
+
 
 
 
@@ -193,27 +213,26 @@
                 </p:accordionPanel>
                 <br/><br/>
                
-               <!--<p:panel  header="REQUIERE FACTURA" >
+              <p:panel  header="REQUIERE FACTURA" >
                     <center>
                 <h:panelGrid columns="2" cellspacing="15">
 
 
                   
                     <h:outputLabel value="Requiere factura:" styleClass="textoROJO"/>
-                    <h:selectOneMenu value="{compraController.facturar}">
+                    <h:selectOneMenu value="#{compraController.facturar}">
                         <f:selectItem id="item_value_0" itemValue="0" itemLabel="NO"/>
                         <f:selectItem id="item_value_1" itemValue="1" itemLabel="SI"/>
                     </h:selectOneMenu>
 
                 </h:panelGrid>
                     </center>
-                     </p:panel>
--->
+                </p:panel>
                 <br /><br />
                 <div align="center">
                     <p:panel>
-                    <h:commandButton action="#{compraController.create}" value="Confirmar" />
-                    &nbsp;
+                        <h:commandButton action="#{compraController.create_deposito}" value="Confirmar" />
+                        &nbsp;
                     <h:commandButton action="#{compraController.borrar}" value="Cancelar" />
                      &nbsp;
                      <h:commandButton action="/index" value="Regresar" immediate="true"/>
