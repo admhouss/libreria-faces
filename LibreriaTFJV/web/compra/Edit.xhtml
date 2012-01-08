@@ -3,54 +3,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditCompraTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditCompraLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{compraController.selected.id}" title="#{bundle.EditCompraTitle_id}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_fechaEnvio}" for="fechaEnvio" />
-                    <h:inputText id="fechaEnvio" value="#{compraController.selected.fechaEnvio}" title="#{bundle.EditCompraTitle_fechaEnvio}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_fechaEnvio}">
+                <p:panel header="EDITAR COMPRA">
+                    <center>
+                <h:panelGrid columns="2" cellspacing="15">
+                   
+                    <h:outputLabel value="Fecha Envio" for="fechaEnvio" styleClass="textoNEGRO"/>
+                    <h:outputLabel id="fechaEnvio" value="#{compraController.selected.fechaEnvio}" title="fecha Envio" >
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                    </h:outputLabel>
+                    <h:outputLabel value="Tipo Envio" for="tipoEnvio" styleClass="textoNEGRO" />
+                    <h:inputText id="tipoEnvio" value="#{compraController.selected.tipoEnvio}" title="tipo Envio" required="true" requiredMessage="El campo tipoEnvio es requerido"/>
+                    <h:outputLabel value="Pago Total" for="pagoTotal" styleClass="textoNEGRO" />
+                    <h:inputText id="pagoTotal" value="#{compraController.selected.pagoTotal}" title="pago Total" />
+                    <h:outputLabel value="Estado" for="estado" styleClass="textoNEGRO"/>
+                    <h:inputText id="estado" value="#{compraController.selected.estado}" title="estado}" required="true" requiredMessage="El campo estado es requerido"/>
+                    <h:outputLabel value="Observaciones" for="observaciones" styleClass="textoNEGRO"/>
+                    <h:inputText id="observaciones" value="#{compraController.selected.observaciones}" title="observaciones}" required="true" requiredMessage="El campo observaciones es requerido"/>
+                    <h:outputLabel value="Fecha" for="fecha" styleClass="textoNEGRO" />
+                    <h:inputText id="fecha" value="#{compraController.selected.fecha}" title="fecha" required="true" requiredMessage="El campo fecha es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_tipoEnvio}" for="tipoEnvio" />
-                    <h:inputText id="tipoEnvio" value="#{compraController.selected.tipoEnvio}" title="#{bundle.EditCompraTitle_tipoEnvio}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_tipoEnvio}"/>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_pagoTotal}" for="pagoTotal" />
-                    <h:inputText id="pagoTotal" value="#{compraController.selected.pagoTotal}" title="#{bundle.EditCompraTitle_pagoTotal}" />
-                    <h:outputLabel value="#{bundle.EditCompraLabel_estado}" for="estado" />
-                    <h:inputText id="estado" value="#{compraController.selected.estado}" title="#{bundle.EditCompraTitle_estado}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_estado}"/>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_observaciones}" for="observaciones" />
-                    <h:inputText id="observaciones" value="#{compraController.selected.observaciones}" title="#{bundle.EditCompraTitle_observaciones}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_observaciones}"/>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_fecha}" for="fecha" />
-                    <h:inputText id="fecha" value="#{compraController.selected.fecha}" title="#{bundle.EditCompraTitle_fecha}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_fecha}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_impuesto}" for="impuesto" />
-                    <h:inputText id="impuesto" value="#{compraController.selected.impuesto}" title="#{bundle.EditCompraTitle_impuesto}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_impuesto}"/>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_pagoNeto}" for="pagoNeto" />
-                    <h:inputText id="pagoNeto" value="#{compraController.selected.pagoNeto}" title="#{bundle.EditCompraTitle_pagoNeto}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_pagoNeto}"/>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_descuento}" for="descuento" />
-                    <h:inputText id="descuento" value="#{compraController.selected.descuento}" title="#{bundle.EditCompraTitle_descuento}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_descuento}"/>
-                    <h:outputLabel value="#{bundle.EditCompraLabel_idPedido}" for="idPedido" />
-                    <h:inputText id="idPedido" value="#{compraController.selected.idPedido}" title="#{bundle.EditCompraTitle_idPedido}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_idPedido}"/>
+                    <h:outputLabel value="Impuesto" for="impuesto" styleClass="textoNEGRO"/>
+                    <h:inputText id="impuesto" value="#{compraController.selected.impuesto}" title="impuesto" required="true" requiredMessage="El campo impuesto es requerido"/>
+                    <h:outputLabel value="Pago Neto" for="pagoNeto" styleClass="textoNEGRO"/>
+                    <h:inputText id="pagoNeto" value="#{compraController.selected.pagoNeto}" title="pago Neto" required="true" requiredMessage="El campo pago Neto es requerido"/>
+                    <h:outputLabel value="Descuento" for="descuento" styleClass="textoNEGRO"/>
+                    <h:inputText id="descuento" value="#{compraController.selected.descuento}" title="descuento" required="true" requiredMessage="El campo descuento es requerido"/>
+                    <h:outputLabel value="IdPedido" for="idPedido" styleClass="textoNEGRO"/>
+                    <h:inputText id="idPedido" value="#{compraController.selected.pedido}" title="idPedido" required="true" requiredMessage="El campo idPedido es requerido" />
                 </h:panelGrid>
-                <h:commandLink action="#{compraController.update}" value="#{bundle.EditCompraSaveLink}"/>
-                <br />
-                <br />
-                <h:commandLink action="View" value="#{bundle.EditCompraViewLink}" immediate="true"/>
-                <br />
-                <h:commandLink action="#{compraController.prepareList}" value="#{bundle.EditCompraShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:commandLink value="#{bundle.EditCompraIndexLink}" action="/index" immediate="true" />
+                    </center>
+                </p:panel>
+                <div align="center">
+                   <p:panel>
+                <h:commandButton action="#{compraController.update}" value="GUARDAR"/>
+                    </p:panel>
+                </div>
+               
             </h:form>
         </ui:define>
     </ui:composition>
