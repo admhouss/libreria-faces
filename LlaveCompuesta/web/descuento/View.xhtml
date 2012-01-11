@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDescuentoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="descuento">
+                <p:panel header="VER DESCUENTO">
+                    <center>
+                        <h:panelGrid columns="3" cellspacing="15">
+                   
+                    <h:outputText value="Porcentaje:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{descuentoController.selected.porcentaje}" title="#{bundle.ViewDescuentoTitle_porcentaje}"/>
+                   <h:outputText value="%" styleClass="textoNEGRO" />
+
+                   <h:outputText value="Descripci&oacute;n:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{descuentoController.selected.descripcion}" title="#{bundle.ViewDescuentoTitle_descripcion}"/>
+                </h:panelGrid>
+                    </center>
+                </p:panel>
+                <br />
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{descuentoController.prepareList}" value="VOLVER" />
+                    </p:panel>
+                </div>
+               
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
