@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <p:panel  header="VER SUSCRIPCION ENVIO">
+                    <center>
+                    <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputText value="Estado Envio:" styleClass="textoNEGRO"/>
+                    <h:outputText value="PENDIENTE" rendered="#{suscripcionEnviosController.selected.estadoEnvio==false}" title="Estado Envio"/>
+                    <h:outputText value="ENVIADO" rendered="#{suscripcionEnviosController.selected.estadoEnvio}" title="Estado Envio"/>
+                    <h:outputText value="Observaciones:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{suscripcionEnviosController.selected.observaciones}" title="Observaciones"/>
+                    <h:outputText value="Pedido:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{suscripcionEnviosController.selected.pedido.pedidoPK.idPedido}" title="Pedido"/>
+                    <h:outputText value="Articulo:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{suscripcionEnviosController.selected.articulo.codigo}-#{suscripcionEnviosController.selected.articulo.titulo}" title="articulo"/>
+                    <h:outputText value="Suscripcion" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{suscripcionEnviosController.selected.suscripcion.suscripcionPK.idSuscripcion}" title="suscripcion"/>
+                </h:panelGrid>
+                    </center>
+                </p:panel>
+                <br />
+                <br />
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{suscripcionEnviosController.prepareList}" value="REGRESAR"/>
+                    </p:panel>
+                </div>
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
