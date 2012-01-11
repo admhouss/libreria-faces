@@ -20,7 +20,8 @@
                 <p:accordionPanel >
                     <p:tab title="Lista de Pedidos Resientes">
 
-                        <h:dataTable var="item" value="#{pedidoController.listPedidosByCliente}" headerClass="ui-state-focus">
+                        <h:dataTable var="item" value="#{pedidoController.lisPedidosByCliente}" headerClass="ui-state-focus">
+
 
 
 
@@ -33,13 +34,13 @@
                             <table border="0">
                                 <tr style="width:60px;">
                                     <td colspan="4" class="ui-state-highlight">
-                                        <h:outputText value="#{pedidoController.contador}"/></td>
+                                        <h:outputText value="#{pedidoController.contado}"/></td>
 
                                      <td style="width:160px;">
                                         <h:outputText value="#{item.articulo.titulo}" styleClass="textoNEGRO" /><br/>
                                         <h:outputText value="#{item.articulo.asunto}" /><br/>
                                         <h:outputText value="#{item.articulo.nombreAlternativo}" /><br/>
-                               
+
 
 
                                     </td>
@@ -70,7 +71,7 @@
                             </f:facet>
                              <h:outputText value="% #{item.impuesto}" />
                          </h:column>
-                        
+
 
                          <h:column>
                             <f:facet name="header">
@@ -78,20 +79,11 @@
                             </f:facet>
 
                              <h:outputText value="$ #{item.precioTotal}" >
-                                 
+
                             </h:outputText>
                          </h:column>
 
-                            <h:column>
-                            <f:facet name="header">
-                                <h:outputLabel value="Borrar" />
-                            </f:facet>
-                         
-                                <h:commandLink action="#{pedidoController.eliminarPedido(item)}" >
-                                    <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
-                                </h:commandLink>
-                           
-                         </h:column>
+
 
 
                     </h:dataTable>
@@ -112,88 +104,12 @@
 
                     </p:tab>
 
-                    <!--<p:tab title="Modificar Tipo Envio">
-
-                        <center>
-                        <h:panelGrid columns="6">
-                        <h:outputLabel value="Pedido:" styleClass="textoNEGRO"/>
-
-                        <h:selectOneMenu value="{pedidoController.mycurrent}" style="width:100px;">
-                            <f:selectItems value="{pedidoController.listPedidosByCliente}" var="item"  itemValue="#{item}" itemLabel="#{item.articulo.titulo}"/>
-                        </h:selectOneMenu>
-                        &nbsp;
-                        <h:outputLabel value="Tipo Envio:" styleClass="textoNEGRO"/>
-                        <h:selectOneMenu value="{pedidoController.tipoEnvio}">
-                        <f:selectItem   id="item_0"  itemValue="ELECTRONICO" itemLabel="ELECTRONICO"/>
-                        <f:selectItem   id="item_1" itemValue="FISICO" itemLabel="FISICO"/>
-                        </h:selectOneMenu>
-                        <h:commandButton value="Editar" action="{pedidoController.updateConfig}"/>
-                        </h:panelGrid>
-                        </center>
-                       
-                   <br/><br/>
-                   <p:dataTable value="{pedidoController.listPedidosByCliente}" var="item" paginator="true" rows="10" selectionMode="single">
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="CANTIDAD"/>
-                        </f:facet>
-                        <h:outputText value="{item.noArticuloCategoria}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="CATEGORIA"/>
-                        </f:facet>
-                        <h:outputText value="{item.categoria}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="PRECIO NETO"/>
-                        </f:facet>
-                        <h:outputText value="{item.precioNeto}"/>
-                    </p:column>
-                   <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="IMPUESTO"/>
-                        </f:facet>
-                        <h:outputText value="{item.impuesto}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="DESCUENTO"/>
-                        </f:facet>
-                        <h:outputText value="{item.descuento}"/>
-                    </p:column>
-                    
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="PRECIO TOTAL"/>
-                        </f:facet>
-                        <h:outputText value="{item.precioTotal}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="TIPO ENVIO"/>
-                        </f:facet>
-
-                        <h:outputLabel value="{item.tipoEnvio}"/>
-                        
-                    </p:column>
-                    <p:column style="width:16px;">
-                        <f:facet name="header">
-                            <h:outputText value="ARTICULO"/>
-                        </f:facet>
-                        <h:outputText value="{item.articulo.titulo}"/>
-                    </p:column>
-                 
-                </p:dataTable>
-                
-                    </p:tab>-->
+                   
 
                 </p:accordionPanel>
                 <br/><br/>
                
-               <!--<p:panel  header="REQUIERE FACTURA" >
+               <p:panel  header="REQUIERE FACTURA" >
                     <center>
                 <h:panelGrid columns="2" cellspacing="15">
 
@@ -208,7 +124,7 @@
                 </h:panelGrid>
                     </center>
                      </p:panel>
--->
+
                 <br /><br />
                 <div align="center">
                     <p:panel>
