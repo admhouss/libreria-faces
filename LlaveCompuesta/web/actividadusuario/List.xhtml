@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                
+            </h:panelGroup>
+           
+            <h:panelGroup >
+
+                 <br /> <br />
+                <!-- <div align="right">
+                     <h:commandButton action="{actividadusuarioController.prepareCreate}" value="Crear Nuevo"/>
+                 </div>-->
+                 <br /> <br />
+                 <p:panel header="CAT&Aacute;LOGO ACTIDAD USUARIO ADMINISTRATIVO">
+                <p:dataTable value="#{actividadusuarioController.listActividadUsuario}" var="item" paginator="true" rows="10">
+                    
+                    <p:column style="width:200px;" >
+                        <f:facet name="header">
+                            <h:outputText value="ACTIVIDAD"/>
+                        </f:facet>
+                        <h:outputText value="#{item.actividad}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="FECHA"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column style="width:100px;">
+                        <f:facet name="header">
+                            <h:outputText value="CARGO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.usuarioadministrativo.cargo}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{actividadusuarioController.prepareView(item)}" >
+                             <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                        <h:outputText value=" "/>
+                       
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{actividadusuarioController.destroy(item)}">
+                             <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+                 </p:panel>
+            </h:panelGroup>
+           
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
