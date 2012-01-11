@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="crearSuscripcion">
+                <p:panel header="EDITAR SUSCRIPCION ENVIOS">
+                    <center>
+                <h:panelGrid columns="2" cellspacing="15">
+                   <h:outputLabel value="Pedido" for="pedido" styleClass="textoNEGRO"/>
+                   <h:selectOneMenu id="pedido" value="#{suscripcionEnviosController.selected.pedido}" title="Numero" required="true" requiredMessage="El campo pedido es requerido">
+                       <f:selectItems value="#{pedidoController.listPedido}" var="item" itemValue="#{item}" itemLabel="#{item.pedidoPK.idPedido}"/>
+                   </h:selectOneMenu>
+                    <h:outputLabel value="Suscripcion:" for="suscripcion" styleClass="textoNEGRO"/>
+                     <h:selectOneMenu id="suscripcion" value="#{suscripcionEnviosController.selected.suscripcion}" title="suscripcion" required="true" requiredMessage="El campo suscripcion es requerido">
+                        <f:selectItems value="#{suscripcionController.listSuscripcion}" var="item" itemValue="#{item}" itemLabel="#{item.suscripcionPK.idSuscripcion}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
+                    <h:selectOneMenu id="articulo" value="#{suscripcionEnviosController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido">
+                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Estado Envio" for="estadoEnvio" styleClass="textoNEGRO"/>
+                    <h:selectBooleanCheckbox id="estadoEnvio" value="#{suscripcionEnviosController.selected.estadoEnvio}" title="estadoEnvio}" required="true" requiredMessage="El campo estadoEnvio es requerido"/>
+                     <h:outputLabel value="Observaciones:" for="observaciones" styleClass="textoNEGRO"/>
+                    <h:inputText id="observaciones" value="#{suscripcionEnviosController.selected.observaciones}" title="Observaciones" />
+
+                </h:panelGrid>
+                    </center>
+                </p:panel>
+                <br /><br />
+                <div  align="center">
+                    <p:panel>
+                        <h:commandButton action="#{suscripcionEnviosController.update}" value="GUARDAR" />
+                    </p:panel>
+                </div>
+                <br />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
