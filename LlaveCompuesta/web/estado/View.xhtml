@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <br/><br/>
+                <p:panel header="VER ESTADO">
+                    <center>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Zona" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{estadoController.selected.zona.idZona}" title="zona"/>
+                    <h:outputText value="Estado:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{estadoController.selected.nombre}" title="estado"/>
+                </h:panelGrid>
+                    </center>
+                </p:panel>
+                <br /><br />
+
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{estadoController.prepareList}" value="VOLVER"/>
+                    </p:panel>
+                </div>
+                
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

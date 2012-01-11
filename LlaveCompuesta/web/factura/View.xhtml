@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFacturaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFacturaLabel_facturaPK_folio}"/>
+                    <h:outputText value="#{facturaController.selected.facturaPK.folio}" title="#{bundle.ViewFacturaTitle_facturaPK_folio}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_noInterno}"/>
+                    <h:outputText value="#{facturaController.selected.noInterno}" title="#{bundle.ViewFacturaTitle_noInterno}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_sucursal}"/>
+                    <h:outputText value="#{facturaController.selected.sucursal}" title="#{bundle.ViewFacturaTitle_sucursal}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_fechaCert}"/>
+                    <h:outputText value="#{facturaController.selected.fechaCert}" title="#{bundle.ViewFacturaTitle_fechaCert}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_noSerie}"/>
+                    <h:outputText value="#{facturaController.selected.noSerie}" title="#{bundle.ViewFacturaTitle_noSerie}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_fechaEmi}"/>
+                    <h:outputText value="#{facturaController.selected.fechaEmi}" title="#{bundle.ViewFacturaTitle_fechaEmi}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_certEmi}"/>
+                    <h:outputText value="#{facturaController.selected.certEmi}" title="#{bundle.ViewFacturaTitle_certEmi}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_serie}"/>
+                    <h:outputText value="#{facturaController.selected.serie}" title="#{bundle.ViewFacturaTitle_serie}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_razonSocial}"/>
+                    <h:outputText value="#{facturaController.selected.razonSocial}" title="#{bundle.ViewFacturaTitle_razonSocial}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_calle}"/>
+                    <h:outputText value="#{facturaController.selected.calle}" title="#{bundle.ViewFacturaTitle_calle}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_noExterior}"/>
+                    <h:outputText value="#{facturaController.selected.noExterior}" title="#{bundle.ViewFacturaTitle_noExterior}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_colonia}"/>
+                    <h:outputText value="#{facturaController.selected.colonia}" title="#{bundle.ViewFacturaTitle_colonia}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_del}"/>
+                    <h:outputText value="#{facturaController.selected.del}" title="#{bundle.ViewFacturaTitle_del}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_pais}"/>
+                    <h:outputText value="#{facturaController.selected.pais}" title="#{bundle.ViewFacturaTitle_pais}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_cp}"/>
+                    <h:outputText value="#{facturaController.selected.cp}" title="#{bundle.ViewFacturaTitle_cp}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_factura}"/>
+                    <h:outputText value="#{facturaController.selected.factura}" title="#{bundle.ViewFacturaTitle_factura}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_comprobante}"/>
+                    <h:outputText value="#{facturaController.selected.comprobante}" title="#{bundle.ViewFacturaTitle_comprobante}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_noFolio}"/>
+                    <h:outputText value="#{facturaController.selected.noFolio}" title="#{bundle.ViewFacturaTitle_noFolio}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_difacturacion}"/>
+                    <h:outputText value="#{facturaController.selected.difacturacion}" title="#{bundle.ViewFacturaTitle_difacturacion}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_estado}"/>
+                    <h:outputText value="#{facturaController.selected.estado}" title="#{bundle.ViewFacturaTitle_estado}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{facturaController.destroyAndView}" value="#{bundle.ViewFacturaDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewFacturaEditLink}"/>
+                <br />
+                <h:commandLink action="#{facturaController.prepareCreate}" value="#{bundle.ViewFacturaCreateLink}" />
+                <br />
+                <h:commandLink action="#{facturaController.prepareList}" value="#{bundle.ViewFacturaShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewFacturaIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

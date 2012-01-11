@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <br/>  <br/>
+                <p:panel header="EDITAR DIRECCI&Oacute;N DE FACTURA">
+                    <center>
+                        <h:panelGrid columns="3" cellspacing="15">
+                    
+                    <h:outputLabel value="Razon Social:" for="razonSocial" styleClass="textoNEGRO" />
+                    <h:inputText id="razonSocial" value="#{difacturacionController.selected.razonSocial}" title="Razon Social:" required="true" requiredMessage="El campo razon Social es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Calle:" for="calle" styleClass="textoNEGRO" />
+                    <h:inputText id="calle" value="#{difacturacionController.selected.calle}" title="calle}" required="true" requiredMessage="El campo calle es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="No.Exterior:" for="noExterior" styleClass="textoNEGRO" />
+                    <h:inputText id="noExterior" value="#{difacturacionController.selected.noExterior}" title="No.Exterior" required="true" requiredMessage="El campo no.Exterior es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="No.Interior:" for="noInterior" styleClass="textoNEGRO"/>
+                    <h:inputText id="noInterior" value="#{difacturacionController.selected.noInterior}" title="No.Interior" required="true" requiredMessage="El campo no.Interior es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Colonia:" for="colonia" styleClass="textoNEGRO" />
+                    <h:inputText id="colonia" value="#{difacturacionController.selected.colonia}" title="Colonia" required="true" requiredMessage="El campo colonia es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Del.Municipio:" for="delMunicipio" styleClass="textoNEGRO" />
+                    <h:inputText id="delMunicipio" value="#{difacturacionController.selected.delMunicipio}" title="Del.Municipio" required="true" requiredMessage="El campo Del.Municipio es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="CP" for="cp" styleClass="textoNEGRO"/>
+                    <h:inputText id="cp" value="#{difacturacionController.selected.cp}" title="cp}" required="true" requiredMessage="El campo CP es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:outputLabel value="Tel&eacute;fono:" for="telefono" styleClass="textoNEGRO" />
+                    <h:inputText id="telefono" value="#{difacturacionController.selected.telefono}" title="telefono}" required="true" requiredMessage="El campo telefono es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    
+                    <h:outputLabel value="Estado" for="estado" styleClass="textoNEGRO" />
+                    <h:selectOneMenu id="estado" value="#{difacturacionController.selected.estado}" title="Estado de la republica" required="true" requiredMessage="El campo estado es requerido">
+                        <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                </h:panelGrid>
+</center>
+                </p:panel>
+                <br />
+                 <br />
+                 <div align="center">
+                     <p:panel>
+                         <h:commandButton action="#{difacturacionController.update}" value="Guardar" />
+                     </p:panel>
+                 </div>
+                <br />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
