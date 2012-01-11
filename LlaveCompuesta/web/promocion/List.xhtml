@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form id ="promocioncreate" styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+           
+            
+            
+            
+            <div  align="right">
+            <h:commandButton action="#{promocionController.prepareCreate}" value="Crear Nuevo"/>
+            </div>
+             <br />
+           
+
+            <h:panelGroup >
+
+                <br/>  <br/>
+                <p:panel header="CATALOGO DE PROMOCIONES">
+                        
+                    <p:dataTable value="#{promocionController.listPromocion}" var="item" paginator="true" rows="10"  >
+                      
+                      <p:column style="width: 15px;">
+                        <f:facet name="header">
+                            <h:outputText value="PRECIO"/>
+                        </f:facet>
+                        <h:outputText id="precio" value="#{item.precioPublico}"/>
+                    </p:column>
+                    <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="FECHA INICIO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.diaInicio}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="FECHA FIN"/>
+                        </f:facet>
+                        <h:outputText value="#{item.diaFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column style="width:130px;" filterBy="#{item.articulo.titulo}" >
+                        <f:facet name="header">
+                            <h:outputText value="ART&Iacute;CULO"/>
+                        </f:facet>
+                         <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
+                    </p:column>
+                      
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{promocionController.prepareView(item)}" >
+                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+                        
+                        <h:commandLink action="#{promocionController.prepareEdit(item)}">
+                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                        </h:commandLink>
+                       
+                        <h:commandLink action="#{promocionController.destroy(item)}">
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{promocionController.sendCorreo(item)}">
+                        <img src="./../resources/iconos/correo.png" alt="" title="Correo"/>
+                        </h:commandLink>
+                    </p:column>
+
+        
+                </p:dataTable>
+                       
+                </p:panel>
+
+                <br />
+                <br/>
+                <p:panel>
+                    <div align="center">
+
+
+                         <h:commandButton value="Salir" action="/index" immediate="true" />
+                    </div>
+                </p:panel>
+
+            </h:panelGroup>
+           
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
