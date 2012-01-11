@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="articuloview">
+
+
+               
+                <br/>
+                <br/>
+               
+
+                 <div align="right">
+                     <h:commandButton value="Crear Nuevo" action="#{articuloController.prepareListProveedorArticulo}"/>
+                 </div>
+  <br/>
+              <p:panel header="PROVEEDORES ASIGNADOS AL ART&Iacute;CULO">
+
+                  <h2><h:outputLabel value="#{articuloController.selected.codigo}-#{articuloController.selected.titulo}"/></h2>
+                  <br/>
+
+                  <p:dataTable value="#{proveedorArticuloController.listProveedorArticulo}" var="item" paginator="true" rows="5">
+
+                      <p:column style="width:200px;">
+                        <f:facet name="header">
+                            <h:outputText value="ART&Iacute;CULO"/>
+                        </f:facet>
+                          <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
+                   </p:column>
+                    <p:column style="width:220px;">
+                        <f:facet name="header">
+                            <h:outputText value="NOMBRE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.proveedor.nombre}"/>
+                   </p:column>
+                  
+                  <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="CANTIDAD"/>
+                        </f:facet>
+                      <h:outputText value="#{item.cantidad}"/>
+                   </p:column>
+
+                   <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="MODIFICADO"/>
+                        </f:facet>
+                       <h:outputText value="#{item.ultMof}">
+                           <f:convertDateTime pattern="dd/MM/yyy"/>
+                       </h:outputText>
+                   </p:column>
+                       
+                   <p:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                       <h:commandLink action="#{articuloController.eliminarProveedorArticulo(item)}" >
+                          <img src="./../../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                     </h:commandLink>
+            
+                   </p:column>
+                </p:dataTable>
+                </p:panel>
+               
+
+                <br/>  <br/>
+
+              
+                <br/><br/>
+
+
+                
+                <div align="center">
+                    <p:panel >
+
+                        <h:commandButton action="#{articuloController.prepareList}" value="VOLVER ARTICULO"/>
+                    </p:panel>
+                </div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
