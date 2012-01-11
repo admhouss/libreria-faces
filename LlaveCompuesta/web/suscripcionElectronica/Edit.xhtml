@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="suscripcioncliente">
+
+                <p:panel header="EDITAR SUSCRIPCION  ELECTRONICA">
+                    <center>
+                        <h:panelGrid columns="2" cellspacing="15">
+                             <h:outputLabel value="Fecha Inicio:" for="fechainicio" styleClass="textoNEGRO" />
+                             <p:calendar id="fechainicio" value="#{suscripcionElectronicaController.selected.fechaInicio}" title="Fecha Envio" required="true" requiredMessage="El campon Fecha Inicio es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:calendar>
+                              <h:outputLabel value="Fecha Final:" for="fechafinal" styleClass="textoNEGRO" />
+                              <p:calendar id="fechafinal" value="#{suscripcionElectronicaController.selected.fechaFin}" title="Fecha Envio" required="true" requiredMessage="El campon Fecha Final es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:calendar>
+
+
+                    <h:outputLabel value="Cliente:" for="cliente" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="cliente" value="#{suscripcionElectronicaController.selected.cliente}" title="cliente" required="true" requiredMessage="El campo cliente es requerido">
+                        <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.id}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Suscripcion" for="suscripcion" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="suscripcion" value="#{suscripcionElectronicaController.selected.suscripcion}" title="suscripcion}" required="true" requiredMessage="El campo suscripcion es requerido">
+                        <f:selectItems value="#{suscripcionController.listSuscripcion}" var="item" itemValue="#{item}" itemLabel="#{item.suscripcionPK.idSuscripcion}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                    </center>
+                </p:panel>
+                <br /><br />
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{suscripcionElectronicaController.update}" value="Guardar" />
+                    </p:panel>
+                </div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
