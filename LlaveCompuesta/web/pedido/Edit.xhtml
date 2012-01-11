@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <br/>  <br/>
+                <p:panel header="EDITAR PEDIDO ">
+                <center>
+                <h:panelGrid columns="2" cellspacing="15">
+
+                    <h:outputLabel value="No.Art&iacute;culoCategoria:" for="noArticuloCategoria" styleClass="textoNEGRO"/>
+                    <h:outputLabel id="noArticuloCategoria" value="#{pedidoController.selected.noArticuloCategoria}" title="noArticuloCategoria}" />
+                    <h:outputLabel value="Categoria:" for="categoria" styleClass="textoNEGRO" />
+                    <h:outputLabel id="categoria" value="#{pedidoController.selected.categoria}" title="Categoria" />
+                    <h:outputLabel value="Precio Neto:" for="precioNeto" styleClass="textoNEGRO" />
+                    <h:outputLabel id="precioNeto" value="#{pedidoController.selected.precioNeto}" title="Precio Neto" />
+                    <h:outputLabel value="Impuesto:" for="impuesto" styleClass="textoNEGRO"/>
+                    <h:outputLabel id="impuesto" value="#{pedidoController.selected.impuesto}" title="Impuesto" />
+                    <h:outputLabel value="Descuento:" for="descuento" styleClass="textoNEGRO"/>
+                    <h:outputLabel id="descuento" value="#{pedidoController.selected.descuento}" title="Descuento"/>
+                    <h:outputLabel value="Precio Total:" for="precioTotal" styleClass="textoNEGRO"/>
+                    <h:outputLabel id="precioTotal" value="#{pedidoController.selected.precioTotal}" title="Precio Total" />
+                    <h:outputLabel value="Tipo Envio:" for="tipoEnvio" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="tipoEnvio" value="#{pedidoController.selected.tipoEnvio}" title="Tipo Envio" required="true" requiredMessage="El campo Tipo de envio es requerido">
+                        <f:selectItem id="item_1" itemLabel="Electronico"  itemValue="Electronico" />
+                        <f:selectItem id="item_2" itemLabel="Fisico"  itemValue="Fisico" />
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Art&iacute;culo" for="articulo" styleClass="textoNEGRO"/>
+                    <h:outputLabel id="articulo" value="#{pedidoController.selected.articulo.titulo}" title="articulo" />
+                        
+                    
+                </h:panelGrid>
+</center>
+                </p:panel>
+                <br /><br />
+                <div align="center">
+                    <p:panel>
+                        <h:commandButton action="#{pedidoController.update}" value="Guardar" />
+                    </p:panel>
+                </div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
