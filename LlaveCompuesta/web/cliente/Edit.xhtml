@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form styleClass="jsfcrud_list_form">
+
+                <p:panel header="ACTUALIZACI&Oacute;N CLIENTE">
+                         <center>
+
+                             <h:panelGrid columns="3" cellspacing="7">
+                                 <h:outputLabel value="Los campos con * son requeridos." style="font-size:12px"/>
+                                  <h:outputLabel value=" " styleClass="textoROJO" />
+                                 <h:outputLabel value=" " styleClass="textoROJO" />
+
+
+                                 <h:outputLabel value="Nombre:" for="nombre" styleClass="textoNEGRO"/>
+                                 <h:inputText id="nombre" value="#{clienteController.selected.nombre}" title="nombre" required="true" requiredMessage="RequiredMessage_nombre" size="25" />
+                                 <h:outputLabel value="*" styleClass="textoROJO" />
+                                 <h:outputLabel value="Paterno:" for="paterno" styleClass="textoNEGRO" />
+                                 <h:inputText id="paterno" value="#{clienteController.selected.paterno}" title="paterno" required="true" requiredMessage="RequiredMessage_paterno" size="25" />
+                                 <h:outputLabel value="*" styleClass="textoROJO"/>
+                                 <h:outputLabel value="Materno:" for="materno" styleClass="textoNEGRO"/>
+                                 <h:inputText id="materno" value="#{clienteController.selected.materno}" title="materno" required="true" requiredMessage="RequiredMessage_materno" size="25" />
+                                 <h:outputLabel value="*" styleClass="textoROJO"/>
+                                 <h:outputLabel value="Telefono:" for="telefono" styleClass="textoNEGRO"/>
+                                 <h:inputText id="telefono" value="#{clienteController.selected.telefono}" title="telefono" required="true" requiredMessage="RequiredMessage_telefono" size="25"/>
+                                 <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                                  <h:outputLabel value="Correo Alternativo:" for="correo_alternativo" styleClass="textoNEGRO"/>
+                                  <h:inputText id="correo_alternativo" value="#{clienteController.selected.email}" title="correo alternativo" required="true" requiredMessage="Correo Alternativo requerido" size="25"/>
+                                 <h:outputLabel value="*" styleClass="textoROJO"/>
+
+
+
+
+                                <h:outputLabel value="Fax:" for="fax" styleClass="textoNEGRO"/>
+                                <h:inputText id="fax" value="#{clienteController.selected.fax}" title="fax"  size="25"/>
+                                <h:outputLabel value=" "/>
+
+                                <h:outputLabel value="Estatus:" for="estatus" styleClass="textoNEGRO" rendered="#{sistemaController.usuarioAdministrador!=null}" />
+                                 <h:selectBooleanCheckbox id="estatus" value="#{clienteController.selected.estatus}" title="estatus" rendered="#{sistemaController.usuarioAdministrador!=null}" />
+                                <h:outputLabel value=" " rendered="#{sistemaController.usuarioAdministrador!=null}"/>
+
+
+
+                                    <h:outputLabel value="Password:" for="password" styleClass="textoNEGRO"/>
+                                    <p:password feedback="true" id="password" value="#{clienteController.selected.password}" title="password" required="true" requiredMessage="RequiredMessage_password}" size="25" minLength="3"/>
+                                    <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                                    <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
+                                    <h:selectOneMenu id="estado" value="#{clienteController.selected.estado}" title="estado" required="true" requiredMessage="RequiredMessage_estado">
+                                        <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}"  itemLabel="#{item.nombre}"/>
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value=" "/>
+
+                                <h:outputLabel value="Categoria:" for="categoria" styleClass="textoNEGRO" rendered="#{sistemaController.usuarioAdministrador!=null}" />
+
+                                <h:selectOneMenu id="categoria" value="#{clienteController.selected.categoria}" title="categoria" required="true" requiredMessage="Requere captura de categoria" rendered="#{sistemaController.usuarioAdministrador!=null}">
+                                    <f:selectItems value="#{categoriaController.listAllCategoria}" var="item" itemValue="#{item}"  itemLabel="#{item.concepto}"/>
+                                </h:selectOneMenu>
+                                <h:outputLabel value="*" styleClass="textoROJO" rendered="#{sistemaController.usuarioAdministrador!=null}"/>
+
+                </h:panelGrid>
+                             <h:selectBooleanCheckbox value="#{clienteController.selected.recibeInfor}" id="recibe"/>
+                    <h:outputLabel style="font-size:12px"  value="S&iacute;, deseo recibir informaci&oacute;n en mi correo acerca de la Librer&iacute;a Virtual - TFJFA" for="recibe" styleClass="textoNEGRO"/>
+
+                         </center>
+
+            </p:panel>
+                <br />
+                <br/>
+                <p:panel>
+                    <div align="center">
+                        <h:commandButton action="/index" value="Regresar" immediate="true"/>&nbsp;
+                        <h:commandButton action="#{clienteController.update}" value="Guardar" />
+
+                    </div>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
