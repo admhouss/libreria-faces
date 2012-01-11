@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form id="suscripcion" styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+            <h:panelGroup>
+
+                <br/>  <br/>
+                <div align="right">
+                    <h:commandButton  action="#{suscripcionElectronicaController.prepareCreate}" value="Crear Nuevo"/>
+                </div>
+                <br/><br/>
+                <p:panel header="CAT&Aacute;LOGO DE SUSCRIPCIONES ELECTRONICA">
+                <center>
+
+                    <p:dataTable value="#{suscripcionElectronicaController.suscripcionElectronicaList}" var="item" paginator="true" rows="10" selectionMode="single">
+                        <p:column style="width:60px;" >
+                        <f:facet name="header">
+                            <h:outputText value="CLIENTE" />
+                        </f:facet>
+                            <h:outputText value="#{item.cliente.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="SUSCRIP"/>
+                        </f:facet>
+                        <h:outputText value="#{item.suscripcion.suscripcionPK.idSuscripcion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="NO-LICENCIA"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noLicencias}"/>
+                       
+                    </p:column>
+                    <p:column style="width:20px;">
+                        <f:facet name="header">
+                            <h:outputText value="F.FIN-F.INICIO"/>
+                        </f:facet>
+                            <h:outputText value="#{item.fechaFin}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+                        </h:outputText>-
+                        <h:outputText value="#{item.fechaInicio}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+                        </h:outputText>
+                    </p:column>
+                    
+
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{suscripcionElectronicaController.prepareView(item)}" >
+                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+                        <h:commandLink action="#{suscripcionElectronicaController.prepareEdit(item)}" >
+                             <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                        </h:commandLink>
+
+                        <h:commandLink action="#{suscripcionElectronicaController.destroy(item)}" >
+                             <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+                </center>
+                </p:panel>
+            </h:panelGroup>
+
+
+            <br />
+            <br />
+            <div align="center">
+                <p:panel>
+                <h:commandButton value="Salir" action="/index" immediate="true" />
+                </p:panel>
+            </div>
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
