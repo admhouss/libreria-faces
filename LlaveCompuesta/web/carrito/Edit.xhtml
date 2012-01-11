@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+
+
+        <h:form id="carritoCompra" styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+            <h1>Carrito de Compra</h1>
+            <h:outputLabel value="Favor de registrase" rendered="#{sistemaController.cliente==null}" escape="false"/>
+            <h:panelGroup rendered="#{sistemaController.cliente!=null}">
+            <p:accordionPanel autoHeight="false" rendered="#{sistemaController.cliente!=null}">
+
+                <p:tab title="Editar Art&iacute;lo">
+
+
+                    <h:dataTable var="item" value="#{carritoController.listcarritoDTOTemporal}" headerClass="ui-state-focus">
+
+
+
+
+                        <h:column>
+
+                            <f:facet name="header" >
+                                <h:outputLabel value="Descripci&oacute;n"  />
+                            </f:facet>
+                            <table border="0">
+                                <tr style="width:60px;">
+                                    <td colspan="4" class="ui-state-highlight">
+                                        <h:outputText value="#{item.indice}"/></td>
+
+                                    <td style="width:160px;">
+                                        <h:outputText value="#{item.titulo}"  styleClass="textoNEGRO" /><br/>
+                                        <h:outputText value="#{item.asunto}" /><br/>
+                                        <h:outputText value="#{item.autor}" /><br/>
+                                        <h:outputText value="#{item.editorial}" /><br/>
+                                    </td>
+                                </tr>
+                            </table>
+                         </h:column>
+                         <h:column  >
+                            <f:facet name="header">
+                                <h:outputLabel value="Cantidad"  />
+                            </f:facet>
+                             <h:inputText value="#{item.cantidad}" required="true" requiredMessage="El campo cantidad es requerido" size="1"/>
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                               <h:outputLabel value="Precio" />
+                            </f:facet>
+                             <h:outputText value="$ #{item.precio}" />
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                              <h:outputLabel value="Descuento" />
+                            </f:facet>
+                             <h:outputText value="% #{item.desc}" />
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                              <h:outputLabel value="Impuesto" />
+                            </f:facet>
+                             <h:outputText value="% #{item.impuesto}" />
+                         </h:column>
+                        
+
+                         <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Total" />
+                            </f:facet>
+
+                             <h:outputText value="$ #{item.total}" >
+
+                            </h:outputText>
+                         </h:column>
+
+                             <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="&nbsp;" />
+                            </f:facet>
+                                 <h:commandLink action="#{carritoController.editarCarritoCompra(item)}">
+                             <img src="./../resources/iconos/seditar.png" alt="" title="Actualizar carrito"/>
+                                 </h:commandLink>
+
+                                 <h:commandLink action="#{carritoController.borrarArticulo(item)}">
+                             <img src="./../resources/iconos/quitar.png" alt="" title="Quitar del carrito"/>
+                                 </h:commandLink>
+
+
+                         </h:column>
+                    
+
+                    </h:dataTable>
+                    <div align="right">
+                    <table>
+          <tr>
+          <td valign="top">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ui-state-active">Total</td>
+          <td><h:outputLabel value="$ #{carritoController.montoTotal}"  /></td>
+          <td>&nbsp;</td>
+        </tr>
+                    </table>
+                    </div>
+
+
+                </p:tab>
+                
+            </p:accordionPanel>
+
+
+
+            </h:panelGroup>
+
+
+            <br />
+            <br />
+            <div align="center">
+                <p:panel>
+                    <h:commandButton value="Regresar Carrito" action="#{carritoController.prepareList}" immediate="true" />
+                </p:panel>
+            </div>
+
+
+
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
