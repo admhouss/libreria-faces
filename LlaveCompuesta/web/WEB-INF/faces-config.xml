@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <application>
+        <resource-bundle>
+            <base-name>/administracion</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/articulo</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/bitacora</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/cliente</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/compras</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/descuento</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/facturacion</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/proveedor</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/suscripciones</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/configuracion</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/descuento</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/zona</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/almacen</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+    </application>
+    <validator>
+            <validator-id>EmailValidator</validator-id>
+            <validator-class>escom.libreria.correo.ValidadorCorreo</validator-class>
+
+   </validator>
+
+   <validator>
+            <validator-id>NumeroValidator</validator-id>
+            <validator-class>escom.libreria.correo.ValidarNumero</validator-class>
+   </validator>
+</faces-config>
+
+
+
+
+
+
+
+
+
