@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="articuloview">
+
+                <br/><br/><br/>
+               
+                       <p:tabView>
+                    <center>
+                        <p:tab title="Descripci&oacute;n General">
+                       <table width="99%" border="0">
+  <tr>
+    <td width="13%" rowspan="8" scope="col">
+        <img src="#{articuloController.selected.imagen}" width="83" height="122" /></td>
+      <td width="79%" class="Titulo_articulo" scope="col">
+
+         <!-- Mediaci&oacute;n y Arbitraje-->
+         <h:outputLabel value="#{articuloController.selected.titulo}"/>
+
+      </td>
+
+  </tr>
+  <tr>
+      <td><p><strong>Autor:</strong> <h:outputText value="#{articuloController.selected.creador}"/></p></td>
+  </tr>
+  <tr>
+      <td><p><strong>Idioma:</strong> <h:outputText value="#{articuloController.selected.idioma}"/>
+          </p></td>
+
+  </tr>
+  <tr>
+      <td><strong>Unidad: </strong><h:outputText value="#{articuloController.selected.unidad}"/></td>
+  </tr>
+  
+  <tr>
+
+    <td align="left">
+     <ul id="icons" class="ui-widget ui-helper-clearfix">
+      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Mas información">
+    <!-- <h:commandLink  action="./../index.xhtml" >
+          <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+      </h:commandLink>
+    -->
+      <a href="Articulo.html">
+      <span class="ui-icon ui-icon-info"></span>
+      </a>
+      </li>
+      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+    </ul>
+    </td>
+  </tr>
+  <tr></tr>
+  <tr></tr>
+
+</table>
+
+
+                     
+
+                        </p:tab>
+                        <p:tab title="Detalle">
+                            <center>
+                            <h:panelGrid columns="2" cellspacing="15">
+                             <h:outputText value="Unidad:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{articuloController.selected.unidad}" title="unidad"/>
+                    <h:outputText value="Divisa:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{articuloController.selected.divisa}" title="divisa"/>
+                    <h:outputText value="Costo:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{articuloController.selected.costo}" title="costo"/>
+                    <h:outputText value="Precio Unitario:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{articuloController.selected.precioUnitario}" title="precio Unitario:"/>
+                    <h:outputText value="Descripci&oacute;n:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{articuloController.selected.descripcion}" title="Descripcion"/>
+                    <h:outputText value="Fecha Registro:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{articuloController.selected.fechaRegistro}" title="Fecha Registro">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="Tipo Art&iacute;culo:" styleClass="textoNEGRO" />
+                    <h:outputText value="#{articuloController.selected.tipoArticulo.descripcion}" title="idTipo"/>
+                     <h:outputText value="Formato:" styleClass="textoNEGRO" />
+                     <h:outputText value="#{articuloController.selected.formato}" title="Formato"/>
+                    
+                    </h:panelGrid>
+                            </center>
+                        </p:tab>
+                       
+
+                         <p:tab title="Proveedor">
+                             <h:panelGroup>
+
+                                 <p:dataTable value="#{articuloController.selected.proveedorArticuloList}" var="item" paginator="true" rows="4" selectionMode="single">
+                                      <p:column >
+                        <f:facet name="header">
+                            <h:outputText value="NOMBRE"/>
+                        </f:facet>
+                                          <h:outputText value="#{item.proveedor.nombre}"/>
+                   </p:column>
+                  
+                  <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="TEL&Egrave;FONO"/>
+                        </f:facet>
+                      <h:outputText value="#{item.proveedor.telefono}"/>
+                   </p:column>
+
+                      <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="E-MAIL"/>
+                        </f:facet>
+                          <h:outputText value="#{item.proveedor.mail}"/>
+                   </p:column>
+                                 </p:dataTable>
+
+                             </h:panelGroup>
+
+                        </p:tab>
+                         <p:tab title="Comentario">
+
+                             <div id="tabs-3">
+                                 <p:dataGrid var="item" value="#{articuloController.selected.comentarioList}" columns="1" paginator="true" rows="4">
+                                     <p:column>
+                                         <h:panelGrid columns="1">
+                                             <h:outputText value="#{item.autor}" styleClass="textoNEGRO"/>
+                                            <ul id="icons" class="ui-widget ui-helper-clearfix">
+                                                <li class="ui-state-default ui-corner-all" title=".ui-icon-person"><span class="ui-icon ui-icon-person"></span></li>
+                                            </ul>
+                                            <h:outputText value="#{item.comentario}" />
+                                        </h:panelGrid>
+                                     </p:column>
+
+
+
+                                 </p:dataGrid>
+
+
+
+                             </div>
+
+
+                        </p:tab>
+
+                
+                    </center>
+                       </p:tabView>
+                
+                <br/><br/>
+
+               
+
+                <br/>  <br/>
+
+
+                
+                <div align="center">
+                    <p:panel >
+
+                        <h:commandButton action="#{articuloController.prepareList}" value="VOLVER"/>
+                    </p:panel>
+                </div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
