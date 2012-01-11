@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            
+            <h:panelGroup>
+                
+                <div align="right">
+                     <br /><br />
+                     <h:commandButton action="#{pedidoController.prepareCreate}" value="Crear Nuevo"/>
+            
+                </div>
+                     <br /><br />
+                     <p:panel header="Buscar Pedido">
+                         <center>
+                             <h:panelGrid columns="3" cellspacing="15">
+                             <h:outputLabel value="Fecha Inicio:" styleClass="textoNEGRO"/>
+                             <p:calendar value="#{pedidoController.pedidoFecha}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true"/>
+                             <h:outputLabel value=" "/>
+                             <h:outputLabel value="Fecha Final:" styleClass="textoNEGRO"/>
+                             <p:calendar value="#{pedidoController.endpedidoFecha}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true"/>
+                             <h:commandLink action="#{pedidoController.publicacionByFecha}">
+                                 <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                             </h:commandLink>
+                         </h:panelGrid>
+                         </center>
+                     </p:panel>
+                     <br/><br/>
+                <p:panel header="CAT&Aacute;LOGO DE PEDIDOS">
+               
+                    <p:dataTable value="#{pedidoController.listaPedidosCliente}" var="item" paginator="true">
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="CANTIDAD"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noArticuloCategoria}"/>
+                    </p:column>
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="CATEGORIA"/>
+                        </f:facet>
+                        <h:outputText value="{item.categoria}"/>
+                    </p:column>-->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="PRECIO NETO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.precioNeto}"/>
+                    </p:column>
+                   <!-- <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="IMPUESTO"/>
+                        </f:facet>
+                        <h:outputText value="{item.impuesto}"/>
+                    </p:column>-->
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DESCUENTO"/>
+                        </f:facet>
+                        <h:outputText value="{item.descuento}"/>
+                    </p:column>
+                    -->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="PRECIO TOTAL"/>
+                        </f:facet>
+                        <h:outputText value="#{item.precioTotal}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="TIPO ENVIO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tipoEnvio}"/>
+                    </p:column>
+                    <p:column style="width:16px;">
+                        <f:facet name="header">
+                            <h:outputText value="ARTICULO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.articulo.titulo}"/>
+                    </p:column>
+                   <!-- <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="{pedidoController.prepareView(item)}">
+                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                        
+                        <h:commandLink action="{pedidoController.prepareEdit(item)}">
+                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
+                        </h:commandLink>
+                        
+                        
+                        <h:commandLink action="{pedidoController.destroy(item)}">
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                        </h:commandLink>
+                    </p:column>-->
+                </p:dataTable>
+                </p:panel>
+            </h:panelGroup>
+
+            <br/><br/>
+            <div align="center">
+                <p:panel>
+                    <h:commandButton action="/index" value="Salir" immediate="true"/>
+                </p:panel>
+            </div>
+           
+            
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
