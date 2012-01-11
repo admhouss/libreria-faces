@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <p:panel header="CREAR ALMACEN PEDIDO">
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputLabel value="Procedencia Almacen" for="procAlmacen"  styleClass="textoNEGRO"/>
+                    <h:inputText id="procAlmacen" value="#{almacenPedidoController.selected.procAlmacen}" title="#{bundle.CreateAlmacenPedidoTitle_procAlmacen}" required="true" requiredMessage="#{bundle.CreateAlmacenPedidoRequiredMessage_procAlmacen}"/>
+                    <h:outputLabel value="Proveedor" for="proveedor"  styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="proveedor" value="#{almacenPedidoController.selected.proveedor}" title="#{bundle.CreateAlmacenPedidoTitle_proveedor}" required="true" requiredMessage="#{bundle.CreateAlmacenPedidoRequiredMessage_proveedor}">
+                        <f:selectItems value="#{proveedorController.listProveedor}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Pedido:" for="pedido" styleClass="textoNEGRO" />
+                    <h:selectOneMenu id="pedido" value="#{almacenPedidoController.selected.pedido}" title="#{bundle.CreateAlmacenPedidoTitle_pedido}" required="true" requiredMessage="#{bundle.CreateAlmacenPedidoRequiredMessage_pedido}">
+                        <f:selectItems value="#{pedidoController.listPedido}" var="item" itemValue="#{item}" itemLabel="#{item.pedidoPK.idPedido}" />
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                </p:panel>
+                <br />
+                <div align="center">
+                    <p:panel>
+                <h:commandButton action="#{almacenPedidoController.create}" value="GUARDAR" />
+                    </p:panel>
+                </div>
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
