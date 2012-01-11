@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateBitacoraConsultaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateBitacoraConsultaLabel_idMovimiento}" for="idMovimiento" />
+                    <h:inputText id="idMovimiento" value="#{bitacoraConsultaController.selected.idMovimiento}" title="#{bundle.CreateBitacoraConsultaTitle_idMovimiento}" required="true" requiredMessage="#{bundle.CreateBitacoraConsultaRequiredMessage_idMovimiento}"/>
+                    <h:outputLabel value="#{bundle.CreateBitacoraConsultaLabel_fecha}" for="fecha" />
+                    <h:inputText id="fecha" value="#{bitacoraConsultaController.selected.fecha}" title="#{bundle.CreateBitacoraConsultaTitle_fecha}" required="true" requiredMessage="#{bundle.CreateBitacoraConsultaRequiredMessage_fecha}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateBitacoraConsultaLabel_articulo}" for="articulo" />
+                    <h:selectOneMenu id="articulo" value="#{bitacoraConsultaController.selected.articulo}" title="#{bundle.CreateBitacoraConsultaTitle_articulo}" required="true" requiredMessage="#{bundle.CreateBitacoraConsultaRequiredMessage_articulo}">
+                        <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{bitacoraConsultaController.create}" value="#{bundle.CreateBitacoraConsultaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{bitacoraConsultaController.prepareList}" value="#{bundle.CreateBitacoraConsultaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateBitacoraConsultaIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
