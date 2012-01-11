@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="prompcion">
+
+                <br/>  <br/>
+                <p:panel header="EDITAR PROMOCION ART&Iacute;CULO">
+                    <center>
+
+                        
+                       
+                <h:panelGrid columns="3" cellspacing="15">
+                    <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{promocionController.selected.articulo.codigo}-#{promocionController.selected.articulo.titulo}" title="#{bundle.ViewPromocionTitle_promocionPK_idArticulo}"/>
+                    <h:outputText value=" " styleClass="textoNEGRO"/>
+                    <h:outputLabel  value="Precio:" for="precio" styleClass="textoNEGRO" />
+                    <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="Precio Publico" required="true" requiredMessage="Elcampo precioPublico es requerido"/>
+                    <h:outputLabel value="*"  styleClass="textoROJO"  />
+                    <h:outputLabel value="Fecha Inicio:" for="diaInicio" styleClass="textoNEGRO" />
+                    <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="Dia Inicio" required="true" requiredMessage="El campo  dia Inicio es requerido" locale="es" effect="fadeIn" showOn="button" navigator="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:calendar>
+                     <h:outputLabel value="*"  styleClass="textoROJO"  />
+                    <h:outputLabel value="Fecha Fin:" for="diaFin" styleClass="textoNEGRO" />
+                     <p:calendar id="diaFin" value="#{promocionController.selected.diaFin}" title="Dia Fin" required="true" requiredMessage="El campo dia fin es requerido"  locale="es" effect="fadeIn" showOn="button" navigator="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </p:calendar>
+                     <h:outputLabel value="*"  styleClass="textoROJO"  />
+
+                </h:panelGrid>
+
+                </center>
+                </p:panel>
+                    <br/>
+
+                 
+
+             
+                <br />
+                <div align="center">
+                    <p:panel>
+                <h:commandButton action="#{promocionController.update}" value="Guardar" />
+                    </p:panel>
+                </div>
+                <br />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
