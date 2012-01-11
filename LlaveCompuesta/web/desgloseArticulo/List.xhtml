@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+           
+            <h:panelGroup>
+
+                <div align="right">
+                    <br /><br />
+
+                      <h:commandButton action="#{compraController.prepareCreate}" value="Crear Nuevo"/>
+
+                </div>
+                 <br /><br />
+                 <p:accordionPanel>
+                     <p:tab  title="DESGLOSE ART&Iacute;CULO #{carritoController.articulo.codigo}-#{carritoController.articulo.titulo}">
+
+                         <br/>
+                         <h1>IMPUESTO ART&Iacute;CULO </h1>
+                     <p:dataTable value="#{carritoController.impuestosArticulo}" var="item" paginator="true" rows="10">
+                   
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="IMPUESTO %"/>
+                        </f:facet>
+                        <h:outputText value="#{item.montoImpuesto}">
+                           
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DESCRIPCION"/>
+                        </f:facet>
+                        <h:outputText value="#{item.descripcion}"/>
+                    </p:column>
+                    <!--
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Observaciones"/>
+                        </f:facet>
+                        <h:outputText value="{item.observaciones}"/>
+                    </p:column>
+                    -->
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="IMPUESTO"/>
+                        </f:facet>
+                        <h:outputText value="{item.impuesto}"/>
+                    </p:column>-->
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="pagoNeto}"/>
+                        </f:facet>
+                        <h:outputText value="{item.pagoNeto}"/>
+                    </p:column>-->
+                    
+                    
+                </p:dataTable>
+
+                         <br/><br/>
+
+                         <h1>DESCUENTOS ART&Iacute;CULO </h1>
+                         <p:dataTable value="#{carritoController.descuentoArticulos}" var="item" paginator="true" rows="10">
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DESCUENTO %"/>
+                        </f:facet>
+                        <h:outputText value="#{item.descuento}">
+
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="FECHA INICIO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaInicio}">
+                            <f:convertDateTime locale="es" pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                             <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="FECHA FINAL">
+                               
+                            </h:outputText>
+                        </f:facet>
+                                 <h:outputText value="#{item.fechaFinal}">
+                                      <f:convertDateTime locale="es" pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                    </p:column>
+                    <!--
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Observaciones"/>
+                        </f:facet>
+                        <h:outputText value="{item.observaciones}"/>
+                    </p:column>
+                    -->
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="IMPUESTO"/>
+                        </f:facet>
+                        <h:outputText value="{item.impuesto}"/>
+                    </p:column>-->
+                    <!--<p:column>
+                        <f:facet name="header">
+                            <h:outputText value="pagoNeto}"/>
+                        </f:facet>
+                        <h:outputText value="{item.pagoNeto}"/>
+                    </p:column>-->
+
+
+                </p:dataTable>
+                     </p:tab>
+                 </p:accordionPanel>
+            </h:panelGroup>
+            
+            <br />
+            <div align="center">
+                <p:panel>
+                    <h:commandButton value="REGRESAR" action="#{carritoController.RegresarCarrito}" immediate="true" />
+                </p:panel>
+            </div>
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
