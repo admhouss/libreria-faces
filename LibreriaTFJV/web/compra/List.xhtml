@@ -18,15 +18,9 @@
             <!--<h:outputText escape="false" value="{bundle.ListCompraEmpty}" rendered="{compraController.items.rowCount == 0}"/>-->
             <h:panelGroup>
 
-                <div align="right">
-                    <br /><br />
-
-                      <h:commandButton action="#{compraController.prepareCreate}" value="Crear Nuevo"/>
-
-                </div>
-                 <br /><br />
+               <br/><br/>
                  <p:panel header="CAT&Aacute;LOGO DE COMPRAS">
-                <p:dataTable value="#{compraController.listCompra}" var="item" paginator="true" rows="10">
+                     <p:dataTable value="#{compraController.listCompras}" var="item" paginator="true" rows="10" rowStyleClass="ui-state-focus">
                    
                     <p:column>
                         <f:facet name="header">
@@ -73,7 +67,7 @@
                         <f:facet name="header">
                             <h:outputText value="Pedido"/>
                         </f:facet>
-                        <h:outputText value="#{item.pedido}"/>
+                        <h:outputText value="#{item.idPedido}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
