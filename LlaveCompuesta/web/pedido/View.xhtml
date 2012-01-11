@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPedidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <p:panel header="VER DETALLE PEDIDO">
+                    <center>
+                <h:panelGrid columns="2" cellspacing="15">
+  
+                    <h:outputText value="no.Art&iacute;culo Categoria" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{pedidoController.selected.noArticuloCategoria}" title="no Articulo Categoria"/>
+                    <h:outputText value="Categoria:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{pedidoController.selected.categoria}" title="Categoria"/>
+                    <h:outputText value="Precio Neto:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{pedidoController.selected.precioNeto}" title="Precio Neto"/>
+                    <h:outputText value="Impuesto:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{pedidoController.selected.impuesto}" title="Impuesto"/>
+                    <h:outputText value="Descuento:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{pedidoController.selected.descuento}" title="Descuento"/>
+                    <h:outputText value="Precio Total:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{pedidoController.selected.precioTotal}" title="Precio Total"/>
+                    <h:outputText value="Tipo Envio:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{pedidoController.selected.tipoEnvio}" title="Tipo Envio"/>
+                    <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{pedidoController.selected.articulo.codigo}-#{pedidoController.selected.articulo.titulo}" title="Articulo"/>
+                </h:panelGrid>
+                </center>
+                </p:panel>
+                <br /><br />
+
+                <div align="center">
+                    <p:panel>
+                    <h:commandButton action="#{pedidoController.prepareList}" value="Regresar Modulo"/>
+                    </p:panel>
+                </div>
+                
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
