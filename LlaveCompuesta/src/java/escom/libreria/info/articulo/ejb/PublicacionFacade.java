@@ -317,6 +317,24 @@ public class PublicacionFacade {
                     return l;
     }
 
+    public Publicacion getOfertaDelDia() {
+
+                     TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p ",Publicacion.class)
+                             .setMaxResults(1);
+
+                    Publicacion l=query.getSingleResult();
+                   return l;
+    }
+
+    public Publicacion getOfertaMes() {
+
+                     TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p ",Publicacion.class)
+                             .setMaxResults(1);
+
+                    Publicacion l=query.getSingleResult();
+                   return l;
+    }
+
 
 
 
