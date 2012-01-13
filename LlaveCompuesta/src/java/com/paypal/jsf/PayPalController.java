@@ -10,19 +10,25 @@ import escom.libreria.info.administracion.jsf.util.JsfUtil;
 import escom.libreria.info.carrito.jpa.PublicacionDTO;
 import escom.libreria.info.carrito.jsf.CarritoController;
 import escom.libreria.info.cliente.Cliente;
+import escom.libreria.info.compras.Direnvio;
 
 import escom.libreria.info.compras.Pedido;
 import escom.libreria.info.compras.PedidoPK;
+import escom.libreria.info.compras.Zona;
 import escom.libreria.info.compras.ejb.CompraFacade;
 import escom.libreria.info.compras.ejb.PedidoFacade;
 import escom.libreria.info.compras.jsf.DifacturacionController;
 import escom.libreria.info.compras.jsf.DirenvioController;
 import escom.libreria.info.compras.jsf.PedidoController;
+import escom.libreria.info.encriptamientoMD5.EncriptamientoImp;
 import escom.libreria.info.login.sistema.SistemaController;
+import escom.libreria.info.proveedor.ProveedorArticulo;
+import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.Date;
 
 /**
@@ -55,7 +61,7 @@ public class PayPalController implements Serializable{
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
 
-
+@EJB private ProveedorArticuloFacade proveedorArticuloFacade;
 
 
     public SistemaController getSistemaController() {
@@ -141,9 +147,14 @@ public class PayPalController implements Serializable{
     }
 
     public  boolean crearPedido(Cliente cliente){
+
+         String formato="";
+         ProveedorArticulo proveedorArticulo=null;
+         int idProveedor,idArticulo;
        List<PublicacionDTO> carrito = carritoController.getListPedidosDTO();//Lo que tiene el carrito de compra;
        PedidoPK pkey=new PedidoPK();
        boolean bandera=false;
+        BigDecimal gastEnvio=BigDecimal.ZERO;
        
 
             for(PublicacionDTO p:carrito){
@@ -161,11 +172,41 @@ public class PayPalController implements Serializable{
                 pedido.setCategoria(p.getAsunto());
                 pedido.setDescuento(p.getDesc());
                 pedido.setPrecioNeto(p.getPrecio());
+
+               formato=p.getArticulo().getFormato();
+
+        if(formato.equalsIgnoreCase("FISICO") || formato.equalsIgnoreCase("IMPRESO") || formato.equalsIgnoreCase("CD")){
+           try{
+         List<ProveedorArticulo> provedores = p.getArticulo().getProveedorArticuloList();
+          if(provedores!=null && !provedores.isEmpty()){
+             proveedorArticulo=provedores.get(0);
+  
+             idProveedor=proveedorArticulo.getProveedorArticuloPK().getIdProveedor();
+             idArticulo=proveedorArticulo.getProveedorArticuloPK().getIdArticulo();
+             ProveedorArticulo pa= proveedorArticuloFacade.buscarArticuloMenorProveedor(idProveedor,idArticulo);
+             
+             Direnvio direccionEnvio=direnvioController.getDireccionEnvioSelected();
+             Zona zona=direccionEnvio.getEstado().getZona();
+             gastEnvio=proveedorArticulo.getPeso().compareTo(BigDecimal.ONE)<=0?zona.getPeso():zona.getTarifa();
+             p.setGastosEnvio(gastEnvio);
+
+             System.out.println("Todo bien");
+          }else{
+             p.setGastosEnvio(BigDecimal.ZERO);
+          }
+            }catch(Exception e){e.printStackTrace();}
+
+        }
+
+                
                 pedido.setPrecioTotal(new  BigDecimal(p.getTotal()));
+                pedido.setPrecioTotal(pedido.getPrecioTotal().add(gastEnvio));
+                
                 pedido.setTipoEnvio(p.getArticulo().getFormato());
                 pedido.setImpuesto(p.getImpuesto());
                 pedido.setNoArticuloCategoria(p.getCantidad());
                 pedido.setArticulo(p.getArticulo());
+
                 pkey.setIdPedido(pkey.getIdPedido());
                 pkey.setIdArticulo(p.getIdArticulo());
                 pedido.setPedidoPK(pkey);
@@ -193,7 +234,7 @@ public class PayPalController implements Serializable{
     public String procesarPago(){
 
        Cliente cliente=carritoController.getSistemaController().getCliente();
-     
+     try{
 
         if(direnvioController.getDireccionEnvioSelected()==null){
               JsfUtil.addErrorMessage("Es requerido seleccionar una direccion de envio,");
@@ -210,7 +251,12 @@ public class PayPalController implements Serializable{
              return "/carrito/Carrito";
         }
 
-     
+        }catch(Exception e){
+
+        JsfUtil.addErrorMessage("Error ");
+        }
+
+       return null;
             
         }
        
@@ -231,24 +277,29 @@ private String pedidoComprado;
 
    
 
-     @PostConstruct
+    @PostConstruct
     public void init() {
          int idPedido;
+        byte[] byt;
 
         try{
 
             if(getPedidoComprado()!=null && !getPedidoComprado().trim().equals("")){
-
+String saludo;
                //&& getCorreo()!=null && !getCorreo().trim().equals("")   ){
 
                 try{
-                     idPedido=Integer.parseInt(getPedidoComprado());
-                     //&&comente dos lineeas
-                    // pedidoFacade.cambiarEstadoPedidoAll(idPedido,"COMPRADO");
-                    // compraFacade.cambiarEstadoCompra(idPedido,"COMPRADO");
 
-                     JsfUtil.addSuccessMessage("Compra realizada Satisfactoriamente");
+                     EncriptamientoImp  encrip=new EncriptamientoImp ();
+                     byt=encrip.hexToBytes(getPedidoComprado());
+                     saludo=encrip.decrypt(byt);
+
+                   
+                     
+
+                     JsfUtil.addSuccessMessage("Compra realizada Satisfactoriamente"+saludo);
                 }catch(Exception e){
+                    e.printStackTrace();
                  JsfUtil.addErrorMessage("Error al cancelar el pedido");
                 }
 

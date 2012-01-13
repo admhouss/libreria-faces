@@ -46,7 +46,6 @@ public class SistemaController implements Serializable {
     private @EJB escom.libreria.correo.ProcesoJMail jMail; //enviar correos
     private String menssageBienvenida;
     private String bandera;
-
     public String getBandera() {
         return bandera;
     }

@@ -122,7 +122,7 @@ public class SuscripcionClienteController implements Serializable{
         }
     }
 
-    public String destroy(SuscripcionCliente s) {
+       public String destroy(SuscripcionCliente s) {
         current=s;//
         getFacade().remove(current);
         JsfUtil.addSuccessMessage("Suscripcion cliente eliminada Satisfactoriamente");

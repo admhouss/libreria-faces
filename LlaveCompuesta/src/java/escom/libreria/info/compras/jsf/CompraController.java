@@ -1,12 +1,17 @@
 package escom.libreria.info.compras.jsf;
 
 import com.paypal.jsf.CompraDTO;
+import escom.libreria.info.articulo.Almacen;
+import escom.libreria.info.articulo.AlmacenPedido;
+import escom.libreria.info.articulo.AlmacenPedidoPK;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.compras.Compra;
 import escom.libreria.info.compras.Pedido;
 import escom.libreria.info.compras.jsf.util.JsfUtil;
 import escom.libreria.info.compras.jsf.util.PaginationHelper;
 import escom.libreria.info.compras.ejb.CompraFacade;
+import escom.libreria.info.encriptamientoMD5.EncriptamientoImp;
+import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.login.sistema.SistemaController;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -14,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -33,7 +39,9 @@ public class CompraController implements Serializable{
     private Compra current;
     private DataModel items = null;
     @EJB private escom.libreria.info.compras.ejb.CompraFacade ejbFacade;
-     @EJB private escom.libreria.info.compras.ejb.PedidoFacade pedidoFacade;
+    @EJB private escom.libreria.info.compras.ejb.PedidoFacade pedidoFacade;
+    @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
+    @EJB private escom.libreria.info.articulo.ejb.AlmacenPedidoFacade almacenPedidoFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
      @ManagedProperty("#{sistemaController}")
@@ -58,14 +66,79 @@ public class CompraController implements Serializable{
         this.sistemaController = sistemaController;
     }
 
+private String pedidoCancelado;
+
+    public String getPedidoCancelado() {
+        return pedidoCancelado;
+    }
+
+    public void setPedidoCancelado(String pedidoCancelado) {
+        this.pedidoCancelado = pedidoCancelado;
+    }
+
+
+public String borrar(){
+    try{
+    getFacade().cambiarEstadoCompra(pedidoID, "CANCELADO");
+    return "/carrito/Carrito";
+    }catch(Exception e){
+        e.printStackTrace();
+        JsfUtil.addErrorMessage("Error al cacnelar carrito");
+    }
+      return "/carrito/Carrito";
+}
+
+private String pedidoTocandelar;
+     @PostConstruct
+    public void init() {
+         int idPedido;
+        String[] arreglo;
+
+        
+
+            if(getPedidoCancelado()!=null && !getPedidoCancelado().trim().equals("")){
+
+              
+               try{
+
+                   System.out.println("repintando url"+getPedidoCancelado());
+                         EncriptamientoImp encriptar=new EncriptamientoImp();
+                         byte[] resultado=encriptar.hexToBytes(getPedidoCancelado());
+                         String decodificado=encriptar.decrypt(resultado);
+
+                         System.out.println("decodificado"+decodificado);
+
+                         /*arreglo=decodificado.split("|");
+                         pedidoTocandelar=arreglo[1];
+                          * */
+                         pedidoID=Integer.parseInt(decodificado);
+                         pedidoFacade.cambiarEstadoPedidoAll(pedidoID,"CANCELADO");
+                         getFacade().cambiarEstadoCompra(pedidoID,"CANCELADO");
+                         JsfUtil.addSuccessMessage("Compra cancelada Satisfactoriamente");
+                         
+                }catch(Exception e){
+                  
+                 JsfUtil.addErrorMessage("Error al cancelar el pedido");
+                }
 
 
 
+             }
+
+
+        
+    }
     public List<Compra> getListCompras(){
        String idCliente=sistemaController.getCliente().getId();
        List<Compra> l=null;
        l=getFacade().getComprasByCliente(idCliente);
        return l;
+    }
+
+    public List<Compra> getListaComprasSistema(){
+        List<Compra> l= getFacade().findAll();
+        return l;
+
     }
     private int  getIDPedidoByCliente(){
         int idPedido=0;
@@ -116,6 +189,14 @@ public class CompraController implements Serializable{
     public String prepareList() {
         recreateModel();
         return "List";
+    }
+
+    public int getPedidoID() {
+        return pedidoID;
+    }
+
+    public void setPedidoID(int pedidoID) {
+        this.pedidoID = pedidoID;
     }
 
     public List<Pedido> listpedioBycompra;
@@ -183,21 +264,48 @@ return "/compra/CompradoDeposito";
          
     }
 
+        public void descontadorAlmacen(Articulo articulo){
+
+              Almacen almacen=almacenFacade.find(articulo.getId());
+              AlmacenPedido ap=new AlmacenPedido();
+              AlmacenPedidoPK pk=new AlmacenPedidoPK();
+
+              if(almacen.getExistencia()!=0){
+
+               almacen.setExistencia(almacen.getExistencia()-1);
+               almacenFacade.edit(almacen);
+               almacenPedidoFacade.create(ap);
+              }
+
+    }
+
+
+    private BigDecimal precioTotalFinal;
+    private int pedidoID;
+
+    public BigDecimal getPrecioTotalFinal() {
+        return precioTotalFinal;
+    }
+
+    public void setPrecioTotalFinal(BigDecimal precioTotalFinal) {
+        this.precioTotalFinal = precioTotalFinal;
+    }
+
     public String create() {
         try {
-          int pedido=getIDPedidoByCliente();
+           pedidoID=getIDPedidoByCliente();
           String idCliente=sistemaController.getCliente().getId();
-          CompraDTO compraTOTAL = pedidoFacade.getSuperTotal(pedido);
+          CompraDTO compraTOTAL = pedidoFacade.getSuperTotal(pedidoID);
 
           Compra compra=new Compra();
-
+          precioTotalFinal=compraTOTAL.getTotalMonto();
           compra.setDescuento(compraTOTAL.getDescuento());
           compra.setImpuesto(compraTOTAL.getImpuesto());
           compra.setPagoNeto(compraTOTAL.getTotalMonto());
           compra.setPagoTotal(compraTOTAL.getTotalMonto());
           compra.setCostoEnvio(BigDecimal.ZERO);//CAMBIAR COSTO DE ENVIO
           compra.setCuenta(" ");
-          compra.setIdPedido(pedido);
+          compra.setIdPedido(pedidoID);
           compra.setFecha(new Date());
           compra.setIdCliente(idCliente);
 
@@ -212,7 +320,7 @@ return "/compra/CompradoDeposito";
           compra.setNoReferencia(" ");
           compra.setTipoPago("ELECTRONICO");
           getFacade().create(compra);
-          pedidoFacade.cambiarEstadoPedidoAll(pedido, "CONFIRMADO");
+          pedidoFacade.cambiarEstadoPedidoAll(pedidoID, "CONFIRMADO");
           JsfUtil.addSuccessMessage("PEDIDO CONFIRMADO SATISFACTORIAMENTE");
       
           return "/paypal/Create";
@@ -223,9 +331,9 @@ return "/compra/CompradoDeposito";
         }
     }
 
-    public String prepareEdit() {
-        current = (Compra)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(Compra c) {
+        current = c;//(Compra)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 

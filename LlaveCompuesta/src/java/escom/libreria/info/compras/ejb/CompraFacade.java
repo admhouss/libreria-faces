@@ -66,7 +66,7 @@ public class CompraFacade {
     public List<Compra> getComprasByCliente(String idCliente) {
         List<Compra> l=null;
         try{
-        TypedQuery<Compra> query=em.createQuery("SELECT c FROM Compra c WHERE c.idCliente = :idCliente",Compra.class)
+        TypedQuery<Compra> query=em.createQuery("SELECT c FROM Compra c WHERE c.idCliente = :idCliente ORDER BY c.idPedido DESC",Compra.class)
                 .setParameter("idCliente", idCliente);
                 
 
@@ -75,6 +75,14 @@ public class CompraFacade {
             e.printStackTrace();
         }
         return l;
+    }
+
+     public void cambiarEstadoCompra(int idPedido,String type) { //type CANCELADO,COMPRADO,PROCESANDO
+        Query query = em.createQuery("UPDATE Compra c SET c.estado=:estado WHERE c.idPedido=:idPedido",Compra.class)
+        .setParameter("idPedido",idPedido)
+        .setParameter("estado", type);
+
+        int deleted = query.executeUpdate();
     }
 
 }

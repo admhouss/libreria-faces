@@ -116,9 +116,16 @@ public class ZonaController implements Serializable{
     }
 
     public String destroy(Zona z) {
+
+        try{
         current=z;//
         getFacade().remove(z);
         JsfUtil.addSuccessMessage("Zona eliminada Satisfactoriamente");
+
+        }catch(Exception e){
+            JsfUtil.addErrorMessage("Error al borrar zona");
+            e.printStackTrace();
+        }
        // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         //performDestroy();
         //recreateModel();

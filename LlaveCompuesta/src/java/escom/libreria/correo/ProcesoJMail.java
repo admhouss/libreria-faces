@@ -52,7 +52,7 @@ public class ProcesoJMail {
 
     public void enviaCorreo(MensajeCorreoDTO mensaje){
 
-        ServidorCorreoConf serverMail=sConfFacade.find(1);
+        ServidorCorreoConf serverMail=sConfFacade.find(2);
         listPropiedades=serverMail.getPropiedadesList();
         Properties props = new Properties();
         for(Propiedades propiedad:listPropiedades)
@@ -122,7 +122,23 @@ public class ProcesoJMail {
     
     for (String s : correos) {
     mensaje.getDestinatarioList().add(s);
-        }
+     }
+    //mensaje.setDestinatarioList(correos);
+    mensaje.setTipoMensaje("text/html");
+    enviaCorreo(mensaje);
+    }
+
+    public void enviarLibroComprado(String Asunto,List<String> librosElectronicos,String Cuerpo,List<String> correos) {
+    MensajeCorreoDTO mensaje = new MensajeCorreoDTO();
+    mensaje.setAsunto(Asunto);
+
+   // String cadena="<html><head></head><body><p>"+Cuerpo+"</p></body></html>";
+    mensaje.setCuerpo(Cuerpo);
+    mensaje.setAdjuntoList(librosElectronicos);
+
+    for (String s : correos) {
+    mensaje.getDestinatarioList().add(s);
+     }
     //mensaje.setDestinatarioList(correos);
     mensaje.setTipoMensaje("text/html");
     enviaCorreo(mensaje);

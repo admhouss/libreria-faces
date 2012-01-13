@@ -5,12 +5,14 @@
 
 package escom.libreria.info.suscripciones.ejb;
 
+import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.suscripciones.Suscripcion;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -60,6 +62,41 @@ public class SuscripcionFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<Suscripcion> getSuscripcionByID(int suscripcion) {
+        List<Suscripcion> s=null;
+        try{
+        TypedQuery<Suscripcion> query=em.createQuery("SELECT s FROM Suscripcion s WHERE s.suscripcionPK.idSuscripcion = :idSuscripcion", Suscripcion.class)
+                .setParameter("idSuscripcion", suscripcion);
+        s=query.getResultList();
+
+
+        }catch(Exception e){
+           e.printStackTrace();
+        }
+
+        return s;
+
+    }
+
+    public List<Integer> getIdSuscripciones() {
+         List<Integer> s=null;
+        try{
+        TypedQuery<Integer> query=em.createQuery("SELECT DISTINCT s.suscripcionPK.idSuscripcion FROM Suscripcion s ORDER BY s.suscripcionPK.idSuscripcion ASC", Integer.class);
+
+        s=query.getResultList();
+
+
+        }catch(Exception e){
+           e.printStackTrace();
+        }
+
+        return s;
+    }
+
+    public List<Articulo> getArticulosByID(int suscripcion) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
 }

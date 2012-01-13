@@ -1,5 +1,9 @@
 package escom.libreria.info.suscripciones.jsf;
 
+import escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal;
+import escom.libreria.info.carrito.jsf.CarritoController;
+import escom.libreria.info.facturacion.Articulo;
+import escom.libreria.info.login.ejb.SistemaFacade;
 import escom.libreria.info.suscripciones.Suscripcion;
 import escom.libreria.info.suscripciones.SuscripcionPK;
 import escom.libreria.info.suscripciones.jsf.util.JsfUtil;
@@ -11,6 +15,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -23,12 +28,50 @@ import javax.faces.model.SelectItem;
 @ManagedBean (name="suscripcionController")
 @SessionScoped
 public class SuscripcionController implements Serializable{
-
+    @ManagedProperty("#{carritoController}")
+    private CarritoController carritoController;
     private Suscripcion current;
     private DataModel items = null;
     @EJB private escom.libreria.info.suscripciones.ejb.SuscripcionFacade ejbFacade;
+    @EJB private SistemaFacade sistemaFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private int suscripcion;
+    private List<Suscripcion> listasuscripciones;
+
+    public CarritoController getCarritoController() {
+        return carritoController;
+    }
+
+    public void setCarritoController(CarritoController carritoController) {
+        this.carritoController = carritoController;
+    }
+
+
+    public List<Suscripcion> getListasuscripciones() {
+        return listasuscripciones;
+    }
+
+    public void setListasuscripciones(List<Suscripcion> listasuscripciones) {
+        this.listasuscripciones = listasuscripciones;
+    }
+
+
+
+public String buscar(){
+
+    listasuscripciones=getFacade().getSuscripcionByID(suscripcion);
+    return "/suscripcionVentas/List";
+}
+    public int getSuscripcion() {
+        return suscripcion;
+    }
+
+    public void setSuscripcion(int suscripcion) {
+        this.suscripcion = suscripcion;
+    }
+
+
 
     public SuscripcionController() {
     }
@@ -43,6 +86,11 @@ public class SuscripcionController implements Serializable{
 
     public List<Suscripcion> getListSuscripcion(){
        List<Suscripcion> l=getFacade().findAll();
+       return l;
+    }
+
+    public List<Integer> getIdSuscripciones(){
+       List<Integer> l= getFacade().getIdSuscripciones();
        return l;
     }
 
@@ -68,6 +116,19 @@ public class SuscripcionController implements Serializable{
         return pagination;
     }
 
+
+    public String agregarArticulo(){
+
+      //List<Articulo> articulos= getFacade().getArticulosByID(suscripcion);
+        //          carritoController.agregarArticulo(null)
+
+
+
+        //idDelasusico
+
+        return "";
+
+    }
     public String prepareList() {
         recreateModel();
         return "List";
@@ -91,6 +152,9 @@ public class SuscripcionController implements Serializable{
         return idSuscripcion;
     }
 
+    /*public Object crearCarritoCompra(){
+        CarritoCompraTemporalLocal carrito = sistemaFacade.getObtenerBandejaTemporal();
+    }*/
     public void setIdSuscripcion(int idSuscripcion) {
         this.idSuscripcion = idSuscripcion;
     }

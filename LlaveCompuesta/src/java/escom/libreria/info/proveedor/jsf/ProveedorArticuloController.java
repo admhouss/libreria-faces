@@ -3,6 +3,8 @@ package escom.libreria.info.proveedor.jsf;
 
 import escom.libreria.info.administracion.jsf.util.JsfUtil;
 import escom.libreria.info.administracion.jsf.util.PaginationHelper;
+import escom.libreria.info.articulo.Almacen;
+import escom.libreria.info.articulo.ejb.AlmacenFacade;
 import escom.libreria.info.articulo.jsf.ArticuloController;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.proveedor.ProveedorArticulo;
@@ -36,6 +38,7 @@ public class ProveedorArticuloController implements Serializable{
     private int selectedItemIndex;
     @ManagedProperty("#{articuloController}")
     private ArticuloController articuloController;
+    @EJB private AlmacenFacade almacenFacade;
 
     public ArticuloController getArticuloController() {
         return articuloController;
@@ -54,6 +57,8 @@ public class ProveedorArticuloController implements Serializable{
 
     public ProveedorArticuloController() {
     }
+
+
 
     public ProveedorArticulo getSelected() {
         if (current == null) {
@@ -116,8 +121,16 @@ public class ProveedorArticuloController implements Serializable{
     public String create() {
         try {
 
+
             ProveedorArticulo p=getFacade().buscarArticuloProveedor(current.getArticulo().getId(),current.getProveedor().getId());
+
             if(p==null){
+            Almacen almacen=almacenFacade.find(current.getArticulo().getId()); //buscamos el articulo que se encuentra en almacen
+           if(almacen==null){//no se encuentra en almacen..
+
+               JsfUtil.addErrorMessage(("El articulo no se encuentra en Almacen"));
+               return null;
+            }
             
             ProveedorArticuloPK pk=new ProveedorArticuloPK();
             pk.setIdArticulo(current.getArticulo().getId());
@@ -130,6 +143,10 @@ public class ProveedorArticuloController implements Serializable{
 
             //actualizar almacen
             getFacade().create(current);
+            almacen.setEnConsigna(almacen.getEnConsigna()+current.getCantidad());
+            almacen.setExistencia(almacen.getEnConsigna()+almacen.getEnFirme());
+            getFacade().edit(current);
+            almacenFacade.edit(almacen);
             JsfUtil.addSuccessMessage(("Proveedor Articulo Creado Satisfactoriamente"));
             return prepareView(current);
             }else{
@@ -151,6 +168,16 @@ public class ProveedorArticuloController implements Serializable{
 
     public String update() {
         try {
+
+            Almacen almacen=almacenFacade.find(current.getArticulo().getId()); //buscamos el articulo que se encuentra en almacen
+           if(almacen==null){//no se encuentra en almacen.
+               JsfUtil.addErrorMessage(("El articulo no se encuentra en Almacen"));
+               return null;
+            }
+            almacen.setEnConsigna(almacen.getEnConsigna()+current.getCantidad());
+            almacen.setExistencia(almacen.getEnConsigna()+almacen.getEnFirme());
+            getFacade().edit(current);
+            almacenFacade.edit(almacen);
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("Proveedor Articulo Actualizado Satisfactoriamente"));
             return "View";
