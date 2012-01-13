@@ -15,53 +15,73 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <p:panel header="EDITAR COMPRA">
-                    <center>
-                <h:panelGrid columns="2" cellspacing="15">
-                   
-                    <h:outputLabel value="Fecha Envio" for="fechaEnvio" styleClass="textoNEGRO"/>
-                    <p:calendar id="fechaEnvio" value="#{ventasController.selected.fechaEnvio}" title="fecha Envio" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true" required="true" requiredMessage="El campo fecha es requerido">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </p:calendar>
-                    
-                    <h:outputLabel value="Pago Total" for="pagoTotal" styleClass="textoNEGRO" />
-                    <h:inputText id="pagoTotal" value="#{ventasController.selected.pagoTotal}" title="pago Total" />
+
+                <p:panel header="CAMBIE ESTADO PARA COMPRAR">
+                    <div align="center">
+                    <h:panelGrid columns="4">
                     <h:outputLabel value="Estado" for="estado" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="estado" value="#{ventasController.selected.estado}" title="estado" required="true" requiredMessage="El campo estado es requerido">
                         <f:selectItem id="item0" itemValue="CONFIRMADO" itemLabel="CONFIRMADO"/>
                         <f:selectItem id="item1" itemValue="COMPRADO" itemLabel="COMPRADO"/>
                         <f:selectItem id="item2" itemValue="CANCELADO" itemLabel="CANCELADO"/>
-
                     </h:selectOneMenu>
-                    <h:outputLabel value="Observaciones" for="observaciones" styleClass="textoNEGRO"/>
-                    <h:inputText id="observaciones" value="#{ventasController.selected.observaciones}" title="observaciones}" required="true" requiredMessage="El campo observaciones es requerido"/>
-                    <h:outputLabel value="Fecha" for="fecha" styleClass="textoNEGRO" />
-                    <p:calendar id="fecha" value="#{ventasController.selected.fecha}" title="fecha" required="true" requiredMessage="El campo fecha es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </p:calendar>
-                    <h:outputLabel value="Impuesto" for="impuesto" styleClass="textoNEGRO"/>
-                    <h:inputText id="impuesto" value="#{ventasController.selected.impuesto}" title="impuesto" required="true" requiredMessage="El campo impuesto es requerido"/>
-                    <h:outputLabel value="Pago Neto" for="pagoNeto" styleClass="textoNEGRO"/>
-                    <h:inputText id="pagoNeto" value="#{ventasController.selected.pagoNeto}" title="pago Neto" required="true" requiredMessage="El campo pago Neto es requerido"/>
-                    <h:outputLabel value="Descuento" for="descuento" styleClass="textoNEGRO"/>
-                    <h:inputText id="descuento" value="#{ventasController.selected.descuento}" title="descuento" required="true" requiredMessage="El campo descuento es requerido"/>
-                    <h:outputLabel value="IdPedido" for="idPedido" styleClass="textoNEGRO"/>
-                    <h:outputLabel id="idPedido" value="#{ventasController.selected.idPedido}" title="idPedido"  />
-                </h:panelGrid>
-                    </center>
+                    &nbsp;
+                     <h:commandButton action="#{ventasController.update}" value="COMPRAR"/>
+                        </h:panelGrid>
+                      </div>
+
+
                 </p:panel>
+                <br/>
+                <p:panel header="IDENTIFICADOR PEDIDO: #{ventasController.selected.idPedido}">
+
+                    <p:dataTable value="#{ventasController.pedidoscliente}" var="item" paginator="true">
+
+                     <p:column style="width:40px;">
+                        <f:facet name="header">
+                            <h:outputText value="CANTIDAD"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noArticuloCategoria}"/>
+                    </p:column>
+                   
+                    <p:column style="width:40px;">
+                        <f:facet name="header">
+                            <h:outputText value="ESTADO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.estado}"/>
+                    </p:column>
+                  
+                   <p:column style="width:60px;">
+                        <f:facet name="header">
+                            <h:outputText value="PRECIO TOTAL"/>
+                        </f:facet>
+                        <h:outputText value="#{item.precioTotal}"/>
+                    </p:column>
+                    <p:column style="width:40px;">
+                        <f:facet name="header">
+                            <h:outputText value="TIPO ENVIO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tipoEnvio}"/>
+                    </p:column>
+                    <p:column style="width:60px;">
+                        <f:facet name="header">
+                            <h:outputText value="ARTICULO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.articulo.titulo}"/>
+                    </p:column>
+                   
+                </p:dataTable>
+                </p:panel>
+                <br/><br/>
+             
 
                 <p:panel header="PROBLEMAS AL REALIZAR LA COMPRA">
 
                     <h:outputLabel  value="Mensaje:" styleClass="textoNEGRO"/>
-                    <h:outputLabel  value="#{ventasController.mensajeError}"/>
+                    <h:outputLabel  value="#{ventasController.mensajeError}" styleClass="textoROJO"/>
                 </p:panel>
                 <br/><br/>
-                <div align="center">
-                   <p:panel>
-                <h:commandButton action="#{ventasController.update}" value="GUARDAR"/>
-                    </p:panel>
-                </div>
+                
                
             </h:form>
         </ui:define>
