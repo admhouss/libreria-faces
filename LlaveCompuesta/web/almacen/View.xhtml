@@ -21,27 +21,72 @@
 
                         
                         <h:panelGrid columns="2" cellspacing="15">
-                         <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO"/>
-                         <h:outputText value="#{almacenController.selected.articulo.codigo}-#{almacenController.selected.articulo.titulo}" title="Articulo"/>
+                        <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO"/>
+                        <h:outputText value="#{almacenController.selected.articulo.codigo}-#{almacenController.selected.articulo.titulo}" title="Articulo"/>
                    
-                    <h:outputText value="Existencia:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{almacenController.selected.existencia}"  title="Existencia" />
+                       <h:outputText value="Existencia:" styleClass="textoNEGRO"/>
+                       <h:outputText value="#{almacenController.selected.existencia}"  title="Existencia" />
                     
-                     
-                    <h:outputText value="Consigna:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{almacenController.selected.enConsigna}"  title="Consigna"/>
+                        <h:outputText value="Consigna:" styleClass="textoNEGRO"/>
+                       <h:outputText value="#{almacenController.selected.enConsigna}"  title="Consigna"/>
                     
                     <h:outputText value="Firme:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{almacenController.selected.enFirme}"  title="Firme"/>
-                    
-
-
-                    
+                
                 </h:panelGrid>
                     </center>
                 </p:panel>
                  <br />
                 <br />
+
+                <p:panel header="PROVEEDORES ASIGNADOS AL ART&Iacute;CULO">
+
+                  
+
+                    <p:dataTable value="#{almacenController.proveedorArticulos}" var="item" paginator="true" rows="5">
+
+                      <p:column style="width:200px;">
+                        <f:facet name="header">
+                            <h:outputText value="ART&Iacute;CULO"/>
+                        </f:facet>
+                          <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
+                   </p:column>
+                    <p:column style="width:220px;">
+                        <f:facet name="header">
+                            <h:outputText value="NOMBRE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.proveedor.nombre}"/>
+                   </p:column>
+
+                  <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="CANTIDAD"/>
+                        </f:facet>
+                      <h:outputText value="#{item.cantidad}"/>
+                   </p:column>
+
+                   <p:column style="width:15px;">
+                        <f:facet name="header">
+                            <h:outputText value="MODIFICADO"/>
+                        </f:facet>
+                       <h:outputText value="#{item.ultMof}">
+                           <f:convertDateTime pattern="dd/MM/yyy HH:mm:ss"/>
+                       </h:outputText>
+                   </p:column>
+
+                   <!--<p:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                       <h:commandLink action="{articuloController.eliminarProveedorArticulo(item)}" >
+                          <img src="./../../resources/iconos/quitar.png" alt="" title="Quitar"/>
+                     </h:commandLink>
+
+                   </p:column>-->
+                </p:dataTable>
+                </p:panel>
+                <br/>
                 <div align="center">
                     <p:panel>
                     <h:commandButton action="#{almacenController.prepareList}" value="VOLVER"/>
