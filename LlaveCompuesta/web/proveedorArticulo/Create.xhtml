@@ -28,13 +28,13 @@
                     </h:selectOneMenu>
                      <h:outputLabel value="*" styleClass="textoROJO" />
                     <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO"  />
-                    <h:selectOneMenu id="articulo" value="#{proveedorArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="El campo articulo es requerido">
+                    <h:selectOneMenu id="articulo" value="#{proveedorArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:200px;">
                         <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
                     </h:selectOneMenu>
                      <h:outputLabel value="*" styleClass="textoROJO" />
                     <h:outputLabel value="Peso:" for="peso" styleClass="textoNEGRO"  />
                     <h:inputText id="peso" value="#{proveedorArticuloController.selected.peso}" title="Cantidad" required="true" requiredMessage="El campo peso es requerido"/>
-                     <h:outputLabel value="*" styleClass="textoROJO" />
+                     <h:outputLabel value="Kg" styleClass="textoROJO" />
                 </h:panelGrid>
 </center>
                 </p:panel>
@@ -42,6 +42,7 @@
                 <br />
                 <div align="center">
                     <p:panel>
+
                 <h:commandButton action="#{proveedorArticuloController.create}" value="GUARDAR" />
                     </p:panel>
                 </div>
