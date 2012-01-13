@@ -20,8 +20,15 @@
 
                <br/><br/>
                  <p:panel header="CAT&Aacute;LOGO DE COMPRAS">
-                     <p:dataTable value="#{compraController.listCompras}" var="item" paginator="true" rows="10" rowStyleClass="ui-state-focus">
-                   
+                     <p:dataTable value="#{compraController.listCompras}" var="item" paginator="true" rows="10" >
+                   <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="TIP.PAGO"/>
+                        </f:facet>
+                       <h:outputText value="#{item.tipoPago}">
+                            
+                        </h:outputText>
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="F. ENVIO"/>
@@ -33,7 +40,7 @@
                     
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="PAGO TOTAL"/>
+                            <h:outputText value="TOTAL"/>
                         </f:facet>
                         <h:outputText value="#{item.pagoTotal}"/>
                     </p:column>
