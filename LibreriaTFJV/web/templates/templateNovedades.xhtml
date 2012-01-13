@@ -477,7 +477,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<table width="90%" border="0" align="right">
+<table width="90%" border="0" align="right" >
   <tr>
     <th align="left" scope="col"><h2>Administración</h2>
       <ul class="list navigation">
@@ -574,7 +574,17 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                     </h:form>
                 </li>
 
-                 <li>
+                
+                  <li>
+                    <h:form id="ProveedorArticuloForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/proveedorArticulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
+                           <h:outputText value="Proveedor Art&iacute;culo"/>
+                       </h:outputLink>
+
+                    </h:form>
+                </li>
+                   <li>
                     <h:form id="DescuentoClienteForm">
 
                        <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/descuentoCliente/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
@@ -621,6 +631,68 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
 
                          <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/publicacion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
                            <h:outputText value="Publicaciones"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                   <li>
+                     <h:form id="AlmacenPedidoForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/almacenPedido/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                           <h:outputText value="Almacen Pendiente"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                  <li>
+                     <h:form id="SuscripcionForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/suscripcion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                           <h:outputText value="Suscripciones"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                  <li>
+                     <h:form id="SuscripcionClienteForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/suscripcionCliente/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                           <h:outputText value="Suscripcion Cliente"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                <li>
+                     <h:form id="SuscripcionElectronicaForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/suscripcionElectronica/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                           <h:outputText value="Suscripcion Electronica"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                   <li>
+                     <h:form id="SuscripcionEnviosForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/suscripcionEnvios/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                           <h:outputText value="Suscripcion Envios"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                  <li>
+                     <h:form id="ZonaForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/zona/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                           <h:outputText value="Zona"/>
                        </h:outputLink>
 
                     </h:form>
@@ -896,7 +968,8 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                 </h:outputLink></li>
           </ul>
         </li>
-        <li><a class="MenuBarItemSubmenu"  href="#{facesContext.externalContext.request.contextPath}/faces/carrito/Carrito.xhtml">Mi Carrito </a>
+        <li>
+            <a class="MenuBarItemSubmenu"  href="#{facesContext.externalContext.request.contextPath}/faces/carrito/Carrito.xhtml">Mi Carrito </a>
           <ul>
             <li><a href="#{facesContext.externalContext.request.contextPath}/faces/carrito/Carrito.xhtml">Productos</a></li>
             <li><a href="#{facesContext.externalContext.request.contextPath}/faces/compra/List.xhtml">Envíos</a></li>

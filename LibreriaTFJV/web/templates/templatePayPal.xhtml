@@ -99,7 +99,7 @@ body { border:none; background:none; background-color:#FFFFFF;}
 
 
                         <div class="small head wrap">Descripciones<span class="amount">Importe</span></div>
-                        <p:dataList value="#{pedidoController.listPedidosByCliente}" var="item" type="ordered">
+                        <p:dataList value="#{pedidoController.lisPedidosByClienteConfirmado}" var="item" type="ordered">
                         <ol class="small wrap items rprtlimit">
                             <li class="seller1"><ul>
                                     <li id="multiitem1" class="itmdet">
@@ -121,7 +121,7 @@ body { border:none; background:none; background-color:#FFFFFF;}
                          </p:dataList>
                         <div class="wrap items totals item1">
                             <ul>
-                                <li class="small heavy">Importe total<span class="amount"><h:outputLabel value="$ #{pedidoController.montoTotal}"/></span>
+                                <li class="small heavy">Importe total<span class="amount"><h:outputLabel value="$ #{compraController.precioTotalFinal}"/></span>
                                 </li>
                                 <li>
                                  <div id="shippingHandling" class="resultRow">
@@ -151,11 +151,11 @@ body { border:none; background:none; background-color:#FFFFFF;}
 <input type="hidden" name="item_name" value="Monto Total"/>
 <input type="hidden" name="item_number" value="1"/>
 <input type="hidden" name="custom" value="sc-id-789"/>
-<input type="hidden" name="amount" value="#{pedidoController.montoTotal}"/>
+<input type="hidden" name="amount" value="#{compraController.precioTotalFinal}"/>
 <input type="hidden" name="currency_code" value="MXN"/>
 <input type="hidden" name="no_note" value="1"/>
-<input type="hidden" name="cancel_return" value="#{pedidoController.urlcancelada}"/>
-<input type="hidden" name="return" value="#{pedidoController.urlcompra}"/>
+<input type="hidden" name="cancel_return" value="#{pedidoController.urlcancelado}"/>
+<input type="hidden" name="return" value="#{pedidoController.urlcomprado}"/>
 <input type="hidden" name="hosted_button_id" value="5UCYTABCGUU9Y"/>
 <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea."/>
 <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1"/>
