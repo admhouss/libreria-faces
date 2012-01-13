@@ -22,6 +22,7 @@ public class PublicacionDTO implements Serializable{
     private String editorial;
     private BigDecimal precio;
     private BigDecimal desc;
+    private BigDecimal gastosEnvio;
     private double total;
     private int idPublicacion,idArticulo;
     private BigDecimal impuesto;
@@ -45,7 +46,16 @@ public class PublicacionDTO implements Serializable{
     public void setIndice(int indice) {
         this.indice = indice;
     }
-    
+
+    public BigDecimal getGastosEnvio() {
+        return gastosEnvio;
+    }
+
+    public void setGastosEnvio(BigDecimal gastosEnvio) {
+        this.gastosEnvio = gastosEnvio;
+    }
+
+
 
     public BigDecimal getImpuesto() {
         return impuesto;

@@ -238,6 +238,12 @@ public List<String> getListaString(){
      }
 
 
+
+     public Publicacion getOfertaDia(){
+
+        Publicacion oferta=getFacade().getOfertaDelDia();
+        return oferta;
+     }
     public String buscar(){
         
         String queryTemporal="SELECT p FROM Publicacion p WHERE ";

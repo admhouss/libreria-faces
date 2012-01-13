@@ -82,6 +82,20 @@ public class ProveedorArticuloFacade {
 
     }
 
+     public ProveedorArticulo buscarArticuloMenorProveedor(int idArticulo, int idProveedor) {
+        ProveedorArticulo pa=null;
+        try{
+            TypedQuery<ProveedorArticulo> query=em.createQuery("SELECT MIN(p.cantidad) FROM ProveedorArticulo p WHERE p.proveedorArticuloPK.idArticulo = :idArticulo AND p.proveedorArticuloPK.idProveedor =:idProveedor",ProveedorArticulo.class)
+            .setParameter("idArticulo",idArticulo)
+            .setParameter("idProveedor", idProveedor)
+            .setMaxResults(1);
+            pa=query.getSingleResult();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return pa;
+
+    }
     public ProveedorArticulo buscarArticuloProveedor(int idArticulo, int idProveedor) {
         ProveedorArticulo pa=null;
         try{
@@ -95,6 +109,20 @@ public class ProveedorArticuloFacade {
         }
         return pa;
 
+    }
+
+    public ProveedorArticulo getProveedorMenosConsumo(int idArticulo) {
+        ProveedorArticulo pa=null;
+      
+
+
+            TypedQuery<ProveedorArticulo> query=em.createQuery("SELECT p FROM ProveedorArticulo p WHERE p.articulo.id=:idArticulo  ORDER BY p.ultMof ASC",ProveedorArticulo.class)
+            .setParameter("idArticulo",idArticulo)
+
+            .setMaxResults(1);
+            pa=query.getSingleResult();
+       
+        return pa;
     }
 
 }

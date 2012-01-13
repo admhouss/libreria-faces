@@ -15,6 +15,7 @@ import escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal;
 import escom.libreria.info.carrito.jpa.PublicacionDTO;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.compras.Direnvio;
+import escom.libreria.info.compras.Zona;
 import escom.libreria.info.compras.ejb.PedidoFacade;
 import escom.libreria.info.compras.jsf.DirenvioController;
 import escom.libreria.info.descuentos.DescuentoArticulo;
@@ -26,6 +27,9 @@ import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.login.ejb.SistemaFacade;
 
 import escom.libreria.info.login.sistema.SistemaController;
+import escom.libreria.info.proveedor.ProveedorArticulo;
+import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
+import escom.libreria.info.suscripciones.Suscripcion;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -64,6 +68,7 @@ public class CarritoController implements Serializable{
     @EJB private DescuentoClienteFacade descuentoClienteFacade;
     @EJB private DescuentoArticuloFacade descuentoArticuloFacade;
     @EJB private ImpuestoFacade  impuestoFacade;
+    @EJB private ProveedorArticuloFacade proveedorArticuloFacade;
     
     @EJB private PedidoFacade pedidoFacade;
     @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
@@ -122,6 +127,13 @@ public String RegresarCarrito(){
 
     public void setDescuentoArticulos(List<DescuentoArticulo> descuentoArticulos) {
         this.descuentoArticulos = descuentoArticulos;
+    }
+
+    public String agregarSuscripcion(Suscripcion suscripcion){
+
+
+
+        return "";
     }
 
 
@@ -217,6 +229,10 @@ private Date getHoy(){
         }
          return carritoCompraTemporalLocal;
     }
+
+   public void borrarCarrito(){
+       carritoCompraTemporalLocal=null;
+   }
  public String agregarArticulo(Publicacion publicacion){
 
      Articulo articulo=publicacion.getArticulo();
@@ -224,7 +240,7 @@ private Date getHoy(){
      PublicacionDTO temporalDTO=null;//
      if(almacen==null || almacen.getExistencia()<=0){
 
-         JsfUtil.addErrorMessage("La publicacion que desea no se encuentra disponible");
+         JsfUtil.addErrorMessage("La publicacion que desea no se encuentra en Almacen");
          return null;
 
      }else{
@@ -255,6 +271,57 @@ private Date getHoy(){
 
           
          
+                else {
+                    JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
+                    return "/login/Create.xhtml";
+                }
+
+            }catch(Exception e){ }
+
+
+     }
+
+         return "/carrito/Carrito";
+    }
+
+ public String agregarArticulo(Articulo a){
+
+     Articulo articulo=a;
+     Almacen almacen=almacenFacade.find(articulo.getId());
+     PublicacionDTO temporalDTO=null;//
+     if(almacen==null || almacen.getExistencia()<=0){
+
+         JsfUtil.addErrorMessage("La publicacion que desea no se encuentra en Almacen");
+         return null;
+
+     }else{
+
+
+
+        Cliente clienteOperando=sistemaController.getCliente();//
+
+
+           try{
+                 if(clienteOperando!=null){
+
+                    carritoCompraTemporalLocal=ObtenerCarrito();
+                    temporalDTO=null;//carritoCompraTemporalLocal.buscarPublicacion(publicacion);
+
+                      if(temporalDTO==null){
+                             temporalDTO=procesarArticulo(null,1);
+                             agregarCarrito(temporalDTO);
+                             JsfUtil.addSuccessMessage("Publicacion agregada Satisfactoriamente");
+                             return "/carrito/Carrito";
+                      }else{
+                            JsfUtil.addErrorMessage("Ya encuentra esta publicacion en su carrtio");
+                            return "/carrito/Carrito";
+                      }
+
+
+                   }//if
+
+
+
                 else {
                     JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
                     return "/login/Create.xhtml";
@@ -446,8 +513,30 @@ private Date getHoy(){
 
 
     private PublicacionDTO procesarArticulo(Publicacion p,int cantidad){
+        
         PublicacionDTO publicacionDTO=new PublicacionDTO();
         publicacionDTO.setIdArticulo(p.getArticulo().getId());
+
+       // String formato=p.getArticulo().getFormato();
+        //ProveedorArticulo proveedorArticulo=null;
+        /*if(formato.equalsIgnoreCase("FISICO") || formato.equalsIgnoreCase("IMPRESO") || formato.equalsIgnoreCase("CD")){
+           try{
+         List<ProveedorArticulo> provedores = p.getArticulo().getProveedorArticuloList();
+          if(provedores!=null && !provedores.isEmpty()){
+             proveedorArticulo=provedores.get(0);
+             Direnvio direccionEnvio=direnvioController.getDireccionEnvioSelected();
+             Zona zona=direccionEnvio.getEstado().getZona();
+             gastEnvio=proveedorArticulo.getPeso().compareTo(BigDecimal.ONE)<=0?zona.getPeso():zona.getTarifa();
+             publicacionDTO.setGastosEnvio(gastEnvio);
+
+             System.out.println("Todo bien");
+          }else{
+             publicacionDTO.setGastosEnvio(BigDecimal.ZERO);
+          }
+            }catch(Exception e){e.printStackTrace();}
+            
+        }*/
+
         publicacionDTO.setArticulo(p.getArticulo());
         publicacionDTO.setIdPublicacion(p.getIdDc());
         publicacionDTO.setEditorial(p.getEditorial());
@@ -456,12 +545,14 @@ private Date getHoy(){
         publicacionDTO.setAsunto(p.getArticulo().getAsunto());
         publicacionDTO.setCantidad(cantidad);
         publicacionDTO.setFechaCompra(new Date());
+
         BigDecimal descuento=obtenerMayorDescuento(publicacionDTO.getIdArticulo());
         publicacionDTO.setDesc(descuento);
         BigDecimal impuesto=getImpuesto(publicacionDTO.getIdArticulo());
         publicacionDTO.setImpuesto(impuesto);
         publicacionDTO.setPrecio(p.getArticulo().getPrecioUnitario());
         BigDecimal total=calcularTotal(publicacionDTO.getPrecio(), descuento, impuesto, publicacionDTO.getCantidad());
+       
         total=total.setScale(2,BigDecimal.ROUND_HALF_UP);
 
         publicacionDTO.setTotal(total.doubleValue());

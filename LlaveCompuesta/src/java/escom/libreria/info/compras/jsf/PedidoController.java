@@ -6,6 +6,7 @@ import escom.libreria.info.compras.PedidoPK;
 import escom.libreria.info.compras.jsf.util.JsfUtil;
 import escom.libreria.info.compras.jsf.util.PaginationHelper;
 import escom.libreria.info.compras.ejb.PedidoFacade;
+import escom.libreria.info.encriptamientoMD5.EncriptamientoImp;
 import escom.libreria.info.login.sistema.SistemaController;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -14,11 +15,14 @@ import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -35,8 +39,18 @@ public class PedidoController implements Serializable{
     @EJB private escom.libreria.info.compras.ejb.PedidoFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-     @ManagedProperty("#{sistemaController}")
-     private SistemaController sistemaController;
+    @ManagedProperty("#{sistemaController}")
+    private SistemaController sistemaController;
+    private int identificadorPedido;
+
+    public int getIdentificadorPedido() {
+        return identificadorPedido;
+    }
+
+    public void setIdentificadorPedido(int identificadorPedido) {
+        this.identificadorPedido = identificadorPedido;
+    }
+
 
     public int getContado() {
         contado=contado+1;
@@ -57,12 +71,69 @@ public class PedidoController implements Serializable{
     }
 
 
+    public String geturlcancelado(){
+         String generarURL="http://localhost:8080/Libreria/faces/compra/Cancelada.xhtml?pedidoCancelado=";
+        try {
+            String idCliente=sistemaController.getCliente().getId();
+            identificadorPedido=getFacade().buscarIdPeidoMaximo(idCliente,"CONFIRMADO");
+            System.out.println("cancelado"+identificadorPedido);
+            String saludo = generarURLMD5(identificadorPedido);
+            generarURL+=saludo;
+            ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
+            String caca=external.encodeResourceURL(generarURL);
+            return caca;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return "";
+    }
+
+
+    public String geturlcomprado(){
+
+
+        String generarURL="http://localhost:8080/Libreria/faces/compra/Comprado.xhtml?pedidoComprado=";
+        try {
+            String idCliente=sistemaController.getCliente().getId();
+            identificadorPedido=getFacade().buscarIdPeidoMaximo(idCliente,"CONFIRMADO");
+            String saludo = generarURLMD5(identificadorPedido);
+            generarURL+=saludo;
+            ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
+            String caca=external.encodeResourceURL(generarURL);
+            return caca;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return "";
+    }
+
+
+    private String generarURLMD5(int idPedido){
+         byte[] binario;
+         String digestion=null;
+        try {
+
+            EncriptamientoImp encriptamientoImp = new EncriptamientoImp();
+            binario = encriptamientoImp.encrypt(idPedido+"");
+            System.out.println("ENVIANDO"+idPedido);
+            digestion = encriptamientoImp.convertToHex(binario);
+             System.out.println("ENVIANDO"+digestion);
+            return digestion;
+        } catch (Exception ex) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return digestion;
+    }
     public List<Pedido> getLisPedidosByCliente(){
         List<Pedido> pedidos=null;
-        try{
+        try
+        {
             Cliente cliente=sistemaController.getCliente();
-            int idPedido=getFacade().buscarIdPeidoMaximo(cliente.getId(),"PROCESANDO");
-            pedidos= getFacade().getListaPedidosByidPedios(idPedido);
+            identificadorPedido=getFacade().buscarIdPeidoMaximo(cliente.getId(),"PROCESANDO");
+            pedidos= getFacade().getListaPedidosByidPedios(identificadorPedido);
         }catch(Exception e){
 
             JsfUtil.addErrorMessage("Error al obtener pedidos by cliente");
@@ -72,17 +143,19 @@ public class PedidoController implements Serializable{
     }
 
     public List<Pedido> getLisPedidosByClienteConfirmado(){
+
         List<Pedido> pedidos=null;
         try{
             Cliente cliente=sistemaController.getCliente();
-            int idPedido=getFacade().buscarIdPeidoMaximo(cliente.getId(),"CONFIRMADO");
-            pedidos= getFacade().getListaPedidosByidPedios(idPedido);
+            identificadorPedido=getFacade().buscarIdPeidoMaximo(cliente.getId(),"CONFIRMADO");
+            pedidos= getFacade().getListaPedidosByidPedios(identificadorPedido);
         }catch(Exception e){
 
             JsfUtil.addErrorMessage("Error al obtener pedidos by cliente");
         }
         return pedidos;
     }
+
 
     public BigDecimal getMontoTotal(){
         BigDecimal montoTotal=BigDecimal.ZERO;
@@ -99,6 +172,15 @@ public class PedidoController implements Serializable{
             JsfUtil.addErrorMessage("Error al obtener pedidos by cliente");
         }
         return montoTotal;
+    }
+
+
+    public String generarqueryCancelado(){
+
+    Cliente cliente=sistemaController.getCliente();
+    int idPedido=getFacade().buscarIdPeidoMaximo(cliente.getId(),"CONFIRMADO");
+    return "";
+
     }
     public BigDecimal getMontoTotalConfirmado(){
         BigDecimal montoTotal=BigDecimal.ZERO;

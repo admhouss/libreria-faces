@@ -5,6 +5,8 @@ import escom.libreria.info.articulo.Almacen;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.AlmacenFacade;
+import escom.libreria.info.proveedor.ProveedorArticulo;
+import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class AlmacenController implements Serializable{
     private Almacen current;
     private DataModel items = null;
     @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade ejbFacade;
+    @EJB private ProveedorArticuloFacade proveedorArticuloFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -71,8 +74,19 @@ public class AlmacenController implements Serializable{
         return "List";
     }
 
+    private List<ProveedorArticulo>  proveedorArticulos;//proveedor que tiene asignados este articulo;
+
+    public List<ProveedorArticulo> getProveedorArticulos() {
+        return proveedorArticulos;
+    }
+
+    public void setProveedorArticulos(List<ProveedorArticulo> proveedorArticulos) {
+        this.proveedorArticulos = proveedorArticulos;
+    }
+
     public String prepareView(Almacen p) {
         current=p;
+       proveedorArticulos=proveedorArticuloFacade.buscarProveedor(p.getIdArticulo());
        // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -100,7 +114,7 @@ public class AlmacenController implements Serializable{
             JsfUtil.addErrorMessage("El articulo ya fue registrado anteriormente");
             return "/almacen/Create";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Almacen").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ("Error al crear almacen "));
             return null;
         }
     }
@@ -122,7 +136,7 @@ public class AlmacenController implements Serializable{
             JsfUtil.addSuccessMessage(("Almacen actualizado Satisfactoriamente"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Almacen").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ("Error al actualizar Almacen"));
             return null;
         }
     }
@@ -153,9 +167,9 @@ public class AlmacenController implements Serializable{
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Almacen").getString("AlmacenDeleted"));
+            JsfUtil.addSuccessMessage(("AlmacenDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Almacen").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ("PersistenceErrorOccured"));
         }
     }
 

@@ -62,4 +62,10 @@ public class AlmacenPedidoFacade {
         return ((Long) q.getSingleResult()).intValue();
     }
 
+    public List<AlmacenPedido> getListMasVendido(){
+
+
+        return null;
+    }
+
 }
