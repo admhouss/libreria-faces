@@ -80,10 +80,27 @@ public class SuscripcionFacade {
 
     }
 
+
+
     public List<Integer> getIdSuscripciones() {
          List<Integer> s=null;
         try{
         TypedQuery<Integer> query=em.createQuery("SELECT DISTINCT s.suscripcionPK.idSuscripcion FROM Suscripcion s ORDER BY s.suscripcionPK.idSuscripcion ASC", Integer.class);
+
+        s=query.getResultList();
+
+
+        }catch(Exception e){
+           e.printStackTrace();
+        }
+
+        return s;
+    }
+
+    public List<Suscripcion> getSuscripcionesAgrupadas() {
+        List<Suscripcion> s=null;
+        try{
+        TypedQuery<Suscripcion> query=em.createQuery("SELECT DISTINCT s FROM Suscripcion s  ORDER BY s ASC", Suscripcion.class);
 
         s=query.getResultList();
 
