@@ -15,29 +15,70 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form id="crearSuscripcion">
-                <p:panel header="CREAR NUEVA SUSCRIPCION">
-                    <center>
-                <h:panelGrid columns="2" cellspacing="15">
-                   <h:outputLabel value="ID-SUSCRIPCION" for="suscripcion" styleClass="textoROJO"/>
-                   <h:inputText id="suscripcion" value="#{suscripcionController.idSuscripcion}" title="Numero" required="true" requiredMessage="El campo ID-SUSCRIPCION es requerido"/>
-                    <h:outputLabel value="Numero:" for="numero" styleClass="textoNEGRO"/>
-                    <h:inputText id="numero" value="#{suscripcionController.selected.numero}" title="Numero" required="true" requiredMessage="El campo numero es requerido"/>
-                    <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{suscripcionController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido">
-                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
-                    </h:selectOneMenu>
-                   
-                </h:panelGrid>
-                    </center>
-                </p:panel>
-                <br /><br />
-                <div  align="center">
-                    <p:panel>
-                    <h:commandButton action="#{suscripcionController.create}" value="GUARDAR" />
-                    </p:panel>
-                </div>
-                <br />
-               
+
+                <p:panel header="ELEGIR ART&Iacute;CULO ">
+
+            <h:panelGroup >
+                <p:dataTable value="#{articuloController.listArticulos}" var="item" paginator="true"  rows="10" selectionMode="single">
+
+
+                    <p:column filterBy="#{item.codigo}" style="width:12px;">
+                        <f:facet name="header">
+                            <h:outputText value="C&Oacute;DIGO"/>
+                        </f:facet>
+                        <h:outputText  value="#{item.codigo}" />
+
+                    </p:column>
+
+
+                  <p:column style="width:100px;">
+                        <f:facet name="header">
+                            <h:outputText value="AUTOR"/>
+                        </f:facet>
+                         <h:outputText value="#{item.creador}"/>
+
+                    </p:column>
+                    <p:column style="width:220px;">
+                        <f:facet name="header">
+                            <h:outputText value="T&Iacute;TULO"/>
+                        </f:facet>
+                         <h:outputText value="#{item.titulo}"/>
+
+                    </p:column>
+                    
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                       
+                        
+                        <h:commandLink action="#{suscripcionController.prepareViewArticulo(item)}" >
+                            <img src="./../resources/iconos/seditar.png" alt="" title="Elegir Articulo"/>
+                        </h:commandLink>
+                       
+
+                       <!--- <h:commandLink action="{articuloController.prepreaListByArticulo(item)}">
+                            <img src="./../resources/iconos/RESPON2.png" alt="" title="Agregar Proveedor"/>
+                        </h:commandLink>
+
+
+                       <h:commandLink action="{proveedorArticuloController.prepreaListByArticulo(item)}">
+                            <img src="./../resources/iconos/RESPON2.png" alt="prepreaListByArticul" title="Agregar Proveedor"/>
+                        </h:commandLink>
+
+                       -->
+
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
+                          </p:panel>
+
+                <br/><br/>
+
+
+
+                
             </h:form>
         </ui:define>
     </ui:composition>
