@@ -1,6 +1,9 @@
-package escom.libreria.info.articulo.jsf;
+package escom.libreria.info.facturacion.jsf;
 
 import escom.libreria.info.articulo.Almacen;
+import escom.libreria.info.articulo.jsf.AlmacenController;
+import escom.libreria.info.articulo.jsf.ImpuestoController;
+import escom.libreria.info.articulo.jsf.PromocionController;
 
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
