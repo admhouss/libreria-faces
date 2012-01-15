@@ -40,10 +40,12 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import escom.libreria.info.compras.jsf.util.JsfUtil;
+import escom.libreria.info.encriptamientoMD5.EncriptamientoImp;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.proveedor.ProveedorArticulo;
 import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
 import java.util.ArrayList;
+
 
 
 @ManagedBean (name="ventasController")
@@ -101,8 +103,12 @@ public class ventasController implements Serializable {
     }
 
 
+
  public String prepareEdit(Compra c){
      selected=c;
+     pedidoscliente=pedidoFacade.getListaPedidosByidPedios(c.getIdPedido());
+
+
      return "Edit";
  }
     public void setPedidoscliente(List<Pedido> pedidoscliente) {
@@ -139,11 +145,11 @@ public class ventasController implements Serializable {
         this.editorial = editorial;
     }
 
-    private ProveedorArticulo proveedorArticulo;
+  /* private ProveedorArticulo proveedorArticulo;
     private Almacen almacen;
     private AlmacenPedido almacenPedido;
     private AlmacenPedidoPK pk;
-
+*/
 private String mensajeError;
 
     public String getMensajeError() {
@@ -156,133 +162,220 @@ private String mensajeError;
 
 
     public String update(){//select significa la compra
-   int idPedido=0;
-
-   mensajeError="";
+        int idPedido=0;mensajeError="";
+        //Articulo articulo=null;
+        Almacen almacen=null;
+        ProveedorArticulo proveedorArticulo;
+        Articulo articulo=null;
+  
    
         try{
 
             if(selected.getEstado().equalsIgnoreCase("COMPRADO"))
            {
-                  selected.setEstado(selected.getEstado());
-
-                 
+                  selected.setEstado(selected.getEstado());  
                   idPedido= selected.getIdPedido();
                   
                   List<Pedido> pedidos=pedidoFacade.getListaPedidosByidPedios(idPedido);
+
+
+
+
                   
                   try{
 
-                  for(Pedido pedido:pedidos){
-                      //pedido
+                  for(Pedido pedido:pedidos)
+                  {
+                      articulo=pedido.getArticulo();
+                      pedido.setArticulo(pedido.getArticulo());
+                      pedido.getPedidoPK().setIdArticulo(pedido.getArticulo().getId());
+                      pedido.getPedidoPK().setIdPedido(pedido.getPedidoPK().getIdPedido());
+                      pedido.setPedidoPK(pedido.getPedidoPK());
 
-                       Articulo articulo=pedido.getArticulo();
-                       almacenPedido=new AlmacenPedido();
-                       pk=new AlmacenPedidoPK();
-                       pk.setIdPedido(idPedido);
-                       pk.setIdArticulo(articulo.getId());//inicializamos nuevo articulo
-                       almacenPedido.setAlmacenPedidoPK(pk);
-                       almacen=almacenFacade.find(articulo.getId());
-                     if(almacen==null)
-                     {
-                           mensajeError+="El articulo no se encuentra en almacen Codigo Articulo:"+articulo.getCodigo()+"\n";
+
+                      if(!pedido.getEstado().equalsIgnoreCase("COMPRADO"))
+                      {
+                          
+
+                           //articulo=pedido.getArticulo();
+                           almacen=validarArticuloAlmacen(articulo);
+                           proveedorArticulo=validarArticuloProveedorArticulo(articulo);
+
+                           if(proveedorArticulo==null || almacen==null)
                            continue;
-                     }
-                       almacenPedido.setPedido(pedido);
-
-                     if(almacen.getEnFirme()>0)
-                     {
-                            almacen.setEnFirme( almacen.getEnFirme()-1);
-                            almacen.setExistencia(almacen.getEnFirme()+almacen.getEnConsigna());
-                            almacenPedido.setProcAlmacen("ENFIRME");
-                            almacenPedido.setProveedor(null);
-                     }else
-                     {
-                            almacen.setEnConsigna( almacen.getEnConsigna()-1);
-                            almacen.setExistencia(almacen.getEnConsigna());
-                            try{
-                                proveedorArticulo=proveedorArticuloFacade.getProveedorMenosConsumo(pedido.getArticulo().getId());
-                            } catch (Exception e){
-                                mensajeError+="Error al elegir Proveedor Articulo menos vendido"+"\n" ;
-                                continue;
-                            }
-
-                            proveedorArticulo.setUltMof(new Date());
-                            almacenPedido.setProcAlmacen("ENCONSIGNA");
-                            almacenPedido.setProveedor(proveedorArticulo.getProveedor());
-                            try{
-                                proveedorArticuloFacade.edit(proveedorArticulo);
-                            }catch(Exception e){
-                                 mensajeError+="Error al actualizar Fecha del Proveedor Elegido"+proveedorArticulo.getProveedor().getNombre()+"\n";
-                            }
-                     }//else
 
 
-                      pedido.setEstado("COMPRADO");
-                     try
-                      {
-                        almacenFacade.edit(almacen);
-                      }catch(Exception e)
-                      {
-                                 mensajeError+="Error al actualizar almacen de Articulo"+almacen.getArticulo().getCodigo()+"\n";
-                      }
 
-                      try
-                      {
-                        almacenPedidoFacade.create(almacenPedido);
-                      }catch (Exception e)
-                      {
-                                 mensajeError+="Error al crear Almacen Pedido"+idPedido+"\n";
-                      }
-                      try{
-                        pedidoFacade.edit(pedido);
-                      }catch(Exception e)
-                      {
-                                 mensajeError+="Error al actualizar Estado pedido"+idPedido+"\n";
-                      }
-                      ///enviar_correo(pedido);
+
+
+
+                           if(pedido.getTipoEnvio().equalsIgnoreCase("ELECTRONICO") || pedido.getTipoEnvio().equalsIgnoreCase("ELECTRÒNICO"))
+                           {
+                                    enviar_correo(pedido);
+                                    
+                                  try{
+                                            InsertarEnvioElectronico(pedido);
+                                     }catch(Exception e)
+                                    {
+                                          mensajeError+="Error al crear EnvioElectronico \n";
+                                    }
+                                  
+                          }
+                         else
+                          {
+                             System.out.println("COMPRA CASO NO CONTEMPLADO");
+                            //   continue;
+                               // NECESITO DIRECCION DE ENVIO
+                              // InsertarEnvioFisic
+                          }
+                           /*ACTUALIZAMOS COMPRA*/
+                           pedido.setEstado(selected.getEstado());
+                           pedidoFacade.edit(pedido);
+                           decrementarAlmacen(almacen, proveedor, pedido);
+                          
+
+                   }
                       
-                      System.out.println("Actualizamos almacen"+mensajeError);
+                     
+                      
+                 }//for
 
-
-
-
-
-                 }
                }catch(Exception e){
+
                     System.out.println("Error en el pedido "+idPedido);
+                    return null;
                }
-            }
-           compraFacade.edit(selected);
-           JsfUtil.addSuccessMessage("Compra Actualizada Satisfactoriamente");
+            }//if- final del for
+            
+                selected.setEstado(selected.getEstado());
+                compraFacade.edit(selected);
+                 //enviar_correo(selected.getIdPedido());
+                JsfUtil.addSuccessMessage("Compra realizada Satisfactoriamente");
+           
 
         }catch(Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
           JsfUtil.addErrorMessage("Error al  Actualizar la compra");
         }
         return "Edit";
     }
 
+
+
+
+
+private ProveedorArticulo proveedor;
+private Almacen almacenArticulo;
+
+    /*public boolean  processarPedido(Pedido  pedido){
+
+
+          if(!pedido.getEstado().equalsIgnoreCase("COMPRADO"))
+          {
+                           Articulo articulo=pedido.getArticulo();
+
+                           almacenArticulo=validarArticuloAlmacen(articulo);
+                           proveedor=validarArticuloProveedorArticulo(articulo);
+
+                           if(almacenArticulo==null || proveedor==null)
+                             return false;
+        }
+
+
+                          
+                    
+                            pedido.setEstado("COMPRADO");
+                     /* try
+                      {
+                        almacenPedidoFacade.create(almacenPedido);
+                      }catch (Exception e)
+                      {
+                                error+="Error al crear Almacen Pedido"+pedido.getPedidoPK().getIdPedido()+"\n";
+                      }
+                      try{
+                        pedidoFacade.edit(pedido);
+                      }catch(Exception e)
+                      {
+                                 error+="Error al actualizar Estado pedido"+pedido.getPedidoPK().getIdPedido()+"\n";
+                      }
+
+                      /
+
+                      }
+          return true;
+    }*/
+
+
+    public boolean decrementarAlmacen(Almacen almacen,ProveedorArticulo p,Pedido pedido){
+        boolean exito=true;
+
+                         AlmacenPedido   almacenPedido=new AlmacenPedido();
+                         AlmacenPedidoPK    pk=new AlmacenPedidoPK();
+
+                         pk.setIdPedido(pedido.getPedidoPK().getIdPedido());
+                         pk.setIdArticulo(almacen.getIdArticulo());
+                         almacenPedido.setAlmacenPedidoPK(pk);
+                         almacenPedido.setPedido(pedido);
+
+
+
+                            if(almacen.getEnFirme()>0)
+                            {
+                                almacen.setEnFirme( almacen.getEnFirme()-1);
+                                almacen.setExistencia(almacen.getEnFirme()+almacen.getEnConsigna());
+                                almacenPedido.setProcAlmacen("ENFIRME");
+                                almacenPedido.setProveedor(null);
+                                try
+                                {
+                                    almacenFacade.edit(almacen);
+                                }catch(Exception e)
+                                {
+                                    mensajeError+="Error al actualizr almacen "+almacen.getArticulo().getCodigo()+"-"+almacen.getArticulo().getTitulo()+"\n";
+                                    exito=false;
+                                }
+                            }else
+                            {
+                                almacen.setEnConsigna( almacen.getEnConsigna()-1);
+                                almacen.setExistencia(almacen.getEnConsigna());
+                                p.setUltMof(new Date());
+                                almacenPedido.setProcAlmacen("ENCONSIGNA");
+                                almacenPedido.setProveedor(p.getProveedor());
+                                try
+                                {
+                                    proveedorArticuloFacade.edit(p);
+                                }catch(Exception e){
+                                    mensajeError+="Error al actualizr Proveedor Articulo almacen "+almacen.getArticulo().getCodigo()+"-"+almacen.getArticulo().getTitulo() +"\n";
+                                    exito=false;
+                                }
+
+                           }
+
+                          almacenPedidoFacade.create(almacenPedido);
+
+
+        return true;
+
+
+    }
+
+    private String dwonload="http://localhost:8080/Libreria/faces/download/Create.xhtml?key=";
     public void enviar_correo(Pedido pedido){
 
-        String tipoEnvio=pedido.getTipoEnvio();
-        //if(tipoEnvio.equalsIgnoreCase("ELECTRONICO") || tipoEnvio.equalsIgnoreCase("ELECTRÒNICO")){
+
+           EncriptamientoImp encriptamientoImp=new EncriptamientoImp();
+           String idArticuloToidCliente=pedido.getArticulo().getId()+"|"+pedido.getCliente().getId();/* URL FORMADA POR CLIENTE Y PEDIDO*/
+           String url=null;
+        
             try {
-                List<String> libroElectronico = new ArrayList<String>();
-                if (pedido.getArticulo().getArchivo() == null) {
-                    String archivoErroneo = new String();
-                    archivoErroneo = "C:/apache-tomcat-6.0.29.zip";
-                    libroElectronico.add(archivoErroneo);
-                } else {
-                    libroElectronico.add(pedido.getArticulo().getArchivo());
-                }
-                List<String> cliente = new ArrayList<String>();
-                cliente.add(pedido.getCliente().getId());
-                enviarMail.enviarLibroComprado("TFJV " + pedido.getArticulo().getTitulo(), libroElectronico, "LibroEnviadoSatisfactoriamente", cliente);
-                InsertarEnvioElectronico(pedido);
-                InsertarEnvioExitoso(pedido);
-                //String Asunto,List<String> librosElectronicos,String Cuerpo,List<String> correos
-                //pedido.getTipoEnvio().equalsIgnoreCase("FISICO")
+            byte[] arrelo = encriptamientoImp.encrypt(idArticuloToidCliente);
+            url=encriptamientoImp.convertToHex(arrelo);
+            List<String> lista=new ArrayList<String>();
+            lista.add(pedido.getCliente().getId());
+            enviarMail.enviarCorreo("COMPRA EXITOSA",dwonload+url,lista);
+            
+            InsertarEnvioElectronico(pedido);
+            InsertarEnvioExitoso(pedido);
+                
             } catch (Exception ex) {
                 JsfUtil.addErrorMessage("Error al insertar envios electronico y exitoso");
                 ex.printStackTrace();
@@ -295,9 +388,10 @@ private String mensajeError;
             EnvioelectronicoPK pk=new EnvioelectronicoPK();
             pk.setIdArticulo(pedido.getArticulo().getId());
             pk.setIdPedido(pedido.getPedidoPK().getIdPedido());
+
             envioelectronico.setEnvioelectronicoPK(pk);
             envioelectronico.setPedido(pedido);
-            envioelectronico.setLigaDescarga("liga");
+            envioelectronico.setLigaDescarga("LIGA");
             envioelectronico.setObservaciones("ENVIO EXITOSO");
             envioelectronico.setArticulo(pedido.getArticulo());
             envioElectronico.create(envioelectronico);
@@ -310,6 +404,28 @@ private String mensajeError;
             enviorealizado.setPedido(pedido);
             enviorealizado.setObservaciones("ENVIO REALIZADO");
             enviorealizadoFacade.create(enviorealizado);
+    }
+
+    public Almacen validarArticuloAlmacen(Articulo articulo){
+        Almacen almacen=null;
+        try{
+           almacen=almacenFacade.find(articulo.getId());
+        }catch(Exception e)
+        {
+            mensajeError+="El articulo"+articulo.getCodigo()+"-"+articulo.getTitulo()+" no se encuentra en almacen \n";
+        }
+        return almacen;
+    }
+
+    public ProveedorArticulo validarArticuloProveedorArticulo(Articulo articulo){
+        ProveedorArticulo  proveedorArticulo=null;
+        try{
+           proveedorArticulo=proveedorArticuloFacade.getProveedorMenosConsumo(articulo.getId());
+        }catch(Exception e1)
+        {
+            mensajeError+="El articulo:"+articulo.getCodigo()+"-"+articulo.getTitulo()+" no  tiene proveedores \n";
+        }
+        return  proveedorArticulo;
     }
 
     public boolean isEditorialesTodos() {
