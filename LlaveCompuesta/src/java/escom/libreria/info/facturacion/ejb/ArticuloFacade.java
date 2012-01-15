@@ -6,12 +6,23 @@
 package escom.libreria.info.facturacion.ejb;
 
 
+import escom.libreria.info.articulo.Impuesto;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.proveedor.ProveedorArticulo;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -101,6 +112,73 @@ public class ArticuloFacade {
          query.executeUpdate();
          
     }
+
+
+    public   Object[][] getCostoArticulo(Integer idArticulo,String idCliente,Date fecha) throws SQLException{
+
+        Object[][] datos;
+        ResultSet resultado;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            //Crear el objeto de conexion a la base de datos
+            //Crear el objeto de conexion a la base de datos
+            Connection conexion = null;
+            CallableStatement proc = null;
+            try {
+                conexion = DriverManager.getConnection("jdbc:mysql://localhost/libreriademo", "root", "root");
+                System.out.println("libreriademo demo conectado");
+                proc=conexion.prepareCall("{ call sp1(?, ?, ?) }");
+                proc.setInt(1, idArticulo);
+                proc.setString(2, idCliente);
+                proc.setDate(3,new java.sql.Date( fecha.getTime()));
+                if(proc.execute()){
+                 resultado=proc.getResultSet();
+                 while(resultado.next()){
+                      System.out.println(resultado.getBigDecimal(0));
+                 }
+                }
+
+
+
+
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                System.out.println("no me connecte a la base");
+                Logger.getLogger(ArticuloFacade.class.getName()).log(Level.SEVERE, null, ex);
+                conexion.close();
+            }
+            //Crear objeto Statement para realizar queries a la base de datos
+            //Crear objeto Statement para realizar queries a la base de datos
+           
+            
+
+
+
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ArticuloFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public List<Object[]>  getCostoArticulo(int suscripcion) {
+
+               
+
+                List<Object[]>  resultado=null;
+                TypedQuery<Object[]> query=em.createQuery("SELECT a.costo ,SUM(a.costo*i.montoImpuesto) ,SUM(a.costo*i.montoImpuesto) + a.costo FROM Articulo a  WHERE a.id=:idArticulo",Object[].class)
+                .setParameter("idArticulo", suscripcion);
+
+                resultado= query.getResultList();
+
+                return resultado;
+
+    }
+
+
+
+
    
 
     
