@@ -5,8 +5,9 @@ import escom.libreria.info.administracion.jsf.util.JsfUtil;
 import escom.libreria.info.administracion.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.Almacen;
 import escom.libreria.info.articulo.ejb.AlmacenFacade;
-import escom.libreria.info.articulo.jsf.ArticuloController;
+
 import escom.libreria.info.facturacion.Articulo;
+import escom.libreria.info.facturacion.jsf.ArticuloController;
 import escom.libreria.info.proveedor.ProveedorArticulo;
 import escom.libreria.info.proveedor.ProveedorArticuloPK;
 import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
