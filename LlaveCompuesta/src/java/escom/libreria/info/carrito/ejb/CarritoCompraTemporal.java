@@ -94,10 +94,23 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
        PublicacionDTO temporal=null;
       
         for(PublicacionDTO publicacion:listaPublicacion){
-               if(publicacion.getIdArticulo()==p.getIdArticulo() && publicacion.getIdPublicacion()==p.getIdPublicacion()){ //ya existe el articulo
+
+               if(publicacion.getIdArticulo()==p.getIdArticulo() 
+                 && publicacion.getIdPublicacion()==p.getIdPublicacion()
+                 && p.isTypePublicacion() )// es publicacion
+
+               { //ya existe el articulo
                     temporal=publicacion;
                     //temporal=p;
                    
+                   break;
+               }else  if( publicacion.getIdArticulo()==p.getIdArticulo()
+                 && publicacion.getIdPublicacion()==p.getIdPublicacion()
+                 && !p.isTypePublicacion()
+                       ){ //ya existe el articulo
+                    temporal=publicacion;
+                    //temporal=p;
+
                    break;
                }
                
