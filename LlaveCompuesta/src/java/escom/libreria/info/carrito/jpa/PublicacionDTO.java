@@ -15,6 +15,7 @@ import escom.libreria.info.facturacion.Articulo;
  * @author xxx
  */
 public class PublicacionDTO implements Serializable{
+
     private String titulo;
     private String asunto;
     private String autor;
@@ -29,6 +30,18 @@ public class PublicacionDTO implements Serializable{
     private Date fechaCompra;
     private int indice;
     private Articulo articulo;
+    private boolean typePublicacion;
+
+    public boolean isTypePublicacion() {
+        return typePublicacion;
+    }
+
+    public void setTypePublicacion(boolean typePublicacion) {
+        this.typePublicacion = typePublicacion;
+    }
+
+    
+
 
     public Articulo getArticulo() {
         return articulo;
