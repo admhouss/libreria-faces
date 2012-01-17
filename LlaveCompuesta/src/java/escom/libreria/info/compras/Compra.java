@@ -108,6 +108,18 @@ public class Compra implements Serializable {
     private String tipoPago;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "compra")
     private List<FacturaGeneral> facturaGeneralList;
+    @Basic()
+    @Column(name = "REQ_FACTURA")
+     private int reqFactura;
+
+    public int getReqFactura() {
+        return reqFactura;
+    }
+
+    public void setReqFactura(int reqFactura) {
+        this.reqFactura = reqFactura;
+    }
+
 
     public Compra() {
     }

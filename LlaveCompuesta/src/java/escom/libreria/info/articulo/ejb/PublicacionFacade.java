@@ -93,10 +93,16 @@ public class PublicacionFacade {
     }
 
      public List<Publicacion> buscarAccesorio() {
-         TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE NOT(p.articulo.tipoArticulo.descripcion =:libro OR  p.articulo.tipoArticulo.descripcion =:libros ) ORDER BY p.articulo.titulo ASC",Publicacion.class)
-         .setParameter("libro","libro")
-         .setParameter("libros", "libros");
-          List<Publicacion> l=query.getResultList();
+
+         List<Publicacion> l =null;
+         try{
+         TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE (p.articulo.tipoArticulo.descripcion LIKE :libro) ORDER BY p.articulo.titulo ASC",Publicacion.class)
+         .setParameter("libro","%accesorio%");
+      
+           l=query.getResultList();
+         }catch(Exception e){
+             System.out.println("Error al traer tipo articulo accesorio");
+         }
           return l;
     }
 
@@ -333,6 +339,26 @@ public class PublicacionFacade {
 
                     Publicacion l=query.getSingleResult();
                    return l;
+    }
+
+    public List<Publicacion> getPublicaciones() {
+         /*UNA PUBLICACION ES TIPO_ARTICULO={LIBRO,CD,DVD,REVISTA}*/
+        List<Publicacion> publicaciones=null;
+        try{
+
+                    TypedQuery<Publicacion> query=em.createQuery("SELECT p FROM Publicacion p WHERE ( p.articulo.tipoArticulo.descripcion LIKE :uno OR p.articulo.tipoArticulo.descripcion LIKE :dos OR p.articulo.tipoArticulo.descripcion LIKE :tres OR p.articulo.tipoArticulo.descripcion LIKE :cuatro ) ORDER BY p.articulo.titulo ASC",Publicacion.class)
+                    .setParameter("uno","%LIBRO%") //yes
+                    .setParameter("dos","%CD%") //yes
+                    .setParameter("tres","%REVISTA%") //yes
+                    .setParameter("cuatro","%DVD%"); //yes
+                    publicaciones=query.getResultList();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+                    return publicaciones;
+
+
     }
 
 

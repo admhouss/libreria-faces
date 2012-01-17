@@ -1,8 +1,10 @@
 package escom.libreria.info.suscripciones.jsf;
 
 import escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal;
+import escom.libreria.info.carrito.jpa.PublicacionDTO;
 import escom.libreria.info.carrito.jsf.CarritoController;
 import escom.libreria.info.facturacion.Articulo;
+import escom.libreria.info.facturacion.ejb.ArticuloFacade;
 import escom.libreria.info.login.ejb.SistemaFacade;
 import escom.libreria.info.suscripciones.Suscripcion;
 import escom.libreria.info.suscripciones.SuscripcionPK;
@@ -10,9 +12,19 @@ import escom.libreria.info.suscripciones.jsf.util.JsfUtil;
 import escom.libreria.info.suscripciones.jsf.util.PaginationHelper;
 import escom.libreria.info.suscripciones.ejb.SuscripcionFacade;
 import java.io.Serializable;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -28,27 +40,40 @@ import javax.faces.model.SelectItem;
 @ManagedBean (name="suscripcionController")
 @SessionScoped
 public class SuscripcionController implements Serializable{
-    @ManagedProperty("#{carritoController}")
-    private CarritoController carritoController;
+    
     private Suscripcion current;
     private DataModel items = null;
     @EJB private escom.libreria.info.suscripciones.ejb.SuscripcionFacade ejbFacade;
     @EJB private SistemaFacade sistemaFacade;
+    @EJB private ArticuloFacade articuloFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private int suscripcion;
     private List<Suscripcion> listasuscripciones;
+    private Articulo articuloSeleccionado;
 
-    public CarritoController getCarritoController() {
-        return carritoController;
+
+
+    public Articulo getArticuloSeleccionado() {
+        return articuloSeleccionado;
     }
 
-    public void setCarritoController(CarritoController carritoController) {
-        this.carritoController = carritoController;
+    public void setArticuloSeleccionado(Articulo articuloSeleccionado) {
+        this.articuloSeleccionado = articuloSeleccionado;
     }
 
+
+    public String  prepareViewArticulo(Articulo articulo){
+        articuloSeleccionado=articulo;
+        return "Create_1";
+
+    }
+
+    
 
     public List<Suscripcion> getListasuscripciones() {
+
+
         return listasuscripciones;
     }
 
@@ -118,22 +143,132 @@ public String buscar(){
 
 
     public String agregarArticulo(){
+        try {
+            PublicacionDTO rellenarESTE;
 
-      //List<Articulo> articulos= getFacade().getArticulosByID(suscripcion);
-        //          carritoController.agregarArticulo(null)
+            // ejecutarStoreProcedure(getListasuscripciones());
+            //List<Articulo> articulos= getFacade().getArticulosByID(suscripcion);
+            //          carritoController.agregarArticulo(null)
+            //idDelasusico
+            return "";
+        } catch (Exception ex) {
+            Logger.getLogger(SuscripcionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-
-
-        //idDelasusico
-
-        return "";
+        return null;
 
     }
     public String prepareList() {
-        recreateModel();
+        //recreateModel();
         return "List";
     }
 
+
+
+    /*public  PublicacionDTO ejecutarStoreProcedure(List<Suscripcion> suscripcionesArray){
+        Object[][] datos;
+        ResultSet resultado;
+
+
+            //Crear el objeto de conexion a la base de datos
+            //Crear el objeto de conexion a la base de datos
+            Connection conexion = null;
+            PreparedStatement proc = null;
+            Statement statement;
+            try {
+                conexion=getConnection();
+                
+
+                proc=conexion.prepareStatement("SELECT a.id as id,a.COSTO,SUM(a.costo*i.monto_impuesto) "
+                    + "AS IVA,SUM(a.costo*i.monto_impuesto)+a.costo AS TOTAL from impuesto i,articulo a "
+                    +"WHERE a.id=i.id_articulo AND a.id=?; ");
+
+                for(Suscripcion s:suscripcionesArray)
+                {
+                    proc.setInt(1,s.getArticulo().getId());
+                //proc.setString(2, "yamildelgado@hotmail.com");
+                //proc.setDate(3,new java.sql.Date( new Date().getTime()));
+                
+                 resultado=proc.executeQuery();
+                 while(resultado.next()){
+
+                      System.out.println(resultado.getBigDecimal(1));
+                 }
+                }
+
+
+
+
+
+            } catch (SQLException ex) {
+                try {
+                    ex.printStackTrace();
+                    System.out.println("no me connecte a la base");
+                    Logger.getLogger(ArticuloFacade.class.getName()).log(Level.SEVERE, null, ex);
+                    conexion.close();
+                }
+                //Crear objeto Statement para realizar queries a la base de datos
+                //Crear objeto Statement para realizar queries a la base de datos
+                catch (SQLException ex1) {
+                    Logger.getLogger(SuscripcionController.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+            //Crear objeto Statement para realizar queries a la base de datos
+            //Crear objeto Statement para realizar queries a la base de datos
+
+
+
+
+
+
+
+        return null;
+    }*/
+
+
+
+/*    public Connection getConnection(){
+
+ Connection conexion = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            //Crear el objeto de conexion a la base de datos
+            //Crear el objeto de conexion a la base de datos
+           
+
+            try {
+                conexion = DriverManager.getConnection("jdbc:mysql://localhost/libreriademo", "root", "root");
+                System.out.println("libreriademo demo conectado");
+
+
+            } catch (SQLException ex) {
+                try {
+                    ex.printStackTrace();
+                    System.out.println("no me connecte a la base");
+                    Logger.getLogger(Articulo.class.getName()).log(Level.SEVERE, null, ex);
+                    conexion.close();
+                }
+                //Crear objeto Statement para realizar queries a la base de datos
+                //Crear objeto Statement para realizar queries a la base de datos
+                catch (SQLException ex1) {
+                    Logger.getLogger(SuscripcionController.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+            //Crear objeto Statement para realizar queries a la base de datos
+            //Crear objeto Statement para realizar queries a la base de datos
+
+
+
+
+
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ArticuloFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return conexion;
+
+
+    }*/
     public String prepareView(Suscripcion p) {
         current=p;
        // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -163,14 +298,21 @@ public String buscar(){
     public String create() {
 
         try {
-            SuscripcionPK pk=new SuscripcionPK();
-            pk.setIdArticulo(current.getArticulo().getId());
-            pk.setIdSuscripcion(idSuscripcion);
 
-            current.setSuscripcionPK(pk);
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(("Suscripcion creada Satisfactoriamente"));
-            return prepareView(current);
+            if(!articuloSeleccionado.equals(current.getArticulo()) && articuloSeleccionado.getFormato().equals(current.getArticulo().getFormato()) )
+            {
+                SuscripcionPK pk=new SuscripcionPK();
+                pk.setIdArticulo(current.getArticulo().getId());
+                pk.setIdSuscripcion(articuloSeleccionado.getId());
+
+                current.setSuscripcionPK(pk);
+                getFacade().create(current);
+                JsfUtil.addSuccessMessage(("Suscripcion creada Satisfactoriamente"));
+                return "Create_1";
+            }
+
+            JsfUtil.addErrorMessage("Error el articulo seleccionado no tiene el mismo formato");
+            return null;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ("Error al crear suscripcion"));
             return null;
