@@ -33,7 +33,7 @@
                     <h:inputText id="numero" value="#{suscripcionController.selected.numero}" title="Numero" required="true" requiredMessage="El campo numero es requerido"/>
                     <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
                     <h:selectOneMenu id="articulo" value="#{suscripcionController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:200px;">
-                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
+                        <f:selectItems value="#{articuloController.tipoArticuloSuscripcion}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
                     </h:selectOneMenu>
 
                 </h:panelGrid>
