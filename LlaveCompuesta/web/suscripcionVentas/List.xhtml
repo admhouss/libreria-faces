@@ -49,10 +49,11 @@
 
 
         <p:accordionPanel autoHeight="false" id="acordion">
-                    <p:tab title="Publicaciones">
-                        <h:panelGroup id="panelgrup">
+
+                   <p:tab title="Publicaciones">
+                        <h:panelGroup id="panelgrup1">
                             <p:dataGrid value="#{suscripcionController.listasuscripciones}" var="item"  rows="5" paginator="true"  columns="1"  >
-		   
+
 
 
                     <p:column>
@@ -60,7 +61,7 @@
                         <table width="99%" border="0">
   <tr>
     <td width="13%" rowspan="8" scope="col">
-        <img src="#{item.articulo.imagen}" width="83" height="122" id="imagen"/></td>
+        <img src="#{item.articulo.imagen}" width="83" height="122" id="imagen1"/></td>
       <td width="79%" class="Titulo_articulo" scope="col">
           <h:outputText value="#{item.articulo.titulo}" /></td>
 
@@ -84,14 +85,14 @@
 
     <td align="left">
         <ul id="icons" class="ui-widget ui-helper-clearfix">
-      
-      
+
+
             <li   class="ui-state-default ui-corner-all" title="Mas informaci&oacute;n">
        <span class="ui-icon ui-icon-info">
 
            <h:commandLink  action="#{publicacionController.prepareView(item,1)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
-      
-      
+
+
        </span>
 
      </li>
@@ -116,7 +117,7 @@
                    </p:dataGrid>
             </h:panelGroup>
                     </p:tab>
-
+                    
 
                 </p:accordionPanel>
         
