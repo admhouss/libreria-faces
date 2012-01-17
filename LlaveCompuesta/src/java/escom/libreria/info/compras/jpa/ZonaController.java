@@ -75,7 +75,7 @@ public class ZonaController implements Serializable{
 
     public String prepareView(Zona z) {
         current=z;//
-        current.setIdZona(z.getIdZona());
+        //current.setIdZona(z.getIdZona());
         current.setPeso(z.getPeso());
         current.setTarifa(z.getTarifa());
         return "/zona/View";
@@ -231,7 +231,7 @@ public class ZonaController implements Serializable{
             }
             if (object instanceof Zona) {
                 Zona o = (Zona) object;
-                return getStringKey(o.getIdZona());
+                return getStringKey(o.getZonaPK().getIdZona());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+ZonaController.class.getName());
             }

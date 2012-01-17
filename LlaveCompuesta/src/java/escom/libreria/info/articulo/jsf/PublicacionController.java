@@ -187,17 +187,17 @@ public List<String> getListaString(){
                     setCategoria(getFacade().getCategoria(opt));
                     listPublicacionByBusqueda=getFacade().buscarLibroByCategoria(getCategoria());
                   }else{
-                      if(getBanderaCategoria().trim().equals("libros")){
+                      if(getBanderaCategoria().trim().equalsIgnoreCase("libros")){
                           setCategoria("Publicaciones");
-                          listPublicacionByBusqueda=getFacade().getListLibros();
-                      }else if(getBanderaCategoria().trim().equals("accesorios")){
+                          listPublicacionByBusqueda=getFacade().getPublicaciones();
+                      }else if(getBanderaCategoria().trim().equalsIgnoreCase("accesorios")){
                           setCategoria("Accesorios");
                           listPublicacionByBusqueda=getFacade().buscarAccesorio();
-                      }else if(getBanderaCategoria().trim().equals("productos")){
+                      }else if(getBanderaCategoria().trim().equalsIgnoreCase("productos")){
 
                          showList=true;setCategoria("Productos");
                          listPublicacionAccesorio=getFacade().buscarAccesorio();
-                         listPublicacionByBusqueda=getFacade().getListLibros();
+                         listPublicacionByBusqueda=getFacade().getPublicaciones();
                          listPublicacionSuscripcion=getFacade().getListSuscripciones();
                       } else if(getBanderaCategoria().trim().equals("suscripciones")){
                           setCategoria("Suscripciones");
@@ -773,7 +773,12 @@ public List<String> getListaString(){
     }
 
     public List<Publicacion> getListaPublicacion() {
-           return getFacade().findAll();
+
+        /*UNA PUBLICACION ES TIPO_ARTICULO={LIBRO,CD,DVD,REVISTA}*/
+
+            List<Publicacion> p=getFacade().getPublicaciones();
+            return p;
+           //return getFacade().findAll();
     }
 
     public void setListaPublicacion(List<Publicacion> listaPublicacion) {

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -30,10 +31,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Zona.findByTarifa", query = "SELECT z FROM Zona z WHERE z.tarifa = :tarifa")})
 public class Zona implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID_ZONA")
-    private String idZona;
+    @EmbeddedId
+    protected ZonaPK zonaPK;
     @Column(name = "PESO")
     private BigDecimal peso;
     @Column(name = "TARIFA")
@@ -44,18 +43,15 @@ public class Zona implements Serializable {
     public Zona() {
     }
 
-    public Zona(String idZona) {
-        this.idZona = idZona;
+    public ZonaPK getZonaPK() {
+        return zonaPK;
     }
 
-    public String getIdZona() {
-        return idZona;
+    public void setZonaPK(ZonaPK zonaPK) {
+        this.zonaPK = zonaPK;
     }
 
-    public void setIdZona(String idZona) {
-        this.idZona = idZona;
-    }
-
+   
     public BigDecimal getPeso() {
         return peso;
     }
@@ -72,29 +68,37 @@ public class Zona implements Serializable {
         this.tarifa = tarifa;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idZona != null ? idZona.hashCode() : 0);
-        return hash;
+    public List<Estado> getEstadoList() {
+        return estadoList;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Zona)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Zona other = (Zona) object;
-        if ((this.idZona == null && other.idZona != null) || (this.idZona != null && !this.idZona.equals(other.idZona))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Zona other = (Zona) obj;
+        if (this.zonaPK != other.zonaPK && (this.zonaPK == null || !this.zonaPK.equals(other.zonaPK))) {
             return false;
         }
         return true;
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+
+
+
+    @Override
     public String toString() {
-        return "escom.libreria.info.compras.Zona[idZona=" + idZona + "]";
+        return "escom.libreria.info.compras.Zona[zonaPK=" + zonaPK + "]";
     }
 
 }

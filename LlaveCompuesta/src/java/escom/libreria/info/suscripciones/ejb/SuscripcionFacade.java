@@ -100,7 +100,7 @@ public class SuscripcionFacade {
     public List<Suscripcion> getSuscripcionesAgrupadas() {
         List<Suscripcion> s=null;
         try{
-        TypedQuery<Suscripcion> query=em.createQuery("SELECT DISTINCT s FROM Suscripcion s  ORDER BY s ASC", Suscripcion.class);
+        TypedQuery<Suscripcion> query=em.createQuery("SELECT  s FROM Suscripcion s  GROUP BY s.suscripcionPK ", Suscripcion.class);
 
         s=query.getResultList();
 

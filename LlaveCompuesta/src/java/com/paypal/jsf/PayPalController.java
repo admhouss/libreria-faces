@@ -135,7 +135,9 @@ public class PayPalController implements Serializable{
         if(carritoController.getListPedidosDTO()==null || carritoController.getListPedidosDTO().isEmpty()){
             JsfUtil.addErrorMessage("No existen publicaciones en su carrito de compra");
             return "/carrito/Carrito";
-        }else{
+        }
+        /*PROCEDEMOS A PROCESAR EL CARRITO DE COMPRA*/
+        else{
           Cliente cliente=sistemaController.getCliente();
           if(crearPedido(cliente))
           return "/compra/Deposito";
@@ -148,22 +150,23 @@ public class PayPalController implements Serializable{
 
     public  boolean crearPedido(Cliente cliente){
 
-         String formato="";
-         ProveedorArticulo proveedorArticulo=null;
-         int idProveedor,idArticulo;
-       List<PublicacionDTO> carrito = carritoController.getListPedidosDTO();//Lo que tiene el carrito de compra;
-       PedidoPK pkey=new PedidoPK();
-       boolean bandera=false;
-        BigDecimal gastEnvio=BigDecimal.ZERO;
+         /*String formato="";ProveedorArticulo proveedorArticulo=null;
+         int idProveedor,idArticulo;*/
+         int tipo_fisico=-1;
+         PedidoPK pkey=new PedidoPK();
+       boolean bandera=false;BigDecimal gastEnvio=BigDecimal.ZERO;
+
+         List<PublicacionDTO> carrito = carritoController.getListPedidosDTO();//Lo que tiene el carrito de compra;
+
+      
        
 
-            for(PublicacionDTO p:carrito){
+            for(PublicacionDTO p:carrito)
+            {
+              try{
 
 
- try{
 
-                            
-                  
 
                 Pedido pedido=new Pedido();
                 pedido.setCliente(cliente);
@@ -173,30 +176,18 @@ public class PayPalController implements Serializable{
                 pedido.setDescuento(p.getDesc());
                 pedido.setPrecioNeto(p.getPrecio());
 
-               formato=p.getArticulo().getFormato();
 
-        if(formato.equalsIgnoreCase("FISICO") || formato.equalsIgnoreCase("IMPRESO") || formato.equalsIgnoreCase("CD")){
-           try{
-         List<ProveedorArticulo> provedores = p.getArticulo().getProveedorArticuloList();
-          if(provedores!=null && !provedores.isEmpty()){
-             proveedorArticulo=provedores.get(0);
-  
-             idProveedor=proveedorArticulo.getProveedorArticuloPK().getIdProveedor();
-             idArticulo=proveedorArticulo.getProveedorArticuloPK().getIdArticulo();
-             ProveedorArticulo pa= proveedorArticuloFacade.buscarArticuloMenorProveedor(idProveedor,idArticulo);
-             
-             Direnvio direccionEnvio=direnvioController.getDireccionEnvioSelected();
-             Zona zona=direccionEnvio.getEstado().getZona();
-             gastEnvio=proveedorArticulo.getPeso().compareTo(BigDecimal.ONE)<=0?zona.getPeso():zona.getTarifa();
-             p.setGastosEnvio(gastEnvio);
+                tipo_fisico=tipoPedido_fisico(p.isTypePublicacion(), p.getArticulo().getFormato());
 
-             System.out.println("Todo bien");
-          }else{
-             p.setGastosEnvio(BigDecimal.ZERO);
-          }
-            }catch(Exception e){e.printStackTrace();}
+                if(tipo_fisico==0) //publicacion_fisica
+                {
 
-        }
+
+                }else if(tipo_fisico==1)
+                {
+
+
+                }
 
                 
                 pedido.setPrecioTotal(new  BigDecimal(p.getTotal()));
@@ -229,6 +220,28 @@ public class PayPalController implements Serializable{
         
 
         return true;
+    }
+
+    /*true suscripcion fisica  //tue publicacion fisica*/
+    private boolean determinarTipoEnvioFisico(boolean type,String formato){
+
+        if(type)
+        {/*retorna true si es suscripcion*/
+            if(formato.equalsIgnoreCase("FISICO"))/*suscripcion fisica*/
+              return   true;
+
+        }else{/*Es una publicacion */
+            if(formato.equalsIgnoreCase("FISICO")) /*publicacion fisica*/
+             return true;
+        }
+        return false;
+    }
+
+    public int tipoPedido_fisico(boolean type,String formato){ /*cero-suscripcion fisica*/
+        int valor=-1;
+        if(determinarTipoEnvioFisico(type, formato)) /*1:sucripcion_fisica,0:publicacion:fisico*/
+            valor= type?1:0;
+        return valor;
     }
 
     public String procesarPago(){

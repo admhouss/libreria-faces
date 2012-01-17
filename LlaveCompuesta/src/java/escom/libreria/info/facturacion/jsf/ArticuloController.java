@@ -69,13 +69,13 @@ public class ArticuloController implements Serializable {
     //Titulo Dinamico tipo de categoria
 
     @ManagedProperty("#{impuestoController}")
-    ImpuestoController impuestoController; //descargando beann impuesto de session
+    private ImpuestoController impuestoController; //descargando beann impuesto de session
     @ManagedProperty("#{descuentoArticuloController}")
-    DescuentoArticuloController  descuentoController; //descargando bean  descuento de session;
+    private DescuentoArticuloController  descuentoController; //descargando bean  descuento de session;
     @ManagedProperty("#{promocionController}")
-    PromocionController promController; //descargando bean promocion de session;
+    private PromocionController promController; //descargando bean promocion de session;
     @ManagedProperty("#{almanceController}")
-    AlmacenController almacenController; //descargando bean almancen de session;
+    private AlmacenController almacenController; //descargando bean almancen de session;
 
     public AlmacenController getAlmacenController() {
         return almacenController;
@@ -89,6 +89,18 @@ public class ArticuloController implements Serializable {
         this.cantidad = cantidad;
     }
 
+
+/*TRAE ARTICULOS CON TIPO ARTICULO CD,DVD,REVISTA Y LIBRO*/
+    public List<Articulo> getTipoArticuloPublicaciones(){
+         List<Articulo> publicaciones=getFacade().getPublicaciones();
+         return publicaciones;
+    }
+    
+    /*TRAE ARTICULOS CON TIPO ARTICULO SUSCRIPCION*/
+    public List<Articulo> getTipoArticuloSuscripcion(){
+         List<Articulo> publicaciones=getFacade().getSuscripcion();
+         return publicaciones;
+    }
 
     public void setAlmacenController(AlmacenController almacenController) {
         this.almacenController = almacenController;

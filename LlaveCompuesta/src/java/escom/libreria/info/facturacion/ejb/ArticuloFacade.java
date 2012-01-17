@@ -176,6 +176,38 @@ public class ArticuloFacade {
 
     }
 
+    public List<Articulo> getPublicaciones() {
+        List<Articulo> articulos=null;
+        try{
+             TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE ( a.tipoArticulo.descripcion LIKE :uno OR a.tipoArticulo.descripcion LIKE :dos OR a.tipoArticulo.descripcion LIKE :tres OR a.tipoArticulo.descripcion LIKE :cuatro ) ORDER BY a.titulo ASC",Articulo.class)
+              .setParameter("uno", "%LIBRO%")
+              .setParameter("dos", "%CD%")
+              .setParameter("tres", "%DVD%")
+              .setParameter("cuatro", "%REVISTA%");
+               articulos=query.getResultList();
+
+        }catch(Exception e){
+              System.out.println("FACADE ARTICULO TIPO_ARTICULO PUBLICACION FALLO");
+        }
+         return articulos;
+           
+
+    }
+
+    public List<Articulo> getSuscripcion() {
+        List<Articulo> articulos=null;
+        try{
+             TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE ( a.tipoArticulo.descripcion LIKE :uno ) ORDER BY a.titulo ASC",Articulo.class)
+              .setParameter("uno", "%SUSCRIPCION%");
+
+               articulos=query.getResultList();
+
+        }catch(Exception e){
+
+        }
+         return articulos;
+    }
+
 
 
 

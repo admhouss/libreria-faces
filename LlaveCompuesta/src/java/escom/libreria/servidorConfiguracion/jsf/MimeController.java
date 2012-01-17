@@ -4,6 +4,8 @@ import escom.libreria.servidorConfiguracion.Mime;
 import escom.libreria.servidorConfiguracion.jsf.util.JsfUtil;
 import escom.libreria.servidorConfiguracion.jsf.util.PaginationHelper;
 import escom.libreria.servidorConfiguracion.ejb.MimeFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -17,13 +19,15 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+
+
 @ManagedBean (name="mimeController")
 @SessionScoped
-public class MimeController {
+public class MimeController implements Serializable{
 
     private Mime current;
     private DataModel items = null;
-    @EJB private escom.libreria.servidorConfiguracion.ejb.MimeFacade ejbFacade;
+    @EJB private MimeFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -38,6 +42,10 @@ public class MimeController {
         return current;
     }
 
+    public List<Mime> getListMime(){
+      List<Mime> l=getFacade().findAll();
+      return l;
+    }
     private MimeFacade getFacade() {
         return ejbFacade;
     }
@@ -65,9 +73,9 @@ public class MimeController {
         return "List";
     }
 
-    public String prepareView() {
-        current = (Mime)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(Mime m) {
+        current = m;
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
@@ -80,36 +88,35 @@ public class MimeController {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/configuracion").getString("MimeCreated"));
-            return prepareCreate();
+            JsfUtil.addSuccessMessage(("Mime Createdo Satisfactoriamente"));
+            return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/configuracion").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String prepareEdit() {
-        current = (Mime)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(Mime m) {
+        current = m;
+       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/configuracion").getString("MimeUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MimeUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/configuracion").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String destroy() {
-        current = (Mime)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
+    public String destroy(Mime m) {
+        current = m;
+        getFacade().remove(m);
+        JsfUtil.addSuccessMessage("Tipo de documento eliminado Satisfactoriamente");
         return "List";
     }
 
@@ -129,9 +136,9 @@ public class MimeController {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/configuracion").getString("MimeDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MimeDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/configuracion").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
 

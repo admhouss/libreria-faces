@@ -162,14 +162,17 @@ public String RegresarCarrito(){
                 {
                          Articulo articulo=s.getArticulo()  ;
                          articuloProcesado= procesarArticulo(articulo,1);
-                         if(articuloProcesadoTemporal==null){
+                         if(articuloProcesadoTemporal==null)
+                         {
                             articuloProcesadoTemporal=articuloProcesado;
                             articuloProcesadoTemporal.setTitulo("SUSCRIPCION "+s.getSuscripcionPK().getIdSuscripcion());
                          }else
                          {
-
+                          articuloProcesadoTemporal.setDesc(articuloProcesadoTemporal.getDesc().add(articuloProcesado.getDesc()));
                           articuloProcesadoTemporal.setTotal(articuloProcesadoTemporal.getTotal()+ articuloProcesado.getTotal());
-                          articuloProcesadoTemporal.setPrecio(new BigDecimal(articuloProcesadoTemporal.getTotal()).setScale(2, BigDecimal.ROUND_UP));
+                          articuloProcesadoTemporal.setPrecio(articuloProcesadoTemporal.getPrecio().add(articuloProcesadoTemporal.getPrecio()));
+
+                          //articuloProcesadoTemporal.setPrecio(new BigDecimal(articuloProcesadoTemporal.getPrecio().setScale(2, BigDecimal.ROUND_UP));
 
                          }
                           articuloProcesadoTemporal.setTypePublicacion(true);
@@ -475,50 +478,23 @@ private Date getHoy(){
         return 0;
     }
 
-
+/*dado un articulo determinamos su costo real!*/
     private PublicacionDTO procesarArticulo(Articulo articulo,int cantidad){
-        
         PublicacionDTO publicacionDTO=new PublicacionDTO();
-        publicacionDTO.setIdArticulo( articulo.getId());
-
-       // String formato=p.getArticulo().getFormato();
-        //ProveedorArticulo proveedorArticulo=null;
-        /*if(formato.equalsIgnoreCase("FISICO") || formato.equalsIgnoreCase("IMPRESO") || formato.equalsIgnoreCase("CD")){
-           try{
-         List<ProveedorArticulo> provedores = p.getArticulo().getProveedorArticuloList();
-          if(provedores!=null && !provedores.isEmpty()){
-             proveedorArticulo=provedores.get(0);
-             Direnvio direccionEnvio=direnvioController.getDireccionEnvioSelected();
-             Zona zona=direccionEnvio.getEstado().getZona();
-             gastEnvio=proveedorArticulo.getPeso().compareTo(BigDecimal.ONE)<=0?zona.getPeso():zona.getTarifa();
-             publicacionDTO.setGastosEnvio(gastEnvio);
-
-             System.out.println("Todo bien");
-          }else{
-             publicacionDTO.setGastosEnvio(BigDecimal.ZERO);
-          }
-            }catch(Exception e){e.printStackTrace();}
-            
-        }*/
-
-        publicacionDTO.setArticulo( articulo);
-        //publicacionDTO.setIdPublicacion(p.getIdDc());//
-        //publicacionDTO.setEditorial(p.getEditorial());//
+        publicacionDTO.setIdArticulo(articulo.getId());
+        publicacionDTO.setArticulo(articulo);
         publicacionDTO.setTitulo(articulo.getTitulo());
-        publicacionDTO.setAutor( articulo.getCreador());
-        publicacionDTO.setAsunto( articulo.getAsunto());
+        publicacionDTO.setAutor(articulo.getCreador());
+        publicacionDTO.setAsunto(articulo.getAsunto());
         publicacionDTO.setCantidad(cantidad);
         publicacionDTO.setFechaCompra(new Date());
-
         BigDecimal descuento=obtenerMayorDescuento(publicacionDTO.getIdArticulo());
         publicacionDTO.setDesc(descuento);
-        BigDecimal impuesto=getImpuesto(publicacionDTO.getIdArticulo());
+        BigDecimal impuesto=getImpuesto(publicacionDTO.getIdArticulo());  /*sumamos los impuestos del articulo*/
         publicacionDTO.setImpuesto(impuesto);
         publicacionDTO.setPrecio(articulo.getCosto());
         BigDecimal total=calcularTotal(publicacionDTO.getPrecio(), descuento, impuesto, publicacionDTO.getCantidad());
-       
         total=total.setScale(2,BigDecimal.ROUND_HALF_UP);
-
         publicacionDTO.setTotal(total.doubleValue());
         return publicacionDTO;
     }

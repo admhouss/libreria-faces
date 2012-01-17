@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
+import javax.persistence.TypedQuery;
 /**
  *
  * @author xxx
@@ -60,6 +60,17 @@ public class MimeFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public String buscarMimeType(String nombre) {
+        String mime=null;
+        try{
+          TypedQuery<String> query=em.createQuery("SELECT m.mimeType FROM Mime m WHERE m.extension LIKE :extension ",String.class)
+          .setParameter("extension","%"+nombre+"%");
+           mime=query.getSingleResult();
+          return mime;
+        }catch(Exception e){e.printStackTrace();}
+        return mime;
     }
 
 }
