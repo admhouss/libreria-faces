@@ -29,14 +29,14 @@
                 <p:panel header="CATALOGO PUBLICACIONES">
                
                     <p:dataTable value="#{publicacionController.listaPublicacion}" var="item" paginator="true" rows="10" selectionMode="single">
-                   <p:column style="width:10px;" filterBy="#{item.idDc}" >
+                   <p:column style="width:10px;" filterBy="#{item.articulo.codigo}" >
                         <f:facet name="header">
                             <h:outputText value="CODIGO"/>
                         </f:facet>
                        <h:outputText value="#{item.articulo.codigo}"/>
                    </p:column>
 
-                         <p:column style="width:150px;">
+                         <p:column style="width:100px;">
                         <f:facet name="header">
                             <h:outputText value="ARTICULO"/>
                         </f:facet>
@@ -55,9 +55,9 @@
                    
                         <p:column  style="width:12px;">
                         <f:facet name="header">
-                            <h:outputText value="A&Ntilde;O"/>
+                            <h:outputText value="TIPO"/>
                         </f:facet>
-                        <h:outputText value="#{item.anio}"/>
+                            <h:outputText value="#{item.articulo.tipoArticulo.descripcion}"/>
                     </p:column>
 
                    

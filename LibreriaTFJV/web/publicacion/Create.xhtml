@@ -69,7 +69,7 @@
 
                         <h:outputLabel value="Articulo" for="articulo"  styleClass="textoNEGRO"/>
                         <h:selectOneMenu id="articulo" value="#{publicacionController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:220px;">
-                            <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
+                            <f:selectItems value="#{articuloController.tipoArticuloPublicaciones}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
                         </h:selectOneMenu>
                          <h:outputLabel value="*" styleClass="textoROJO"/>
                 </h:panelGrid>
