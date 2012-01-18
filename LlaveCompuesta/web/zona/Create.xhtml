@@ -19,7 +19,7 @@
                     <center>
                     <h:panelGrid columns="3" cellspacing="15">
                     <h:outputLabel value="Zona" for="zona" styleClass="textoNEGRO"/>
-                    <h:inputText id="zona" value="#{zonaController.selected.idZona}" title="zona"  maxlength="2" required="true" requiredMessage="El campo zona es requerido"/>
+                    <h:inputText id="zona" value="#{zonaController.selected.zonaPK.idZona}" title="zona"  maxlength="2" required="true" requiredMessage="El campo zona es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Peso:" for="peso" styleClass="textoNEGRO"/>
                     <h:inputText id="peso" value="#{zonaController.selected.peso}" title="Peso" />
