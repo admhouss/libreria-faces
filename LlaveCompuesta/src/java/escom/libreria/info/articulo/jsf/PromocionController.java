@@ -1,5 +1,7 @@
 package escom.libreria.info.articulo.jsf;
 
+import escom.libreria.comun.GeneradorHTML;
+import escom.libreria.comun.ValidarFechaFormat;
 import escom.libreria.info.articulo.Promocion;
 import escom.libreria.info.articulo.PromocionPK;
 
@@ -9,6 +11,8 @@ import escom.libreria.info.articulo.ejb.PromocionFacade;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.facturacion.ejb.ArticuloFacade;
+import escom.libreria.info.generadorIDpromociones.GeneradorContador;
+import escom.libreria.info.generadorIDpromociones.ejb.GeneradorContadorFacade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -26,38 +30,46 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
 
 @ManagedBean (name="promocionController")
 @SessionScoped
 public class PromocionController implements Serializable{
 
     private Promocion current;
-
     private DataModel items = null;
     @EJB private escom.libreria.info.articulo.ejb.PromocionFacade ejbFacade;
     @EJB private escom.libreria.info.cliente.ejb.ClienteFacade clieteFacade;
     @EJB private escom.libreria.correo.ProcesoJMail jMail;
     @EJB private ArticuloFacade articuloFacade;
-
-
+    @EJB private GeneradorContadorFacade generadorContadorFacade;
+    private Articulo articuloSeeccionado;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private PromocionPK p;
     private String value;
     private List<Articulo> listaArticulosPromociones;
-    private Promocion[] selectPromocion;
+    private List<Promocion> listaPromociones;
 
-    public Promocion[] getSelectPromocion() {
-        System.out.println("entre");
-        return selectPromocion;
+
+    private static  Logger logger = Logger.getLogger(PromocionController.class);
+
+
+
+
+    public List<Promocion> getListaPromociones() {
+        return listaPromociones;
     }
 
-    public void setSelectPromocion(Promocion[] selectPromocion) {
-        this.selectPromocion = selectPromocion;
+    public void setListaPromociones(List<Promocion> listaPromociones) {
+        this.listaPromociones = listaPromociones;
     }
 
 
-
+    public String buscar(){
+         listaPromociones= getFacade().buscarPromocionByIndicie(codigoPromocion);
+         return "/promocion/SendMail";
+    }
 
 
     public List<Articulo> getListaArticulosPromociones() {
@@ -71,7 +83,11 @@ public class PromocionController implements Serializable{
         this.listaArticulosPromociones = listaArticulosPromociones;
     }
 
+   public List<Integer> getListaCogiosPromocion(){
 
+           List<Integer> l=  getFacade().getIndicesPromocion();
+           return l;
+   }
 
     public String getValue() {
         return value;
@@ -81,11 +97,26 @@ public class PromocionController implements Serializable{
         this.value = value;
     }
 
+  public String prepareFinalizar(){
 
+        codigoPromocion=null;
+        current=null;
+       return "/promocion/List";
+
+  }
 
     public PromocionController() {
        // p=new PromocionPK();
 
+    }
+
+    public Integer getGeneradorPromociones(){
+       Integer contador=generadorContadorFacade.count()+1;
+       
+       GeneradorContador g=new GeneradorContador();
+       g.setContador(contador);
+       generadorContadorFacade.create(g);
+        return contador;
     }
 
     public Promocion getSelected() {
@@ -124,30 +155,40 @@ public class PromocionController implements Serializable{
     }
 
     public String sendCorreo(){
-        System.out.println("tamaño"+selectPromocion.length);
-        //current=promocion;
-        return "/promocion/List";
+      //  System.out.println("tamaño"+selectPromocion.length);
+       // current=promocion;
+        return "/promocion/SendMail";
     }
 
     private  List<Cliente> clientes;
     private List<String> destinatarios;
-    private StringBuffer query;
-    public void correo(Promocion promocion){
+    
+    public String correo(){
        clientes= clieteFacade.getListClientesActive();
        destinatarios=new ArrayList<String>();
+       GeneradorHTML generarHTM=new GeneradorHTML();
+       String   query="",fechaInicial,fechaFinal;
+
        for(Cliente cliente:clientes)
        destinatarios.add(cliente.getId().trim());
-       if(destinatarios.size()>0){
-         query=new StringBuffer();
-         query.append("<center>");
-         query.append(value +"<br/>"+promocion.getArticulo().getTitulo()+"<br/>");
-         query.append("<img src=\""+promocion.getArticulo().getImagen()+"\"/>");
-         query.append("</center>");
-         jMail.enviarCorreo("Promocion Libreria", query.toString(), destinatarios);
+
+       if(destinatarios.size()>0)
+       {
+         for(Promocion p:listaPromociones)
+         {
+             fechaInicial=ValidarFechaFormat.getFechaFormateada(p.getDiaInicio());
+             fechaFinal=ValidarFechaFormat.getFechaFormateada(p.getDiaFin());
+             query+=generarHTM.generaPromocione("<br/>"+getValue(),p.getArticulo().getTitulo() ,p.getArticulo().getCreador(),p.getPrecioPublico()+"", p.getArticulo().getImagen(),fechaInicial,fechaFinal);
+         }
+         jMail.enviarCorreo("Promocion Libreria Còdigo:"+codigoPromocion, query, destinatarios);
          setValue("");
-        JsfUtil.addSuccessMessage("Promocion Enviada Satisfactoriamente");
+         JsfUtil.addSuccessMessage("Promocion Enviada Satisfactoriamente");
+
        }
        setValue("");
+       query="";
+
+       return "/promocion/List";
 
    }
 
@@ -158,20 +199,30 @@ public class PromocionController implements Serializable{
         return "/promocion/View";
     }
 
+    private Integer codigoPromocion;
+
+    public Integer getCodigoPromocion() {
+        return codigoPromocion;
+    }
+
+    public void setCodigoPromocion(Integer codigoPromocion) {
+        this.codigoPromocion = codigoPromocion;
+    }
+
     public String prepareCreate() {
         current = new Promocion();
-        selectedItemIndex = -1;
+        codigoPromocion=getGeneradorPromociones();
         return "Create";
     }
     public void InitialArticulo(Articulo a){
 
-      p=new PromocionPK();
-      p.setIdArticulo(a.getId());
-      current.setPromocionPK(p);
-      current.setArticulo(a);
-      listaArticulosPromociones.remove(a);
+     // p=new PromocionPK();
+     // p.setIdArticulo(a.getId());
+     // current.setPromocionPK(p);
+      //current.setArticulo(a);
+      //listaArticulosPromociones.remove(a);
+        articuloSeeccionado=a;
      JsfUtil.addSuccessMessage("Articulo seleccionado satisfactoriamente");
-
     }
 
     public void InitialArticulo_Actualizar(Articulo a){
@@ -200,18 +251,23 @@ public class PromocionController implements Serializable{
 
     public String create() {
         try {
-            if(current.getPromocionPK()==null ){
-             JsfUtil.addErrorMessage(" Asegurese que ha seleccionado un Articulo");
-             return prepareCreate();
-            }else{
-            current.setArticulo(current.getArticulo());
-            current.setPromocionPK(current.getPromocionPK());
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(("Promocion creada Satisfactoriamente"));
-            return prepareView(current);
+
+            if(codigoPromocion!=null && articuloSeeccionado!=null)
+            {
+                    PromocionPK pk=new PromocionPK();
+                    pk.setId(codigoPromocion);
+                    pk.setIdArticulo(articuloSeeccionado.getId());
+                    current.setArticulo(articuloSeeccionado);
+                    current.setPromocionPK(pk);
+                    getFacade().create(current);
+                    JsfUtil.addSuccessMessage(("Promocion creada Satisfactoriamente"));
+                    return "/promocion/Create";
             }
+            JsfUtil.addErrorMessage("Error no se ha selecionado ningun articulo");
+            return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ("Error al crear la promocion"));
+            logger.error("Error al crear la promocion",e);
+            JsfUtil.addErrorMessage("Error al crear la promocion");
             return null;
         }
     }

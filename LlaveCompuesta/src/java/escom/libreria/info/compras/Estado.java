@@ -8,6 +8,7 @@ package escom.libreria.info.compras;
 
 import escom.libreria.info.cliente.Cliente;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -17,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,6 +36,10 @@ import javax.persistence.Table;
     @NamedQuery(name = "Estado.findById", query = "SELECT e FROM Estado e WHERE e.id = :id"),
     @NamedQuery(name = "Estado.findByNombre", query = "SELECT e FROM Estado e WHERE e.nombre = :nombre")})
 public class Estado implements Serializable {
+    @Column(name = "ID_ZONA")
+    private String idZona;
+    @Column(name = "PESO")
+    private BigDecimal peso;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,18 +51,28 @@ public class Estado implements Serializable {
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
     private List<Cliente> clienteList;
-    @JoinColumn(name = "ID_ZONA", referencedColumnName = "ID_ZONA")
-    @ManyToOne
+
+   /* @ManyToOne
+    @JoinColumns({
+    @JoinColumn(name = "ID_ZONA", referencedColumnName = "ID_ZONA"),
+    @JoinColumn(name = "PESO", referencedColumnName = "PESO")
+    })
+            
+    //@JoinColumn(name = "ID_ZONA", referencedColumnName = "ID_ZONA")
+    
     private Zona zona;
 
-    public Zona getZona() {
+    */
+    
+    
+   /* public Zona getZona() {
         return zona;
     }
 
     public void setZona(Zona zona) {
         this.zona = zona;
     }
-
+*/
 
 
     public Estado() {
@@ -118,6 +134,22 @@ public class Estado implements Serializable {
     @Override
     public String toString() {
         return "compras.Estado[id=" + id + "]";
+    }
+
+    public String getIdZona() {
+        return idZona;
+    }
+
+    public void setIdZona(String idZona) {
+        this.idZona = idZona;
+    }
+
+    public BigDecimal getPeso() {
+        return peso;
+    }
+
+    public void setPeso(BigDecimal peso) {
+        this.peso = peso;
     }
 
 }

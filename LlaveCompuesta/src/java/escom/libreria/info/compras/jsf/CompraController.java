@@ -38,6 +38,7 @@ public class CompraController implements Serializable{
 
     private Compra current;
     private DataModel items = null;
+    private Integer facturar;
     @EJB private escom.libreria.info.compras.ejb.CompraFacade ejbFacade;
     @EJB private escom.libreria.info.compras.ejb.PedidoFacade pedidoFacade;
     @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
@@ -49,6 +50,9 @@ public class CompraController implements Serializable{
      @ManagedProperty("#{direnvioController}")
      private DirenvioController direnvioController;
 
+
+
+
     public DirenvioController getDirenvioController() {
         return direnvioController;
     }
@@ -57,6 +61,15 @@ public class CompraController implements Serializable{
         this.direnvioController = direnvioController;
     }
 
+    public Integer getFacturar() {
+        return facturar;
+    }
+
+    public void setFacturar(Integer facturar) {
+        this.facturar = facturar;
+    }
+
+    
 
     public SistemaController getSistemaController() {
         return sistemaController;
@@ -228,9 +241,10 @@ private String pedidoTocandelar;
           int pedido=getIDPedidoByCliente();
           String idCliente=sistemaController.getCliente().getId();
           CompraDTO compraTOTAL = pedidoFacade.getSuperTotal(pedido);
+          System.out.println("REQUIERE FACTURA"+getFacturar());
 
           Compra compra=new Compra();
-
+          compra.setReqFactura(getFacturar());
           compra.setDescuento(compraTOTAL.getDescuento());
           compra.setImpuesto(compraTOTAL.getImpuesto());
           compra.setPagoNeto(compraTOTAL.getTotalMonto());
@@ -240,10 +254,8 @@ private String pedidoTocandelar;
           compra.setIdPedido(pedido);
           compra.setFecha(new Date());
           compra.setIdCliente(idCliente);
-         
           compra.setObservaciones("PROCESANDO");
-          compra.setFechaEnvio(new Date());
-          compra.setFechaEnvio(new Date());
+          compra.setFechaEnvio(current.getFechaEnvio());
           compra.setEstado("CONFIRMADO");
           compra.setCcd(current.getCcd());
           compra.setCuenta(current.getCuenta());
