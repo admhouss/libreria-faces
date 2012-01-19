@@ -76,19 +76,23 @@ public class ZonaController implements Serializable{
     public String prepareView(Zona z) {
         current=z;//
         //current.setIdZona(z.getIdZona());
-        current.setPeso(z.getPeso());
+       //current.setZonaPK(current.getZonaPK());
         current.setTarifa(z.getTarifa());
         return "/zona/View";
     }
 
     public String prepareCreate() {
         current = new Zona();
+        //current.setZonaPK(new ZonaPK());
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
+            //current.getZonaPK().setIdZona(current.getZonaPK().getIdZona());
+            //current.getZonaPK().setPeso(current.getZonaPK().getPeso());
+
             getFacade().create(current);
             JsfUtil.addSuccessMessage(("Zona creada Satisfactoriamente"));
             return prepareView(current);
@@ -231,7 +235,7 @@ public class ZonaController implements Serializable{
             }
             if (object instanceof Zona) {
                 Zona o = (Zona) object;
-                return getStringKey(o.getZonaPK().getIdZona());
+                return getStringKey(""+o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+ZonaController.class.getName());
             }

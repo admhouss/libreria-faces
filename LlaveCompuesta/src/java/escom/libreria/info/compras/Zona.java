@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,40 +28,31 @@ import javax.persistence.Table;
 @Table(name = "zona")
 @NamedQueries({
     @NamedQuery(name = "Zona.findAll", query = "SELECT z FROM Zona z"),
-    @NamedQuery(name = "Zona.findByIdZona", query = "SELECT z FROM Zona z WHERE z.idZona = :idZona"),
-    @NamedQuery(name = "Zona.findByPeso", query = "SELECT z FROM Zona z WHERE z.peso = :peso"),
+    
     @NamedQuery(name = "Zona.findByTarifa", query = "SELECT z FROM Zona z WHERE z.tarifa = :tarifa")})
 public class Zona implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected ZonaPK zonaPK;
+    @Basic(optional = false)
+    @Column(name = "ID_ZONA")
+    private String idZona;
+    @Basic(optional = false)
     @Column(name = "PESO")
     private BigDecimal peso;
     @Column(name = "TARIFA")
     private BigDecimal tarifa;
-    @OneToMany(mappedBy = "zona")
-    private List<Estado> estadoList;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
 
     public Zona() {
     }
 
-    public ZonaPK getZonaPK() {
-        return zonaPK;
-    }
-
-    public void setZonaPK(ZonaPK zonaPK) {
-        this.zonaPK = zonaPK;
-    }
+   
 
    
-    public BigDecimal getPeso() {
-        return peso;
-    }
-
-    public void setPeso(BigDecimal peso) {
-        this.peso = peso;
-    }
-
+    
     public BigDecimal getTarifa() {
         return tarifa;
     }
@@ -68,8 +61,28 @@ public class Zona implements Serializable {
         this.tarifa = tarifa;
     }
 
-    public List<Estado> getEstadoList() {
-        return estadoList;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getIdZona() {
+        return idZona;
+    }
+
+    public void setIdZona(String idZona) {
+        this.idZona = idZona;
+    }
+
+    public BigDecimal getPeso() {
+        return peso;
+    }
+
+    public void setPeso(BigDecimal peso) {
+        this.peso = peso;
     }
 
     @Override
@@ -81,7 +94,7 @@ public class Zona implements Serializable {
             return false;
         }
         final Zona other = (Zona) obj;
-        if (this.zonaPK != other.zonaPK && (this.zonaPK == null || !this.zonaPK.equals(other.zonaPK))) {
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -93,12 +106,17 @@ public class Zona implements Serializable {
         return hash;
     }
 
-
-
-
     @Override
     public String toString() {
-        return "escom.libreria.info.compras.Zona[zonaPK=" + zonaPK + "]";
+        return "Zona{" + "id=" + id + '}';
     }
+
+   
+
+  
+
+
+
+    
 
 }

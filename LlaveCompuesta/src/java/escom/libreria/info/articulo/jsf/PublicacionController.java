@@ -124,6 +124,8 @@ public List<String> getListaString(){
     return  l;
 }
 
+
+
      public PublicacionController() {
         {
             /*InputStream log4jConfigStream = null;
@@ -425,7 +427,7 @@ public List<String> getListaString(){
     }
 
     public List<Publicacion> getListNovedadesPublicacion(){
-            listPublicacionByBusqueda=getFacade().findAll();
+            listPublicacionByBusqueda=getFacade().getPublicaciones();
             return listPublicacionByBusqueda;
     }
      

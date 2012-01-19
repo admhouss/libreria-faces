@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -60,6 +61,18 @@ public class AlmacenFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<Almacen> getArticulosExistenciaero() {
+
+        List<Almacen> l=null;
+        try{
+                TypedQuery<Almacen> query=em.createQuery("SELECT a FROM Almacen a WHERE a.existencia=0", Almacen.class);
+                l=query.getResultList();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+          return l;
     }
 
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+<!--
+	<appender class="org.apache.log4j.DailyRollingFileAppender" name="fileAppender">
+		<param name="file" value="/tmp/logs/SAR.log"/>
+		<param name="datePattern" value="'.'yyyy-MM-dd"/>
+-->
+	<appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="MaxBackupIndex" value="5"/>
+		<param name="file" value="C:/Users/xxx/Documents/logLibreriaTFJVF/TFJV.log"/>
+		<!--param name="file" value="c:/log/SAR.log"/-->
+
+		<param name="append" value="true"/>
+		<layout class="org.apache.log4j.TTCCLayout">
+			<param name="dateFormat" value="yyyy/MM/dd HH:mm:ss.SSS"/>
+		</layout>
+	</appender>
+
+	<appender class="org.apache.log4j.ConsoleAppender" name="consola">
+		<layout class="org.apache.log4j.TTCCLayout">
+			<param name="dateFormat" value="yyyy/MM/dd HH:mm:ss.SSS"/>
+		</layout>
+	</appender>
+
+	<logger additivity="true" name="org.apache">
+		<level value="fatal"/>
+	</logger>
+
+	<logger additivity="true" name="com.estafeta.cliente.sar.dao.ws">
+		<level value="debug"/>
+	</logger>
+	
+	<root>
+		<priority value="debug"/>
+<!--
+		<priority value="fatal"/>
+-->		<appender-ref ref="fileAppender"/>
+		<appender-ref ref="consola"/>
+	</root>
+</log4j:configuration>

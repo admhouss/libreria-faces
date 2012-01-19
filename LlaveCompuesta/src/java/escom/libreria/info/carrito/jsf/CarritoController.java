@@ -165,7 +165,8 @@ public String RegresarCarrito(){
                          if(articuloProcesadoTemporal==null)
                          {
                             articuloProcesadoTemporal=articuloProcesado;
-                            articuloProcesadoTemporal.setTitulo("SUSCRIPCION "+s.getSuscripcionPK().getIdSuscripcion());
+                            articuloProcesadoTemporal.setTitulo("SUSCRIPCION #"+s.getSuscripcionPK().getIdSuscripcion());
+                            articuloProcesadoTemporal.setIdSuscripcion(s.getSuscripcionPK().getIdSuscripcion());
                          }else
                          {
                           articuloProcesadoTemporal.setDesc(articuloProcesadoTemporal.getDesc().add(articuloProcesado.getDesc()));
@@ -212,7 +213,8 @@ public String RegresarCarrito(){
 
     public BigDecimal getCostoEnvio(){
         Direnvio direccionEnvio = direnvioController.getDireccionEnvioSelected();
-        return direccionEnvio.getEstado().getZona().getPeso();
+        //return direccionEnvio.getEstado().getZona().getPeso();
+        return null;
     }
 
    /* public List<Pedido> getListcarritoDTOTemporal() {
@@ -295,8 +297,8 @@ private Date getHoy(){
    }
  public String agregarArticulo(Publicacion publicacion){
 
-     Articulo articulo=publicacion.getArticulo();
-     Almacen almacen=almacenFacade.find(articulo.getId());
+     Articulo articulo1=publicacion.getArticulo();
+     Almacen almacen=almacenFacade.find(articulo1.getId());
 
      PublicacionDTO temporalDTO=null;//
      if(almacen==null || almacen.getExistencia()<=0)
@@ -321,11 +323,10 @@ private Date getHoy(){
 
                       if(temporalDTO==null){
 
-                             temporalDTO=procesarArticulo(articulo,1);
+                             temporalDTO=procesarArticulo(articulo1,1);
                              temporalDTO.setEditorial( publicacion.getEditorial());
                              temporalDTO.setIdPublicacion(publicacion.getIdDc());
                              temporalDTO.setTypePublicacion(false);
-
                              agregarCarrito(temporalDTO);
                              JsfUtil.addSuccessMessage("Publicacion agregada Satisfactoriamente");
                              return "/carrito/Carrito";

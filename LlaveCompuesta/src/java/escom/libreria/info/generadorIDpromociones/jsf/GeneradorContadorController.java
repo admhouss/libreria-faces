@@ -1,14 +1,9 @@
-package escom.libreria.info.articulo.jsf;
+package escom.libreria.info.generadorIDpromociones.jsf;
 
-import escom.libreria.info.articulo.Almacen;
-
-import escom.libreria.info.articulo.jsf.util.JsfUtil;
-import escom.libreria.info.articulo.jsf.util.PaginationHelper;
-import escom.libreria.info.articulo.ejb.AlmacenFacade;
-import escom.libreria.info.proveedor.ProveedorArticulo;
-import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
-import java.io.Serializable;
-import java.util.List;
+import escom.libreria.info.generadorIDpromociones.GeneradorContador;
+import escom.libreria.info.generadorIDpromociones.jsf.util.JsfUtil;
+import escom.libreria.info.generadorIDpromociones.jsf.util.PaginationHelper;
+import escom.libreria.info.generadorIDpromociones.ejb.GeneradorContadorFacade;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -22,37 +17,28 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean (name="almacenController")
+@ManagedBean (name="generadorContadorController")
 @SessionScoped
-public class AlmacenController implements Serializable{
+public class GeneradorContadorController {
 
-    private Almacen current;
+    private GeneradorContador current;
     private DataModel items = null;
-    @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade ejbFacade;
-    @EJB private ProveedorArticuloFacade proveedorArticuloFacade;
+    @EJB private escom.libreria.info.generadorIDpromociones.ejb.GeneradorContadorFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public AlmacenController() {
+    public GeneradorContadorController() {
     }
 
-    public Almacen getSelected() {
+    public GeneradorContador getSelected() {
         if (current == null) {
-            current = new Almacen();
+            current = new GeneradorContador();
             selectedItemIndex = -1;
         }
         return current;
     }
-    public List<Almacen> getListaAlmacen(){
-        return getFacade().findAll();
-    }
 
-    public List<Almacen> getListAlmacensExistenciaCero(){
-       List<Almacen> l= getFacade().getArticulosExistenciaero();
-       return l;
-    }
-
-    private AlmacenFacade getFacade() {
+    private GeneradorContadorFacade getFacade() {
         return ejbFacade;
     }
 
@@ -79,80 +65,51 @@ public class AlmacenController implements Serializable{
         return "List";
     }
 
-    private List<ProveedorArticulo>  proveedorArticulos;//proveedor que tiene asignados este articulo;
-
-    public List<ProveedorArticulo> getProveedorArticulos() {
-        return proveedorArticulos;
-    }
-
-    public void setProveedorArticulos(List<ProveedorArticulo> proveedorArticulos) {
-        this.proveedorArticulos = proveedorArticulos;
-    }
-
-    public String prepareView(Almacen p) {
-        current=p;
-       proveedorArticulos=proveedorArticuloFacade.buscarProveedor(p.getIdArticulo());
-       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView() {
+        current = (GeneradorContador)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Almacen();
+        current = new GeneradorContador();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
-        Almacen  buscarAlmacen=null;
         try {
-
-            buscarAlmacen=getFacade().find(current.getArticulo().getId());
-            if(buscarAlmacen==null){
-                current.setIdArticulo(current.getArticulo().getId());
-                current.setArticulo(current.getArticulo());
-                current.setExistencia(current.getEnConsigna()+current.getEnFirme());
-                getFacade().create(current);
-                JsfUtil.addSuccessMessage(("Almacen Creado Satisfactoriamente"));
-                return prepareView(current);
-            }
-
-            JsfUtil.addErrorMessage("El articulo ya fue registrado anteriormente");
-            return "/almacen/Create";
+            getFacade().create(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/generadorID").getString("GeneradorContadorCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ("Error al crear almacen "));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/generadorID").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String prepareEdit(Almacen p) {
-        current=p;
-        current.setArticulo(current.getArticulo());
-        return "/almacen/Edit";
+    public String prepareEdit() {
+        current = (GeneradorContador)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "Edit";
     }
 
     public String update() {
         try {
-
-          
-            current.setArticulo(current.getArticulo());
-            current.setIdArticulo(current.getArticulo().getId());
-            current.setExistencia(current.getEnConsigna()+current.getEnFirme());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(("Almacen actualizado Satisfactoriamente"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/generadorID").getString("GeneradorContadorUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ("Error al actualizar Almacen"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/generadorID").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String destroy(Almacen p) {
-        current=p;
-        /*selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String destroy() {
+        current = (GeneradorContador)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
-        recreateModel();*/
-        getFacade().remove(current);
-        JsfUtil.addSuccessMessage("Almacen eliminado satisfacotiramente");
+        recreateModel();
         return "List";
     }
 
@@ -172,9 +129,9 @@ public class AlmacenController implements Serializable{
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(("AlmacenDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/generadorID").getString("GeneradorContadorDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/generadorID").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -224,15 +181,15 @@ public class AlmacenController implements Serializable{
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass=Almacen.class)
-    public static class AlmacenControllerConverter implements Converter {
+    @FacesConverter(forClass=GeneradorContador.class)
+    public static class GeneradorContadorControllerConverter implements Converter {
 
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AlmacenController controller = (AlmacenController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "almacenController");
+            GeneradorContadorController controller = (GeneradorContadorController)facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "generadorContadorController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -252,11 +209,11 @@ public class AlmacenController implements Serializable{
             if (object == null) {
                 return null;
             }
-            if (object instanceof Almacen) {
-                Almacen o = (Almacen) object;
-                return getStringKey(o.getIdArticulo());
+            if (object instanceof GeneradorContador) {
+                GeneradorContador o = (GeneradorContador) object;
+                return getStringKey(o.getContador());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+AlmacenController.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+GeneradorContadorController.class.getName());
             }
         }
 

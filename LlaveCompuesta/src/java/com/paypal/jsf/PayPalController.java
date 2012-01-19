@@ -17,10 +17,13 @@ import escom.libreria.info.compras.PedidoPK;
 import escom.libreria.info.compras.Zona;
 import escom.libreria.info.compras.ejb.CompraFacade;
 import escom.libreria.info.compras.ejb.PedidoFacade;
+import escom.libreria.info.compras.ejb.ZonaFacade;
 import escom.libreria.info.compras.jsf.DifacturacionController;
 import escom.libreria.info.compras.jsf.DirenvioController;
 import escom.libreria.info.compras.jsf.PedidoController;
 import escom.libreria.info.encriptamientoMD5.EncriptamientoImp;
+import escom.libreria.info.facturacion.Articulo;
+import escom.libreria.info.facturacion.ejb.ArticuloFacade;
 import escom.libreria.info.login.sistema.SistemaController;
 import escom.libreria.info.proveedor.ProveedorArticulo;
 import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
@@ -62,6 +65,10 @@ public class PayPalController implements Serializable{
     private SistemaController sistemaController;
 
 @EJB private ProveedorArticuloFacade proveedorArticuloFacade;
+@EJB private ZonaFacade  zonaFacade;
+@EJB private PedidoFacade pedidoFacade;
+@EJB private CompraFacade compraFacade;
+@EJB private ArticuloFacade articuloFacade;
 
 
     public SistemaController getSistemaController() {
@@ -74,8 +81,7 @@ public class PayPalController implements Serializable{
 
 
 
-    @EJB private PedidoFacade pedidoFacade;
-    @EJB private CompraFacade compraFacade;
+    
 
     public CarritoController getCarritoController() {
         return carritoController;
@@ -121,9 +127,9 @@ public class PayPalController implements Serializable{
     }
 
 
-    public String procesarDeposito(){
+    public String procesarCarritoPorDeposito(){
 
-
+         Direnvio direccion=direnvioController.getDireccionEnvioSelected();
         if(carritoController==null){
             JsfUtil.addErrorMessage("error carrito de compra nullo");
             return null;
@@ -139,8 +145,11 @@ public class PayPalController implements Serializable{
         /*PROCEDEMOS A PROCESAR EL CARRITO DE COMPRA*/
         else{
           Cliente cliente=sistemaController.getCliente();
-          if(crearPedido(cliente))
+
+          if(crearPedido(cliente,direccion)){
+              carritoController.borrarCarrito();
           return "/compra/Deposito";
+          }
           else{
               return "/carrito/Carrito";
           }
@@ -148,24 +157,24 @@ public class PayPalController implements Serializable{
        
     }
 
-    public  boolean crearPedido(Cliente cliente){
+    private Articulo articulo;
+    public  boolean crearPedido(Cliente cliente,Direnvio direccion){
 
-         /*String formato="";ProveedorArticulo proveedorArticulo=null;
-         int idProveedor,idArticulo;*/
-         int tipo_fisico=-1;
-         PedidoPK pkey=new PedidoPK();
-       boolean bandera=false;BigDecimal gastEnvio=BigDecimal.ZERO;
+         
+        int tipo_fisico=-1;
+        boolean bandera=false;
+        BigDecimal gastEnvio=BigDecimal.ZERO;
+        ProveedorArticulo proveedorArticulo=null;
 
-         List<PublicacionDTO> carrito = carritoController.getListPedidosDTO();//Lo que tiene el carrito de compra;
+        PedidoPK pkey=new PedidoPK();
+
+        List<PublicacionDTO> carrito = carritoController.getListPedidosDTO();//Lo que tiene el carrito de compra;
 
       
        
 
             for(PublicacionDTO p:carrito)
             {
-              try{
-
-
 
 
                 Pedido pedido=new Pedido();
@@ -174,32 +183,56 @@ public class PayPalController implements Serializable{
                 pedido.setEstado("PROCESANDO");
                 pedido.setCategoria(p.getAsunto());
                 pedido.setDescuento(p.getDesc());
-                pedido.setPrecioNeto(p.getPrecio());
 
+              
+             try{
 
+               if(p.isTypePublicacion())
+               {
+                  articulo=articuloFacade.find( p.getIdSuscripcion());
+
+                  pedido.setPrecioNeto(p.getPrecio());
+                  pedido.setArticulo(articulo);
+                  p.setArticulo(articulo);
+                  p.setIdArticulo(articulo.getId());
+
+                  pkey.setIdArticulo(articulo.getId());
+                  System.out.println( "PRECIO TOTAL SUSCRIPCION:"+p.getTotal());
+               }
+               else
+               {
+                    pedido.setPrecioNeto(p.getPrecio());
+                    pedido.setArticulo(p.getArticulo());
+                    pkey.setIdArticulo(p.getArticulo().getId());
+
+                    System.out.println( "PRECIO TOTAL PUBLICACION:"+p.getTotal());
+               }
+
+                
                 tipo_fisico=tipoPedido_fisico(p.isTypePublicacion(), p.getArticulo().getFormato());
 
                 if(tipo_fisico==0) //publicacion_fisica
                 {
-
-
-                }else if(tipo_fisico==1)
-                {
-
-
+                   System.out.println("ANALIZANDO PUBLICACION FISICA");
+                   proveedorArticulo=proveedorArticuloFacade.getProveedorMenosConsumo(p.getIdArticulo());
+                   gastEnvio= calcularGastorEnvio(proveedorArticulo, direccion);
+                     System.out.println(
+                      "GASTOS DE ENVIO:"+gastEnvio+":peso"+proveedorArticulo.getPeso()
+                     +"direccionEnvio"+direccion.getEstado().getIdZona());
                 }
+                //else if(tipo_fisico==1)
+                //{
+                  //  System.out.println("ANALIZANDO PUBLICACION FISICA");
+                    //gastEnvio=calcularGastorEnvio(null, direccion) ;
 
-                
+                //}                
                 pedido.setPrecioTotal(new  BigDecimal(p.getTotal()));
                 pedido.setPrecioTotal(pedido.getPrecioTotal().add(gastEnvio));
-                
                 pedido.setTipoEnvio(p.getArticulo().getFormato());
                 pedido.setImpuesto(p.getImpuesto());
                 pedido.setNoArticuloCategoria(p.getCantidad());
-                pedido.setArticulo(p.getArticulo());
 
                 pkey.setIdPedido(pkey.getIdPedido());
-                pkey.setIdArticulo(p.getIdArticulo());
                 pedido.setPedidoPK(pkey);
                 pedidoFacade.create(pedido);
                 System.out.println("AGREGO UN ELEMENTO AL PEDIDO");
@@ -215,14 +248,25 @@ public class PayPalController implements Serializable{
                 JsfUtil.addErrorMessage("Error al crear Pedido");
                 return false;
             }
-            }//for
 
-        
+
+            }//for
 
         return true;
     }
 
     /*true suscripcion fisica  //tue publicacion fisica*/
+
+    public BigDecimal calcularGastorEnvio(ProveedorArticulo proveedorArticulo,Direnvio direccionEnvio)
+    {
+
+          BigDecimal pesoKilogramo=proveedorArticulo.getPeso();
+          int pesoEntero=pesoKilogramo.intValue();
+          String idZona=direccionEnvio.getEstado().getIdZona();
+          pesoKilogramo=zonaFacade.getTarifaByPeso(idZona,pesoEntero,pesoKilogramo);
+
+          return pesoKilogramo;
+    }
     private boolean determinarTipoEnvioFisico(boolean type,String formato){
 
         if(type)
@@ -247,6 +291,7 @@ public class PayPalController implements Serializable{
     public String procesarPago(){
 
        Cliente cliente=carritoController.getSistemaController().getCliente();
+       Direnvio direnvio=direnvioController.getDireccionEnvioSelected();
      try{
 
         if(direnvioController.getDireccionEnvioSelected()==null){
@@ -258,10 +303,11 @@ public class PayPalController implements Serializable{
             JsfUtil.addErrorMessage("No existen publicaciones en su carrito de compra");
             return "/carrito/Carrito";
         }else{
-            if(crearPedido(cliente)){
+         if(crearPedido(cliente,direnvio)){
                 return "/compra/Create";
             }else
              return "/carrito/Carrito";
+         
         }
 
         }catch(Exception e){
@@ -290,7 +336,7 @@ private String pedidoComprado;
 
    
 
-    @PostConstruct
+   /* @PostConstruct
     public void init() {
          int idPedido;
         byte[] byt;
@@ -307,9 +353,6 @@ String saludo;
                      byt=encrip.hexToBytes(getPedidoComprado());
                      saludo=encrip.decrypt(byt);
 
-                   
-                     
-
                      JsfUtil.addSuccessMessage("Compra realizada Satisfactoriamente"+saludo);
                 }catch(Exception e){
                     e.printStackTrace();
@@ -323,6 +366,6 @@ String saludo;
         }catch(Exception e){
 
         }
-    }
+    }*/
 }
 

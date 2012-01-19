@@ -372,6 +372,12 @@ public class ArticuloController implements Serializable {
 
     public String update() {
         try {
+
+            current.setFormato(current.getFormato());
+            current.setAlmacen(current.getAlmacen());
+            current.setCodigo(current.getCodigo());
+            current.setCosto(current.getCosto());
+            current.setFormatoDigital(current.getFormatoDigital());
             current.setTipoArticulo(current.getTipoArticulo());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("Articulo Actualizado Satisfactoriamente"));

@@ -115,12 +115,16 @@ public class ProveedorArticuloFacade {
         ProveedorArticulo pa=null;
       
 
-
+          try{
             TypedQuery<ProveedorArticulo> query=em.createQuery("SELECT p FROM ProveedorArticulo p WHERE p.articulo.id=:idArticulo  ORDER BY p.ultMof ASC",ProveedorArticulo.class)
             .setParameter("idArticulo",idArticulo)
 
             .setMaxResults(1);
-            pa=query.getSingleResult();
+              pa=query.getSingleResult();
+        }catch(Exception  e){
+          e.printStackTrace();
+        }
+            
        
         return pa;
     }

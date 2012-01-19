@@ -31,6 +31,16 @@ public class PublicacionDTO implements Serializable{
     private int indice;
     private Articulo articulo;
     private boolean typePublicacion;
+    private Integer idSuscripcion;
+
+    public Integer getIdSuscripcion() {
+        return idSuscripcion;
+    }
+
+    public void setIdSuscripcion(Integer idSuscripcion) {
+        this.idSuscripcion = idSuscripcion;
+    }
+
 
     public boolean isTypePublicacion() {
         return typePublicacion;

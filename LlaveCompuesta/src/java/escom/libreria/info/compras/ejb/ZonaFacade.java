@@ -6,11 +6,13 @@
 package escom.libreria.info.compras.ejb;
 
 import escom.libreria.info.compras.Zona;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -60,6 +62,21 @@ public class ZonaFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public BigDecimal  getTarifaByPeso(String idZona, int pesoEntero,BigDecimal PesoOriginal) {
+        BigDecimal tarifa=null;
+       try{
+            TypedQuery<BigDecimal>  query=em.createQuery("SELECT z.tarifa FROM Zona z WHERE ( z.idZona=:idZona AND z.peso BETWEEN :peso1 AND :peso2 )",BigDecimal.class)
+            .setParameter("idZona", idZona)
+            .setParameter("peso1",pesoEntero)
+            .setParameter("peso2", PesoOriginal)
+            .setMaxResults(1);
+            tarifa=query.getSingleResult();
+        }catch(Exception e){
+        e.printStackTrace();
+        }
+       return tarifa;
     }
 
 }
