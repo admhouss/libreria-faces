@@ -76,6 +76,42 @@
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
+
+                <br/><br/>
+                <h2>ART&Iacute;CULOS EN EXISTENCIA CERO</h2>
+                <p:dataTable value="#{almacenController.listAlmacensExistenciaCero}" var="item" paginator="true"  rows="10">
+                   
+                    <p:column style="width:30px;">
+                        <f:facet name="header">
+                            <h:outputText value="EXISTENCIA"/>
+                        </f:facet>
+                        <h:outputText value="#{item.existencia}"/>
+                       
+                    </p:column>
+                    <p:column style="width:30px;">
+                        <f:facet name="header">
+                            <h:outputText value="CONSIGNA"/>
+                        </f:facet>
+                        <h:outputText  value="#{item.enConsigna}" />
+                       
+                    </p:column>
+                   <p:column style="width:60px;">
+                        <f:facet name="header">
+                            <h:outputText value="FIRME"/>
+                        </f:facet>
+                        <h:outputText value="#{item.enFirme}"/>
+                        
+                    </p:column>
+                    <p:column style="width:140px;">
+                        <f:facet name="header">
+                            <h:outputText value="ART&Iacute;CULO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
+                    </p:column>
+                   
+                </p:dataTable>
+
+
             </h:panelGroup>
                           </p:panel>
 
