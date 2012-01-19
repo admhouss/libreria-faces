@@ -33,6 +33,9 @@
                             <h:outputLabel for="ccd1" value="CCD"   styleClass="textoNEGRO"/>
                             <h:inputText id="ccd1" value="#{compraController.selected.ccd}" required="true"  requiredMessage="El campo ccd es requerido"/>
                             <h:outputLabel value="*" styleClass="textoROJO"/>
+                             <h:outputLabel for="fechaEnvio" value="Fecha Envio"   styleClass="textoNEGRO"/>
+                             <p:calendar id="fechaEnvio" value="#{compraController.selected.fechaEnvio}" required="true"  requiredMessage="El campo Fecha Envio es requerido"/>
+                            <h:outputLabel value="*" styleClass="textoROJO"/>
                         </h:panelGrid>
                         </center>
                     </p:tab>
@@ -120,86 +123,14 @@
                     </table>
                     </div>
 
+                    <div align="left">
+                        <h:outputLabel value="Este importe  incluye gastos de Env&iacute;o" styleClass="textoROJO"/>
+                    </div>
+
 
                     </p:tab>
 
-                    <!--<p:tab title="Modificar Tipo Envio">
-
-                        <center>
-                        <h:panelGrid columns="6">
-                        <h:outputLabel value="Pedido:" styleClass="textoNEGRO"/>
-
-                        <h:selectOneMenu value="{pedidoController.mycurrent}" style="width:100px;">
-                            <f:selectItems value="{pedidoController.listPedidosByCliente}" var="item"  itemValue="#{item}" itemLabel="#{item.articulo.titulo}"/>
-                        </h:selectOneMenu>
-                        &nbsp;
-                        <h:outputLabel value="Tipo Envio:" styleClass="textoNEGRO"/>
-                        <h:selectOneMenu value="{pedidoController.tipoEnvio}">
-                        <f:selectItem   id="item_0"  itemValue="ELECTRONICO" itemLabel="ELECTRONICO"/>
-                        <f:selectItem   id="item_1" itemValue="FISICO" itemLabel="FISICO"/>
-                        </h:selectOneMenu>
-                        <h:commandButton value="Editar" action="{pedidoController.updateConfig}"/>
-                        </h:panelGrid>
-                        </center>
-                       
-                   <br/><br/>
-                   <p:dataTable value="{pedidoController.listPedidosByCliente}" var="item" paginator="true" rows="10" selectionMode="single">
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="CANTIDAD"/>
-                        </f:facet>
-                        <h:outputText value="{item.noArticuloCategoria}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="CATEGORIA"/>
-                        </f:facet>
-                        <h:outputText value="{item.categoria}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="PRECIO NETO"/>
-                        </f:facet>
-                        <h:outputText value="{item.precioNeto}"/>
-                    </p:column>
-                   <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="IMPUESTO"/>
-                        </f:facet>
-                        <h:outputText value="{item.impuesto}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="DESCUENTO"/>
-                        </f:facet>
-                        <h:outputText value="{item.descuento}"/>
-                    </p:column>
                     
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="PRECIO TOTAL"/>
-                        </f:facet>
-                        <h:outputText value="{item.precioTotal}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="TIPO ENVIO"/>
-                        </f:facet>
-
-                        <h:outputLabel value="{item.tipoEnvio}"/>
-                        
-                    </p:column>
-                    <p:column style="width:16px;">
-                        <f:facet name="header">
-                            <h:outputText value="ARTICULO"/>
-                        </f:facet>
-                        <h:outputText value="{item.articulo.titulo}"/>
-                    </p:column>
-                 
-                </p:dataTable>
-                
-                    </p:tab>-->
 
                 </p:accordionPanel>
                 <br/><br/>
@@ -211,7 +142,7 @@
 
                   
                     <h:outputLabel value="Requiere factura:" styleClass="textoROJO"/>
-                    <h:selectOneMenu value="{compraController.facturar}">
+                    <h:selectOneMenu value="#{compraController.facturar}">
                         <f:selectItem id="item_value_0" itemValue="0" itemLabel="NO"/>
                         <f:selectItem id="item_value_1" itemValue="1" itemLabel="SI"/>
                     </h:selectOneMenu>
