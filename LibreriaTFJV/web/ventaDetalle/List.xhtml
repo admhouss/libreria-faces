@@ -103,7 +103,80 @@
       </table>
                             
                     </p:tab>
-                        
+
+                    <p:tab title="Titulo">
+                    <table width="99%" border="0">
+        <tr>
+          <td width="27%" valign="top" class="Titulo_articulo_small" scope="col">
+              Seleccionar Editorial:
+          </td>
+          <td colspan="2" scope="col">
+            <span class="info2">
+                <h:selectOneMenu  value="#{ventasController.editorial}" id="editorial3">
+                 <f:selectItems var="item" value="#{publicacionController.listaPublicacion}" itemValue="#{item.editorial}" itemLabel="#{item.editorial}"/>
+            </h:selectOneMenu>
+
+          </span></td>
+        </tr>
+        <tr>
+          <td valign="top" class="Titulo_articulo_small">&nbsp;</td>
+          <td colspan="2">
+           <table width="100%" border="0">
+            <tr>
+              <th scope="col">
+		</th>
+              <th scope="col"></th>
+
+            </tr>
+            <tr>
+                <td scope="col" >
+                  <span class="textoNEGRO">Fecha Inicio</span>
+              </td>
+                <td scope="col" >
+                  <span class="textoNEGRO">Fecha Fin</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="info3" scope="col">
+                  <p:calendar mode="inline" value="#{ventasController.fechaInicio}" locale="es"  id="fechaig"/>
+              </td>
+              <td class="info3" scope="col">
+                  <p:calendar mode="inline" value="#{ventasController.fechaFinal}" locale="es" id="fechafg"/>
+                </td>
+
+            </tr>
+          </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" class="Titulo_articulo_small">Cliente</td>
+          <td colspan="2">
+              <span class="info2">
+
+
+                  <h:selectOneMenu value="#{ventasController.cliente}"    id="clientes3">
+                      <f:selectItems value="#{clienteController.listaClientes}" var="cliente" itemValue="#{cliente}" itemLabel="#{cliente.nombre}"/>
+
+                  </h:selectOneMenu>
+
+
+                  &nbsp;
+                  <h:selectBooleanCheckbox value="#{ventasController.editorialesTodos}"  id="boleando3"/>
+           </span>
+          </td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;</td>
+          <td width="64%" align="left">&nbsp;</td>
+          <td width="9%" align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
+                  <h:commandLink  action="#{ventasController.buscarPorEditorial}">
+            <li class="ui-state-default ui-corner-all" title=".ui-icon-search"><span class="ui-icon ui-icon-search"></span></li>
+                  </h:commandLink>
+            </ul></td>
+        </tr>
+      </table>
+
+                    </p:tab>
 
                 </p:accordionPanel>
             </h:panelGroup>
