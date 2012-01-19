@@ -184,23 +184,7 @@
                         </f:facet>
                         <h:outputText value="#{item.telefono}"/>
                       </p:column>
-<!--
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
-                        </f:facet>
-                        <h:commandLink action="{direnvioController.prepareView(item)}">
-                            <img src="./../resources/iconos/INMUEB.png" alt="" title="Ver"/>
-                        </h:commandLink>
-                    </p:column>
-                        <h:commandLink action="{direnvioController.prepareEdit(item)}">
-                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
-                        </h:commandLink>
 
-                        <h:commandLink action="{direnvioController.destroy(item)}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
-                        </h:commandLink>
-                      </p:column>-->
                 </p:dataTable>
 
 
@@ -291,7 +275,7 @@
                 <strong>Todos los bancos</strong>)</p></td>
             <td>
            <ul id="icons" class="ui-widget ui-helper-clearfix">
-               <h:commandLink action="#{paypalController.procesarDeposito}">
+               <h:commandLink action="#{paypalController.procesarCarritoPorDeposito}">
 
               <li class="ui-state-default ui-corner-all" title=".ui-icon-arrowthick-1-e">
               <span class="ui-icon ui-icon-arrowthick-1-e"></span>
