@@ -23,8 +23,8 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                     <h:inputText id="nombre" value="#{estadoController.selected.nombre}" title="Estado" required="true" requiredMessage="El campo nombre es requerido"/>
                      <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="Zona:" for="nombre" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="zona" value="#{estadoController.selected.zona}" title="Zona" required="true" requiredMessage="El campo zona es requerido">
-                        <f:selectItems value="#{zonaController.listZona}" var="item" itemValue="#{item}" itemLabel="#{item.idZona}" />
+                    <h:selectOneMenu id="zona" value="#{estadoController.selected.idZona}" title="Zona" required="true" requiredMessage="El campo zona es requerido">
+                        <f:selectItems value="#{zonaController.listZona}" var="item" itemValue="#{item.idZona}" itemLabel="#{item.idZona}" />
                     </h:selectOneMenu>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                 </h:panelGrid>
