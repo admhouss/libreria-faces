@@ -1,5 +1,6 @@
 package escom.libreria.info.descuentos.jsf;
 
+import escom.libreria.comun.ValidarFechaFormat;
 import escom.libreria.info.descuentos.DescuentoCliente;
 import escom.libreria.info.cliente.jsf.util.JsfUtil;
 import escom.libreria.info.cliente.jsf.util.PaginationHelper;
@@ -22,6 +23,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
 
 @ManagedBean (name="descuentoClienteController")
 @SessionScoped
@@ -32,6 +34,7 @@ public class DescuentoClienteController implements Serializable{
     @EJB private DescuentoClienteFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private static  Logger logger = Logger.getLogger(DescuentoClienteController.class);
 
     public DescuentoClienteController() {
     }
@@ -87,6 +90,16 @@ public class DescuentoClienteController implements Serializable{
     }
 
     public String create() {
+
+        boolean validaFecha=ValidarFechaFormat.getValidarFecha(current.getFechaInicio(), current.getFechaFin());
+
+        if(!validaFecha){
+            JsfUtil.addErrorMessage("La Fecha Final debe ser Mayor o Igual que Fecha Inicial");
+            return null;
+        }
+
+
+
         try {
             DescuentoClientePK descuentoID=new DescuentoClientePK();
             current.setCliente(current.getCliente());
@@ -96,12 +109,12 @@ public class DescuentoClienteController implements Serializable{
             current.setDescuentoClientePK(descuentoID);
             current.setFechaFin(current.getFechaFin());
             current.setFechaInicio(current.getFechaFin());
-
             getFacade().create(current);
             JsfUtil.addSuccessMessage(("Descuento cliente creado Satisfactoriamente"));
             return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ("Error al crear descuento cliente"));
+            logger.error("Error al crear descuento cliente", e);
+            JsfUtil.addErrorMessage(("Error al crear descuento cliente"));
             return null;
         }
     }
@@ -115,6 +128,13 @@ public class DescuentoClienteController implements Serializable{
     }
 
     public String update() {
+
+        boolean fechasValidas=ValidarFechaFormat.getValidarFecha(current.getFechaInicio(), current.getFechaFin());
+                if(!fechasValidas){
+                    JsfUtil.addErrorMessage("La Fecha Final de ser Mayor igual que Fecha Inicial");
+                    return null;
+                }
+
         try {
 
 
@@ -133,7 +153,8 @@ public class DescuentoClienteController implements Serializable{
               return "/descuentoCliente/View";
 
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ("Error al actualizar descuento cliente"));
+            logger.error("Erroro al actualizar descuento Articulo",e);
+            JsfUtil.addErrorMessage(("Error al actualizar descuento cliente"));
             return null;
         }
     }

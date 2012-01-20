@@ -9,21 +9,63 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import javax.faces.application.ResourceHandler;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+
+
+@WebFilter(servletNames={"Faces Servlet"}) // Must match <servlet-name> of your FacesServlet.
+public class SessionController implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+
+        if (!req.getRequestURI().startsWith(req.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER)) {
+            // Skip JSF resources (CSS/JS/Images/etc)
+            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+            res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+            res.setDateHeader("Expires", 0); // Proxies.
+        }
+
+        chain.doFilter(request, response);
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void destroy() {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    // ...
+}
+
+
 /**
  *
  * @author xxx
- */
-public class SessionController implements Filter {
+ *
+
+
+
+/*
+
+ public class SessionController implements Filter {
 
     private static final boolean debug = true;
 
@@ -59,7 +101,7 @@ public class SessionController implements Filter {
 	    }
 	    log(buf.toString());
 	}
-	*/
+	
     } 
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
@@ -78,16 +120,16 @@ public class SessionController implements Filter {
 	    log("attribute: " + name + "=" + value.toString());
 
 	}
-	*/
+	
 
 	// For example, a filter might append something to the response.
-	/*
+	
 	PrintWriter respOut = new PrintWriter(response.getWriter());
 	respOut.println("<P><B>This has been appended by an intrusive filter.</B>");
-	*/
+	
     }
 
-    /**
+    
      *
      * @param request The servlet request we are processing
      * @param response The servlet response we are creating
@@ -95,7 +137,7 @@ public class SessionController implements Filter {
      *
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
-     */
+     
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain)
 	throws IOException, ServletException {
@@ -116,7 +158,7 @@ public class SessionController implements Filter {
 
 
 
-/*      if(session==null )System.out.println("Session Invalid");
+   if(session==null )System.out.println("Session Invalid");
       
 
 
@@ -151,7 +193,7 @@ public class SessionController implements Filter {
 	    // rethrow the problem after that.
 	    problem = t;
 	    t.printStackTrace();
-	}*/
+	}
 
 	doAfterProcessing(request, response);
 
@@ -164,31 +206,23 @@ public class SessionController implements Filter {
 	}
     }
     
-    /**
+    
      * Return the filter configuration object for this filter.
-     */
+    
     public FilterConfig getFilterConfig() {
 	return (this.filterConfig);
     }
 
-    /**
-     * Set the filter configuration object for this filter.
-     *
-     * @param filterConfig The filter configuration object
-     */
+   
     public void setFilterConfig(FilterConfig filterConfig) {
 	this.filterConfig = filterConfig;
     }
 
-    /**
-     * Destroy method for this filter 
-     */
+   
     public void destroy() { 
     }
 
-    /**
-     * Init method for this filter 
-     */
+   
     public void init(FilterConfig filterConfig) { 
 	this.filterConfig = filterConfig;
 	if (filterConfig != null) {
@@ -198,9 +232,7 @@ public class SessionController implements Filter {
 	}
     }
 
-    /**
-     * Return a String representation of this object.
-     */
+    
     @Override
     public String toString() {
 	if (filterConfig == null) return ("SessionController()");
@@ -259,4 +291,4 @@ public class SessionController implements Filter {
 	filterConfig.getServletContext().log(msg); 
     }
 
-}
+}*/
