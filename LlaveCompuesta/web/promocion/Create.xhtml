@@ -34,6 +34,9 @@
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                      </p:calendar>
                      <h:outputLabel value="*"  styleClass="textoROJO"  />
+                     <h:outputLabel value="C&Oacute;DIGO PROMOCION:" styleClass="textoNEGRO" />
+                     <h:outputLabel value="#{promocionController.codigoPromocion}"  styleClass="textoROJO" />
+                      <h:outputLabel value="*"  styleClass="textoROJO"  />
 
                 </h:panelGrid>
                 </center>
@@ -43,7 +46,8 @@
                      <p:panel header="ELEGIR PRECIO A ARTICULO">
             <h:panelGroup >
 
-                <p:dataTable value="#{promocionController.listaArticulosPromociones}" var="item"  paginator="true" rows="13" selectionMode="single">
+                <p:dataTable value="#{promocionController.listaArticulosPromociones}" var="item"  
+                             paginator="true" rows="13"  selectionMode="single" >
                      <p:column >
                         <f:facet name="header">
                             <h:outputText value="TITULO"/>
@@ -83,7 +87,6 @@
                         <h:commandLink action="#{promocionController.InitialArticulo(item)}">
                               <img src="./../resources/iconos/agregar.png" alt="" title="Ver"/>
                         </h:commandLink>
-
                         
 
                     </p:column>
@@ -94,7 +97,11 @@
                               <br />
                 <div align="center">
                     <p:panel>
-                <h:commandButton action="#{promocionController.create}" value="Guardar" />
+                        <h:commandButton action="#{promocionController.create}" value="GUARDAR" />
+                        &nbsp;
+                        <h:commandButton action="#{promocionController.prepareFinalizar}" value="FINALIZAR" />
+                       &nbsp;
+                       <h:commandButton action="#{promocionController.prepareList}" value="CANCELAR" />
                     </p:panel>
                 </div>
                 <br />

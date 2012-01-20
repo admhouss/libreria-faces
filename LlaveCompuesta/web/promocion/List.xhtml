@@ -28,10 +28,28 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
             <h:panelGroup >
 
                 <br/>  <br/>
+
+                <p:panel>
+                    <center>
+                 <h:panelGrid columns="3">
+                     <h:outputLabel value="Enviar Promocion"/>
+                    <h:commandLink action="#{promocionController.sendCorreo}">
+                        <img src="./../resources/iconos/correo.png" alt="" title="Correo"/>
+                    </h:commandLink>
+                 </h:panelGrid>
+                    </center>
+                </p:panel>
+
+                <br/>  <br/>
                 <p:panel header="CATALOGO DE PROMOCIONES">
                         
                     <p:dataTable value="#{promocionController.listPromocion}" var="item" paginator="true" rows="10"  >
-                      
+                      <p:column style="width: 15px;">
+                        <f:facet name="header">
+                            <h:outputText value="C&Oacute;D"/>
+                        </f:facet>
+                          <h:outputText id="codigo" value="#{item.promocionPK.id}"/>
+                    </p:column>
                       <p:column style="width: 15px;">
                         <f:facet name="header">
                             <h:outputText value="PRECIO"/>
@@ -40,7 +58,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                     </p:column>
                     <p:column style="width:15px;">
                         <f:facet name="header">
-                            <h:outputText value="FECHA INICIO"/>
+                            <h:outputText value="F.INICIO"/>
                         </f:facet>
                         <h:outputText value="#{item.diaInicio}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -48,10 +66,10 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                     </p:column>
                     <p:column style="width:15px;">
                         <f:facet name="header">
-                            <h:outputText value="FECHA FIN"/>
+                            <h:outputText value="F.FIN"/>
                         </f:facet>
                         <h:outputText value="#{item.diaFin}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
                     <p:column style="width:130px;" filterBy="#{item.articulo.titulo}" >
@@ -77,9 +95,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                         <h:commandLink action="#{promocionController.destroy(item)}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
-                        <h:commandLink action="#{promocionController.sendCorreo(item)}">
-                        <img src="./../resources/iconos/correo.png" alt="" title="Correo"/>
-                        </h:commandLink>
+                        
                     </p:column>
 
         
