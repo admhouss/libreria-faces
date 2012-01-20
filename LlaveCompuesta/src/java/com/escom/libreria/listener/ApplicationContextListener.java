@@ -27,7 +27,6 @@ import org.w3c.dom.Element;
  * @author xxx
  */
 @WebListener()
-
 public class ApplicationContextListener implements ServletContextListener {
 
     private Timer timer = new Timer();

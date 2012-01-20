@@ -252,6 +252,11 @@ public class PromocionController implements Serializable{
     public String create() {
         try {
 
+            boolean validarFechas=ValidarFechaFormat.getValidarFecha(current.getDiaInicio(),current.getDiaFin());
+            if(!validarFechas){
+                JsfUtil.addErrorMessage("La Fecha Final debe ser Mayor o Igual que Fecha Inicial");
+                return null;
+            }
             if(codigoPromocion!=null && articuloSeeccionado!=null)
             {
                     PromocionPK pk=new PromocionPK();
@@ -266,7 +271,7 @@ public class PromocionController implements Serializable{
             JsfUtil.addErrorMessage("Error no se ha selecionado ningun articulo");
             return null;
         } catch (Exception e) {
-            logger.error("Error al crear la promocion",e);
+            logger.error("Error al crear la promocion,CODIGO PROMOCION"+codigoPromocion,e);
             JsfUtil.addErrorMessage("Error al crear la promocion");
             return null;
         }
@@ -288,11 +293,16 @@ public class PromocionController implements Serializable{
        return l;
     }
     public String update() {
-        int id=0;
+
+
+        boolean validarFechas=ValidarFechaFormat.getValidarFecha(current.getDiaInicio(), current.getDiaFin());
+        if(!validarFechas){
+            JsfUtil.addErrorMessage("La Fecha Final debe ser Mayor o Igual que Fecha Incial");
+            return null;
+
+        }
         try {
            current=getSelected();
-           //Promocion prom=getFacade().find(current.getPromocionPK().getId());
-
            current.setDiaFin(current.getDiaFin());
            current.setDiaInicio(current.getDiaInicio());
            current.setPrecioPublico(current.getPrecioPublico());
@@ -300,28 +310,21 @@ public class PromocionController implements Serializable{
            current.setPromocionPK(current.getPromocionPK());
            current.getPromocionPK().setIdArticulo(current.getPromocionPK().getIdArticulo());
            current.getPromocionPK().setId(current.getPromocionPK().getId());
-
-
-
-             // selectedItemIndex=current.getPromocionPK().getId();
-               getFacade().edit(current);
-              // System.out.println("ACTUALIZAR PROMOCION PK:"+current.getPromocionPK());
-
-
-
-            JsfUtil.addSuccessMessage(("Promocion actualizada Satisfactoriamente"));
-            return "View";
+           getFacade().edit(current);
+           JsfUtil.addSuccessMessage(("Promocion actualizada Satisfactoriamente"));
+           return "View";
         } catch (Exception e) {
-            e.printStackTrace();
-            JsfUtil.addErrorMessage(e, ("Error al actualizar la promocion"));
+            logger.error("Error al actualizar promocion",e);
+            JsfUtil.addErrorMessage(("Error al actualizar la promocion"));
             return null;
         }
     }
 
     public String destroy(Promocion p) {
         current=p;
-       getFacade().remove(p);
-       JsfUtil.addSuccessMessage("Promocion Eliminada Satisfactoriamente");
+        getFacade().remove(p);
+        JsfUtil.addSuccessMessage("Promocion Eliminada Satisfactoriamente");
+        logger.info("Promocion Eliminada Satisfactoriamente");
         return "List";
     }
 

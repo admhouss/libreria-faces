@@ -1,6 +1,7 @@
 package escom.libreria.info.descuentos.jsf;
 
 
+import escom.libreria.comun.ValidarFechaFormat;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 
@@ -21,6 +22,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
 
 @ManagedBean (name="descuentoArticuloController")
 @SessionScoped
@@ -32,6 +34,7 @@ public class DescuentoArticuloController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private String correo;
+    private static  Logger logger = Logger.getLogger(DescuentoArticuloController.class);
 
     public String getCorreo() {
         return correo;
@@ -96,6 +99,16 @@ public class DescuentoArticuloController implements Serializable {
     }
 
     public String create() {
+
+
+        boolean valida=ValidarFechaFormat.getValidarFecha(current.getFechaInicio(), current.getFechaFinal());
+        if(!valida){
+            JsfUtil.addErrorMessage("La Fecha Incial debe sere Mayor o Igual que la Fecha Final ");
+            return null;
+        }
+
+
+
         try {
             current.setIdArticulo(current.getArticulo().getId());
             DescuentoArticulo  descuento=getFacade().find(current.getIdArticulo());
@@ -110,7 +123,8 @@ public class DescuentoArticuloController implements Serializable {
                 JsfUtil.addErrorMessage("Ya existe un descuento para este articulo");
             }
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));
+            logger.error("Error al crear Descuento Articulo",e);
+            JsfUtil.addErrorMessage("Error al crear Descuento Articulo");
             return null;
         }
         return null;
@@ -125,31 +139,32 @@ public class DescuentoArticuloController implements Serializable {
 
     public String update() {
         try {
-           // DescuentoArticulo descuento=getFacade().find(current.getIdArticulo());
-            //if(descuento!=null){
-              //  JsfUtil.addErrorMessage("Ya existe un descuento para este articulo");
-               // return null;
-            //}
-
+           
+           boolean fechasValidas=ValidarFechaFormat.getValidarFecha(current.getFechaInicio(), current.getFechaFinal());
+           if(fechasValidas){
             current.setArticulo(current.getArticulo());
             current.setDescuento(current.getDescuento());
             current.setFechaInicio(current.getFechaInicio());
             current.setFechaFinal(current.getFechaFinal());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(("Descuento Articulo Actualizado"));
+            logger.info("Descuento articulo actualizado satisfactoriamente");
             return "View";
+           }else{
+             JsfUtil.addErrorMessage("La Fecha Final debe ser Meyor o Igual que Fecha Inicial");
+             return null;
+           }
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));
+            logger.error("Error al Actualizar Descuento Articulo", e);
+            JsfUtil.addErrorMessage("Error al Actualizar Descuento Articulo");
             return null;
         }
     }
 
     public String destroy(DescuentoArticulo p) {
-      current=p;
-
-        //performDestroy();
-        //recreateModel();
-      JsfUtil.addSuccessMessage("Descuento Eliminado Satisfactoriamente");
+        
+        current=p;
+        JsfUtil.addSuccessMessage("Descuento Eliminado Satisfactoriamente");
         getFacade().remove(current);
         return "List";
     }
@@ -170,9 +185,9 @@ public class DescuentoArticuloController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Descuento").getString("DescuentoArticuloDeleted"));
+            JsfUtil.addSuccessMessage(("DescuentoArticuloDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Descuento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ("PersistenceErrorOccured"));
         }
     }
 
