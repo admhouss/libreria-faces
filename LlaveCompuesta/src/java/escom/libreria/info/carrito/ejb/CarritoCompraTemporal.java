@@ -10,6 +10,7 @@ import escom.libreria.info.carrito.jpa.PublicacionDTO;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.descuentos.ejb.DescuentoClienteFacade;
 import escom.libreria.info.articulo.Publicacion;
+import escom.libreria.info.facturacion.Articulo;
 
 import escom.libreria.info.login.sistema.SistemaController;
 import java.math.BigDecimal;
@@ -50,7 +51,7 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
           }else //ya existe articulo
              carritoDTO_Temporal.setCantidad(carritoDTO_Temporal.getCantidad()+1);
           
-          
+         
     }
 
     @Override
@@ -95,16 +96,15 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
       
         for(PublicacionDTO publicacion:listaPublicacion){
 
-               if(publicacion.getIdArticulo()==p.getIdArticulo() 
-                 && publicacion.getIdPublicacion()==p.getIdPublicacion()
-                 && p.isTypePublicacion() )// es publicacion
+               if(publicacion.getIdArticulo()==p.getIdArticulo())//
 
                { //ya existe el articulo
                     temporal=publicacion;
                     //temporal=p;
                    
                    break;
-               }else  if( publicacion.getIdArticulo()==p.getIdArticulo()
+               }
+               /*else  if( publicacion.getIdArticulo()==p.getIdArticulo()
                  && publicacion.getIdPublicacion()==p.getIdPublicacion()
                  && !p.isTypePublicacion()
                        ){ //ya existe el articulo
@@ -112,7 +112,7 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
                     //temporal=p;
 
                    break;
-               }
+               }*/
                
           }
         return temporal;
@@ -156,11 +156,18 @@ public class CarritoCompraTemporal implements CarritoCompraTemporalLocal {
         return false;
     }
 
-    @Override
+   /* @Override
     public PublicacionDTO buscarPublicacion(Publicacion p) {
           PublicacionDTO dt=new PublicacionDTO();
           dt.setIdArticulo(p.getArticulo().getId());
           dt.setIdPublicacion(p.getIdDc());
+          return buscarArticulo(dt);
+    }*/
+
+    @Override
+    public PublicacionDTO buscarPublicacion(Articulo p) {
+        PublicacionDTO dt=new PublicacionDTO();
+          dt.setIdArticulo(p.getId());
           return buscarArticulo(dt);
     }
 

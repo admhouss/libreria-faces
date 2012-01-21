@@ -42,8 +42,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 
 
@@ -52,6 +50,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -77,6 +77,7 @@ public class CarritoController implements Serializable{
     @EJB private PedidoFacade pedidoFacade;
     @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
     public Articulo articulo;
+    private static  Logger logger = Logger.getLogger(CarritoController.class);
 
     public SuscripcionController getSuscripcionController() {
         return suscripcionController;
@@ -277,7 +278,7 @@ private Date getHoy(){
             Date hoy = formato2.parse(cadenaToday);
             return hoy;
         } catch (ParseException ex) {
-            Logger.getLogger(CarritoController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.info("ERROR AL CALCULA LA FECHA DE HOY");
         }
         return null;
 }
@@ -295,38 +296,39 @@ private Date getHoy(){
    public void borrarCarrito(){
        carritoCompraTemporalLocal=null;
    }
- public String agregarArticulo(Publicacion publicacion){
+ public String agregarArticulo(Articulo art){
 
-     Articulo articulo1=publicacion.getArticulo();
+     Articulo articulo1=art;/*VALIDAR SI ESTE ARTICULO TIENE PROMOCION*/
      Almacen almacen=almacenFacade.find(articulo1.getId());
+     Cliente clienteOperando=null;
+     try{
+     clienteOperando=sistemaController.getCliente();/*CLIENTE ACTUAL */
+     }catch(Exception e){
+       JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
+       return "/login/Create.xhtml";
+     }
 
      PublicacionDTO temporalDTO=null;//
      if(almacen==null || almacen.getExistencia()<=0)
      {
-
          JsfUtil.addErrorMessage("La publicacion que desea no se encuentra en Almacen");
          return null;
-
      }else
      {
-
-
-        
-        Cliente clienteOperando=sistemaController.getCliente();//
-    
 
            try{
                  if(clienteOperando!=null){
 
                     carritoCompraTemporalLocal=ObtenerCarrito();
-                    temporalDTO=carritoCompraTemporalLocal.buscarPublicacion(publicacion);
+                    temporalDTO=carritoCompraTemporalLocal.buscarPublicacion(articulo1);
 
                       if(temporalDTO==null){
 
                              temporalDTO=procesarArticulo(articulo1,1);
-                             temporalDTO.setEditorial( publicacion.getEditorial());
-                             temporalDTO.setIdPublicacion(publicacion.getIdDc());
-                             temporalDTO.setTypePublicacion(false);
+                             temporalDTO.setEditorial( articulo1.getFormato());
+
+                             //temporalDTO.setIdPublicacion(publicacion.getIdDc());
+                            // temporalDTO.setTypePublicacion(false);
                              agregarCarrito(temporalDTO);
                              JsfUtil.addSuccessMessage("Publicacion agregada Satisfactoriamente");
                              return "/carrito/Carrito";
@@ -353,10 +355,10 @@ private Date getHoy(){
          return "/carrito/Carrito";
     }
 
- public String agregarArticulo(Articulo a){
+ /*public String agregarArticulo(Articulo a){
 
-     Articulo articulo=a;
-     Almacen almacen=almacenFacade.find(articulo.getId());
+     Articulo articulo1=a;
+     Almacen almacen=almacenFacade.find(articulo1.getId());
      PublicacionDTO temporalDTO=null;//
      if(almacen==null || almacen.getExistencia()<=0){
 
@@ -377,7 +379,7 @@ private Date getHoy(){
                     temporalDTO=null;//carritoCompraTemporalLocal.buscarPublicacion(publicacion);
 
                       if(temporalDTO==null){
-                             temporalDTO=procesarArticulo(null,1);
+                             temporalDTO=procesarArticulo(articulo1,1);
                              agregarCarrito(temporalDTO);
                              JsfUtil.addSuccessMessage("Publicacion agregada Satisfactoriamente");
                              return "/carrito/Carrito";
@@ -403,7 +405,7 @@ private Date getHoy(){
 
          return "/carrito/Carrito";
     }
-
+*/
 
  public List<PublicacionDTO> getListPedidosDTO(){
     if(carritoCompraTemporalLocal==null){

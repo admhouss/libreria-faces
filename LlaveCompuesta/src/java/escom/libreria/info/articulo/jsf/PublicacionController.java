@@ -15,11 +15,7 @@ import escom.libreria.info.bitacoras.ejb.BitacoraClienteFacade;
 import escom.libreria.info.facturacion.ejb.ArticuloFacade;
 import escom.libreria.info.login.sistema.SistemaController;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +44,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.xml.DOMConfigurator;
 
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;

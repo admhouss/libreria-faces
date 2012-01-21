@@ -39,7 +39,14 @@ public class SessionController implements Filter {
             res.setDateHeader("Expires", 0); // Proxies.
         }
 
+        try{
         chain.doFilter(request, response);
+        }catch(javax.faces.application.ViewExpiredException e2){
+            System.out.println("ERROR DE SIEMPRE");
+        }
+        catch(Exception e){
+           System.out.println("Cocurrio un error");
+        }
     }
 
     @Override

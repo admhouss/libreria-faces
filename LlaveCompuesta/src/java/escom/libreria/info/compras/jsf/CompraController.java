@@ -31,6 +31,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
 
 @ManagedBean (name="compraController")
 @SessionScoped
@@ -50,7 +51,7 @@ public class CompraController implements Serializable{
      @ManagedProperty("#{direnvioController}")
      private DirenvioController direnvioController;
 
-
+private static  Logger logger = Logger.getLogger(CompraController.class);
 
 
     public DirenvioController getDirenvioController() {
@@ -142,9 +143,14 @@ private String pedidoTocandelar;
         
     }
     public List<Compra> getListCompras(){
-       String idCliente=sistemaController.getCliente().getId();
        List<Compra> l=null;
+       try{
+       String idCliente=sistemaController.getCliente().getId();
+       
        l=getFacade().getComprasByCliente(idCliente);
+        }catch(Exception e){
+         logger.info("Error cliente intento acceder a su compras pero no esta logeado");
+        }
        return l;
     }
 

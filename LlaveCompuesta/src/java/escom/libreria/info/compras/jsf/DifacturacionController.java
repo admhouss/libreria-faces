@@ -22,6 +22,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
 
 @ManagedBean (name="difacturacionController")
 @SessionScoped
@@ -37,7 +38,7 @@ public class DifacturacionController implements Serializable{
     private SistemaController sistemaController;
 
 
-   // @EJB private com.escom.info.generarFactura.GeneraraFacade generaraFacade;
+   private static  Logger logger = Logger.getLogger(DifacturacionController.class);
 
     public Difacturacion getDifacturacionSelected() {
         return difacturacionSelected;
@@ -63,8 +64,14 @@ public class DifacturacionController implements Serializable{
 
 private Cliente cliente;
     public List<Difacturacion> getLisDirfaDifacturacionsByCliente(){
+         List<Difacturacion> l =null;
+        try{
          cliente=sistemaController.getCliente();
-         List<Difacturacion> l=getFacade().getDireccionFacturaCliente(cliente.getId());
+         if(cliente!=null)
+          l=getFacade().getDireccionFacturaCliente(cliente.getId());
+        }catch(Exception e){
+           logger.info("Error al intentar obtener direccion Facturacion cliente ", e);
+        }
          return l;
     }
 
