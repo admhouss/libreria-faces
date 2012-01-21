@@ -446,11 +446,43 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+<table width="90%" border="0" align="right">
+  <tr>
+    <th align="left" scope="col">
+
+        <h2>Ofertas</h2>
+      <ul class="list navigation">
+        <li>
+            <h:form id="formOfertaMes">
+                <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/ofertas/List.xhtml">
+                    <h:outputText value="Oferta del Mes"/>
+                </h:outputLink>
+            </h:form>
+
+        </li>
+        <li><a href="#">Ofernta del D&iacute;a</a>
+         <!--<ul>
+            <ul>
+              <ul>
+                <li><a href="#">Derecho Admimistrativo</a></li>
+                <li><a href="#">Juicio en Linea</a></li>
+                <li><a href="#">Juicios Orales</a></li>
+                <li><a href="#">Jurisprudencia</a></li>
+              </ul>
+            </ul>
+          </ul>-->
+        </li>
+      </ul>
+      <p></p></th>
+  </tr>
+</table>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <table width="90%" border="0" align="right">
   <tr>
-    <th align="left" scope="col"><h2>Lo mas vendido</h2>
+    <th align="left" scope="col">
+
+        <h2>Lo mas vendido</h2>
       <ul class="list navigation">
         <li><a href="#">Derecho físcal</a></li>
         <li><a href="#">Derecho internacional</a>
@@ -825,13 +857,13 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
     <tr>
       <td>&nbsp;</td>
     </tr>
-    <tr>
+   <!--<tr>
       <td class="ui-state-active">Oferta del Día</td>
     </tr>
     <tr>
       <td><table width="99%" border="0">
         <tr>
-          <td align="center"><p><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
+          <td align="center"><p><img src="{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
         </tr>
         <tr>
           <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
@@ -855,7 +887,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
     <tr>
       <td><table width="99%" border="0">
         <tr>
-          <td align="center"><p><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto3.jpg" width="81" height="72" /></p></td>
+          <td align="center"><p><img src="{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto3.jpg" width="81" height="72" /></p></td>
         </tr>
         <tr>
           <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
@@ -872,7 +904,13 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
         <tr></tr>
       </table></td>
     </tr>
+   -->
   </table>
+
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <!--<p>&nbsp;</p>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
@@ -886,11 +924,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
   <p>&nbsp;</p>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
+  <p>&nbsp;</p>-->
   <p>&nbsp;</p>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
@@ -959,7 +993,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                     <h:outputText value="Publicaciones"/>
                 </h:outputLink>
             </li>
-            <li><h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=suscripciones">
+            <li><h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/suscripcionVentas/List.xhtml">
                     <h:outputText value="Suscripciones"/>
                 </h:outputLink></li>
             <li>
