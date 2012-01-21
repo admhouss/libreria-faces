@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" "></h:outputText>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form id="articuloview">
+
+                <br/><br/><br/>
+
+                <p:tabView  >
+                    <center>
+                        <p:tab title="Descripci&oacute;n General"  >
+                       <table width="99%" border="0">
+  <tr>
+      <td width="13%" rowspan="8" scope="col" valign="top" >
+
+          <img src="#{suscripcionController.articuloSeleccionado.imagen}" width="83" height="122" />
+    </td>
+      <td width="79%" class="Titulo_articulo" scope="col">
+
+        
+          <h:outputLabel value="#{suscripcionController.articuloSeleccionado.titulo}" />
+
+      </td>
+
+
+  </tr>
+  <tr>
+      <td><p><strong>Autor:</strong> <h:outputText value="#{suscripcionController.articuloSeleccionado.creador}"/></p></td>
+  </tr>
+  <tr>
+      <td><p><strong>Idioma:</strong> <h:outputText value="#{suscripcionController.articuloSeleccionado.idioma}"/>
+          </p></td>
+
+  </tr>
+  <tr>
+      <td><strong>Unidad: </strong><h:outputText value="#{suscripcionController.articuloSeleccionado}"/></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+
+    <td align="left">
+     <ul id="icons" class="ui-widget ui-helper-clearfix">
+      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito">
+          
+          <h:commandLink action="#{carritoController.agregarArticulo(suscripcionController.articuloSeleccionado)}">
+              <span class="ui-icon ui-icon-cart"></span>
+        </h:commandLink>
+
+      </li>
+      <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="#"><span class="ui-icon ui-icon-comment"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Mas información">
+    
+      <a href="#">
+      <span class="ui-icon ui-icon-info"></span>
+      </a>
+      </li>
+      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados">
+          
+       <span class="ui-icon ui-icon-link">
+           <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(suscripcionController.articuloSeleccionado)}" immediate="true" styleClass="ui-icon ui-icon-link"/>
+       </span>
+      </li>
+    </ul>
+    </td>
+  </tr>
+  <tr></tr>
+  <tr></tr>
+
+</table>
+
+
+
+
+                        </p:tab>
+                        <p:tab title="Detalle">
+                            <center>
+                                <table width="99%" border="0" cellspacing="5">
+  <tr align="left">
+      <td width="13%" rowspan="21" scope="col" >
+        <img src="#{suscripcionController.articuloSeleccionado.imagen}" width="83" height="122" />
+      </td>
+      <td width="79%" class="Titulo_articulo" scope="col">
+         <h:outputLabel value="#{suscripcionController.articuloSeleccionado.titulo}"/>
+      </td>
+  </tr>
+
+  <tr align="left">
+      <td><p><strong>Autor:</strong> <h:outputText value="#{suscripcionController.articuloSeleccionado.creador}"/></p></td>
+
+
+  </tr>
+  <tr align="left">
+      <td><p><strong>Publicador:</strong> <h:outputText value="#{suscripcionController.articuloSeleccionado.publicador}"/>
+          </p></td>
+
+  </tr>
+  
+
+
+
+<tr align="left">
+    <td><strong>Agregaci&oacute;n Recurso:</strong><h:outputText value="#{suscripcionController.articuloSeleccionado.agregacionRecurso}" title="Agregacion Recurso"/></td>
+</tr>
+<tr align="left">
+    <td><strong>Asunto:</strong> <h:outputText value="#{suscripcionController.articuloSeleccionado.asunto}" title="Asunto"/></td>
+</tr>
+<tr align="left">
+    <td><strong>Descripci&oacute;n:</strong> <h:outputText value="#{suscripcionController.articuloSeleccionado.descripcion}" title="Descripcion"/></td>
+</tr>
+<tr align="left">
+    <td><strong>Divisa:</strong> <h:outputText value="#{suscripcionController.articuloSeleccionado.divisa}" title="Divisa"/></td>
+</tr>
+<tr align="left">
+    <td><strong>Fecha Creaci&oacute;n</strong> <h:outputText value="#{suscripcionController.articuloSeleccionado.fechaCreacion}" title="Fecha ">
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+    </td>
+</tr>
+<tr align="left">
+    <td><strong>Fecha Disponibilidad:</strong>
+        <h:outputText value="#{suscripcionController.articuloSeleccionado.fechaDisponibilidad}" title="fecha disponible">
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+        </h:outputText>
+    </td>
+</tr>
+<tr align="left">
+    <td><strong>Formato:</strong><h:outputText value="#{suscripcionController.articuloSeleccionado.formato}" title="Formato"/></td>
+</tr>
+<tr align="left">
+    <td><strong>Formato Digital:</strong> <h:outputText value="#{suscripcionController.articuloSeleccionado.formatoDigital}" title="formatoDigital"/>
+</td>
+</tr>
+
+
+
+
+
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+ <td>&nbsp;</td>
+    <!--<td align="left">
+     <ul id="icons" class="ui-widget ui-helper-clearfix">
+      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><a href="carrito_1.html"><span class="ui-icon ui-icon-cart"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Agregar un comentario"><a href="Articulo.html"><span class="ui-icon ui-icon-comment"></span></a></li>
+      <li class="ui-state-default ui-corner-all" title="Mas información">
+     <h:commandLink  action="./../index.xhtml" >
+          <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
+      </h:commandLink>
+    
+      <a href="Articulo.html">
+      <span class="ui-icon ui-icon-info"></span>
+      </a>
+      </li>
+      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+    </ul>
+    </td>-->
+  </tr>
+  <tr></tr>
+  <tr></tr>
+
+
+</table>
+
+                           
+                            </center>
+
+                        </p:tab>
+
+
+                         
+                         <p:tab title="Comentario">
+
+                             <div id="tabs-3">
+                                 <p:dataGrid var="item" value="#{comentarioController.listaComentariosGenerico}" columns="1" paginator="true" rows="5">
+                                     <p:column> 
+                                         <h:panelGrid columns="1">
+                                             <h:outputText value="#{item.autor}" styleClass="textoNEGRO"/>
+                                            <ul id="icons" class="ui-widget ui-helper-clearfix">
+                                                <li class="ui-state-default ui-corner-all" title=".ui-icon-person"><span class="ui-icon ui-icon-person"></span></li>
+                                            </ul>
+                                            <h:outputText value="#{item.comentario}" />
+                                        </h:panelGrid>
+                                     </p:column>
+
+                                 
+                                 
+                                 </p:dataGrid>
+
+
+                                 
+                             </div>
+                             <br/><br/>
+                             <div align="right">
+                                 <p:commandButton value="Comentar" onclick="dlg1.show();" type="button" image="ui-icon ui-icon-copy"/>
+                             </div>
+
+                             <br/><br/>
+
+
+                             <p:dialog header="Postear Articulo" widgetVar="dlg1"   showEffect="bounce" hideEffect="explode"  position="center" resizable="true">
+
+                              <h:inputTextarea   value="#{comentarioController.comentario}" styleClass="textoNEGRO"  rows="10" cols="40"/>
+                               <br/><br/>
+                               <div align="right">
+                                    <h:commandButton value="Comentar" action="#{comentarioController.addComentario(sistemaController.cliente,suscripcionController.articuloSeleccionado)}"/>
+                                    &nbsp;
+                                    <p:commandButton value="Cancelar" onclick="dlg1.hide()" type="button" />
+                               </div>
+
+                            </p:dialog>
+
+
+                        </p:tab>
+
+
+                    </center>
+                       </p:tabView>
+
+                <br/><br/>
+
+
+
+                
+
+
+
+                <div align="center">
+                    <p:panel >
+
+                        <h:commandButton value="REGRESAR"   action="#{suscripcionController.regresarSuscripcionVentas}"/>
+                           
+
+                    </p:panel>
+                </div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

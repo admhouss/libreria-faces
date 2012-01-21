@@ -33,6 +33,7 @@
         <p:panel header="BUSCAR SUSCRIPCION">
 
             <center>
+
                 <h:panelGrid columns="4">
                     <h:outputLabel value="Suscripci&oacute;n" styleClass="textoNEGRO"/>
                <h:selectOneMenu  value="#{suscripcionController.suscripcion}">
@@ -84,13 +85,25 @@
   <tr>
 
     <td align="left">
+
+
         <ul id="icons" class="ui-widget ui-helper-clearfix">
+
+             <li class="ui-state-default ui-corner-all" title="Agregar un comentario">
+
+              <span class="ui-icon ui-icon-comment">
+
+                  <h:commandLink  action="#{suscripcionController.prepareAgregarComentario(item.articulo)}" immediate="true" styleClass="ui-icon ui-icon-comment"/>
+              </span>
+
+      </li>
+           
 
 
             <li   class="ui-state-default ui-corner-all" title="Mas informaci&oacute;n">
        <span class="ui-icon ui-icon-info">
 
-           <h:commandLink  action="#{publicacionController.prepareView(item,1)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
+           <h:commandLink  action="#{suscripcionController.prepareSuscripcion(item.articulo)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
 
 
        </span>
