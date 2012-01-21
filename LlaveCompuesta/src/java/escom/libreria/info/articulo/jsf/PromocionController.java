@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -50,11 +51,59 @@ public class PromocionController implements Serializable{
     private String value;
     private List<Articulo> listaArticulosPromociones;
     private List<Promocion> listaPromociones;
+    private Articulo articulo;
+    @ManagedProperty("#{comentarioController}")
+    private ComentarioController comentarioController;
+
+    public ComentarioController getComentarioController() {
+        return comentarioController;
+    }
+
+    public void setComentarioController(ComentarioController comentarioController) {
+        this.comentarioController = comentarioController;
+    }
+
+
+
 
 
     private static  Logger logger = Logger.getLogger(PromocionController.class);
 
+    public Articulo getArticulo() {
+        return articulo;
+    }
 
+    public void setArticulo(Articulo articulo) {
+        this.articulo = articulo;
+    }
+
+
+
+    public List<Promocion> getListaOfertaMes(){
+
+       List<Promocion> ofertaMes=null;// getFacade().;
+       return ofertaMes;
+
+    }
+
+    public String regresarOferta(){
+        return "/ofertas/List";
+    }
+
+    public String prepareOfertaComentario(Articulo arti){
+        articulo=arti;
+        comentarioController.setArticulo(articulo);
+        return "/ofertas/ViewVenta";
+    }
+    public List<Promocion> getListOfertaDia(){
+        List<Promocion> ofertaMes= getFacade().getOfertaDelDia();
+       return ofertaMes;
+    }
+
+    public String preparePromocionView(Articulo articulo){
+      this.articulo=articulo;
+      return "/ofertas/View";
+    }
 
 
     public List<Promocion> getListaPromociones() {
@@ -75,7 +124,6 @@ public class PromocionController implements Serializable{
     public List<Articulo> getListaArticulosPromociones() {
 
          listaArticulosPromociones=articuloFacade.findAll();
-
         return listaArticulosPromociones;
     }
 

@@ -1,5 +1,6 @@
 package escom.libreria.info.suscripciones.jsf;
 
+import escom.libreria.info.articulo.jsf.ComentarioController;
 import escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal;
 import escom.libreria.info.carrito.jpa.PublicacionDTO;
 import escom.libreria.info.carrito.jsf.CarritoController;
@@ -52,27 +53,56 @@ public class SuscripcionController implements Serializable{
     private List<Suscripcion> listasuscripciones;
     private Articulo articuloSeleccionado;
 
+     @ManagedProperty("#{comentarioController}")
+     private ComentarioController comentarioController;
+
+    public ComentarioController getComentarioController() {
+        return comentarioController;
+    }
+
+    public void setComentarioController(ComentarioController comentarioController) {
+        this.comentarioController = comentarioController;
+    }
+
+
 
 
     public Articulo getArticuloSeleccionado() {
         return articuloSeleccionado;
     }
 
+
+
     public void setArticuloSeleccionado(Articulo articuloSeleccionado) {
         this.articuloSeleccionado = articuloSeleccionado;
     }
 
+    public String regresarSuscripcionVentas(){
+        return "/suscripcionVentas/List";
+    }
 
     public String  prepareViewArticulo(Articulo articulo){
         articuloSeleccionado=articulo;
         return "Create_1";
 
     }
+    public String prepareAgregarComentario(Articulo articulo){
+        articuloSeleccionado=articulo;
+        comentarioController.setArticulo(articulo);
+        return "/suscripcionVentas/ViewVenta";
+    }
+
+    public String prepareSuscripcion(Articulo articulo){
+       articuloSeleccionado=articulo;
+       return "/suscripcionVentas/View";
+    }
 
     
 
     public List<Suscripcion> getListasuscripciones() {
-
+             if(listasuscripciones==null || listasuscripciones.isEmpty()){
+               listasuscripciones=getFacade().getSuscripcionByID(suscripcion);
+             }
 
         return listasuscripciones;
     }

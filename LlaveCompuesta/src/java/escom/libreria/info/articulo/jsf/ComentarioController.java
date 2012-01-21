@@ -39,6 +39,18 @@ public class ComentarioController implements Serializable{
     private List<Comentario> listaComentarios;
     @ManagedProperty("#{publicacionController}")
     PublicacionController publicacionController;
+    private Articulo articulo;//comentario articulos
+
+    public Articulo getArticulo() {
+        return articulo;
+    }
+
+    public void setArticulo(Articulo articulo) {
+        this.articulo = articulo;
+    }
+
+
+
 
     public PublicacionController getPublicacionController() {
         return publicacionController;
@@ -54,6 +66,14 @@ public class ComentarioController implements Serializable{
         Articulo articulo=publicacionController.getSelected().getArticulo();
         listaComentarios=getFacade().getComentariosByArticulo(articulo);
         return listaComentarios;
+        }catch(Exception e){}
+        return null;
+    }
+
+     public List<Comentario> getListaComentariosGenerico() {
+        try{
+        List<Comentario> l=getFacade().getComentariosByArticulo(articulo);
+        return l;
         }catch(Exception e){}
         return null;
     }

@@ -6,6 +6,7 @@
 package escom.libreria.info.articulo.ejb;
 
 import escom.libreria.info.articulo.Promocion;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -85,6 +86,26 @@ public class PromocionFacade {
             e.printStackTrace();
         }
          return l;
+    }
+
+    public List<Promocion> getOfertaDelDia() {
+
+
+//SELECT * FROM `libreriademo`.`promocion` WHERE 01 =MONTH(DIA_INICIO) AND 2012=YEAR(DIA_FIN) HAVING MAX(PRECIO_PUBLICO) ;
+        Date fecha=new Date();
+        List<Promocion> l=null;
+        try{
+        TypedQuery<Promocion> query=em.createQuery("SELECT p FROM Promocion p WHERE :fecha BETWEEN p.diaInicio AND p.diaFin",Promocion.class)
+               .setParameter("fecha",fecha );
+               //.setParameter("anio", anio);
+        l=query.getResultList();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+         return l;
+       
     }
 
 

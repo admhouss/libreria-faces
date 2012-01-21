@@ -102,6 +102,13 @@ public class ArticuloController implements Serializable {
          return publicaciones;
     }
 
+    /*OFERTA DE MAYOR VENDIDO .ARTICULO CON MAYOR DESCUENTO */
+
+    public List<Articulo> getListArticuloDescuentoMayor(){
+        List<Articulo> l=getFacade().getArticuloMayordescuento();
+        return l;
+    }
+
     public void setAlmacenController(AlmacenController almacenController) {
         this.almacenController = almacenController;
     }
@@ -276,6 +283,11 @@ public class ArticuloController implements Serializable {
       current=p;
       //current.setProveedorList(current.getProveedorList());
       return "/articulo/View";
+    }
+
+    public String prepareViewGenerico(Articulo p){
+        current=p;
+        return "/ofertas/View";
     }
 
     public String prepareCreate() {

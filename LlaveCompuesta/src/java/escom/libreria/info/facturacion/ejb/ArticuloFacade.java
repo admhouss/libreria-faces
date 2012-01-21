@@ -208,6 +208,17 @@ public class ArticuloFacade {
          return articulos;
     }
 
+    public List<Articulo> getArticuloMayordescuento() {
+       List<Articulo> l=null;
+         try{
+        TypedQuery<Articulo> query=em.createQuery("SELECT a FROM Articulo a WHERE a.descuentoArticulo.descuento=(SELECT MAX(a2.descuentoArticulo.descuento) FROM Articulo a2)", Articulo.class);
+        l=query.getResultList();
+        }catch(Exception e){
+          e.printStackTrace();
+        }
+         return l;
+    }
+
 
 
 
