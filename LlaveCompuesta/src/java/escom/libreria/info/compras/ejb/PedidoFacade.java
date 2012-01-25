@@ -6,6 +6,7 @@
 package escom.libreria.info.compras.ejb;
 
 import com.paypal.jsf.CompraDTO;
+import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.compras.Pedido;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -313,6 +314,40 @@ public Date getHoy(){
                   .setParameter("estado", estado);
         idPedido=query.getSingleResult();
         return idPedido;
+
+    }
+
+    public List<Pedido> getReporteParaCliente(Cliente[] clienteArray, BigDecimal descuento) {
+         List<Pedido> pedidos =null;
+        StringBuilder buffer=new StringBuilder();
+        buffer.append("SELECT p FROM Pedido p JOIN p.cliente.descuentoClienteList d ");
+        buffer.append("WHERE d.descuento.porcentaje=:descuento ").append(" ");
+       
+
+       for(int i=0;i<clienteArray.length;i++){
+            if(i==0)
+            buffer.append("AND ( p.cliente.id=").append("?").append(String.valueOf((i+1))).append(" ");
+            else
+            buffer.append("OR p.cliente.id=").append("?").append(String.valueOf((i+1))).append(" ");
+       }
+        buffer.append(" )");
+        System.out.println("SECREO ESTE QUERY:"+buffer);
+        try{
+        Query query=em.createQuery(buffer.toString(), Pedido.class);
+        query.setParameter("descuento", descuento);
+        for(int j=0;j<clienteArray.length;j++){
+            if(j==0)
+            query.setParameter((j+1), clienteArray[j].getId());
+            query.setParameter((j+1), clienteArray[j].getId());
+        }
+
+
+         pedidos=query.getResultList();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return pedidos;
 
     }
 

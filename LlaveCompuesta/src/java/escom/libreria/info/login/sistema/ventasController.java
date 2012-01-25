@@ -17,34 +17,51 @@
 package escom.libreria.info.login.sistema;
 
 
+import escom.libreria.comun.GeneradorHTML;
 import escom.libreria.correo.ProcesoJMail;
 import escom.libreria.info.articulo.Almacen;
 import escom.libreria.info.articulo.AlmacenPedido;
 import escom.libreria.info.articulo.AlmacenPedidoPK;
+import escom.libreria.info.articulo.Promocion;
 import escom.libreria.info.articulo.ejb.AlmacenFacade;
 import escom.libreria.info.articulo.ejb.AlmacenPedidoFacade;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.compras.Compra;
+import escom.libreria.info.compras.Direnvio;
+import escom.libreria.info.compras.EnvioFisico;
+import escom.libreria.info.compras.EnvioFisicoPK;
 import escom.libreria.info.compras.Envioelectronico;
 import escom.libreria.info.compras.EnvioelectronicoPK;
 import escom.libreria.info.compras.Enviorealizado;
 import escom.libreria.info.compras.Pedido;
+import escom.libreria.info.compras.ejb.DirenvioFacade;
+import escom.libreria.info.compras.ejb.EnvioFisicoFacade;
 import escom.libreria.info.compras.ejb.EnvioelectronicoFacade;
 import escom.libreria.info.compras.ejb.EnviorealizadoFacade;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import escom.libreria.info.compras.jsf.util.JsfUtil;
+import escom.libreria.info.descuentos.Descuento;
 import escom.libreria.info.encriptamientoMD5.EncriptamientoImp;
 import escom.libreria.info.facturacion.Articulo;
+import escom.libreria.info.facturacion.ejb.ArticuloFacade;
 import escom.libreria.info.proveedor.ProveedorArticulo;
 import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
+import escom.libreria.info.suscripciones.Suscripcion;
+import escom.libreria.info.suscripciones.SuscripcionCliente;
+import escom.libreria.info.suscripciones.SuscripcionClientePK;
+import escom.libreria.info.suscripciones.SuscripcionElectronica;
+import escom.libreria.info.suscripciones.SuscripcionElectronicaPK;
+import escom.libreria.info.suscripciones.ejb.SuscripcionClienteFacade;
+import escom.libreria.info.suscripciones.ejb.SuscripcionElectronicaFacade;
+import escom.libreria.info.suscripciones.ejb.SuscripcionFacade;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
+import org.apache.tools.ant.types.Parameter;
 
 
 
@@ -56,7 +73,12 @@ public class ventasController implements Serializable {
     private List<Cliente> seleccionClientes;
     private List<Compra> comprascliente;
     private List<Pedido> pedidoscliente;
+    private List<Articulo> reporteArticuloList;
+
+    private Articulo[] articuloList;
     private Cliente cliente;
+    private Articulo articulo;
+    private static final String dwonload="http://localhost:8080/Libreria/faces/download/Create.xhtml?key=";
     private Compra selected;
     private Date fechaInicio;
     private Date fechaFinal;
@@ -71,11 +93,88 @@ public class ventasController implements Serializable {
     @EJB private AlmacenFacade almacenFacade;
     @EJB private EnviorealizadoFacade enviorealizadoFacade;
     @EJB private EnvioelectronicoFacade envioElectronico;
+    @EJB private EnvioFisicoFacade envioFisicoFacade;
     @EJB private ProcesoJMail enviarMail;
-
-
+    @EJB private ArticuloFacade  articuloFacade;
+    @EJB private DirenvioFacade direnvioFacade;
+    @EJB private SuscripcionFacade suscripcionFacade;
+    @EJB private SuscripcionClienteFacade suscripcionClienteFacade;
+    @EJB private SuscripcionElectronicaFacade suscripcionElectronicaFacade;
 
     private int suscripcion;
+    private Promocion promocion;
+    private Descuento descuento;
+    private static  Logger logger = Logger.getLogger(ventasController.class);
+
+    public List<Articulo> getReporteArticuloList() {
+        return reporteArticuloList;
+    }
+
+    public void setReporteArticuloList(List<Articulo> reporteArticuloList) {
+        this.reporteArticuloList = reporteArticuloList;
+    }
+
+    
+    public Articulo[] getArticuloList() {
+        return articuloList;
+    }
+
+    public void setArticuloList(Articulo[] articuloList) {
+        this.articuloList = articuloList;
+    }
+
+   
+
+
+
+
+    /*buscar reporte articulos*/
+
+    public String buscarReportArticulo(){
+
+
+
+         //String query="SELECT a FROM Articulo a JOIN a.proveedorArticuloList p JOIN a.promocionList pro WHERE a.id=:idArticulo  AND p.proveedorArticuloPK.idProveedor=:idProveedor AND pro.promocionPK.id=:idPromocion";
+
+          List<Integer> snames=new ArrayList<Integer>();
+
+         for(int i=0;i<articuloList.length;i++)
+          snames.add(articuloList[i].getId());
+
+         reporteArticuloList=articuloFacade.getReporteArticulo(snames);
+            System.out.println("SI ME LO TRAJO JEJEJE ?"+articuloList.length);
+
+        return "/ventaDetalle/List";
+    }
+
+    public Descuento getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(Descuento descuento) {
+        this.descuento = descuento;
+    }
+
+    public Promocion getPromocion() {
+        return promocion;
+    }
+
+    public void setPromocion(Promocion promocion) {
+        this.promocion = promocion;
+    }
+
+
+
+    public Articulo getArticulo() {
+        return articulo;
+    }
+
+    public void setArticulo(Articulo articulo) {
+        this.articulo = articulo;
+    }
+
+
+
 
     public int getSuscripcion() {
         return suscripcion;
@@ -144,13 +243,7 @@ public class ventasController implements Serializable {
     public void setEditorial(String editorial) {
         this.editorial = editorial;
     }
-
-  /* private ProveedorArticulo proveedorArticulo;
-    private Almacen almacen;
-    private AlmacenPedido almacenPedido;
-    private AlmacenPedidoPK pk;
-*/
-private String mensajeError;
+    private String mensajeError;
 
     public String getMensajeError() {
         return mensajeError;
@@ -166,7 +259,7 @@ private String mensajeError;
         //Articulo articulo=null;
         Almacen almacen=null;
         ProveedorArticulo proveedorArticulo;
-        Articulo articulo=null;
+        Articulo articulo2=null;
   
    
         try{
@@ -186,7 +279,7 @@ private String mensajeError;
 
                   for(Pedido pedido:pedidos)
                   {
-                      articulo=pedido.getArticulo();
+                      articulo2=pedido.getArticulo();
                       pedido.setArticulo(pedido.getArticulo());
                       pedido.getPedidoPK().setIdArticulo(pedido.getArticulo().getId());
                       pedido.getPedidoPK().setIdPedido(pedido.getPedidoPK().getIdPedido());
@@ -196,42 +289,79 @@ private String mensajeError;
                       if(!pedido.getEstado().equalsIgnoreCase("COMPRADO"))
                       {
                           
+                           Integer tipoArticulo=determinaTipoArticulo( articulo2.getFormato(),articulo2.getTipoArticulo().getDescripcion());
 
-                           //articulo=pedido.getArticulo();
-                           almacen=validarArticuloAlmacen(articulo);
-                           proveedorArticulo=validarArticuloProveedorArticulo(articulo);
+                            if((tipoArticulo==2 || tipoArticulo==0 ) && articulo2.getFormato().equalsIgnoreCase("FISICO"))
+                            {
+                                almacen=validarArticuloAlmacen(articulo2);
+                                proveedorArticulo=validarArticuloProveedorArticulo(articulo2);
 
-                           if(proveedorArticulo==null || almacen==null)
-                           continue;
-
-
-
-
-
-
-                           if(pedido.getTipoEnvio().equalsIgnoreCase("ELECTRONICO") || pedido.getTipoEnvio().equalsIgnoreCase("ELECTRÒNICO"))
-                           {
-                                    enviar_correo(pedido);
+                                if(proveedorArticulo==null || almacen==null){
+                                    logger.error("EL ARTICULO NO CUENTA CON PROVEEDORES .. PROVEEDOR_ARTICULO");
+                                    continue;
+                                }
+                                logger.info("COMENZADO EL PROCESO DECREMENTAR ARTICULO DEL INVENTARIO");
+                                decrementarAlmacen(almacen, proveedor, pedido);// habilitar si ya todo esta terminado
+                                if(tipoArticulo==0)//SUSCRIPCION FISICA
+                                {
+                                    logger.info("PROCESANDO SUSCRIPCION FISICA ");
+                                    insertarSuscripcionFisica(articulo2.getId(), cliente);
+                                     logger.info("SUSCRIPCION FISICA PROCESADA SATISFACTORIAMENTE ");
                                     
-                                  try{
-                                            InsertarEnvioElectronico(pedido);
-                                     }catch(Exception e)
-                                    {
-                                          mensajeError+="Error al crear EnvioElectronico \n";
-                                    }
-                                  
-                          }
-                         else
+
+                                }else if(tipoArticulo==2){ //publicacion fisica
+
+                                    logger.info("PROCESANDO PUBLICACION FISICA ");
+                                    InsertarEnvioFisico(pedido, selected);
+                                    logger.info("PUBLICACION FISICA PROCESADA SATISFACTORIAMENTE ");
+
+                                }
+
+                                
+                                //Insert(pedido);
+
+                           }
+
+                               
+                          else if(tipoArticulo==2 && articulo2.getFormato().equalsIgnoreCase("ELECTRONICO"))  /*PUBLICACION ELECTRONICA*/
                           {
-                             System.out.println("COMPRA CASO NO CONTEMPLADO");
-                            //   continue;
-                               // NECESITO DIRECCION DE ENVIO
-                              // InsertarEnvioFisic
-                          }
+
+                              logger.info("PUBLICACION ELECTRONICA COMENZANDO PROCESO");
+                              enviar_correo(pedido);
+                                    
+                                           try{
+                                            InsertarEnvioElectronico(pedido);
+                                            
+                                            }catch(Exception e)
+                                            {
+                                             mensajeError+="Error al crear EnvioElectronico \n";
+                                             logger.error("INSERTAR ENVIO ELECTRONICO CAUSO ERROR",e);
+                                            }
+
+                                        try{
+                                            InsertarEnvioExitoso(pedido);
+
+                                         }catch(Exception e)
+                                         {
+                                             mensajeError+="Error al crear EnvioElectronico \n";
+                                              logger.error("INSERTAR ENVIO EXITOSO CAUSO ERROR",e);
+                                         }
+                                  
+                                  
+                         }else if(tipoArticulo==1 && articulo2.getFormato().equalsIgnoreCase("ELECTRONICO")){ //SUSCRIPCION ELECTRONICA
+
+                                       logger.info("PROCESAR SUSCRIPCION ELECTRONICA");
+                                       insertarSuscripcionElectronica(cliente, articulo);
+                                       logger.info("SUSCRIPCION ELECTRONICA PROCESADA SATISFACTORIAMENTE");
+
+
+                         }
+
+                           logger.info("COMENZANDO EL PROCESO DE ACTUALIZACION ESTADO PEDIDO");
                            /*ACTUALIZAMOS COMPRA*/
                            pedido.setEstado(selected.getEstado());
                            pedidoFacade.edit(pedido);
-                           decrementarAlmacen(almacen, proveedor, pedido);
+                           
                           
 
                    }
@@ -243,6 +373,7 @@ private String mensajeError;
                }catch(Exception e){
 
                     System.out.println("Error en el pedido "+idPedido);
+                    logger.error("FALLO WHY?", e);
                     return null;
                }
             }//if- final del for
@@ -267,45 +398,23 @@ private String mensajeError;
 private ProveedorArticulo proveedor;
 private Almacen almacenArticulo;
 
-    /*public boolean  processarPedido(Pedido  pedido){
+private int determinaTipoArticulo(String formato,String tipoArticulo){ //SUSCRIPCION FISICA
 
 
-          if(!pedido.getEstado().equalsIgnoreCase("COMPRADO"))
-          {
-                           Articulo articulo=pedido.getArticulo();
+       if(tipoArticulo.equalsIgnoreCase("SUSCRIPCION") || tipoArticulo.equalsIgnoreCase("SUSCRIPCIÒN")){
+              if(formato.equalsIgnoreCase("FISCO") || formato.equalsIgnoreCase("FÌSICO"))
+                  return 0;//SUSCRIPCION FIISCA
+              else
+                  return 1;
+       }
+       return 2;/*se ENTIENDE QUE ES UNA PUBLICACION  O UNA PROMOCION*/
 
-                           almacenArticulo=validarArticuloAlmacen(articulo);
-                           proveedor=validarArticuloProveedorArticulo(articulo);
-
-                           if(almacenArticulo==null || proveedor==null)
-                             return false;
-        }
-
-
-                          
-                    
-                            pedido.setEstado("COMPRADO");
-                     /* try
-                      {
-                        almacenPedidoFacade.create(almacenPedido);
-                      }catch (Exception e)
-                      {
-                                error+="Error al crear Almacen Pedido"+pedido.getPedidoPK().getIdPedido()+"\n";
-                      }
-                      try{
-                        pedidoFacade.edit(pedido);
-                      }catch(Exception e)
-                      {
-                                 error+="Error al actualizar Estado pedido"+pedido.getPedidoPK().getIdPedido()+"\n";
-                      }
-
-                      /
-
-                      }
-          return true;
-    }*/
+}
 
 
+   
+
+    /*METO RESPONSABLE DE PODER DECREMENTAR DEL INVENTARIO A UN ARTICULO*/
     public boolean decrementarAlmacen(Almacen almacen,ProveedorArticulo p,Pedido pedido){
         boolean exito=true;
 
@@ -328,9 +437,11 @@ private Almacen almacenArticulo;
                                 try
                                 {
                                     almacenFacade.edit(almacen);
+                                    logger.info("ALAMACEN ACTUALIZADO SATISFACTORIAMENTE");
                                 }catch(Exception e)
                                 {
                                     mensajeError+="Error al actualizr almacen "+almacen.getArticulo().getCodigo()+"-"+almacen.getArticulo().getTitulo()+"\n";
+                                    logger.error("error al actualizar almacen", e);
                                     exito=false;
                                 }
                             }else
@@ -344,6 +455,7 @@ private Almacen almacenArticulo;
                                 {
                                     proveedorArticuloFacade.edit(p);
                                 }catch(Exception e){
+                                    logger.error("Error al actualizr Proveedor Articulo almacen", e);
                                     mensajeError+="Error al actualizr Proveedor Articulo almacen "+almacen.getArticulo().getCodigo()+"-"+almacen.getArticulo().getTitulo() +"\n";
                                     exito=false;
                                 }
@@ -351,6 +463,7 @@ private Almacen almacenArticulo;
                            }
 
                           almacenPedidoFacade.create(almacenPedido);
+                          logger.info("ALMACEN PEIDDO CREADO SATISFACTORIAMENTE");
 
 
         return true;
@@ -358,31 +471,48 @@ private Almacen almacenArticulo;
 
     }
 
-    private String dwonload="http://localhost:8080/Libreria/faces/download/Create.xhtml?key=";
+    
     public void enviar_correo(Pedido pedido){
 
-
+           Cliente clientePedido=pedido.getCliente();
+           Articulo articuloPeidido=pedido.getArticulo();
+           String cadenaEncripdata=null,html;
            EncriptamientoImp encriptamientoImp=new EncriptamientoImp();
-           String idArticuloToidCliente=pedido.getArticulo().getId()+"|"+pedido.getCliente().getId();/* URL FORMADA POR CLIENTE Y PEDIDO*/
-           String url=null;
+           String idArticuloToidCliente=articuloPeidido.getId()+"|"+clientePedido.getId();
+           /* URL FORMADA POR CLIENTE Y PEDIDO ,CONTIENE EL ID DEL ARTICULO COMPRADO Y EL CLIENTE QUE LO COMPRO SEPARADOS POR |*/
+           try{
+                byte[] arrelo = encriptamientoImp.encrypt(idArticuloToidCliente);
+                cadenaEncripdata=encriptamientoImp.convertToHex(arrelo);
+            }catch(Exception e){
+                logger.error("ERROR AL INTENTAR ENCRIPTAR MD5 PARAMETROS ARTICULO | CLIENTE", e);
+            }
+            List<String> lista=new ArrayList<String>();
+            lista.add(clientePedido.getId());
+            /*CONTINE UN HTML QUE SE ENVIA A LA BANDEJA DEL CLIENTE HOTMAIL*/
+            html=getFormatCompraOutHTML(clientePedido, articuloPeidido,dwonload+cadenaEncripdata);
         
             try {
-            byte[] arrelo = encriptamientoImp.encrypt(idArticuloToidCliente);
-            url=encriptamientoImp.convertToHex(arrelo);
-            List<String> lista=new ArrayList<String>();
-            lista.add(pedido.getCliente().getId());
-            enviarMail.enviarCorreo("COMPRA EXITOSA",dwonload+url,lista);
-            
-            InsertarEnvioElectronico(pedido);
-            InsertarEnvioExitoso(pedido);
-                
+                enviarMail.enviarCorreo("COMPRA EXITOSA",html,lista);
             } catch (Exception ex) {
                 JsfUtil.addErrorMessage("Error al insertar envios electronico y exitoso");
-                ex.printStackTrace();
-                Logger.getLogger(ventasController.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("NO SE  PUDO ENVIAR EL CORREO",ex);
             }
         //}
     }
+    /*GENERA HTML PROPORCIONANDO INFORMACION DEL CLIENTE ,ARTICULO Y LA URL */
+    private String getFormatCompraOutHTML(Cliente cliente,Articulo articulo,String url){
+        String HTML=null;
+        GeneradorHTML gernarHTML=new GeneradorHTML();
+        StringBuilder builder=new StringBuilder();
+        builder.append(cliente.getNombre()).append(" ");
+        builder.append(cliente.getPaterno()).append(" ");
+        builder.append(cliente.getMaterno()).append(" ");
+        HTML=gernarHTML.compraExitosa(builder.toString(), articulo.getTitulo(), url, articulo.getImagen());
+        return HTML;
+
+    }
+
+/*REGISTRA UNA PUBLICACION ELECTRONICA*/
     public void  InsertarEnvioElectronico(Pedido pedido) throws Exception{
             Envioelectronico envioelectronico=new Envioelectronico();
             EnvioelectronicoPK pk=new EnvioelectronicoPK();
@@ -395,18 +525,98 @@ private Almacen almacenArticulo;
             envioelectronico.setObservaciones("ENVIO EXITOSO");
             envioelectronico.setArticulo(pedido.getArticulo());
             envioElectronico.create(envioelectronico);
+            logger.info("CREO ENVIO ELECTRONICO SATISFACTORIAMENTE");
     }
+  /*REGISTRA UN ENVIO EXITOSO */
     public void  InsertarEnvioExitoso(Pedido pedido) throws Exception{
             Enviorealizado enviorealizado=new Enviorealizado();
-            enviorealizado.setArtoculo(""+pedido.getArticulo().getId());
+            enviorealizado.setArtoculo(String.valueOf(pedido.getArticulo().getId()));
             enviorealizado.setFechaRecibo(new Date());
             enviorealizado.setIdPedido(pedido.getPedidoPK().getIdPedido());
             enviorealizado.setPedido(pedido);
             enviorealizado.setObservaciones("ENVIO REALIZADO");
             enviorealizadoFacade.create(enviorealizado);
+            logger.info("CREO ENVIO FISICO SATISFACTORIAMETNE");
     }
+    /*REGISTRA UNA PUBLICACION FISICA*/
+    public void InsertarEnvioFisico(Pedido pedido,Compra compra)throws  Exception {
 
-    public Almacen validarArticuloAlmacen(Articulo articulo){
+        Direnvio direccionEnvioCliente=null;
+        EnvioFisico enviofisico=new EnvioFisico();
+        EnvioFisicoPK pk=new EnvioFisicoPK();
+        pk.setIdPedido(pedido.getPedidoPK().getIdPedido());;
+        pk.setIdArticulo(pedido.getPedidoPK().getIdArticulo());
+        /*Intentando de obtener Dirrecion Fisica*/
+
+        String direccionEnvio=compra.getDireccionEnvio();
+        direccionEnvioCliente=direnvioFacade.getDireccionEnvioEspecifica(direccionEnvio,compra.getIdCliente());
+        if(direccionEnvio==null)
+        logger.error("OCURRIO UN ERROR AL INTENTAR OBTENER LA DIRECCION DE ENVIO DEL CLIENTE"+direccionEnvio);
+        enviofisico.setDirenvio(direccionEnvioCliente);
+        enviofisico.setArticulo(pedido.getArticulo());
+        enviofisico.setNoGuia(String.valueOf(0));
+        enviofisico.setObservaciones("observaciones");
+        enviofisico.setPaqueteria("paqueteria");
+        enviofisico.setPedido(pedido);
+        enviofisico.setEnvioFisicoPK(pk);
+        envioFisicoFacade.create(enviofisico);
+        logger.info("ENVIO FISICO CREADO SATISFACTORIAMENTE");
+
+    }
+/*REGISTRA UNA SUSCRIPCION FISICA PARA QUE POSTERIORMENTE SE LE DE SEGUIMIENTO*/
+  private void insertarSuscripcionFisica(Integer idSuscripcion,Cliente cliente){
+
+      SuscripcionCliente suscripcionCliente=new SuscripcionCliente();
+      SuscripcionClientePK pk=new SuscripcionClientePK();
+      List<Articulo> suscripcionArticulos=suscripcionFacade.getArticulosByID(idSuscripcion);
+      logger.info("OBTENIENDO LOS ARTICULOS ASOSICADOS A ESTA SUSCRIPCION, SATISFACTORIAMENTE");
+      pk.setIdCliente(cliente.getId());
+      pk.setIdSuscripcion(idSuscripcion);
+
+
+      for(Articulo a:suscripcionArticulos)
+      {
+          try{
+                Suscripcion s=new Suscripcion(idSuscripcion,a.getId());
+                suscripcionCliente.setArticulo(articulo);
+                suscripcionCliente.setCliente(cliente);
+                suscripcionCliente.setEstadoEnvio(false);
+                suscripcionCliente.setSuscripcionClientePK(pk);
+                suscripcionCliente.setSuscripcion(s);
+                suscripcionClienteFacade.create(suscripcionCliente);
+                logger.info("SUSCRIPCION CLIENTE ALAMACENADA SATISFACTORIAMENTE");
+
+          }catch(Exception e){
+              logger.error("NO PUDO CREAR SUSCRIPCION CLIENTE ERROR", e);
+          }
+
+      }
+     logger.info("DATOS ALAMCENADOS SATISFACTORIAMENTE");
+
+  }
+
+  /*METDO RESPONSABLE PARA ALMACENAR LAS SUCRIPCIONES ELECTRONICAS DE UN CLIENTE ESPECIFICO*/
+  private void insertarSuscripcionElectronica(Cliente cliente,Articulo idArticulo)throws Exception{
+
+            SuscripcionElectronica suselectronica=new SuscripcionElectronica();
+            SuscripcionElectronicaPK pk=new SuscripcionElectronicaPK();
+            Suscripcion suscripcionElectronica=new Suscripcion(idArticulo.getId(), idArticulo.getId());
+            pk.setIdCliente(cliente.getId());
+            pk.setIdSuscripcion(idArticulo.getId());
+            suselectronica.setSuscripcionElectronicaPK(pk);
+            suselectronica.setCliente(cliente);
+            suselectronica.setFechaFin(new Date());
+            suselectronica.setFechaInicio(new Date());
+            suselectronica.setNoLicencias(0);
+            suselectronica.setSuscripcion(suscripcionElectronica);
+            suscripcionElectronicaFacade.create(suselectronica);
+            logger.info("SUSCRIPCION ELECTRONICA CREADA SATISFACTORIAMENTE,IT`S OK!");
+
+  }
+
+
+
+    private Almacen validarArticuloAlmacen(Articulo articulo){
         Almacen almacen=null;
         try{
            almacen=almacenFacade.find(articulo.getId());
@@ -481,7 +691,7 @@ private Almacen almacenArticulo;
 
 
 
-    public String buscarPorEditorial(){
+    public String buscarReporteArticulos(){
 
        Pedido p=new Pedido();
 

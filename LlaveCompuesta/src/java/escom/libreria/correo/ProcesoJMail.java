@@ -60,7 +60,7 @@ public class ProcesoJMail {
 
          Session session = Session.getInstance(props,new PopupAuthenticator(serverMail.getUsuario(),serverMail.getContrasenia()));
         //Session session = Session.getInstance(props,new PopupAuthenticator("yamildelgado99@yahoo.com","refigerador"));
-        session.setDebug(true);
+       // session.setDebug(true);
        
         MimeMessage msg = new MimeMessage(session);
         

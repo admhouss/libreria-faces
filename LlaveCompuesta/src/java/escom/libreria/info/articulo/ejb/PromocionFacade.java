@@ -6,12 +6,15 @@
 package escom.libreria.info.articulo.ejb;
 
 import escom.libreria.info.articulo.Promocion;
+import escom.libreria.info.facturacion.Articulo;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -106,6 +109,27 @@ public class PromocionFacade {
 
          return l;
        
+    }
+
+    public BigDecimal getPromocionArticulo(Articulo articulo) {
+
+         BigDecimal promocionArticulo=null;
+         Date fecha= new Date();
+         try{
+                 TypedQuery<BigDecimal> query=em.createQuery("SELECT p.precioPublico FROM Promocion p WHERE ( :fecha >= p.diaInicio AND  :fecha<=p.diaFin ) AND  ( p.articulo.id=:idArticulo ) ORDER BY p.diaFin", BigDecimal.class)
+                .setParameter("idArticulo", articulo.getId())
+                .setParameter("fecha", fecha ,TemporalType.DATE)
+                .setMaxResults(1);
+             promocionArticulo= query.getSingleResult();
+
+        }catch(Exception e){
+            
+        }
+         if(promocionArticulo==null){
+            promocionArticulo=BigDecimal.ZERO ;
+         }
+
+        return promocionArticulo;
     }
 
 

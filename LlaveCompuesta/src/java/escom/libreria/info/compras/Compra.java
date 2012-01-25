@@ -106,12 +106,27 @@ public class Compra implements Serializable {
     @Basic(optional = false)
     @Column(name = "TIPO_PAGO")
     private String tipoPago;
+
+    @Basic(optional = false)
+    @Column(name = "DIRECCION_ENVIO")
+    private String direccionEnvio;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "compra")
     private List<FacturaGeneral> facturaGeneralList;
     @Basic()
     @Column(name = "REQ_FACTURA")
      private int reqFactura;
 
+    public String getDireccionEnvio() {
+        return direccionEnvio;
+    }
+
+    public void setDireccionEnvio(String direccionEnvio) {
+        this.direccionEnvio = direccionEnvio;
+    }
+
+
+    
     public int getReqFactura() {
         return reqFactura;
     }

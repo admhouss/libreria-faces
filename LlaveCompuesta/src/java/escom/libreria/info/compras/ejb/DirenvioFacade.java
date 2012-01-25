@@ -68,4 +68,20 @@ public class DirenvioFacade {
         List<Direnvio> l=query.getResultList();
         return l;
     }
+
+    public Direnvio getDireccionEnvioEspecifica(String direccionEnvio, String idCliente) {
+        Direnvio direccionE=null;
+        try{
+        TypedQuery<Direnvio> query=em.createQuery("SELECT d FROM Direnvio d WHERE ( d.cliente.id=:correo AND d.id=:idDireccion )", Direnvio.class)
+        .setParameter("correo", idCliente)
+        .setParameter("idDireccion",Integer.parseInt(direccionEnvio))
+        .setMaxResults(1);
+
+        direccionE=query.getSingleResult();
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("");
+        }
+        return direccionE;
+    }
 }

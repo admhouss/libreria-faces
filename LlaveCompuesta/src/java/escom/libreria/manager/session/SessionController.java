@@ -44,9 +44,7 @@ public class SessionController implements Filter {
         }catch(javax.faces.application.ViewExpiredException e2){
             System.out.println("ERROR DE SIEMPRE");
         }
-        catch(Exception e){
-           System.out.println("Cocurrio un error");
-        }
+        
     }
 
     @Override
