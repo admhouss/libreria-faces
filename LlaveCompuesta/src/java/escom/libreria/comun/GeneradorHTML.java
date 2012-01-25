@@ -230,7 +230,7 @@ buffer.append("</html>");
 
     }
 
-     public String generadorHTML5(String nombre,String titulo,String url,String url_imagen){
+     public String compraExitosa(String nombre,String titulo,String url,String url_imagen){
 
         buffer=new StringBuffer();
         buffer.append("<html>");//La idea es que genreres dinamicamente con los parametros que yo envie
@@ -250,21 +250,21 @@ buffer.append("</html>");
         buffer.append("<tr>");
         buffer.append("<td  rowspan=\"1\" colspan=\"3\">");
         buffer.append("<br></br>");
-        buffer.append("Hola <font color=\"#B40404\">"+nombre+"!!</font><br></br>");
+        buffer.append("Hola <font color=\"#B40404\">").append(nombre).append("!!</font><br></br>");
         buffer.append("Bienvenido(a) a <a href=\"http://libreria-tfjfa.com/LibreriaTFJV/\">Libreria Virtual  </a> <br></br>");
         buffer.append("Tu pedido electronico se efecto exitosamente, por favor da click en <br></br>el icono de descarga o copia la url en un navegador.");
         buffer.append("<br></br>");
         buffer.append("</td>");
         buffer.append("</tr>");
         buffer.append("<tr>");
-        buffer.append("<td rowspan=\"2\" colspan=\"1\"><IMG align=\"center\" src=\""+url_imagen+"\"width=\"100\" alt=\"100\">");
+        buffer.append("<td rowspan=\"2\" colspan=\"1\"><IMG align=\"center\" src=\"").append(url_imagen).append("\"width=\"100\" alt=\"100\">");
         buffer.append("</td>");
-        buffer.append("<td rowspan=\"1\" colspan=\"2\"><font color=\"#084B8A\"><strong><center>"+titulo+"</center></strong></font>");
+        buffer.append("<td rowspan=\"1\" colspan=\"2\"><font color=\"#084B8A\"><strong><center>").append(titulo).append("</center></strong></font>");
         buffer.append("</td>");
         buffer.append("</tr>");
         buffer.append("<tr>");
         buffer.append("<td bgcolor=\"#FFFFFF\"  rowspan=\"1\" colspan=\"2\">");
-        buffer.append("<center><a href=\""+url+"\"><IMG align=\"center\" src=\"http://libreria-tfjfa.com/articulos/descarga.png\"width=\"100\" alt=\"100\"></center></a>");
+        buffer.append("<center><a href=\"").append(url).append("\"><IMG align=\"center\" src=\"http://libreria-tfjfa.com/articulos/descarga.png\"width=\"100\" alt=\"100\"></center></a>");
         buffer.append("</td>");
         buffer.append("</tr>");
         buffer.append("<tr>");
@@ -274,7 +274,7 @@ buffer.append("</html>");
         buffer.append("</tr>");
         buffer.append("<br></br>");
         buffer.append("<tr>");
-        buffer.append("<td  rowspan=\"1\" colspan=\"3\"><font color=\"#FF0000\"><center>"+url+"</center></font>");
+        buffer.append("<td  rowspan=\"1\" colspan=\"3\"><font color=\"#FF0000\"><center>").append(url).append("</center></font>");
         buffer.append("<br>");
         buffer.append("</br>");
         buffer.append("<b>Gracias</b> por tu preferencia");

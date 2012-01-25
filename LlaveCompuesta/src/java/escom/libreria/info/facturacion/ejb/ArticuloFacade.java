@@ -219,6 +219,21 @@ public class ArticuloFacade {
          return l;
     }
 
+    public List<Articulo> getReporteArticulo(List<Integer> idArticulo) {
+        List<Articulo> l=null;
+
+          TypedQuery<Articulo> queryt=em.createQuery("SELECT a FROM Articulo a  WHERE a.id IN (:idArticulos)",Articulo.class)
+               // .setParameter("idProveedor", idProveedor)
+                .setParameter("idArticulos",idArticulo);
+
+                //.setParameter("idPromocion",idPromocion);
+
+            l=queryt.getResultList();
+            return l;
+
+
+    }
+
 
 
 

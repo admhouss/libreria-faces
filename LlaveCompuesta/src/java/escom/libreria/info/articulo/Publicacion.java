@@ -78,7 +78,7 @@ public class Publicacion implements Serializable {
     @Column(name = "EDITORIAL")
     private String editorial;
     @JoinColumn(name = "ID_ARTICULO", referencedColumnName = "ID")
-    @ManyToOne(optional = false,fetch=FetchType.LAZY)
+    @ManyToOne(optional = false,fetch=FetchType.EAGER)
     private Articulo articulo;
 
     public Publicacion() {

@@ -47,6 +47,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 @ManagedBean(name = "paypalController")
 @RequestScoped
@@ -69,6 +70,7 @@ public class PayPalController implements Serializable{
 @EJB private PedidoFacade pedidoFacade;
 @EJB private CompraFacade compraFacade;
 @EJB private ArticuloFacade articuloFacade;
+private static  Logger logger = Logger.getLogger(PayPalController.class);
 
 
     public SistemaController getSistemaController() {
@@ -171,7 +173,6 @@ public class PayPalController implements Serializable{
         List<PublicacionDTO> carrito = carritoController.getListPedidosDTO();//Lo que tiene el carrito de compra;
 
       
-       
 
             for(PublicacionDTO p:carrito)
             {
@@ -183,49 +184,55 @@ public class PayPalController implements Serializable{
                 pedido.setEstado("PROCESANDO");
                 pedido.setCategoria(p.getAsunto());
                 pedido.setDescuento(p.getDesc());
+                pedido.setPrecioNeto(p.getPrecio());
+                pedido.setArticulo(p.getArticulo());
+                pkey.setIdArticulo(p.getArticulo().getId());
 
+                tipo_fisico=determinacion_tipoArticulo(p.getArticulo().getTipoArticulo().getDescripcion(), p.getArticulo().getFormato());
               
              try{
 
-               if(p.isTypePublicacion())
+               if(tipo_fisico==0) //
                {
-                  articulo=articuloFacade.find( p.getIdSuscripcion());
+                   pedido.setPrecioNeto(p.getPrecio());
+                   pedido.setArticulo(p.getArticulo());
+                   pkey.setIdArticulo(p.getArticulo().getId());
+
+
+                  /*articulo=articuloFacade.find( p.getIdSuscripcion());
 
                   pedido.setPrecioNeto(p.getPrecio());
                   pedido.setArticulo(articulo);
                   p.setArticulo(articulo);
                   p.setIdArticulo(articulo.getId());
-
                   pkey.setIdArticulo(articulo.getId());
                   System.out.println( "PRECIO TOTAL SUSCRIPCION:"+p.getTotal());
+                   *
+                   */
+                   logger.info("SUSCRIPCION FISICA");
                }
-               else
+               else if(tipo_fisico==1) //
                {
-                    pedido.setPrecioNeto(p.getPrecio());
-                    pedido.setArticulo(p.getArticulo());
-                    pkey.setIdArticulo(p.getArticulo().getId());
 
-                    System.out.println( "PRECIO TOTAL PUBLICACION:"+p.getTotal());
+                   logger.info("SUSCRIPCION ELECTRONICO");
+                   pedido.setPrecioNeto(p.getPrecio());
+                   pedido.setArticulo(p.getArticulo());
+                   pkey.setIdArticulo(p.getArticulo().getId());
+                   System.out.println( "PRECIO TOTAL PUBLICACION:"+p.getTotal());
                }
-
-                
-                tipo_fisico=tipoPedido_fisico(p.isTypePublicacion(), p.getArticulo().getFormato());
-
-                if(tipo_fisico==0) //publicacion_fisica
+               else //tipo_fisico==2
                 {
-                   System.out.println("ANALIZANDO PUBLICACION FISICA");
-                   proveedorArticulo=proveedorArticuloFacade.getProveedorMenosConsumo(p.getIdArticulo());
-                   gastEnvio= calcularGastorEnvio(proveedorArticulo, direccion);
-                     System.out.println(
-                      "GASTOS DE ENVIO:"+gastEnvio+":peso"+proveedorArticulo.getPeso()
-                     +"direccionEnvio"+direccion.getEstado().getIdZona());
+                    try{
+                        logger.info("ANALIZANDO PUBLICACION FISICA");
+                        proveedorArticulo=proveedorArticuloFacade.getProveedorMenosConsumo(p.getIdArticulo());
+                        gastEnvio= calcularGastorEnvio(proveedorArticulo, direccion);
+                        logger.info("GASTOS DE ENVIO:"+gastEnvio+":peso"+proveedorArticulo.getPeso()+"direccionEnvio"+direccion.getEstado().getIdZona());
+                   }catch(Exception e){
+                       logger.error("EL ARTICULO NO SE ENCUENTRA,EN LA TABLA PROVEEDOR_ARTICULO ", e);
+                       logger.info("NO FUE POSIBLE CALCULAR GASTOS DE ENVIO");
+                   }
                 }
-                //else if(tipo_fisico==1)
-                //{
-                  //  System.out.println("ANALIZANDO PUBLICACION FISICA");
-                    //gastEnvio=calcularGastorEnvio(null, direccion) ;
-
-                //}                
+                           
                 pedido.setPrecioTotal(new  BigDecimal(p.getTotal()));
                 pedido.setPrecioTotal(pedido.getPrecioTotal().add(gastEnvio));
                 pedido.setTipoEnvio(p.getArticulo().getFormato());
@@ -235,16 +242,16 @@ public class PayPalController implements Serializable{
                 pkey.setIdPedido(pkey.getIdPedido());
                 pedido.setPedidoPK(pkey);
                 pedidoFacade.create(pedido);
-                System.out.println("AGREGO UN ELEMENTO AL PEDIDO");
+                logger.info("VOY A AGREGAR UN ELEMENTO AL PEDIDO");
                 if(bandera==false){
                  int idPedido= pedidoFacade.buscarIdPeidoMaximo(cliente.getId(),"PROCESANDO");
                   pkey.setIdPedido(idPedido);
-                  System.out.println("IDPEDIDO MAXIMO"+idPedido);
+                  logger.info("ID-PEDIDO MAXIMO"+idPedido);
                   bandera=true;
                 }
             }catch(Exception e){
 
-                e.printStackTrace();
+                logger.error("El pedido no pudo crearse por esta razon:",e);
                 JsfUtil.addErrorMessage("Error al crear Pedido");
                 return false;
             }
@@ -267,25 +274,19 @@ public class PayPalController implements Serializable{
 
           return pesoKilogramo;
     }
-    private boolean determinarTipoEnvioFisico(boolean type,String formato){
+    
 
-        if(type)
-        {/*retorna true si es suscripcion*/
-            if(formato.equalsIgnoreCase("FISICO"))/*suscripcion fisica*/
-              return   true;
+    public int determinacion_tipoArticulo(String tipoArticulo,String formato){ /*cero-suscripcion fisica*/
 
-        }else{/*Es una publicacion */
-            if(formato.equalsIgnoreCase("FISICO")) /*publicacion fisica*/
-             return true;
+        if(tipoArticulo.equalsIgnoreCase("SUSCRIPCION") || tipoArticulo.equalsIgnoreCase("SUSCRIPCIÒN")){
+            if(formato.equalsIgnoreCase("FISICO") || formato.equalsIgnoreCase("FÌSICO"))
+             return 0;//SUSCRIPCION FISICA;
+            if(formato.equalsIgnoreCase("ELECTRONICO") || formato.equalsIgnoreCase("ELÈCTRONICO"))
+            return 1;  //SUSCRIPCION ELECTRONICO
         }
-        return false;
-    }
+        return 2;
 
-    public int tipoPedido_fisico(boolean type,String formato){ /*cero-suscripcion fisica*/
-        int valor=-1;
-        if(determinarTipoEnvioFisico(type, formato)) /*1:sucripcion_fisica,0:publicacion:fisico*/
-            valor= type?1:0;
-        return valor;
+
     }
 
     public String procesarPago(){

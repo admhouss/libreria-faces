@@ -6,6 +6,7 @@ import escom.libreria.info.articulo.AlmacenPedido;
 import escom.libreria.info.articulo.AlmacenPedidoPK;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.compras.Compra;
+import escom.libreria.info.compras.Direnvio;
 import escom.libreria.info.compras.Pedido;
 import escom.libreria.info.compras.jsf.util.JsfUtil;
 import escom.libreria.info.compras.jsf.util.PaginationHelper;
@@ -246,6 +247,7 @@ private String pedidoTocandelar;
  try{
           int pedido=getIDPedidoByCliente();
           String idCliente=sistemaController.getCliente().getId();
+          Direnvio dienvio = direnvioController.getDireccionEnvioSelected();
           CompraDTO compraTOTAL = pedidoFacade.getSuperTotal(pedido);
           System.out.println("REQUIERE FACTURA"+getFacturar());
 
@@ -269,7 +271,7 @@ private String pedidoTocandelar;
           compra.setNoAutorizacion(current.getNoAutorizacion());
           compra.setNoReferencia(current.getNoReferencia());
           compra.setTipoPago("DEPOSITO");
-         
+          compra.setDireccionEnvio(String.valueOf(dienvio.getId()));
           getFacade().create(compra);
           pedidoFacade.cambiarEstadoPedidoAll(pedido, "CONFIRMADO");
           JsfUtil.addSuccessMessage("PEDIDO CONFIRMADO SATISFACTORIAMENTE");

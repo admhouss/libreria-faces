@@ -119,8 +119,15 @@ public class ClienteController implements Serializable{
       return "/cliente/List";
     }
     public List<Cliente> getListaClientes(){
-       return  getFacade().findAll();//getListClientesActive();
+       return  getFacade().getListClientesActive();//getListClientesActive();
 
+    }
+
+
+     public Cliente[] getListaClientesReporte(){
+        List<Cliente> cliente=getFacade().getListClientesActive();
+        Cliente[] arryayCliente=cliente.toArray(new Cliente[0]);
+        return arryayCliente;
     }
     private ClienteFacade getFacade() {
         return ejbFacade;

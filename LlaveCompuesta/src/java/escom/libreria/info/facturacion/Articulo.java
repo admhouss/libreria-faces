@@ -177,7 +177,7 @@ public class Articulo implements Serializable {
     private List<Pedido> pedidoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<ProveedorArticulo> proveedorArticuloList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo",fetch=FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo",fetch=FetchType.EAGER)
     private Almacen almacen;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<SuscripcionEnvios> suscripcionEnviosList;

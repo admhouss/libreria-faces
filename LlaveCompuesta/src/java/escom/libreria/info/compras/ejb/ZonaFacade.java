@@ -74,7 +74,7 @@ public class ZonaFacade {
             .setMaxResults(1);
             tarifa=query.getSingleResult();
         }catch(Exception e){
-        e.printStackTrace();
+           System.out.println("NO EXISTEN ZONA PARA EXTE ");
         }
        return tarifa;
     }

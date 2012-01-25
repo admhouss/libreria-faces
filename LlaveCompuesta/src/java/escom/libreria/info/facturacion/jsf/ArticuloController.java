@@ -244,6 +244,11 @@ public class ArticuloController implements Serializable {
         return l;
     }
 
+     public Articulo[]  getListArticuloReportes(){
+        List<Articulo>l=getFacade().findAll();
+        return (Articulo[]) l.toArray(new Articulo[0]);
+    }
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {

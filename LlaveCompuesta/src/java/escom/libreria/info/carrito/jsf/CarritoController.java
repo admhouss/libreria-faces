@@ -10,6 +10,7 @@ import escom.libreria.info.articulo.Almacen;
 import escom.libreria.info.articulo.Impuesto;
 import escom.libreria.info.articulo.Publicacion;
 import escom.libreria.info.articulo.ejb.ImpuestoFacade;
+import escom.libreria.info.articulo.ejb.PromocionFacade;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal;
 import escom.libreria.info.carrito.jpa.PublicacionDTO;
@@ -24,6 +25,7 @@ import escom.libreria.info.descuentos.DescuentoClientePK;
 import escom.libreria.info.descuentos.ejb.DescuentoArticuloFacade;
 import escom.libreria.info.descuentos.ejb.DescuentoClienteFacade;
 import escom.libreria.info.facturacion.Articulo;
+import escom.libreria.info.facturacion.ejb.ArticuloFacade;
 import escom.libreria.info.login.ejb.SistemaFacade;
 
 import escom.libreria.info.login.sistema.SistemaController;
@@ -72,10 +74,12 @@ public class CarritoController implements Serializable{
     @EJB private DescuentoClienteFacade descuentoClienteFacade;
     @EJB private DescuentoArticuloFacade descuentoArticuloFacade;
     @EJB private ImpuestoFacade  impuestoFacade;
-    @EJB private ProveedorArticuloFacade proveedorArticuloFacade;
-    
+    @EJB private ProveedorArticuloFacade proveedorArticuloFacade; 
     @EJB private PedidoFacade pedidoFacade;
     @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
+    @EJB private PromocionFacade promocionFacade;
+    @EJB private ArticuloFacade articuloFacade;
+
     public Articulo articulo;
     private static  Logger logger = Logger.getLogger(CarritoController.class);
 
@@ -145,8 +149,11 @@ public String RegresarCarrito(){
     }
 
     public String agregarSuscripcion(){
-
+       Articulo idArticuloRoot;/*Ariculo que conforma a la suscripcion*/
        Cliente cliente=sistemaController.getCliente();
+       PublicacionDTO root;
+
+
        if(cliente!=null)
        {
         List<Suscripcion> lista = suscripcionController.getListasuscripciones();
@@ -165,20 +172,30 @@ public String RegresarCarrito(){
                          articuloProcesado= procesarArticulo(articulo,1);
                          if(articuloProcesadoTemporal==null)
                          {
-                            articuloProcesadoTemporal=articuloProcesado;
-                            articuloProcesadoTemporal.setTitulo("SUSCRIPCION #"+s.getSuscripcionPK().getIdSuscripcion());
-                            articuloProcesadoTemporal.setIdSuscripcion(s.getSuscripcionPK().getIdSuscripcion());
+                             articuloProcesadoTemporal=articuloProcesado;//INICIALIZANDO ARTICULO PROCESADO
+                             idArticuloRoot=articuloFacade.find(s.getSuscripcionPK().getIdSuscripcion());
+                             root=procesarArticulo(idArticuloRoot,1);
+                             /*procesamiento del idRoot suscripcion*/
+
+                            // articuloProcesadoTemporal.setDesc(articuloProcesadoTemporal.getDesc().add(articuloProcesadoTemporal.getDesc()));
+                            // articuloProcesadoTemporal.setTotal(articuloProcesadoTemporal.getTotal()+ articuloProcesadoTemporal.getTotal());
+                             //articuloProcesadoTemporal.setPrecio(articuloProcesadoTemporal.getPrecio().add(articuloProcesadoTemporal.getPrecio()));
+                             /*setteando el precio de articulo root*/
+                             articuloProcesadoTemporal.setDesc(articuloProcesadoTemporal.getDesc().add(root.getDesc()));
+                             articuloProcesadoTemporal.setTotal(articuloProcesadoTemporal.getTotal()+ root.getTotal());
+                             articuloProcesadoTemporal.setPrecio(articuloProcesadoTemporal.getPrecio().add(root.getPrecio()));
+                             articuloProcesadoTemporal.setArticulo(idArticuloRoot);
+                             articuloProcesadoTemporal.setTitulo(idArticuloRoot.getTitulo());
+                             /*se teando el primer articulo de la suscripcion*/
+                             logger.info("PROCESANDO ARTICULO Y ROOT ARTICULO  PRECIO TOTAL"+articuloProcesadoTemporal.getTotal());
                          }else
                          {
                           articuloProcesadoTemporal.setDesc(articuloProcesadoTemporal.getDesc().add(articuloProcesado.getDesc()));
                           articuloProcesadoTemporal.setTotal(articuloProcesadoTemporal.getTotal()+ articuloProcesado.getTotal());
                           articuloProcesadoTemporal.setPrecio(articuloProcesadoTemporal.getPrecio().add(articuloProcesadoTemporal.getPrecio()));
-
-                          //articuloProcesadoTemporal.setPrecio(new BigDecimal(articuloProcesadoTemporal.getPrecio().setScale(2, BigDecimal.ROUND_UP));
-
                          }
-                          articuloProcesadoTemporal.setTypePublicacion(true);
-                          articuloProcesadoTemporal.setIdPublicacion(s.getSuscripcionPK().getIdSuscripcion());
+                          
+                          //articuloProcesadoTemporal.setIdPublicacion(s.getSuscripcionPK().getIdSuscripcion());
                          System.out.println("procesando");
 
                 }
@@ -228,14 +245,14 @@ public String RegresarCarrito(){
 */
 
     public String prepareEditPublicacion(PublicacionDTO item){
-        if(item.isTypePublicacion()){
+        
             publicaciondto=item;
             listcarritoDTOTemporal=new ArrayList<PublicacionDTO>();
             listcarritoDTOTemporal.add(item);
             return "/carrito/Edit";
-        }
+        
 
-        return "/carrito/Carrito";
+       
     }
 
     public PublicacionDTO getPublicaciondto() {
@@ -282,7 +299,7 @@ private Date getHoy(){
         }
         return null;
 }
-   private CarritoCompraTemporalLocal ObtenerCarrito(){
+      private CarritoCompraTemporalLocal ObtenerCarrito(){
          if(carritoCompraTemporalLocal==null){
             try{
                 carritoCompraTemporalLocal=sistemaFacade.getObtenerBandejaTemporal();
@@ -355,57 +372,7 @@ private Date getHoy(){
          return "/carrito/Carrito";
     }
 
- /*public String agregarArticulo(Articulo a){
 
-     Articulo articulo1=a;
-     Almacen almacen=almacenFacade.find(articulo1.getId());
-     PublicacionDTO temporalDTO=null;//
-     if(almacen==null || almacen.getExistencia()<=0){
-
-         JsfUtil.addErrorMessage("La publicacion que desea no se encuentra en Almacen");
-         return null;
-
-     }else{
-
-
-
-        Cliente clienteOperando=sistemaController.getCliente();//
-
-
-           try{
-                 if(clienteOperando!=null){
-
-                    carritoCompraTemporalLocal=ObtenerCarrito();
-                    temporalDTO=null;//carritoCompraTemporalLocal.buscarPublicacion(publicacion);
-
-                      if(temporalDTO==null){
-                             temporalDTO=procesarArticulo(articulo1,1);
-                             agregarCarrito(temporalDTO);
-                             JsfUtil.addSuccessMessage("Publicacion agregada Satisfactoriamente");
-                             return "/carrito/Carrito";
-                      }else{
-                            JsfUtil.addErrorMessage("Ya encuentra esta publicacion en su carrtio");
-                            return "/carrito/Carrito";
-                      }
-
-
-                   }//if
-
-
-
-                else {
-                    JsfUtil.addErrorMessage("Lo sentimos,usuario  no registrado");
-                    return "/login/Create.xhtml";
-                }
-
-            }catch(Exception e){ }
-
-
-     }
-
-         return "/carrito/Carrito";
-    }
-*/
 
  public List<PublicacionDTO> getListPedidosDTO(){
     if(carritoCompraTemporalLocal==null){
@@ -481,8 +448,9 @@ private Date getHoy(){
         return 0;
     }
 
-/*dado un articulo determinamos su costo real!*/
+/*dado un articulo determinamos su costo real,tomando en cuenta IMPUESTOS,DESCUENTO_ARTICULO,DESCIENTO_CLIENTE,PROMOCION!*/
     private PublicacionDTO procesarArticulo(Articulo articulo,int cantidad){
+        BigDecimal precioPublico;/*VARIABLE QUE SE SETTEA SI EL ARTICULO TIENE PROMOCION*/
         PublicacionDTO publicacionDTO=new PublicacionDTO();
         publicacionDTO.setIdArticulo(articulo.getId());
         publicacionDTO.setArticulo(articulo);
@@ -496,6 +464,15 @@ private Date getHoy(){
         BigDecimal impuesto=getImpuesto(publicacionDTO.getIdArticulo());  /*sumamos los impuestos del articulo*/
         publicacionDTO.setImpuesto(impuesto);
         publicacionDTO.setPrecio(articulo.getCosto());
+        
+         precioPublico=calcularPromocionArticulo(articulo);
+         if(!precioPublico.equals(BigDecimal.ZERO)){
+         publicacionDTO.setPrecio(precioPublico);
+         logger.info("EL ARTICULO TIENE PROMOCION "+precioPublico);
+        }
+         
+        
+
         BigDecimal total=calcularTotal(publicacionDTO.getPrecio(), descuento, impuesto, publicacionDTO.getCantidad());
         total=total.setScale(2,BigDecimal.ROUND_HALF_UP);
         publicacionDTO.setTotal(total.doubleValue());
@@ -506,21 +483,23 @@ private Date getHoy(){
         BigDecimal total=BigDecimal.ZERO;
         BigDecimal impuestoPrecio=BigDecimal.ZERO;
         total=precioUnitario.multiply(new BigDecimal(cantidad));
-        System.out.println("total + cantidad"+total);
+        ///System.out.println("total + cantidad"+total);
 
         if(impuesto.compareTo(BigDecimal.ZERO)!=0){
             impuestoPrecio=getPrecioIVA(impuesto.doubleValue(), total.doubleValue());
-            System.out.print("impuestorecibido"+impuestoPrecio);
+           // System.out.print("impuestorecibido"+impuestoPrecio);
             total=impuestoPrecio.add(total);
-            System.out.println("total+ impuesto"+total+"impuesto"+impuesto);
+            logger.info("EL ARTICULO TIENE IMPUESTO");
+            //System.out.println("total+ impuesto"+total+"impuesto"+impuesto);
         }
         
        if(descuento.compareTo(BigDecimal.ZERO)!=0){
           total=getPrecioDescuentoAplicado(descuento.doubleValue(),total.doubleValue());
+          logger.info("EL ARTICULO TIENE DESCUENTO");
         }
-        System.out.println("ANTES DEL total"+total);
-        total=total.setScale(2,total.ROUND_HALF_DOWN);
-        System.out.println("total"+total);
+        //System.out.println("ANTES DEL total"+total);
+        total=total.setScale(2,total.ROUND_UP);
+         logger.info("FINALMENTE CALCULAMOS TOTAL");
         return total;
     }
 
@@ -528,13 +507,13 @@ private Date getHoy(){
         BigDecimal descuentoArticulo=getDescuentoArticulo(idArticulo);
         BigDecimal descuentoCliente=getDescuentoCliente();
 
-        
+        logger.info("VERIFICANDO QUE DESCUENTO ES MAYOR SI EL DEL CIENTE O EL ARTICULO");
          switch (descuentoArticulo.compareTo(descuentoCliente)){
              case 0: return descuentoArticulo;
              case -1: return descuentoCliente;
              case 1: return descuentoArticulo;
          }
-         
+    
         return descuentoArticulo;
     }
 
@@ -584,5 +563,21 @@ private Date getHoy(){
     }
 
      private CarritoCompraTemporalLocal carritoCompraTemporalLocal=ObtenerCarrito();//obetenemso carrito compra
+
+    private boolean isAplicaPromocion(Articulo articulo) {
+      String descripcion=articulo.getTipoArticulo().getDescripcion();
+      String formato=articulo.getFormato();
+         if(descripcion.equalsIgnoreCase("SUSCRIPCION") && ( formato.equalsIgnoreCase("FISICO") || formato.equalsIgnoreCase("ELECTRONICO"))){
+             return false;
+         }
+
+      return true;
+
+    }
+
+    private BigDecimal calcularPromocionArticulo(Articulo articulo){
+        BigDecimal promocion  =promocionFacade.getPromocionArticulo(articulo);
+        return promocion;
+    }
 
 }
