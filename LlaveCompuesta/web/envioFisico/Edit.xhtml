@@ -34,7 +34,7 @@
                         <f:selectItems value="#{direnvioController.listDireccionEnvio}"  var="item" itemValue="#{item}" itemLabel="#{item.id}"/>
                     </h:selectOneMenu>
                      <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{envioFisicoController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido">
+                     <h:selectOneMenu id="articulo" value="#{envioFisicoController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:150px;">
                         <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
