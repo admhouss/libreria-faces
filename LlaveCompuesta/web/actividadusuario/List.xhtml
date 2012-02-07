@@ -27,7 +27,7 @@
                  <p:panel header="CAT&Aacute;LOGO ACTIDAD USUARIO ADMINISTRATIVO">
                 <p:dataTable value="#{actividadusuarioController.listActividadUsuario}" var="item" paginator="true" rows="10">
                     
-                    <p:column style="width:200px;" >
+                    <p:column style="width:100px;" >
                         <f:facet name="header">
                             <h:outputText value="ACTIVIDAD"/>
                         </f:facet>
@@ -46,6 +46,12 @@
                             <h:outputText value="CARGO"/>
                         </f:facet>
                         <h:outputText value="#{item.usuarioadministrativo.cargo}"/>
+                    </p:column>
+                    <p:column style="width:100px;">
+                        <f:facet name="header">
+                            <h:outputText value="NOMBRE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.usuarioadministrativo.nombre} #{item.usuarioadministrativo.paterno} #{item.usuarioadministrativo.materno}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
