@@ -19,85 +19,157 @@
             <h:panelGroup>
 
                <br/><br/>
-                 <p:panel header="CAT&Aacute;LOGO DE COMPRAS">
-                     <p:dataTable value="#{compraController.listCompras}" var="item" paginator="true" rows="10" >
-                   <p:column>
+
+               <p:panel header="SUSCRIPCIONES ELECTRONICA">
+                <center>
+
+                    <p:dataTable value="#{suscripcionElectronicaController.suscripcionElectronicaByCliente}" var="item" paginator="true" rows="10" selectionMode="single">
+                        <p:column style="width:60px;" >
                         <f:facet name="header">
-                            <h:outputText value="TIP.PAGO"/>
+                            <h:outputText value="CLIENTE" />
                         </f:facet>
-                       <h:outputText value="#{item.tipoPago}">
-                            
-                        </h:outputText>
+                            <h:outputText value="#{item.cliente.id}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="F. ENVIO"/>
+                            <h:outputText value="SUSCRIP"/>
+                        </f:facet>
+                        <h:outputText value="#{item.suscripcionElectronicaPK.idSuscripcion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="NO-LICENCIA"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noLicencias}"/>
+
+                    </p:column>
+                    <p:column style="width:20px;">
+                        <f:facet name="header">
+                            <h:outputText value="F.FIN-F.INICIO"/>
+                        </f:facet>
+                            <h:outputText value="#{item.fechaFin}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+                        </h:outputText>-
+                        <h:outputText value="#{item.fechaInicio}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+                        </h:outputText>
+                    </p:column>
+
+
+
+                    
+                </p:dataTable>
+                </center>
+                </p:panel>
+            </h:panelGroup>
+
+            <br/>
+
+             <br/><br/>
+                <p:panel header="SUSCRIPCIONES CLIENTE">
+                <center>
+
+                    <p:dataTable value="#{suscripcionClienteController.listSuscripcionesByCliente}" var="item" paginator="true" rows="10" selectionMode="single">
+                        <p:column style="width:60px;" >
+                        <f:facet name="header">
+                            <h:outputText value="CLIENTE" />
+                        </f:facet>
+                            <h:outputText value="#{item.cliente.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="SUSCRIPCION"/>
+                        </f:facet>
+                        <h:outputText value="#{item.suscripcion.suscripcionPK.idSuscripcion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ESTADO ENVIO"/>
+                        </f:facet>
+                        <h:outputText value="PENDIENTE" rendered="#{item.estadoEnvio==false}"/>
+                        <h:outputText value="ENVIADO" rendered="#{item.estadoEnvio}"/>
+                    </p:column>
+                    <p:column style="width:200px;">
+                        <f:facet name="header">
+                            <h:outputText value="FECHA ENVIO"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaEnvio}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
                         </h:outputText>
                     </p:column>
+
                     
+                </p:dataTable>
+                </center>
+                </p:panel>
+
+             <br/><br/>
+
+             <p:panel header=" ENVIOS FISICOS">
+                 <p:dataTable value="#{envioFisicoController.listEnvioFisicosByCliente}" var="item"  paginator="true" rows="10">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="TOTAL"/>
+                            <h:outputText value="No.GUIA"/>
                         </f:facet>
-                        <h:outputText value="#{item.pagoTotal}"/>
+                        <h:outputText value="#{item.noGuia}"/>
                     </p:column>
-                    <!--
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Observaciones"/>
+                            <h:outputText value="Paqueteria"/>
                         </f:facet>
-                        <h:outputText value="{item.observaciones}"/>
+                        <h:outputText value="#{item.paqueteria}"/>
                     </p:column>
-                    -->
-                    <!--<p:column>
-                        <f:facet name="header">
-                            <h:outputText value="IMPUESTO"/>
-                        </f:facet>
-                        <h:outputText value="{item.impuesto}"/>
-                    </p:column>-->
-                    <!--<p:column>
-                        <f:facet name="header">
-                            <h:outputText value="pagoNeto}"/>
-                        </f:facet>
-                        <h:outputText value="{item.pagoNeto}"/>
-                    </p:column>-->
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ESTADO"/>
-                        </f:facet>
-                        <h:outputText value="#{item.estado}"/>
-                    </p:column>
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Pedido"/>
                         </f:facet>
-                        <h:outputText value="#{item.idPedido}"/>
+                        <h:outputText value="#{item.pedido.pedidoPK.idPedido}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
+                            <h:outputText value="Dir.Envio"/>
                         </f:facet>
-                        <h:commandLink action="#{compraController.prepareView(item)}">
-                             <img src="./../resources/iconos/sver.png" alt="" title="Desglose Pedidos"/>
-                        </h:commandLink>
-                        <h:commandLink action="#{compraController.prepareEdit(item)}" >
-                             <img src="./../resources/iconos/seditar.png" alt="" title="Editar Estado"/>
-                        </h:commandLink>
-                        
-                        
-                        <!--<h:commandLink action="{generarFacturaController.generarFactura(item)}">
-                             <img src="./../resources/iconos/_xml.png" alt="" title="Generar XML"/>
-                        </h:commandLink>-->
-                        <h:commandLink action="#{generarFacturaController.facturar(item)}">
-                             <img src="./../resources/iconos/_pdf1.png" alt="" title="Generar PDF"/>
-                        </h:commandLink>
+                        <h:outputText value="#{item.direnvio.id}"/>
                     </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Articulo"/>
+                        </f:facet>
+                        <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
+                    </p:column>
+                    
                 </p:dataTable>
-                 </p:panel>
-            </h:panelGroup>
+                </p:panel>
+
+             <br/>
+             <p:panel header="CAT&Aacute;LOGO  DE ENVIOS ELECTRONICO">
+                 <p:dataTable value="#{envioelectronicoController.listEnvioElectronicosByCliente}" var="item"  paginator="true" rows="10">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DESCARGAR"/>
+                        </f:facet>
+                        <h:outputText value="#{item.ligaDescarga}"/>
+                    </p:column>
+
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Pedido"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pedido.pedidoPK.idPedido}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Articulo"/>
+                        </f:facet>
+                        <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
+                    </p:column>
+                    
+                </p:dataTable>
+                </p:panel>
+            
             
             <br />
             <div align="center">
