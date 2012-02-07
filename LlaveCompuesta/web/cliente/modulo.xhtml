@@ -101,7 +101,49 @@
 
                   </p:tab>
                    <p:tab title="COMPRAS HISTORICAS">
-                       
+                        <br/><br/>
+                        
+                
+                     <p:dataTable value="#{compraController.listCompras}" var="item" paginator="true" rows="10" >
+                   <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="TIP.PAGO"/>
+                        </f:facet>
+                       <h:outputText value="#{item.tipoPago}">
+
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="F. ENVIO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaEnvio}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="TOTAL"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pagoTotal}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ESTADO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.estado}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Pedido"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idPedido}"/>
+                    </p:column>
+
+                </p:dataTable>
+                             
                   </p:tab>
                    <p:tab title="PAGOS">
 
