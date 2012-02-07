@@ -16,7 +16,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                        <p:panel header="CREAR NUEVO ENVIO ELECTRONICO">
+                        <p:panel header="EDITAR ENVIO ELECTRONICO">
 <center>
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputLabel value="Liga Descarga:" for="ligaDescarga" styleClass="textoNEGRO"/>
@@ -27,8 +27,8 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                    <h:selectOneMenu id="pedido" value="#{envioelectronicoController.selected.pedido}" title="Numero" required="true" requiredMessage="El campo pedido es requerido">
                        <f:selectItems value="#{pedidoController.listPedido}" var="item" itemValue="#{item}" itemLabel="#{item.pedidoPK.idPedido}"/>
                    </h:selectOneMenu>
-                    <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{envioelectronicoController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido">
+                    <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO"  />
+                    <h:selectOneMenu id="articulo" value="#{envioelectronicoController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:200px;">
                         <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
