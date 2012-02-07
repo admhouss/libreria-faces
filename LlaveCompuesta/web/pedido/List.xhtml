@@ -27,29 +27,17 @@
                      <br/><br/>
                 <p:panel header="CAT&Aacute;LOGO DE PEDIDOS">
                
-                    <p:dataTable value="#{pedidoController.listPedido}" var="item" paginator="true">
+                    <p:dataTable value="#{pedidoController.lisPedidosByClienteALL}" var="item" paginator="true" rows="14">
                     
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="CLIENTE"/>
-                        </f:facet>
-                        <h:outputText value="#{item.cliente.id}"/>
-                    </p:column>
                    
                   
-                   <!-- <p:column>
+                  <p:column>
                         <f:facet name="header">
-                            <h:outputText value="IMPUESTO"/>
+                            <h:outputText value="ESTADO"/>
                         </f:facet>
-                        <h:outputText value="{item.impuesto}"/>
-                    </p:column>-->
-                    <!--<p:column>
-                        <f:facet name="header">
-                            <h:outputText value="DESCUENTO"/>
-                        </f:facet>
-                        <h:outputText value="{item.descuento}"/>
-                    </p:column>
-                    -->
+                        <h:outputText value="#{item.estado}"/>
+                  </p:column>
+                   
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="TOTAL"/>
