@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
        xmlns:p="http://primefaces.prime.com.tr/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
 
        
@@ -367,6 +368,29 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
 <h2>&nbsp;</h2>
 <h2>&nbsp;</h2>
 <h2>&nbsp;</h2>
+
+<h:form id="asuntos">
+    <div align="left">
+    <h:dataTable value="#{articuloController.asuntoDistinctArticulo}" var="item" columnClasses="list navigation">
+        <h:column>
+            <f:facet name="header">
+                <h2>&nbsp;&nbsp;&nbsp;&nbsp;<h:outputText value="Categor&iacute;as" styleClass="list navigation"/></h2>
+            </f:facet>
+            <ul class="list navigation">
+        <li>
+             <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=#{item}">
+                &nbsp;&nbsp;&nbsp; <h:outputText value="#{item}"/>
+             </h:outputLink>
+        </li>
+            </ul>
+        </h:column>
+
+    </h:dataTable>
+    </div>
+
+</h:form>
+
+<!--
 <table width="90%" border="0" align="right">
   <tr>
       <th align="left" scope="col"><h2>Categor&iacute;as</h2>
@@ -375,7 +399,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
 
 
             <h:form id="derechofiscal">
-                <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=1">
+                <h:outputLink  value="{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=1">
                     <h:outputText value="Derecho Fiscal"/>
                 </h:outputLink>
 
@@ -384,7 +408,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
         </li>
         <li>
            <h:form id="derechoInternacional">
-              <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=2">
+              <h:outputLink  value="{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=2">
                     <h:outputText value="Derecho Internacional"/>
               </h:outputLink>
             </h:form>
@@ -394,7 +418,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                 <li>
              <h:form id="DerechoAdministrativo">
 
-             <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=3">
+             <h:outputLink  value="{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=3">
                     <h:outputText value="Derecho Administrativo"/>
              </h:outputLink>
 
@@ -404,7 +428,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                 <li>
               <h:form id="JuicioLinea">
             
-             <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=4">
+             <h:outputLink  value="{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=4">
                  <h:outputText value="Juicio en L&iacute;nea"/>
              </h:outputLink>
 
@@ -413,7 +437,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                 <li>
               <h:form id="juicioOrales">
             
-            <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=5">
+            <h:outputLink  value="{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=5">
                     <h:outputText value="Juicios Orales"/>
             </h:outputLink>
 
@@ -424,7 +448,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                     <h:form id="JurisPrudencia">
 
                         
-                         <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=6">
+                         <h:outputLink  value="{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=6">
                          <h:outputText value="Jurisprudencia"/>
                          </h:outputLink>
 
@@ -439,12 +463,8 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
       <p></p></th>
   </tr>
 </table>
-<h2>&nbsp;</h2>
-<h2>&nbsp;</h2>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+-->
+
 <p>&nbsp;</p>
 <table width="90%" border="0" align="right">
   <tr>
@@ -731,11 +751,121 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
 
                 </li>
 
-                  <li>
+                <li>
                      <h:form id="ProveedorForm">
 
                          <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/proveedor/List.xhtml" rendered="#{sistemaController.operacionPerfilSuperAndGeneral}" >
                            <h:outputText value="Proveedores"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                 <li>
+                     <h:form id="GestorComprasForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/gestorCompras/List.xhtml" rendered="#{sistemaController.operacionPerfilSuperAndGeneral}" >
+                           <h:outputText value="Gestor Compras"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                 <li>
+                     <h:form id="PendientesForm">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/pendiente/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Art&iacute;culos Pendientes"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                  <li>
+                     <h:form id="reporteadorFORM">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/reporteador/ReporteCliente.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Reporteador"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                 <li>
+                     <h:form id="FACTURACIONFORM">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/factura/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Factura"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+
+                  <li>
+                     <h:form id="ENVIOFISICOFORM">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/envioFisico/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Envio Fisico"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                   <li>
+                     <h:form id="ENVIOELECTRONICOFORM">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/envioelectronico/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Envio Electronico"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                   <li>
+                     <h:form id="ENVIOrealizadoFORM">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/enviorealizado/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Envio realizado"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                  <li>
+                     <h:form id="FACTURACIONGENERALFORM">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/facturaGeneral/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Factura General"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                  <li>
+                     <h:form id="MIMEForm">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/mime/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Archivos MIME"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                   
+
+                  <li>
+                     <h:form id="BitacoraClientesForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/bitacoraCliente/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}" >
+                           <h:outputText value="Bitacora Cliente"/>
                        </h:outputLink>
 
                     </h:form>
