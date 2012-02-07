@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import escom.libreria.info.facturacion.Articulo;
+import java.math.RoundingMode;
 
 /**
  *
@@ -156,6 +157,9 @@ public class PublicacionDTO implements Serializable{
     }
 
     public double getTotal() {
+        BigDecimal big=new BigDecimal(total);
+        big.setScale(2,BigDecimal.ROUND_UP);
+        total=big.doubleValue();
         return total;
     }
 

@@ -2,6 +2,7 @@ package escom.libreria.info.articulo.jsf;
 
 import escom.libreria.comun.ValidarNumero;
 import escom.libreria.info.administracion.Actividadusuario;
+import escom.libreria.info.administracion.ActividadusuarioPK;
 import escom.libreria.info.administracion.Usuarioadministrativo;
 import escom.libreria.info.administracion.ejb.ActividadusuarioFacade;
 import escom.libreria.info.administracion.jsf.util.JsfUtil;
@@ -12,6 +13,7 @@ import escom.libreria.info.articulo.ejb.PublicacionFacade;
 import escom.libreria.info.bitacoras.BitacoraCliente;
 import escom.libreria.info.bitacoras.BitacoraClientePK;
 import escom.libreria.info.bitacoras.ejb.BitacoraClienteFacade;
+import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.facturacion.ejb.ArticuloFacade;
 import escom.libreria.info.login.sistema.SistemaController;
 
@@ -22,8 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -49,6 +50,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -64,6 +67,7 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     @EJB private BitacoraClienteFacade ejbFacadeBitacora;
     @EJB private ActividadusuarioFacade ejbActividadusuarioFacade;
     @EJB private ArticuloFacade articuloFacade;
+    private int tipoArticuloMostrar=-1;
 
     private PaginationHelper pagination;
     private int selectedItemIndex;
@@ -71,22 +75,34 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
     private List<Publicacion> listPublicacionByBusqueda;//libros
     private List<Publicacion> listPublicacionAccesorio;//accesorios
     private List<Publicacion> listPublicacionSuscripcion;//suscripciones
-    private boolean showList ;//mostrar libos ,accesorios,suscripciones
+    private List<Articulo> listArticulo;
+   // private boolean showList ;//mostrar libos ,accesorios,suscripciones
 
     private String banderaCategoria="";
     private int redireccionarTo;
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
-    private static final Logger logPublicacion = Logger.getLogger(PublicacionController.class.getName());
+    private static  Logger logger = Logger.getLogger(PublicacionController.class.getName());
 
-    public boolean isShowList() {
-        return showList;
+    public List<Articulo> getListArticulo() {
+        return listArticulo;
     }
 
-    public void setShowList(boolean showList) {
-        this.showList = showList;
+    public void setListArticulo(List<Articulo> listArticulo) {
+        this.listArticulo = listArticulo;
     }
 
+    public int getTipoArticuloMostrar() {
+        return tipoArticuloMostrar;
+    }
+
+    public void setTipoArticuloMostrar(int tipoArticuloMostrar) {
+        this.tipoArticuloMostrar = tipoArticuloMostrar;
+    }
+
+
+
+    
 
 
     public List<Publicacion> getListPublicacionAccesorio() {
@@ -182,40 +198,57 @@ public List<String> getListaString(){
     public void init() {
              if(getBanderaCategoria()!=null && !getBanderaCategoria().trim().equals("")){
 
-                   ValidarNumero validar=new ValidarNumero();
-                   showList=false;
-                  if(validar.validarNumero(getBanderaCategoria())){
-                    opt =Integer.parseInt(banderaCategoria);
-                    setCategoria(getFacade().getCategoria(opt));
-                    listPublicacionByBusqueda=getFacade().buscarLibroByCategoria(getCategoria());
-                  }else{
+                   //ValidarNumero validar=new ValidarNumero();
+                   //showList=false;
+                 // if(validar.validarNumero(getBanderaCategoria())){
+                   // opt =Integer.parseInt(banderaCategoria);
+                    //setCategoria(getFacade().getCategoria(opt));
+                   // listPublicacionByBusqueda=getFacade().buscarLibroByCategoria(getCategoria());
+                  //}else{
                       if(getBanderaCategoria().trim().equalsIgnoreCase("libros")){
                           setCategoria("Publicaciones");
                           listPublicacionByBusqueda=getFacade().getPublicaciones();
+                          tipoArticuloMostrar=1;
                       }else if(getBanderaCategoria().trim().equalsIgnoreCase("accesorios")){
                           setCategoria("Accesorios");
                           listPublicacionByBusqueda=getFacade().buscarAccesorio();
+                          tipoArticuloMostrar=1;
                       }else if(getBanderaCategoria().trim().equalsIgnoreCase("productos")){
 
-                         showList=true;setCategoria("Productos");
+                         tipoArticuloMostrar=1;
+                         setCategoria("Productos");
                          listPublicacionAccesorio=getFacade().buscarAccesorio();
                          listPublicacionByBusqueda=getFacade().getPublicaciones();
                          listPublicacionSuscripcion=getFacade().getListSuscripciones();
                       } else if(getBanderaCategoria().trim().equals("suscripciones")){
+                          tipoArticuloMostrar=1;
                           setCategoria("Suscripciones");
                          listPublicacionByBusqueda=getFacade().getListSuscripciones();
+                      }else{
+                           tipoArticuloMostrar=5;
+                       setCategoria(getBanderaCategoria());
+
+
+                      listPublicacionByBusqueda=getFacade().getAsuntoArticulos(getBanderaCategoria());
+                       logger.info("ASUNTOS"+getBanderaCategoria().trim());
                       }
-                  }
+                  //}
 
              }
      }
 
      private void addbicatoraUsuarioAdministrador(Publicacion p,int selectOperacion){
+         try{
           if(sistemaController!=null && sistemaController.getUsuarioAdministrador()!=null){
               Usuarioadministrativo user=sistemaController.getUsuarioAdministrador();
               Actividadusuario actividad=new Actividadusuario();
+              ActividadusuarioPK pK=new ActividadusuarioPK();
+              pK.setIdUsuario(user.getIdUsuario());
+              //pK.setIdActividad(u);
+              actividad.setActividadusuarioPK(pK);
               actividad.setFecha(new Date());
               actividad.setUsuarioadministrativo(user);
+
               switch(selectOperacion){
                   case 1://YES
                       actividad.setActividad("CONSULTO PULIBACION: "+ p.getArticulo().getTitulo());
@@ -235,8 +268,13 @@ public List<String> getListaString(){
               }
 
               ejbActividadusuarioFacade.create(actividad);
+              logger.info("BITACORA DE USUARIO ADMINISTRATIVO  CREADA SATISFACTORIAMENTE");
 
           }
+         }catch(Exception e){
+
+             logger.error("ERROR AL CREAR ACTIVIDAD USUARIO ", e);
+         }
      }
 
 
@@ -442,7 +480,8 @@ public List<String> getListaString(){
             externalContext.redirect(go);
             return null;
         } catch (Exception ex) {
-            Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.info("Error de direccionamiento");
         }
         return null;
     }
@@ -494,7 +533,7 @@ public List<String> getListaString(){
             externalContext.redirect(go);
             return "";
         } catch (IOException ex) {
-            Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+           logger.error(ex, ex);
         }
         return "";
     }
@@ -507,7 +546,7 @@ public List<String> getListaString(){
             externalContext.redirect(go+"/faces/busqueda/List.xhtml");
             return "";
         } catch (IOException ex) {
-            Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+           logger.error(ex, ex);
         }
         return "";
     }
@@ -520,7 +559,7 @@ public List<String> getListaString(){
             externalContext.redirect(go+"/faces/busqueda/ListCategoria.xhtml");
             return "";
         } catch (IOException ex) {
-            Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
+           logger.error(ex, ex);
         }
         return "";
     }
@@ -569,7 +608,11 @@ public List<String> getListaString(){
             bitacoraCliente.setCliente(sistemaController.getCliente());
             ejbFacadeBitacora.create(bitacoraCliente);
         }
-        }catch(Exception e){e.printStackTrace();}
+        }catch(Exception e){
+            
+          logger.error("ERROR AL AGREGAR ARTICULO Y CLIENTE A LA BITACOTRA CLIENTE", e);
+
+        }
     }
     public String prepareView(Publicacion p,int render) {
 

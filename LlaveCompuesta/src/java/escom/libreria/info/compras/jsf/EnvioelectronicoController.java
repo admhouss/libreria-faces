@@ -1,5 +1,6 @@
 package escom.libreria.info.compras.jsf;
 
+import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.compras.Envioelectronico;
 import escom.libreria.info.compras.EnvioelectronicoPK;
 import escom.libreria.info.compras.jsf.util.JsfUtil;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -29,12 +31,31 @@ public class EnvioelectronicoController implements Serializable{
     @EJB private escom.libreria.info.compras.ejb.EnvioelectronicoFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    @ManagedProperty(value="#{sistemaController.cliente}")
+    private Cliente cliente;
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
     public EnvioelectronicoController() {
     }
 
     public List<Envioelectronico> getListEnvioElectronicos(){
         List<Envioelectronico> l=getFacade().findAll();
+        return l;
+    }
+
+    public List<Envioelectronico> getListEnvioElectronicosByCliente(){
+        List<Envioelectronico> l=null;
+        try{
+            l=getFacade().getEnvioElectronicoByIdCliente(cliente.getId());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return l;
     }
     public Envioelectronico getSelected() {

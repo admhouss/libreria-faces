@@ -10,6 +10,7 @@ import escom.libreria.info.administracion.jsf.util.JsfUtil;
 import escom.libreria.info.carrito.jpa.PublicacionDTO;
 import escom.libreria.info.carrito.jsf.CarritoController;
 import escom.libreria.info.cliente.Cliente;
+import escom.libreria.info.compras.Compra;
 import escom.libreria.info.compras.Direnvio;
 
 import escom.libreria.info.compras.Pedido;
@@ -25,6 +26,7 @@ import escom.libreria.info.encriptamientoMD5.EncriptamientoImp;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.facturacion.ejb.ArticuloFacade;
 import escom.libreria.info.login.sistema.SistemaController;
+import escom.libreria.info.login.sistema.ventasController;
 import escom.libreria.info.proveedor.ProveedorArticulo;
 import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
 
@@ -64,6 +66,9 @@ public class PayPalController implements Serializable{
     private CarritoController carritoController;
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
+    @ManagedProperty("#{ventasController}")
+    private ventasController ventascontroller;
+
 
 @EJB private ProveedorArticuloFacade proveedorArticuloFacade;
 @EJB private ZonaFacade  zonaFacade;
@@ -71,6 +76,17 @@ public class PayPalController implements Serializable{
 @EJB private CompraFacade compraFacade;
 @EJB private ArticuloFacade articuloFacade;
 private static  Logger logger = Logger.getLogger(PayPalController.class);
+
+    public ventasController getVentascontroller() {
+        return ventascontroller;
+    }
+
+    public void setVentascontroller(ventasController ventascontroller) {
+        this.ventascontroller = ventascontroller;
+    }
+
+
+
 
 
     public SistemaController getSistemaController() {
@@ -165,18 +181,20 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
          
         int tipo_fisico=-1;
         boolean bandera=false;
+        int idPedido=-1;
         BigDecimal gastEnvio=BigDecimal.ZERO;
         ProveedorArticulo proveedorArticulo=null;
-
         PedidoPK pkey=new PedidoPK();
 
+       
         List<PublicacionDTO> carrito = carritoController.getListPedidosDTO();//Lo que tiene el carrito de compra;
 
-      
+      logger.info("COMENZANDO EL PROCESO VACIAMOS CARRITO DE COMPRA  PEDIDO! #"+carrito.size());
 
             for(PublicacionDTO p:carrito)
             {
 
+               logger.info("articulo"+p.getArticulo().getTitulo()+"articulo id"+p.getIdArticulo());
 
                 Pedido pedido=new Pedido();
                 pedido.setCliente(cliente);
@@ -186,47 +204,53 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
                 pedido.setDescuento(p.getDesc());
                 pedido.setPrecioNeto(p.getPrecio());
                 pedido.setArticulo(p.getArticulo());
-                pkey.setIdArticulo(p.getArticulo().getId());
+                if(bandera!=false)
+                {
+                     pkey=new PedidoPK();
+                     pkey.setIdArticulo(p.getArticulo().getId());
+                     pkey.setIdPedido(idPedido);
+                }
 
+                //pedido.setPedidoPK()
+
+                pkey.setIdArticulo(p.getArticulo().getId());
                 tipo_fisico=determinacion_tipoArticulo(p.getArticulo().getTipoArticulo().getDescripcion(), p.getArticulo().getFormato());
-              
+               
              try{
 
-               if(tipo_fisico==0) //
+               if(tipo_fisico==0) // SUSCRIPCION FISICA
                {
+                   logger.info("PROCESANDO SUSCRIPCION FISICA");
                    pedido.setPrecioNeto(p.getPrecio());
-                   pedido.setArticulo(p.getArticulo());
                    pkey.setIdArticulo(p.getArticulo().getId());
+                   pedido.setPedidoPK(pkey);
+
+                 //  /*FALTA CONTEMPLAR GASTOS DE ENVIO SUSCRIPCION FISICA
 
 
-                  /*articulo=articuloFacade.find( p.getIdSuscripcion());
-
-                  pedido.setPrecioNeto(p.getPrecio());
-                  pedido.setArticulo(articulo);
-                  p.setArticulo(articulo);
-                  p.setIdArticulo(articulo.getId());
-                  pkey.setIdArticulo(articulo.getId());
-                  System.out.println( "PRECIO TOTAL SUSCRIPCION:"+p.getTotal());
-                   *
-                   */
                    logger.info("SUSCRIPCION FISICA");
                }
-               else if(tipo_fisico==1) //
+               else if(tipo_fisico==1) //SUSCRIPCION ELECTRONICA
                {
 
-                   logger.info("SUSCRIPCION ELECTRONICO");
+                   logger.info("PROCESANDO SUSCRIPCION ELECTRONICA");
                    pedido.setPrecioNeto(p.getPrecio());
-                   pedido.setArticulo(p.getArticulo());
+                  
                    pkey.setIdArticulo(p.getArticulo().getId());
-                   System.out.println( "PRECIO TOTAL PUBLICACION:"+p.getTotal());
+                   pedido.setPedidoPK(pkey);
+
+                  //YA CALCULO EL COSTO TOTAL DE LA SUSCRIPCION ELECTRONICA POR CADA ARTICULO CONTEMPLANDO EL IDSUSCRIPCION
                }
-               else //tipo_fisico==2
+               else if(tipo_fisico==2 && p.getArticulo().getFormato().toUpperCase().equalsIgnoreCase("FISICO"))
                 {
+
+
                     try{
                         logger.info("ANALIZANDO PUBLICACION FISICA");
-                        proveedorArticulo=proveedorArticuloFacade.getProveedorMenosConsumo(p.getIdArticulo());
+                        proveedorArticulo=proveedorArticuloFacade.getProveedorMenosConsumo(p.getArticulo().getId());
                         gastEnvio= calcularGastorEnvio(proveedorArticulo, direccion);
                         logger.info("GASTOS DE ENVIO:"+gastEnvio+":peso"+proveedorArticulo.getPeso()+"direccionEnvio"+direccion.getEstado().getIdZona());
+                        proveedorArticulo=null;
                    }catch(Exception e){
                        logger.error("EL ARTICULO NO SE ENCUENTRA,EN LA TABLA PROVEEDOR_ARTICULO ", e);
                        logger.info("NO FUE POSIBLE CALCULAR GASTOS DE ENVIO");
@@ -238,14 +262,15 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
                 pedido.setTipoEnvio(p.getArticulo().getFormato());
                 pedido.setImpuesto(p.getImpuesto());
                 pedido.setNoArticuloCategoria(p.getCantidad());
-
+                pedido.setArticulo(p.getArticulo());
                 pkey.setIdPedido(pkey.getIdPedido());
+                //pkey.setIdArticulo(p.getArticulo().getId());
                 pedido.setPedidoPK(pkey);
                 pedidoFacade.create(pedido);
                 logger.info("VOY A AGREGAR UN ELEMENTO AL PEDIDO");
-                if(bandera==false){
-                 int idPedido= pedidoFacade.buscarIdPeidoMaximo(cliente.getId(),"PROCESANDO");
-                  pkey.setIdPedido(idPedido);
+                if(bandera==false)
+                {
+                  idPedido= pedidoFacade.buscarIdPeidoMaximo(cliente.getId(),"PROCESANDO");
                   logger.info("ID-PEDIDO MAXIMO"+idPedido);
                   bandera=true;
                 }
@@ -267,10 +292,13 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
     public BigDecimal calcularGastorEnvio(ProveedorArticulo proveedorArticulo,Direnvio direccionEnvio)
     {
 
+
           BigDecimal pesoKilogramo=proveedorArticulo.getPeso();
+
           int pesoEntero=pesoKilogramo.intValue();
           String idZona=direccionEnvio.getEstado().getIdZona();
           pesoKilogramo=zonaFacade.getTarifaByPeso(idZona,pesoEntero,pesoKilogramo);
+
 
           return pesoKilogramo;
     }
@@ -278,13 +306,15 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
 
     public int determinacion_tipoArticulo(String tipoArticulo,String formato){ /*cero-suscripcion fisica*/
 
+        tipoArticulo=tipoArticulo.toUpperCase();
+        formato=formato.toUpperCase();
         if(tipoArticulo.equalsIgnoreCase("SUSCRIPCION") || tipoArticulo.equalsIgnoreCase("SUSCRIPCIÒN")){
             if(formato.equalsIgnoreCase("FISICO") || formato.equalsIgnoreCase("FÌSICO"))
              return 0;//SUSCRIPCION FISICA;
             if(formato.equalsIgnoreCase("ELECTRONICO") || formato.equalsIgnoreCase("ELÈCTRONICO"))
             return 1;  //SUSCRIPCION ELECTRONICO
         }
-        return 2;
+        return 2;/// PUBLICACICION
 
 
     }
@@ -337,7 +367,7 @@ private String pedidoComprado;
 
    
 
-   /* @PostConstruct
+   @PostConstruct
     public void init() {
          int idPedido;
         byte[] byt;
@@ -345,7 +375,7 @@ private String pedidoComprado;
         try{
 
             if(getPedidoComprado()!=null && !getPedidoComprado().trim().equals("")){
-String saludo;
+                String saludo;
                //&& getCorreo()!=null && !getCorreo().trim().equals("")   ){
 
                 try{
@@ -353,6 +383,17 @@ String saludo;
                      EncriptamientoImp  encrip=new EncriptamientoImp ();
                      byt=encrip.hexToBytes(getPedidoComprado());
                      saludo=encrip.decrypt(byt);
+
+                     try{
+                       Integer pedido=Integer.parseInt(saludo);
+                       Compra compra =compraFacade.getComprasIdPedido(pedido);
+                       ventascontroller.setSelected(compra);
+                       ventascontroller.comprarArticulo(pedido);
+                     }catch(Exception e){
+                         logger.error("OCURROO ERROR COMPRA PAYPAL",e);
+                     }
+
+                     //me llega el numero
 
                      JsfUtil.addSuccessMessage("Compra realizada Satisfactoriamente"+saludo);
                 }catch(Exception e){
@@ -367,6 +408,6 @@ String saludo;
         }catch(Exception e){
 
         }
-    }*/
+    }
 }
 

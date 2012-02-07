@@ -48,7 +48,8 @@ public class BitacoraClienteController  implements Serializable{
 
 
     public List<BitacoraCliente> getListBitacoracliente(){
-        return getFacade().findAll();
+        List<BitacoraCliente> l= getFacade().findAll();
+        return l;
     }
     public PaginationHelper getPagination() {
         if (pagination == null) {

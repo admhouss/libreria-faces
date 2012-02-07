@@ -16,8 +16,10 @@ import escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal;
 import escom.libreria.info.carrito.jpa.PublicacionDTO;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.compras.Direnvio;
+import escom.libreria.info.compras.Pendiente;
 import escom.libreria.info.compras.Zona;
 import escom.libreria.info.compras.ejb.PedidoFacade;
+import escom.libreria.info.compras.ejb.PendienteFacade;
 import escom.libreria.info.compras.jsf.DirenvioController;
 import escom.libreria.info.descuentos.DescuentoArticulo;
 import escom.libreria.info.descuentos.DescuentoCliente;
@@ -79,6 +81,7 @@ public class CarritoController implements Serializable{
     @EJB private escom.libreria.info.articulo.ejb.AlmacenFacade almacenFacade;
     @EJB private PromocionFacade promocionFacade;
     @EJB private ArticuloFacade articuloFacade;
+    @EJB private PendienteFacade pendienteFacade;
 
     public Articulo articulo;
     private static  Logger logger = Logger.getLogger(CarritoController.class);
@@ -149,7 +152,7 @@ public String RegresarCarrito(){
     }
 
     public String agregarSuscripcion(){
-       Articulo idArticuloRoot;/*Ariculo que conforma a la suscripcion*/
+       Articulo idArticuloRoot = null;/*Ariculo que conforma a la suscripcion*/
        Cliente cliente=sistemaController.getCliente();
        PublicacionDTO root;
 
@@ -175,21 +178,18 @@ public String RegresarCarrito(){
                              articuloProcesadoTemporal=articuloProcesado;//INICIALIZANDO ARTICULO PROCESADO
                              idArticuloRoot=articuloFacade.find(s.getSuscripcionPK().getIdSuscripcion());
                              root=procesarArticulo(idArticuloRoot,1);
-                             /*procesamiento del idRoot suscripcion*/
-
-                            // articuloProcesadoTemporal.setDesc(articuloProcesadoTemporal.getDesc().add(articuloProcesadoTemporal.getDesc()));
-                            // articuloProcesadoTemporal.setTotal(articuloProcesadoTemporal.getTotal()+ articuloProcesadoTemporal.getTotal());
-                             //articuloProcesadoTemporal.setPrecio(articuloProcesadoTemporal.getPrecio().add(articuloProcesadoTemporal.getPrecio()));
-                             /*setteando el precio de articulo root*/
                              articuloProcesadoTemporal.setDesc(articuloProcesadoTemporal.getDesc().add(root.getDesc()));
                              articuloProcesadoTemporal.setTotal(articuloProcesadoTemporal.getTotal()+ root.getTotal());
                              articuloProcesadoTemporal.setPrecio(articuloProcesadoTemporal.getPrecio().add(root.getPrecio()));
                              articuloProcesadoTemporal.setArticulo(idArticuloRoot);
+                             articuloProcesadoTemporal.setIdArticulo(idArticuloRoot.getId());
                              articuloProcesadoTemporal.setTitulo(idArticuloRoot.getTitulo());
                              /*se teando el primer articulo de la suscripcion*/
                              logger.info("PROCESANDO ARTICULO Y ROOT ARTICULO  PRECIO TOTAL"+articuloProcesadoTemporal.getTotal());
                          }else
                          {
+                          articuloProcesadoTemporal.setArticulo(idArticuloRoot);
+                          articuloProcesadoTemporal.setIdArticulo(idArticuloRoot.getId());
                           articuloProcesadoTemporal.setDesc(articuloProcesadoTemporal.getDesc().add(articuloProcesado.getDesc()));
                           articuloProcesadoTemporal.setTotal(articuloProcesadoTemporal.getTotal()+ articuloProcesado.getTotal());
                           articuloProcesadoTemporal.setPrecio(articuloProcesadoTemporal.getPrecio().add(articuloProcesadoTemporal.getPrecio()));
@@ -313,6 +313,24 @@ private Date getHoy(){
    public void borrarCarrito(){
        carritoCompraTemporalLocal=null;
    }
+
+   private void guardarClienteInsatisfecho(int count,Articulo artc,Cliente client){
+       try{
+            Pendiente pendiente=new Pendiente();
+            pendiente.setArticulo(artc);
+            pendiente.setCliente(client);
+
+            pendiente.setFecha(new Date());
+            pendiente.setIdArticulo(artc.getId());
+            pendiente.setNoArtSolicitados(count);
+            pendiente.setObservacones("EL ARTICULO NO SE ENCUENTRA EN ALMACEN");
+            pendienteFacade.create(pendiente);
+             logger.info("PENDIENTE INSATISFECHO CREADO SATISFACTORIAMENTE");
+       }catch(Exception e){
+           logger.error("ERROR AL INTENTAR  CREAR ARTICULOS PENDIENTE");
+       }
+
+   }
  public String agregarArticulo(Articulo art){
 
      Articulo articulo1=art;/*VALIDAR SI ESTE ARTICULO TIENE PROMOCION*/
@@ -327,7 +345,8 @@ private Date getHoy(){
 
      PublicacionDTO temporalDTO=null;//
      if(almacen==null || almacen.getExistencia()<=0)
-     {
+    {       if(clienteOperando!=null)
+             guardarClienteInsatisfecho(1,articulo1, clienteOperando);
          JsfUtil.addErrorMessage("La publicacion que desea no se encuentra en Almacen");
          return null;
      }else
@@ -392,8 +411,11 @@ private Date getHoy(){
 
  public String editarCarritoCompra(PublicacionDTO editar){
      try{
+         Cliente client=sistemaController.getCliente();
          Almacen almacen=almacenFacade.find(editar.getArticulo().getId());
-         if(editar.getCantidad()>almacen.getExistencia()){
+         if(editar.getCantidad()>almacen.getExistencia())
+         {
+             guardarClienteInsatisfecho(editar.getCantidad(),editar.getArticulo(), client);
              JsfUtil.addErrorMessage("El numero de publicaciones que usted desea no se encuentran disponibles en almacen ");
              return "/carrito/Edit";
          }

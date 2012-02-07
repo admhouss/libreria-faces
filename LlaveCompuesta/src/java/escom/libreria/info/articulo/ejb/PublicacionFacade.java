@@ -7,6 +7,7 @@ package escom.libreria.info.articulo.ejb;
 
 import escom.libreria.comun.ValidarNumero;
 import escom.libreria.info.articulo.Publicacion;
+import escom.libreria.info.facturacion.Articulo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -171,6 +172,7 @@ public class PublicacionFacade {
         return l;
         
     }
+
 
     public List<Publicacion> buscarArticulo(String autor, String titulo, String tipoArticulo, int numero, int iSSN, String iSBN, String editorial,String asunto,
             String tomo,String unidad,String divisa,String formato,String publicador) {
@@ -360,6 +362,21 @@ public class PublicacionFacade {
 
 
     }
+
+   public List<Publicacion> getAsuntoArticulos(String asunto){
+
+        List<Publicacion> asuntoList=null;
+        try{
+                TypedQuery<Publicacion> query=em.createQuery( "SELECT p FROM Publicacion p WHERE p.articulo.asunto LIKE :asunto ",Publicacion.class)
+                .setParameter("asunto", "%"+asunto+"%");
+                asuntoList=query.getResultList();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return asuntoList;
+    }
+
+
 
 
 

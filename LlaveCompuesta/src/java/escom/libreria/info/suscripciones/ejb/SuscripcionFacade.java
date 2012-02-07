@@ -113,7 +113,15 @@ public class SuscripcionFacade {
     }
 
     public List<Articulo> getArticulosByID(int suscripcion) {
-        throw new UnsupportedOperationException("Not yet implemented");
+       List<Articulo> s=null;
+        try{
+            TypedQuery<Articulo> query=em.createQuery("SELECT  s.articulo FROM Suscripcion s WHERE s.suscripcionPK.idSuscripcion=:suscripcion", Articulo.class)
+            .setParameter("suscripcion", suscripcion);
+            s=query.getResultList();
+        }catch(Exception e){
+           e.printStackTrace();
+        }
+        return s;
     }
 
 }

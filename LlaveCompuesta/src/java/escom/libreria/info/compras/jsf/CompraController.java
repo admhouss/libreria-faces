@@ -316,6 +316,7 @@ return "/compra/CompradoDeposito";
            pedidoID=getIDPedidoByCliente();
           String idCliente=sistemaController.getCliente().getId();
           CompraDTO compraTOTAL = pedidoFacade.getSuperTotal(pedidoID);
+          Direnvio direnvio=direnvioController.getDireccionEnvioSelected();
 
           Compra compra=new Compra();
           precioTotalFinal=compraTOTAL.getTotalMonto();
@@ -328,7 +329,6 @@ return "/compra/CompradoDeposito";
           compra.setIdPedido(pedidoID);
           compra.setFecha(new Date());
           compra.setIdCliente(idCliente);
-
           compra.setObservaciones("PROCESANDO");
           compra.setFechaEnvio(new Date());
           compra.setFechaEnvio(new Date());
@@ -339,6 +339,7 @@ return "/compra/CompradoDeposito";
           compra.setNoAutorizacion(" ");
           compra.setNoReferencia(" ");
           compra.setTipoPago("ELECTRONICO");
+          compra.setDireccionEnvio(String.valueOf(direnvio.getId()));
           getFacade().create(compra);
           pedidoFacade.cambiarEstadoPedidoAll(pedidoID, "CONFIRMADO");
           JsfUtil.addSuccessMessage("PEDIDO CONFIRMADO SATISFACTORIAMENTE");
@@ -360,10 +361,10 @@ return "/compra/CompradoDeposito";
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/compras").getString("CompraUpdated"));
+            JsfUtil.addSuccessMessage(("CompraUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/compras").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -392,9 +393,9 @@ return "/compra/CompradoDeposito";
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/compras").getString("CompraDeleted"));
+            JsfUtil.addSuccessMessage(("CompraDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/compras").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ("PersistenceErrorOccured"));
         }
     }
 

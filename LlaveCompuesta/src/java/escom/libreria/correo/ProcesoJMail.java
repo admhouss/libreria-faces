@@ -52,7 +52,7 @@ public class ProcesoJMail {
 
     public void enviaCorreo(MensajeCorreoDTO mensaje){
 
-        ServidorCorreoConf serverMail=sConfFacade.find(2);
+        ServidorCorreoConf serverMail=sConfFacade.find(2);//VARIABLE QUE CAMBIA EL DOMINIO DE CORREO
         listPropiedades=serverMail.getPropiedadesList();
         Properties props = new Properties();
         for(Propiedades propiedad:listPropiedades)
@@ -60,9 +60,10 @@ public class ProcesoJMail {
 
          Session session = Session.getInstance(props,new PopupAuthenticator(serverMail.getUsuario(),serverMail.getContrasenia()));
         //Session session = Session.getInstance(props,new PopupAuthenticator("yamildelgado99@yahoo.com","refigerador"));
-       // session.setDebug(true);
+         session.setDebug(true);
        
         MimeMessage msg = new MimeMessage(session);
+
         
 
         try {
@@ -129,20 +130,20 @@ public class ProcesoJMail {
     }
 
     public void enviarLibroComprado(String Asunto,List<String> librosElectronicos,String Cuerpo,List<String> correos) {
-    MensajeCorreoDTO mensaje = new MensajeCorreoDTO();
-    mensaje.setAsunto(Asunto);
+        MensajeCorreoDTO mensaje = new MensajeCorreoDTO();
+        mensaje.setAsunto(Asunto);
 
    // String cadena="<html><head></head><body><p>"+Cuerpo+"</p></body></html>";
-    mensaje.setCuerpo(Cuerpo);
-    mensaje.setAdjuntoList(librosElectronicos);
+        mensaje.setCuerpo(Cuerpo);
+        mensaje.setAdjuntoList(librosElectronicos);
 
-    for (String s : correos) {
-    mensaje.getDestinatarioList().add(s);
-     }
+        for (String s : correos) {
+         mensaje.getDestinatarioList().add(s);
+        }
     //mensaje.setDestinatarioList(correos);
-    mensaje.setTipoMensaje("text/html");
-    enviaCorreo(mensaje);
-    }
+       mensaje.setTipoMensaje("text/html");
+       enviaCorreo(mensaje);
+   }
     public void enviaCorreo(MensajeCorreoDTO mensaje,Map<EnumTokensMail,String> tokensValor){
 //        for(EnumTokensMail t:EnumTokensMail.values()){
 //            mensaje.setCuerpo(

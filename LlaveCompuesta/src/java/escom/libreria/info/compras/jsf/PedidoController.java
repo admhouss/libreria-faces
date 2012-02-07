@@ -15,8 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -29,6 +28,9 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
+import java.util.logging.Level;
+
 
 @ManagedBean (name="pedidoController")
 @SessionScoped
@@ -42,6 +44,7 @@ public class PedidoController implements Serializable{
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
     private int identificadorPedido;
+    private static  Logger logger = Logger.getLogger(PedidoController.class);
 
     public int getIdentificadorPedido() {
         return identificadorPedido;
@@ -72,7 +75,8 @@ public class PedidoController implements Serializable{
 
 
     public String geturlcancelado(){
-         String generarURL="http://localhost:8080/Libreria/faces/compra/Cancelada.xhtml?pedidoCancelado=";
+         String generarURL="http://localhost:8080/LibreriaTFJV/faces/compra/Cancelada.xhtml?pedidoCancelado=";
+
         try {
             String idCliente=sistemaController.getCliente().getId();
             identificadorPedido=getFacade().buscarIdPeidoMaximo(idCliente,"CONFIRMADO");
@@ -84,7 +88,7 @@ public class PedidoController implements Serializable{
             return caca;
         } catch (Exception ex) {
             ex.printStackTrace();
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("error al generar url cancelar", ex);
         }
          return "";
     }
@@ -93,7 +97,7 @@ public class PedidoController implements Serializable{
     public String geturlcomprado(){
 
 
-        String generarURL="http://localhost:8080/Libreria/faces/compra/Comprado.xhtml?pedidoComprado=";
+        String generarURL="http://localhost:8080/LibreriaTFJV/faces/compra/Comprado.xhtml?pedidoComprado=";
         try {
             String idCliente=sistemaController.getCliente().getId();
             identificadorPedido=getFacade().buscarIdPeidoMaximo(idCliente,"CONFIRMADO");
@@ -103,8 +107,8 @@ public class PedidoController implements Serializable{
             String caca=external.encodeResourceURL(generarURL);
             return caca;
         } catch (Exception ex) {
-            ex.printStackTrace();
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+            //ex.printStackTrace();
+           logger.error("error al generar url comprado", ex);
         }
 
         return "";
@@ -123,10 +127,12 @@ public class PedidoController implements Serializable{
              System.out.println("ENVIANDO"+digestion);
             return digestion;
         } catch (Exception ex) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+           logger.error("error generar digestion:", ex);
         }
             return digestion;
     }
+
+
     public List<Pedido> getLisPedidosByCliente(){
         List<Pedido> pedidos=null;
         try
@@ -137,6 +143,21 @@ public class PedidoController implements Serializable{
         }catch(Exception e){
 
             JsfUtil.addErrorMessage("Error al obtener pedidos by cliente");
+        }
+
+        return pedidos;
+    }
+
+     public List<Pedido> getLisPedidosByClienteALL(){
+        List<Pedido> pedidos=null;
+        try
+        {
+            Cliente cliente=sistemaController.getCliente();
+            pedidos=getFacade().getListPedidoByCliente(cliente.getId());
+         //   pedidos= getFacade().getListaPedidosByidPedios(identificadorPedido);
+        }catch(Exception e){
+
+            logger.error("ERROR LISTA DE PEIDDOS BU CLIENTES ALL");
         }
 
         return pedidos;

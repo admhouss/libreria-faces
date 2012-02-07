@@ -77,6 +77,22 @@ public class CompraFacade {
         return l;
     }
 
+    public Compra getComprasIdPedido(Integer idPedido) {
+        Compra l=null;
+        try{
+        TypedQuery<Compra> query=em.createQuery("SELECT c FROM Compra c WHERE c.idPedido=:idPedido ORDER BY c.idPedido DESC",Compra.class)
+                .setParameter("idPedido", idPedido)
+                .setMaxResults(1);
+
+
+
+        l= query.getSingleResult();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return l;
+    }
+
      public void cambiarEstadoCompra(int idPedido,String type) { //type CANCELADO,COMPRADO,PROCESANDO
         Query query = em.createQuery("UPDATE Compra c SET c.estado=:estado WHERE c.idPedido=:idPedido",Compra.class)
         .setParameter("idPedido",idPedido)

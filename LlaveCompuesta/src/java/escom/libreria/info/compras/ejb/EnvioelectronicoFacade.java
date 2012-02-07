@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -60,6 +61,18 @@ public class EnvioelectronicoFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<Envioelectronico> getEnvioElectronicoByIdCliente(String id) {
+        List<Envioelectronico> l=null;
+        try{
+        TypedQuery<Envioelectronico> query=em.createQuery("SELECT e FROM Envioelectronico e WHERE e.pedido.cliente.id=:idCliente",Envioelectronico.class)
+             .setParameter("idCliente", id);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return l;
     }
 
 }
