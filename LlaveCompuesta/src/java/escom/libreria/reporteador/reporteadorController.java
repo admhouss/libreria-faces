@@ -11,6 +11,7 @@ import escom.libreria.info.compras.Pedido;
 import escom.libreria.info.compras.ejb.PedidoFacade;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.facturacion.ejb.ArticuloFacade;
+import escom.libreria.jdbc.reporteador.ReporteCliente;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -81,14 +82,28 @@ public class reporteadorController  implements Serializable{
     }
 /*METODO QUE SE ENCARGA DE GENERAR REPORTE CLIENTES */
 
+    private List<escom.libreria.jdbc.reporteador.Cliente> clientesReporte;
+
+    public List<escom.libreria.jdbc.reporteador.Cliente> getClientesReporte() {
+        return clientesReporte;
+    }
+
+    public void setClientesReporte(List<escom.libreria.jdbc.reporteador.Cliente> clientesReporte) {
+        this.clientesReporte = clientesReporte;
+    }
+
     public String generarReporteParaClientes(){
 
-   logger.info("clientes"+clienteArray.length);
-   logger.info("descuento"+descuento);
+
+        ReporteCliente reporteCliente=new ReporteCliente(clienteArray);
+        clientesReporte=reporteCliente.getReporteClientes();
+        logger.info("ME TRAJO LOS CLIENTES JEJEJEJE ");
+        //logger.info("clientes"+clienteArray.length);
+        //logger.info("descuento"+descuento);
 
 
-      pedidosCliente=pedidoFacade.getReporteParaCliente(clienteArray,descuento);
-      logger.info("TAMAÑAO DEL ARREGLO "+pedidosCliente.size());
+      //pedidosCliente=pedidoFacade.getReporteParaCliente(clienteArray,descuento);
+      //logger.info("TAMAÑAO DEL ARREGLO "+pedidosCliente.size());
 
 
         return null;

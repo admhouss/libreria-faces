@@ -113,6 +113,32 @@ public class ArticuloFacade {
          
     }
 
+    public List<String> getAsuntoArticulos(){
+
+        List<String> asuntoList=null;
+        try{
+                TypedQuery<String> query=em.createQuery( "SELECT DISTINCT LOWER(a.asunto) FROM Articulo a  ",String.class);
+                asuntoList=query.getResultList();
+        }catch(Exception e){
+e.printStackTrace();
+        }
+        return asuntoList;
+    }
+
+    public List<Articulo> getAsuntoArticulos(String asunto){
+
+        List<Articulo> asuntoList=null;
+        try{
+                TypedQuery<Articulo> query=em.createQuery( "SELECT a FROM Articulo a WHERE a.asunto LIKE :asunto ",Articulo.class)
+                .setParameter("asunto", "%"+asunto+"%");
+
+                asuntoList=query.getResultList();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return asuntoList;
+    }
+
 
     public   Object[][] getCostoArticulo(Integer idArticulo,String idCliente,Date fecha) throws SQLException{
 

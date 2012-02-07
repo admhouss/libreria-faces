@@ -212,7 +212,9 @@ byte[] enBytes;
              {
                      EncriptamientoImp  encriptamientoImp=new EncriptamientoImp();
                      enBytes=encriptamientoImp.hexToBytes(getKey());
-                    String mensaje= encriptamientoImp.decrypt(enBytes);
+                     String mensaje= encriptamientoImp.decrypt(enBytes);
+                     Integer pedido=Integer.parseInt(mensaje);
+
                     System.out.println("Mensaje Leido:"+mensaje);
              }
          }catch(Exception e){

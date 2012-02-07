@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -60,6 +61,21 @@ public class SuscripcionClienteFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<SuscripcionCliente> getSuscripcionDelCliente(String id) {
+
+        List<SuscripcionCliente> l=null;
+        try{
+            TypedQuery<SuscripcionCliente> query=em.createQuery("SELECT s FROM SuscripcionCliente s WHERE s.suscripcionClientePK.idCliente = :idCliente",SuscripcionCliente.class)
+            .setParameter("idCliente", id);
+            l=query.getResultList();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return l;
+
     }
 
 }

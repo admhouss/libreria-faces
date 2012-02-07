@@ -4,6 +4,8 @@ import escom.libreria.info.compras.FacturaGeneral;
 import escom.libreria.info.compras.jsf.util.JsfUtil;
 import escom.libreria.info.compras.jsf.util.PaginationHelper;
 import escom.libreria.info.compras.ejb.FacturaGeneralFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="facturaGeneralController")
 @SessionScoped
-public class FacturaGeneralController {
+public class FacturaGeneralController implements Serializable{
 
     private FacturaGeneral current;
     private DataModel items = null;
@@ -30,6 +32,11 @@ public class FacturaGeneralController {
     public FacturaGeneralController() {
     }
 
+
+    public List<FacturaGeneral> getlistFacturaGeneral(){
+        List<FacturaGeneral> l=getFacade().findAll();
+        return l;
+    }
     public FacturaGeneral getSelected() {
         if (current == null) {
             current = new FacturaGeneral();

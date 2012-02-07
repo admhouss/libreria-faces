@@ -42,7 +42,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "FacturaGeneral.findByCalle", query = "SELECT f FROM FacturaGeneral f WHERE f.calle = :calle"),
     @NamedQuery(name = "FacturaGeneral.findByNoExterior", query = "SELECT f FROM FacturaGeneral f WHERE f.noExterior = :noExterior"),
     @NamedQuery(name = "FacturaGeneral.findByColonia", query = "SELECT f FROM FacturaGeneral f WHERE f.colonia = :colonia"),
-    @NamedQuery(name = "FacturaGeneral.findByDel", query = "SELECT f FROM FacturaGeneral f WHERE f.del = :del"),
+   // @NamedQuery(name = "FacturaGeneral.findByDel", query = "SELECT f FROM FacturaGeneral f WHERE f.del = :del"),
     @NamedQuery(name = "FacturaGeneral.findByIdEdo", query = "SELECT f FROM FacturaGeneral f WHERE f.idEdo = :idEdo"),
     @NamedQuery(name = "FacturaGeneral.findByPais", query = "SELECT f FROM FacturaGeneral f WHERE f.pais = :pais"),
     @NamedQuery(name = "FacturaGeneral.findByCp", query = "SELECT f FROM FacturaGeneral f WHERE f.cp = :cp")})
@@ -96,9 +96,9 @@ public class FacturaGeneral implements Serializable {
     @Basic(optional = false)
     @Column(name = "COLONIA")
     private String colonia;
-    @Basic(optional = false)
-    @Column(name = "DEL")
-    private String del;
+   // @Basic(optional = false)
+   // @Column(name = "DEL")
+    //private String del;
     @Basic(optional = false)
     @Column(name = "ID_EDO")
     private int idEdo;
@@ -135,7 +135,7 @@ public class FacturaGeneral implements Serializable {
         this.calle = calle;
         this.noExterior = noExterior;
         this.colonia = colonia;
-        this.del = del;
+      //  this.del = del;
         this.idEdo = idEdo;
         this.pais = pais;
         this.cp = cp;
@@ -260,7 +260,7 @@ public class FacturaGeneral implements Serializable {
     public void setColonia(String colonia) {
         this.colonia = colonia;
     }
-
+/*
     public String getDel() {
         return del;
     }
@@ -268,7 +268,7 @@ public class FacturaGeneral implements Serializable {
     public void setDel(String del) {
         this.del = del;
     }
-
+*/
     public int getIdEdo() {
         return idEdo;
     }

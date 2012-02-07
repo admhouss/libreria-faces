@@ -62,4 +62,10 @@ public class EnviorealizadoFacade {
         return ((Long) q.getSingleResult()).intValue();
     }
 
+    public List<Enviorealizado> getEnviosRealizadosByCliente(String id) {
+        return null;
+    }
+
+
+
 }

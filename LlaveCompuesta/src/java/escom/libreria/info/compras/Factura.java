@@ -32,9 +32,9 @@ import javax.persistence.TemporalType;
     
     @NamedQuery(name = "Factura.findByFechaCert", query = "SELECT f FROM Factura f WHERE f.fechaCert = :fechaCert"),
     @NamedQuery(name = "Factura.findByNoSerie", query = "SELECT f FROM Factura f WHERE f.noSerie = :noSerie"),
-    @NamedQuery(name = "Factura.findByFechaEmi", query = "SELECT f FROM Factura f WHERE f.fechaEmi = :fechaEmi"),
+    //@NamedQuery(name = "Factura.findByFechaEmi", query = "SELECT f FROM Factura f WHERE f.fechaEmi = :fechaEmi"),
     @NamedQuery(name = "Factura.findByCertEmi", query = "SELECT f FROM Factura f WHERE f.certEmi = :certEmi"),
-    @NamedQuery(name = "Factura.findBySerie", query = "SELECT f FROM Factura f WHERE f.serie = :serie"),
+    //@NamedQuery(name = "Factura.findBySerie", query = "SELECT f FROM Factura f WHERE f.serie = :serie"),
     @NamedQuery(name = "Factura.findByRfc", query = "SELECT f FROM Factura f WHERE f.facturaPK.rfc = :rfc"),
     @NamedQuery(name = "Factura.findByRazonSocial", query = "SELECT f FROM Factura f WHERE f.razonSocial = :razonSocial"),
     @NamedQuery(name = "Factura.findByCalle", query = "SELECT f FROM Factura f WHERE f.calle = :calle"),
@@ -63,16 +63,18 @@ public class Factura implements Serializable {
     @Basic(optional = false)
     @Column(name = "NO_SERIE")
     private String noSerie;
-    @Basic(optional = false)
-    @Column(name = "FECHA_EMI")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaEmi;
+    //@Basic(optional = false)
+    //@Column(name = "FECHA_EMI")
+    //@Temporal(TemporalType.TIMESTAMP)
+    //private Date fechaEmi;
     @Basic(optional = false)
     @Column(name = "CERT_EMI")
     private String certEmi;
-    @Basic(optional = false)
-    @Column(name = "SERIE")
+   /* @Basic(optional = false)
+   @Column(name = "SERIE")
     private String serie;
+    *
+    */
     @Basic(optional = false)
     @Column(name = "RAZON_SOCIAL")
     private String razonSocial;
@@ -121,9 +123,9 @@ public class Factura implements Serializable {
         
         this.fechaCert = fechaCert;
         this.noSerie = noSerie;
-        this.fechaEmi = fechaEmi;
+///        this.fechaEmi = fechaEmi;
         this.certEmi = certEmi;
-        this.serie = serie;
+    //    this.serie = serie;
         this.razonSocial = razonSocial;
         this.calle = calle;
         this.noExterior = noExterior;
@@ -180,14 +182,14 @@ public class Factura implements Serializable {
         this.noSerie = noSerie;
     }
 
-    public Date getFechaEmi() {
+    /*public Date getFechaEmi() {
         return fechaEmi;
     }
 
     public void setFechaEmi(Date fechaEmi) {
         this.fechaEmi = fechaEmi;
     }
-
+*/
     public String getCertEmi() {
         return certEmi;
     }
@@ -196,14 +198,14 @@ public class Factura implements Serializable {
         this.certEmi = certEmi;
     }
 
-    public String getSerie() {
+   /* public String getSerie() {
         return serie;
     }
 
     public void setSerie(String serie) {
         this.serie = serie;
     }
-
+*/
     public String getRazonSocial() {
         return razonSocial;
     }

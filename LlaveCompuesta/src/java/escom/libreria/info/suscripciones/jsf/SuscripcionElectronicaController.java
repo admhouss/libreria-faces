@@ -1,5 +1,6 @@
 package escom.libreria.info.suscripciones.jsf;
 
+import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.suscripciones.SuscripcionElectronica;
 import escom.libreria.info.suscripciones.SuscripcionElectronicaPK;
 import escom.libreria.info.suscripciones.jsf.util.JsfUtil;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -29,6 +31,17 @@ public class SuscripcionElectronicaController implements Serializable{
     @EJB private escom.libreria.info.suscripciones.ejb.SuscripcionElectronicaFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    @ManagedProperty(value="#{sistemaController.cliente}")
+    private Cliente cliente;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
 
     public SuscripcionElectronicaController() {
     }
@@ -43,6 +56,16 @@ public class SuscripcionElectronicaController implements Serializable{
 
     public List<SuscripcionElectronica> getSuscripcionElectronicaList(){
         List<SuscripcionElectronica> l=  getFacade().findAll();
+        return l;
+    }
+
+    public List<SuscripcionElectronica> getSuscripcionElectronicaByCliente(){
+        List<SuscripcionElectronica> l=null;
+        try{
+               l= getFacade().getSuscripcionesElectronicasIdCliente(cliente.getId());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return l;
     }
     private SuscripcionElectronicaFacade getFacade() {

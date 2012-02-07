@@ -74,4 +74,16 @@ public class DifacturacionFacade {
         return direcciones;
 
     }
+    public Difacturacion getDireccionFacturaClienteByID(String id) {
+         Difacturacion direcciones=null;
+        try{
+        TypedQuery<Difacturacion> query=em.createQuery("SELECT d FROM Difacturacion d WHERE d.cliente.id = :idCliente",Difacturacion.class)
+        .setMaxResults(1)
+        .setParameter("idCliente", id);
+         direcciones=query.getSingleResult();
+        }catch(Exception e){}
+
+        return direcciones;
+
+    }
 }

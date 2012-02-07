@@ -24,7 +24,7 @@ public class SistemaFacade {
         CarritoCompraTemporalLocal bandeja=null;
         try {
             InitialContext contex = new InitialContext();
-            bandeja = (CarritoCompraTemporalLocal) contex.lookup("java:global/LlaveCompuesta/CarritoCompraTemporal!escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal");
+            bandeja = (CarritoCompraTemporalLocal) contex.lookup("java:global/LibreriaTFJV/CarritoCompraTemporal!escom.libreria.info.carrito.ejb.CarritoCompraTemporalLocal");
             return bandeja;
         } catch (NamingException ex) {
             ex.printStackTrace();

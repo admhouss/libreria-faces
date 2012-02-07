@@ -4,6 +4,8 @@ import escom.libreria.info.bitacoras.BitacoraConsulta;
 import escom.libreria.info.bitacoras.jsf.util.JsfUtil;
 import escom.libreria.info.bitacoras.jsf.util.PaginationHelper;
 import escom.libreria.info.bitacoras.ejb.BitacoraConsultaFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="bitacoraConsultaController")
 @SessionScoped
-public class BitacoraConsultaController {
+public class BitacoraConsultaController implements Serializable{
 
     private BitacoraConsulta current;
     private DataModel items = null;
@@ -40,6 +42,12 @@ public class BitacoraConsultaController {
 
     private BitacoraConsultaFacade getFacade() {
         return ejbFacade;
+    }
+
+    public List<BitacoraConsulta> getListBitacoraConsultaAll(){
+         List<BitacoraConsulta> l=getFacade().findAll();
+         return l;
+
     }
 
     public PaginationHelper getPagination() {

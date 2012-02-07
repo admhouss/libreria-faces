@@ -90,6 +90,14 @@ public class ArticuloController implements Serializable {
     }
 
 
+
+    /*TRATE LOS ASUNTOS CON */
+
+    public List<String> getAsuntoDistinctArticulo(){
+       List<String> l= getFacade().getAsuntoArticulos();
+       return l;
+    }
+
 /*TRAE ARTICULOS CON TIPO ARTICULO CD,DVD,REVISTA Y LIBRO*/
     public List<Articulo> getTipoArticuloPublicaciones(){
          List<Articulo> publicaciones=getFacade().getPublicaciones();

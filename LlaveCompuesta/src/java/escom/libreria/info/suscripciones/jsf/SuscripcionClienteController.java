@@ -1,5 +1,7 @@
 package escom.libreria.info.suscripciones.jsf;
 
+import escom.libreria.info.cliente.Cliente;
+import escom.libreria.info.login.sistema.SistemaController;
 import escom.libreria.info.suscripciones.SuscripcionCliente;
 import escom.libreria.info.suscripciones.SuscripcionClientePK;
 import escom.libreria.info.suscripciones.jsf.util.JsfUtil;
@@ -7,10 +9,9 @@ import escom.libreria.info.suscripciones.jsf.util.PaginationHelper;
 import escom.libreria.info.suscripciones.ejb.SuscripcionClienteFacade;
 import java.io.Serializable;
 import java.util.List;
-
-import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -29,9 +30,24 @@ public class SuscripcionClienteController implements Serializable{
     @EJB private escom.libreria.info.suscripciones.ejb.SuscripcionClienteFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    @ManagedProperty(value="#{sistemaController.cliente}")
+    private Cliente cliente;
+   
     public SuscripcionClienteController() {
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+
+
+
+
 
     public SuscripcionCliente getSelected() {
         if (current == null) {
@@ -42,9 +58,24 @@ public class SuscripcionClienteController implements Serializable{
     }
 
 
+
+
     public List<SuscripcionCliente> getListSuscripcionesCliente(){
 
         List<SuscripcionCliente> l=getFacade().findAll();
+        return l;
+    }
+
+    public List<SuscripcionCliente> getListSuscripcionesByCliente(){
+
+          
+        List<SuscripcionCliente> l=null;
+        try{
+        l=getFacade().getSuscripcionDelCliente(cliente.getId());
+        }catch(Exception e){
+            e.printStackTrace();
+
+        }
         return l;
     }
     private SuscripcionClienteFacade getFacade() {

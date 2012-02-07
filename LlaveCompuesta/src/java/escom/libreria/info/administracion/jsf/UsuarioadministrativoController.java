@@ -4,6 +4,7 @@ import escom.libreria.info.administracion.Usuarioadministrativo;
 import escom.libreria.info.administracion.jsf.util.JsfUtil;
 import escom.libreria.info.administracion.jsf.util.PaginationHelper;
 import escom.libreria.info.administracion.ejb.UsuarioadministrativoFacade;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -36,6 +37,11 @@ public class UsuarioadministrativoController {
             selectedItemIndex = -1;
         }
         return current;
+    }
+
+    public List<Usuarioadministrativo>  getlistaUsuarioAdministrativo(){
+        List<Usuarioadministrativo>  l=getFacade().findAll();
+        return l;
     }
 
     private UsuarioadministrativoFacade getFacade() {
