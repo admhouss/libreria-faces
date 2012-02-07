@@ -18,27 +18,27 @@
             </h:panelGroup>
             
             <h:panelGroup>
-                
-               <p:dataTable value="#{bitacoraConsultaController.items}" var="item">
+                <p:panel header="CAT&Aacute;LOGO DE BITACORA CONSULTA">
+                <p:dataTable value="#{bitacoraConsultaController.listBitacoraConsultaAll}" var="item" paginator="true" rows="10" >
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="idMovimiento}"/>
+                            <h:outputText value="MOVIMIENTO"/>
                         </f:facet>
                         <h:outputText value="#{item.idMovimiento}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="fecha}"/>
+                            <h:outputText value="FECHA"/>
                         </f:facet>
                         <h:outputText value="#{item.fecha}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="articulo}"/>
+                            <h:outputText value="Articulo"/>
                         </f:facet>
-                        <h:outputText value="#{item.articulo}"/>
+                        <h:outputText value="#{item.articulo.titulo}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
@@ -51,6 +51,7 @@
                         <h:commandLink action="#{bitacoraConsultaController.destroy}" value="#{bundle.ListBitacoraConsultaDestroyLink}"/>
                     </p:column>
                </p:dataTable>
+                </p:panel>
             </h:panelGroup>
             <br />
             <h:commandLink action="#{bitacoraConsultaController.prepareCreate}" value="#{bundle.ListBitacoraConsultaCreateLink}"/>
