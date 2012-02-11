@@ -43,7 +43,7 @@ import sun.misc.BASE64Decoder;
 public class facturafromDenegateImp implements facturafromClient{
 
 
-    public static String keyStore= "C:/mikeystore/" ;///home/libreria/mykeystore/";
+  //  public static String keyStore= "C:/mikeystore/" ;///home/libreria/mykeystore/";
     //public static String rutas_factura="C:/Users/xxx/Desktop/facturasPrueba/"; //"/home/libreria/facturacion/"; ///home/tribunal/Documentos/resultados/";
     private String serie,folio;
     private static  Logger logger = Logger.getLogger(facturafromDenegateImp.class);
@@ -73,8 +73,8 @@ public class facturafromDenegateImp implements facturafromClient{
     public mx.com.fact.www.schema.ws.FactWSFrontStub.RequestTransactionResponse connectedMysuitFactor(String xml_cfd) throws java.lang.Exception {
 
                     RequestTransactionResponse response  =null;
-                   System.setProperty("javax.net.ssl.trustStore", keyStore+"keystore.jks");
-        	   System.setProperty("javax.net.ssl.keyStore", keyStore+"keystore.jks");
+                   System.setProperty("javax.net.ssl.trustStore",ConstantesFacturacion.keyStore);
+        	   System.setProperty("javax.net.ssl.keyStore", ConstantesFacturacion.keyStore);//keyStore+"keystore.jks");
         	   System.setProperty("javax.net.ssl.trustStorePassword", "mipassword");
         	   System.setProperty("javax.net.ssl.keyStorePassword", "mipassword");
                    System.setProperty("javax.net.debug", "ssl");
@@ -109,8 +109,8 @@ public class facturafromDenegateImp implements facturafromClient{
 
           // RequestTransactionResponse     response  = connectedMysuitFactor(ruta+XML_CFD);
                    RequestTransactionResponse response  =null;
-                   System.setProperty("javax.net.ssl.trustStore", keyStore+"keystore.jks");
-        	   System.setProperty("javax.net.ssl.keyStore", keyStore+"keystore.jks");
+                   System.setProperty("javax.net.ssl.trustStore", ConstantesFacturacion.keyStore);
+        	   System.setProperty("javax.net.ssl.keyStore", ConstantesFacturacion.keyStore);
         	   System.setProperty("javax.net.ssl.trustStorePassword", "mipassword");
         	   System.setProperty("javax.net.ssl.keyStorePassword", "mipassword");
                    System.setProperty("javax.net.debug", "ssl");

@@ -36,10 +36,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Estado.findById", query = "SELECT e FROM Estado e WHERE e.id = :id"),
     @NamedQuery(name = "Estado.findByNombre", query = "SELECT e FROM Estado e WHERE e.nombre = :nombre")})
 public class Estado implements Serializable {
-    @Column(name = "ID_ZONA")
-    private String idZona;
-    @Column(name = "PESO")
-    private BigDecimal peso;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,29 +48,12 @@ public class Estado implements Serializable {
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
     private List<Cliente> clienteList;
+    @Column(name = "ID_ZONA")
+    private String idZona;
+    @Column(name = "PESO")
+    private BigDecimal peso;
 
-   /* @ManyToOne
-    @JoinColumns({
-    @JoinColumn(name = "ID_ZONA", referencedColumnName = "ID_ZONA"),
-    @JoinColumn(name = "PESO", referencedColumnName = "PESO")
-    })
-            
-    //@JoinColumn(name = "ID_ZONA", referencedColumnName = "ID_ZONA")
-    
-    private Zona zona;
-
-    */
-    
-    
-   /* public Zona getZona() {
-        return zona;
-    }
-
-    public void setZona(Zona zona) {
-        this.zona = zona;
-    }
-*/
-
+  
 
     public Estado() {
     }
@@ -86,6 +66,16 @@ public class Estado implements Serializable {
         this.id = id;
         this.nombre = nombre;
     }
+
+    public Estado(Integer id, String nombre, List<Cliente> clienteList, String idZona, BigDecimal peso) {
+        this.id = id;
+        this.nombre = nombre;
+        this.clienteList = clienteList;
+        this.idZona = idZona;
+        this.peso = peso;
+    }
+
+
 
     public Integer getId() {
         return id;
@@ -111,6 +101,8 @@ public class Estado implements Serializable {
         this.clienteList = clienteList;
     }
 
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
