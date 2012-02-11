@@ -11,6 +11,8 @@ import escom.libreria.info.compras.Pedido;
 import escom.libreria.info.compras.ejb.PedidoFacade;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.facturacion.ejb.ArticuloFacade;
+import escom.libreria.info.proveedor.Proveedor;
+import escom.libreria.jdbc.reporteador.ArticuloDTO;
 import escom.libreria.jdbc.reporteador.ReporteCliente;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -34,6 +36,9 @@ public class reporteadorController  implements Serializable{
     private Articulo articuloArray[];
     private BigDecimal  descuento; /*Descuento */
     private List<Pedido> pedidosCliente; /**/
+    private Proveedor reporteproveedor;
+    private List<ArticuloDTO> articulosDTO;
+
 
 
     @EJB private ClienteFacade clienteFacade;
@@ -47,9 +52,48 @@ public class reporteadorController  implements Serializable{
         return pedidosCliente;
     }
 
+    public List<ArticuloDTO> getArticulosDTO() {
+        return articulosDTO;
+    }
+
+    public void setArticulosDTO(List<ArticuloDTO> articulosDTO) {
+        this.articulosDTO = articulosDTO;
+    }
+
     public void setPedidosCliente(List<Pedido> pedidosCliente) {
         this.pedidosCliente = pedidosCliente;
     }
+
+    public Proveedor getReporteproveedor() {
+        return reporteproveedor;
+    }
+
+    public void setReporteproveedor(Proveedor reporteproveedor) {
+        this.reporteproveedor = reporteproveedor;
+    }
+
+public String buscarReportArticulos(){
+
+         StringBuilder buffer=new StringBuilder();
+         for(int i=0;i<articuloArray.length;i++)
+         {
+             if(i==0)
+                 buffer.append(String.valueOf(articuloArray[i].getId()));
+             else
+             
+              buffer.append(",").append(String.valueOf(articuloArray[i].getId()));
+             
+         }
+
+           // System.out.println("articulos seleccionados"+articuloArray.length);
+            //System.out.println("proveedor"+reporteproveedor.getNombre());
+            //System.out.println("descuento"+descuento);
+            ReporteCliente reporteCliente=new ReporteCliente(buffer.toString(),reporteproveedor.getNombre(),descuento);
+            articulosDTO=reporteCliente.getReporteArticulos();
+
+        return "/reporteador/ReporteArticulos";
+    }
+
 
 
     public BigDecimal getDescuento() {

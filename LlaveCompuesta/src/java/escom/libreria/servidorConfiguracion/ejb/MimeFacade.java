@@ -18,6 +18,8 @@ import javax.persistence.TypedQuery;
  *
  * @author xxx
  */
+
+//jola
 @Stateless
 public class MimeFacade {
     @PersistenceContext(unitName = "LlaveCompuestaPU")

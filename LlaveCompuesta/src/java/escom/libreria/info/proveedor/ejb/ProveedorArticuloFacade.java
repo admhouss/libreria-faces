@@ -122,7 +122,7 @@ public class ProveedorArticuloFacade {
             .setMaxResults(1);
               pa=query.getSingleResult();
         }catch(Exception  e){
-          e.printStackTrace();
+          System.out.println("EL ARTICULO NO TI ENE PROVEEDOR ARTICULO");
         }
             
        

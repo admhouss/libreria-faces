@@ -49,6 +49,7 @@ import escom.libreria.info.descuentos.Descuento;
 import escom.libreria.info.encriptamientoMD5.EncriptamientoImp;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.facturacion.ejb.ArticuloFacade;
+import escom.libreria.info.proveedor.Proveedor;
 import escom.libreria.info.proveedor.ProveedorArticulo;
 import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
 import escom.libreria.info.suscripciones.Suscripcion;
@@ -74,11 +75,11 @@ public class ventasController implements Serializable {
     private List<Compra> comprascliente;
     private List<Pedido> pedidoscliente;
     private List<Articulo> reporteArticuloList;
-
+    
     private Articulo[] articuloList;
     private Cliente cliente;
     private Articulo articulo;
-    private static final String dwonload="http://localhost:8080/Libreria/faces/download/Create.xhtml?key=";
+    private static final String dwonload="http://localhost:8080/LibreriaTFJV/faces/download/Create.xhtml?key=";
     private Compra selected;
     private Date fechaInicio;
     private Date fechaFinal;
@@ -110,6 +111,12 @@ public class ventasController implements Serializable {
         return reporteArticuloList;
     }
 
+    
+
+
+
+
+
     public void setReporteArticuloList(List<Articulo> reporteArticuloList) {
         this.reporteArticuloList = reporteArticuloList;
     }
@@ -131,7 +138,7 @@ public class ventasController implements Serializable {
 
     /*buscar reporte articulos*/
 
-    public String buscarReportArticulo(){
+    public String buscarReportCliente(){
 
 
 
@@ -148,6 +155,8 @@ public class ventasController implements Serializable {
         return "/ventaDetalle/List";
     }
 
+
+    
     public Descuento getDescuento() {
         return descuento;
     }

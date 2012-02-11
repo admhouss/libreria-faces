@@ -5,6 +5,7 @@
 
 package com.escom.info.generadorCDF;
 
+import com.escom.info.generadorCFD.unmarshalCDI.UnmarshalCDI;
 import com.escom.info.generarFactura.GeneraraFacade;
 import escom.libreria.correo.ProcesoJMail;
 import escom.libreria.facturacion.proveedor.mysuitemex.FactDocsMX;
@@ -70,7 +71,7 @@ public class generadorCDFController implements Serializable
      
 
 
-    public String generarFacturaDeCompra(Compra idCompra){
+    private void generarFacturaDeCompra(Compra idCompra){
       logger.info("---COMENZANDO PROCESO DE CREACION CFD-------") ;
       Difacturacion direccionFactura=direccionFacturacionFacade.getDireccionFacturaClienteByID(idCompra.getIdCliente());
       logger.info("---OBTENIENDO DIRECCION DE FACTURACION DEL CLIENTE----");
@@ -79,30 +80,30 @@ public class generadorCDFController implements Serializable
       Conceptos conceptos = generaraFacade.crearConceptos(pedidos);
       logger.info("COMENZANO PROCESO DE CREADO ARCHIVO CFD");
       crear_objeto_xml(direccionEmisor,conceptos,idCompra,direccionFactura);
-      if(msgError!=null && msgError.equals(""))
-      {
-          JsfUtil.addSuccessMessage("FACTURA CREADA SATISFACTORIAMENTE");
-      }else
-      {
-          JsfUtil.addErrorMessage(msgError);
-      }
-        return "facturar";
+      
+        //return "facturar";
     }
 
 
     public String crearFacturara(Compra c){
 
        // if(bandera)  {
-
+                generarFacturaDeCompra(c);
                 String nombreFacturaCFD=ConstantesFacturacion.FACTURA_NOMBRE+c.getIdPedido()+".xml";
                 logger.info("EL CFD FUE  CREADO SATISFACTORIAMENTE"+nombreFacturaCFD);
                 logger.info("LE VOY A MANDAR A MYSUIT EL SIGUIENTE CFD"+ConstantesFacturacion.RUTA_REPOSITORIO_CFD+nombreFacturaCFD);
                 facturafromDenegateImp facturacion=new facturafromDenegateImp();
                 try{
                          logger.info("LE VOY A MANDAR A MYSUIT EL SIGUIENTE CFD"+ConstantesFacturacion.RUTA_REPOSITORIO_CFD+nombreFacturaCFD);
-                         msgError= facturacion.generaFactura(ConstantesFacturacion.RUTA_REPOSITORIO_CFD, nombreFacturaCFD);
+                         msgError+= facturacion.generaFactura(ConstantesFacturacion.RUTA_REPOSITORIO_CFD, nombreFacturaCFD);
                         if(facturacion.getUbicacionCFDI()!=null)
-                         enviarFacturaToCliente(c.getIdCliente(),facturacion.getUbicacionCFDI());
+                        {
+                          UnmarshalCDI unmarshalCDI=new UnmarshalCDI();
+                          unmarshalCDI.prepareCreateCFI_To_Object(c, facturacion.getUbicacionCFDI()+".xml");
+                          logger.info("PROCESO INVERSO REALIZADO SATISFACTORAMENTE");
+                    /*DESCOMENTAR ESTA LINEA SI ES IMPORTANTE ,LA COMENTE POR PROBAR**/
+                    //      enviarFacturaToCliente(c.getIdCliente(),facturacion.getUbicacionCFDI());
+                        }
                          else{
                            logger.info("LA UBICACION ES NULA"+msgError);
                            JsfUtil.addErrorMessage(msgError);

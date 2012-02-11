@@ -67,22 +67,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class GeneraraFacade {
 
 
-  /*  private  TDomicilioMexicano getDireccionFiscal() {
-
-        TDomicilioMexicano domicilioEmision=new TDomicilioMexicano();
-        domicilioEmision=getDireccionFiscal()
-        domicilioEmision.setCalle(difacturacion.getCalle());
-        domicilioEmision.setCodigoPostal(difacturacion.getCp()+"");
-        domicilioEmision.setColonia(difacturacion.getColonia());
-        domicilioEmision.setEstado(difacturacion.getEstado().getNombre());
-        domicilioEmision.setNumeroExterior(difacturacion.getNoExterior());
-        domicilioEmision.setNumeroInterior( difacturacion.getNoInterior());
-        domicilioEmision.setMunicipio(difacturacion.getDelMunicipio());
-
-        return domicilioEmision;
-
-    }
-*/
 
     public Receptor getReceptor(Difacturacion difacturacion) {
         Receptor receptor=new Receptor();
@@ -136,7 +120,7 @@ public class GeneraraFacade {
 
         Entry entry4=new Entry();
         entry4.setK("bcc");
-        entry4.setV("acisneros@uhthoff.com.mx");
+        entry4.setV("jcmc09@gmail.com.mx");
 
         e.getEntry().add(entry);
         e.getEntry().add(entry2);
@@ -173,7 +157,7 @@ public class GeneraraFacade {
         identificacion.setRFCEmisor("TFJ360831MTA");
         identificacion.setRazonSocialEmisor("TRIBUNAL FEDERAL DE JUSTICIA FISCAL Y ADMINISTRATIVA");
         identificacion.setUsuario("INSURGENTES");
-        identificacion.setNumeroInterno("FACTURA ELECTRONICA INSUR FIN-000041");
+        identificacion.setNumeroInterno("FACTURA ELECTRONICA LJV FLJ-000001");
         
         return identificacion;
 
@@ -331,7 +315,7 @@ public class GeneraraFacade {
         TComprobanteEx comprobanteEX=new TComprobanteEx();
         comprobanteEX.setDatosDeNegocio(getDatosDeNegocio());
         comprobanteEX.setTerminosDePago(getTerminosPago());
-        //comprobanteEX.s
+        //comprobanteEX.setDatosDeNegocio(getDatosDeNegocio());
 
         return comprobanteEX;
 
@@ -339,7 +323,7 @@ public class GeneraraFacade {
 
     private DatosDeNegocio getDatosDeNegocio() {
         DatosDeNegocio d=new DatosDeNegocio();
-        d.setSucursal("FISCALDOM");
+        d.setSucursal("LJV");
         return d;
 
     }

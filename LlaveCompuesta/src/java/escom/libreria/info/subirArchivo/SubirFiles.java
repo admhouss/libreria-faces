@@ -29,6 +29,7 @@ import javax.annotation.PostConstruct;
 import escom.libreria.info.articulo.jsf.PublicacionController;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.facturacion.Articulo;
+import escom.libreria.info.facturacion.ejb.ArticuloFacade;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -46,8 +47,8 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.Buffer;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.StringTokenizer;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -56,6 +57,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.CroppedImage;
 import org.primefaces.model.DefaultStreamedContent;
@@ -84,6 +86,8 @@ public class SubirFiles  implements Serializable{
     private String extension,menssageOut;
     @EJB private escom.libreria.info.procesarEditorialXML.Editorialfacade editorialfacade;
     @EJB private MimeFacade mimeFacade;
+    @EJB private ArticuloFacade articuloFacade;
+    private static  Logger logger = Logger.getLogger(SubirFiles.class);
 
     @ManagedProperty("#{articuloController}")
     private ArticuloController articuloController;
@@ -116,18 +120,7 @@ public class SubirFiles  implements Serializable{
     public SubirFiles() {
     }
 
-/*public void crearArchivo(byte[] bytes, String arquivo) {
-      FileOutputStream fos;
-      try {
-         fos = new FileOutputStream(arquivo);
-         fos.write(bytes);
-         fos.close();
-      } catch (FileNotFoundException ex) {
-         ex.printStackTrace();
-      } catch (IOException ex) {
-        ex.printStackTrace();
-      }
-   }*/
+
 
     public void handleFileDocumentUpload(FileUploadEvent event) {
         try{
@@ -204,56 +197,40 @@ private String key;/*VARIABLE QUE LEE BROWSER */
 
     
 byte[] enBytes;
-     @PostConstruct
+   @PostConstruct
     public void init() {
-
+System.out.println("Mensaje Leido:"+getKey());
          try{
              if(getKey()!=null && !getKey().equals(""))
              {
                      EncriptamientoImp  encriptamientoImp=new EncriptamientoImp();
                      enBytes=encriptamientoImp.hexToBytes(getKey());
                      String mensaje= encriptamientoImp.decrypt(enBytes);
-                     Integer pedido=Integer.parseInt(mensaje);
+                     StringTokenizer token=new StringTokenizer(mensaje, "|");
+                     Integer  idArticulo=Integer.parseInt(token.nextToken());
+                     Articulo articulo =articuloFacade.find(idArticulo);
+                     descargarArchivoDocumento(articulo);
+                    /* if(articulo.getArchivo()!=null)
+                     {
+                      int pos=articulo.getArchivo().indexOf(".");
+                      String extension=articulo.getArchivo().substring(pos, articulo.getArchivo().length());
+                      String mime=mimeFacade.buscarMimeType(extension.replaceAll(".", ""));
+                      download(articulo.getArchivo(), mime);
+                     //String prueba="C:/Users/xxx/Documents/logLibreriaTFJVF/TFJV.txt";
+                     }*/
 
-                    System.out.println("Mensaje Leido:"+mensaje);
+
+                     ///Integer pedido=Integer.parseInt(mensaje);
+
+                    System.out.println("Articulo a descargar es:"+mensaje);
              }
          }catch(Exception e){
 
+               e.printStackTrace();
          }
 
      }
-   /* public boolean descargarArchivoXML(FileUploadEvent event) {
-
-
-      System.out.println("Ruta a guardar[ " +urlXML + event.getFile().getFileName());
-
-        try {
-            FileOutputStream fileOutputStream = null;
-            File result = null;
-            result = new File(urlXML + event.getFile().getFileName());
-
-            fileOutputStream = new FileOutputStream(result);
-
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int bulk;
-            InputStream inputStream = event.getFile().getInputstream();
-            while (true) {
-                bulk = inputStream.read(buffer);
-                if (bulk < 0) {
-                    break;
-                 }
-       //       bufferTemporal[i++]=(byte)bulk;
-             fileOutputStream.write(buffer, 0, bulk);
-             fileOutputStream.flush();
-            }
-            fileOutputStream.close();
-            inputStream.close();
-           return true;
-        } catch (IOException e) {
-        System.out.println("Error handleFileUpload" + e);
-        return false;
-    }
-}*/
+ 
     private int posExtension;
     public void handleFileUpload(FileUploadEvent event) {
             System.out.println("hola archivo");
@@ -323,46 +300,8 @@ byte[] enBytes;
         facesContext.responseComplete();
     }
 
-
-    /*public void download2(String path, String tipoArchivo) throws IOException {
-
-      System.out.println("descargando el archivo"+path);
-        // Prepare.
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
-
-        File file = new File(path);
-        BufferedInputStream input = null;
-        BufferedOutputStream output = null;
-        //String url = "archivoPdf?path=" + path + "&fileName=" + nameFile + "&fileType=txt";
-        try {
-            input = new BufferedInputStream(new FileInputStream(file), DEFAULT_BUFFER_SIZE);
-
-            // Init servlet response.
-            response.reset();
-            response.setContentType(tipoArchivo);
-
-            response.setContentLength(Long.valueOf(file.length()).intValue());
-            response.setHeader("Content-disposition", "attachment; filename=\"" + nameFile + "\"");
-            output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
-
-            // Write file contents to response.
-            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-            int length;
-            while ((length = input.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
-            }
-
-            // Finalize task.
-            output.flush();
-        } finally {
-            // Gently close streams.
-            close(output);
-            close(input);
-        }
-        facesContext.responseComplete();
-    }*/
+    
+    
     private static void close(Closeable resource) {
         if (resource != null) {
             try {
@@ -389,7 +328,7 @@ byte[] enBytes;
 
            JsfUtil.addErrorMessage("El documento que intenta descargar no se encuentra disponible");
            // ex.printStackTrace();
-            Logger.getLogger(SubirFiles.class.getName()).log(Level.SEVERE, null, ex);
+           logger.error("El documento que intenta descargar no se encuentra disponible", ex);
              return null;
         }
         return null;
