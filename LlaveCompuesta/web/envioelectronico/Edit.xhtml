@@ -24,13 +24,12 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                     <h:outputLabel value="Observaciones:" for="observaciones" styleClass="textoNEGRO"/>
                     <h:inputText id="observaciones" value="#{envioelectronicoController.selected.observaciones}" title="#{bundle.CreateEnvioelectronicoTitle_observaciones}" required="true" requiredMessage="#{bundle.CreateEnvioelectronicoRequiredMessage_observaciones}"/>
                     <h:outputLabel value="Pedido" for="pedido" styleClass="textoNEGRO"/>
-                   <h:selectOneMenu id="pedido" value="#{envioelectronicoController.selected.pedido}" title="Numero" required="true" requiredMessage="El campo pedido es requerido">
-                       <f:selectItems value="#{pedidoController.listPedido}" var="item" itemValue="#{item}" itemLabel="#{item.pedidoPK.idPedido}"/>
-                   </h:selectOneMenu>
+                    <h:outputLabel  id="pedido" value="#{envioelectronicoController.selected.pedido.pedidoPK.idPedido}" title="Numero" />
+                  
                     <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO"  />
-                    <h:selectOneMenu id="articulo" value="#{envioelectronicoController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:200px;">
-                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
-                    </h:selectOneMenu>
+                   <h:outputLabel id="articulo" value="#{envioelectronicoController.selected.articulo.codigo}-#{envioelectronicoController.selected.articulo.titulo}" title="Articulo" />
+
+                   
                 </h:panelGrid>
 </center>
                         </p:panel>
