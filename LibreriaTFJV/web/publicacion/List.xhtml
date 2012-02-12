@@ -26,21 +26,21 @@
                 </div>
                 <br/>
                 <br/>
-                <p:panel header="CATALOGO PUBLICACIONES">
+                <p:panel header="CAT&Aacute;LOGO PUBLICACIONES">
                
                     <p:dataTable value="#{publicacionController.listaPublicacion}" var="item" paginator="true" rows="10" selectionMode="single">
                    <p:column style="width:10px;" filterBy="#{item.articulo.codigo}" >
                         <f:facet name="header">
-                            <h:outputText value="CODIGO"/>
+                            <h:outputText value="C&Oacute;DIGO"/>
                         </f:facet>
                        <h:outputText value="#{item.articulo.codigo}"/>
-                   </p:column>
+                   </p:column >
 
-                         <p:column style="width:100px;">
+                   <p:column style="width:100px;" filterBy="#{item.articulo.titulo}">
                         <f:facet name="header">
-                            <h:outputText value="ARTICULO"/>
+                            <h:outputText value="ART&Iacute;CULO"/>
                         </f:facet>
-                        <h:outputText value="#{item.articulo.titulo}"/>
+                        <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
                     </p:column>
                         <p:column style="width:10px;">
                         <f:facet name="header">
