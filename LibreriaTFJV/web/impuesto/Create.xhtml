@@ -24,16 +24,68 @@
                     <h:inputText id="montoImpuesto" value="#{impuestoController.selected.montoImpuesto}" title="Monto Impuesto" required="true" requiredMessage="Falta por campturar el campo Monto Impuesto"/>
                     <h:outputLabel value="%"  styleClass="textoNEGRO" />
                    
-                    <h:outputLabel value="Art&iacute;culo:" for="articulo" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{impuestoController.selected.articulo}" title="Articulo" required="true" requiredMessage="Falta por capturar articulo" style="width:250px;">
-                        <f:selectItems value="#{articuloController.listArticulos}" itemValue="#{item}" var="item" itemLabel="#{item.codigo}-#{item.titulo}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value=" "  styleClass="textoNEGRO" />
+                    
                     <h:outputLabel value="Descripci&oacute;n:" for="descripcion" styleClass="textoNEGRO" />
                      <h:inputTextarea id="descripcion" value="#{impuestoController.selected.descripcion}" title="Descripcion" required="true" requiredMessage="Falta por capturar Descripcion"/>
+                     <h:outputLabel value=" "  styleClass="textoNEGRO" />
+                     <h:outputLabel value="Art&iacute;culo:"  styleClass="textoNEGRO" />
+                   <!-- <h:selectOneMenu id="articulo" value="{impuestoController.selected.articulo}" title="Articulo" required="true" requiredMessage="Falta por capturar articulo" style="width:250px;">
+                        <f:selectItems value="{articuloController.listArticulos}" itemValue="{item}" var="item" itemLabel="{item.codigo}-{item.titulo}"/>
+                    </h:selectOneMenu>-->
+                    <h:outputLabel value="*"  styleClass="textoNEGRO" />
                 </h:panelGrid>
                 </center>
                 </p:panel>
+
+
+                             <br/>  <br/>
+            <p:panel header="CAT&Aacute;LOGO ART&Iacute;CULOS">
+
+            <h:panelGroup >
+                <p:dataTable value="#{articuloController.listArticulos}" var="item" paginator="true"  rows="10" selectionMode="single"  >
+
+
+                    <p:column filterBy="#{item.codigo}" style="width:12px;">
+                        <f:facet name="header">
+                            <h:outputText value="C&Oacute;DIGO"/>
+                        </f:facet>
+                        <h:outputText  value="#{item.codigo}" />
+
+                    </p:column>
+
+
+
+                    <p:column style="width:150px;" filterBy="#{item.titulo}">
+                        <f:facet name="header">
+                            <h:outputText value="T&Iacute;TULO"/>
+                        </f:facet>
+                         <h:outputText value="#{item.titulo}"/>
+
+                    </p:column>
+                     <p:column style="width:100px;">
+                        <f:facet name="header">
+                            <h:outputText value="AUTOR"/>
+                        </f:facet>
+                         <h:outputText value="#{item.creador}"/>
+
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{impuestoController.prepareSeleccionArticulo(item)}">
+                            <img src="./../resources/iconos/181.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+
+
+
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
+                          </p:panel>
+
                 <br /> <br />
                 <div align="center">
                      <p:panel>
