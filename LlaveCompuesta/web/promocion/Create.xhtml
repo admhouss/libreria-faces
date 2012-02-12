@@ -48,11 +48,11 @@
 
                 <p:dataTable value="#{promocionController.listaArticulosPromociones}" var="item"  
                              paginator="true" rows="13"  selectionMode="single" >
-                     <p:column >
+                    <p:column filterBy="#{item.titulo}">
                         <f:facet name="header">
                             <h:outputText value="TITULO"/>
                         </f:facet>
-                        <h:outputText value="#{item.titulo}"/>
+                        <h:outputText value="#{item.codigo}-#{item.titulo}"/>
                     </p:column>
                     <p:column >
                         <f:facet name="header">
