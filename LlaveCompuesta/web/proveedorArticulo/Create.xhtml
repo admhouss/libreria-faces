@@ -27,17 +27,68 @@
                         <f:selectItems value="#{proveedorController.listProveedor}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
                      <h:outputLabel value="*" styleClass="textoROJO" />
-                    <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO"  />
-                    <h:selectOneMenu id="articulo" value="#{proveedorArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:200px;">
-                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
-                    </h:selectOneMenu>
-                     <h:outputLabel value="*" styleClass="textoROJO" />
+                  
                     <h:outputLabel value="Peso:" for="peso" styleClass="textoNEGRO"  />
                     <h:inputText id="peso" value="#{proveedorArticuloController.selected.peso}" title="Cantidad" required="true" requiredMessage="El campo peso es requerido"/>
                      <h:outputLabel value="Kg" styleClass="textoROJO" />
+                     <h:outputLabel value="Art&iacute;culo:"  styleClass="textoNEGRO"  />
+                    <!---<h:selectOneMenu id="articulo" value="{proveedorArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:200px;">
+                        <f:selectItems value="{articuloController.listArticulos}" var="item" itemValue="{item}" itemLabel="{item.titulo}"/>
+                    </h:selectOneMenu>-->
+                     <h:outputLabel value="*" styleClass="textoROJO" />
                 </h:panelGrid>
 </center>
                 </p:panel>
+                         <br/>  <br/>
+            <p:panel header="CAT&Aacute;LOGO ART&Iacute;CULOS">
+
+            <h:panelGroup >
+                <p:dataTable value="#{articuloController.listArticulos}" var="item" paginator="true"  rows="10" selectionMode="single"  >
+
+
+                    <p:column filterBy="#{item.codigo}" style="width:12px;">
+                        <f:facet name="header">
+                            <h:outputText value="C&Oacute;DIGO"/>
+                        </f:facet>
+                        <h:outputText  value="#{item.codigo}" />
+
+                    </p:column>
+
+
+
+                    <p:column style="width:150px;" filterBy="#{item.titulo}">
+                        <f:facet name="header">
+                            <h:outputText value="T&Iacute;TULO"/>
+                        </f:facet>
+                         <h:outputText value="#{item.titulo}"/>
+
+                    </p:column>
+                     <p:column style="width:100px;">
+                        <f:facet name="header">
+                            <h:outputText value="AUTOR"/>
+                        </f:facet>
+                         <h:outputText value="#{item.creador}"/>
+
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{proveedorArticuloController.prepareSeleccionArticulo(item)}">
+                            <img src="./../resources/iconos/181.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+
+
+
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
+                          </p:panel>
+
+
+
                 <br />
                 <br />
                 <div align="center">
