@@ -26,17 +26,16 @@
                     <h:outputLabel value="Observaciones:" for="observaciones" styleClass="textoNEGRO"/>
                     <h:inputText id="observaciones" value="#{envioFisicoController.selected.observaciones}" title="Observaciones" required="true" requiredMessage="El campo observaciones es requerido"/>
                     <h:outputLabel value="Pedido" for="pedido" styleClass="textoNEGRO"/>
-                   <h:selectOneMenu id="pedido" value="#{envioFisicoController.selected.pedido}" title="Numero" required="true" requiredMessage="El campo pedido es requerido">
-                       <f:selectItems value="#{pedidoController.listPedido}" var="item" itemValue="#{item}" itemLabel="#{item.pedidoPK.idPedido}"/>
-                   </h:selectOneMenu>
+                    <h:outputLabel  id="pedido" value="#{envioFisicoController.selected.pedido.pedidoPK.idPedido}" title="Numero" />
+                  
                     <h:outputLabel value="Direnvio:" for="direnvio" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="direnvio" value="#{envioFisicoController.selected.direnvio}" title="direnvio}" required="true" requiredMessage="El campo direnvio}">
-                        <f:selectItems value="#{direnvioController.listDireccionEnvio}"  var="item" itemValue="#{item}" itemLabel="#{item.id}"/>
-                    </h:selectOneMenu>
+                    <h:outputLabel  id="direnvio" value="Calle:#{envioFisicoController.selected.direnvio.calle} no.Exterior:#{envioFisicoController.selected.direnvio.noExterior}  no.Interior:#{envioFisicoController.selected.direnvio.noInterior} CP:#{envioFisicoController.selected.direnvio.cp} Colonia:#{envioFisicoController.selected.direnvio.colonia}" title="direnvio}" />
+                   
                      <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
-                     <h:selectOneMenu id="articulo" value="#{envioFisicoController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:150px;">
-                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
-                    </h:selectOneMenu>
+                     <h:outputLabel id="articulo" value="#{envioFisicoController.selected.articulo.codigo}-#{envioFisicoController.selected.articulo.titulo} " title="Articulo"/>
+                        <!--            required="true" requiredMessage="El campo articulo es requerido" style="width:150px;">
+                        <f:selectItems value="{articuloController.listArticulos}" var="item" itemValue="{item}" itemLabel="{item.codigo}-{item.titulo}"/>
+                    </h:selectOneMenu>-->
                 </h:panelGrid>
                     </center>
                 </p:panel>
