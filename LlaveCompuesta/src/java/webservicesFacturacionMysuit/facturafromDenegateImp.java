@@ -107,7 +107,7 @@ public class facturafromDenegateImp implements facturafromClient{
   {
            String fxml,fhtml,fpdf,directorio;
 
-          // RequestTransactionResponse     response  = connectedMysuitFactor(ruta+XML_CFD);
+          
                    RequestTransactionResponse response  =null;
                    System.setProperty("javax.net.ssl.trustStore", ConstantesFacturacion.keyStore);
         	   System.setProperty("javax.net.ssl.keyStore", ConstantesFacturacion.keyStore);
