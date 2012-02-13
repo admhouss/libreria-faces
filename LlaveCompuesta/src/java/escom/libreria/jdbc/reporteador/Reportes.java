@@ -1,39 +1,50 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package escom.libreria.jdbc.reporteador;
 
+import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.facturacion.Articulo;
+import escom.libreria.jdbc.reporteador.dto.ArticuloDTO;
+import escom.libreria.jdbc.reporteador.dto.ClienteDTO;
+import escom.libreria.jdbc.reporteador.dto.SuscripcionDTO;
 import java.math.BigDecimal;
-import java.nio.Buffer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 
-
-
-
-public class ReporteCliente {
-
-    private escom.libreria.info.cliente.Cliente[] arregloClientes;
-    private escom.libreria.info.facturacion.Articulo[] arregloArticulos;
+/**
+ *
+ * @author xxx
+ */
+public class Reportes {
+    private Cliente[] arregloClienteDTOs;
+    private Articulo[] arregloArticulos;
     private int size;
     private String articulosINTO,nombreProveedor;
     private BigDecimal descuento;
-    private static  Logger logger = Logger.getLogger(ReporteCliente.class);
+    private static  Logger logger = Logger.getLogger(Reportes.class);
 
-    public ReporteCliente(escom.libreria.info.cliente.Cliente[] clienteArray) {
-        this.arregloClientes=clienteArray;
-        this.size=this.arregloClientes.length;
+    public Reportes(Cliente[] ClienteDTOArray) {
+        this.arregloClienteDTOs=ClienteDTOArray;
+        this.size=this.arregloClienteDTOs.length;
 
     }
 
-    public ReporteCliente(Articulo[] arregloArticulos) {
-        this.arregloArticulos = arregloArticulos;
-        this.size=this.arregloArticulos.length;
-    }
+   // public ReporteCliente(Articulo[] arregloArticulos) {
+     //   this.arregloArticulos = arregloArticulos;
+      //  this.size=this.arregloArticulos.length;
+   // }
 
-    public ReporteCliente(String arrticulosIN, String nombreProveedor, BigDecimal descuento) {
+    public Reportes(String arrticulosIN, String nombreProveedor, BigDecimal descuento) {
         this.articulosINTO=arrticulosIN;
         this.nombreProveedor=nombreProveedor;
         this.descuento=descuento;
@@ -42,14 +53,92 @@ public class ReporteCliente {
 	/**
 	 * @param args
 	 */
-	
-	
-	private String crearQueryToReporteCliente(){
+
+	/*METODO QUE CREA EL QUERY SUSCRIPCIONES PARA LOS REPORTES----	!!*/
+	public static String crearQueryToSuscripciones(){
+
+		StringBuilder buffer=new StringBuilder();
+		 buffer.  append("SELECT DISTINCT a.id_suscripcion AS SUSCRIPCION,")
+				 .append("CONCAT(b.codigo,CONCAT('-',b.titulo)) AS ARTICULO,ta.descripcion,	")
+				 .append("c.numero,")
+				 .append("d.nombre,	")
+				 .append("d.paterno,	")
+				 .append("d.materno,	")
+				 .append("a.estado_envio,")
+				 .append("a.fecha_envio	")
+				 .append("FROM suscripcion_cliente a, articulo b, suscripcion c, cliente d ,tipo_articulo ta	")
+				 .append("WHERE b.id= a.id_articulo ")
+				 .append("AND a.id_suscripcion=c.id_suscripcion ")
+                 .append("AND ta.id=b.id_tipo	")
+                 .append("AND d.id=? ") //ID_CLIENTE
+			     .append("AND b.id_tipo=? and a.id_articulo=? ") //tipoARTICULO & idArticulo
+			     .append("AND a.estado_envio= ? 	")//ESTADO ENIO
+			     .append("AND MONTH(a.fecha_envio)=MONTH(?)	") //FECHA_ENVIO
+				 .append("and a.id_cliente= d.id ;");
+
+	      	return buffer.toString();
+
+
+	}
+
+    public Reportes() {
+
+    }
+	/* YA ESTA LISTO ESTE QUERY REPORTE DE SUSCRIPCIONES	*/
+	public List<SuscripcionDTO> getReporteSuscripciones(Date fecha,String idCliente,Integer IdTipoArticulo,Integer idArticulo,Integer estadoEnvio)
+	{
+		List<SuscripcionDTO> listaReportSuscripcion=new ArrayList<SuscripcionDTO>();
+
+		java.sql.Date date = new java.sql.Date(0000-00-00);
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+		Connection connection;
+
+		ConnectionDataBaseImp coneConnectionDatabaseI=new ConnectionDataBaseImp("root","root","libreriademo");
+
+		System.out.println("QUERY GENERADOR:	"+crearQueryToSuscripciones());
+		try {
+	    connection = coneConnectionDatabaseI.getConnection();
+        PreparedStatement preparando = connection.prepareStatement(crearQueryToSuscripciones());
+
+        preparando.setString(1, idCliente);// idCliento
+        preparando.setInt(2, 8); //idTipoArticulo
+        preparando.setInt(3, 11); //ID ARTICULO
+        preparando.setInt(4, 0); //PAQUETERIA
+        preparando.setDate(5,date.valueOf(simpleDateFormat.format(fecha)));//FECHA
+
+
+        ResultSet resultadoQuery=preparando.executeQuery();
+        ResultSetMetaData metaDatos = resultadoQuery.getMetaData();
+        int nColumnas= metaDatos.getColumnCount();
+
+         while(resultadoQuery.next())
+        {
+        	 	SuscripcionDTO suscripcion=new SuscripcionDTO();
+                 for(int i=1;i<=nColumnas;i++)
+                 System.out.println(metaDatos.getColumnName(i)+":	"+resultadoQuery.getString(i));
+        	 suscripcion.setSuscripcion(resultadoQuery.getString(1));
+        	 suscripcion.setArticulo(resultadoQuery.getString(2));
+        	 suscripcion.setDescripcion(resultadoQuery.getString(3));
+             suscripcion.setNumero((resultadoQuery.getInt(4)));
+             suscripcion.setNombreCliente(resultadoQuery.getString(5)+" "+resultadoQuery.getString(5)+" "+resultadoQuery.getString(7));
+             suscripcion.setEstado_envio(resultadoQuery.getInt(8));
+             suscripcion.setFecha_envio(resultadoQuery.getDate(9));
+
+              listaReportSuscripcion.add(suscripcion);
+        }//end WHILE
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return listaReportSuscripcion;
+	}
+	private String crearQueryToReporteClienteDTO(){
 		StringBuilder buffer=new StringBuilder();
 		 buffer.append("SELECT DISTINCT e.id,d.porcentaje,c.concepto,df.rfc,CONCAT(CONCAT(a.codigo,'-'),a.titulo) AS Articulo ")
-		.append("FROM CLIENTE e,categoria c,DESCUENTO_CLIENTE de,DESCUENTO d,DIFACTURACION df,PENDIENTE p,estado es,Articulo a ")
+		.append("FROM ClienteDTO e,categoria c,DESCUENTO_ClienteDTO de,DESCUENTO d,DIFACTURACION df,PENDIENTE p,estado es,Articulo a ")
 		.append("WHERE e.ID_CATEGORIA=c.id  AND de.ID_DESCUENTO=d.ID ")
-		.append("AND df.ID_EDO=es.id AND df.ID_CLIENTE=e.ID AND p.id_cliente=e.id AND p.ID_ARTICULO=a.id AND ")
+		.append("AND df.ID_EDO=es.id AND df.ID_ClienteDTO=e.ID AND p.id_ClienteDTO=e.id AND p.ID_ARTICULO=a.id AND ")
                 .append("e.id IN (");
                 for(int i=0;i<size;i++){
                    if(i==(size-1))
@@ -59,10 +148,14 @@ public class ReporteCliente {
                 }
                  buffer.append(")");
 
+
+                 System.out.println("QUERY GENERADO:"+buffer.toString());
 		 return buffer.toString();
 
-		
+
 	}
+
+
 
         public  String createQuertToReporteArticulo(String LISTA_ARTICULOS){
          StringBuilder builder=new StringBuilder();
@@ -91,7 +184,7 @@ public class ReporteCliente {
         public List<ArticuloDTO> getReporteArticulos(){
              List<ArticuloDTO> articulosList=new ArrayList<ArticuloDTO>();
         try {
-           
+
             String queryFinal = createQuertToReporteArticulo(this.articulosINTO);
             System.out.println("**EL QUERY QUE SE GENERO ES***" + queryFinal);
 
@@ -110,7 +203,7 @@ public class ReporteCliente {
                 articuloDTO.setFirme(resultadoQuery.getInt(4));
                 articuloDTO.setProveedor(resultadoQuery.getString(5));
                 articuloDTO.setPrecio(resultadoQuery.getBigDecimal(6));
-                
+
                // System.out.println("EXISTENCIA:    "+ resultadoQuery.getInt(2));//existencia
                // System.out.println(" EN CONSIGNA:   "+ resultadoQuery.getInt(3));// en consigna
                // System.out.println("EN FIRME:    "+ resultadoQuery.getInt(4));// en firme
@@ -142,34 +235,32 @@ public class ReporteCliente {
          return articulosList;
 
         }
-	public List<Cliente> getReporteClientes(){
-            List<Cliente> clientesList = new ArrayList<Cliente>();
+	public List<ClienteDTO> getReporteCliente(){
+            List<ClienteDTO> ClienteDTOsList = new ArrayList<ClienteDTO>();
         try {
-            // TODO Auto-generated method stub
-            //          System.out.println("PROCESANDO QUERY GENERANDO ");
-            //            System.out.println(crearQueryToReporteCliente());
+           
 
             ConnectionDataBaseImp coneConnectionDatabaseI = new ConnectionDataBaseImp("root", "root", "libreriademo");
             Connection connection = coneConnectionDatabaseI.getConnection();
-            PreparedStatement preparando = connection.prepareStatement(crearQueryToReporteCliente());
+            PreparedStatement preparando = connection.prepareStatement(crearQueryToReporteClienteDTO());
             for(int i=0;i<size;i++)
-            preparando.setString((i+1),arregloClientes[i].getId());
+            preparando.setString((i+1),arregloClienteDTOs[i].getId());
             ResultSet resultadoQuery = preparando.executeQuery();
             while (resultadoQuery.next())
             {
-                Cliente cliente = new Cliente();
-                cliente.setCorreo(resultadoQuery.getString(1));
-                cliente.setPorcentaje(resultadoQuery.getBigDecimal(2));
-                cliente.setConcepto(resultadoQuery.getString(3));
-                cliente.setRfc(resultadoQuery.getString(4));
-                cliente.setArticuloTitulo(resultadoQuery.getString(5));
-                clientesList.add(cliente);
+                ClienteDTO ClienteDTO = new ClienteDTO();
+                ClienteDTO.setCorreo(resultadoQuery.getString(1));
+                ClienteDTO.setPorcentaje(resultadoQuery.getBigDecimal(2));
+                ClienteDTO.setConcepto(resultadoQuery.getString(3));
+                ClienteDTO.setRfc(resultadoQuery.getString(4));
+                ClienteDTO.setArticuloTitulo(resultadoQuery.getString(5));
+                ClienteDTOsList.add(ClienteDTO);
             }
             coneConnectionDatabaseI.closeDataBaseProcessor(connection);
 
         } catch (Exception ex) {
-            //Logger.getLogger(ReporteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ReporteClienteDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
-             return clientesList;
+             return ClienteDTOsList;
     }//end method
 }
