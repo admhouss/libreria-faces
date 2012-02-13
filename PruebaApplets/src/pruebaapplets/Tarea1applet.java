@@ -80,8 +80,8 @@ public class Tarea1applet extends Applet implements ActionListener{
 
    g.drawLine(x1,y1,x2,y2);
    g.setColor(Color.green);
-    g.fillOval(x1,y1,x2-x1,y2-y1);
-    g.setColor(Color.green);
+//    g.fillOval(x1,y1,x2-x1,y2-y1); AQUI MODIFIQUE
+  ///  g.setColor(Color.green);
     g.fillRect(x5,y4,x6-x5,y5-y4);
     }
 public boolean mouseDown(Event evtObj, int x, int y)
