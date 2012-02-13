@@ -6,6 +6,7 @@
 package com.paypal.jsf;
 
 
+import com.escom.info.generadorCDF.generadorCDFController;
 import escom.libreria.info.administracion.jsf.util.JsfUtil;
 import escom.libreria.info.carrito.jpa.PublicacionDTO;
 import escom.libreria.info.carrito.jsf.CarritoController;
@@ -68,6 +69,8 @@ public class PayPalController implements Serializable{
     private SistemaController sistemaController;
     @ManagedProperty("#{ventasController}")
     private ventasController ventascontroller;
+    @ManagedProperty("#{generadorCDFController}")
+    private generadorCDFController generadorFacturas;
 
 
 @EJB private ProveedorArticuloFacade proveedorArticuloFacade;
@@ -76,6 +79,16 @@ public class PayPalController implements Serializable{
 @EJB private CompraFacade compraFacade;
 @EJB private ArticuloFacade articuloFacade;
 private static  Logger logger = Logger.getLogger(PayPalController.class);
+
+    public generadorCDFController getGeneradorFacturas() {
+        return generadorFacturas;
+    }
+
+    public void setGeneradorFacturas(generadorCDFController generadorFacturas) {
+        this.generadorFacturas = generadorFacturas;
+    }
+
+
 
     public ventasController getVentascontroller() {
         return ventascontroller;
@@ -387,8 +400,13 @@ private String pedidoComprado;
                      try{
                        Integer pedido=Integer.parseInt(saludo);
                        Compra compra =compraFacade.getComprasIdPedido(pedido);
+                       compra.setEstado("COMPRADO");
                        ventascontroller.setSelected(compra);
                        ventascontroller.comprarArticulo(pedido);
+                       generadorFacturas.crearFacturara(compra);
+
+
+
                      }catch(Exception e){
                          logger.error("OCURROO ERROR COMPRA PAYPAL",e);
                      }
