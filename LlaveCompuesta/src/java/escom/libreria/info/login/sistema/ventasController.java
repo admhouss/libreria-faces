@@ -402,8 +402,7 @@ public class ventasController implements Serializable {
                }*/
             }//if- final del for
             
-                selected.setEstado(selected.getEstado());
-                compraFacade.edit(selected);
+               
                 JsfUtil.addSuccessMessage("Compra realizada Satisfactoriamente");
            
 
@@ -515,6 +514,9 @@ public void comprarArticulo(Integer idPedido){
 
                            logger.info("COMENZANDO EL PROCESO DE ACTUALIZACION ESTADO PEDIDO");
                            /*ACTUALIZAMOS COMPRA*/
+                           if(selected.getEstado()!=null)
+                           pedido.setEstado("COMPRADO");
+                          
                            pedido.setEstado(selected.getEstado());
                            pedidoFacade.edit(pedido);
 
@@ -525,7 +527,8 @@ public void comprarArticulo(Integer idPedido){
 
 
                  }//for
-
+                selected.setEstado(selected.getEstado());
+                compraFacade.edit(selected);
                }catch(Exception e){
 
                     System.out.println("Error en el pedido "+idPedido);
@@ -666,10 +669,19 @@ private int determinaTipoArticulo(String formato,String tipoArticulo){ //SUSCRIP
             pk.setIdPedido(pedido.getPedidoPK().getIdPedido());
             envioelectronico.setEnvioelectronicoPK(pk);
             envioelectronico.setPedido(pedido);
-            envioelectronico.setLigaDescarga("LIGA");
+            if(pedido.getArticulo().getArchivo()!=null)
+            envioelectronico.setLigaDescarga(pedido.getArticulo().getArchivo());
+            else
+            envioelectronico.setLigaDescarga("NO SE ENCONTRO EL RECURSO");
             envioelectronico.setObservaciones("ENVIO EXITOSO");
+
             envioelectronico.setArticulo(pedido.getArticulo());
-            envioElectronico.create(envioelectronico);
+            try{
+             envioElectronico.create(envioelectronico);
+            }catch(Exception e){
+                logger.error("ERROR YA FUE ENVIADO ANTEORIRMENTE ESTE ARTICULO", e);
+                mensajeError+="ERROR EL ARTICULO YA FUE ENVIADO ANTEROIRMENTE";
+           }
             logger.info("CREO ENVIO ELECTRONICO SATISFACTORIAMENTE");
     }
   /*REGISTRA UN ENVIO EXITOSO */
@@ -722,7 +734,7 @@ private int determinaTipoArticulo(String formato,String tipoArticulo){ //SUSCRIP
 
       for(Articulo a:suscripcionArticulos)
       {
-          try{
+         
                 Suscripcion s=new Suscripcion(idSuscripcion,a.getId());
                 suscripcionCliente.setArticulo(a);
                 suscripcionCliente.setCliente(cliente);
@@ -730,12 +742,16 @@ private int determinaTipoArticulo(String formato,String tipoArticulo){ //SUSCRIP
                 suscripcionCliente.setSuscripcionClientePK(pk);
                 suscripcionCliente.setSuscripcion(s);
                 suscripcionCliente.setFechaEnvio(new Date());
+ try{
                 suscripcionClienteFacade.create(suscripcionCliente);
+
                 logger.info("SUSCRIPCION CLIENTE ALAMACENADA SATISFACTORIAMENTE");
 
           }catch(Exception e)
           {
-              logger.error("NO PUDO CREAR SUSCRIPCION CLIENTE ERROR", e);
+              logger.error("NO PUDO CREAR SUSCRIPCION CLIENTE ERROR");
+              mensajeError+="ERROR AL CREAR SUSCRION CLIENTE DUPLICIIDAD DE CAMPO";
+              continue;
           }
 
       }
@@ -755,7 +771,13 @@ private int determinaTipoArticulo(String formato,String tipoArticulo){ //SUSCRIP
             suselectronica.setFechaFin(new Date());
             suselectronica.setFechaInicio(new Date());
             suselectronica.setNoLicencias(0);
-            suscripcionElectronicaFacade.create(suselectronica);
+            try
+            {
+                suscripcionElectronicaFacade.create(suselectronica);
+            }catch(Exception e){
+                logger.error("***DUPLICIDAD  DE SUSCRIPCION ALGUNA VEZ LO COMPRO!!!*****", e);
+                mensajeError+="***DUPLICIDAD  DE SUSCRIPCION ALGUNA VEZ LO COMPRO!!!*****";
+            }
             logger.info("SUSCRIPCION ELECTRONICA CREADA SATISFACTORIAMENTE,IT`S OK!");
 
   }
