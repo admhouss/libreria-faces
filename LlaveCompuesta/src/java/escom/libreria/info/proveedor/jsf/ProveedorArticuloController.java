@@ -55,7 +55,10 @@ public class ProveedorArticuloController implements Serializable{
         this.articuloController = articuloController;
     }
 
-
+    public void prepareSeleccionArticulo(Articulo articulo){
+        getSelected().setArticulo(articulo);
+        JsfUtil.addSuccessMessage("ARTICULO SELECCIONADO SATISFACTORIAMENTE");
+    }
     public ProveedorArticuloController() {
     }
 
