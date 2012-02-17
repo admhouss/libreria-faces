@@ -8,6 +8,7 @@ package escom.libreria.info.compras.ejb;
 import com.paypal.jsf.CompraDTO;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.compras.Pedido;
+import escom.libreria.info.facturacion.Articulo;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -158,6 +159,20 @@ public class PedidoFacade {
        return pedidos;
     }
 
+
+    public List<Articulo> getAsuntoArticulos(String asunto){
+
+        List<Articulo> asuntoList=null;
+        try{
+                TypedQuery<Articulo> query=em.createQuery( "SELECT DISTINCT p.articulo FROM Pedido p WHERE p.articulo.asunto LIKE :asunto ",Articulo.class)
+                .setParameter("asunto", "%"+asunto+"%");
+
+                asuntoList=query.getResultList();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return asuntoList;
+    }
     public BigDecimal getPedidoMontoTotal(int idPedido) {
         BigDecimal  pedidos=BigDecimal.ZERO;
         try{
@@ -350,5 +365,6 @@ public Date getHoy(){
         return pedidos;
 
     }
+
 
 }

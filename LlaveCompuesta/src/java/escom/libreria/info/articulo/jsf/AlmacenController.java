@@ -5,6 +5,7 @@ import escom.libreria.info.articulo.Almacen;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.AlmacenFacade;
+import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.proveedor.ProveedorArticulo;
 import escom.libreria.info.proveedor.ejb.ProveedorArticuloFacade;
 import java.io.Serializable;
@@ -102,6 +103,11 @@ public class AlmacenController implements Serializable{
         return "Create";
     }
 
+
+    public void prepareSeleccionArticulo(Articulo articulo){
+        getSelected().setArticulo(articulo);
+        JsfUtil.addSuccessMessage("ARTICULO SELECCIONADO SATISFACTORIAMENTE");
+    }
     public String create() {
         Almacen  buscarAlmacen=null;
         try {
@@ -129,6 +135,8 @@ public class AlmacenController implements Serializable{
         current.setArticulo(current.getArticulo());
         return "/almacen/Edit";
     }
+
+
 
     public String update() {
         try {

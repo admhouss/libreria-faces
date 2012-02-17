@@ -102,7 +102,10 @@ public class PublicacionController extends CriteriosBusqueda implements Serializ
 
 
 
-    
+    public void prepareSeleccionArticulo(Articulo articulo){
+        getSelected().setArticulo(articulo);
+        JsfUtil.addSuccessMessage("ARTICULO SELECCIONADO SATISFACTORIAMENTE");
+    }
 
 
     public List<Publicacion> getListPublicacionAccesorio() {

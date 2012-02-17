@@ -90,19 +90,19 @@ public class generadorCDFController implements Serializable
        // if(bandera)  {
                 generarFacturaDeCompra(c);
                 String nombreFacturaCFD=ConstantesFacturacion.FACTURA_NOMBRE+c.getIdPedido()+".xml";
-                logger.info("EL CFD FUE  CREADO SATISFACTORIAMENTE"+nombreFacturaCFD);
-                logger.info("LE VOY A MANDAR A MYSUIT EL SIGUIENTE CFD"+ConstantesFacturacion.RUTA_REPOSITORIO_CFD+nombreFacturaCFD);
+                logger.info("EL CFD FUE  CREADO SATISFACTORIAMENTE:"+nombreFacturaCFD);
+                logger.info("LE VOY A MANDAR A MYSUIT EL SIGUIENTE CFD:"+ConstantesFacturacion.RUTA_REPOSITORIO_CFD+nombreFacturaCFD);
                 facturafromDenegateImp facturacion=new facturafromDenegateImp();
                 try{
                          logger.info("LE VOY A MANDAR A MYSUIT EL SIGUIENTE CFD"+ConstantesFacturacion.RUTA_REPOSITORIO_CFD+nombreFacturaCFD);
                          msgError+= facturacion.generaFactura(ConstantesFacturacion.RUTA_REPOSITORIO_CFD, nombreFacturaCFD);
                         if(facturacion.getUbicacionCFDI()!=null)
                         {
-                          UnmarshalCDI unmarshalCDI=new UnmarshalCDI();
-                          unmarshalCDI.prepareCreateCFI_To_Object(c, facturacion.getUbicacionCFDI()+".xml");
+                         // UnmarshalCDI unmarshalCDI=new UnmarshalCDI();
+                         // unmarshalCDI.prepareCreateCFI_To_Object(c, facturacion.getUbicacionCFDI()+".xml");
                           logger.info("PROCESO INVERSO REALIZADO SATISFACTORAMENTE");
                     /*DESCOMENTAR ESTA LINEA SI ES IMPORTANTE ,LA COMENTE POR PROBAR**/
-                    //      enviarFacturaToCliente(c.getIdCliente(),facturacion.getUbicacionCFDI());
+                            enviarFacturaToCliente(c.getIdCliente(),facturacion.getUbicacionCFDI());
                         }
                          else{
                            logger.info("LA UBICACION ES NULA"+msgError);

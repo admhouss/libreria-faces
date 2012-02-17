@@ -5,6 +5,7 @@ import escom.libreria.info.articulo.Impuesto;
 import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.ImpuestoFacade;
+import escom.libreria.info.facturacion.Articulo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -49,6 +50,11 @@ public class ImpuestoController implements Serializable {
         this.listaImpuesto = listaImpuesto;
     }
 
+
+    public void prepareSeleccionArticulo(Articulo articulo){
+        getSelected().setArticulo(articulo);
+        JsfUtil.addSuccessMessage("ARTICULO SELECCIONADO SATISFACTORIAMENTE");
+    }
     public List<Impuesto> getListaImpuesto(){
 
         listaImpuesto= getFacade().findAll();

@@ -71,6 +71,10 @@ public class SuscripcionController implements Serializable{
         return articuloSeleccionado;
     }
 
+     public void prepareSeleccionArticulo(Articulo articulo){
+        getSelected().setArticulo(articulo);
+        JsfUtil.addSuccessMessage("ARTICULO SELECCIONADO SATISFACTORIAMENTE");
+    }
 
 
     public void setArticuloSeleccionado(Articulo articuloSeleccionado) {

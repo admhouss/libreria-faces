@@ -9,6 +9,8 @@ import escom.libreria.info.articulo.jsf.util.JsfUtil;
 import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 import escom.libreria.info.articulo.ejb.PromocionFacade;
 import escom.libreria.info.cliente.Cliente;
+import escom.libreria.info.compras.ejb.CompraFacade;
+import escom.libreria.info.compras.ejb.PedidoFacade;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.facturacion.ejb.ArticuloFacade;
 import escom.libreria.info.generadorIDpromociones.GeneradorContador;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -43,6 +46,7 @@ public class PromocionController implements Serializable{
     @EJB private escom.libreria.info.cliente.ejb.ClienteFacade clieteFacade;
     @EJB private escom.libreria.correo.ProcesoJMail jMail;
     @EJB private ArticuloFacade articuloFacade;
+    @EJB private PedidoFacade  pedidoFacade;
     @EJB private GeneradorContadorFacade generadorContadorFacade;
     private Articulo articuloSeeccionado;
     private PaginationHelper pagination;
@@ -50,10 +54,12 @@ public class PromocionController implements Serializable{
     private PromocionPK p;
     private String value;
     private List<Articulo> listaArticulosPromociones;
+    private List<Articulo> listaArticulosComprados;
     private List<Promocion> listaPromociones;
     private Articulo articulo;
     @ManagedProperty("#{comentarioController}")
     private ComentarioController comentarioController;
+
 
     public ComentarioController getComentarioController() {
         return comentarioController;
@@ -90,13 +96,22 @@ public class PromocionController implements Serializable{
         return "/ofertas/List";
     }
 
+    public List<Articulo> getListaArticulosComprados() {
+        return listaArticulosComprados;
+    }
+
+    public void setListaArticulosComprados(List<Articulo> listaArticulosComprados) {
+        this.listaArticulosComprados = listaArticulosComprados;
+    }
+
+
     public String prepareOfertaComentario(Articulo arti){
         articulo=arti;
         comentarioController.setArticulo(articulo);
         return "/ofertas/ViewVenta";
     }
     public List<Promocion> getListOfertaDia(){
-        List<Promocion> ofertaMes= getFacade().getOfertaDelDia();
+        List<Promocion> ofertaMes= getFacade().findAll();//getOfertaDelDia();
        return ofertaMes;
     }
 
@@ -144,6 +159,29 @@ public class PromocionController implements Serializable{
     public void setValue(String value) {
         this.value = value;
     }
+   private String asuntoArticulo;
+
+    public String getAsuntoArticulo() {
+        return asuntoArticulo;
+    }
+
+    public void setAsuntoArticulo(String asuntoArticulo) {
+        this.asuntoArticulo = asuntoArticulo;
+    }
+
+    @PostConstruct
+    public void init() {
+          if(getAsuntoArticulo()!=null && !getAsuntoArticulo().trim().equals("")){
+
+              logger.info("Asunto Articulo:"+asuntoArticulo);
+             // listaArticulosPromociones=articuloFacade.getAsuntoArticulos(getAsuntoArticulo());
+              listaArticulosComprados=pedidoFacade.getAsuntoArticulos(getAsuntoArticulo());
+
+              logger.info("OBTENIENDO ARTICULOS CON ASUNTO ESPECIFICO");
+              
+           }
+    }
+
 
   public String prepareFinalizar(){
 

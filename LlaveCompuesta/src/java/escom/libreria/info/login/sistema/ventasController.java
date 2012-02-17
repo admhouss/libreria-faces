@@ -17,6 +17,7 @@
 package escom.libreria.info.login.sistema;
 
 
+import com.escom.info.generadorCDF.ConstantesFacturacion;
 import escom.libreria.comun.GeneradorHTML;
 import escom.libreria.correo.ProcesoJMail;
 import escom.libreria.info.articulo.Almacen;
@@ -57,8 +58,12 @@ import escom.libreria.info.suscripciones.SuscripcionCliente;
 import escom.libreria.info.suscripciones.SuscripcionClientePK;
 import escom.libreria.info.suscripciones.SuscripcionElectronica;
 import escom.libreria.info.suscripciones.SuscripcionElectronicaPK;
+import escom.libreria.info.suscripciones.SuscripcionEnvios;
+import escom.libreria.info.suscripciones.SuscripcionEnviosPK;
+import escom.libreria.info.suscripciones.SuscripcionPK;
 import escom.libreria.info.suscripciones.ejb.SuscripcionClienteFacade;
 import escom.libreria.info.suscripciones.ejb.SuscripcionElectronicaFacade;
+import escom.libreria.info.suscripciones.ejb.SuscripcionEnviosFacade;
 import escom.libreria.info.suscripciones.ejb.SuscripcionFacade;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
@@ -79,7 +84,7 @@ public class ventasController implements Serializable {
     private Articulo[] articuloList;
     private Cliente cliente;
     private Articulo articulo;
-    private static final String dwonload="http://localhost:8080/LibreriaTFJV/faces/download/Create.xhtml?key=";
+   
     private Compra selected;
     private Date fechaInicio;
     private Date fechaFinal;
@@ -101,6 +106,7 @@ public class ventasController implements Serializable {
     @EJB private SuscripcionFacade suscripcionFacade;
     @EJB private SuscripcionClienteFacade suscripcionClienteFacade;
     @EJB private SuscripcionElectronicaFacade suscripcionElectronicaFacade;
+    @EJB private SuscripcionEnviosFacade suscripcionEnviosFacade;
 
     private int suscripcion;
     private Promocion promocion;
@@ -476,7 +482,7 @@ public void comprarArticulo(Integer idPedido){
                                          }
 
 
-                         }else if((tipoArticulo==2 || tipoArticulo==0 ) )
+                         }else if((tipoArticulo==2 || tipoArticulo==0 ) ) /*PUBLICACION O SUSCRIPCIONES FISICAS*/
                             {
                                 almacen=validarArticuloAlmacen(articulo2);
                                 proveedorArticulo=validarArticuloProveedorArticulo(articulo2);
@@ -506,7 +512,8 @@ public void comprarArticulo(Integer idPedido){
                            else if(tipoArticulo==1 ){ //SUSCRIPCION ELECTRONICA
 
                                        logger.info("PROCESAR SUSCRIPCION ELECTRONICA");
-                                       insertarSuscripcionElectronica(pedido.getCliente(), articulo2);
+                                     //  insertarSuscripcionElectronica(pedido.getCliente(), articulo2);
+                                       insertarSuscripcionEnvios(pedido);
                                        logger.info("SUSCRIPCION ELECTRONICA PROCESADA SATISFACTORIAMENTE");
 
 
@@ -637,7 +644,7 @@ private int determinaTipoArticulo(String formato,String tipoArticulo){ //SUSCRIP
             List<String> lista=new ArrayList<String>();
             lista.add(clientePedido.getId());
             /*CONTINE UN HTML QUE SE ENVIA A LA BANDEJA DEL CLIENTE HOTMAIL*/
-            html=getFormatCompraOutHTML(clientePedido, articuloPeidido,dwonload+cadenaEncripdata);
+            html=getFormatCompraOutHTML(clientePedido, articuloPeidido,ConstantesFacturacion.DWONLOAD+cadenaEncripdata);
         
             try {
                 enviarMail.enviarCorreo("COMPRA EXITOSA",html,lista);
@@ -878,6 +885,44 @@ private int determinaTipoArticulo(String formato,String tipoArticulo){ //SUSCRIP
 
 
        return null;
+    }
+
+    private void insertarSuscripcionEnvios(Pedido pedido) {
+         List<Articulo> listaArticulos =null;
+          SuscripcionEnvios suscripcionEnvios=new SuscripcionEnvios();
+          Suscripcion suscripcion=new Suscripcion();
+          listaArticulos= suscripcionFacade.getArticulosByID(pedido.getArticulo().getId());
+          logger.info("COMEZANDO EL PROCESO DE VACIANDO DE PEDIDO A SUSCRIPCION ENVIOS");
+
+          suscripcionEnvios.setPedido(pedido);
+          suscripcionEnvios.getPedido().setPedidoPK(pedido.getPedidoPK());
+          suscripcionEnvios.setArticulo(pedido.getArticulo());
+          suscripcionEnvios.setSuscripcion(suscripcion);
+
+          for(Articulo artc:listaArticulos)
+          {
+              try{
+                SuscripcionEnviosPK pk=new SuscripcionEnviosPK();
+                suscripcion.setSuscripcionPK(new SuscripcionPK(pedido.getArticulo().getId(), artc.getId()));
+                pk.setIdPedido(pedido.getPedidoPK().getIdPedido());
+                pk.setIdSuscripcion(pedido.getArticulo().getId());
+                pk.setIdArticulo(artc.getId());
+
+                //inicializando objeto PK
+                suscripcionEnvios.setEstadoEnvio(false);
+                suscripcionEnvios.setObservaciones("OBSERVACONES");
+                suscripcionEnvios.setSuscripcionEnviosPK(pk);
+                suscripcionEnviosFacade.create(suscripcionEnvios);
+                logger.info("INSERTARDO LA PRIMERA SUSCRIPCION ENVIO");
+              }catch(Exception e)
+              {
+                  logger.error("ERROR AL INSERTAR SUSCRIPCIONENVIO", e);
+                  continue;
+              }
+
+          }
+
+
     }
 
 

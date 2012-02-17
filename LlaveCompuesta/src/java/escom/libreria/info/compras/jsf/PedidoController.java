@@ -1,5 +1,7 @@
 package escom.libreria.info.compras.jsf;
 
+import com.escom.info.generadorCDF.ConstantesFacturacion;
+import com.escom.info.generadorCDF.generadorCDFController;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.compras.Pedido;
 import escom.libreria.info.compras.PedidoPK;
@@ -44,6 +46,10 @@ public class PedidoController implements Serializable{
     @ManagedProperty("#{sistemaController}")
     private SistemaController sistemaController;
     private int identificadorPedido;
+
+
+
+
     private static  Logger logger = Logger.getLogger(PedidoController.class);
 
     public int getIdentificadorPedido() {
@@ -75,7 +81,7 @@ public class PedidoController implements Serializable{
 
 
     public String geturlcancelado(){
-         String generarURL="http://localhost:8080/LibreriaTFJV/faces/compra/Cancelada.xhtml?pedidoCancelado=";
+         String generarURL=ConstantesFacturacion.URL_COMPRA_ARTICULO+"Cancelada.xhtml?pedidoCancelado=";
 
         try {
             String idCliente=sistemaController.getCliente().getId();
@@ -97,7 +103,7 @@ public class PedidoController implements Serializable{
     public String geturlcomprado(){
 
 
-        String generarURL="http://localhost:8080/LibreriaTFJV/faces/compra/Comprado.xhtml?pedidoComprado=";
+        String generarURL=ConstantesFacturacion.URL_COMPRA_ARTICULO+"/Comprado.xhtml?pedidoComprado=";
         try {
             String idCliente=sistemaController.getCliente().getId();
             identificadorPedido=getFacade().buscarIdPeidoMaximo(idCliente,"CONFIRMADO");
@@ -121,7 +127,7 @@ public class PedidoController implements Serializable{
         try {
 
             EncriptamientoImp encriptamientoImp = new EncriptamientoImp();
-            binario = encriptamientoImp.encrypt(idPedido+"");
+            binario = encriptamientoImp.encrypt(String.valueOf(idPedido));
             System.out.println("ENVIANDO"+idPedido);
             digestion = encriptamientoImp.convertToHex(binario);
              System.out.println("ENVIANDO"+digestion);
