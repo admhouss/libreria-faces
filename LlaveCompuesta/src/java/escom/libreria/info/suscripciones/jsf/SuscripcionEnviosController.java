@@ -1,13 +1,21 @@
 package escom.libreria.info.suscripciones.jsf;
 
+import com.escom.info.generadorCDF.ConstantesFacturacion;
+import escom.libreria.comun.GeneradorHTML;
+import escom.libreria.correo.ProcesoJMail;
+import escom.libreria.info.cliente.Cliente;
+import escom.libreria.info.encriptamientoMD5.Encriptamiento;
+import escom.libreria.info.encriptamientoMD5.EncriptamientoImp;
+import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.info.suscripciones.SuscripcionEnvios;
 import escom.libreria.info.suscripciones.SuscripcionEnviosPK;
 import escom.libreria.info.suscripciones.jsf.util.JsfUtil;
 import escom.libreria.info.suscripciones.jsf.util.PaginationHelper;
 import escom.libreria.info.suscripciones.ejb.SuscripcionEnviosFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-
+import org.apache.log4j.Logger;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -27,8 +35,10 @@ public class SuscripcionEnviosController implements Serializable{
     private SuscripcionEnvios current;
     private DataModel items = null;
     @EJB private escom.libreria.info.suscripciones.ejb.SuscripcionEnviosFacade ejbFacade;
+    @EJB private ProcesoJMail procesoJMail;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private static  Logger logger = Logger.getLogger(SuscripcionEnviosController.class);
 
     public SuscripcionEnviosController() {
     }
@@ -114,8 +124,10 @@ public class SuscripcionEnviosController implements Serializable{
 
     public String update() {
         try {
+            if(current.getEstadoEnvio())
+            enviar_correo(current);
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(("Suscripcion Envios Actualizado Satisfactoriamente"));
+            JsfUtil.addSuccessMessage(("Suscripcion Envianda Satisfactoriamente "));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ("Error al actualizar Suscripcion Envios"));
@@ -123,11 +135,49 @@ public class SuscripcionEnviosController implements Serializable{
         }
     }
 
+
+    public void enviar_correo(SuscripcionEnvios pedido){
+
+           Cliente clientePedido=current.getPedido().getCliente();
+           Articulo articuloPeidido=current.getArticulo();
+           String cadenaEncripdata=null,html;
+           EncriptamientoImp encriptamientoImp=new EncriptamientoImp();
+           String idArticuloToidCliente=articuloPeidido.getId()+"|"+clientePedido.getId();
+           /* URL FORMADA POR CLIENTE Y PEDIDO ,CONTIENE EL ID DEL ARTICULO COMPRADO Y EL CLIENTE QUE LO COMPRO SEPARADOS POR |*/
+           try{
+                byte[] arrelo = encriptamientoImp.encrypt(idArticuloToidCliente);
+                cadenaEncripdata=encriptamientoImp.convertToHex(arrelo);
+            }catch(Exception e){
+              //.error("ERROR AL INTENTAR ENCRIPTAR MD5 PARAMETROS ARTICULO | CLIENTE", e);
+            }
+            List<String> lista=new ArrayList<String>();
+            lista.add(clientePedido.getId());
+            /*CONTINE UN HTML QUE SE ENVIA A LA BANDEJA DEL CLIENTE HOTMAIL*/
+            html=getFormatCompraOutHTML(clientePedido, articuloPeidido,ConstantesFacturacion.DWONLOAD+cadenaEncripdata);
+
+            try {
+                procesoJMail.enviarCorreo("COMPRA EXITOSA",html,lista);
+            } catch (Exception ex) {
+                JsfUtil.addErrorMessage("Error al insertar envios electronico y exitoso");
+                logger.error("NO SE  PUDO ENVIAR EL CORREO",ex);
+            }
+        //}
+    }
+    /*GENERA HTML PROPORCIONANDO INFORMACION DEL CLIENTE ,ARTICULO Y LA URL */
+    private String getFormatCompraOutHTML(Cliente cliente,Articulo articulo,String url){
+        String HTML=null;
+        GeneradorHTML gernarHTML=new GeneradorHTML();
+        StringBuilder builder=new StringBuilder();
+        builder.append(cliente.getNombre()).append(" ");
+        builder.append(cliente.getPaterno()).append(" ");
+        builder.append(cliente.getMaterno()).append(" ");
+        HTML=gernarHTML.compraExitosa(builder.toString(), articulo.getTitulo(), url, articulo.getImagen());
+        return HTML;
+
+    }
+
     public String destroy(SuscripcionEnvios se) {
         current=se; //
-       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        //performDestroy();
-        //recreateModel();
         getFacade().remove(current);
         JsfUtil.addSuccessMessage("Suscripcion Envio eliminada Satisfactoriamente");
         return "List";

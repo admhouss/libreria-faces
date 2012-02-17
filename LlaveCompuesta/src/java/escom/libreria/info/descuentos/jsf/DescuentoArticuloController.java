@@ -7,6 +7,7 @@ import escom.libreria.info.articulo.jsf.util.PaginationHelper;
 
 import escom.libreria.info.descuentos.DescuentoArticulo;
 import escom.libreria.info.descuentos.ejb.DescuentoArticuloFacade;
+import escom.libreria.info.facturacion.Articulo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -63,6 +64,11 @@ public class DescuentoArticuloController implements Serializable {
         return ejbFacade;
     }
 
+
+     public void prepareSeleccionArticulo(Articulo articulo){
+        getSelected().setArticulo(articulo);
+        JsfUtil.addSuccessMessage("ARTICULO SELECCIONADO SATISFACTORIAMENTE");
+    }
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {

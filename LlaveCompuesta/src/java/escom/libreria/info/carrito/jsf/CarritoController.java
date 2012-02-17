@@ -485,7 +485,7 @@ private Date getHoy(){
         publicacionDTO.setDesc(descuento);
         BigDecimal impuesto=getImpuesto(publicacionDTO.getIdArticulo());  /*sumamos los impuestos del articulo*/
         publicacionDTO.setImpuesto(impuesto);
-        publicacionDTO.setPrecio(articulo.getCosto());
+        publicacionDTO.setPrecio(articulo.getPrecioUnitario());
         
          precioPublico=calcularPromocionArticulo(articulo);
          if(!precioPublico.equals(BigDecimal.ZERO)){

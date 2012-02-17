@@ -52,7 +52,7 @@ public class ProcesoJMail {
 
     public void enviaCorreo(MensajeCorreoDTO mensaje){
 
-        ServidorCorreoConf serverMail=sConfFacade.find(2);//VARIABLE QUE CAMBIA EL DOMINIO DE CORREO
+        ServidorCorreoConf serverMail=sConfFacade.find(1);//VARIABLE QUE CAMBIA EL DOMINIO DE CORREO
         listPropiedades=serverMail.getPropiedadesList();
         Properties props = new Properties();
         for(Propiedades propiedad:listPropiedades)

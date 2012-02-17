@@ -5,6 +5,7 @@
 
 package escom.libreria.jdbc.reporteador;
 
+import com.escom.info.generadorCDF.ConstantesFacturacion;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.jdbc.reporteador.dto.ArticuloDTO;
@@ -93,7 +94,7 @@ public class Reportes {
 		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
 		Connection connection;
 
-		ConnectionDataBaseImp coneConnectionDatabaseI=new ConnectionDataBaseImp("root","root","libreriademo");
+		ConnectionDataBaseImp coneConnectionDatabaseI=new ConnectionDataBaseImp(ConstantesFacturacion.usuarioBase, ConstantesFacturacion.passwordBaSE, ConstantesFacturacion.baseDatos); //ConnectionDataBaseImp(ConstantesFacturacion.usuarioBase,"root","libreriademo");
 
 		System.out.println("QUERY GENERADOR:	"+crearQueryToSuscripciones());
 		try {
@@ -135,10 +136,11 @@ public class Reportes {
 	}
 	private String crearQueryToReporteClienteDTO(){
 		StringBuilder buffer=new StringBuilder();
-		 buffer.append("SELECT DISTINCT e.id,d.porcentaje,c.concepto,df.rfc,CONCAT(CONCAT(a.codigo,'-'),a.titulo) AS Articulo ")
-		.append("FROM ClienteDTO e,categoria c,DESCUENTO_ClienteDTO de,DESCUENTO d,DIFACTURACION df,PENDIENTE p,estado es,Articulo a ")
+		 buffer
+                 .append("SELECT DISTINCT e.id,d.porcentaje,c.concepto,df.rfc,CONCAT(CONCAT(a.codigo,'-'),a.titulo) AS Articulo ")
+		.append("FROM Cliente e,categoria c,DESCUENTO_Cliente de,DESCUENTO d,DIFACTURACION df,PENDIENTE p,estado es,Articulo a ")
 		.append("WHERE e.ID_CATEGORIA=c.id  AND de.ID_DESCUENTO=d.ID ")
-		.append("AND df.ID_EDO=es.id AND df.ID_ClienteDTO=e.ID AND p.id_ClienteDTO=e.id AND p.ID_ARTICULO=a.id AND ")
+		.append("AND df.ID_EDO=es.id AND df.ID_Cliente=e.ID AND p.id_Cliente=e.id AND p.ID_ARTICULO=a.id AND ")
                 .append("e.id IN (");
                 for(int i=0;i<size;i++){
                    if(i==(size-1))
@@ -159,7 +161,8 @@ public class Reportes {
 
         public  String createQuertToReporteArticulo(String LISTA_ARTICULOS){
          StringBuilder builder=new StringBuilder();
-         builder.append("SELECT DISTINCT CONCAT(a.codigo,CONCAT('-',a.titulo)) AS ARTICULO,al.EXISTENCIA AS \"EXISTENCIAS TOTALES\",    ").append("al.EN_CONSIGNA AS \"EN CONSIGNA\", ")
+         builder
+        .append("SELECT DISTINCT CONCAT(a.codigo,CONCAT('-',a.titulo)) AS ARTICULO,al.EXISTENCIA AS \"EXISTENCIAS TOTALES\",    ").append("al.EN_CONSIGNA AS \"EN CONSIGNA\", ")
         .append("al.EN_FIRME AS \"EN FIRME\",   ")
         .append("p.NOMBRE AS \"PROVEEDOR\", ")
         .append("a.PRECIO_UNITARIO AS \"PRECIO UNITARIO\",  ")
@@ -170,7 +173,7 @@ public class Reportes {
         .append("impuesto i, descuento_articulo da, promocion pro   ")
         .append("WHERE (a.ID IN(")
         .append(LISTA_ARTICULOS) //CONTIENE la lista de los articulos seleccionados IN(1,2,3,4,5)
-        .append(") OR p.NOMBRE LIKE ? OR da.DESCUENTO =?) ")
+        .append(") AND p.NOMBRE LIKE ? ) ") //OR da.DESCUENTO =?) ")
         .append("AND i.ID_ARTICULO = a.ID   ")
         .append("AND al.ID_ARTICULO =a.ID   ")
         .append("AND da.ID_ARTICULO = a.ID  ")
@@ -188,11 +191,11 @@ public class Reportes {
             String queryFinal = createQuertToReporteArticulo(this.articulosINTO);
             System.out.println("**EL QUERY QUE SE GENERO ES***" + queryFinal);
 
-            ConnectionDataBaseImp coneConnectionDatabaseI = new ConnectionDataBaseImp("root", "root", "libreriademo");
+            ConnectionDataBaseImp coneConnectionDatabaseI = new ConnectionDataBaseImp(ConstantesFacturacion.usuarioBase, "root", "libreriademo");
             Connection connection = coneConnectionDatabaseI.getConnection();
             PreparedStatement preparando = connection.prepareStatement(queryFinal);
             preparando.setString(1, this.nombreProveedor);
-            preparando.setDouble(2,this.descuento.doubleValue());
+            //preparando.setDouble(2,this.descuento.doubleValue());
             ResultSet resultadoQuery = preparando.executeQuery();
             while (resultadoQuery.next())
             {
@@ -240,7 +243,7 @@ public class Reportes {
         try {
            
 
-            ConnectionDataBaseImp coneConnectionDatabaseI = new ConnectionDataBaseImp("root", "root", "libreriademo");
+            ConnectionDataBaseImp coneConnectionDatabaseI = new ConnectionDataBaseImp(ConstantesFacturacion.usuarioBase, ConstantesFacturacion.passwordBaSE, ConstantesFacturacion.baseDatos);
             Connection connection = coneConnectionDatabaseI.getConnection();
             PreparedStatement preparando = connection.prepareStatement(crearQueryToReporteClienteDTO());
             for(int i=0;i<size;i++)
@@ -259,6 +262,7 @@ public class Reportes {
             coneConnectionDatabaseI.closeDataBaseProcessor(connection);
 
         } catch (Exception ex) {
+            logger.error("ERROR AL GENER QUERY O NO SE CONECTO ", ex);
             //Logger.getLogger(ReporteClienteDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
              return ClienteDTOsList;

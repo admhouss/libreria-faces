@@ -114,12 +114,12 @@ public class reporteadorController  implements Serializable{
             Calendar calendario = GregorianCalendar.getInstance();
             Date fecha = calendario.getTime();
             System.out.println(fecha);
-            SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyy-MM-dd");
+            //SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyy-MM-dd");
             //System.out.println(formatoDeFecha.format(getFechaInicial()));
-            System.out.println("BUSCAR SUSCRIPCION:" + getArticuloReporte());
-            System.out.println("CLIENTE SELECCIONADO:" + getClienteSeleccionado());
-            System.out.println("FECHA INICIAL" + formatoDeFecha.format(getFechaInicial()));
-            System.out.println("FECHAS FINAL" + formatoDeFecha.format(getFechaFinal()));
+            //System.out.println("BUSCAR SUSCRIPCION:" + getArticuloReporte());
+            //System.out.println("CLIENTE SELECCIONADO:" + getClienteSeleccionado());
+           // System.out.println("FECHA INICIAL" + formatoDeFecha.format(getFechaInicial()));
+            //System.out.println("FECHAS FINAL" + formatoDeFecha.format(getFechaFinal()));
             //formatoDeFecha.parse("2012-01-1");
            suscrionesDTO = reportes.getReporteSuscripciones(getFechaInicial(), clienteSeleccionado.getId(), 8, 11, 0);
            // logger.info("SUSCRIPCIONES SIZE:" + suscrionesDTO.size());
@@ -161,17 +161,11 @@ public String buscarReportArticulos(){
              if(i==0)
                  buffer.append(String.valueOf(articuloArray[i].getId()));
              else
-             
               buffer.append(",").append(String.valueOf(articuloArray[i].getId()));
-             
          }
-
-           // System.out.println("articulos seleccionados"+articuloArray.length);
-            //System.out.println("proveedor"+reporteproveedor.getNombre());
-            //System.out.println("descuento"+descuento);
-         //  Reportedor reporteCliente=new Reportedor(buffer.toString(),reporteproveedor.getNombre(),descuento);
-           // articulosDTO=reporteCliente.getReporteArticulos();
-
+            Reportes reportes=new Reportes(buffer.toString(),reporteproveedor.getNombre(), descuento);
+            articulosDTO=reportes.getReporteArticulos();
+          
         return "/reporteador/ReporteArticulos";
     }
 
