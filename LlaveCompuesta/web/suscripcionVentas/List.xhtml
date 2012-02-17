@@ -34,7 +34,7 @@
 
             <center>
 
-                <h:panelGrid columns="4">
+                <h:panelGrid columns="3">
                     <h:outputLabel value="Suscripci&oacute;n" styleClass="textoNEGRO"/>
                <h:selectOneMenu  value="#{suscripcionController.suscripcion}">
                    <f:selectItems value="#{suscripcionController.idSuscripciones}" var="item" itemValue="#{item}" itemLabel="#{item}"/>
@@ -42,8 +42,28 @@
                <h:commandButton value="BUSCAR" action="#{suscripcionController.buscar}"/>
 
                 </h:panelGrid>
-            </center>
+            
+                <table align="center">
+                    <tr>
+                        <td>
+                            <p><strong>Agregar al carrito:</strong></p>
+                        </td>
+                    
+                        <td>
+                
+         <ul id="icons" class="ui-widget ui-helper-clearfix">
+      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito">
 
+          <h:commandLink action="#{carritoController.agregarSuscripcion}">
+              <span class="ui-icon ui-icon-cart"></span>
+          </h:commandLink>
+
+      </li>
+         </ul>
+                        </td>
+                    </tr>
+                </table>
+       </center>
         </p:panel>
 
         <br/><br/>
@@ -51,7 +71,7 @@
 
         <p:accordionPanel autoHeight="false" id="acordion">
 
-                   <p:tab title="Publicaciones">
+                   <p:tab title="SUSCRIPCIONES">
                         <h:panelGroup id="panelgrup1">
                             <p:dataGrid value="#{suscripcionController.listasuscripciones}" var="item"  rows="5" paginator="true"  columns="1"  >
 
@@ -111,15 +131,15 @@
      </li>
       <li class="ui-state-default ui-corner-all" title="Articulos Relacionados">
      <span class="ui-icon ui-icon-link">
-        <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" styleClass="ui-icon ui-icon-link"/>
+         <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item.articulo)}" immediate="true" styleClass="ui-icon ui-icon-link"/>
      </span>
       </li>
 
-      <li class="ui-state-default ui-corner-all" title="Descargar Publicacion">
+      <!--<li class="ui-state-default ui-corner-all" title="Descargar Publicacion">
      <span class="ui-icon ui-icon-document-b">
-         <h:commandLink  action="#{subirArchivo.descargarArchivoDocumento(item.articulo)}" immediate="true" styleClass="ui-icon ui-icon-document-b"/>
+         <h:commandLink  action="{subirArchivo.descargarArchivoDocumento(item.articulo)}" immediate="true" styleClass="ui-icon ui-icon-document-b"/>
      </span>
-      </li>
+      </li>-->
     </ul></td>
   </tr>
   <tr></tr>
@@ -134,17 +154,7 @@
 
                 </p:accordionPanel>
         
-        <div align="center">
-         <ul id="icons" class="ui-widget ui-helper-clearfix">
-      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito">
-
-          <h:commandLink action="#{carritoController.agregarSuscripcion}">
-              <span class="ui-icon ui-icon-cart"></span>
-          </h:commandLink>
-
-      </li>
-         </ul>
-        </div>
+        
 
 
 
