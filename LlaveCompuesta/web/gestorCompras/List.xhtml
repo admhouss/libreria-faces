@@ -40,22 +40,15 @@
                  <p:panel header="GESTION DE COMPRAS">
 
                      <p:dataTable value="#{ventasController.comprascliente}" var="item" paginator="true" rows="10" selection="single">
-                   <p:column>
+                         <p:column style="width:20px;">
                         <f:facet name="header">
-                            <h:outputText value="TIP.PAGO"/>
+                            <h:outputText value="PAGO"/>
                         </f:facet>
                        <h:outputText value="#{item.tipoPago}">
                             
                         </h:outputText>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="F. ENVIO"/>
-                        </f:facet>
-                        <h:outputText value="#{item.fechaEnvio}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </p:column>
+                    
                     
                     <p:column>
                         <f:facet name="header">
@@ -63,20 +56,20 @@
                         </f:facet>
                         <h:outputText value="#{item.pagoTotal}"/>
                     </p:column>
-                    <!--
+                    
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Observaciones"/>
+                            <h:outputText value="DESC"/>
                         </f:facet>
-                        <h:outputText value="{item.observaciones}"/>
+                        <h:outputText value="#{item.descuento}"/>
                     </p:column>
-                    -->
-                    <!--<p:column>
+                   
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="IMPUESTO"/>
                         </f:facet>
-                        <h:outputText value="{item.impuesto}"/>
-                    </p:column>-->
+                        <h:outputText value="#{item.impuesto}"/>
+                    </p:column>
                     <!--<p:column>
                         <f:facet name="header">
                             <h:outputText value="pagoNeto}"/>
