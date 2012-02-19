@@ -55,16 +55,28 @@
                         </f:facet>
                         <h:outputText value="#{item.precioNeto}"/>
                     </p:column>
+                    <p:column style="width:10px;">
+                        <f:facet name="header">
+                            <h:outputText value="IMPUESTO"/>
+                        </f:facet>
+                            <h:outputText value="#{item.impuesto}"/>
+                    </p:column>
+                     <p:column style="width:10px;">
+                        <f:facet name="header">
+                            <h:outputText value="DESC"/>
+                        </f:facet>
+                         <h:outputText value="#{item.descuento}"/>
+                    </p:column>
                    
                     <p:column style="width:10px;">
                         <f:facet name="header">
-                            <h:outputText value="PRECIO TOTAL"/>
+                            <h:outputText value="TOTAL"/>
                         </f:facet>
                         <h:outputText value="#{item.precioTotal}"/>
                     </p:column>
                     <p:column style="width:10px;">
                         <f:facet name="header">
-                            <h:outputText value="TIPO ENVIO"/>
+                            <h:outputText value="TIP.ENVIO"/>
                         </f:facet>
                         <h:outputText value="#{item.tipoEnvio}"/>
                     </p:column>
