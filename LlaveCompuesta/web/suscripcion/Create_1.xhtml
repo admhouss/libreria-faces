@@ -19,7 +19,7 @@
                 <p:panel header="CREAR SUSCRIPCION PARA EL ARTICULO">
                     <center>
                     <h:panelGrid columns="2">
-                        <h:outputLabel value="ART&Iacute;LO SELECCIONADO"/>
+                        <h:outputLabel value="ART&Iacute;CULO SELECCIONADO" styleClass="textoNEGRO"/>
                         <h:outputLabel value="#{suscripcionController.articuloSeleccionado.codigo}-#{suscripcionController.articuloSeleccionado.titulo}"/>
                     </h:panelGrid>
                     </center>
@@ -32,14 +32,63 @@
                     <h:outputLabel value="Numero:" for="numero" styleClass="textoNEGRO"/>
                     <h:inputText id="numero" value="#{suscripcionController.selected.numero}" title="Numero" required="true" requiredMessage="El campo numero es requerido"/>
                     <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{suscripcionController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:200px;">
-                        <f:selectItems value="#{articuloController.tipoArticuloSuscripcion}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
+                   <!-- <h:selectOneMenu id="articulo" value="{suscripcionController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:200px;">
+                        <f:selectItems value="{articuloController.tipoArticuloSuscripcion}" var="item" itemValue="{item}" itemLabel="{item.codigo}-{item.titulo}"/>
                     </h:selectOneMenu>
+                   -->
+
+
+
 
                 </h:panelGrid>
+
                     </center>
                 </p:panel>
 
+                <br/>  <br/>
+            <p:panel header="CAT&Aacute;LOGO ART&Iacute;CULOS">
+
+            <h:panelGroup >
+                <p:dataTable value="#{articuloController.tipoArticuloSuscripcion}" var="item" paginator="true"  rows="10" selectionMode="single">
+
+
+                    <p:column filterBy="#{item.codigo}" style="width:12px;">
+                        <f:facet name="header">
+                            <h:outputText value="C&Oacute;DIGO"/>
+                        </f:facet>
+                        <h:outputText  value="#{item.codigo}" />
+
+                    </p:column>
+
+
+
+                    <p:column style="width:150px;">
+                        <f:facet name="header">
+                            <h:outputText value="T&Iacute;TULO"/>
+                        </f:facet>
+                         <h:outputText value="#{item.titulo}"/>
+
+                    </p:column>
+                     <p:column style="width:100px;">
+                        <f:facet name="header">
+                            <h:outputText value="AUTOR"/>
+                        </f:facet>
+                         <h:outputText value="#{item.creador}"/>
+
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{suscripcionController.prepareSeleccionArticulo(item)}">
+                            <img src="./../resources/iconos/agregar.png" alt="" title="Ver"/>
+                        </h:commandLink>
+
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
+                          </p:panel>
                 <br /><br />
 
                  
