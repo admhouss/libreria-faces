@@ -27,11 +27,11 @@
                         <f:selectItems value="#{suscripcionController.listSuscripcion}" var="item" itemValue="#{item}" itemLabel="#{item.suscripcionPK.idSuscripcion}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{suscripcionEnviosController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido">
+                    <h:selectOneMenu id="articulo" value="#{suscripcionEnviosController.selected.articulo}" title="Articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:130px;">
                         <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="Estado Envio" for="estadoEnvio" styleClass="textoNEGRO"/>
-                    <h:selectBooleanCheckbox id="estadoEnvio" value="#{suscripcionEnviosController.selected.estadoEnvio}" title="estadoEnvio}" required="true" requiredMessage="El campo estadoEnvio es requerido"/>
+                    <h:selectBooleanCheckbox id="estadoEnvio" value="#{suscripcionEnviosController.selected.estadoEnvio}" title="estadoEnvio" required="true" requiredMessage="El campo estadoEnvio es requerido"/>
                      <h:outputLabel value="Observaciones:" for="observaciones" styleClass="textoNEGRO"/>
                      <h:inputTextarea id="observaciones" value="#{suscripcionEnviosController.selected.observaciones}" title="Observaciones" />
 
