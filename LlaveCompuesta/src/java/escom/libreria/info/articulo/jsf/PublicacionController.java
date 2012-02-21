@@ -50,6 +50,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -147,27 +148,7 @@ public List<String> getListaString(){
 
      public PublicacionController() {
         {
-            /*InputStream log4jConfigStream = null;
-            try {
-                log4jConfigStream =XMLReference.class.getResourceAsStream("log4j.configure.xml");
-                DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-                Document log4jDocument = docBuilder.parse(log4jConfigStream);
-                DOMConfigurator.configure((Element) log4jDocument.getFirstChild());
-               
-            } catch (SAXException ex) {
-                Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
-           
-            } catch (ParserConfigurationException ex) {
-                Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                try {
-                    log4jConfigStream.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(PublicacionController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }*/
+            
         }
      }//constructor
        
@@ -458,7 +439,14 @@ public List<String> getListaString(){
 
 
      public String buscarLibroRelacionados(Publicacion p){
-//       listPublicacionByBusqueda=getFacade().buscarArticulo(p.getArticulo().getCreador(),p.getArticulo().getTitulo(),p.getArticulo().getTipoArticulo().getDescripcion(),p.getNumero(), p.getIssn(),p.getIsbn(),p.getEditorial(),p.getArticulo().getAsunto());
+
+              
+       Articulo articulo=p.getArticulo();
+
+             listPublicacionByBusqueda=getFacade().buscarArticulo
+            (articulo.getCreador(),articulo.getTitulo(), articulo.getTipoArticulo().getDescripcion(),p.getNumero(), p.getIssn(), p.getIsbn(),p.getEditorial(),articulo.getAsunto(),
+            p.getTomo(),articulo.getUnidad(),articulo.getDivisa(),articulo.getFormato(),articulo.getPublicador(),articulo.getCodigo());
+     
        addBitacoraCliente(p);
        addbicatoraUsuarioAdministrador(p,1);
        if(!isActivate())
@@ -618,6 +606,7 @@ public List<String> getListaString(){
         }
     }
     public String prepareView(Publicacion p,int render) {
+
 
         addBitacoraCliente(p);
         addbicatoraUsuarioAdministrador(p,1);

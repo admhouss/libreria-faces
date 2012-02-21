@@ -10,6 +10,7 @@ import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.facturacion.Articulo;
 import escom.libreria.jdbc.reporteador.dto.ArticuloDTO;
 import escom.libreria.jdbc.reporteador.dto.ClienteDTO;
+import escom.libreria.jdbc.reporteador.dto.CompraDTO;
 import escom.libreria.jdbc.reporteador.dto.SuscripcionDTO;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -70,12 +71,12 @@ public class Reportes {
 				 .append("FROM suscripcion_cliente a, articulo b, suscripcion c, cliente d ,tipo_articulo ta	")
 				 .append("WHERE b.id= a.id_articulo ")
 				 .append("AND a.id_suscripcion=c.id_suscripcion ")
-                 .append("AND ta.id=b.id_tipo	")
-                 .append("AND d.id=? ") //ID_CLIENTE
-			     .append("AND b.id_tipo=? and a.id_articulo=? ") //tipoARTICULO & idArticulo
-			     .append("AND a.estado_envio= ? 	")//ESTADO ENIO
-			     .append("AND MONTH(a.fecha_envio)=MONTH(?)	") //FECHA_ENVIO
-				 .append("and a.id_cliente= d.id ;");
+                                 .append("AND ta.id=b.id_tipo	")
+                                 .append("AND d.id=? ") //ID_CLIENTE
+                                 .append("AND b.id_tipo=?  ")//and a.id_articulo=? ") //tipoARTICULO & idArticulo
+                                 .append("AND a.estado_envio= ? 	")//ESTADO ENIO
+                                 .append("AND (a.fecha_envio BETWEEN ? AND ?  )	") //FECHAS_ENVIO
+				 .append("And a.id_cliente= d.id ;");
 
 	      	return buffer.toString();
 
@@ -86,7 +87,7 @@ public class Reportes {
 
     }
 	/* YA ESTA LISTO ESTE QUERY REPORTE DE SUSCRIPCIONES	*/
-	public List<SuscripcionDTO> getReporteSuscripciones(Date fecha,String idCliente,Integer IdTipoArticulo,Integer idArticulo,Integer estadoEnvio)
+	public List<SuscripcionDTO> getReporteSuscripciones(Date fechaInicial,Date fechaFinal,String idCliente,Integer IdTipoArticulo,Integer estadoEnvio)
 	{
 		List<SuscripcionDTO> listaReportSuscripcion=new ArrayList<SuscripcionDTO>();
 
@@ -99,13 +100,14 @@ public class Reportes {
 		System.out.println("QUERY GENERADOR:	"+crearQueryToSuscripciones());
 		try {
 	    connection = coneConnectionDatabaseI.getConnection();
-        PreparedStatement preparando = connection.prepareStatement(crearQueryToSuscripciones());
+             PreparedStatement preparando = connection.prepareStatement(crearQueryToSuscripciones());
 
         preparando.setString(1, idCliente);// idCliento
         preparando.setInt(2, 8); //idTipoArticulo
-        preparando.setInt(3, 11); //ID ARTICULO
-        preparando.setInt(4, 0); //PAQUETERIA
-        preparando.setDate(5,date.valueOf(simpleDateFormat.format(fecha)));//FECHA
+      //  preparando.setInt(3, idArticulo); //ID ARTICULO
+        preparando.setInt(3, 0); //PAQUETERIA
+        preparando.setDate(4,date.valueOf(simpleDateFormat.format(fechaInicial)));//FECHA
+        preparando.setDate(5,date.valueOf(simpleDateFormat.format(fechaFinal)));//FECHA
 
 
         ResultSet resultadoQuery=preparando.executeQuery();
@@ -267,4 +269,85 @@ public class Reportes {
         }
              return ClienteDTOsList;
     }//end method
+
+
+
+        	/*ME FUNCIONO BIEN ESTE QUERY PROPUESTO BY YAMIL */
+public  String crearQueryToCompras(){
+
+		StringBuilder buffer=new StringBuilder();
+		 buffer.append("SELECT DISTINCT c.ID AS ID_COMPRA,cl.NOMBRE,	")
+				 .append("cl.PATERNO,	")
+				 .append("cl.MATERNO,	")
+				 .append("c.ID_CLIENTE,	")
+				 .append("c.PAGO_TOTAL,	e.proc_almacen ,")
+				 .append("c.FECHA,	")
+				 .append("c.OBSERVACIONES,	")
+				 .append("c.TIPO_PAGO,	")
+				 .append("c.estado,p.no_articulo_categoria ,p.precio_neto ,")
+				 .append("CONCAT(a.codigo,CONCAT('-',a.titulo)) as ARTICULO , p.TIPO_ENVIO  ")
+				 .append("FROM compra c, cliente cl,pedido p,articulo a , almacen_pedido e ")
+				 .append("WHERE c.FECHA  BETWEEN ? AND ? AND cl.id =? AND c.estado LIKE ? AND  c.TIPO_PAGO LIKE ? AND p.TIPO_ENVIO LIKE ?	AND a.id=e.id_articulo	")
+			     .append("AND c.ID_CLIENTE = cl.ID	")
+				.append("ORDER BY cl.PATERNO,cl.MATERNO, cl.NOMBRE;	");
+		return buffer.toString();
+
+
+	}
+	public List<CompraDTO> getReporteCompra(Date fechaInicial,Date fechaFinal,String idCliente,String estadoCompra,String tipoPago,String paqueteria,String tipoEnvio){
+
+		 List<CompraDTO> compra=new ArrayList<CompraDTO>();
+
+		System.out.println(crearQueryToCompras());
+		 ConnectionDataBaseImp coneConnectionDatabaseI=new ConnectionDataBaseImp(ConstantesFacturacion.usuarioBase,ConstantesFacturacion.passwordBaSE,ConstantesFacturacion.baseDatos);
+         Connection connection;
+		try {
+		connection = coneConnectionDatabaseI.getConnection();
+
+
+         PreparedStatement preparando = connection.prepareStatement(crearQueryToCompras());
+        preparando.setDate(1,new java.sql.Date(fechaInicial.getTime()));//FECHA
+        preparando.setDate(2,new java.sql.Date(fechaFinal.getTime()));//FECHA
+
+        preparando.setString(3, idCliente);// ESTADO DE COMPRA
+         preparando.setString(4, estadoCompra);// ESTADO DE COMPRA
+         preparando.setString(5, tipoPago); //TIPO DE PAGO
+         //preparando.setString(5, "%"+paqueteria+"%"); //PAQUETERIA
+         preparando.setString(6, tipoEnvio);  //TIPO DE ENVIO
+
+
+         ResultSet resultadoQuery=preparando.executeQuery();
+         ResultSetMetaData metaDatos = resultadoQuery.getMetaData();
+         int nColumnas= metaDatos.getColumnCount();
+         System.out.println("Numero de columnas:"+nColumnas);
+                 while(resultadoQuery.next())
+                {
+                	 CompraDTO compraDTO=new CompraDTO();
+
+                	 compraDTO.setIdCompra(resultadoQuery.getInt(1));
+                	 compraDTO.setNombre(resultadoQuery.getString(2)+" "+resultadoQuery.getString(3)+" "+resultadoQuery.getString(4));
+                	 compraDTO.setIdCliente(resultadoQuery.getString(5));
+                	 //FALTA SACAR PAGO TOTAL.
+                	 compraDTO.setProcedencia_almacen(resultadoQuery.getString(7));
+                	 compraDTO.setFechaCompra(resultadoQuery.getDate(8));
+                	 compraDTO.setTipo_pago(resultadoQuery.getString(10));
+                	 compraDTO.setEstado(resultadoQuery.getString(11));
+
+                	 compraDTO.setCantidad(resultadoQuery.getInt(12));
+                	 compraDTO.setPago_neto(resultadoQuery.getBigDecimal(13));
+                	 compraDTO.setDescripcio(resultadoQuery.getString(14));
+                          compraDTO.setTipoEnvio(resultadoQuery.getString(15));
+
+                	 for(int i=1;i<=nColumnas;i++)
+                         System.out.println(metaDatos.getColumnName(i)+":	"+resultadoQuery.getString(i));
+                	     System.out.println("********************************");
+                	     compra.add(compraDTO);
+                }
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return compra;
+	}
 }

@@ -5,6 +5,7 @@
 
 package escom.libreria.reporteador;
 
+import com.escom.info.temacliente.jsf.util.JsfUtil;
 import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.cliente.ejb.ClienteFacade;
 import escom.libreria.info.compras.Pedido;
@@ -15,6 +16,7 @@ import escom.libreria.info.proveedor.Proveedor;
 import escom.libreria.jdbc.reporteador.Reportes;
 import escom.libreria.jdbc.reporteador.dto.ArticuloDTO;
 //import escom.libreria.jdbc.reporteador.Reportedor;
+import escom.libreria.jdbc.reporteador.dto.CompraDTO;
 import escom.libreria.jdbc.reporteador.dto.SuscripcionDTO;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -47,9 +49,11 @@ public class reporteadorController  implements Serializable{
     private Proveedor reporteproveedor;
     private List<ArticuloDTO> articulosDTO; /*REPORTE ARTICULOS*/
     private List<SuscripcionDTO> suscrionesDTO; /*REPORTE SUSCRIPCIONES*/
+    private List<CompraDTO>compraReporte;
     private   Cliente clienteSeleccionado;
     private Articulo articuloReporte;
     private java.util.Date fechaInicial,fechaFinal;
+    private String estadoEnvio;
 
 
 
@@ -60,12 +64,29 @@ public class reporteadorController  implements Serializable{
     public reporteadorController() {
     }
 
+    public List<CompraDTO> getCompraReporte() {
+        return compraReporte;
+    }
+
+    public void setCompraReporte(List<CompraDTO> compraReporte) {
+        this.compraReporte = compraReporte;
+    }
+
+
     public List<SuscripcionDTO> getSuscrionesDTO() {
         return suscrionesDTO;
     }
 
     public void setSuscrionesDTO(List<SuscripcionDTO> suscrionesDTO) {
         this.suscrionesDTO = suscrionesDTO;
+    }
+
+    public String getEstadoEnvio() {
+        return estadoEnvio;
+    }
+
+    public void setEstadoEnvio(String estadoEnvio) {
+        this.estadoEnvio = estadoEnvio;
     }
 
 
@@ -121,7 +142,7 @@ public class reporteadorController  implements Serializable{
            // System.out.println("FECHA INICIAL" + formatoDeFecha.format(getFechaInicial()));
             //System.out.println("FECHAS FINAL" + formatoDeFecha.format(getFechaFinal()));
             //formatoDeFecha.parse("2012-01-1");
-           suscrionesDTO = reportes.getReporteSuscripciones(getFechaInicial(), clienteSeleccionado.getId(), 8, 11, 0);
+           suscrionesDTO = reportes.getReporteSuscripciones(getFechaInicial(),getFechaFinal(), clienteSeleccionado.getId(), 8, Integer.parseInt(getEstadoEnvio()));
            // logger.info("SUSCRIPCIONES SIZE:" + suscrionesDTO.size());
             return null;
         } catch (Exception ex) {
@@ -224,7 +245,41 @@ try{
     }
 
     
+private String tipoPago,estadoCompra;
 
+    public String getEstadoCompra() {
+        return estadoCompra;
+    }
+
+    public void setEstadoCompra(String estadoCompra) {
+        this.estadoCompra = estadoCompra;
+    }
+
+    public String getTipoPago() {
+        return tipoPago;
+    }
+
+    public void setTipoPago(String tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+
+
+    public String buscarReporteCompra(){
+          Reportes reportes=new Reportes();
+          System.out.println("CLIENTE:"+clienteSeleccionado.getId());
+          System.out.println("Fecha Inicio:"+getFechaInicial());
+          System.out.println("Fecha Final:"+getFechaFinal());
+          System.out.println("Estado Envio:"+estadoEnvio);
+          System.out.println("Tipo Compra:"+tipoPago);
+          System.out.println("Estado compra:"+estadoCompra);
+          compraReporte=reportes.getReporteCompra(getFechaInicial(), getFechaFinal(), clienteSeleccionado.getId(), estadoCompra, tipoPago, estadoEnvio, estadoEnvio);
+          JsfUtil.addSuccessMessage("RESULTADO DE LA COMPRA");
+
+
+          return null;
+          
+
+    }
 
 
 

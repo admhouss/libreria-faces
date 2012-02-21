@@ -5,6 +5,7 @@
 
 package escom.libreria.info.facturacion;
 
+import com.escom.info.preferenciaCliente.jpa.TemaCliente;
 import escom.libreria.info.bitacoras.BitacoraCliente;
 import escom.libreria.info.articulo.Almacen;
 import escom.libreria.info.articulo.Almacen;
@@ -205,6 +206,9 @@ public class Articulo implements Serializable {
     private Pendiente pendiente;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<BitacoraConsulta> bitacoraConsultaList;
+   
+
+    
 
     
     public Articulo() {

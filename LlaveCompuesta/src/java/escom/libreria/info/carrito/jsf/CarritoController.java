@@ -6,6 +6,8 @@
 package escom.libreria.info.carrito.jsf;
 
 
+import com.escom.info.preferenciaCliente.jpa.TemaCliente;
+import com.escom.info.temacliente.ejb.TemaClienteFacade;
 import escom.libreria.info.articulo.Almacen;
 import escom.libreria.info.articulo.Impuesto;
 import escom.libreria.info.articulo.Publicacion;
@@ -82,6 +84,7 @@ public class CarritoController implements Serializable{
     @EJB private PromocionFacade promocionFacade;
     @EJB private ArticuloFacade articuloFacade;
     @EJB private PendienteFacade pendienteFacade;
+    @EJB private TemaClienteFacade temaClienteFacade;
 
     public Articulo articulo;
     private static  Logger logger = Logger.getLogger(CarritoController.class);
@@ -362,9 +365,7 @@ private Date getHoy(){
 
                              temporalDTO=procesarArticulo(articulo1,1);
                              temporalDTO.setEditorial( articulo1.getFormato());
-
-                             //temporalDTO.setIdPublicacion(publicacion.getIdDc());
-                            // temporalDTO.setTypePublicacion(false);
+                             insertarTemaInteresCliente(articulo1.getCodigo()+"-"+articulo1.getTitulo(),clienteOperando.getId());
                              agregarCarrito(temporalDTO);
                              JsfUtil.addSuccessMessage("Publicacion agregada Satisfactoriamente");
                              return "/carrito/Carrito";
@@ -392,6 +393,24 @@ private Date getHoy(){
     }
 
 
+ public void insertarTemaInteresCliente(String codigoTitulo,String cliente){
+     try{
+       if(!temaClienteFacade.buscarTemaCliente(codigoTitulo,cliente))
+       {
+
+            TemaCliente temaCliente=new TemaCliente();
+            temaCliente.setIdArticulo(codigoTitulo);
+            temaCliente.setIdCliente(cliente);
+            temaClienteFacade.create(temaCliente);
+            logger.info("TEMA CLIENTE INSERTADO SATISFACRTORIAMENTE");
+     }
+        }catch(Exception e){
+                logger.error("OCURRIO UNERROR:",e);
+            }
+
+
+
+ }
 
  public List<PublicacionDTO> getListPedidosDTO(){
     if(carritoCompraTemporalLocal==null){
