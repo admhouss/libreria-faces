@@ -145,7 +145,40 @@
                 </p:dataTable>
                              
                   </p:tab>
-                   <p:tab title="PAGOS">
+                   <p:tab title="TEMAS DE INTERES">
+
+
+
+
+
+
+                       <p:dataTable value="#{temaClienteController.listTemaClienteToID}" var="item" paginator="true" rows="15">
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListTemaClienteTitle_cliente}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idCliente}"/>
+                    </p:column>
+                    <p:column style="width:200px;">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListTemaClienteTitle_articulo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idArticulo}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+
+
+                        <h:commandLink action="#{temaClienteController.destroy(item)}" >
+                             <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+
+
 
                   </p:tab>
 
