@@ -75,25 +75,25 @@ public class UnmarshalCDI {
             if(comprobante!=null)
             {
 
-                logger.info("SI ESTA LLENO");
+                logger.info("COMENZANDO EL PROCESO DE EXTRACCION DE DATOS");
 
 
-                facturaGeneral.setCalle(comprobante.getReceptor().getDomicilio().getCalle());
-                facturaGeneral.setCertEmi(comprobante.getCertificado());
-                facturaGeneral.setColonia(comprobante.getReceptor().getDomicilio().getColonia());
-                facturaGeneral.setCompra(compra);
-                facturaGeneral.setComprobante(comprobante.getVersion());
-                facturaGeneral.setCp(Integer.parseInt(comprobante.getReceptor().getDomicilio().getCodigoPostal()));
-                facturaGeneral.setNoExterior(comprobante.getReceptor().getDomicilio().getNoExterior());
-                facturaGeneral.setRazonSocial(comprobante.getReceptor().getNombre());
-                facturaGeneral.setPais(comprobante.getReceptor().getDomicilio().getPais());
-                facturaGeneral.setFechaCert(comprobante.getFecha().toGregorianCalendar().getTime());
+                facturaGeneral.setCalle(comprobante.getReceptor().getDomicilio().getCalle());//ya
+                facturaGeneral.setCertEmi("CERTIFICADO");//
+                facturaGeneral.setColonia(comprobante.getReceptor().getDomicilio().getColonia());//
+                facturaGeneral.setCompra(compra);//ya
+                facturaGeneral.setComprobante(comprobante.getVersion());//ya
+                facturaGeneral.setCp(Integer.parseInt(comprobante.getReceptor().getDomicilio().getCodigoPostal()));//ya
+                facturaGeneral.setNoExterior(comprobante.getReceptor().getDomicilio().getNoExterior());//YA
+                facturaGeneral.setRazonSocial(comprobante.getReceptor().getNombre());//YA
+                facturaGeneral.setPais("MEXICO");//YA
+                facturaGeneral.setFechaCert(comprobante.getFecha().toGregorianCalendar().getTime());//ya
                 facturaGeneral.setFechaEmi(new Date());
-                facturaGeneral.setNoSerie(String.valueOf(comprobante.getSerie()));
-                facturaGeneral.setNoFolio(Integer.parseInt(comprobante.getFolio()));
-                facturaGeneral.setIdEdo(0);
+                facturaGeneral.setNoSerie(String.valueOf(comprobante.getSerie()));//ya
+                facturaGeneral.setNoFolio(Integer.parseInt(comprobante.getFolio()));//ya
+                facturaGeneral.setIdEdo(0);//ya
                 facturaGeneral.setRfc(comprobante.getReceptor().getRfc());
-                facturaGeneral.setFolio(comprobante.getFolio());
+                facturaGeneral.setFolio(comprobante.getFolio());//yq
                
                 
         /*System.out.println("Certificado:"+comprobante.getCertificado());
