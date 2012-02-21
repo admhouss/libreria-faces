@@ -15,8 +15,10 @@ import escom.libreria.facturacion.proveedor.mysuitemex.TFactDocMX.Emisor;
 import escom.libreria.info.administracion.jsf.util.JsfUtil;
 import escom.libreria.info.compras.Compra;
 import escom.libreria.info.compras.Difacturacion;
+import escom.libreria.info.compras.FacturaGeneral;
 import escom.libreria.info.compras.Pedido;
 import escom.libreria.info.compras.ejb.DifacturacionFacade;
+import escom.libreria.info.compras.ejb.FacturaGeneralFacade;
 import escom.libreria.info.compras.ejb.PedidoFacade;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -51,6 +53,7 @@ public class generadorCDFController implements Serializable
     @EJB private DifacturacionFacade direccionFacturacionFacade;
     @EJB private PedidoFacade pedidoFacade;
     @EJB private ProcesoJMail enviarCorreo;
+    @EJB private FacturaGeneralFacade  facturaGeneralFacade;
 
 
     private static  Logger logger = Logger.getLogger(generadorCDFController.class);
@@ -98,8 +101,8 @@ public class generadorCDFController implements Serializable
                          msgError+= facturacion.generaFactura(ConstantesFacturacion.RUTA_REPOSITORIO_CFD, nombreFacturaCFD);
                         if(facturacion.getUbicacionCFDI()!=null)
                         {
-                         // UnmarshalCDI unmarshalCDI=new UnmarshalCDI();
-                         // unmarshalCDI.prepareCreateCFI_To_Object(c, facturacion.getUbicacionCFDI()+".xml");
+                            guardarFactura(c, facturacion.getUbicacionCFDI()+".xml");
+                         
                           logger.info("PROCESO INVERSO REALIZADO SATISFACTORAMENTE");
                     /*DESCOMENTAR ESTA LINEA SI ES IMPORTANTE ,LA COMENTE POR PROBAR**/
                             enviarFacturaToCliente(c.getIdCliente(),facturacion.getUbicacionCFDI());
@@ -118,6 +121,19 @@ public class generadorCDFController implements Serializable
         return null;
     }
 
+
+    public void guardarFactura(Compra c,String rutaCFDI){
+        try{
+
+                         UnmarshalCDI unmarshalCDI=new UnmarshalCDI();
+                         FacturaGeneral factor = unmarshalCDI.prepareCreateCFI_To_Object(c, rutaCFDI + ".xml");
+                         facturaGeneralFacade.create(factor);
+                         logger.info("FACTURA GUARDADA SATISFACTORIAMENTE");
+        }catch(Exception e){
+            logger.error("error al persisitir");
+        }
+
+    }
    /* public boolean generarXMLFactura(Difacturacion d,Compra c){
         Emisor direccionEmisor = generaraFacade.getDireccionEmisorAndFiscal(d);
         //c.setIdPedido(c.getIdPedido());
