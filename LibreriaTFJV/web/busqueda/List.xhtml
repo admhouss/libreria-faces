@@ -64,6 +64,7 @@
                               <h:outputText value="Tipo Art&iacute;culo:" styleClass="textoNEGRO"/>
 
                                <h:selectOneMenu   value="#{publicacionController.tipoArticulo}" >
+                                   <f:selectItem  itemValue="---------"  itemLabel="--------------" id="xxtipoArticulo"/>
                                    <f:selectItems value="#{tipoArticuloController.listTipoArticulo}" var="item" itemValue="#{item.descripcion}" itemLabel="#{item.descripcion}"/>
                                </h:selectOneMenu>
                               <h:outputText value=""/>
@@ -97,6 +98,7 @@
                           </h:selectOneMenu>
                           <h:panelGrid id="consulta">
                               <h:selectOneMenu value="#{publicacionController.general}" id="querygeneral">
+                                  
                                   <f:selectItems value="#{publicacionController.listaString}" var="item" itemValue="#{item}" itemLabel="#{item}"/>
                               </h:selectOneMenu>
                           </h:panelGrid>
@@ -153,13 +155,25 @@
       <td><p><strong>Editorial:</strong><h:outputText value="#{item.editorial}"/></p></td>
 
   </tr>
-  <tr>
-      <td><strong>ISBN: </strong><h:outputText value="#{item.isbn}"/></td>
+  <!--<tr>
+      <td><strong>ISBN: </strong><h:outputText value="{item.isbn}"/></td>
+  </tr>-->
+                            
+   <tr>
+       <td><strong>Precio:$</strong><h:outputText value="#{item.articulo.precioUnitario}"/></td>
+  </tr>
+
+   <tr>
+      <td>
+          <strong>Descuento:%</strong>
+          <h:outputText value="0" rendered="#{item.articulo.descuentoArticulo.descuento==null}"/>
+         <h:outputText value="#{item.articulo.descuentoArticulo.descuento}"/>
+      </td>
   </tr>
 
   <tr>
       <td><strong>Existencia: </strong>
-          <h:outputText value="PENDIENTE DE SUSTITUIR" rendered="#{item.articulo.almacen.existencia==null}"/>
+          <h:outputText value="0" rendered="#{item.articulo.almacen.existencia==null}"/>
           <h:outputText value="#{item.articulo.almacen.existencia}"/>
       </td>
   </tr>
@@ -197,11 +211,7 @@
           <span class="ui-icon ui-icon-link">
               <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" styleClass="ui-icon ui-icon-link"/></span>
       </li>
-         <li class="ui-state-default ui-corner-all" title="Descargar Publicacion">
-     <span class="ui-icon ui-icon-document-b">
-         <h:commandLink  action="#{subirArchivo.descargarArchivoDocumento(item.articulo)}" immediate="true" styleClass="ui-icon ui-icon-document-b"/>
-     </span>
-      </li>
+         
     </ul></td>
   </tr>
   <tr></tr>

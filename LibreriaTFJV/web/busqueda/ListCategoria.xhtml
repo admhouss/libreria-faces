@@ -58,8 +58,15 @@
   </tr>
   <tr>
       <td><strong>Existencia: </strong>
-          <h:outputText value="PENDIENTE DE SUSTITUIR" rendered="#{item.articulo.almacen.existencia==null}"/>
+          <h:outputText value="0" rendered="#{item.articulo.almacen.existencia==null}"/>
           <h:outputText value="#{item.articulo.almacen.existencia}"/>
+      </td>
+  </tr>
+
+   <tr>
+      <td><strong>Descuento: </strong>
+          <h:outputText value="0" rendered="#{item.articulo.descuentoArticulo.descuento==null}"/>
+          <h:outputText value="#{item.articulo.descuentoArticulo.descuento}"/>
       </td>
   </tr>
   <tr>
@@ -83,7 +90,7 @@
               </span>
           
       </li>
-            <li   class="ui-state-default ui-corner-all" title="Mas informaci&oacute;n">
+            <li   class="ui-state-default ui-corner-all" title="M&Aacute;s informaci&oacute;n">
        <span class="ui-icon ui-icon-info">
 
            <h:commandLink  action="#{publicacionController.prepareView(item,2)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
@@ -98,11 +105,7 @@
      </span>
       </li>
 
-      <li class="ui-state-default ui-corner-all" title="Descargar Publicacion">
-     <span class="ui-icon ui-icon-document-b">
-         <h:commandLink  action="#{subirArchivo.descargarArchivoDocumento(item.articulo)}" immediate="true" styleClass="ui-icon ui-icon-document-b"/>
-     </span>
-      </li>
+      
     </ul></td>
   </tr>
   <tr></tr>
@@ -134,15 +137,26 @@
       <td width="79%" class="Titulo_articulo" scope="col"><h:outputText value="#{item.articulo.titulo}"/></td>
 
   </tr>
+
+  <tr>
+      <td><p><strong>Editorial:</strong> <h:outputText value="#{item.editorial}"/></p></td>
+  </tr>
   <tr>
       <td><p><strong>Autor:</strong> <h:outputText value="#{item.articulo.creador}"/></p></td>
   </tr>
   <tr>
-      <td><p><strong>Costo:</strong><h:outputText value="#{item.articulo.costo}"/></p></td>
+      <td><p><strong>Precio:$</strong><h:outputText value="#{item.articulo.precioUnitario}"/></p></td>
 
   </tr>
+   <tr>
+      <td><strong>Existencia: </strong>
+          <h:outputText value="0" rendered="#{item.articulo.almacen.existencia==null}"/>
+          <h:outputText value="#{item.articulo.almacen.existencia}"/></td>
+  </tr>
   <tr>
-      <td><strong>Descuento: </strong><h:outputText value="#{item.articulo.descuentoArticulo.descuento}"/></td>
+      <td><strong>Descuento:% </strong>
+          <h:outputText value="0" rendered="#{item.articulo.descuentoArticulo.descuento==null}"/>
+          <h:outputText value="#{item.articulo.descuentoArticulo.descuento}"/></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -180,11 +194,7 @@
      </span>
       </li>
 
-      <li class="ui-state-default ui-corner-all" title="Descargar Publicacion">
-     <span class="ui-icon ui-icon-document-b">
-         <h:commandLink  action="#{subirArchivo.descargarArchivoDocumento(item.articulo)}" immediate="true" styleClass="ui-icon ui-icon-document-b"/>
-     </span>
-      </li>
+      
     </ul></td>
   </tr>
   <tr></tr>
