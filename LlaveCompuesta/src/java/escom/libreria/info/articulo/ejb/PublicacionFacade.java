@@ -174,48 +174,47 @@ public class PublicacionFacade {
     }
 
 
-    public List<Publicacion> buscarArticulo(String autor, String titulo, String tipoArticulo, int numero, int iSSN, String iSBN, String editorial,String asunto,
-            String tomo,String unidad,String divisa,String formato,String publicador) {
+    public List<Publicacion> buscarArticulo(String autor, String titulo, String descripcion, int numero, int sn, String bn, String editorial, String asunto, String tomo, String unidad, String divisa, String formato, String publicador, String codigo) {
 
 
 
 
                     TypedQuery<Publicacion> query=em.createQuery(
                      "SELECT p FROM Publicacion p WHERE   p.articulo.titulo LIKE :titulo  OR p.articulo.creador LIKE :autor  "
-                     + "OR p.articulo.tipoArticulo.descripcion LIKE :tipo OR "
+                     + "OR p.articulo.tipoArticulo.descripcion LIKE :tipo  "
                      + "OR p.articulo.asunto LIKE :asunto  OR p.editorial LIKE :editorial "
                      + "OR p.numero =:numero OR p.issn=:ISSN OR p.isbn LIKE :ISBN  "
-                     + "OR a.unidad LIKE unidad OR p.tomo LIKE tomo OR a.divisa LIKE divisa OR a.formato LIKE formato "
-                     + "OR a.publicador LIKE publicador OR a.resumenRecurso LIKE resumenRecurso "
-                     + "OR a.nombreAlternativo LIKE nombreAlternativo OR a.referenciaBibliograficas LIKE referenciab"
-                     + "OR a.creador LIKE creador OR a.tabla_contenidos LIKE tablaContenidos "
-                     + "OR a.codigo LIKE codigo"
+                     + "OR p.articulo.unidad LIKE :unidad OR p.tomo LIKE :tomo OR p.articulo.divisa LIKE :divisa OR p.articulo.formato LIKE :formato "
+                     + "OR p.articulo.publicador LIKE :publicador OR p.articulo.resumenRecurso LIKE :resumenRecurso "
+                     + "OR p.articulo.nombreAlternativo LIKE :nombreAlternativo  "
+                     + "OR p.articulo.creador LIKE :creador OR p.articulo.tablaContenidos LIKE :tablaContenidos "
+                     + "OR p.articulo.codigo LIKE :codigo   "
 
                      + "ORDER BY p.articulo.titulo ASC",Publicacion.class)
 
                     .setParameter("autor","%"+autor+"%")//yes
                     .setParameter("asunto","%"+asunto+"%")//yes
                     .setParameter("titulo","%"+titulo+"%")//yes
-                    .setParameter("tipo","%"+ tipoArticulo+"%") //yes
+                    .setParameter("tipo","%"+ descripcion+"%") //yes
                     .setParameter("numero", numero)//yes
-                    .setParameter("ISSN", iSSN)//Yes
-                    .setParameter("ISBN", "%"+iSBN+"%")//Yes
+                    .setParameter("ISSN", sn)//Yes
+                    .setParameter("ISBN", "%"+bn+"%")//Yes
                     .setParameter("editorial","%"+editorial+"%")//yes
                             
                             //-----------
-                    .setParameter("tomo","p.tomo")  // OR p.tomo LIKE tomo yy
+                    .setParameter("tomo",tomo)  // OR p.tomo LIKE tomo yy
 
-                    .setParameter("unidad","a.unidad") // OR a.unidad LIKE unidad yy
-                    .setParameter("divisa","a.divisa") // OR a.divisa LIKE divisa yy
+                    .setParameter("unidad",unidad) // OR a.unidad LIKE unidad yy
+                    .setParameter("divisa",divisa) // OR a.divisa LIKE divisa yy
 
-                    .setParameter("formato","a.formato") //OR a.formato LIKE formato nyy
-                    .setParameter("publicador","a.publicacdor") // OR a.publicador LIKE publicador YY
-                    .setParameter("resumen_recurso-a","") // OR a.resumenRecurso LIKE resumenRecurso YY
-                    .setParameter("nombre_alternativoa","") // OR a.nombreAlternativo LIKE nombreAlternativo YY
-                    .setParameter("referencias_bibliograficas-a","")// OR a.referenciaBibliograficas LIKE refb yy
-                    .setParameter("creador-a","")                 // OR a.creador LIKE creador yy
-                    .setParameter("tabla_contenidos-a","")         //OR a.tabla_contenidos LIKE tablaContenidos yy
-                    .setParameter("codigo-a","");                     // OR a.codigo LIKE codigo
+                    .setParameter("formato",formato) //OR a.formato LIKE formato nyy
+                    .setParameter("publicador",publicador) // OR a.publicador LIKE publicador YY
+                    .setParameter("resumenRecurso",titulo) // OR a.resumenRecurso LIKE resumenRecurso YY
+                    .setParameter("nombreAlternativo",titulo) // OR a.nombreAlternativo LIKE nombreAlternativo YY
+                   // .setParameter("referenciab",titulo)// OR a.referenciaBibliograficas LIKE refb yy
+                    .setParameter("creador",autor)                 // OR a.creador LIKE creador yy
+                    .setParameter("tablaContenidos",titulo)         //OR a.tabla_contenidos LIKE tablaContenidos yy
+                    .setParameter("codigo",codigo);                     // OR a.codigo LIKE codigo
 
 
 
@@ -230,15 +229,15 @@ public class PublicacionFacade {
 
 
                     TypedQuery<Publicacion> query=em.createQuery(
-                     "SELECT p FROM Publicacion p WHERE   p.articulo.titulo LIKE :titulo  OR p.articulo.creador LIKE :autor  "
-                     + "OR p.articulo.tipoArticulo.descripcion LIKE :tipo "
-                     + "OR p.articulo.asunto LIKE :asunto  OR p.editorial LIKE :editorial "
-                     + "OR p.numero =:numero OR p.issn=:ISSN OR p.isbn LIKE :ISBN  "
-                     + "OR p.articulo.unidad LIKE :unidad OR p.tomo LIKE :tomo OR p.articulo.divisa LIKE :divisa OR p.articulo.formato LIKE :formato "
-                     + "OR p.articulo.publicador LIKE :publicador OR p.articulo.resumenRecurso LIKE :resumenRecurso "
-                     + "OR p.articulo.nombreAlternativo LIKE :nombreAlternativo OR p.articulo.referenciasBibliograficas LIKE :referenciab "
-                     + "OR p.articulo.creador LIKE :creador OR p.articulo.tablaContenidos LIKE :tablaContenidos "
-                     + "OR p.articulo.codigo LIKE :codigo "
+                     "SELECT p FROM Publicacion p WHERE   p.articulo.titulo LIKE :titulo  AND p.articulo.creador LIKE :autor  "
+                     + "AND p.articulo.tipoArticulo.descripcion LIKE :tipo "
+                     + "AND p.articulo.asunto LIKE :asunto  AND p.editorial LIKE :editorial "
+                     + "AND p.numero =:numero AND p.issn=:ISSN AND p.isbn LIKE :ISBN  "
+                     + "AND p.articulo.unidad LIKE :unidad AND p.tomo LIKE :tomo AND p.articulo.divisa LIKE :divisa AND p.articulo.formato LIKE :formato "
+                     + "AND p.articulo.publicador LIKE :publicador AND p.articulo.resumenRecurso LIKE :resumenRecurso "
+                     + "AND p.articulo.nombreAlternativo LIKE :nombreAlternativo AND p.articulo.referenciasBibliograficas LIKE :referenciab "
+                     + "AND p.articulo.creador LIKE :creador AND p.articulo.tablaContenidos LIKE :tablaContenidos "
+                     + "AND p.articulo.codigo LIKE :codigo "
                      + "ORDER BY p.articulo.titulo ASC",Publicacion.class)
 
 
@@ -375,6 +374,11 @@ public class PublicacionFacade {
         }
         return asuntoList;
     }
+
+    /*public List<Publicacion> buscarArticulo(String creador, String titulo, String descripcion, int numero, int sn, String bn, String editorial, String asunto, String tomo, String unidad, String divisa, String formato, String publicador, String codigo) {
+         buscarArticulo(creador, titulo, descripcion, numero, sn, bn, editorial, asunto, tomo, unidad, divisa, formato, publicador, codigo)
+        return null;
+    }*/
 
 
 

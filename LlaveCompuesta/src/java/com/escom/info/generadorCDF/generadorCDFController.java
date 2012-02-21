@@ -76,10 +76,10 @@ public class generadorCDFController implements Serializable
       Difacturacion direccionFactura=direccionFacturacionFacade.getDireccionFacturaClienteByID(idCompra.getIdCliente());
       logger.info("---OBTENIENDO DIRECCION DE FACTURACION DEL CLIENTE----");
       Emisor direccionEmisor = generaraFacade.getDireccionEmisorAndFiscal(direccionFactura);
-      List<Pedido> pedidos=pedidoFacade.getAllpedidosByid(idCompra.getIdPedido());
-      Conceptos conceptos = generaraFacade.crearConceptos(pedidos);
+    //  List<Pedido> pedidos=pedidoFacade.getAllpedidosByid(idCompra.getIdPedido());
+     // Conceptos conceptos = generaraFacade.crearConceptos(pedidos);
       logger.info("COMENZANO PROCESO DE CREADO ARCHIVO CFD");
-      crear_objeto_xml(direccionEmisor,conceptos,idCompra,direccionFactura);
+      crear_objeto_xml(direccionEmisor,idCompra,direccionFactura);
       
         //return "facturar";
     }
@@ -134,7 +134,10 @@ public class generadorCDFController implements Serializable
 
 /*EL  NOMBRE DE LA FACTURA SE CONFORMA A PARTIR DE  FACTCFD0"+c.getPedido()+".xml";*/
 
-    private boolean  crear_objeto_xml(Emisor e,Conceptos conceptos,Compra c,Difacturacion d) {
+    private boolean  crear_objeto_xml(Emisor e,Compra c,Difacturacion d) {
+       List<Pedido> pedidos=pedidoFacade.getAllpedidosByid(c.getIdPedido());
+       Conceptos conceptos = generaraFacade.crearConceptos(pedidos); //ESTA BIEN
+
        String nombreFacturaCFD=ConstantesFacturacion.FACTURA_NOMBRE+c.getIdPedido()+".xml";
 
         logger.info("NOMBRE DEL CFD QUE SE VA CREAR "+nombreFacturaCFD);
@@ -142,14 +145,15 @@ public class generadorCDFController implements Serializable
             boolean bandera=false;
             FactDocsMX factDocsMX = new FactDocsMX();
             TFactDocMX factura = new TFactDocMX();
-            factura.setIdentificacion(generaraFacade.getIdentificacion());
-            factura.setProcesamiento(generaraFacade.getProcesamiento());
-            factura.setEmisor(e);
-            factura.setReceptor(generaraFacade.getReceptor(d));
+            factura.setIdentificacion(generaraFacade.getIdentificacion()); //ESTA BIEN
+            factura.setProcesamiento(generaraFacade.getProcesamiento()); // ESTA BIEN
+            factura.setEmisor(e);  //ESTA BIEN
+            factura.setReceptor(generaraFacade.getReceptor(d)); //ESTA BIEN
             factura.setConceptos(conceptos);
-            factura.setVersion(new BigInteger("4"));
-            factura.setTotales(generaraFacade.getTotales(c));
+            factura.setVersion(new BigInteger("4")); //ESTA BIEN
+            factura.setTotales(generaraFacade.getTotales(c,pedidos));
             factura.setComprobanteEx(generaraFacade.getComprobanteEx());
+
             factDocsMX.getFactDocMX().add(factura);
 
             

@@ -5,6 +5,7 @@
 
 package escom.libreria.info.cliente;
 
+import com.escom.info.preferenciaCliente.jpa.TemaCliente;
 import escom.libreria.info.descuentos.DescuentoCliente;
 import escom.libreria.info.compras.Categoria;
 import escom.libreria.info.compras.Estado;
@@ -92,6 +93,8 @@ public class Cliente implements Serializable {
     private Categoria categoria;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<DescuentoCliente> descuentoClienteList;
+    
+
 
     public Cliente() {
     }
@@ -99,6 +102,9 @@ public class Cliente implements Serializable {
     public Cliente(String id) {
         this.id = id;
     }
+
+    
+
 
     public Cliente(String id, String nombre, String paterno, String materno, boolean estatus, String password, Date fechaAlta, boolean recibeInfor, Date modificacion, String telefono) {
         this.id = id;
