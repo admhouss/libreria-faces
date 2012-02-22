@@ -480,7 +480,12 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
             </h:form>
 
         </li>
-        <li><a href="#">Ofernta del D&iacute;a</a>
+        <li>
+            <h:form id="formOfertaDia">
+                <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/ofertas/List_1.xhtml">
+                    <h:outputText value="Oferta del D&iacute;a"/>
+                </h:outputLink>
+            </h:form>
          <!--<ul>
             <ul>
               <ul>
@@ -498,6 +503,32 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
 </table>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<h:form id="lomasvendido">
+    <div align="left">
+    <h:dataTable value="#{articuloController.asuntoDistinctArticulo}" var="item" columnClasses="list navigation">
+        <h:column>
+            <f:facet name="header">
+                <h2>&nbsp;&nbsp;&nbsp;&nbsp;<h:outputText value="Lo mas vendido" styleClass="list navigation"/></h2>
+            </f:facet>
+            <ul class="list navigation">
+        <li>
+             <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/MasVendido/List.xhtml?asuntoArticulo=#{item}">
+                &nbsp;&nbsp;&nbsp; <h:outputText value="#{item}"/>
+             </h:outputLink>
+        </li>
+            </ul>
+        </h:column>
+
+    </h:dataTable>
+    </div>
+
+</h:form>
+<!--
 <table width="90%" border="0" align="right">
   <tr>
     <th align="left" scope="col">
@@ -520,7 +551,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
       </ul>
       <p></p></th>
   </tr>
-</table>
+</table>-->
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
@@ -533,9 +564,9 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
   <tr>
     <th align="left" scope="col"><h2>Administración</h2>
       <ul class="list navigation">
-        <li><a href="#">Ventas General </a></li>
+       <!-- <li><a href="#">Ventas General </a></li>-->
         <li>
-            <a href="#">Ventas Detalles</a>
+           <!-- <a href="#">Ventas Detalles</a>-->
           <ul>
             <ul>
               <ul>
@@ -895,7 +926,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                     </h:form>
 
                 </li>
-                  <li><a href="#">Estad&iacute;sticas</a></li>
+                 <!-- <li><a href="#">Estad&iacute;sticas</a></li>-->
               </ul>
             </ul>
           </ul>
