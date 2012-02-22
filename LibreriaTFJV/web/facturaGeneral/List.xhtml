@@ -34,53 +34,35 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="fechaCert}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.fechaCert}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
                             <h:outputText value="No.Serie"/>
                         </f:facet>
                         <h:outputText value="#{item.noSerie}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="fechaEmi}"/>
+                            <h:outputText value="F.Emisor"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaEmi}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                     </p:column>
+                   
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="certEmi}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.certEmi}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="serie}"/>
+                            <h:outputText value="Serie"/>
                         </f:facet>
                         <h:outputText value="#{item.serie}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="noFolio}"/>
+                            <h:outputText value="Folio"/>
                         </f:facet>
                         <h:outputText value="#{item.noFolio}"/>
                     </p:column>
+                    
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="noInterno}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.noInterno}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="sucursal}"/>
+                            <h:outputText value="SUCURSAL"/>
                         </f:facet>
                         <h:outputText value="#{item.sucursal}"/>
                     </p:column>
