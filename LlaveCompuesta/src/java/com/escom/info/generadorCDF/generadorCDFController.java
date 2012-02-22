@@ -68,10 +68,7 @@ public class generadorCDFController implements Serializable
     }
 
 
-    //@EJB private com.escom.info.compra.ejb.DifacturacionFacade difacturacionFacade;
-    //@EJB private com.escom.info.compra.ejb.PedidoFacade pedidoFacade;
-    //@EJB private com.escom.info.compra.ejb.FacturaFacade  facturaFacade;
-     
+    
 
 
     private void generarFacturaDeCompra(Compra idCompra){
