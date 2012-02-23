@@ -31,7 +31,7 @@
          
 
             <p:accordionPanel autoHeight="false" >
-                <p:tab title="Publicaciones" rendered="#{publicacionController.tipoArticuloMostrar==1}">
+                <p:tab title="PUBLICACIONES" rendered="#{publicacionController.tipoArticuloMostrar>=1}">
                <h:panelGroup >
                    <p:dataGrid value="#{publicacionController.listLibroByCategoria}" var="item"  rows="12" paginator="true" effect="true" columns="1"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -54,7 +54,7 @@
 
   </tr>
   <tr>
-      <td><strong>ISBN: </strong><h:outputText value="#{item.isbn}"/></td>
+      <td><strong>Precio: </strong><h:outputText value="#{item.articulo.precioUnitario}"/></td>
   </tr>
   <tr>
       <td><strong>Existencia: </strong>
@@ -122,9 +122,9 @@
                     </p:tab>
 
                 
-                <p:tab title="Articulos" rendered="#{publicacionController.tipoArticuloMostrar==5}">
+                <p:tab title="Accesorios" rendered="#{publicacionController.tipoArticuloMostrar>=3}">
                <h:panelGroup >
-                   <p:dataGrid value="#{publicacionController.listPublicacionByBusqueda}" var="item"  rows="12" paginator="true" effect="true" columns="1"
+                   <p:dataGrid value="#{publicacionController.listPublicacionAccesorio}" var="item"  rows="12" paginator="true" effect="true" columns="1"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		rowsPerPageTemplate="9,12,15">
 
