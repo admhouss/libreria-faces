@@ -296,8 +296,10 @@ public class PublicacionFacade {
                     query.setParameter("asunto","%"+asunto+"%");//yes
                     if(!titulo.trim().equals(""))
                     query.setParameter("titulo","%"+titulo+"%");//yes
-                    if(!tipoArticulo.trim().equals(""))
+                    if(!tipoArticulo.trim().equals("") && !tipoArticulo.equals("---------") )
+                    
                     query.setParameter("tipo","%"+ tipoArticulo+"%"); //yes
+
                     if(periodo!=null)
                     query.setParameter("periodo",periodo,TemporalType.TIMESTAMP);//yes
 

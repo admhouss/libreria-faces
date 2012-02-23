@@ -269,9 +269,10 @@ public List<String> getListaString(){
         String queryTemporal="SELECT p FROM Publicacion p WHERE ";
         int acciones=0;//0,1,2;
 
-        if(getAsunto().trim()!=null  && !getAsunto().trim().equals("")){
-         queryTemporal+="p.articulo.asunto LIKE :asunto ";
-         acciones=1;
+        if(getAsunto().trim()!=null  && !getAsunto().trim().equals(""))
+        {
+             queryTemporal+="p.articulo.asunto LIKE :asunto ";
+             acciones=1;
         }
 
         if(getAutor().trim()!=null  && !getAutor().trim().equals("")){
@@ -302,19 +303,25 @@ public List<String> getListaString(){
                 }
 
         }
-        
+       
         if(getTipoArticulo().trim()!=null  && !getTipoArticulo().trim().equals("")){
-             switch(acciones){
-                 case 0:
-                   queryTemporal+="p.articulo.tipoArticulo.descripcion LIKE :tipo ";
-                    acciones=1;
-                 break;
-                  case 1:
-                   queryTemporal+="AND p.articulo.tipoArticulo.descripcion LIKE :tipo ";
-                  acciones=1;
-                 break;
+            if(!getTipoArticulo().equals("---------"))
+            {
+                    switch(acciones){
+                        case 0:
+                            queryTemporal+="p.articulo.tipoArticulo.descripcion LIKE :tipo ";
+                            acciones=1;
+                        break;
+                        case 1:
+                            queryTemporal+="AND p.articulo.tipoArticulo.descripcion LIKE :tipo ";
+                            acciones=1;
+                        break;
             }
-        }
+          }//end-if
+            else{
+
+            }
+        }//IF
         
         if(getPeriodo()!=null ){
             switch(acciones){
@@ -389,22 +396,9 @@ public List<String> getListaString(){
             }
        
         queryTemporal+="ORDER BY p.articulo.titulo ASC";
-
-
-        //System.out.println(queryTemporal);
-
-
-
-
-
-        
-       
-
-
-
-        
-         
-
+        logger.info("El query creado fue:"+queryTemporal);
+  
+        if(acciones!=0)
         listPublicacionByBusqueda=getFacade().buscarArticuloDinamico(getAutor(),getTitulo(),getTipoArticulo(),getPeriodo(),getNumero(),getISSN(),getISBN(),getEditorial(),getAsunto(),queryTemporal);
         if(!isActivate())
         JsfUtil.addSuccessMessage("No se encontrarn ninguna coincidencias");
@@ -450,7 +444,22 @@ public List<String> getListaString(){
        return "/busqueda/List";
 
     }
+public String buscarLibroRelacionados(Articulo p){
 
+
+       Articulo articulo=p;
+
+             listPublicacionByBusqueda=getFacade().buscarArticulo
+            (articulo.getCreador(),articulo.getTitulo(), articulo.getTipoArticulo().getDescripcion(),1,0, "","TJJA",articulo.getAsunto(),
+            "tomo",articulo.getUnidad(),articulo.getDivisa(),articulo.getFormato(),articulo.getPublicador(),articulo.getCodigo());
+
+       //addBitacoraCliente(p);
+       //addbicatoraUsuarioAdministrador(p,1);
+       if(!isActivate())
+        JsfUtil.addSuccessMessage("No se encontraron coincidencias!");
+       return "/busqueda/List";
+
+    }
     public List<Publicacion> getListNovedadesPublicacion(){
             listPublicacionByBusqueda=getFacade().getPublicaciones();
             return listPublicacionByBusqueda;
