@@ -199,18 +199,14 @@ public List<String> getListaString(){
                           tipoArticuloMostrar=1;
                       }else if(getBanderaCategoria().trim().equalsIgnoreCase("productos")){
 
-                         tipoArticuloMostrar=1;
+                         tipoArticuloMostrar=3;
                          setCategoria("Productos");
                          listPublicacionAccesorio=getFacade().buscarAccesorio();
                          listPublicacionByBusqueda=getFacade().getPublicaciones();
                          listPublicacionSuscripcion=getFacade().getListSuscripciones();
-                      } else if(getBanderaCategoria().trim().equals("suscripciones")){
-                          tipoArticuloMostrar=1;
-                          setCategoria("Suscripciones");
-                         listPublicacionByBusqueda=getFacade().getListSuscripciones();
-                      }else{
+                      } else{
                            tipoArticuloMostrar=5;
-                       setCategoria(getBanderaCategoria());
+                            setCategoria(getBanderaCategoria());
 
 
                       listPublicacionByBusqueda=getFacade().getAsuntoArticulos(getBanderaCategoria());
