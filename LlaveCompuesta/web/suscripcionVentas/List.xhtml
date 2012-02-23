@@ -91,7 +91,7 @@
       <td><p><strong>Autor:</strong> <h:outputText value="#{item.articulo.creador}"/></p></td>
   </tr>
   <tr>
-      <td><p><strong>Precio:$</strong><h:outputText value="#{item.articulo.costo}"/></p></td>
+      <td><p><strong>Precio:$</strong><h:outputText value="#{item.articulo.precioUnitario}"/></p></td>
 
   </tr>
   <tr>
@@ -99,7 +99,7 @@
   </tr>
   <tr>
       <td><strong>Existencia: </strong>
-          <h:outputText value="PENDIENTE DE SUSTITUIR" rendered="#{item.articulo.almacen.existencia==null}"/>
+          <h:outputText value="0" rendered="#{item.articulo.almacen.existencia==null}"/>
           <h:outputText value="#{item.articulo.almacen.existencia}"/></td>
   </tr>
   <tr>
