@@ -104,7 +104,7 @@ public class SuscripcionController implements Serializable{
     
 
     public List<Suscripcion> getListasuscripciones() {
-             if(listasuscripciones==null || listasuscripciones.isEmpty()){
+             if((listasuscripciones==null || listasuscripciones.isEmpty())){
                listasuscripciones=getFacade().getSuscripcionByID(suscripcion);
              }
 
@@ -123,6 +123,8 @@ public String buscar(){
     return "/suscripcionVentas/List";
 }
     public int getSuscripcion() {
+
+
         return suscripcion;
     }
 

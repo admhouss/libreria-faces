@@ -162,16 +162,14 @@ public String RegresarCarrito(){
 
        if(cliente!=null)
        {
-        List<Suscripcion> lista = suscripcionController.getListasuscripciones();
-       
-
-        PublicacionDTO articuloProcesadoTemporal = null,articuloProcesado;
-        if(lista==null || lista.isEmpty()){
-            JsfUtil.addErrorMessage("La lista de suscripciones esta basica");
-            return null;
-        }
-        else
-        {
+            List<Suscripcion> lista = suscripcionController.getListasuscripciones();
+            PublicacionDTO articuloProcesadoTemporal = null,articuloProcesado;
+                if(lista==null || lista.isEmpty()){
+                    JsfUtil.addErrorMessage("La lista de suscripciones esta basica");
+                     return null;
+                }
+                else
+            {
                 for(Suscripcion s:lista)
                 {
                          Articulo articulo=s.getArticulo()  ;
@@ -201,7 +199,7 @@ public String RegresarCarrito(){
                           //articuloProcesadoTemporal.setIdPublicacion(s.getSuscripcionPK().getIdSuscripcion());
                          System.out.println("procesando");
 
-                }
+                }//end if
         }
         
 
