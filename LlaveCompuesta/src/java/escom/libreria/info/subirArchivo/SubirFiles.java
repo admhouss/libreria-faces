@@ -222,7 +222,7 @@ System.out.println("Mensaje Leido:"+getKey());
 
                      ///Integer pedido=Integer.parseInt(mensaje);
 
-                    System.out.println("Articulo a descargar es:"+mensaje);
+                    logger.info("Articulo a descargar es:"+mensaje);
              }
          }catch(Exception e){
 
@@ -318,15 +318,16 @@ System.out.println("Mensaje Leido:"+getKey());
         try {
             String nombre = articulo.getArchivo();
             String formato=articulo.getFormatoDigital().replaceAll(".","");
-            if(formato!=null){
+            if(formato!=null)
+            {
              String mime=mimeFacade.buscarMimeType(formato);
              download(urlDownloads, nombre, mime);
-            }
+            }else
             JsfUtil.addErrorMessage("El documento que intenta descargar no se encuentra disponible");
 
         } catch (Exception ex) {
 
-           JsfUtil.addErrorMessage("El documento que intenta descargar no se encuentra disponible");
+           JsfUtil.addErrorMessage("Error no encontro el recurso");
            // ex.printStackTrace();
            logger.error("El documento que intenta descargar no se encuentra disponible", ex);
              return null;

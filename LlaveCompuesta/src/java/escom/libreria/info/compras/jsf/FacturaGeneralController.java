@@ -72,9 +72,9 @@ public class FacturaGeneralController implements Serializable{
         return "List";
     }
 
-    public String prepareView() {
-        current = (FacturaGeneral)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(FacturaGeneral factura) {
+        current = factura;//(FacturaGeneral)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
