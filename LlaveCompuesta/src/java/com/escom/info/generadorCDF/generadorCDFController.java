@@ -88,7 +88,7 @@ public class generadorCDFController implements Serializable
     public String crearFacturara(Compra c){
 
        // if(bandera)  {
-                generarFacturaDeCompra(c);
+                generarFacturaDeCompra(c);/*METODO QUE CREA CFD PARA EL SERVICIO MYSUIT BY YAMIL*/
                 String nombreFacturaCFD=ConstantesFacturacion.FACTURA_NOMBRE+c.getIdPedido()+".xml";
                 logger.info("EL CFD FUE  CREADO SATISFACTORIAMENTE:"+nombreFacturaCFD);
                 logger.info("LE VOY A MANDAR A MYSUIT EL SIGUIENTE CFD:"+ConstantesFacturacion.RUTA_REPOSITORIO_CFD+nombreFacturaCFD);
@@ -123,7 +123,7 @@ public class generadorCDFController implements Serializable
         try{
 
                          UnmarshalCDI unmarshalCDI=new UnmarshalCDI();
-                         FacturaGeneral factor = unmarshalCDI.prepareCreateCFI_To_Object(c, rutaCFDI + ".xml");
+                         FacturaGeneral factor = unmarshalCDI.prepareCreateCFI_To_Object(c, rutaCFDI);
                          facturaGeneralFacade.create(factor);
                          logger.info("FACTURA GUARDADA SATISFACTORIAMENTE");
         }catch(Exception e){

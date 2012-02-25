@@ -49,6 +49,7 @@ import escom.libreria.info.compras.Pedido;
 import escom.libreria.info.conversioNumeroToLetra.ConversionImp;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -98,16 +99,16 @@ public class GeneraraFacade {
         ConversionImp conversionImp=new  ConversionImp();
         total.setMoneda(TCurrencyCode.MXN);
         total.setTipoDeCambioVenta(new BigDecimal("1.0000"));
-        total.setSubTotal(getImporte(compra.getPagoTotal()));
+        total.setSubTotal(getImporte(compra.getPagoNeto()));
         total.setSubTotalBruto(getImporte(compra.getPagoTotal()));
         String decimal=compra.getPagoTotal().toString();
         String letra=conversionImp.convertirNumeroToLetra(decimal);
         total.setTotalEnLetra(letra);//TOTAL EN LETRA
         total.setTotal(getImporte(compra.getPagoTotal()));
         total.setResumenDeDescuentosYRecargos(getResumenDeDescuentosYCargos(compra));//ES EL TOTLA DE LOS DESCUENTOS
-        total.setDescuentosYRecargos(getDescuentoYrecargos(pedidos)); //EL DETALLE DE LOS DESCUENTOS
-        total.setResumenDeImpuestos(getResumenDeImpuestos(compra));
-       // total.setImpuestos(getTimpuesto(pedidos));
+        total.setDescuentosYRecargos(getDescuentoYrecargos(compra)); //EL DETALLE DE LOS DESCUENTOS
+        total.setResumenDeImpuestos(getResumenDeImpuestos(pedidos));
+        total.setImpuestos(getTimpuestoPedidos(pedidos));
         total.setFormaDePago("PARCIALIDAD 1 DE 1");
        
         return total;
@@ -233,9 +234,9 @@ public class GeneraraFacade {
             miconepto.setConceptoEx(getConceptoEX(pedido));
             miconepto.setCantidad(new BigDecimal(pedido.getNoArticuloCategoria()));
             miconepto.setUnidadDeMedida(pedido.getArticulo().getUnidad());
-            miconepto.setImporte(getImporte(pedido.getPrecioNeto()));
+            miconepto.setImporte(getImporte(pedido.getPrecioNeto())); //valor unitario = importe
             miconepto.setCodigo(pedido.getArticulo().getCodigo());
-            miconepto.setValorUnitario(getImporte(pedido.getPrecioNeto()));
+            miconepto.setValorUnitario(getImporte(pedido.getPrecioNeto()));//valor unitario = importe
             miconepto.setDescripcion(pedido.getArticulo().getCodigo()+"-"+pedido.getArticulo().getTitulo());
 
 
@@ -266,9 +267,9 @@ public class GeneraraFacade {
 
     private TConceptoEx getConceptoEX(Pedido pedido) {
         TConceptoEx  ex=new TConceptoEx();
-        ex.setImporteLista(getImporte(pedido.getPrecioNeto()));
-        ex.setPrecioLista(getImporte(pedido.getPrecioNeto()));
-        ex.setDescuentosYRecargos(getDescuentoYrecargos(pedido));
+        ex.setImporteLista(getImporte(pedido.getPrecioTotal()));//debe ser iguales
+        ex.setPrecioLista(getImporte(pedido.getPrecioTotal()));//debe ser iguales
+        ex.setDescuentosYRecargos(getDescuentoYrecargos(pedido));//DESCUENTOS
         ex.setImporteTotal(getImporte(pedido.getPrecioTotal()));
         ex.setImpuestos(getTimpuesto(pedido));
         return ex;
@@ -280,15 +281,13 @@ public class GeneraraFacade {
         List<TDiscountOrRecharge> lista = t.getDescuentoORecargo();
         TDiscountOrRecharge descuento=new TDiscountOrRecharge();
 
-     //DescuentoArticulo descuento_articulo=pedido.getArticulo().getDescuentoArticulo();
-
        descuento.setOperacion(TAllowanceChargeType.DESCUENTO);
        descuento.setImputacion(TSettlementType.FUERA_DE_FACTURA);
        descuento.setServicio(TSpecialServicesType.DESCUENTO);
        descuento.setDescripcion(TSpecialServicesType.DESCUENTO.value());
-       descuento.setBase(getImporte(pedido.getPrecioNeto()));//ESTA BIEN LA BASE
-       descuento.setMonto(getImporte(pedido.getDescuento()));
-       descuento.setTasa(BigDecimal.ZERO);
+       descuento.setBase(getImporte(pedido.getPrecioTotal()));//ESTA BIEN LA BASE
+       descuento.setMonto(getImporte(getCalcularImpuesto(pedido.getDescuento(), pedido.getPrecioTotal())));
+       descuento.setTasa(pedido.getDescuento());
        lista.add(descuento);
        return t;
 
@@ -298,18 +297,22 @@ public class GeneraraFacade {
 
 
     /* RESUMEN DE IMPUESTOS AY QUE METERLE  MANO AQUI*/
-    private TResumenDeImpuestos getResumenDeImpuestos(Compra c) {
-
+    private TResumenDeImpuestos getResumenDeImpuestos(List<Pedido> pedido) {
+         BigDecimal sumar=BigDecimal.ZERO;
         TResumenDeImpuestos resumen=new TResumenDeImpuestos();
+        for(Pedido p:pedido)
+        sumar=sumar.add(getCalcularImpuesto(p.getImpuesto(), p.getPrecioTotal()));
 
+        resumen.setTotalIVATrasladado(getImporte(sumar));
+        resumen.setTotalTrasladosFederales(getImporte(sumar));
 
         resumen.setTotalIEPSTrasladado(getImporte(BigDecimal.ZERO));
         resumen.setTotalISRRetenido(getImporte(BigDecimal.ZERO));
         resumen.setTotalIVARetenido(getImporte(BigDecimal.ZERO));
-        resumen.setTotalIVATrasladado(getImporte(BigDecimal.ZERO));
+        
         resumen.setTotalRetencionesFederales(getImporte(BigDecimal.ZERO));
         resumen.setTotalRetencionesLocales(getImporte(BigDecimal.ZERO));
-        resumen.setTotalTrasladosFederales(getImporte(BigDecimal.ZERO));
+        
         resumen.setTotalTrasladosLocales(getImporte(BigDecimal.ZERO));
         return resumen;
 
@@ -366,25 +369,23 @@ public class GeneraraFacade {
         return p;
     }
 /** ESTE  MEDODO TIENE QUE SACAR EL DESCUENTO A TODO LOS ARITCULOS CON DESCUENTO **/
-    private TDescuentosYRecargos getDescuentoYrecargos(List<Pedido> pedido) {
+    private TDescuentosYRecargos getDescuentoYrecargos(Compra compra) {
         TDescuentosYRecargos t=new TDescuentosYRecargos();
 
         List<TDiscountOrRecharge> lista = t.getDescuentoORecargo();
 
-        for(Pedido p:pedido)
-        {
+       // for(Pedido p:pedido)
+        //{
             TDiscountOrRecharge descuento=new TDiscountOrRecharge();
             descuento.setOperacion(TAllowanceChargeType.DESCUENTO);
             descuento.setImputacion(TSettlementType.FUERA_DE_FACTURA);
             descuento.setServicio(TSpecialServicesType.DESCUENTO);
             descuento.setDescripcion("DESCUENTO");
-            descuento.setBase(getImporte(p.getDescuento()));//base variar
-            descuento.setMonto(getImporte(p.getPrecioNeto()));
-            descuento.setTasa(BigDecimal.ZERO);
-
-
+            descuento.setBase(getImporte(compra.getPagoNeto()));//base variar
+            descuento.setMonto(getImporte(getCalcularImpuesto(compra.getDescuento(),compra.getPagoNeto())));
+            descuento.setTasa(compra.getDescuento());
             lista.add(descuento);
-        }
+        //}
        return t;
     }
 
@@ -393,17 +394,52 @@ public class GeneraraFacade {
         //for(Pedido p:pedidos){
 
             TTax tax=new TTax();
+            
+            tax.setCodigo("IVA");
+            tax.setContexto(TTaxContext.FEDERAL);
+            tax.setOperacion(TTaxOperation.TRASLADO);
+            /*ESTO ESTA BIEN LO DE ARRIBA*/
             tax.setBase(getImporte(p.getPrecioNeto()));
-            tax.setCodigo(p.getArticulo().getCodigo());
-            tax.setContexto(TTaxContext.LOCAL);
-            tax.setOperacion(TTaxOperation.RETENCION);
-            tax.setTasa(BigDecimal.ZERO);
-            tax.setMonto(getImporte(p.getImpuesto()));
+            tax.setTasa(p.getImpuesto());
+
+            BigDecimal calculo=getCalcularImpuesto(p.getImpuesto(),p.getPrecioNeto());
+            tax.setMonto(getImporte(calculo));
             t.getImpuesto().add(tax);
        // }
         return t;
 
     }
+
+     private TImpuestos getTimpuestoPedidos(List<Pedido> pedidos) {
+        TImpuestos t=new TImpuestos();
+        for(Pedido p:pedidos){
+              
+            TTax tax=new TTax();
+            
+            tax.setCodigo("IVA");
+            tax.setContexto(TTaxContext.FEDERAL);
+            tax.setOperacion(TTaxOperation.TRASLADO);
+            /*ESTO ESTA BIEN LO DE ARRIBA*/
+            tax.setBase(getImporte(p.getPrecioNeto()));
+            tax.setTasa(p.getImpuesto());
+
+            BigDecimal calculo=getCalcularImpuesto(p.getImpuesto(),p.getPrecioNeto());
+            tax.setMonto(getImporte(calculo));
+            t.getImpuesto().add(tax);
+       }
+        return t;
+
+    }
+
+
+     /*CALCULAMOS IMPUESTO*/
+     private BigDecimal getCalcularImpuesto(BigDecimal impuesto,BigDecimal monto){
+          BigDecimal resultado=BigDecimal.ZERO;
+          resultado=impuesto.multiply(monto);
+          resultado=resultado.divide(new BigDecimal(100));
+          
+         return resultado.setScale(2, RoundingMode.UP);
+     }
     /*private TImpuestos getTimpuesto(List<Pedido> pedidos) {
         TImpuestos t=new TImpuestos();
         for(Pedido p:pedidos){

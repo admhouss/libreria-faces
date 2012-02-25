@@ -78,7 +78,7 @@ public class Reportes {
                                  .append("AND (a.fecha_envio BETWEEN ? AND ?  )	") //FECHAS_ENVIO
 				 .append("And a.id_cliente= d.id ;");
 
-	      	return buffer.toString();
+	      	return buffer.toString().toLowerCase();
 
 
 	}
@@ -154,7 +154,7 @@ public class Reportes {
 
 
                  System.out.println("QUERY GENERADO:"+buffer.toString());
-		 return buffer.toString();
+		 return buffer.toString().toLowerCase();
 
 
 	}
@@ -182,7 +182,7 @@ public class Reportes {
         .append("AND pro.ID_ARTICULO = a.ID ")
         .append("AND pa.ID_ARTICULO = a.ID  ")
         .append("AND pa.ID_PROVEEDOR = p.ID;    ");
-         return builder.toString();
+         return builder.toString().toLowerCase();
 
         }
 
@@ -290,7 +290,7 @@ public  String crearQueryToCompras(){
 				 .append("WHERE c.FECHA  BETWEEN ? AND ? AND cl.id =? AND c.estado LIKE ? AND  c.TIPO_PAGO LIKE ? AND p.TIPO_ENVIO LIKE ?	AND a.id=e.id_articulo	")
 			     .append("AND c.ID_CLIENTE = cl.ID	")
 				.append("ORDER BY cl.PATERNO,cl.MATERNO, cl.NOMBRE;	");
-		return buffer.toString();
+		return buffer.toString().toLowerCase();
 
 
 	}

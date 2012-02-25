@@ -89,11 +89,12 @@ public class UnmarshalCDI {
                 facturaGeneral.setPais("MEXICO");//YA
                 facturaGeneral.setFechaCert(comprobante.getFecha().toGregorianCalendar().getTime());//ya
                 facturaGeneral.setFechaEmi(new Date());
-                facturaGeneral.setNoSerie(String.valueOf(comprobante.getSerie()));//ya
+                facturaGeneral.setNoSerie(comprobante.getSerie());//ya
                 facturaGeneral.setNoFolio(Integer.parseInt(comprobante.getFolio()));//ya
                 facturaGeneral.setIdEdo(0);//ya
                 facturaGeneral.setRfc(comprobante.getReceptor().getRfc());
                 facturaGeneral.setFolio(comprobante.getFolio());//yq
+                facturaGeneral.setSucursal(comprobante.getSerie());
                
                 
         /*System.out.println("Certificado:"+comprobante.getCertificado());

@@ -141,7 +141,7 @@ public class TemaClienteController implements Serializable{
         //recreateModel();
         getFacade().remove(current);
         JsfUtil.addSuccessMessage("Tema Cliente eliminado Satisfactoriamente");
-        return "List";
+        return null;
     }
 
     public String destroyAndView() {
