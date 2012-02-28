@@ -85,12 +85,32 @@ public class Pedido implements Serializable {
     private Articulo articulo;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private AlmacenPedido almacenPedido;
-    
+    @Basic(optional = false)
+    @Column(name = "GASTO_ENVIO")
+    private BigDecimal gastosEnvio;
+
+    public AlmacenPedido getAlmacenPedido() {
+        return almacenPedido;
+    }
+
+    public void setAlmacenPedido(AlmacenPedido almacenPedido) {
+        this.almacenPedido = almacenPedido;
+    }
+
 
 
 
     public Pedido() {
     }
+
+    public BigDecimal getGastosEnvio() {
+        return gastosEnvio;
+    }
+
+    public void setGastosEnvio(BigDecimal gastosEnvio) {
+        this.gastosEnvio = gastosEnvio;
+    }
+
 
     public Pedido(PedidoPK pedidoPK) {
         this.pedidoPK = pedidoPK;

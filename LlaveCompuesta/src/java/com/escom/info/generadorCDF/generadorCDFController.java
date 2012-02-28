@@ -88,6 +88,7 @@ public class generadorCDFController implements Serializable
     public String crearFacturara(Compra c){
 
        // if(bandera)  {
+                msgError="";
                 generarFacturaDeCompra(c);/*METODO QUE CREA CFD PARA EL SERVICIO MYSUIT BY YAMIL*/
                 String nombreFacturaCFD=ConstantesFacturacion.FACTURA_NOMBRE+c.getIdPedido()+".xml";
                 logger.info("EL CFD FUE  CREADO SATISFACTORIAMENTE:"+nombreFacturaCFD);
@@ -164,9 +165,8 @@ public class generadorCDFController implements Serializable
             factura.setReceptor(generaraFacade.getReceptor(d)); //ESTA BIEN
             factura.setConceptos(conceptos);
             factura.setVersion(new BigInteger("4")); //ESTA BIEN
-            factura.setTotales(generaraFacade.getTotales(c,pedidos));
+            factura.setTotales(generaraFacade.getTotales(c,pedidos,conceptos));
             factura.setComprobanteEx(generaraFacade.getComprobanteEx());
-
             factDocsMX.getFactDocMX().add(factura);
 
             
