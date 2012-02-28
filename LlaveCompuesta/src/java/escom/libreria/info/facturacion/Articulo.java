@@ -178,7 +178,7 @@ public class Articulo implements Serializable {
     private List<Pedido> pedidoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<ProveedorArticulo> proveedorArticuloList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo",fetch=FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo",fetch=FetchType.EAGER) //ES NECESARIO PARQA QUE EN LA VISTA SE VEA REFLEJADA ,DESVENTAS CONSUME MUCHOS MEMORIA
     private Almacen almacen;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<SuscripcionEnvios> suscripcionEnviosList;
@@ -186,7 +186,7 @@ public class Articulo implements Serializable {
     private List<SuscripcionCliente> suscripcionClienteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<Suscripcion> suscripcionList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "articulo",fetch=FetchType.EAGER)  //ES NECESARIO PARA QUE EN LA VISTA SE VEA REFLAJADA
     private DescuentoArticulo descuentoArticulo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<Impuesto> impuestoList;

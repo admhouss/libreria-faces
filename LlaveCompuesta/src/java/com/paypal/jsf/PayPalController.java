@@ -217,6 +217,7 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
                 pedido.setDescuento(p.getDesc());
                 pedido.setPrecioNeto(p.getPrecio());
                 pedido.setArticulo(p.getArticulo());
+                pedido.setGastosEnvio(BigDecimal.ZERO);
                 if(bandera!=false)
                 {
                      pkey=new PedidoPK();
@@ -262,7 +263,9 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
                         logger.info("ANALIZANDO PUBLICACION FISICA");
                         proveedorArticulo=proveedorArticuloFacade.getProveedorMenosConsumo(p.getArticulo().getId());
                         gastEnvio= calcularGastorEnvio(proveedorArticulo, direccion);
+                        //VARABLE GUARDARLA EN PEDIDO
                         logger.info("GASTOS DE ENVIO:"+gastEnvio+":peso"+proveedorArticulo.getPeso()+"direccionEnvio"+direccion.getEstado().getIdZona());
+                        pedido.setGastosEnvio(gastEnvio);
                         proveedorArticulo=null;
                    }catch(Exception e){
                        logger.error("EL ARTICULO NO SE ENCUENTRA,EN LA TABLA PROVEEDOR_ARTICULO ", e);
@@ -304,15 +307,18 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
 
     public BigDecimal calcularGastorEnvio(ProveedorArticulo proveedorArticulo,Direnvio direccionEnvio)
     {
+            BigDecimal pesoKilogramo=BigDecimal.ZERO;
+  try{
 
-
-          BigDecimal pesoKilogramo=proveedorArticulo.getPeso();
+           pesoKilogramo= proveedorArticulo.getPeso();
 
           int pesoEntero=pesoKilogramo.intValue();
           String idZona=direccionEnvio.getEstado().getIdZona();
           pesoKilogramo=zonaFacade.getTarifaByPeso(idZona,pesoEntero,pesoKilogramo);
 
-
+        }catch(Exception e){
+            logger.error("ERROR AL CALCULAR GASTOS DE ENVIO MOTIVO:",e);
+        }
           return pesoKilogramo;
     }
     
@@ -336,6 +342,7 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
 
        Cliente cliente=carritoController.getSistemaController().getCliente();
        Direnvio direnvio=direnvioController.getDireccionEnvioSelected();
+       logger.info("COMENZANDO ANALISIS CARRITO DE COMPRA");
      try{
 
         if(direnvioController.getDireccionEnvioSelected()==null){
