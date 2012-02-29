@@ -42,7 +42,7 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column>
+                   <p:column filterBy="#{item.cliente.id}">
                         <f:facet name="header">
                             <h:outputText value="CLIENTE"/>
                         </f:facet>
