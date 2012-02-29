@@ -12,7 +12,7 @@
        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
         <link href="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
 
- 
+ <title>..::Libreria Virtual::..</title>
 <!-- InstanceBeginEditable name="head" -->
 
 
@@ -300,7 +300,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
     <h:body>
         <script src="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBar.js" type="text/javascript"/>
        
-            <ui:insert name="title"></ui:insert>
+            <ui:insert name="title">..::Libreria::..</ui:insert>
         
 
             <ui:insert name="body">
@@ -376,6 +376,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
             <f:facet name="header">
                 <h2>&nbsp;&nbsp;&nbsp;&nbsp;<h:outputText value="Categor&iacute;as" styleClass="list navigation"/></h2>
             </f:facet>
+            <div style="text-align:left">
             <ul class="list navigation">
         <li>
              <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=#{item}">
@@ -383,6 +384,8 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
              </h:outputLink>
         </li>
             </ul>
+
+            </div>
         </h:column>
 
     </h:dataTable>
@@ -641,7 +644,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                     <h:form id="DescuentoForm">
 
                        <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/descuento/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
-                           <h:outputText value="Descuento Tipo Art&iacute;culo"/>
+                           <h:outputText value="C&aacute;talogo Descuento Cliente"/>
                        </h:outputLink>
 
                     </h:form>
@@ -815,10 +818,43 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                 </li>
 
                   <li>
-                     <h:form id="reporteadorFORM">
+                     <h:form id="reporteadorClienteFORM">
 
-                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/reporteador/ReporteCliente.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
-                             <h:outputText value="Reporteador"/>
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/reporteador/ReporteClientes.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Reporte Clientes"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                  <li>
+                     <h:form id="reporteadorArticuloFORM">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/reporteador/ReporteArticulos.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Reporte Articulos"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                   <li>
+                     <h:form id="reporteadorCompraFORM">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/reporteador/ReporteCompras.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Reporteador Compras"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                   <li>
+                     <h:form id="reporteadorSuscripcionFORM">
+
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/reporteador/ReporteSuscripcion.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Reporte Suscripcion"/>
                        </h:outputLink>
 
                     </h:form>
