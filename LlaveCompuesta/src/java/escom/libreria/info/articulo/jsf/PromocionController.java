@@ -264,7 +264,7 @@ public class PromocionController implements Serializable{
          {
              fechaInicial=ValidarFechaFormat.getFechaFormateada(p.getDiaInicio());
              fechaFinal=ValidarFechaFormat.getFechaFormateada(p.getDiaFin());
-             query+=generarHTM.generaPromocione("<br/>"+getValue(),p.getArticulo().getTitulo() ,p.getArticulo().getCreador(),p.getPrecioPublico()+"", p.getArticulo().getImagen(),fechaInicial,fechaFinal);
+             query+=generarHTM.generaPromocione("<br/>"+getValue()+"<br/>",p.getArticulo().getCodigo()+"-"+p.getArticulo().getTitulo() ,p.getArticulo().getCreador(),p.getPrecioPublico()+"", p.getArticulo().getImagen(),fechaInicial,fechaFinal);
          }
          jMail.enviarCorreo("Promocion Libreria Còdigo:"+codigoPromocion, query, destinatarios);
          setValue("");
