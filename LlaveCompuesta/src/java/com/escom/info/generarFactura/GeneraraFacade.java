@@ -42,8 +42,10 @@ import escom.libreria.facturacion.proveedor.mysuitemex.TTax;
 import escom.libreria.facturacion.proveedor.mysuitemex.TTaxContext;
 import escom.libreria.facturacion.proveedor.mysuitemex.TTaxOperation;
 import escom.libreria.facturacion.proveedor.mysuitemex.TTipoDeDocumento;
+import escom.libreria.info.cliente.Cliente;
 import escom.libreria.info.compras.Compra;
 import escom.libreria.info.compras.Difacturacion;
+import escom.libreria.info.compras.Estado;
 import escom.libreria.info.compras.FacturaGeneral;
 import escom.libreria.info.compras.Pedido;
 
@@ -88,7 +90,7 @@ public class GeneraraFacade {
         return receptor;
     }
 
-    public Emisor getDireccionEmisorAndFiscal(Difacturacion difacturacion){
+    public Emisor getDireccionEmisorAndFiscal(){
              Emisor emisor=getDireccionEmisor();
 
             
@@ -511,6 +513,27 @@ private TDescuentosYRecargos getDescuentoYrecargosConceptos(Compra compra) {
 
           return descuento;
     }
+
+    public Difacturacion getDirrecionDefault() {
+         Difacturacion difacturacion=new Difacturacion();
+         Cliente cliente=new Cliente();
+         Estado estado=new Estado();
+         estado.setNombre("DISTRITO FEDERAL");
+         cliente.setNombre("UHTHOFF GOMEZ VEGA Y UHTHOFF SC");
+
+         difacturacion.setCalle("HAMBURGO");
+         difacturacion.setColonia("JUAREZ");
+         difacturacion.setCp(06600);
+         difacturacion.setDelMunicipio("CUAUHTEMOC");
+         difacturacion.setRfc("UGV820101TI0");
+         difacturacion.setEstado(estado);
+         difacturacion.setCliente(cliente);
+         difacturacion.setRazonSocial("UHTHOFF GOMEZ VEGA Y UHTHOFF SC");
+
+         return difacturacion;
+    }
+
+
 
     
     /*private TImpuestos getTimpuesto(List<Pedido> pedidos) {
