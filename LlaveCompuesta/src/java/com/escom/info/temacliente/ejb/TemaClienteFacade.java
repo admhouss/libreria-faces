@@ -103,7 +103,7 @@ public class TemaClienteFacade {
             e.printStackTrace();
         }
 
-        return t==null?false:true;
+        return t==null?true:false;
 
 
     }

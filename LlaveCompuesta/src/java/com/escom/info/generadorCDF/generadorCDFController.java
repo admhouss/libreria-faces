@@ -73,9 +73,16 @@ public class generadorCDFController implements Serializable
 
     private void generarFacturaDeCompra(Compra idCompra){
       logger.info("---COMENZANDO PROCESO DE CREACION CFD-------") ;
-      Difacturacion direccionFactura=direccionFacturacionFacade.getDireccionFacturaClienteByID(idCompra.getIdCliente());
+      Difacturacion direccionFactura=null;
+      Emisor direccionEmisor = generaraFacade.getDireccionEmisorAndFiscal();
+      if(idCompra.getReqFactura()==1)
+        direccionFactura=direccionFacturacionFacade.getDireccionFacturaClienteByID(idCompra.getIdCliente());
+      else 
+        direccionFactura=generaraFacade.getDirrecionDefault();
+
       logger.info("---OBTENIENDO DIRECCION DE FACTURACION DEL CLIENTE----");
-      Emisor direccionEmisor = generaraFacade.getDireccionEmisorAndFiscal(direccionFactura);
+
+
     //  List<Pedido> pedidos=pedidoFacade.getAllpedidosByid(idCompra.getIdPedido());
      // Conceptos conceptos = generaraFacade.crearConceptos(pedidos);
       logger.info("COMENZANO PROCESO DE CREADO ARCHIVO CFD");
@@ -103,6 +110,7 @@ public class generadorCDFController implements Serializable
                          
                           logger.info("PROCESO INVERSO REALIZADO SATISFACTORAMENTE");
                     /*DESCOMENTAR ESTA LINEA SI ES IMPORTANTE ,LA COMENTE POR PROBAR**/
+                            if(c.getReqFactura()==1)
                             enviarFacturaToCliente(c.getIdCliente(),facturacion.getUbicacionCFDI());
                         }
                          else{
@@ -132,18 +140,7 @@ public class generadorCDFController implements Serializable
         }
 
     }
-   /* public boolean generarXMLFactura(Difacturacion d,Compra c){
-        Emisor direccionEmisor = generaraFacade.getDireccionEmisorAndFiscal(d);
-        //c.setIdPedido(c.getIdPedido());
-        List<Pedido> pedidos=pedidoFacade.getAllpedidosByid(c.getPedido());
-        Conceptos concepto = generaraFacade.crearConceptos(pedidos);
-       if(crear_objeto_xml(direccionEmisor,concepto,c,d))
-        return true;
-
-
-       return false;
-
-    }*/
+  
 
 
 /*EL  NOMBRE DE LA FACTURA SE CONFORMA A PARTIR DE  FACTCFD0"+c.getPedido()+".xml";*/
