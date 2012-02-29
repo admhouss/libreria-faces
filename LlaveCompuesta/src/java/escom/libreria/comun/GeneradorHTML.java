@@ -214,7 +214,7 @@ buffer.append("<td bgcolor=#FFFFFF   rowspan=\"1\" colspan=\"1\"><font color=#FE
 buffer.append("</tr>");
 buffer.append("<br></br>");
 buffer.append("<tr><td   rowspan=\"1\" colspan=\"4\">");
-buffer.append("<font color=#FFFFFF>esp</font>Si te interesa esta publicaci&oacuten da click <a href=\"http://libreria-tfjfa.com/LibreriaTFJV/\">AQUI</a> <font color=#FFFFFF>esp</font><br></br>");
+buffer.append("<font color=#FFFFFF>esp</font>Si te interesa esta publicaci&oacute;n da click <a href=\"http://libreria-tfjfa.com/LibreriaTFJV/\">AQUI</a> <font color=#FFFFFF>esp</font><br></br>");
 buffer.append("<font color=#FFFFFF>esp</font><b>Gracias</b> por registrarte con nosotros");
 buffer.append("<br></br>");
 buffer.append("</td></tr>");
