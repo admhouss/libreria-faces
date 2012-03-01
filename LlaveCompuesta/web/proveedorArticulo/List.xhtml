@@ -25,7 +25,7 @@
              </div>
 
             <br/>  <br/>
-            <p:panel header="CAT&Aacute;LOGO PROVEEDOR ARTICULO">
+            <p:panel header="CAT&Aacute;LOGO PROVEEDOR ART&Iacute;CULO">
 
             <h:panelGroup >
                
@@ -50,9 +50,9 @@
                         </f:facet>
                         <h:outputText value="#{item.proveedor.nombre}"/>
                     </p:column>
-                    <p:column style="width:100px;">
+                    <p:column style="width:100px;" filterBy="#{item.articulo.titulo}">
                         <f:facet name="header">
-                            <h:outputText value="ARTICULO"/>
+                            <h:outputText value="ART&Iacute;CULO"/>
                         </f:facet>
                         <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
                     </p:column>
