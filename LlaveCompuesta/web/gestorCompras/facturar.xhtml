@@ -44,7 +44,7 @@
                     
                         <p:column style="width:10px;">
                         <f:facet name="header">
-                            <h:outputText value="CANTIDAD"/>
+                            <h:outputText value="CANTD."/>
                         </f:facet>
                         <h:outputText value="#{item.noArticuloCategoria}"/>
                     </p:column>
@@ -66,6 +66,12 @@
                             <h:outputText value="DESC"/>
                         </f:facet>
                          <h:outputText value="#{item.descuento}"/>
+                    </p:column>
+                        <p:column style="width:10px;">
+                        <f:facet name="header">
+                            <h:outputText value="Gas.Envio"/>
+                        </f:facet>
+                            <h:outputText value="#{item.gastosEnvio}"/>
                     </p:column>
                    
                     <p:column style="width:10px;">
