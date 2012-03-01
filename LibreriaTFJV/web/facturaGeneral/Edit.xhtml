@@ -78,7 +78,7 @@
                     <h:inputText id="cp" value="#{facturaGeneralController.selected.cp}" title="#{bundle.CreateFacturaGeneralTitle_cp}" required="true" requiredMessage="El campo cp es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="estado" value="#{facturaGeneralController.selected.estado}" title="#{bundle.CreateFacturaGeneralTitle_estado}" required="true" requiredMessage="El campo estado es requerido">
+                    <h:selectOneMenu id="estado" value="#{facturaGeneralController.selected.compra.idPedido}" title="#{bundle.CreateFacturaGeneralTitle_estado}" required="true" requiredMessage="El campo estado es requerido">
 
                         <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>

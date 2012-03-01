@@ -3,73 +3,72 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewFacturaGeneralTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_folio}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.folio}" title="#{bundle.ViewFacturaGeneralTitle_folio}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_comprobante}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.comprobante}" title="#{bundle.ViewFacturaGeneralTitle_comprobante}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_fechaCert}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.fechaCert}" title="#{bundle.ViewFacturaGeneralTitle_fechaCert}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+
+                <p:panel header="VER FACTURA GENERAL"      >
+                    <center>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputText value="FOLIO:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.folio}" title="folio}"/>
+                    <h:outputText value="COMPROBANTE:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.comprobante}" title="comprobante}"/>
+                    <h:outputText value="FECHA CERTIFICADO:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.fechaCert}" title="fechaCert}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                     </h:outputText>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_noSerie}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.noSerie}" title="#{bundle.ViewFacturaGeneralTitle_noSerie}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_fechaEmi}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.fechaEmi}" title="#{bundle.ViewFacturaGeneralTitle_fechaEmi}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    <h:outputText value="NO.SERIE:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.noSerie}" title="noSerie}"/>
+                    <h:outputText value="FECHA EMISOR:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.fechaEmi}" title="fechaEmi}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                     </h:outputText>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_certEmi}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.certEmi}" title="#{bundle.ViewFacturaGeneralTitle_certEmi}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_serie}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.serie}" title="#{bundle.ViewFacturaGeneralTitle_serie}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_noFolio}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.noFolio}" title="#{bundle.ViewFacturaGeneralTitle_noFolio}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_noInterno}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.noInterno}" title="#{bundle.ViewFacturaGeneralTitle_noInterno}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_sucursal}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.sucursal}" title="#{bundle.ViewFacturaGeneralTitle_sucursal}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_rfc}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.rfc}" title="#{bundle.ViewFacturaGeneralTitle_rfc}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_razonSocial}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.razonSocial}" title="#{bundle.ViewFacturaGeneralTitle_razonSocial}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_calle}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.calle}" title="#{bundle.ViewFacturaGeneralTitle_calle}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_noExterior}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.noExterior}" title="#{bundle.ViewFacturaGeneralTitle_noExterior}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_colonia}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.colonia}" title="#{bundle.ViewFacturaGeneralTitle_colonia}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_del}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.del}" title="#{bundle.ViewFacturaGeneralTitle_del}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_pais}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.pais}" title="#{bundle.ViewFacturaGeneralTitle_pais}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_cp}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.cp}" title="#{bundle.ViewFacturaGeneralTitle_cp}"/>
-                    <h:outputText value="#{bundle.ViewFacturaGeneralLabel_estado}"/>
-                    <h:outputText value="#{facturaGeneralController.selected.estado}" title="#{bundle.ViewFacturaGeneralTitle_estado}"/>
+                    <h:outputText value="CERTIFICADO:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.certEmi}" title="certEmi}"/>
+                    <h:outputText value="SERIE:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.serie}" title="serie}"/>
+                    <h:outputText value="NO.FOLIO:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.noFolio}" title="noFolio}"/>
+                    <h:outputText value="NO.INTERNO:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.noInterno}" title="noInterno}"/>
+                    <h:outputText value="SUCURSAL:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.sucursal}" title="sucursal}"/>
+                    <h:outputText value="RFC" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.rfc}" title="rfc}"/>
+                    <h:outputText value="RAZON SOCIAL:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.razonSocial}" title="razonSocial}"/>
+                    <h:outputText value="CALLE:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.calle}" title="calle}"/>
+                    <h:outputText value="NO.EXTERIOR:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.noExterior}" title="noExterior}"/>
+                    <h:outputText value="COLONIA:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.colonia}" title="colonia}"/>
+                    
+                    <h:outputText value="PAIS:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.pais}" title="pais}"/>
+                    <h:outputText value="CP:" styleClass="textoNEGRO"/>
+                    <h:outputText value="#{facturaGeneralController.selected.cp}" title="cp}"/>
+                    
                 </h:panelGrid>
-                <br />
-                <h:commandLink action="#{facturaGeneralController.destroyAndView}" value="#{bundle.ViewFacturaGeneralDestroyLink}"/>
-                <br />
-                <br />
-                <h:commandLink action="Edit" value="#{bundle.ViewFacturaGeneralEditLink}"/>
-                <br />
-                <h:commandLink action="#{facturaGeneralController.prepareCreate}" value="#{bundle.ViewFacturaGeneralCreateLink}" />
-                <br />
-                <h:commandLink action="#{facturaGeneralController.prepareList}" value="#{bundle.ViewFacturaGeneralShowAllLink}"/>
-                <br />
-                <br />
-                <h:commandLink value="#{bundle.ViewFacturaGeneralIndexLink}" action="/index" immediate="true" />
+                    </center>
+                </p:panel>
+                <br /><br />
+                <div align="center">
+                    <p:panel>
+                    <h:commandButton action="#{facturaGeneralController.prepareList}" value="REGRESAR"/>
+                    </p:panel>
+                </div>
+                
 
             </h:form>
         </ui:define>
