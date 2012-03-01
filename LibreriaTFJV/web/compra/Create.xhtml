@@ -71,6 +71,12 @@
                             </f:facet>
                              <h:outputText value="% #{item.impuesto}" />
                          </h:column>
+                            <h:column>
+                            <f:facet name="header">
+                              <h:outputLabel value="Gas.Envio" />
+                            </f:facet>
+                                <h:outputText value="#{item.descuento}" />
+                         </h:column>
 
 
                          <h:column>
@@ -99,6 +105,11 @@
           <td>&nbsp;</td>
         </tr>
                     </table>
+                    </div>
+
+                        <br/>
+                        <div align="left">
+                        <h:outputLabel value="Este importe  incluye gastos de Env&iacute;o" styleClass="textoROJO"/>
                     </div>
 
 
