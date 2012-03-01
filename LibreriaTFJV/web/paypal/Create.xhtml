@@ -40,7 +40,7 @@
 
                                     <td>
 
-                                <h:outputText value="#{item.articulo.titulo}" styleClass="textoNEGRO" /><br/>
+                               <h:outputText value="#{item.articulo.titulo}" style="color:#000;" /><br/>
                                 <h:outputText value="#{item.articulo.creador}" /><br/>
                                 <h:outputText value="#{item.articulo.asunto}" /><br/>
                                
@@ -74,7 +74,12 @@
                             </f:facet>
                              <h:outputText value="% #{item.impuesto}" />
                          </h:column>
-                        
+                        <h:column>
+                            <f:facet name="header">
+                              <h:outputLabel value="GASTOS ENVIO" />
+                            </f:facet>
+                            <h:outputText value=" #{item.gastosEnvio}" />
+                         </h:column>
 
                         
                          <h:column>
