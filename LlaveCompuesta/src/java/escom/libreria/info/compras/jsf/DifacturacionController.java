@@ -140,10 +140,10 @@ private Cliente cliente;
             cliente=sistemaController.getCliente();
             current.setCliente(cliente);
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(("Difacturacion Creada Satisfactoriamente"));
+            JsfUtil.addSuccessMessage(("Direccion de facturacion Creada Satisfactoriamente"));
             return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ("Error al crear direccion de facturacion"));
             return null;
         }
     }
