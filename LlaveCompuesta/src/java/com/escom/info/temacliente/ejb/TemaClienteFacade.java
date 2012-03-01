@@ -92,7 +92,7 @@ public class TemaClienteFacade {
     public boolean buscarTemaCliente(String codigoTitulo, String cliente) {
         TemaCliente t=null;
          try{
-        TypedQuery<TemaCliente> query=em.createQuery("SELECT DISTINCT t FROM TemaCliente t WHERE t.idCliente:cliente AND t.idArticulo:articulo ",TemaCliente.class)
+        TypedQuery<TemaCliente> query=em.createQuery("SELECT DISTINCT t FROM TemaCliente t WHERE t.idCliente=:cliente AND t.idArticulo=:articulo ",TemaCliente.class)
              .setParameter("articulo",codigoTitulo)
              .setParameter("cliente",cliente)
              .setMaxResults(1);

@@ -229,16 +229,16 @@ public class PublicacionFacade {
 
 
                     TypedQuery<Publicacion> query=em.createQuery(
-                     "SELECT p FROM Publicacion p WHERE   p.articulo.titulo LIKE :titulo  AND p.articulo.creador LIKE :autor  "
-                     + "AND p.articulo.tipoArticulo.descripcion LIKE :tipo "
-                     + "AND p.articulo.asunto LIKE :asunto  AND p.editorial LIKE :editorial "
-                     + "AND p.numero =:numero AND p.issn=:ISSN AND p.isbn LIKE :ISBN  "
-                     + "AND p.articulo.unidad LIKE :unidad AND p.tomo LIKE :tomo AND p.articulo.divisa LIKE :divisa AND p.articulo.formato LIKE :formato "
-                     + "AND p.articulo.publicador LIKE :publicador AND p.articulo.resumenRecurso LIKE :resumenRecurso "
-                     + "AND p.articulo.nombreAlternativo LIKE :nombreAlternativo AND p.articulo.referenciasBibliograficas LIKE :referenciab "
-                     + "AND p.articulo.creador LIKE :creador AND p.articulo.tablaContenidos LIKE :tablaContenidos "
-                     + "AND p.articulo.codigo LIKE :codigo "
-                     + "ORDER BY p.articulo.titulo ASC",Publicacion.class)
+                     "SELECT p FROM Publicacion p WHERE  ( p.articulo.titulo LIKE :titulo  OR p.articulo.creador LIKE :autor ) "
+                     + "OR ( p.articulo.tipoArticulo.descripcion LIKE :tipo "
+                     + "OR p.articulo.asunto LIKE :asunto  OR p.editorial LIKE :editorial "
+                     + "OR p.numero =:numero OR p.issn=:ISSN OR p.isbn LIKE :ISBN  "
+                     + "OR p.articulo.unidad LIKE :unidad OR p.tomo LIKE :tomo OR p.articulo.divisa LIKE :divisa OR p.articulo.formato LIKE :formato "
+                     + "OR p.articulo.publicador LIKE :publicador OR p.articulo.resumenRecurso LIKE :resumenRecurso "
+                     + "OR p.articulo.nombreAlternativo LIKE :nombreAlternativo OR p.articulo.referenciasBibliograficas LIKE :referenciab "
+                     + "OR p.articulo.creador LIKE :creador OR p.articulo.tablaContenidos LIKE :tablaContenidos "
+                     + "OR p.articulo.codigo LIKE :codigo ) "
+                     + "ORDER BY p.articulo.titulo,p.articulo.creador ASC",Publicacion.class)
 
 
                     .setParameter("autor","%"+cadena+"%")//yes
@@ -271,6 +271,7 @@ public class PublicacionFacade {
       int numeroEntero=0,numeroISSN=0;
       ValidarNumero validarNumero=new ValidarNumero();
                     TypedQuery<Publicacion> query=em.createQuery(querySQL,Publicacion.class);
+
                     if(!numero.trim().equals("")){
                         if(validarNumero.validarNumero(numero)){
                                    numeroEntero=Integer.parseInt(numero);
@@ -305,8 +306,10 @@ public class PublicacionFacade {
 
                     if(!iSBN.trim().equals(""))
                     query.setParameter("ISBN", "%"+iSBN+"%");//Yes
-                    if(!editorial.trim().equals(""))
+                    if(!editorial.trim().equals("")){
+                       System.out.println("editoral"+editorial);
                     query.setParameter("editorial","%"+editorial+"%");//yes
+                     }
                     List<Publicacion>l=query.getResultList();
                     return l;
     }
