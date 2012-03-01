@@ -18,8 +18,16 @@
             </h:panelGroup>
             
             <h:panelGroup>
-               
+                <p:panel header="C&Aacute;TALOGO DE FACTURACION GENERALES">
                 <p:dataTable value="#{facturaGeneralController.listFacturaGeneral}" var="item" paginator="true">
+                    
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="SERIE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.noSerie}"/>
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="FOLIO"/>
@@ -28,63 +36,36 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="COMPROBANTE"/>
+                            <h:outputText value="COMPRA"/>
                         </f:facet>
-                        <h:outputText value="#{item.comprobante}"/>
+                        <h:outputText value="#{item.compra.idPedido}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="No.Serie"/>
-                        </f:facet>
-                        <h:outputText value="#{item.noSerie}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="F.Emisor"/>
+                            <h:outputText value="F.EMISOR"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaEmi}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                     </p:column>
                    
+                   
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Serie"/>
-                        </f:facet>
-                        <h:outputText value="#{item.serie}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Folio"/>
+                            <h:outputText value="FOLIO"/>
                         </f:facet>
                         <h:outputText value="#{item.noFolio}"/>
                     </p:column>
                     
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="SUCURSAL"/>
-                        </f:facet>
-                        <h:outputText value="#{item.sucursal}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="rfc}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.rfc}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="razonSocial}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.razonSocial}"/>
-                    </p:column>
                     
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="COLONIA"/>
+                            <h:outputText value="RFC"/>
                         </f:facet>
-                        <h:outputText value="#{item.colonia}"/>
+                        <h:outputText value="#{item.rfc}"/>
                     </p:column>
+                   
+                    
                     
                     
                     
@@ -96,21 +77,14 @@
                             <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
                         </h:commandLink>
                         
-                        <h:commandLink action="#{facturaGeneralController.prepareEdit}">
-                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
-                        </h:commandLink>
+                       
                         
-                        <h:commandLink action="#{facturaGeneralController.destroy}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
-                        </h:commandLink>
+                       
                     </p:column>
                 </p:dataTable>
+                </p:panel>
             </h:panelGroup>
-            <br />
-            <h:commandLink action="#{facturaGeneralController.prepareCreate}" value="#{bundle.ListFacturaGeneralCreateLink}"/>
-            <br />
-            <br />
-            <h:commandLink value="#{bundle.ListFacturaGeneralIndexLink}" action="/index" immediate="true" />
+           
         </h:form>
         </ui:define>
     </ui:composition>
