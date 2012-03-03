@@ -9,7 +9,7 @@
     <ui:composition template="/templates/templateNovedades.xhtml">
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewDescuentoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
@@ -21,11 +21,11 @@
                         <h:panelGrid columns="3" cellspacing="15">
                    
                     <h:outputText value="Porcentaje:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{descuentoController.selected.porcentaje}" title="#{bundle.ViewDescuentoTitle_porcentaje}"/>
+                    <h:outputText value="#{descuentoController.selected.porcentaje}" title="porcentaje"/>
                    <h:outputText value="%" styleClass="textoNEGRO" />
 
                    <h:outputText value="Descripci&oacute;n:" styleClass="textoNEGRO" />
-                    <h:outputText value="#{descuentoController.selected.descripcion}" title="#{bundle.ViewDescuentoTitle_descripcion}"/>
+                    <h:outputText value="#{descuentoController.selected.descripcion}" title="descripcion"/>
                 </h:panelGrid>
                     </center>
                 </p:panel>
