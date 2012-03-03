@@ -110,9 +110,29 @@ public class PromocionController implements Serializable{
         comentarioController.setArticulo(articulo);
         return "/ofertas/ViewVenta";
     }
+
+    private List<Promocion> listOfertaDia;
+
+
+    public void setListOfertaDia(List<Promocion> listaOfertaDia) {
+        this.listOfertaDia = listaOfertaDia;
+    }
+
+    public PromocionController() {
+
+         
+    }
+
+
+
+
+
     public List<Promocion> getListOfertaDia(){
-        List<Promocion> ofertaMes= getFacade().findAll();//getOfertaDelDia();
-       return ofertaMes;
+        
+            listOfertaDia= getFacade().findAll();//getOfertaDelDia();
+            logger.info("debo de entrar solo una vez");
+        
+       return listOfertaDia;
     }
 
     public String preparePromocionView(Articulo articulo){
@@ -191,14 +211,10 @@ public class PromocionController implements Serializable{
 
   }
 
-    public PromocionController() {
-       // p=new PromocionPK();
-
-    }
+  
 
     public Integer getGeneradorPromociones(){
-       Integer contador=generadorContadorFacade.count()+1;
-       
+       Integer contador=generadorContadorFacade.count()+1;     
        GeneradorContador g=new GeneradorContador();
        g.setContador(contador);
        generadorContadorFacade.create(g);
