@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewUsurioadministrativoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewUsurioadministrativoLabel_idUsuario}"/>
+                    <h:outputText value="#{usurioadministrativoController.selected.idUsuario}" title="#{bundle.ViewUsurioadministrativoTitle_idUsuario}"/>
+                    <h:outputText value="#{bundle.ViewUsurioadministrativoLabel_nombre}"/>
+                    <h:outputText value="#{usurioadministrativoController.selected.nombre}" title="#{bundle.ViewUsurioadministrativoTitle_nombre}"/>
+                    <h:outputText value="#{bundle.ViewUsurioadministrativoLabel_paterno}"/>
+                    <h:outputText value="#{usurioadministrativoController.selected.paterno}" title="#{bundle.ViewUsurioadministrativoTitle_paterno}"/>
+                    <h:outputText value="#{bundle.ViewUsurioadministrativoLabel_materno}"/>
+                    <h:outputText value="#{usurioadministrativoController.selected.materno}" title="#{bundle.ViewUsurioadministrativoTitle_materno}"/>
+                    <h:outputText value="#{bundle.ViewUsurioadministrativoLabel_cargo}"/>
+                    <h:outputText value="#{usurioadministrativoController.selected.cargo}" title="#{bundle.ViewUsurioadministrativoTitle_cargo}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{usurioadministrativoController.destroyAndView}" value="#{bundle.ViewUsurioadministrativoDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewUsurioadministrativoEditLink}"/>
+                <br />
+                <h:commandLink action="#{usurioadministrativoController.prepareCreate}" value="#{bundle.ViewUsurioadministrativoCreateLink}" />
+                <br />
+                <h:commandLink action="#{usurioadministrativoController.prepareList}" value="#{bundle.ViewUsurioadministrativoShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewUsurioadministrativoIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
