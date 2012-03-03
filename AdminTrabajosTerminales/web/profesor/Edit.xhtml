@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditProfesorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditProfesorLabel_idBoleta}" for="idBoleta" />
+                    <h:inputText id="idBoleta" value="#{profesorController.selected.idBoleta}" title="#{bundle.EditProfesorTitle_idBoleta}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_idBoleta}"/>
+                    <h:outputLabel value="#{bundle.EditProfesorLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{profesorController.selected.nombre}" title="#{bundle.EditProfesorTitle_nombre}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.EditProfesorLabel_correo}" for="correo" />
+                    <h:inputText id="correo" value="#{profesorController.selected.correo}" title="#{bundle.EditProfesorTitle_correo}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_correo}"/>
+                    <h:outputLabel value="#{bundle.EditProfesorLabel_estatus}" for="estatus" />
+                    <h:inputText id="estatus" value="#{profesorController.selected.estatus}" title="#{bundle.EditProfesorTitle_estatus}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_estatus}"/>
+                    <h:outputLabel value="#{bundle.EditProfesorLabel_idDepartamento}" for="idDepartamento" />
+                    <h:inputText id="idDepartamento" value="#{profesorController.selected.idDepartamento}" title="#{bundle.EditProfesorTitle_idDepartamento}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_idDepartamento}"/>
+                    <h:outputLabel value="#{bundle.EditProfesorLabel_tipoDocente}" for="tipoDocente" />
+                    <h:selectOneMenu id="tipoDocente" value="#{profesorController.selected.tipoDocente}" title="#{bundle.EditProfesorTitle_tipoDocente}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_tipoDocente}">
+                        <f:selectItems value="#{tipoDocenteController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditProfesorLabel_profesorDocente}" for="profesorDocente" />
+                    <h:selectOneMenu id="profesorDocente" value="#{profesorController.selected.profesorDocente}" title="#{bundle.EditProfesorTitle_profesorDocente}" >
+                        <f:selectItems value="#{profesorDocenteController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{profesorController.update}" value="#{bundle.EditProfesorSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditProfesorViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{profesorController.prepareList}" value="#{bundle.EditProfesorShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditProfesorIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
