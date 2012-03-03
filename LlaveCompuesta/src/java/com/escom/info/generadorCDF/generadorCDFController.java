@@ -83,7 +83,7 @@ public class generadorCDFController implements Serializable
       logger.info("---OBTENIENDO DIRECCION DE FACTURACION DEL CLIENTE----");
 
 
-    //  List<Pedido> pedidos=pedidoFacade.getAllpedidosByid(idCompra.getIdPedido());
+    // List<Pedido> pedidos=pedidoFacade.getAllpedidosByid(idCompra.getIdPedido());
      // Conceptos conceptos = generaraFacade.crearConceptos(pedidos);
       logger.info("COMENZANO PROCESO DE CREADO ARCHIVO CFD");
       crear_objeto_xml(direccionEmisor,idCompra,direccionFactura);

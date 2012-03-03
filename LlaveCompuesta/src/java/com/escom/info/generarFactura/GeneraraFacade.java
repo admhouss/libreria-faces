@@ -260,7 +260,7 @@ public class GeneraraFacade {
             miconepto.setImporte(getImporte(miconepto.getConceptoEx().getPrecioLista().getValue().subtract(descuento.getMonto().getValue()))); //valor unitario = importe
             miconepto.setValorUnitario(getImporte(miconepto.getImporte().getValue()));//valor unitario = importe
             miconepto.setCodigo(pedido.getArticulo().getCodigo());
-            miconepto.setDescripcion(remove1(pedido.getArticulo().getCodigo()+"-"+pedido.getArticulo().getTitulo()));
+            miconepto.setDescripcion(removeAcentos(pedido.getArticulo().getCodigo()+"-"+pedido.getArticulo().getTitulo()));
             miconepto.getConceptoEx().setImpuestos(getTimpuesto(miconepto.getValorUnitario().getValue(),pedido.getImpuesto()));
 
             listconcepto.add(miconepto);
@@ -268,7 +268,7 @@ public class GeneraraFacade {
         return crear_concepto;
     }
 
-     public  String remove1(String input) {
+     public  String removeAcentos(String input) {
     // Cadena de caracteres original a sustituir.
     String original = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ&";
     // Cadena de caracteres ASCII que reemplazarán los originales.
