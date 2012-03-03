@@ -6,10 +6,16 @@
         <param-value>Development</param-value>
     </context-param>
 
+    <filter>
+        <filter-name>SessionController</filter-name>
+        <filter-class>escom.libreria.manager.session.SessionController</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
+
+    
 
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -37,6 +43,10 @@
         <location>/faces/login/Create.xhtml</location>
     </error-page>
     <error-page>
+        <error-code>400</error-code>
+        <location>/faces/login/Create.xhtml</location>
+    </error-page>
+    <error-page>
         <error-code>500</error-code>
         <location>/faces/login/Create.xhtml</location>
     </error-page>
@@ -55,5 +65,17 @@
             <!--<param-value>C:/opt/expedientes/</param-value>-->
         </init-param>
     </filter>
+
+    <listener>
+        <listener-class>
+			com.escom.libreria.listener.ApplicationContextListener
+		</listener-class>
+    </listener>
+
+
+
+
+
+
 
 </web-app>

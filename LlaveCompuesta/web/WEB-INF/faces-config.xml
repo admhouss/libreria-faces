@@ -59,6 +59,14 @@
             <base-name>/almacen</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/generadorID</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/TemaCliente</base-name>
+            <var>bundle</var>
+        </resource-bundle>
     </application>
     <validator>
             <validator-id>EmailValidator</validator-id>
@@ -70,7 +78,14 @@
             <validator-id>NumeroValidator</validator-id>
             <validator-class>escom.libreria.correo.ValidarNumero</validator-class>
    </validator>
+   <factory>
+       <exception-handler-factory>escom.libreria.manager.session.ViewExpiredExceptionExceptionHandlerFactory</exception-handler-factory>
+   </factory>
+
+   
+
 </faces-config>
+
 
 
 
