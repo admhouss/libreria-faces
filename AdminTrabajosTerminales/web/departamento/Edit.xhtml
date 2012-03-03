@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDepartamentoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDepartamentoLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="#{bundle.EditDepartamentoTitle_nombre}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.EditDepartamentoLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{departamentoController.selected.descripcion}" title="#{bundle.EditDepartamentoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="#{bundle.EditDepartamentoLabel_idResponsable}" for="idResponsable" />
+                    <h:inputText id="idResponsable" value="#{departamentoController.selected.idResponsable}" title="#{bundle.EditDepartamentoTitle_idResponsable}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_idResponsable}"/>
+                    <h:outputLabel value="#{bundle.EditDepartamentoLabel_fechaCreacion}" for="fechaCreacion" />
+                    <h:inputText id="fechaCreacion" value="#{departamentoController.selected.fechaCreacion}" title="#{bundle.EditDepartamentoTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_fechaCreacion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditDepartamentoLabel_responsable}" for="responsable" />
+                    <h:selectOneMenu id="responsable" value="#{departamentoController.selected.responsable}" title="#{bundle.EditDepartamentoTitle_responsable}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_responsable}">
+                        <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{departamentoController.update}" value="#{bundle.EditDepartamentoSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditDepartamentoViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{departamentoController.prepareList}" value="#{bundle.EditDepartamentoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditDepartamentoIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

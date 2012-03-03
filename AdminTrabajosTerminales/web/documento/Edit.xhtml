@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDocumentoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDocumentoLabel_noTt}" for="noTt" />
+                    <h:inputText id="noTt" value="#{documentoController.selected.noTt}" title="#{bundle.EditDocumentoTitle_noTt}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_noTt}"/>
+                    <h:outputLabel value="#{bundle.EditDocumentoLabel_titulo}" for="titulo" />
+                    <h:inputText id="titulo" value="#{documentoController.selected.titulo}" title="#{bundle.EditDocumentoTitle_titulo}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_titulo}"/>
+                    <h:outputLabel value="#{bundle.EditDocumentoLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{documentoController.selected.descripcion}" title="#{bundle.EditDocumentoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="#{bundle.EditDocumentoLabel_imagen}" for="imagen" />
+                    <h:inputTextarea rows="4" cols="30" id="imagen" value="#{documentoController.selected.imagen}" title="#{bundle.EditDocumentoTitle_imagen}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_imagen}"/>
+                    <h:outputLabel value="#{bundle.EditDocumentoLabel_archivoResumen}" for="archivoResumen" />
+                    <h:inputTextarea rows="4" cols="30" id="archivoResumen" value="#{documentoController.selected.archivoResumen}" title="#{bundle.EditDocumentoTitle_archivoResumen}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_archivoResumen}"/>
+                    <h:outputLabel value="#{bundle.EditDocumentoLabel_fechaCreacion}" for="fechaCreacion" />
+                    <h:inputText id="fechaCreacion" value="#{documentoController.selected.fechaCreacion}" title="#{bundle.EditDocumentoTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_fechaCreacion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditDocumentoLabel_archivoProtocolo}" for="archivoProtocolo" />
+                    <h:inputTextarea rows="4" cols="30" id="archivoProtocolo" value="#{documentoController.selected.archivoProtocolo}" title="#{bundle.EditDocumentoTitle_archivoProtocolo}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_archivoProtocolo}"/>
+                    <h:outputLabel value="#{bundle.EditDocumentoLabel_ultimaActualizacion}" for="ultimaActualizacion" />
+                    <h:inputText id="ultimaActualizacion" value="#{documentoController.selected.ultimaActualizacion}" title="#{bundle.EditDocumentoTitle_ultimaActualizacion}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_ultimaActualizacion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{documentoController.update}" value="#{bundle.EditDocumentoSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditDocumentoViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{documentoController.prepareList}" value="#{bundle.EditDocumentoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditDocumentoIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
