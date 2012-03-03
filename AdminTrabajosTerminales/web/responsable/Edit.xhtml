@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditResponsableTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditResponsableLabel_idResponsable}" for="idResponsable" />
+                    <h:inputText id="idResponsable" value="#{responsableController.selected.idResponsable}" title="#{bundle.EditResponsableTitle_idResponsable}" required="true" requiredMessage="#{bundle.EditResponsableRequiredMessage_idResponsable}"/>
+                    <h:outputLabel value="#{bundle.EditResponsableLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{responsableController.selected.nombre}" title="#{bundle.EditResponsableTitle_nombre}" required="true" requiredMessage="#{bundle.EditResponsableRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.EditResponsableLabel_fechaModificacion}" for="fechaModificacion" />
+                    <h:inputText id="fechaModificacion" value="#{responsableController.selected.fechaModificacion}" title="#{bundle.EditResponsableTitle_fechaModificacion}" required="true" requiredMessage="#{bundle.EditResponsableRequiredMessage_fechaModificacion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditResponsableLabel_estatus}" for="estatus" />
+                    <h:inputText id="estatus" value="#{responsableController.selected.estatus}" title="#{bundle.EditResponsableTitle_estatus}" required="true" requiredMessage="#{bundle.EditResponsableRequiredMessage_estatus}"/>
+                    <h:outputLabel value="#{bundle.EditResponsableLabel_correo}" for="correo" />
+                    <h:inputText id="correo" value="#{responsableController.selected.correo}" title="#{bundle.EditResponsableTitle_correo}" required="true" requiredMessage="#{bundle.EditResponsableRequiredMessage_correo}"/>
+                    <h:outputLabel value="#{bundle.EditResponsableLabel_cargo}" for="cargo" />
+                    <h:inputText id="cargo" value="#{responsableController.selected.cargo}" title="#{bundle.EditResponsableTitle_cargo}" required="true" requiredMessage="#{bundle.EditResponsableRequiredMessage_cargo}"/>
+                    <h:outputLabel value="#{bundle.EditResponsableLabel_fechaAlta}" for="fechaAlta" />
+                    <h:inputText id="fechaAlta" value="#{responsableController.selected.fechaAlta}" title="#{bundle.EditResponsableTitle_fechaAlta}" required="true" requiredMessage="#{bundle.EditResponsableRequiredMessage_fechaAlta}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditResponsableLabel_departamento}" for="departamento" />
+                    <h:selectOneMenu id="departamento" value="#{responsableController.selected.departamento}" title="#{bundle.EditResponsableTitle_departamento}" >
+                        <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{responsableController.update}" value="#{bundle.EditResponsableSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditResponsableViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{responsableController.prepareList}" value="#{bundle.EditResponsableShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditResponsableIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
