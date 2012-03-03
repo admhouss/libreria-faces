@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditUsurioadministrativoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditUsurioadministrativoLabel_idUsuario}" for="idUsuario" />
+                    <h:inputText id="idUsuario" value="#{usurioadministrativoController.selected.idUsuario}" title="#{bundle.EditUsurioadministrativoTitle_idUsuario}" required="true" requiredMessage="#{bundle.EditUsurioadministrativoRequiredMessage_idUsuario}"/>
+                    <h:outputLabel value="#{bundle.EditUsurioadministrativoLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{usurioadministrativoController.selected.nombre}" title="#{bundle.EditUsurioadministrativoTitle_nombre}" required="true" requiredMessage="#{bundle.EditUsurioadministrativoRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.EditUsurioadministrativoLabel_paterno}" for="paterno" />
+                    <h:inputText id="paterno" value="#{usurioadministrativoController.selected.paterno}" title="#{bundle.EditUsurioadministrativoTitle_paterno}" required="true" requiredMessage="#{bundle.EditUsurioadministrativoRequiredMessage_paterno}"/>
+                    <h:outputLabel value="#{bundle.EditUsurioadministrativoLabel_materno}" for="materno" />
+                    <h:inputText id="materno" value="#{usurioadministrativoController.selected.materno}" title="#{bundle.EditUsurioadministrativoTitle_materno}" required="true" requiredMessage="#{bundle.EditUsurioadministrativoRequiredMessage_materno}"/>
+                    <h:outputLabel value="#{bundle.EditUsurioadministrativoLabel_cargo}" for="cargo" />
+                    <h:inputText id="cargo" value="#{usurioadministrativoController.selected.cargo}" title="#{bundle.EditUsurioadministrativoTitle_cargo}" required="true" requiredMessage="#{bundle.EditUsurioadministrativoRequiredMessage_cargo}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{usurioadministrativoController.update}" value="#{bundle.EditUsurioadministrativoSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditUsurioadministrativoViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{usurioadministrativoController.prepareList}" value="#{bundle.EditUsurioadministrativoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditUsurioadministrativoIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
