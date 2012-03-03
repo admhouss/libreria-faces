@@ -11,7 +11,7 @@
             <h:outputText value=" "></h:outputText>
         </ui:define>
         <ui:define name="bodyNovedades">
-        <h:form styleClass="jsfcrud_list_form">
+            <h:form styleClass="jsfcrud_list_form"  id="formulario" >
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
@@ -30,20 +30,22 @@
            
          
 
-            <p:accordionPanel autoHeight="false" >
+            <p:accordionPanel autoHeight="false" id="acordion" >
                 <p:tab title="PUBLICACIONES" rendered="#{publicacionController.tipoArticuloMostrar>=1}">
-               <h:panelGroup >
-                   <p:dataGrid value="#{publicacionController.listLibroByCategoria}" var="item"  rows="12" paginator="true" effect="true" columns="1"
-		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		rowsPerPageTemplate="9,12,15">
+                    <h:panelGroup id="control" >
+                    
+                   <p:dataGrid value="#{publicacionController.listLibroByCategoria}" var="item"  rows="5" paginator="true"  columns="1"  >
+
 
 
                     <p:column>
-      <table width="99%" border="0">
+
+                        <table width="99%" border="0">
   <tr>
     <td width="13%" rowspan="8" scope="col">
-        <img src="#{item.articulo.imagen}" width="83" height="122" /></td>
-      <td width="79%" class="Titulo_articulo" scope="col"><h:outputText value="#{item.articulo.titulo}"/></td>
+        <img src="#{item.articulo.imagen}" width="83" height="122" id="imagen"/></td>
+      <td width="79%" class="Titulo_articulo" scope="col">
+          <h:outputText value="#{item.articulo.titulo}" /></td>
 
   </tr>
   <tr>
@@ -54,157 +56,125 @@
 
   </tr>
   <tr>
-      <td><strong>Precio: </strong><h:outputText value="#{item.articulo.precioUnitario}"/></td>
+      <td><strong>Precio:$</strong><h:outputText value="#{item.articulo.precioUnitario}"/></td>
+  </tr>
+ <tr>
+     <td><strong>Descuento:% </strong>
+         <h:outputText value="0" rendered="#{item.articulo.descuentoArticulo.descuento==null}"/>
+         <h:outputText value="#{item.articulo.descuentoArticulo.descuento}"/>
+
+     </td>
   </tr>
   <tr>
       <td><strong>Existencia: </strong>
-          <h:outputText value="0" rendered="#{item.articulo.almacen.existencia==null}"/>
-          <h:outputText value="#{item.articulo.almacen.existencia}"/>
-      </td>
-  </tr>
-
-   <tr>
-      <td><strong>Descuento: </strong>
-          <h:outputText value="0" rendered="#{item.articulo.descuentoArticulo.descuento==null}"/>
-          <h:outputText value="#{item.articulo.descuentoArticulo.descuento}"/>
-      </td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
+          <h:outputText value="0" rendered="#{item.articulo.almacen==null}" />
+          <h:outputText value="#{item.articulo.almacen.existencia}"/></td>
   </tr>
   <tr>
 
-    <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
-      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito">
-
-          <h:commandLink action="#{carritoController.agregarArticulo(item.articulo)}">
-              <span class="ui-icon ui-icon-cart"></span>
-          </h:commandLink>
-
-      </li>
-      <li class="ui-state-default ui-corner-all" title="Agregar un comentario">
-          
-              <span class="ui-icon ui-icon-comment">
-                   <h:commandLink  action="#{publicacionController.prepareView(item,2)}" immediate="true" styleClass="ui-icon ui-icon-comment"/>
-
-              </span>
-          
-      </li>
-            <li   class="ui-state-default ui-corner-all" title="M&Aacute;s informaci&oacute;n">
-       <span class="ui-icon ui-icon-info">
-
-           <h:commandLink  action="#{publicacionController.prepareView(item,2)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
+    <td align="left">
 
 
-       </span>
+        <h:commandLink action="#{carritoController.agregarArticulo(item.articulo)}" title="Agregar Carrito Compra">
+           <img src="./../resources/iconos/carritoCompra.png" alt="" title="Carrito de Compra"/>
+         </h:commandLink>
 
-     </li>
-      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados">
-     <span class="ui-icon ui-icon-link">
-         <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" styleClass="ui-icon ui-icon-link"/>
-     </span>
-      </li>
 
-      
-    </ul></td>
+
+        <h:commandLink  action="#{publicacionController.prepareView(item,1)}" immediate="true" >
+            <img src="./../resources/iconos/Comentarios.png" alt="" title="Detalles Publicacion"/>
+        </h:commandLink>
+
+           <h:commandLink  action="#{publicacionController.prepareView(item,1)}" immediate="true" >
+             <img src="./../resources/iconos/informacion.png" alt="" title="Detalle Publicacion"/>
+           </h:commandLink>
+
+
+
+
+        <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" >
+            <img src="./../resources/iconos/relacionados.png" alt="" title="Busqueda relacionada"/>
+        </h:commandLink>
+
+    </td>
   </tr>
   <tr></tr>
   <tr></tr>
 
 </table>
-
-
-                       
-
                     </p:column>
                    </p:dataGrid>
             </h:panelGroup>
                     </p:tab>
 
                 
-                <p:tab title="Accesorios" rendered="#{publicacionController.tipoArticuloMostrar>=3}">
+                <p:tab title="ACCESORIOS" rendered="#{publicacionController.tipoArticuloMostrar>=3}">
                <h:panelGroup >
-                   <p:dataGrid value="#{publicacionController.listPublicacionAccesorio}" var="item"  rows="12" paginator="true" effect="true" columns="1"
-		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		rowsPerPageTemplate="9,12,15">
-
-
+                   <p:dataGrid value="#{publicacionController.listPublicacionAccesorio}" var="item"  rows="5" paginator="true"  columns="1"  >
                     <p:column>
-      <table width="99%" border="0">
+
+                        <table width="99%" border="0">
   <tr>
     <td width="13%" rowspan="8" scope="col">
-        <img src="#{item.articulo.imagen}" width="83" height="122" /></td>
-      <td width="79%" class="Titulo_articulo" scope="col"><h:outputText value="#{item.articulo.titulo}"/></td>
+        <img alt=""  src="#{item.articulo.imagen}" width="83" height="122" id="imagen"/></td>
+      <td width="79%" class="Titulo_articulo" scope="col">
+          <h:outputText value="#{item.articulo.titulo}" /></td>
 
-  </tr>
-
-  <tr>
-      <td><p><strong>Editorial:</strong> <h:outputText value="#{item.editorial}"/></p></td>
   </tr>
   <tr>
       <td><p><strong>Autor:</strong> <h:outputText value="#{item.articulo.creador}"/></p></td>
   </tr>
   <tr>
-      <td><p><strong>Precio:$</strong><h:outputText value="#{item.articulo.precioUnitario}"/></p></td>
+      <td><p><strong>Editorial:</strong><h:outputText value="#{item.editorial}"/></p></td>
 
   </tr>
-   <tr>
+  <tr>
+      <td><strong>Precio:$</strong><h:outputText value="#{item.articulo.precioUnitario}"/></td>
+  </tr>
+ <tr>
+     <td><strong>Descuento:% </strong>
+         <h:outputText value="0" rendered="#{item.articulo.descuentoArticulo.descuento==null}"/>
+         <h:outputText value="#{item.articulo.descuentoArticulo.descuento}"/>
+
+     </td>
+  </tr>
+  <tr>
       <td><strong>Existencia: </strong>
-          <h:outputText value="0" rendered="#{item.articulo.almacen.existencia==null}"/>
+          <h:outputText value="0" rendered="#{item.articulo.almacen==null}" />
           <h:outputText value="#{item.articulo.almacen.existencia}"/></td>
   </tr>
   <tr>
-      <td><strong>Descuento:% </strong>
-          <h:outputText value="0" rendered="#{item.articulo.descuentoArticulo.descuento==null}"/>
-          <h:outputText value="#{item.articulo.descuentoArticulo.descuento}"/></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
 
-    <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
-      <li class="ui-state-default ui-corner-all" title="Agregar al Carrito">
-
-          <h:commandLink action="#{carritoController.agregarArticulo(item.articulo)}">
-              <span class="ui-icon ui-icon-cart"></span>
-          </h:commandLink>
-
-      </li>
-      <li class="ui-state-default ui-corner-all" title="Agregar un comentario">
-          
-              <span class="ui-icon ui-icon-comment">
-                   <h:commandLink  action="#{publicacionController.prepareView(item,2)}" immediate="true" styleClass="ui-icon ui-icon-comment"/>
-
-              </span>
-          
-      </li>
-            <li   class="ui-state-default ui-corner-all" title="Mas informaci&oacute;n">
-       <span class="ui-icon ui-icon-info">
-
-           <h:commandLink  action="#{publicacionController.prepareView(item,2)}" immediate="true" styleClass="ui-icon ui-icon-info"/>
+    <td align="left">
 
 
-       </span>
+        <h:commandLink action="#{carritoController.agregarArticulo(item.articulo)}" title="Agregar Carrito Compra">
+           <img src="./../resources/iconos/carritoCompra.png" alt="" title="Carrito de Compra"/>
+         </h:commandLink>
 
-     </li>
-      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados">
-     <span class="ui-icon ui-icon-link">
-         <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" styleClass="ui-icon ui-icon-link"/>
-     </span>
-      </li>
 
-      
-    </ul></td>
+
+        <h:commandLink  action="#{publicacionController.prepareView(item,1)}" immediate="true" >
+            <img src="./../resources/iconos/Comentarios.png" alt="" title="Detalles Publicacion"/>
+        </h:commandLink>
+
+           <h:commandLink  action="#{publicacionController.prepareView(item,1)}" immediate="true" >
+             <img src="./../resources/iconos/informacion.png" alt="" title="Detalle Publicacion"/>
+           </h:commandLink>
+
+
+
+
+        <h:commandLink  action="#{publicacionController.buscarLibroRelacionados(item)}" immediate="true" >
+            <img src="./../resources/iconos/relacionados.png" alt="" title="Busqueda relacionada"/>
+        </h:commandLink>
+
+    </td>
   </tr>
   <tr></tr>
   <tr></tr>
 
 </table>
-
-
-                       
-
                     </p:column>
                    </p:dataGrid>
             </h:panelGroup>
