@@ -11,66 +11,7 @@
         <link href="#{facesContext.externalContext.request.contextPath}/resources/css/ui-lightness/skin.css" rel="stylesheet" type="text/css" />
     </h:head>
     <h:body>
-        <table align="center" width="1004px" style="height: 100px">
-            <tr>
-                <td>
-                    <img src="resources/css/images/logo.png"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
 
-                </td>
-            </tr>
-            <tr>
-                <td>
-
-                </td>
-            </tr>
-    </table>
-    <div id="body_area">
-        <div class="left">
-            <div class="left_menutop"></div>
-            <div class="left_menu_area">
-
-            </div>
-        </div>
-        <div class="midarea">
-            <div id="logoGif" >
-                <h:form>
-                    <p:panel header="Ingreso al Sistema">
-                        <table width="100%" border="0">
-                    <tr>
-                        <td colspan="2">
-                            <span style="color: red;font-weight: bold;">
-                                #{sistemaController.sMessage}
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Usuario</td>
-                        <td>
-                            <h:inputText id="usuario" value="#{sistemaController.usuario}" style="width: 240px"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Contraseña</td>
-                        <td>
-                            <h:inputSecret id="passd" value="#{sistemaController.password}" style="width: 240px"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="right">
-                            <h:commandButton value="Ingresar" action="#{sistemaController.validateLogin}"/>
-                        </td>
-                    </tr>
-                </table>
-                    </p:panel>
-
-                    </h:form>
-            </div>
-        </div>
-    </div>
 </h:body>
 
 
