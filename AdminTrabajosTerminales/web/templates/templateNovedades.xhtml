@@ -1,0 +1,622 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:p="http://primefaces.prime.com.tr/ui"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+       
+
+       <!--<h:outputStylesheet name="css/stylesheet.css"/>-->
+       <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css" />
+       <link href="#{facesContext.externalContext.request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
+
+        <link href="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
+
+        
+        <!-- InstanceEndEditable -->
+<style type="text/css">
+#apDiv1 {
+	position:absolute;
+	left:10px;
+	top:123px;
+	width:214px;
+	height:551px;
+	z-index:1;
+	background:url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/left_end.gif);
+	background-repeat:no-repeat;
+
+}
+#apDiv2 {
+	position:absolute;
+	left:420px;
+	top:122px;
+	width:590px;
+	height:132px;
+	z-index:5;
+
+	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/img1.jpg);
+        background-repeat:no-repeat;
+}
+#apDiv3 {
+	position:absolute;
+	left:819px;
+	top:122px;
+	width:191px;
+	height:552px;
+	z-index:3;
+	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/head_der.jpg);
+	background-repeat:no-repeat;
+}
+#apDiv4 {
+	position:absolute;
+	left:224px;
+	top:258px;
+	width:592px;
+	height:417px;
+	z-index:4;
+}
+#apDiv5 {
+	position:absolute;
+	left:10px;
+	top:11px;
+	width:1000px;
+	height:111px;
+	z-index:1;
+	background-image: url(#{facesContext.externalContext.request.contextPath}/resources/template/imgs/head_1.jpg);
+}
+
+#apDiv6 {
+	position:absolute;
+	left:10px;
+	top:679px;
+	width:1001px;
+	height:66px;
+	z-index:6;
+}
+</style>
+
+<!-- InstanceBeginEditable name="head" -->
+
+
+	<!-- InstanceEndEditable -->
+
+    </h:head>
+
+ 
+
+    <h:body>
+        <script src="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBar.js" type="text/javascript"/>
+       
+            <ui:insert name="title"></ui:insert>
+        
+
+            <ui:insert name="body">
+
+
+
+
+
+
+<div id="apDiv1">
+  <h2>&nbsp;</h2>
+  <h:form id="loginAcces">
+  <table width="90%" border="0" align="right">
+    <tr>
+      <td scope="col">
+       <h3>Log-in </h3>
+      </td>
+    </tr>
+    <tr>
+    <td scope="col">Usuario</td>
+  </tr>
+  <tr>
+    <td>
+        <h:inputText id="usuario" value="#{sistemaController.usuarioAdmin}" size="20"/>
+       <!-- <input name="textfield2" type="text" id="textfield2" size="15" />-->
+
+    </td>
+  </tr>
+  <tr>
+    <td>Contraseña</td>
+  </tr>
+  <tr>
+    <td>
+        <h:inputSecret id="password" value="#{sistemaController.passwordAdmin}" size="20"/>
+        <!--<input name="textfield3" type="text" id="textfield3" size="15" />-->
+        
+        <center>
+        <ul id="icons" class="ui-widget ui-helper-clearfix" >
+
+         <li class="ui-state-default ui-corner-all" style="width:30px;"  title="Ingresar" >
+             <!-- <h:commandLink action="{sistemaController.accesoAdministrador}" styleClass="ui-icon ui-icon-key" title="Ingresar" />
+
+             -->
+             <img src="./../resources/iconos/Search.png"/>
+
+
+
+           
+        </li>
+      </ul>
+     </center>
+               
+    </td>
+  </tr>
+  <tr>
+    <td align="right" class="current_page_item">
+
+       <a href="#{facesContext.externalContext.request.contextPath}/faces/cliente/Create.xhtml">Registrarse</a>
+
+
+    </td>
+  </tr>
+</table>
+  </h:form>
+<p>&nbsp;</p>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<table width="90%" border="0" align="right">
+  <tr>
+      <th align="left" scope="col"><h2>Administraci&oacute;n</h2>
+      <ul class="list navigation">
+        <li>
+
+
+            <h:form id="derechofiscal">
+                <h:commandLink value="Servicios " action="#{publicacionController.prepareListByCategoria_one(1,2)}"/>
+            </h:form>
+
+        </li>
+        <li>
+           <h:form id="derechoInternacional">
+               <h:commandLink value="Control de Perfiles" action="#{publicacionController.prepareListByCategoria_one(2,2)}"/>
+            </h:form>
+          <ul>
+            <ul>
+              <ul>
+                <li>
+             <h:form id="DerechoAdministrativo">
+            <h:commandLink value="Tabla ARP" action="#{publicacionController.prepareListByCategoria_one(3,2)}"/>
+            </h:form>
+
+                </li>
+                <li>
+              <h:form id="JuicioLinea">
+                  <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/egresado/List.xhtml" >
+                      <h:outputText value="Control Egresado"/>
+                  </h:outputLink>
+            </h:form>
+                </li>
+                <li>
+              <h:form id="juicioOrales">
+
+
+                  <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/profesor/List.xhtml" >
+                  <h:outputText value="Control Docente"/>
+                  </h:outputLink>
+            </h:form>
+               </li>
+                <li>
+                    
+                    <h:form id="JurisPrudencia">
+                        <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/departamento/List.xhtml" >
+                  <h:outputText value="Control Departamento"/>
+                  </h:outputLink>
+            </h:form>
+
+                </li>
+
+                   <li>
+
+                    <h:form id="ResponsablePrudencia">
+                        <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/responsable/List.xhtml" >
+                  <h:outputText value="Control Responsables"/>
+                  </h:outputLink>
+            </h:form>
+
+                </li>
+                   <li>
+
+                    <h:form id="TrabajoPrudencia">
+                        <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/responsable/List.xhtml" >
+                        <h:outputText value="Control Reportes"/>
+                      </h:outputLink>
+            </h:form>
+
+                </li>
+                  <li>
+
+                    <h:form id="AlumnoPrudencia">
+                        <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml" >
+                        <h:outputText value="Acceso Alumno"/>
+                      </h:outputLink>
+            </h:form>
+
+                </li>
+              </ul>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+      <p></p></th>
+  </tr>
+</table>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table width="90%" border="0" align="right">
+  <tr>
+    <th align="left" scope="col"><h2> </h2>
+      <ul class="list navigation">
+        <li><a href="#"></a></li>
+        <li><a href="#"></a>
+          <ul>
+            <ul>
+              <ul>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+              </ul>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+      <p></p></th>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table width="90%" border="0" align="right">
+  <tr>
+    <th align="left" scope="col"><h2>Administración</h2>
+      <ul class="list navigation">
+        <li><a href="Reporte_Ventas.html">Ventas General </a></li>
+        <li>
+            <a href="#{facesContext.externalContext.request.contextPath}/faces/ventaDetalle/List.xhtml">Ventas Detalles</a>
+          <ul>
+            <ul>
+              <ul>
+                <li>
+                    <h:form id="ClientesForm">
+
+                        <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/cliente/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminCliente}">
+                            <h:outputText value="Clientes"/>
+                        </h:outputLink>
+                    </h:form>
+                </li>
+                <li>
+                    <h:form id="CatalogosForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/articulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                             <h:outputText value="Articulos"/>
+                       </h:outputLink>
+
+                    </h:form>
+                </li>
+               
+                <li>
+                     <h:form id="PublicacionForm">
+
+                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/publicacion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Publicaci&oacute;nes"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                 <li>
+                     <h:form id="PromocionForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/promocion/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Promoci&oacute;nes"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                  <li>
+                     <h:form id="ProveedorForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/proveedor/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Proveedores"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                   <li>
+                     <h:form id="ImpuestoForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/impuesto/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Impuesto"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+
+                   <li>
+                     <h:form id="AlmacenForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/almacen/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Almacen"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                   <li>
+                     <h:form id="descuentoArticuloForm">
+
+                       <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/descuentoArticulo/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}">
+                           <h:outputText value="Descuento Articulo"/>
+                       </h:outputLink>
+
+                    </h:form>
+
+                </li>
+                   <li><a href="#">Estadisticas</a></li>
+              </ul>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+      <p></p></th>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+                <div id="apDiv2" align="center"> </div>
+<div id="apDiv3">
+  <p>&nbsp;</p>
+  <table width="97%" border="0" align="right">
+    <tr>
+        <td scope="col" class="current_page_item">
+
+      <ul id="icons" class="ui-widget ui-helper-clearfix">
+       
+         
+          <li  title="Buscar" style="width:25px">
+
+
+               <h:form id="busqueda" >
+
+                   <p:calendar mode="inline" style="min-width:200px;min-height:200px;"></p:calendar>
+                 
+              </h:form>
+           </li>
+
+         
+      </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="right" class="current_page_item">
+          <a href="#{facesContext.externalContext.request.contextPath}/faces/busqueda/List.xhtml"></a>
+      </td>
+    </tr>
+    <tr></tr>
+    <tr>
+      <td class="ui-state-highlight"><p>Atencion a Clientes</p>
+      <p>(55) 5003 70 00 ext 52223</p>
+      <p><a href="#">libreria@tfjfa.gob.mx</a></p></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="ui-state-active">Oferta del Día</td>
+    </tr>
+    <tr>
+      <td><table width="99%" border="0">
+        <tr>
+          <td align="center"><p><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto4.jpg" width="57" height="85" /></p></td>
+        </tr>
+        <tr>
+          <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td align="right">
+          <ul id="icons" class="ui-widget ui-helper-clearfix">
+             <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
+             <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
+            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li>
+            </a>            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+          </ul></td>
+        </tr>
+        <tr></tr>
+      </table></td>
+    </tr>
+    <tr>
+      <td class="ui-widget-header">Oferta del Mes</td>
+    </tr>
+    <tr>
+      <td><table width="99%" border="0">
+        <tr>
+          <td align="center"><p><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/producto3.jpg" width="81" height="72" /></p></td>
+        </tr>
+        <tr>
+          <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td align="right"><ul id="icons" class="ui-widget ui-helper-clearfix">
+           <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
+            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
+            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li></a>
+            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+          </ul></td>
+        </tr>
+        <tr></tr>
+      </table></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <table width="99%" border="0" align="center">
+    <tr>
+      <td align="center" scope="col"><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/logo-paypal.jpg" width="129" height="141" /></td>
+    </tr>
+  </table>
+</div>
+<div id="apDiv4"><!-- InstanceBeginEditable name="Main" -->
+  <!--<h2>Novedades</h2>
+  <p>&nbsp;</p>
+  -->
+  <center>
+      <h3><h:outputLabel value="BIENVENIDO #{sistemaController.cliente.nombre}  #{sistemaController.cliente.paterno}  #{sistemaController.cliente.materno}" rendered="#{sistemaController.cliente!=null}"/></h3>
+  </center>
+   <center>
+       <h3>
+           <h:outputLabel value="BIENVENIDO #{sistemaController.usuarioAdministrador.nombre}  #{sistemaController.usuarioAdministrador.paterno}  #{sistemaController.usuarioAdministrador.materno}" rendered="#{sistemaController.usuarioAdmin!=null}"/>
+       </h3>
+  </center>
+  <p>&nbsp;</p>
+  <!-- acordion -->
+
+
+  <ui:insert name="bodyNovedades"/>
+
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+  <!-- Tabs --><!-- InstanceEndEditable -->
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <div><img src="#{facesContext.externalContext.request.contextPath}/resources/template/imgs/footes.jpg" width="592" height="50" /></div>
+  <p>&nbsp;</p>
+</div>
+<div id="apDiv5">
+<table width="99%" border="0" align="center">
+    <tr>
+      <th width="462" height="19" nowrap="nowrap" scope="col">&nbsp;</th>
+      <th width="392" scope="col"><ul id="MenuBar1" class="MenuBarHorizontal">
+        <li><a class="MenuBarItemSubmenu" href="#">Conocenos</a>
+          <ul>
+            <li><a href="#">Acerca de Nosotros</a></li>
+            <li><a href="#">Sucursales</a></li>
+            <li><a href="#">Contacto</a></li>
+          </ul>
+        </li>
+        <li>
+            <a href="carrito_1.html">Servicios</a>
+            
+          <ul>
+            <li><a href="Libros.html">Alumnos</a></li>
+            <li><a href="Suscripcidoss.html">Dominios</a></li>
+            <li><a href="Aceesorios.html">Reporte</a></li>
+          </ul>
+        </li>
+        <li><a class="MenuBarItemSubmenu" href="carrito_1.html">Tabla ARP </a>
+          <ul>
+            <li><a href="#{facesContext.externalContext.request.contextPath}/faces/carrito/Carrito.xhtml">Productos</a></li>
+            <li><a href="#">Envíos</a></li>
+          </ul>
+        </li>
+        <li><a href="#"></a>
+          <ul>
+            <li><a href="#{facesContext.externalContext.request.contextPath}/faces/login/Create.xhtml">Ingresar</a></li>
+            <li><a href="#">Perfil</a></li>
+            <li><a href="#">Pedidos</a></li>
+          </ul>
+        </li>
+      </ul></th>
+      <th colspan="2" align="right" scope="col">
+         <!-- <a href="#"> X Cerrar Sesion</a>-->
+         
+
+           <h:form id="cerrarSession" >
+               <h:commandLink action="#{sistemaController.cerrarCession}" value="X Cerrar Sesion"/>
+
+                   
+           </h:form>
+       
+      </th>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td align="center" valign="middle">&nbsp;</td>
+      <td width="48">&nbsp; 
+      </td>
+      <td width="70">&nbsp; <img src="./../resources/iconos/Home.png" /><img src="./../resources/iconos/Help.png" /></td>
+
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td align="center" valign="middle">&nbsp;</td>
+      <td>
+       <ul id="icons" class="ui-widget ui-helper-clearfix">
+       
+          
+           
+       
+        
+       
+      </ul>
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+</div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"./../resource/template/SpryAssets/SpryMenuBarDownHover.gif", imgRight:"./../resource/template/SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+            </ui:insert>
+    </h:body>
+
+</html>
