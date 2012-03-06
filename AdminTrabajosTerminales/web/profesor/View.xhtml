@@ -17,20 +17,20 @@
             <h:form>
                  <p:panel header="VER PROFESORES">
                     <center>
-                <h:panelGrid columns="2">
-                    <h:outputText value="ID BOLETA"/>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputText value="ID BOLETA:"/>
                     <h:outputText value="#{profesorController.selected.idBoleta}" title="#{bundle.ViewProfesorTitle_idBoleta}"/>
-                    <h:outputText value="NOMBRE"/>
+                    <h:outputText value="NOMBRE:"/>
                     <h:outputText value="#{profesorController.selected.nombre}" title="#{bundle.ViewProfesorTitle_nombre}"/>
-                    <h:outputText value="CORREO"/>
+                    <h:outputText value="CORREO:"/>
                     <h:outputText value="#{profesorController.selected.correo}" title="#{bundle.ViewProfesorTitle_correo}"/>
-                    <h:outputText value="ESTATUS"/>
+                    <h:outputText value="ESTATUS:"/>
                     <h:outputText value="#{profesorController.selected.estatus}" title="#{bundle.ViewProfesorTitle_estatus}"/>
-                    <h:outputText value="ID DEPARTAMENTO"/>
+                    <h:outputText value="ID DEPARTAMENTO:"/>
                     <h:outputText value="#{profesorController.selected.idDepartamento}" title="#{bundle.ViewProfesorTitle_idDepartamento}"/>
-                    <h:outputText value="TIPO DOCENTE"/>
+                    <h:outputText value="TIPO DOCENTE:"/>
                     <h:outputText value="#{profesorController.selected.tipoDocente}" title="#{bundle.ViewProfesorTitle_tipoDocente}"/>
-                    <h:outputText value="PROFESOR DOCENTE"/>
+                    <h:outputText value="PROFESOR DOCENTE:"/>
                     <h:outputText value="#{profesorController.selected.profesorDocente}" title="#{bundle.ViewProfesorTitle_profesorDocente}"/>
                 </h:panelGrid>
                          </center>
@@ -43,7 +43,7 @@
                 <br />
                 <h:commandButton action="#{profesorController.prepareCreate}" value="CREAR NUEVO" />
                 <br />
-                <h:commandButton action="#{profesorController.prepareList}" value="MOSTRAR"/>
+                <h:commandButton action="#{profesorController.prepareList}" value="VER"/>
                 <br />
                 <br />
                 <h:commandButton value="INDEX" action="/index" immediate="true" />
