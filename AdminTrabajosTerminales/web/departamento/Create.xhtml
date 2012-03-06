@@ -3,41 +3,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateDepartamentoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateDepartamentoLabel_nombre}" for="nombre" />
+
+                <p:panel header="ALTA DEPARTAMENTO">
+<center>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputLabel value="DEPARTAMENTO:" for="nombre" />
                     <h:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="#{bundle.CreateDepartamentoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_nombre}"/>
-                    <h:outputLabel value="#{bundle.CreateDepartamentoLabel_descripcion}" for="descripcion" />
+                    <h:outputLabel value="DESCRIPCI&Oacute;N" for="descripcion" />
                     <h:inputText id="descripcion" value="#{departamentoController.selected.descripcion}" title="#{bundle.CreateDepartamentoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_descripcion}"/>
-                    <h:outputLabel value="#{bundle.CreateDepartamentoLabel_idResponsable}" for="idResponsable" />
+                    <h:outputLabel value="ID RESPONSABLE" for="idResponsable" />
                     <h:inputText id="idResponsable" value="#{departamentoController.selected.idResponsable}" title="#{bundle.CreateDepartamentoTitle_idResponsable}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_idResponsable}"/>
-                    <h:outputLabel value="#{bundle.CreateDepartamentoLabel_fechaCreacion}" for="fechaCreacion" />
+                    <h:outputLabel value="FECHA CREACI&Oacute;N" for="fechaCreacion" />
                     <h:inputText id="fechaCreacion" value="#{departamentoController.selected.fechaCreacion}" title="#{bundle.CreateDepartamentoTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_fechaCreacion}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateDepartamentoLabel_responsable}" for="responsable" />
+                    <h:outputLabel value="RESPONSABLE" for="responsable" />
                     <h:selectOneMenu id="responsable" value="#{departamentoController.selected.responsable}" title="#{bundle.CreateDepartamentoTitle_responsable}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_responsable}">
                         <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
+    </center>
+                   </p:panel>
                 <br />
-                <h:commandLink action="#{departamentoController.create}" value="#{bundle.CreateDepartamentoSaveLink}" />
+                <h:commandButton action="#{departamentoController.create}" value="GUARDAR" />
                 <br />
                 <br />
-                <h:commandLink action="#{departamentoController.prepareList}" value="#{bundle.CreateDepartamentoShowAllLink}" immediate="true"/>
+                <h:commandButton action="#{departamentoController.prepareList}" value="VER" immediate="true"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.CreateDepartamentoIndexLink}" action="/index" immediate="true" />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
             </h:form>
         </ui:define>
     </ui:composition>
