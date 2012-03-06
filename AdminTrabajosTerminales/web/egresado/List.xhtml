@@ -23,7 +23,7 @@
                     <h:commandButton action="#{egresadoController.prepareCreatee}" value="Crear Nuevo"/>
                 </div>
 
-                <p:dataTable value="#{egresadoController.items}" var="item">
+                <p:dataTable value="#{egresadoController.items}" var="item" paginator="true">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
