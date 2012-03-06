@@ -4,6 +4,8 @@ import escom.info.documento.jpa.TipoDocente;
 import escom.info.documento.jsf.util.JsfUtil;
 import escom.info.documento.jsf.util.PaginationHelper;
 import escom.info.documento.ejb.TipoDocenteFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="tipoDocenteController")
 @SessionScoped
-public class TipoDocenteController {
+public class TipoDocenteController implements Serializable{
 
     private TipoDocente current;
     private DataModel items = null;
@@ -37,7 +39,10 @@ public class TipoDocenteController {
         }
         return current;
     }
-
+  public List<TipoDocente> getListTipoDocumento(){
+      List<TipoDocente> l=getFacade().findAll();
+      return l;
+  }
     private TipoDocenteFacade getFacade() {
         return ejbFacade;
     }

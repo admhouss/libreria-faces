@@ -4,6 +4,8 @@ import escom.info.profesor.jpa.ProfesorDocente;
 import escom.info.profesor.jsf.util.JsfUtil;
 import escom.info.profesor.jsf.util.PaginationHelper;
 import escom.info.profesor.ejb.ProfesorDocenteFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="profesorDocenteController")
 @SessionScoped
-public class ProfesorDocenteController {
+public class ProfesorDocenteController implements Serializable{
 
     private ProfesorDocente current;
     private DataModel items = null;
@@ -28,6 +30,11 @@ public class ProfesorDocenteController {
     private int selectedItemIndex;
 
     public ProfesorDocenteController() {
+    }
+
+    public List<ProfesorDocente> getListProfesorDocente(){
+     List<ProfesorDocente> p=getFacade().findAll();
+     return p;
     }
 
     public ProfesorDocente getSelected() {

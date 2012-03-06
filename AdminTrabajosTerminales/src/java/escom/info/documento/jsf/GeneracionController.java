@@ -4,6 +4,8 @@ import escom.info.egresado.jpa.Generacion;
 import escom.info.documento.jsf.util.JsfUtil;
 import escom.info.documento.jsf.util.PaginationHelper;
 import escom.info.egresado.ejb.GeneracionFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="generacionController")
 @SessionScoped
-public class GeneracionController {
+public class GeneracionController  implements Serializable{
 
     private Generacion current;
     private DataModel items = null;
@@ -28,6 +30,11 @@ public class GeneracionController {
     private int selectedItemIndex;
 
     public GeneracionController() {
+    }
+
+    public List<Generacion> getListGeneracion(){
+        List<Generacion> l=getFacade().findAll();
+        return l;
     }
 
     public Generacion getSelected() {

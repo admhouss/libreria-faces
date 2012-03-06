@@ -4,6 +4,8 @@ import escom.info.departamento.jpa.Departamento;
 import escom.info.departamento.jsf.util.JsfUtil;
 import escom.info.departamento.jsf.util.PaginationHelper;
 import escom.info.departamento.ejb.DepartamentoFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="departamentoController")
 @SessionScoped
-public class DepartamentoController {
+public class DepartamentoController  implements Serializable{
 
     private Departamento current;
     private DataModel items = null;
@@ -30,6 +32,11 @@ public class DepartamentoController {
     public DepartamentoController() {
     }
 
+
+    public List<Departamento> getListDepartamentos(){
+        List<Departamento> l=getFacade().findAll();
+        return l;
+    }
     public Departamento getSelected() {
         if (current == null) {
             current = new Departamento();
