@@ -17,12 +17,12 @@
             <h:form>
                 <p:panel header="VER TIPO DOCENTE">
                     <center>
-                <h:panelGrid columns="2">
-                    <h:outputText value="ID"/>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputText value="ID:"/>
                     <h:outputText value="#{tipoDocenteController.selected.id}" title="#{bundle.ViewTipoDocenteTitle_id}"/>
-                    <h:outputText value="NOMBRE"/>
+                    <h:outputText value="NOMBRE:"/>
                     <h:outputText value="#{tipoDocenteController.selected.nombre}" title="#{bundle.ViewTipoDocenteTitle_nombre}"/>
-                    <h:outputText value="DESCRIPCI&Oacute;N"/>
+                    <h:outputText value="DESCRIPCI&Oacute;N:"/>
                     <h:outputText value="#{tipoDocenteController.selected.descripcion}" title="#{bundle.ViewTipoDocenteTitle_descripcion}"/>
                 </h:panelGrid>
 
@@ -36,7 +36,7 @@
                 <br />
                 <h:commandButton action="#{tipoDocenteController.prepareCreate}" value="CREAR NUEVO" />
                 <br />
-                <h:commandButton action="#{tipoDocenteController.prepareList}" value="MOSTRAR"/>
+                <h:commandButton action="#{tipoDocenteController.prepareList}" value="VER"/>
                 <br />
                 <br />
                 <h:commandButton value="INDEX" action="/index" immediate="true" />
