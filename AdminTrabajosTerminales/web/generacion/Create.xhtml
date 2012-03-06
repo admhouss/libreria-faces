@@ -3,33 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateGeneracionTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateGeneracionLabel_id}" for="id" />
+                <p:panel header="ALTA GENERACI&Oacute;N">
+<center>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputLabel value="ID GENERACI&Oacute;N:" for="id" />
                     <h:inputText id="id" value="#{generacionController.selected.id}" title="#{bundle.CreateGeneracionTitle_id}" required="true" requiredMessage="#{bundle.CreateGeneracionRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.CreateGeneracionLabel_anio}" for="anio" />
+                    <h:outputLabel value="A&Ntilde;O:" for="anio" />
                     <h:inputText id="anio" value="#{generacionController.selected.anio}" title="#{bundle.CreateGeneracionTitle_anio}" required="true" requiredMessage="#{bundle.CreateGeneracionRequiredMessage_anio}"/>
-                    <h:outputLabel value="#{bundle.CreateGeneracionLabel_descripcion}" for="descripcion" />
+                    <h:outputLabel value="DESCRIPCI&Oacute;N:" for="descripcion" />
                     <h:inputText id="descripcion" value="#{generacionController.selected.descripcion}" title="#{bundle.CreateGeneracionTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateGeneracionRequiredMessage_descripcion}"/>
                 </h:panelGrid>
+
+     </center>
+                   </p:panel>
                 <br />
-                <h:commandLink action="#{generacionController.create}" value="#{bundle.CreateGeneracionSaveLink}" />
+                <h:commandButton action="#{generacionController.create}" value="GUARDAR" />
                 <br />
                 <br />
-                <h:commandLink action="#{generacionController.prepareList}" value="#{bundle.CreateGeneracionShowAllLink}" immediate="true"/>
+                <h:commandButton action="#{generacionController.prepareList}" value="VER" immediate="true"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.CreateGeneracionIndexLink}" action="/index" immediate="true" />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
             </h:form>
         </ui:define>
     </ui:composition>
