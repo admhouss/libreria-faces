@@ -17,18 +17,18 @@
             <h:form>
                 <p:panel header="VER DEPARTAMENTO">
                     <center>
-                <h:panelGrid columns="2">
-                    <h:outputText value="NOMBRE"/>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputText value="NOMBRE:"/>
                     <h:outputText value="#{departamentoController.selected.nombre}" title="#{bundle.ViewDepartamentoTitle_nombre}"/>
-                    <h:outputText value="DESCRIPCION"/>
+                    <h:outputText value="DESCRIPCI&Oacute;N:"/>
                     <h:outputText value="#{departamentoController.selected.descripcion}" title="#{bundle.ViewDepartamentoTitle_descripcion}"/>
-                    <h:outputText value="ID RESPONSABLE"/>
+                    <h:outputText value="ID RESPONSABLE:"/>
                     <h:outputText value="#{departamentoController.selected.idResponsable}" title="#{bundle.ViewDepartamentoTitle_idResponsable}"/>
-                    <h:outputText value="FECHA CREACION"/>
+                    <h:outputText value="FECHA CREACION:"/>
                     <h:outputText value="#{departamentoController.selected.fechaCreacion}" title="#{bundle.ViewDepartamentoTitle_fechaCreacion}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
-                    <h:outputText value="RESPONSABLE"/>
+                    <h:outputText value="RESPONSABLE:"/>
                     <h:outputText value="#{departamentoController.selected.responsable}" title="#{bundle.ViewDepartamentoTitle_responsable}"/>
                 </h:panelGrid>
                     </center>
@@ -37,21 +37,21 @@
 
               
                 
-                <h:commandButton action="#{departamentoController.destroyAndView}" value="Eliminar"/>
+                <h:commandButton action="#{departamentoController.destroyAndView}" value="ELIMINAR"/>
 
 
                 <br />
                 <br />
 
-                <h:commandButton action="Edit" value="Editar"/>
+                <h:commandButton action="Edit" value="EDITAR"/>
 
                 <br />
-                <h:commandButton action="#{departamentoController.prepareCreate}" value="Crear Nuevo" />
+                <h:commandButton action="#{departamentoController.prepareCreate}" value="CREAR NUEVO" />
                 <br />
-                <h:commandButton action="#{departamentoController.prepareList}" value="Mostrar"/>
+                <h:commandButton action="#{departamentoController.prepareList}" value="VER"/>
                 <br />
                 <br />
-                <h:commandButton value="Index" action="/index" immediate="true" />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
 
             </h:form>
         </ui:define>
