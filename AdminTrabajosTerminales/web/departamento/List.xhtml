@@ -32,19 +32,19 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="DESCRIPCION"/>
+                            <h:outputText value="DESCRIPCI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.descripcion}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ID RESPONSABLE"/>
+                            <h:outputText value="IDRESPONSABLE"/>
                         </f:facet>
                         <h:outputText value="#{item.idResponsable}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="FECHA CREACION"/>
+                            <h:outputText value="FECHA CREACI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaCreacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -60,25 +60,25 @@
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{departamentoController.prepareView(item)}">
+                        <h:commandLink action="#{departamentoController.prepareView}">
                             <img src="./../resources/iconos/sver.png" alt="" title="ver"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{departamentoController.prepareEdit(item)}">
+                        <h:commandLink action="#{departamentoController.prepareEdit}">
                          <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
                          </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{departamentoController.destroy(item)}">
+                        <h:commandLink action="#{departamentoController.destroy}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
             </h:panelGroup>
             <br />
-            <h:commandLink action="#{departamentoController.prepareCreate}" value="CREAR NUEVO PROFESOR"/>
+            
             <br />
             <br />
-            <h:commandLink value="INDEX" action="/index" immediate="true" />
+            <h:commandButton value="INDEX" action="/index" immediate="true" />
         </h:form>
         </ui:define>
     </ui:composition>
