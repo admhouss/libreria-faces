@@ -22,8 +22,9 @@
                     <h:commandButton action="#{departamentoController.prepareCreate}" value="Crear Nuevo"/>
                     
                 </div>
-               
-                <p:dataTable value="#{departamentoController.items}" var="item" paginator="true">
+               <br/><br/>
+                <p:panel header="CAT&Aacute;LOGO DE DEPARTAMENTOS">
+                    <p:dataTable value="#{departamentoController.listDepartamentos}" var="item" paginator="true">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
@@ -36,12 +37,7 @@
                         </f:facet>
                         <h:outputText value="#{item.descripcion}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="IDRESPONSABLE"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idResponsable}"/>
-                    </p:column>
+                    
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="FECHA CREACI&Oacute;N"/>
@@ -60,25 +56,29 @@
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{departamentoController.prepareView}">
+                        <h:commandLink action="#{departamentoController.prepareView(item)}">
                             <img src="./../resources/iconos/sver.png" alt="" title="ver"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{departamentoController.prepareEdit}">
+                        <h:commandLink action="#{departamentoController.prepareEdit(item)}">
                          <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
                          </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{departamentoController.destroy}">
+                        <h:commandLink action="#{departamentoController.destroy(item)}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
+                </p:panel>
             </h:panelGroup>
             <br />
             
             <br />
-            <br />
-            <h:commandButton value="INDEX" action="/index" immediate="true" />
+            <div  align="center">
+                <p:panel>
+            <h:commandButton value="REGRESAR" action="/index" immediate="true" />
+                </p:panel>
+            </div>
         </h:form>
         </ui:define>
     </ui:composition>

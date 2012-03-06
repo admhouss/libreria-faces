@@ -19,32 +19,33 @@
 
                 <p:panel header="ALTA DEPARTAMENTO">
 <center>
-                <h:panelGrid columns="2" cellspacing="15">
-                    <h:outputLabel value="DEPARTAMENTO:" for="nombre" />
-                    <h:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="#{bundle.CreateDepartamentoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_nombre}"/>
-                    <h:outputLabel value="DESCRIPCI&Oacute;N" for="descripcion" />
-                    <h:inputText id="descripcion" value="#{departamentoController.selected.descripcion}" title="#{bundle.CreateDepartamentoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_descripcion}"/>
-                    <h:outputLabel value="ID RESPONSABLE" for="idResponsable" />
-                    <h:inputText id="idResponsable" value="#{departamentoController.selected.idResponsable}" title="#{bundle.CreateDepartamentoTitle_idResponsable}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_idResponsable}"/>
-                    <h:outputLabel value="FECHA CREACI&Oacute;N" for="fechaCreacion" />
-                    <h:inputText id="fechaCreacion" value="#{departamentoController.selected.fechaCreacion}" title="#{bundle.CreateDepartamentoTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_fechaCreacion}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="RESPONSABLE" for="responsable" />
-                    <h:selectOneMenu id="responsable" value="#{departamentoController.selected.responsable}" title="#{bundle.CreateDepartamentoTitle_responsable}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_responsable}">
-                        <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"/>
+                <h:panelGrid columns="3" cellspacing="15">
+                    <h:outputLabel value="DEPARTAMENTO:" for="nombre" styleClass="textoNEGRO"/>
+                    <h:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="Campo nombre" required="true" requiredMessage="El campo nombre es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="DESCRIPCI&Oacute;N" for="descripcion" styleClass="textoNEGRO"/>
+                    <h:inputText id="descripcion" value="#{departamentoController.selected.descripcion}" title="Campo descripcion" required="true" requiredMessage="El campo descripcion es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                   
+                    <h:outputLabel value="FECHA CREACI&Oacute;N" for="fechaCreacion" styleClass="textoNEGRO"/>
+                    <p:calendar id="fechaCreacion" value="#{departamentoController.selected.fechaCreacion}" title="Campo fecha Creacion" required="true" requiredMessage="El campo fechaCreacion es requerido" pattern="dd/MM/yyyy">
+                       
+                    </p:calendar>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="RESPONSABLE:" for="responsable"  styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="responsable" value="#{departamentoController.selected.responsable}" title="Campo responsable" required="true" requiredMessage="El campo responsable es requerido">
+                        <f:selectItems value="#{responsableController.listResponsables}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
                 </h:panelGrid>
     </center>
                    </p:panel>
-                <br />
+                <br /><br />
+                <div align="center">
+                <p:panel>
                 <h:commandButton action="#{departamentoController.create}" value="GUARDAR" />
-                <br />
-                <br />
-                <h:commandButton action="#{departamentoController.prepareList}" value="VER" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                </p:panel>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
