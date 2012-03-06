@@ -79,15 +79,15 @@
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{responsableController.prepareView}">
+                        <h:commandLink action="#{responsableController.prepareView(item)}">
                             <img src="./../resources/iconos/sver.png" alt="" title="ver"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{responsableController.prepareEdit}">
+                        <h:commandLink action="#{responsableController.prepareEdit(item)}">
                             <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{responsableController.destroy}">
+                        <h:commandLink action="#{responsableController.destroy(item)}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
                         </h:commandLink>
                     </p:column>
