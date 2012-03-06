@@ -72,9 +72,9 @@ public class EgresadoController implements Serializable{
         return "List";
     }
 
-    public String prepareView() {
-        current = (Egresado)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(Egresado e) {
+        current=e;
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
@@ -95,9 +95,9 @@ public class EgresadoController implements Serializable{
         }
     }
 
-    public String prepareEdit() {
-        current = (Egresado)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(Egresado e ) {
+        current=e;
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
@@ -112,11 +112,13 @@ public class EgresadoController implements Serializable{
         }
     }
 
-    public String destroy() {
-        current = (Egresado)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
+    public String destroy(Egresado e) {
+        current=e;
+       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        //performDestroy();
+       // recreateModel();
+        getFacade().remove(e);
+        JsfUtil.addSuccessMessage("Egresado Eliminado Satisfactoriamente");
         return "List";
     }
 
