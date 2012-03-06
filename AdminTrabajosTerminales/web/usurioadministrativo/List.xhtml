@@ -54,11 +54,11 @@
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{usurioadministrativoController.prepareView}" value="#{bundle.ListUsurioadministrativoViewLink}"/>
+                        <h:commandLink action="#{usurioadministrativoController.prepareView(item)}" value="#{bundle.ListUsurioadministrativoViewLink}"/>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{usurioadministrativoController.prepareEdit}" value="#{bundle.ListUsurioadministrativoEditLink}"/>
+                        <h:commandLink action="#{usurioadministrativoController.prepareEdit(item)}" value="#{bundle.ListUsurioadministrativoEditLink}"/>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{usurioadministrativoController.destroy}" value="#{bundle.ListUsurioadministrativoDestroyLink}"/>
+                        <h:commandLink action="#{usurioadministrativoController.destroy(item)}" value="#{bundle.ListUsurioadministrativoDestroyLink}"/>
                     </h:column>
                 </h:dataTable>
             </h:panelGroup>
