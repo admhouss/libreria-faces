@@ -3,49 +3,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateResponsableTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateResponsableLabel_idResponsable}" for="idResponsable" />
+                  <p:panel header="ALTA RESPONSABLE">
+<center>
+
+
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputLabel value="ID RESPONSABLE:" for="idResponsable" />
                     <h:inputText id="idResponsable" value="#{responsableController.selected.idResponsable}" title="#{bundle.CreateResponsableTitle_idResponsable}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_idResponsable}"/>
-                    <h:outputLabel value="#{bundle.CreateResponsableLabel_nombre}" for="nombre" />
+                    <h:outputLabel value="NOMBRE:" for="nombre" />
                     <h:inputText id="nombre" value="#{responsableController.selected.nombre}" title="#{bundle.CreateResponsableTitle_nombre}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_nombre}"/>
-                    <h:outputLabel value="#{bundle.CreateResponsableLabel_fechaModificacion}" for="fechaModificacion" />
+                    <h:outputLabel value="FECHA MODIFICACI&Oacute;N:" for="fechaModificacion" />
                     <h:inputText id="fechaModificacion" value="#{responsableController.selected.fechaModificacion}" title="#{bundle.CreateResponsableTitle_fechaModificacion}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_fechaModificacion}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateResponsableLabel_estatus}" for="estatus" />
+                    <h:outputLabel value="ESTATUS:" for="estatus" />
                     <h:inputText id="estatus" value="#{responsableController.selected.estatus}" title="#{bundle.CreateResponsableTitle_estatus}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_estatus}"/>
-                    <h:outputLabel value="#{bundle.CreateResponsableLabel_correo}" for="correo" />
+                    <h:outputLabel value="CORREO:" for="correo" />
                     <h:inputText id="correo" value="#{responsableController.selected.correo}" title="#{bundle.CreateResponsableTitle_correo}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_correo}"/>
-                    <h:outputLabel value="#{bundle.CreateResponsableLabel_cargo}" for="cargo" />
+                    <h:outputLabel value="CARGO:" for="cargo" />
                     <h:inputText id="cargo" value="#{responsableController.selected.cargo}" title="#{bundle.CreateResponsableTitle_cargo}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_cargo}"/>
-                    <h:outputLabel value="#{bundle.CreateResponsableLabel_fechaAlta}" for="fechaAlta" />
+                    <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaAlta" />
                     <h:inputText id="fechaAlta" value="#{responsableController.selected.fechaAlta}" title="#{bundle.CreateResponsableTitle_fechaAlta}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_fechaAlta}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateResponsableLabel_departamento}" for="departamento" />
+                    <h:outputLabel value="DEPARTAMENTO:" for="departamento" />
                     <h:selectOneMenu id="departamento" value="#{responsableController.selected.departamento}" title="#{bundle.CreateResponsableTitle_departamento}" >
                         <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
+    </center>
+                   </p:panel>
+
+
                 <br />
-                <h:commandLink action="#{responsableController.create}" value="#{bundle.CreateResponsableSaveLink}" />
+                <h:commandButton action="#{responsableController.create}" value="GUARDAR" />
                 <br />
                 <br />
-                <h:commandLink action="#{responsableController.prepareList}" value="#{bundle.CreateResponsableShowAllLink}" immediate="true"/>
+                <h:commandButton action="#{responsableController.prepareList}" value="VER" immediate="true"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.CreateResponsableIndexLink}" action="/index" immediate="true" />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
             </h:form>
         </ui:define>
     </ui:composition>
