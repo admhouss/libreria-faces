@@ -70,9 +70,9 @@ public List<Profesor> getListProfesor(){
         return "List";
     }
 
-    public String prepareView() {
-        current = (Profesor)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(Profesor p) {
+        current = p;//(Profesor)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
@@ -93,9 +93,9 @@ public List<Profesor> getListProfesor(){
         }
     }
 
-    public String prepareEdit() {
-        current = (Profesor)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(Profesor p) {
+        current = p;//(Profesor)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
@@ -110,11 +110,15 @@ public List<Profesor> getListProfesor(){
         }
     }
 
-    public String destroy() {
-        current = (Profesor)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
+    public String destroy(Profesor p) {
+        current = p;//(Profesor)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        //performDestroy();
+        //recreateModel();
+
+        getFacade().remove(p);
+
+        JsfUtil.addSuccessMessage("Profesor eliminado satisfactoriamente");
         return "List";
     }
 

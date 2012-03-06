@@ -72,9 +72,9 @@ public class ProfesorDocenteController implements Serializable{
         return "List";
     }
 
-    public String prepareView() {
-        current = (ProfesorDocente)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(ProfesorDocente p) {
+        current = p;//(ProfesorDocente)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
@@ -112,11 +112,13 @@ public class ProfesorDocenteController implements Serializable{
         }
     }
 
-    public String destroy() {
-        current = (ProfesorDocente)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
+    public String destroy(ProfesorDocente p) {
+        current = p;//(ProfesorDocente)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        //performDestroy();
+        //recreateModel();
+        JsfUtil.addSuccessMessage("Profesor Docente eliminado satisfactoriamente");
+        getFacade().remove(current);
         return "List";
     }
 

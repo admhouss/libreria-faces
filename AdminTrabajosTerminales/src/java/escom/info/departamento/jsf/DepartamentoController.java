@@ -72,8 +72,8 @@ public class DepartamentoController  implements Serializable{
         return "List";
     }
 
-    public String prepareView() {
-        current = (Departamento)getItems().getRowData();
+    public String prepareView( Departamento d) {
+        current=d;
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -95,9 +95,9 @@ public class DepartamentoController  implements Serializable{
         }
     }
 
-    public String prepareEdit() {
-        current = (Departamento)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(Departamento d ) {
+        current=d;
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
@@ -112,11 +112,10 @@ public class DepartamentoController  implements Serializable{
         }
     }
 
-    public String destroy() {
-        current = (Departamento)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
+    public String destroy(Departamento d) {
+        current=d;
+        getFacade().remove(current);
+        JsfUtil.addSuccessMessage("Departamento eliminado satisfactoriamente");
         return "List";
     }
 

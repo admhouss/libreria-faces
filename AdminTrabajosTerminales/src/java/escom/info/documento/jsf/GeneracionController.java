@@ -72,9 +72,9 @@ public class GeneracionController  implements Serializable{
         return "List";
     }
 
-    public String prepareView() {
-        current = (Generacion)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(Generacion g) {
+        current = g;//(Generacion)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
@@ -95,9 +95,9 @@ public class GeneracionController  implements Serializable{
         }
     }
 
-    public String prepareEdit() {
-        current = (Generacion)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(Generacion g) {
+        current = g;//(Generacion)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
@@ -112,11 +112,13 @@ public class GeneracionController  implements Serializable{
         }
     }
 
-    public String destroy() {
-        current = (Generacion)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
+    public String destroy(Generacion g ) {
+        current = g;//(Generacion)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        //performDestroy();
+       // recreateModel();
+        getFacade().remove(g);
+        JsfUtil.addSuccessMessage("Generacion Eliminada Satisfactoriamente");
         return "List";
     }
 
