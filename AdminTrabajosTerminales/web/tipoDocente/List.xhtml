@@ -44,15 +44,15 @@
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{tipoDocenteController.prepareView}">
+                        <h:commandLink action="#{tipoDocenteController.prepareView(item)}">
                              <img src="./../resources/iconos/sver.png" alt="" title="ver"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{tipoDocenteController.prepareEdit}">
+                        <h:commandLink action="#{tipoDocenteController.prepareEdit(item)}">
                             <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{tipoDocenteController.destroy}">
+                        <h:commandLink action="#{tipoDocenteController.destroy(item)}">
                              <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
                         </h:commandLink>
                     </p:column>
