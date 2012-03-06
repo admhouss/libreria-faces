@@ -33,13 +33,13 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="TITULO"/>
+                            <h:outputText value="T&Iacute;TULO"/>
                         </f:facet>
                         <h:outputText value="#{item.titulo}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="DESCRIPCION"/>
+                            <h:outputText value="DESCRIPCI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.descripcion}"/>
                     </p:column>
@@ -57,7 +57,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="FECHA CREACION"/>
+                            <h:outputText value="FECHA CREACI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaCreacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -71,7 +71,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ULTIMA ACTUALIZACION"/>
+                            <h:outputText value="&Uacute;LTIMA ACTUALIZACI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.ultimaActualizacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -81,27 +81,27 @@
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{documentoController.prepareView(item)}">
+                        <h:commandLink action="#{documentoController.prepareView}">
                         <img src="./../resources/iconos/sver.png" alt="" title="ver"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{documentoController.prepareEdit(item)}">
+                        <h:commandLink action="#{documentoController.prepareEdit}">
                          <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
                          </h:commandLink>
 
                         <h:outputText value=" "/>
 
-                        <h:commandLink action="#{documentoController.destroy(item)}">
+                        <h:commandLink action="#{documentoController.destroy}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
             </h:panelGroup>
             <br />
-            <h:commandLink action="#{documentoController.prepareCreate}" value="Crear Nuevo"/>
+           
             <br />
             <br />
-            <h:commandLink value="Index" action="/index" immediate="true" />
+            <h:commandButton value="Index" action="/index" immediate="true" />
         </h:form>
         </ui:define>
     </ui:composition>
