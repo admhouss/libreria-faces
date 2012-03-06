@@ -15,26 +15,26 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <p:panel header="VER DOCUMENT">
+                <p:panel header="VER DOCUMENTO">
                     <center>
-                <h:panelGrid columns="2">
-                    <h:outputText value="NUM TT"/>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputText value="NUM TT:"/>
                     <h:outputText value="#{documentoController.selected.noTt}" title="#{bundle.ViewDocumentoTitle_noTt}"/>
-                    <h:outputText value="T&Iacute;TULO"/>
+                    <h:outputText value="T&Iacute;TULO:"/>
                     <h:outputText value="#{documentoController.selected.titulo}" title="#{bundle.ViewDocumentoTitle_titulo}"/>
-                    <h:outputText value="DESCRIPCI&Oacute;N"/>
+                    <h:outputText value="DESCRIPCI&Oacute;N:"/>
                     <h:outputText value="#{documentoController.selected.descripcion}" title="#{bundle.ViewDocumentoTitle_descripcion}"/>
-                    <h:outputText value="IMAGEN"/>
+                    <h:outputText value="IMAGEN:"/>
                     <h:outputText value="#{documentoController.selected.imagen}" title="#{bundle.ViewDocumentoTitle_imagen}"/>
-                    <h:outputText value="RESUMEN"/>
+                    <h:outputText value="RESUMEN:"/>
                     <h:outputText value="#{documentoController.selected.archivoResumen}" title="#{bundle.ViewDocumentoTitle_archivoResumen}"/>
-                    <h:outputText value="FECHA CREACI&Oacute;N"/>
+                    <h:outputText value="FECHA CREACI&Oacute;N:"/>
                     <h:outputText value="#{documentoController.selected.fechaCreacion}" title="#{bundle.ViewDocumentoTitle_fechaCreacion}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
-                    <h:outputText value="PROTOCOLO"/>
+                    <h:outputText value="PROTOCOLO:"/>
                     <h:outputText value="#{documentoController.selected.archivoProtocolo}" title="#{bundle.ViewDocumentoTitle_archivoProtocolo}"/>
-                    <h:outputText value="ULTIMA ACTUALIZACI&Oacute;"/>
+                    <h:outputText value="ULTIMA ACTUALIZACI&Oacute;N:"/>
                     <h:outputText value="#{documentoController.selected.ultimaActualizacion}" title="#{bundle.ViewDocumentoTitle_ultimaActualizacion}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
@@ -50,7 +50,7 @@
                 <br />
                 <h:commandButton action="#{documentoController.prepareCreate}" value="CREAR NUEVO" />
                 <br />
-                <h:commandButton action="#{documentoController.prepareList}" value="MOSTRAR"/>
+                <h:commandButton action="#{documentoController.prepareList}" value="VER"/>
                 <br />
                 <br />
                 <h:commandButton value="INDEX" action="/index" immediate="true" />
