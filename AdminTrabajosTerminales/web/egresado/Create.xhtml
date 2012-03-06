@@ -3,37 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateEgresadoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateEgresadoLabel_id}" for="id" />
+                 <p:panel header="ALTA EGRESADO">
+<center>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputLabel value="ID" for="id" />
                     <h:inputText id="id" value="#{egresadoController.selected.id}" title="#{bundle.CreateEgresadoTitle_id}" required="true" requiredMessage="#{bundle.CreateEgresadoRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.CreateEgresadoLabel_nombre}" for="nombre" />
+                    <h:outputLabel value="NOMBRE:" for="nombre" />
                     <h:inputText id="nombre" value="#{egresadoController.selected.nombre}" title="#{bundle.CreateEgresadoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateEgresadoRequiredMessage_nombre}"/>
-                    <h:outputLabel value="#{bundle.CreateEgresadoLabel_correo}" for="correo" />
+                    <h:outputLabel value="CORREO:" for="correo" />
                     <h:inputText id="correo" value="#{egresadoController.selected.correo}" title="#{bundle.CreateEgresadoTitle_correo}" required="true" requiredMessage="#{bundle.CreateEgresadoRequiredMessage_correo}"/>
-                    <h:outputLabel value="#{bundle.CreateEgresadoLabel_generacion}" for="generacion" />
+                    <h:outputLabel value="GENERACI&Oacute;N:" for="generacion" />
                     <h:selectOneMenu id="generacion" value="#{egresadoController.selected.generacion}" title="#{bundle.CreateEgresadoTitle_generacion}" required="true" requiredMessage="#{bundle.CreateEgresadoRequiredMessage_generacion}">
                         <f:selectItems value="#{generacionController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
+    </center>
+                   </p:panel>
                 <br />
-                <h:commandLink action="#{egresadoController.create}" value="#{bundle.CreateEgresadoSaveLink}" />
+                <h:commandButton action="#{egresadoController.create}" value="GUARDAR" />
                 <br />
                 <br />
-                <h:commandLink action="#{egresadoController.prepareList}" value="#{bundle.CreateEgresadoShowAllLink}" immediate="true"/>
+                <h:commandButton action="#{egresadoController.prepareList}" value="VER" immediate="true"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.CreateEgresadoIndexLink}" action="/index" immediate="true" />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
             </h:form>
         </ui:define>
     </ui:composition>
