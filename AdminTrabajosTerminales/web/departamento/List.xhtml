@@ -3,72 +3,82 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListDepartamentoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
         <h:form styleClass="jsfcrud_list_form">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:outputText escape="false" value="#{bundle.ListDepartamentoEmpty}" rendered="#{departamentoController.items.rowCount == 0}"/>
-            <h:panelGroup rendered="#{departamentoController.items.rowCount > 0}">
-                <h:outputText value="#{departamentoController.pagination.pageFirstItem + 1}..#{departamentoController.pagination.pageLastItem + 1}/#{departamentoController.pagination.itemsCount}"/>&nbsp;
-                <h:commandLink action="#{departamentoController.previous}" value="#{bundle.Previous} #{departamentoController.pagination.pageSize}" rendered="#{departamentoController.pagination.hasPreviousPage}"/>&nbsp;
-                <h:commandLink action="#{departamentoController.next}" value="#{bundle.Next} #{departamentoController.pagination.pageSize}" rendered="#{departamentoController.pagination.hasNextPage}"/>&nbsp;
-                <h:dataTable value="#{departamentoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                    <h:column>
+           
+            <h:panelGroup >
+
+                <div align="right">
+                    <h:commandButton action="#{departamentoController.prepareCreate}" value="Crear Nuevo"/>
+                    
+                </div>
+               
+                <p:dataTable value="#{departamentoController.items}" var="item">
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListDepartamentoTitle_nombre}"/>
+                            <h:outputText value="NOMBRE"/>
                         </f:facet>
                         <h:outputText value="#{item.nombre}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListDepartamentoTitle_descripcion}"/>
+                            <h:outputText value="DESCRIPCION"/>
                         </f:facet>
                         <h:outputText value="#{item.descripcion}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListDepartamentoTitle_idResponsable}"/>
+                            <h:outputText value="ID RESPONSABLE"/>
                         </f:facet>
                         <h:outputText value="#{item.idResponsable}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListDepartamentoTitle_fechaCreacion}"/>
+                            <h:outputText value="FECHA CREACION"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaCreacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListDepartamentoTitle_responsable}"/>
+                            <h:outputText value="RESPONSABLE"/>
                         </f:facet>
                         <h:outputText value="#{item.responsable}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{departamentoController.prepareView}" value="#{bundle.ListDepartamentoViewLink}"/>
+                        <h:commandLink action="#{departamentoController.prepareView}">
+                            <img src="./../resources/iconos/sver.png" alt="" title="ver"/>
+                        </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{departamentoController.prepareEdit}" value="#{bundle.ListDepartamentoEditLink}"/>
+                        <h:commandLink action="#{departamentoController.prepareEdit}">
+                         <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
+                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{departamentoController.destroy}" value="#{bundle.ListDepartamentoDestroyLink}"/>
-                    </h:column>
-                </h:dataTable>
+                        <h:commandLink action="#{departamentoController.destroy}">
+                            <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
             </h:panelGroup>
             <br />
-            <h:commandLink action="#{departamentoController.prepareCreate}" value="#{bundle.ListDepartamentoCreateLink}"/>
+            <h:commandLink action="#{departamentoController.prepareCreate}" value="CREAR NUEVO PROFESOR"/>
             <br />
             <br />
-            <h:commandLink value="#{bundle.ListDepartamentoIndexLink}" action="/index" immediate="true" />
+            <h:commandLink value="INDEX" action="/index" immediate="true" />
         </h:form>
         </ui:define>
     </ui:composition>
