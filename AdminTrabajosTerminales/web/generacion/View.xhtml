@@ -17,12 +17,12 @@
             <h:form>
                 <p:panel header="VER GENERACI&Oacute;N">
                     <center>
-                <h:panelGrid columns="2">
-                    <h:outputText value="ID"/>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputText value="ID:"/>
                     <h:outputText value="#{generacionController.selected.id}" title="#{bundle.ViewGeneracionTitle_id}"/>
-                    <h:outputText value="A&Ntilde;O"/>
+                    <h:outputText value="A&Ntilde;O:"/>
                     <h:outputText value="#{generacionController.selected.anio}" title="#{bundle.ViewGeneracionTitle_anio}"/>
-                    <h:outputText value="DESCRIPCI&Oacute;N"/>
+                    <h:outputText value="DESCRIPCI&Oacute;N:"/>
                     <h:outputText value="#{generacionController.selected.descripcion}" title="#{bundle.ViewGeneracionTitle_descripcion}"/>
                 </h:panelGrid>
                     </center>
@@ -35,7 +35,7 @@
                 <br />
                 <h:commandButton action="#{generacionController.prepareCreate}" value="CREAR NUEVO" />
                 <br />
-                <h:commandButton action="#{generacionController.prepareList}" value="MOSTRAR"/>
+                <h:commandButton action="#{generacionController.prepareList}" value="VER"/>
                 <br />
                 <br />
                 <h:commandButton value="INDEX" action="/index" immediate="true" />
