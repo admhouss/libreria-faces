@@ -3,45 +3,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateProfesorTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateProfesorLabel_idBoleta}" for="idBoleta" />
+
+                       <p:panel header="ALTA PROFESOR">
+<center>
+
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputLabel value="ID BOLETA:" for="idBoleta" />
                     <h:inputText id="idBoleta" value="#{profesorController.selected.idBoleta}" title="#{bundle.CreateProfesorTitle_idBoleta}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_idBoleta}"/>
-                    <h:outputLabel value="#{bundle.CreateProfesorLabel_nombre}" for="nombre" />
+                    <h:outputLabel value="NOMBRE:" for="nombre" />
                     <h:inputText id="nombre" value="#{profesorController.selected.nombre}" title="#{bundle.CreateProfesorTitle_nombre}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_nombre}"/>
-                    <h:outputLabel value="#{bundle.CreateProfesorLabel_correo}" for="correo" />
+                    <h:outputLabel value="CORREO:" for="correo" />
                     <h:inputText id="correo" value="#{profesorController.selected.correo}" title="#{bundle.CreateProfesorTitle_correo}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_correo}"/>
-                    <h:outputLabel value="#{bundle.CreateProfesorLabel_estatus}" for="estatus" />
+                    <h:outputLabel value="ESTATUS:" for="estatus" />
                     <h:inputText id="estatus" value="#{profesorController.selected.estatus}" title="#{bundle.CreateProfesorTitle_estatus}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_estatus}"/>
-                    <h:outputLabel value="#{bundle.CreateProfesorLabel_idDepartamento}" for="idDepartamento" />
+                    <h:outputLabel value="ID DEPARTAMENTO:" for="idDepartamento" />
                     <h:inputText id="idDepartamento" value="#{profesorController.selected.idDepartamento}" title="#{bundle.CreateProfesorTitle_idDepartamento}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_idDepartamento}"/>
-                    <h:outputLabel value="#{bundle.CreateProfesorLabel_tipoDocente}" for="tipoDocente" />
+                    <h:outputLabel value="TIPO DOCENTE:" for="tipoDocente" />
                     <h:selectOneMenu id="tipoDocente" value="#{profesorController.selected.tipoDocente}" title="#{bundle.CreateProfesorTitle_tipoDocente}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_tipoDocente}">
                         <f:selectItems value="#{tipoDocenteController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateProfesorLabel_profesorDocente}" for="profesorDocente" />
+                    <h:outputLabel value="PROFESOR DOCENTE:" for="profesorDocente" />
                     <h:selectOneMenu id="profesorDocente" value="#{profesorController.selected.profesorDocente}" title="#{bundle.CreateProfesorTitle_profesorDocente}" >
                         <f:selectItems value="#{profesorDocenteController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
+
+    </center>
+                   </p:panel>
                 <br />
-                <h:commandLink action="#{profesorController.create}" value="#{bundle.CreateProfesorSaveLink}" />
+                <h:commandButton action="#{profesorController.create}" value="GUARDAR" />
                 <br />
                 <br />
-                <h:commandLink action="#{profesorController.prepareList}" value="#{bundle.CreateProfesorShowAllLink}" immediate="true"/>
+                <h:commandButton action="#{profesorController.prepareList}" value="VER" immediate="true"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.CreateProfesorIndexLink}" action="/index" immediate="true" />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
             </h:form>
         </ui:define>
     </ui:composition>
