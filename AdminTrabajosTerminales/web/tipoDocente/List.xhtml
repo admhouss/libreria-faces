@@ -17,8 +17,11 @@
             </h:panelGroup>
             
             <h:panelGroup>
+                <div align="right">
+                    <h:commandButton action="#{tipoDocenteController.prepareCreate}" value="Crear Nuevo"/>
+                </div>
 
-                <p:dataTable value="#{tipoDocenteController.items}" var="item">
+                <p:dataTable value="#{tipoDocenteController.items}" var="item" paginator="true">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
