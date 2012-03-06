@@ -36,7 +36,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="DESCRIPCION"/>
+                            <h:outputText value="DESCRIPCI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.descripcion}"/>
                     </p:column>
@@ -59,10 +59,10 @@
                 </p:dataTable>
             </h:panelGroup>
             <br />
-            <h:commandLink action="#{tipoDocenteController.prepareCreate}" value="Crear Nuevo"/>
+            
             <br />
             <br />
-            <h:commandLink value="Index" action="/index" immediate="true" />
+            <h:commandButton value="Index" action="/index" immediate="true" />
         </h:form>
         </ui:define>
     </ui:composition>
