@@ -3,39 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.ViewProfesorDocenteTitle}"></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                <p:panel header="VER PROFESOR DOCENTE">
+                    <center>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewProfesorDocenteLabel_idProfesor}"/>
+                    <h:outputText value="ID PROFESOR"/>
                     <h:outputText value="#{profesorDocenteController.selected.idProfesor}" title="#{bundle.ViewProfesorDocenteTitle_idProfesor}"/>
-                    <h:outputText value="#{bundle.ViewProfesorDocenteLabel_profesor}"/>
+                    <h:outputText value="PROFESOR"/>
                     <h:outputText value="#{profesorDocenteController.selected.profesor}" title="#{bundle.ViewProfesorDocenteTitle_profesor}"/>
-                    <h:outputText value="#{bundle.ViewProfesorDocenteLabel_documento}"/>
+                    <h:outputText value="DOCUMENTO"/>
                     <h:outputText value="#{profesorDocenteController.selected.documento}" title="#{bundle.ViewProfesorDocenteTitle_documento}"/>
-                    <h:outputText value="#{bundle.ViewProfesorDocenteLabel_egresado}"/>
+                    <h:outputText value="EGRESADO"/>
                     <h:outputText value="#{profesorDocenteController.selected.egresado}" title="#{bundle.ViewProfesorDocenteTitle_egresado}"/>
                 </h:panelGrid>
+                        </center>
+                    </p:panel>
                 <br />
-                <h:commandLink action="#{profesorDocenteController.destroyAndView}" value="#{bundle.ViewProfesorDocenteDestroyLink}"/>
-                <br />
-                <br />
-                <h:commandLink action="Edit" value="#{bundle.ViewProfesorDocenteEditLink}"/>
-                <br />
-                <h:commandLink action="#{profesorDocenteController.prepareCreate}" value="#{bundle.ViewProfesorDocenteCreateLink}" />
-                <br />
-                <h:commandLink action="#{profesorDocenteController.prepareList}" value="#{bundle.ViewProfesorDocenteShowAllLink}"/>
+                <h:commandButton action="#{profesorDocenteController.destroyAndView}" value="ELIMINAR"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.ViewProfesorDocenteIndexLink}" action="/index" immediate="true" />
+                <h:commandButton action="Edit" value="EDITAR"/>
+                <br />
+                <h:commandButton action="#{profesorDocenteController.prepareCreate}" value="CREAR NUEVO" />
+                <br />
+                <h:commandButton action="#{profesorDocenteController.prepareList}" value="MOSTRAR"/>
+                <br />
+                <br />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
 
             </h:form>
         </ui:define>
