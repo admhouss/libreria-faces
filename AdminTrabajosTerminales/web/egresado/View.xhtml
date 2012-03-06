@@ -3,39 +3,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewEgresadoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                <p:panel header="VER EGRESADO">
+                    <center>
+
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewEgresadoLabel_id}"/>
+                    <h:outputText value="ID"/>
                     <h:outputText value="#{egresadoController.selected.id}" title="#{bundle.ViewEgresadoTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewEgresadoLabel_nombre}"/>
+                    <h:outputText value="NOMBRE"/>
                     <h:outputText value="#{egresadoController.selected.nombre}" title="#{bundle.ViewEgresadoTitle_nombre}"/>
-                    <h:outputText value="#{bundle.ViewEgresadoLabel_correo}"/>
+                    <h:outputText value="CORREO"/>
                     <h:outputText value="#{egresadoController.selected.correo}" title="#{bundle.ViewEgresadoTitle_correo}"/>
-                    <h:outputText value="#{bundle.ViewEgresadoLabel_generacion}"/>
+                    <h:outputText value="GENERACI&Oacute;N"/>
                     <h:outputText value="#{egresadoController.selected.generacion}" title="#{bundle.ViewEgresadoTitle_generacion}"/>
                 </h:panelGrid>
+                    </center>
+                      </p:panel>
                 <br />
-                <h:commandLink action="#{egresadoController.destroyAndView}" value="#{bundle.ViewEgresadoDestroyLink}"/>
-                <br />
-                <br />
-                <h:commandLink action="Edit" value="#{bundle.ViewEgresadoEditLink}"/>
-                <br />
-                <h:commandLink action="#{egresadoController.prepareCreate}" value="#{bundle.ViewEgresadoCreateLink}" />
-                <br />
-                <h:commandLink action="#{egresadoController.prepareList}" value="#{bundle.ViewEgresadoShowAllLink}"/>
+                <h:commandButton action="#{egresadoController.destroyAndView}" value="ELIMINAR"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.ViewEgresadoIndexLink}" action="/index" immediate="true" />
+                <h:commandButton action="Edit" value="EDITAR"/>
+                <br />
+                <h:commandButton action="#{egresadoController.prepareCreate}" value="CREAR NUEVO" />
+                <br />
+                <h:commandButton action="#{egresadoController.prepareList}" value="MOSTRAR"/>
+                <br />
+                <br />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
 
             </h:form>
         </ui:define>
