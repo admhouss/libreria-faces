@@ -3,51 +3,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewDocumentoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                <p:panel header="VER DOCUMENT">
+                    <center>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewDocumentoLabel_noTt}"/>
+                    <h:outputText value="NUM TT"/>
                     <h:outputText value="#{documentoController.selected.noTt}" title="#{bundle.ViewDocumentoTitle_noTt}"/>
-                    <h:outputText value="#{bundle.ViewDocumentoLabel_titulo}"/>
+                    <h:outputText value="T&Iacute;TULO"/>
                     <h:outputText value="#{documentoController.selected.titulo}" title="#{bundle.ViewDocumentoTitle_titulo}"/>
-                    <h:outputText value="#{bundle.ViewDocumentoLabel_descripcion}"/>
+                    <h:outputText value="DESCRIPCI&Oacute;N"/>
                     <h:outputText value="#{documentoController.selected.descripcion}" title="#{bundle.ViewDocumentoTitle_descripcion}"/>
-                    <h:outputText value="#{bundle.ViewDocumentoLabel_imagen}"/>
+                    <h:outputText value="IMAGEN"/>
                     <h:outputText value="#{documentoController.selected.imagen}" title="#{bundle.ViewDocumentoTitle_imagen}"/>
-                    <h:outputText value="#{bundle.ViewDocumentoLabel_archivoResumen}"/>
+                    <h:outputText value="RESUMEN"/>
                     <h:outputText value="#{documentoController.selected.archivoResumen}" title="#{bundle.ViewDocumentoTitle_archivoResumen}"/>
-                    <h:outputText value="#{bundle.ViewDocumentoLabel_fechaCreacion}"/>
+                    <h:outputText value="FECHA CREACI&Oacute;N"/>
                     <h:outputText value="#{documentoController.selected.fechaCreacion}" title="#{bundle.ViewDocumentoTitle_fechaCreacion}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
-                    <h:outputText value="#{bundle.ViewDocumentoLabel_archivoProtocolo}"/>
+                    <h:outputText value="PROTOCOLO"/>
                     <h:outputText value="#{documentoController.selected.archivoProtocolo}" title="#{bundle.ViewDocumentoTitle_archivoProtocolo}"/>
-                    <h:outputText value="#{bundle.ViewDocumentoLabel_ultimaActualizacion}"/>
+                    <h:outputText value="ULTIMA ACTUALIZACI&Oacute;"/>
                     <h:outputText value="#{documentoController.selected.ultimaActualizacion}" title="#{bundle.ViewDocumentoTitle_ultimaActualizacion}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                 </h:panelGrid>
+                    </center>
+                     </p:panel>
                 <br />
-                <h:commandLink action="#{documentoController.destroyAndView}" value="#{bundle.ViewDocumentoDestroyLink}"/>
-                <br />
-                <br />
-                <h:commandLink action="Edit" value="#{bundle.ViewDocumentoEditLink}"/>
-                <br />
-                <h:commandLink action="#{documentoController.prepareCreate}" value="#{bundle.ViewDocumentoCreateLink}" />
-                <br />
-                <h:commandLink action="#{documentoController.prepareList}" value="#{bundle.ViewDocumentoShowAllLink}"/>
+                <h:commandButton action="#{documentoController.destroyAndView}" value="ELIMINAR"/>
+
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.ViewDocumentoIndexLink}" action="/index" immediate="true" />
+                <h:commandButton action="Edit" value="EDITAR"/>
+                <br />
+                <h:commandButton action="#{documentoController.prepareCreate}" value="CREAR NUEVO" />
+                <br />
+                <h:commandButton action="#{documentoController.prepareList}" value="MOSTRAR"/>
+                <br />
+                <br />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
 
             </h:form>
         </ui:define>
