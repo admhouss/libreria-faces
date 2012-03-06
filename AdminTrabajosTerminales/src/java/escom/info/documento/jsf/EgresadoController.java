@@ -4,6 +4,8 @@ import escom.info.egresado.jpa.Egresado;
 import escom.info.documento.jsf.util.JsfUtil;
 import escom.info.documento.jsf.util.PaginationHelper;
 import escom.info.egresado.ejb.EgresadoFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="egresadoController")
 @SessionScoped
-public class EgresadoController {
+public class EgresadoController implements Serializable{
 
     private Egresado current;
     private DataModel items = null;
@@ -38,6 +40,11 @@ public class EgresadoController {
         return current;
     }
 
+    public List<Egresado> getListEgresados(){
+        List<Egresado>  l=getFacade().findAll();
+        return l;
+
+    }
     private EgresadoFacade getFacade() {
         return ejbFacade;
     }

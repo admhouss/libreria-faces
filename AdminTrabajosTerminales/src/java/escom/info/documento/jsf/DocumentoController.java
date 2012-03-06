@@ -4,6 +4,8 @@ import escom.info.documento.jpa.Documento;
 import escom.info.documento.jsf.util.JsfUtil;
 import escom.info.documento.jsf.util.PaginationHelper;
 import escom.info.documento.ejb.DocumentoFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="documentoController")
 @SessionScoped
-public class DocumentoController {
+public class DocumentoController implements Serializable{
 
     private Documento current;
     private DataModel items = null;
@@ -38,6 +40,10 @@ public class DocumentoController {
         return current;
     }
 
+    public List<Documento> getListDocuments(){
+       List<Documento> l=getFacade().findAll();
+       return l;
+    }
     private DocumentoFacade getFacade() {
         return ejbFacade;
     }

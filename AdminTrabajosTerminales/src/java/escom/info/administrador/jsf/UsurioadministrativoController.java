@@ -4,6 +4,8 @@ import escom.info.administrador.jpa.Usurioadministrativo;
 import escom.info.administrador.jsf.util.JsfUtil;
 import escom.info.administrador.jsf.util.PaginationHelper;
 import escom.info.administrador.ejb.UsurioadministrativoFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="usurioadministrativoController")
 @SessionScoped
-public class UsurioadministrativoController {
+public class UsurioadministrativoController implements Serializable{
 
     private Usurioadministrativo current;
     private DataModel items = null;
@@ -38,6 +40,11 @@ public class UsurioadministrativoController {
         return current;
     }
 
+
+    public List<Usurioadministrativo> getListUsuarioAdmistrador(){
+        List<Usurioadministrativo> l=getFacade().findAll();
+        return l;
+    }
     private UsurioadministrativoFacade getFacade() {
         return ejbFacade;
     }

@@ -4,6 +4,8 @@ import escom.info.departamento.jpa.Responsable;
 import escom.info.departamento.jsf.util.JsfUtil;
 import escom.info.departamento.jsf.util.PaginationHelper;
 import escom.info.departamento.ejb.ResponsableFacade;
+import java.io.Serializable;
+import java.util.List;
 
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,7 +21,7 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean (name="responsableController")
 @SessionScoped
-public class ResponsableController {
+public class ResponsableController implements Serializable {
 
     private Responsable current;
     private DataModel items = null;
@@ -30,6 +32,10 @@ public class ResponsableController {
     public ResponsableController() {
     }
 
+    public List<Responsable> getListResponsables(){
+        List<Responsable> l=getFacade().findAll();
+        return l;
+    }
     public Responsable getSelected() {
         if (current == null) {
             current = new Responsable();
