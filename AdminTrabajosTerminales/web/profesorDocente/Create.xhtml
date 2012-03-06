@@ -3,41 +3,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.CreateProfesorDocenteTitle}"></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateProfesorDocenteLabel_idProfesor}" for="idProfesor" />
+
+                  <p:panel header="ALTA PROFESOR DOCENTE">
+<center>
+
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputLabel value="ID PROFESOR:" for="idProfesor" />
                     <h:inputText id="idProfesor" value="#{profesorDocenteController.selected.idProfesor}" title="#{bundle.CreateProfesorDocenteTitle_idProfesor}" required="true" requiredMessage="#{bundle.CreateProfesorDocenteRequiredMessage_idProfesor}"/>
-                    <h:outputLabel value="#{bundle.CreateProfesorDocenteLabel_profesor}" for="profesor" />
+                    <h:outputLabel value="PROFESOR:" for="profesor" />
                     <h:selectOneMenu id="profesor" value="#{profesorDocenteController.selected.profesor}" title="#{bundle.CreateProfesorDocenteTitle_profesor}" required="true" requiredMessage="#{bundle.CreateProfesorDocenteRequiredMessage_profesor}">
                         <f:selectItems value="#{profesorController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateProfesorDocenteLabel_documento}" for="documento" />
+                    <h:outputLabel value="DOCUMENTO:" for="documento" />
                     <h:selectOneMenu id="documento" value="#{profesorDocenteController.selected.documento}" title="#{bundle.CreateProfesorDocenteTitle_documento}" required="true" requiredMessage="#{bundle.CreateProfesorDocenteRequiredMessage_documento}">
                         <f:selectItems value="#{documentoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateProfesorDocenteLabel_egresado}" for="egresado" />
+                    <h:outputLabel value="EGRESADO:" for="egresado" />
                     <h:selectOneMenu id="egresado" value="#{profesorDocenteController.selected.egresado}" title="#{bundle.CreateProfesorDocenteTitle_egresado}" required="true" requiredMessage="#{bundle.CreateProfesorDocenteRequiredMessage_egresado}">
                         <f:selectItems value="#{egresadoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
+
+     </center>
+                   </p:panel>
+
                 <br />
-                <h:commandLink action="#{profesorDocenteController.create}" value="#{bundle.CreateProfesorDocenteSaveLink}" />
+                <h:commandButton action="#{profesorDocenteController.create}" value="GUARDAR" />
                 <br />
                 <br />
-                <h:commandLink action="#{profesorDocenteController.prepareList}" value="#{bundle.CreateProfesorDocenteShowAllLink}" immediate="true"/>
+                <h:commandButton action="#{profesorDocenteController.prepareList}" value="VER" immediate="true"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.CreateProfesorDocenteIndexLink}" action="/index" immediate="true" />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
             </h:form>
         </ui:define>
     </ui:composition>
