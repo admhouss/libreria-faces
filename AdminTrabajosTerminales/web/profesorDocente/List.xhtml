@@ -52,25 +52,25 @@
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{profesorDocenteController.prepareView(item)}">
+                        <h:commandLink action="#{profesorDocenteController.prepareView}">
                             <img src="./../resources/iconos/sver.png" alt="" title="ver"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{profesorDocenteController.prepareEdit(item)}">
+                        <h:commandLink action="#{profesorDocenteController.prepareEdit}">
                             <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{profesorDocenteController.destroy(item)}">
+                        <h:commandLink action="#{profesorDocenteController.destroy}">
                              <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
             </h:panelGroup>
             <br />
-            <h:commandLink action="#{profesorDocenteController.prepareCreate}" value="CREAR NUEVO"/>
+            
             <br />
             <br />
-            <h:commandLink value="INDEX" action="/index" immediate="true" />
+            <h:commandButton value="INDEX" action="/index" immediate="true" />
         </h:form>
         </ui:define>
     </ui:composition>
