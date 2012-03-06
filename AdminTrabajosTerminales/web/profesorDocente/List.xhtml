@@ -3,64 +3,74 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListProfesorDocenteTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
         <h:form styleClass="jsfcrud_list_form">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:outputText escape="false" value="#{bundle.ListProfesorDocenteEmpty}" rendered="#{profesorDocenteController.items.rowCount == 0}"/>
-            <h:panelGroup rendered="#{profesorDocenteController.items.rowCount > 0}">
-                <h:outputText value="#{profesorDocenteController.pagination.pageFirstItem + 1}..#{profesorDocenteController.pagination.pageLastItem + 1}/#{profesorDocenteController.pagination.itemsCount}"/>&nbsp;
-                <h:commandLink action="#{profesorDocenteController.previous}" value="#{bundle.Previous} #{profesorDocenteController.pagination.pageSize}" rendered="#{profesorDocenteController.pagination.hasPreviousPage}"/>&nbsp;
-                <h:commandLink action="#{profesorDocenteController.next}" value="#{bundle.Next} #{profesorDocenteController.pagination.pageSize}" rendered="#{profesorDocenteController.pagination.hasNextPage}"/>&nbsp;
-                <h:dataTable value="#{profesorDocenteController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                    <h:column>
+            
+            <h:panelGroup>
+
+                 <div align="right">
+                    <h:commandButton action="#{profesorDocenteController.prepareCreate}" value="Crear Nuevo"/>
+                </div>
+
+
+                <p:dataTable value="#{profesorDocenteController.items}" var="item">
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListProfesorDocenteTitle_idProfesor}"/>
+                            <h:outputText value="ID PROFESOR"/>
                         </f:facet>
                         <h:outputText value="#{item.idProfesor}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListProfesorDocenteTitle_profesor}"/>
+                            <h:outputText value="PROFESOR"/>
                         </f:facet>
                         <h:outputText value="#{item.profesor}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListProfesorDocenteTitle_documento}"/>
+                            <h:outputText value="DOCUMENTO"/>
                         </f:facet>
                         <h:outputText value="#{item.documento}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListProfesorDocenteTitle_egresado}"/>
+                            <h:outputText value="EGRESADOS"/>
                         </f:facet>
                         <h:outputText value="#{item.egresado}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{profesorDocenteController.prepareView}" value="#{bundle.ListProfesorDocenteViewLink}"/>
+                        <h:commandLink action="#{profesorDocenteController.prepareView}">
+                            <img src="./../resources/iconos/sver.png" alt="" title="ver"/>
+                        </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{profesorDocenteController.prepareEdit}" value="#{bundle.ListProfesorDocenteEditLink}"/>
+                        <h:commandLink action="#{profesorDocenteController.prepareEdit}">
+                            <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
+                        </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{profesorDocenteController.destroy}" value="#{bundle.ListProfesorDocenteDestroyLink}"/>
-                    </h:column>
-                </h:dataTable>
+                        <h:commandLink action="#{profesorDocenteController.destroy}">
+                             <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
             </h:panelGroup>
             <br />
-            <h:commandLink action="#{profesorDocenteController.prepareCreate}" value="#{bundle.ListProfesorDocenteCreateLink}"/>
+            <h:commandLink action="#{profesorDocenteController.prepareCreate}" value="CREAR NUEVO"/>
             <br />
             <br />
-            <h:commandLink value="#{bundle.ListProfesorDocenteIndexLink}" action="/index" immediate="true" />
+            <h:commandLink value="INDEX" action="/index" immediate="true" />
         </h:form>
         </ui:define>
     </ui:composition>
