@@ -3,42 +3,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditProfesorDocenteTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditProfesorDocenteLabel_idProfesor}" for="idProfesor" />
+
+                        <p:panel header="EDITAR PROFESOR DOCENTE">
+<center>
+
+
+
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputLabel value="ID PROFESOR:" for="idProfesor" />
                     <h:inputText id="idProfesor" value="#{profesorDocenteController.selected.idProfesor}" title="#{bundle.EditProfesorDocenteTitle_idProfesor}" required="true" requiredMessage="#{bundle.EditProfesorDocenteRequiredMessage_idProfesor}"/>
-                    <h:outputLabel value="#{bundle.EditProfesorDocenteLabel_profesor}" for="profesor" />
+                    <h:outputLabel value="PROFESOR:" for="profesor" />
                     <h:selectOneMenu id="profesor" value="#{profesorDocenteController.selected.profesor}" title="#{bundle.EditProfesorDocenteTitle_profesor}" required="true" requiredMessage="#{bundle.EditProfesorDocenteRequiredMessage_profesor}">
                         <f:selectItems value="#{profesorController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditProfesorDocenteLabel_documento}" for="documento" />
+                    <h:outputLabel value="DOCUMENTO:" for="documento" />
                     <h:selectOneMenu id="documento" value="#{profesorDocenteController.selected.documento}" title="#{bundle.EditProfesorDocenteTitle_documento}" required="true" requiredMessage="#{bundle.EditProfesorDocenteRequiredMessage_documento}">
                         <f:selectItems value="#{documentoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditProfesorDocenteLabel_egresado}" for="egresado" />
+                    <h:outputLabel value="EGRESADO:" for="egresado" />
                     <h:selectOneMenu id="egresado" value="#{profesorDocenteController.selected.egresado}" title="#{bundle.EditProfesorDocenteTitle_egresado}" required="true" requiredMessage="#{bundle.EditProfesorDocenteRequiredMessage_egresado}">
                         <f:selectItems value="#{egresadoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
-                <h:commandLink action="#{profesorDocenteController.update}" value="#{bundle.EditProfesorDocenteSaveLink}"/>
+
+    </center>
+                   </p:panel>
+
+                <h:commandButton action="#{profesorDocenteController.update}" value="GUARDAR"/>
                 <br />
                 <br />
-                <h:commandLink action="View" value="#{bundle.EditProfesorDocenteViewLink}" immediate="true"/>
+                <h:commandButton action="View" value="VER" immediate="true"/>
                 <br />
-                <h:commandLink action="#{profesorDocenteController.prepareList}" value="#{bundle.EditProfesorDocenteShowAllLink}" immediate="true"/>
+                <h:commandButton action="#{profesorDocenteController.prepareList}" value="VER TODOS" immediate="true"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.EditProfesorDocenteIndexLink}" action="/index" immediate="true" />
+                <h:commandButton value="EXIND}" action="/index" immediate="true" />
             </h:form>
         </ui:define>
     </ui:composition>
