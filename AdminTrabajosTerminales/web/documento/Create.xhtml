@@ -3,47 +3,54 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateDocumentoTitle}"></h:outputText>
+            <h:outputText value=" "></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateDocumentoLabel_noTt}" for="noTt" />
+                <p:panel header="ALTA DOCUMENTO">
+<center>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputLabel value="NUM TT:" for="noTt" />
                     <h:inputText id="noTt" value="#{documentoController.selected.noTt}" title="#{bundle.CreateDocumentoTitle_noTt}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_noTt}"/>
-                    <h:outputLabel value="#{bundle.CreateDocumentoLabel_titulo}" for="titulo" />
+                    <h:outputLabel value="T&Iacute;TULO:" for="titulo" />
                     <h:inputText id="titulo" value="#{documentoController.selected.titulo}" title="#{bundle.CreateDocumentoTitle_titulo}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_titulo}"/>
-                    <h:outputLabel value="#{bundle.CreateDocumentoLabel_descripcion}" for="descripcion" />
+                    <h:outputLabel value="DESCRICI&Oacute;N:" for="descripcion" />
                     <h:inputText id="descripcion" value="#{documentoController.selected.descripcion}" title="#{bundle.CreateDocumentoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_descripcion}"/>
-                    <h:outputLabel value="#{bundle.CreateDocumentoLabel_imagen}" for="imagen" />
+                    <h:outputLabel value="IMAGEN:" for="imagen" />
                     <h:inputTextarea rows="4" cols="30" id="imagen" value="#{documentoController.selected.imagen}" title="#{bundle.CreateDocumentoTitle_imagen}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_imagen}"/>
-                    <h:outputLabel value="#{bundle.CreateDocumentoLabel_archivoResumen}" for="archivoResumen" />
+                    <h:outputLabel value="RESUMEN:" for="archivoResumen" />
                     <h:inputTextarea rows="4" cols="30" id="archivoResumen" value="#{documentoController.selected.archivoResumen}" title="#{bundle.CreateDocumentoTitle_archivoResumen}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_archivoResumen}"/>
-                    <h:outputLabel value="#{bundle.CreateDocumentoLabel_fechaCreacion}" for="fechaCreacion" />
+                    <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaCreacion" />
                     <h:inputText id="fechaCreacion" value="#{documentoController.selected.fechaCreacion}" title="#{bundle.CreateDocumentoTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_fechaCreacion}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateDocumentoLabel_archivoProtocolo}" for="archivoProtocolo" />
+                    <h:outputLabel value="PROTOCOLO:" for="archivoProtocolo" />
                     <h:inputTextarea rows="4" cols="30" id="archivoProtocolo" value="#{documentoController.selected.archivoProtocolo}" title="#{bundle.CreateDocumentoTitle_archivoProtocolo}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_archivoProtocolo}"/>
-                    <h:outputLabel value="#{bundle.CreateDocumentoLabel_ultimaActualizacion}" for="ultimaActualizacion" />
+                    <h:outputLabel value="ULTIMA ACTUALIZACI&Oacute;N:" for="ultimaActualizacion" />
                     <h:inputText id="ultimaActualizacion" value="#{documentoController.selected.ultimaActualizacion}" title="#{bundle.CreateDocumentoTitle_ultimaActualizacion}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_ultimaActualizacion}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
                 </h:panelGrid>
+
+      </center>
+                   </p:panel>
+
                 <br />
-                <h:commandLink action="#{documentoController.create}" value="#{bundle.CreateDocumentoSaveLink}" />
+                <h:commandButton action="#{documentoController.create}" value="GUARDAR" />
                 <br />
                 <br />
-                <h:commandLink action="#{documentoController.prepareList}" value="#{bundle.CreateDocumentoShowAllLink}" immediate="true"/>
+                <h:commandButton action="#{documentoController.prepareList}" value="VER" immediate="true"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.CreateDocumentoIndexLink}" action="/index" immediate="true" />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
             </h:form>
         </ui:define>
     </ui:composition>
