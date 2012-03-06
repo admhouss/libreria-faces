@@ -13,8 +13,6 @@
     <class>escom.info.profesor.jpa.Profesor</class>
     <class>escom.info.profesor.jpa.ProfesorDocente</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-      <property name="eclipselink.ddl-generation" value="create-tables"/>
-    </properties>
+    
   </persistence-unit>
 </persistence>
