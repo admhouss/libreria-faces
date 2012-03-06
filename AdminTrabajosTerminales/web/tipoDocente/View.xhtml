@@ -3,37 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.ViewTipoDocenteTitle}"></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="bodyNovedades">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                <p:panel header="VER TIPO DOCENTE">
+                    <center>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewTipoDocenteLabel_id}"/>
+                    <h:outputText value="ID"/>
                     <h:outputText value="#{tipoDocenteController.selected.id}" title="#{bundle.ViewTipoDocenteTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewTipoDocenteLabel_nombre}"/>
+                    <h:outputText value="NOMBRE"/>
                     <h:outputText value="#{tipoDocenteController.selected.nombre}" title="#{bundle.ViewTipoDocenteTitle_nombre}"/>
-                    <h:outputText value="#{bundle.ViewTipoDocenteLabel_descripcion}"/>
+                    <h:outputText value="DESCRIPCI&Oacute;N"/>
                     <h:outputText value="#{tipoDocenteController.selected.descripcion}" title="#{bundle.ViewTipoDocenteTitle_descripcion}"/>
                 </h:panelGrid>
+
+                        </center>
+                    </p:panel>
                 <br />
-                <h:commandLink action="#{tipoDocenteController.destroyAndView}" value="#{bundle.ViewTipoDocenteDestroyLink}"/>
-                <br />
-                <br />
-                <h:commandLink action="Edit" value="#{bundle.ViewTipoDocenteEditLink}"/>
-                <br />
-                <h:commandLink action="#{tipoDocenteController.prepareCreate}" value="#{bundle.ViewTipoDocenteCreateLink}" />
-                <br />
-                <h:commandLink action="#{tipoDocenteController.prepareList}" value="#{bundle.ViewTipoDocenteShowAllLink}"/>
+                <h:commandButton action="#{tipoDocenteController.destroyAndView}" value="ELIMINAR"/>
                 <br />
                 <br />
-                <h:commandLink value="#{bundle.ViewTipoDocenteIndexLink}" action="/index" immediate="true" />
+                <h:commandButton action="Edit" value="EDITAR"/>
+                <br />
+                <h:commandButton action="#{tipoDocenteController.prepareCreate}" value="CREAR NUEVO" />
+                <br />
+                <h:commandButton action="#{tipoDocenteController.prepareList}" value="MOSTRAR"/>
+                <br />
+                <br />
+                <h:commandButton value="INDEX" action="/index" immediate="true" />
 
             </h:form>
         </ui:define>
