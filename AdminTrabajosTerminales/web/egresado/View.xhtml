@@ -18,14 +18,14 @@
                 <p:panel header="VER EGRESADO">
                     <center>
 
-                <h:panelGrid columns="2">
-                    <h:outputText value="ID"/>
+                <h:panelGrid columns="2" cellspacing="15">
+                    <h:outputText value="ID:"/>
                     <h:outputText value="#{egresadoController.selected.id}" title="#{bundle.ViewEgresadoTitle_id}"/>
-                    <h:outputText value="NOMBRE"/>
+                    <h:outputText value="NOMBRE:"/>
                     <h:outputText value="#{egresadoController.selected.nombre}" title="#{bundle.ViewEgresadoTitle_nombre}"/>
-                    <h:outputText value="CORREO"/>
+                    <h:outputText value="CORREO:"/>
                     <h:outputText value="#{egresadoController.selected.correo}" title="#{bundle.ViewEgresadoTitle_correo}"/>
-                    <h:outputText value="GENERACI&Oacute;N"/>
+                    <h:outputText value="GENERACI&Oacute;N:"/>
                     <h:outputText value="#{egresadoController.selected.generacion}" title="#{bundle.ViewEgresadoTitle_generacion}"/>
                 </h:panelGrid>
                     </center>
@@ -38,7 +38,7 @@
                 <br />
                 <h:commandButton action="#{egresadoController.prepareCreate}" value="CREAR NUEVO" />
                 <br />
-                <h:commandButton action="#{egresadoController.prepareList}" value="MOSTRAR"/>
+                <h:commandButton action="#{egresadoController.prepareList}" value="VER"/>
                 <br />
                 <br />
                 <h:commandButton value="INDEX" action="/index" immediate="true" />
