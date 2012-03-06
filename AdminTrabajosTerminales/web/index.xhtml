@@ -2,22 +2,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.prime.com.tr/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>  ..:::Galileo:::..</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/ui-lightness/skin.css" rel="stylesheet" type="text/css" />
+        <title>Facelet Title</title>
+<h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
-    <h:body>
-
-</h:body>
-
-
-
-
+     <ui:composition template="/templates/templateNovedades.xhtml">
+        <ui:define name="head">
+            <h:outputLabel value=" "/>
+        </ui:define>
+        <ui:define name="bodyNovedades">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+        </ui:define>
+     </ui:composition>
 
 
 
 </html>
+

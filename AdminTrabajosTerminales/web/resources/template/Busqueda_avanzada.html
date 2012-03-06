@@ -1,0 +1,456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/Template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Documento sin título</title>
+<!-- InstanceEndEditable -->
+<style type="text/css">
+#apDiv1 {
+	position:absolute;
+	left:10px;
+	top:123px;
+	width:214px;
+	height:551px;
+	z-index:1;
+	background:url(imgs/left_end.gif);
+	background-repeat:no-repeat;
+
+}
+#apDiv2 {
+	position:absolute;
+	left:226px;
+	top:122px;
+	width:590px;
+	height:132px;
+	z-index:5;
+	background-image: url(imgs/img1.jpg);
+}
+#apDiv3 {
+	position:absolute;
+	left:819px;
+	top:122px;
+	width:191px;
+	height:552px;
+	z-index:3;
+	background-image: url(imgs/head_der.jpg);
+	background-repeat:no-repeat;
+}
+#apDiv4 {
+	position:absolute;
+	left:224px;
+	top:258px;
+	width:592px;
+	height:417px;
+	z-index:4;
+}
+#apDiv5 {
+	position:absolute;
+	left:10px;
+	top:11px;
+	width:1000px;
+	height:111px;
+	z-index:1;
+	background-image: url(imgs/head.jpg);
+}
+</style>
+<link type="text/css" href="css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+		<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(function(){
+
+				// Accordion
+				$("#accordion").accordion({ header: "h3" });
+	
+				// Tabs
+				$('#tabs').tabs();
+	
+
+				// Dialog			
+				$('#dialog').dialog({
+					autoOpen: false,
+					width: 600,
+					buttons: {
+						"Ok": function() { 
+							$(this).dialog("close"); 
+						}, 
+						"Cancel": function() { 
+							$(this).dialog("close"); 
+						} 
+					}
+				});
+				
+				// Dialog Link
+				$('#dialog_link').click(function(){
+					$('#dialog').dialog('open');
+					return false;
+				});
+
+				// Datepicker
+				$('#datepicker').datepicker({
+					inline: true
+				});
+				
+				// Slider
+				$('#slider').slider({
+					range: true,
+					values: [17, 67]
+				});
+				
+				// Progressbar
+				$("#progressbar").progressbar({
+					value: 20 
+				});
+				
+				//hover states on the static widgets
+				$('#dialog_link, ul#icons li').hover(
+					function() { $(this).addClass('ui-state-hover'); }, 
+					function() { $(this).removeClass('ui-state-hover'); }
+				);
+				
+			});
+		</script>
+
+<style type="text/css">
+#apDiv6 {
+	position:absolute;
+	left:10px;
+	top:679px;
+	width:1001px;
+	height:66px;
+	z-index:6;
+}
+</style>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable --> 
+
+</head>
+
+<body>
+<div id="apDiv1">
+  <h2>&nbsp;</h2>
+  <table width="90%" border="0" align="right">
+    <tr>
+      <td scope="col"><h3>Log-in </h3></td>
+    </tr>
+    <tr>
+    <td scope="col">Usuario</td>
+  </tr>
+  <tr>
+    <td><input name="textfield2" type="text" id="textfield2" size="15" /></td>
+  </tr>
+  <tr>
+    <td>Contraseña</td>
+  </tr>
+  <tr>
+    <td><input name="textfield3" type="text" id="textfield3" size="15" />
+      <ul id="icons" class="ui-widget ui-helper-clearfix">
+        <li class="ui-state-default ui-corner-all" title="Ingresar"><span class="ui-icon ui-icon-key"></span></li>
+      </ul></td>
+  </tr>
+  <tr>
+    <td align="right" class="current_page_item"><a href="Registro.html">Registrarse</a></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<table width="90%" border="0" align="right">
+  <tr>
+    <th align="left" scope="col"><h2>Categorias</h2>
+      <ul class="list navigation">
+        <li><a href="#">Derecho físcal</a></li>
+        <li><a href="#">Derecho internacional</a>
+          <ul>
+            <ul>
+              <ul>
+                <li><a href="#">Derecho Admimistrativo</a></li>
+                <li><a href="#">Juicio en Linea </a></li>
+                <li><a href="#">Juicios Orales</a></li>
+                <li><a href="#">Jurisprudencia</a></li>
+              </ul>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+      <p></p></th>
+  </tr>
+</table>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table width="90%" border="0" align="right">
+  <tr>
+    <th align="left" scope="col"><h2>Lo mas vendido</h2>
+      <ul class="list navigation">
+        <li><a href="#">Derecho físcal</a></li>
+        <li><a href="#">Derecho internacional</a>
+          <ul>
+            <ul>
+              <ul>
+                <li><a href="#">Derecho Admimistrativo</a></li>
+                <li><a href="#">Juicio en Linea</a></li>
+                <li><a href="#">Juicios Orales</a></li>
+                <li><a href="#">Jurisprudencia</a></li>
+              </ul>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+      <p></p></th>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table width="90%" border="0" align="right">
+  <tr>
+    <th align="left" scope="col"><h2>Administración</h2>
+      <ul class="list navigation">
+        <li><a href="Reporte_Ventas.html">Ventas General </a></li>
+        <li><a href="Ventas_Detalle.html">Ventas Detalles</a>
+          <ul>
+            <ul>
+              <ul>
+                <li><a href="#">Clientes</a></li>
+                <li><a href="#">Catalogos</a></li>
+                <li><a href="#">Estadisticas</a></li>
+                <li></li>
+              </ul>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+      <p></p></th>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+<div id="apDiv2"> </div>
+<div id="apDiv3">
+  <p>&nbsp;</p>
+  <table width="97%" border="0" align="right">
+    <tr>
+      <th scope="col"><ul id="icons" class="ui-widget ui-helper-clearfix">
+        <a href="Busqueda_gral.html"><li class="ui-state-default ui-corner-all" title="Buscar"><span class="ui-icon ui-icon-search"></span></a>
+          <input name="textfield" type="text" id="textfield" size="25" />
+        </li>
+      </ul></th>
+    </tr>
+    <tr>
+      <td align="right" class="current_page_item"><a href="Busqueda_avanzada.html">Busqueda Avanzada</a></td>
+    </tr>
+    <tr></tr>
+    <tr>
+      <td class="ui-state-highlight"><p>Atencion a Clientes</p>
+      <p>(55) 5003 70 00 ext 52223</p>
+      <p><a href="#">libreria@tfjfa.gob.mx</a></p></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="ui-state-active">Oferta del Día</td>
+    </tr>
+    <tr>
+      <td><table width="99%" border="0">
+        <tr>
+          <td align="center"><p><img src="imgs/producto4.jpg" width="57" height="85" /></p></td>
+        </tr>
+        <tr>
+          <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td align="right"><ul id="icons" class="ui-widget ui-helper-clearfix">
+           <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
+            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
+            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li></a>            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+          </ul></td>
+        </tr>
+        <tr></tr>
+      </table></td>
+    </tr>
+    <tr>
+      <td class="ui-widget-header">Oferta del Mes</td>
+    </tr>
+    <tr>
+      <td><table width="99%" border="0">
+        <tr>
+          <td align="center"><p><img src="imgs/producto3.jpg" width="81" height="72" /></p></td>
+        </tr>
+        <tr>
+          <td align="center"><p class="Titulo_articulo_small"><a href="Articulo.html">Constitución Politica de los Estados Unidos Mexicano</a></p></td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td align="right"><ul id="icons" class="ui-widget ui-helper-clearfix">
+           <a href="carrito_1.html"> <li class="ui-state-default ui-corner-all" title="Agregar al Carrito"><span class="ui-icon ui-icon-cart"></span></li></a>
+            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Agregar un comentario"><span class="ui-icon ui-icon-comment"></span></li></a>
+            <a href="Articulo.html"><li class="ui-state-default ui-corner-all" title="Mas información"><span class="ui-icon ui-icon-info"></span></li></a>
+            <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+          </ul></td>
+        </tr>
+        <tr></tr>
+      </table></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <table width="99%" border="0" align="center">
+    <tr>
+      <td align="center" scope="col"><img src="imgs/logo-paypal.jpg" width="129" height="141" /></td>
+    </tr>
+  </table>
+</div>
+<div id="apDiv4"><!-- InstanceBeginEditable name="Main" -->
+<h1>Buqueda Avanzada </h1>
+<table width="99%" border="0">
+  <tr>
+    <td width="10%" class="Titulo_articulo" scope="col">Titulo </td>
+    <td width="90%" scope="col"><label for="textfield4"></label>
+      <input name="textfield4" type="text" id="textfield4" size="50" /></td>
+  </tr>
+  <tr>
+    <td><p><strong>Autor</strong></p></td>
+    <td><input name="textfield5" type="text" id="textfield5" size="50" /></td>
+  </tr>
+  <tr>
+    <td><p><strong>Editorial</strong></p></td>
+    <td><input name="textfield6" type="text" id="textfield6" size="50" /></td>
+  </tr>
+  <tr>
+    <td><strong>Resumen: </strong></td>
+    <td><input name="textfield7" type="text" id="textfield7" size="50" /></td>
+  </tr>
+  <tr>
+    <td align="left">Año</td>
+    <td align="left"><input name="textfield8" type="text" id="textfield8" size="50" /></td>
+  </tr>
+  <tr>
+    <td align="left">&nbsp;</td>
+    <td align="left"><ul id="icons" class="ui-widget ui-helper-clearfix">
+     <a href="Busqueda_avanzada_2.html"> <li class="ui-state-default ui-corner-all" title="Buscar"><span class="ui-icon ui-icon-search"></span> </li></a>
+    </ul></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<!-- InstanceEndEditable -->
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <div><img src="imgs/footes.jpg" width="592" height="50" /></div>
+  <p>&nbsp;</p>
+</div>
+<div id="apDiv5">
+<table width="99%" border="0" align="center">
+    <tr>
+      <th width="462" height="19" nowrap="nowrap" scope="col">&nbsp;</th>
+      <th width="392" scope="col"><ul id="MenuBar1" class="MenuBarHorizontal">
+        <li><a class="MenuBarItemSubmenu" href="#">Conocenos</a>
+          <ul>
+            <li><a href="#">Acerca de Nosotros</a></li>
+            <li><a href="#">Sucursales</a></li>
+            <li><a href="#">Contacto</a></li>
+          </ul>
+        </li>
+        <li><a href="carrito_1.html">Productos</a>
+          <ul>
+            <li><a href="Libros.html">Libros</a></li>
+            <li><a href="Suscripciones.html">Suscripciones</a></li>
+            <li><a href="Aceesorios.html">Accesorios</a></li>
+          </ul>
+        </li>
+        <li><a class="MenuBarItemSubmenu" href="carrito_1.html">Mi Carrito </a>
+          <ul>
+            <li><a href="#">Productos</a></li>
+            <li><a href="#">Envíos</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Mi cuenta</a>
+          <ul>
+            <li><a href="MiCuenta.html">Ingresar</a></li>
+            <li><a href="#">Perfil</a></li>
+            <li><a href="#">Pedidos</a></li>
+          </ul>
+        </li>
+      </ul></th>
+      <th colspan="2" align="right" scope="col"><a href="#"> X Cerrar Sesion</a></th>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td align="center" valign="middle">&nbsp;</td>
+      <td width="48">&nbsp;</td>
+      <td width="70">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td align="center" valign="middle">&nbsp;</td>
+      <td><ul id="icons" class="ui-widget ui-helper-clearfix">
+        <a href="index.html"><li class="ui-state-default ui-corner-all" title="Ayuda"><span class="ui-icon ui-icon-help"></span></li><a>
+        <a href="index.html"><li class="ui-state-default ui-corner-all" title="Inicio"><span class="ui-icon ui-icon-home"></span></li><a>
+      </ul></td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+</div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"../SpryAssets/SpryMenuBarDownHover.gif", imgRight:"../SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+<!-- InstanceEnd --></html>

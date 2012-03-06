@@ -1,0 +1,141 @@
+			body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+			.demoHeaders { margin-top: 2em; }
+			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+			ul#icons {margin: 0; padding: 0;}
+			ul#icons li {
+	margin: 2px;
+	position: relative;
+	padding: 4px 0;
+	cursor: pointer;
+	float: left;
+	list-style: none;
+	background-image: url(images/ui-bg_glass_45_0078ae_1x400.png);
+}
+			ul#icons span.ui-icon {float: left; margin: 0 4px;}
+
+html *{
+	margin:0px;
+	padding:0px;
+}
+
+h1 {
+	font-size:2.2em;
+	font-weight:500;
+}
+/* OSTALI GLAVNI DIO */
+h2, h3, h4, h5, p, ul, ol, table, small, .image, pre {
+	margin-bottom:1px;
+}
+/*.image {
+	border:1px solid #E5E5E5;
+	padding:1px;
+}
+*/
+h2.no-margin, h3.no-margin {
+	margin-bottom:0;
+}
+h2, h3 {
+	color:#555555;
+}
+h2 {
+	font-size:1.8em;
+	font-weight:normal;
+}
+h3 {
+	font-size:1.6em;
+}
+p, td, input {
+	font-size:1.1em;
+	line-height:140%;
+}
+
+.info{
+	font-size:.9em;
+	line-height:normal;
+	margin-bottom:0px;
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+}
+
+.info2{
+	font-size:.9em;
+	line-height:normal;
+	margin-bottom:0px;
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+}
+.info3{
+	font-size:.6em;
+	line-height:normal;
+	margin-bottom:0px;
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+}
+
+.linea{
+	border-top-style: solid;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	background-color: #CCC;
+	}
+
+.Titulo_articulo {
+	font-size:1.3em;
+	font-weight:bold;
+	color:#555555;
+	margin-bottom:1px;
+}
+.Titulo_articulo_small {
+	font-size:1em;
+	font-weight:bold;
+	color:#555555;
+	margin-bottom:1px;
+}
+
+/* LISTS */
+ul.list {
+	list-style:none;
+	font-size:1.1em;
+	border-top:1px solid #F5F5F5;
+}
+ul.list ul {
+	margin-bottom:0;
+	list-style:inherit;
+}
+
+/* CATEGORIES */
+.categories li a, .navigation li a, .navigation li.current_page_item li a {
+	border-bottom:1px solid #F5F5F5;
+	display:block;
+	padding:3px;
+	background:transparent;
+}
+.categories li a:hover, .navigation li a:hover, .navigation li.current_page_item a {
+	background:#F8F8F8;
+	color:#000;
+}
+.categories li li a, .navigation li li a {
+	color:	#999;
+}
+
+/* LINKS */
+a {
+	color:#4BA4C2;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:none;
+	color:#000;
+}
+h2 a:hover, h3 a:hover {
+	background:#000;
+	color:#fff;
+}
+a img {
+	border:none;
+}
