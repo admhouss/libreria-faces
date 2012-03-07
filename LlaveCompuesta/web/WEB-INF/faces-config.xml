@@ -82,6 +82,7 @@
        <exception-handler-factory>escom.libreria.manager.session.ViewExpiredExceptionExceptionHandlerFactory</exception-handler-factory>
    </factory>
 
+
    
 
 </faces-config>
