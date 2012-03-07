@@ -23,11 +23,12 @@
 
 
                 </div>
-
+  <br/><br/>
+                <p:panel header="CAT&Aacute;LOGO DE RESPONSABLE">
                 <p:dataTable value="#{responsableController.items}" var="item" paginator="true">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ID RESPONSABLE"/>
+                            <h:outputText value="IDRES"/>
                         </f:facet>
                         <h:outputText value="#{item.idResponsable}"/>
                     </p:column>
@@ -39,7 +40,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="FECHA MODIFICACION"/>
+                            <h:outputText value="MODIFICACION"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaModificacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -65,7 +66,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="FECHA ALTA"/>
+                            <h:outputText value="CREACI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaAlta}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -73,7 +74,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="DEPARTAMENTO"/>
+                            <h:outputText value="DEPTO"/>
                         </f:facet>
                         <h:outputText value="#{item.departamento}"/>
                     </p:column>
@@ -94,12 +95,17 @@
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
+                    </p:panel>
             </h:panelGroup>
+       
+            <br />
             <br />
 
-            <br />
-            <br />
-            <h:commandButton value="INDEX" action="/index" immediate="true" />
+            <div  align="center">
+                <p:panel>
+            <h:commandButton value="REGRESAR" action="/index" immediate="true" />
+                </p:panel>
+            </div>
         </h:form>
         </ui:define>
     </ui:composition>
