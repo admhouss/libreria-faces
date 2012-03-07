@@ -23,11 +23,12 @@
                <div align="right">
                     <h:commandButton action="#{profesorController.prepareCreate}" value="Crear Nuevo"/>
                 </div>
-                
-                <p:dataTable value="#{profesorController.listProfesor1}" var="item" paginator="true" rows="10">
+                 <br/><br/>
+                <p:panel header="CAT&Aacute;LOGO DE PROFESORES">
+                <p:dataTable value="#{profesorController.listProfesor}" var="item" paginator="true" rows="10">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ID BOLETA"/>
+                            <h:outputText value="IDBOLETA"/>
                         </f:facet>
                         <h:outputText value="#{item.idBoleta}"/>
                     </p:column>
@@ -51,19 +52,19 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ID DEPARTAMENTO"/>
+                            <h:outputText value="IDDEP"/>
                         </f:facet>
                         <h:outputText value="#{item.idDepartamento}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="TIPO DOCENTE"/>
+                            <h:outputText value="TIPODOCENTE"/>
                         </f:facet>
                         <h:outputText value="#{item.tipoDocente}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="PROFESOR DOCENTE"/>
+                            <h:outputText value="PROFDOCENTE"/>
                         </f:facet>
                         <h:outputText value="#{item.profesorDocente}"/>
                     </p:column>
@@ -84,12 +85,17 @@
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
+                     </p:panel>
             </h:panelGroup>
-            <br />
+        
             
             <br />
             <br />
-            <h:commandButton value="Index" action="/index" immediate="true" />
+            <div  align="center">
+                <p:panel>
+            <h:commandButton value="REGRESAR" action="/index" immediate="true" />
+                </p:panel>
+            </div>
         </h:form>
         </ui:define>
     </ui:composition>
