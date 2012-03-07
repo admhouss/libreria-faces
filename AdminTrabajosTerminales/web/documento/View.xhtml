@@ -19,42 +19,34 @@
                     <center>
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputText value="NUM TT:"/>
-                    <h:outputText value="#{documentoController.selected.noTt}" title="#{bundle.ViewDocumentoTitle_noTt}"/>
+                    <h:outputText value="#{documentoController.selected.noTt}" title="Campo noTt"/>
                     <h:outputText value="T&Iacute;TULO:"/>
-                    <h:outputText value="#{documentoController.selected.titulo}" title="#{bundle.ViewDocumentoTitle_titulo}"/>
+                    <h:outputText value="#{documentoController.selected.titulo}" title="Campo titulo"/>
                     <h:outputText value="DESCRIPCI&Oacute;N:"/>
-                    <h:outputText value="#{documentoController.selected.descripcion}" title="#{bundle.ViewDocumentoTitle_descripcion}"/>
+                    <h:outputText value="#{documentoController.selected.descripcion}" title="Campo descripcion"/>
                     <h:outputText value="IMAGEN:"/>
-                    <h:outputText value="#{documentoController.selected.imagen}" title="#{bundle.ViewDocumentoTitle_imagen}"/>
+                    <h:outputText value="#{documentoController.selected.imagen}" title="Campo imagen"/>
                     <h:outputText value="RESUMEN:"/>
-                    <h:outputText value="#{documentoController.selected.archivoResumen}" title="#{bundle.ViewDocumentoTitle_archivoResumen}"/>
+                    <h:outputText value="#{documentoController.selected.archivoResumen}" title="Campo archivoResumen"/>
                     <h:outputText value="FECHA CREACI&Oacute;N:"/>
-                    <h:outputText value="#{documentoController.selected.fechaCreacion}" title="#{bundle.ViewDocumentoTitle_fechaCreacion}">
+                    <h:outputText value="#{documentoController.selected.fechaCreacion}" title="Campo fechaCreacion">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="PROTOCOLO:"/>
-                    <h:outputText value="#{documentoController.selected.archivoProtocolo}" title="#{bundle.ViewDocumentoTitle_archivoProtocolo}"/>
+                    <h:outputText value="#{documentoController.selected.archivoProtocolo}" title="Campo archivoProtocolo"/>
                     <h:outputText value="ULTIMA ACTUALIZACI&Oacute;N:"/>
-                    <h:outputText value="#{documentoController.selected.ultimaActualizacion}" title="#{bundle.ViewDocumentoTitle_ultimaActualizacion}">
+                    <h:outputText value="#{documentoController.selected.ultimaActualizacion}" title="Campo ultimaActualizacion">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                 </h:panelGrid>
                     </center>
                      </p:panel>
-                <br />
-                <h:commandButton action="#{documentoController.destroyAndView}" value="ELIMINAR"/>
-
-                <br />
-                <br />
-                <h:commandButton action="Edit" value="EDITAR"/>
-                <br />
-                <h:commandButton action="#{documentoController.prepareCreate}" value="CREAR NUEVO" />
-                <br />
-                <h:commandButton action="#{documentoController.prepareList}" value="VER"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
-
+                <br /><br />
+                <div align="center">
+                <p:panel>
+                <h:commandButton value="VOLVER" action="/index" immediate="true" />
+                </p:panel>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
