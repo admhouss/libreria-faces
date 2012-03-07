@@ -20,13 +20,13 @@
 <center>
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputLabel value="ID EGRESADO:" for="id" />
-                    <h:inputText id="id" value="#{egresadoController.selected.id}" title="#{bundle.EditEgresadoTitle_id}" required="true" requiredMessage="#{bundle.EditEgresadoRequiredMessage_id}"/>
+                    <h:inputText id="id" value="#{egresadoController.selected.id}" title="Campo id" required="true" requiredMessage="El campo id es requerido"/>
                     <h:outputLabel value="NOMBRE:" for="nombre" />
-                    <h:inputText id="nombre" value="#{egresadoController.selected.nombre}" title="#{bundle.EditEgresadoTitle_nombre}" required="true" requiredMessage="#{bundle.EditEgresadoRequiredMessage_nombre}"/>
+                    <h:inputText id="nombre" value="#{egresadoController.selected.nombre}" title="Campo nombre" required="true" requiredMessage="El campo nombre es requerido"/>
                     <h:outputLabel value="CORREO:" for="correo" />
-                    <h:inputText id="correo" value="#{egresadoController.selected.correo}" title="#{bundle.EditEgresadoTitle_correo}" required="true" requiredMessage="#{bundle.EditEgresadoRequiredMessage_correo}"/>
+                    <h:inputText id="correo" value="#{egresadoController.selected.correo}" title="Campo correo" required="true" requiredMessage="El campo correo es requerido"/>
                     <h:outputLabel value="GENERACI&Oacute;N:" for="generacion" />
-                    <h:selectOneMenu id="generacion" value="#{egresadoController.selected.generacion}" title="#{bundle.EditEgresadoTitle_generacion}" required="true" requiredMessage="#{bundle.EditEgresadoRequiredMessage_generacion}">
+                    <h:selectOneMenu id="generacion" value="#{egresadoController.selected.generacion}" title="Campo generacion" required="true" requiredMessage="El campo generacion es requerido">
                         <f:selectItems value="#{generacionController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
@@ -34,15 +34,14 @@
     </center>
                    </p:panel>
 
+                <br /><br />
+                <div align="center">
+                <p:panel>
                 <h:commandButton action="#{egresadoController.update}" value="GUARDAR"/>
-                <br />
-                <br />
-                <h:commandButton action="View" value="VER" immediate="true"/>
-                <br />
-                <h:commandButton action="#{egresadoController.prepareList}" value="VER TODOS" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+
+
             </h:form>
         </ui:define>
     </ui:composition>
