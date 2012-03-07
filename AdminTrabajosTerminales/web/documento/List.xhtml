@@ -21,13 +21,14 @@
                  <div align="right">
                     <h:commandButton action="#{documentoController.prepareCreate}" value="Crear Nuevo"/>
                 </div>
+  <br/><br/>
 
-
+               <p:panel header="CAT&Aacute;LOGO DE DOCUMENTOS">
                 
                 <p:dataTable value="#{documentoController.items}" var="item" paginator="true">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="NUM TT"/>
+                            <h:outputText value="NoTT"/>
                         </f:facet>
                         <h:outputText value="#{item.noTt}"/>
                     </p:column>
@@ -39,25 +40,25 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="DESCRIPCI&Oacute;N"/>
+                            <h:outputText value="DESC"/>
                         </f:facet>
                         <h:outputText value="#{item.descripcion}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="IMAGEN"/>
+                            <h:outputText value="IMG"/>
                         </f:facet>
                         <h:outputText value="#{item.imagen}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="RESUMEN"/>
+                            <h:outputText value="RES"/>
                         </f:facet>
                         <h:outputText value="#{item.archivoResumen}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="FECHA CREACI&Oacute;N"/>
+                            <h:outputText value="CREACI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaCreacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -71,7 +72,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="&Uacute;LTIMA ACTUALIZACI&Oacute;N"/>
+                            <h:outputText value="ACTUALIZACI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.ultimaActualizacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -96,12 +97,19 @@
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
+                   </p:panel>
             </h:panelGroup>
             <br />
            
             <br />
-            <br />
-            <h:commandButton value="Index" action="/index" immediate="true" />
+
+            <div  align="center">
+                <p:panel>
+            <h:commandButton value="REGRESAR" action="/index" immediate="true" />
+                </p:panel>
+            </div>
+
+           
         </h:form>
         </ui:define>
     </ui:composition>
