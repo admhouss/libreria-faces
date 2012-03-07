@@ -21,38 +21,37 @@
 
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputLabel value="NUM TT:" for="noTt" />
-                    <h:inputText id="noTt" value="#{documentoController.selected.noTt}" title="#{bundle.EditDocumentoTitle_noTt}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_noTt}"/>
+                    <h:inputText id="noTt" value="#{documentoController.selected.noTt}" title="Campo noTt" required="true" requiredMessage="El campon noTt es requerido"/>
                     <h:outputLabel value="T&Iacute;TULO:" for="titulo" />
-                    <h:inputText id="titulo" value="#{documentoController.selected.titulo}" title="#{bundle.EditDocumentoTitle_titulo}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_titulo}"/>
+                    <h:inputText id="titulo" value="#{documentoController.selected.titulo}" title="Campo titulo" required="true" requiredMessage="El campo titulo es requerido"/>
                     <h:outputLabel value="DESCRIPCI&Oacute;N:" for="descripcion" />
-                    <h:inputText id="descripcion" value="#{documentoController.selected.descripcion}" title="#{bundle.EditDocumentoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_descripcion}"/>
+                    <h:inputText id="descripcion" value="#{documentoController.selected.descripcion}" title="Campo descripcion" required="true" requiredMessage="El campo descripcion es requerido"/>
                     <h:outputLabel value="IMAGEN:" for="imagen" />
-                    <h:inputTextarea rows="4" cols="30" id="imagen" value="#{documentoController.selected.imagen}" title="#{bundle.EditDocumentoTitle_imagen}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_imagen}"/>
+                    <h:inputTextarea rows="4" cols="30" id="imagen" value="#{documentoController.selected.imagen}" title="Campo imagen" required="true" requiredMessage="El campo imagen es requerido"/>
                     <h:outputLabel value="ARCHIVO RESUMEN:" for="archivoResumen" />
-                    <h:inputTextarea rows="4" cols="30" id="archivoResumen" value="#{documentoController.selected.archivoResumen}" title="#{bundle.EditDocumentoTitle_archivoResumen}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_archivoResumen}"/>
+                    <h:inputTextarea rows="4" cols="30" id="archivoResumen" value="#{documentoController.selected.archivoResumen}" title="Campo archivoResumen" required="true" requiredMessage="El campo archivoResumen es requerido"/>
                     <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaCreacion" />
-                    <h:inputText id="fechaCreacion" value="#{documentoController.selected.fechaCreacion}" title="#{bundle.EditDocumentoTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_fechaCreacion}">
+                    <h:inputText id="fechaCreacion" value="#{documentoController.selected.fechaCreacion}" title="Campo fechaCreacion" required="true" requiredMessage="El campo fechaCreacion es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
                     <h:outputLabel value="PROTOCOLO:" for="archivoProtocolo" />
-                    <h:inputTextarea rows="4" cols="30" id="archivoProtocolo" value="#{documentoController.selected.archivoProtocolo}" title="#{bundle.EditDocumentoTitle_archivoProtocolo}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_archivoProtocolo}"/>
+                    <h:inputTextarea rows="4" cols="30" id="archivoProtocolo" value="#{documentoController.selected.archivoProtocolo}" title="Campo archivoProtocolo" required="true" requiredMessage="El campo archivoProtocolo es requerido"/>
                     <h:outputLabel value="ULTIMA ACTUALIZACI&Oacute;N:" for="ultimaActualizacion" />
-                    <h:inputText id="ultimaActualizacion" value="#{documentoController.selected.ultimaActualizacion}" title="#{bundle.EditDocumentoTitle_ultimaActualizacion}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_ultimaActualizacion}">
+                    <h:inputText id="ultimaActualizacion" value="#{documentoController.selected.ultimaActualizacion}" title="Campo ultimaActualizacion" required="true" requiredMessage="El campo ultimaActualizacion es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
                 </h:panelGrid>
 
     </center>
                    </p:panel>
+                
+               <br /><br />
+                <div align="center">
+                <p:panel>
                 <h:commandButton action="#{documentoController.update}" value="GUARDAR"/>
-                <br />
-                <br />
-                <h:commandButton action="View" value="VER" immediate="true"/>
-                <br />
-                <h:commandButton action="#{documentoController.prepareList}" value="VER TODOS" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+
             </h:form>
         </ui:define>
     </ui:composition>
