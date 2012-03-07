@@ -19,37 +19,52 @@
                        <p:panel header="ALTA PROFESOR">
 <center>
 
-                <h:panelGrid columns="2" cellspacing="15">
-                    <h:outputLabel value="ID BOLETA:" for="idBoleta" />
-                    <h:inputText id="idBoleta" value="#{profesorController.selected.idBoleta}" title="#{bundle.CreateProfesorTitle_idBoleta}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_idBoleta}"/>
-                    <h:outputLabel value="NOMBRE:" for="nombre" />
-                    <h:inputText id="nombre" value="#{profesorController.selected.nombre}" title="#{bundle.CreateProfesorTitle_nombre}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_nombre}"/>
-                    <h:outputLabel value="CORREO:" for="correo" />
-                    <h:inputText id="correo" value="#{profesorController.selected.correo}" title="#{bundle.CreateProfesorTitle_correo}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_correo}"/>
-                    <h:outputLabel value="ESTATUS:" for="estatus" />
-                    <h:inputText id="estatus" value="#{profesorController.selected.estatus}" title="#{bundle.CreateProfesorTitle_estatus}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_estatus}"/>
-                    <h:outputLabel value="ID DEPARTAMENTO:" for="idDepartamento" />
-                    <h:inputText id="idDepartamento" value="#{profesorController.selected.idDepartamento}" title="#{bundle.CreateProfesorTitle_idDepartamento}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_idDepartamento}"/>
-                    <h:outputLabel value="TIPO DOCENTE:" for="tipoDocente" />
-                    <h:selectOneMenu id="tipoDocente" value="#{profesorController.selected.tipoDocente}" title="#{bundle.CreateProfesorTitle_tipoDocente}" required="true" requiredMessage="#{bundle.CreateProfesorRequiredMessage_tipoDocente}">
+                <h:panelGrid columns="3" cellspacing="15">
+                    <h:outputLabel value="ID BOLETA:" for="idBoleta" styleClass="textoNEGRO"/>
+                    <h:inputText id="idBoleta" value="#{profesorController.selected.idBoleta}" title="Campo idBoleta" required="true" requiredMessage="El campo idBoleta es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                    <h:outputLabel value="NOMBRE:" for="nombre" styleClass="textoNEGRO"/>
+                    <h:inputText id="nombre" value="#{profesorController.selected.nombre}" title="Campo nombre" required="true" requiredMessage="El campo nombre es requerido"/>
+                   <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                    <h:outputLabel value="CORREO:" for="correo" styleClass="textoNEGRO"/>
+                    <h:inputText id="correo" value="#{profesorController.selected.correo}" title="Campo correo" required="true" requiredMessage="El campo correo es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                    <h:outputLabel value="ESTATUS:" for="estatus" styleClass="textoNEGRO"/>
+                    <h:inputText id="estatus" value="#{profesorController.selected.estatus}" title="Campo estatus" required="true" requiredMessage="El campo estatus es requerido"/>
+                   <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                    <h:outputLabel value="ID DEPARTAMENTO:" for="idDepartamento" styleClass="textoNEGRO"/>
+                    <h:inputText id="idDepartamento" value="#{profesorController.selected.idDepartamento}" title="Campo idDepartamento" required="true" requiredMessage="El campo idDepartamento es requerido"/>
+                   <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                    <h:outputLabel value="TIPO DOCENTE:" for="tipoDocente" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="tipoDocente" value="#{profesorController.selected.tipoDocente}" title="Campo tipoDocente" required="true" requiredMessage="El campo tipoDocente es requerido">
                         <f:selectItems value="#{tipoDocenteController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="PROFESOR DOCENTE:" for="profesorDocente" />
-                    <h:selectOneMenu id="profesorDocente" value="#{profesorController.selected.profesorDocente}" title="#{bundle.CreateProfesorTitle_profesorDocente}" >
+                   <h:outputLabel value="*" styleClass="textoROJO"/>
+
+                    <h:outputLabel value="PROFESOR DOCENTE:" for="profesorDocente" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="profesorDocente" value="#{profesorController.selected.profesorDocente}" title="Campo profesroDocente" >
                         <f:selectItems value="#{profesorDocenteController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+
                 </h:panelGrid>
 
     </center>
                    </p:panel>
-                <br />
+                <br /><br />
+
+                <div align="center">
+                <p:panel>
                 <h:commandButton action="#{profesorController.create}" value="GUARDAR" />
-                <br />
-                <br />
-                <h:commandButton action="#{profesorController.prepareList}" value="VER" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+
+               
             </h:form>
         </ui:define>
     </ui:composition>
