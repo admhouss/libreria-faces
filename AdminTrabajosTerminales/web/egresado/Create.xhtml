@@ -18,28 +18,33 @@
             <h:form>
                  <p:panel header="ALTA EGRESADO">
 <center>
-                <h:panelGrid columns="2" cellspacing="15">
-                    <h:outputLabel value="ID" for="id" />
-                    <h:inputText id="id" value="#{egresadoController.selected.id}" title="#{bundle.CreateEgresadoTitle_id}" required="true" requiredMessage="#{bundle.CreateEgresadoRequiredMessage_id}"/>
-                    <h:outputLabel value="NOMBRE:" for="nombre" />
-                    <h:inputText id="nombre" value="#{egresadoController.selected.nombre}" title="#{bundle.CreateEgresadoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateEgresadoRequiredMessage_nombre}"/>
-                    <h:outputLabel value="CORREO:" for="correo" />
-                    <h:inputText id="correo" value="#{egresadoController.selected.correo}" title="#{bundle.CreateEgresadoTitle_correo}" required="true" requiredMessage="#{bundle.CreateEgresadoRequiredMessage_correo}"/>
-                    <h:outputLabel value="GENERACI&Oacute;N:" for="generacion" />
-                    <h:selectOneMenu id="generacion" value="#{egresadoController.selected.generacion}" title="#{bundle.CreateEgresadoTitle_generacion}" required="true" requiredMessage="#{bundle.CreateEgresadoRequiredMessage_generacion}">
+                <h:panelGrid columns="3" cellspacing="15">
+                    <h:outputLabel value="ID" for="id" styleClass="textoNEGRO"/>
+                    <h:inputText id="id" value="#{egresadoController.selected.id}" title="Campo id" required="true" requiredMessage="El campo id es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="NOMBRE:" for="nombre" styleClass="textoNEGRO"/>
+                    <h:inputText id="nombre" value="#{egresadoController.selected.nombre}" title="Campo nombre" required="true" requiredMessage="El campo nombre es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="CORREO:" for="correo" styleClass="textoNEGRO"/>
+                    <h:inputText id="correo" value="#{egresadoController.selected.correo}" title="Campo correo" required="true" requiredMessage="El campo correo es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="GENERACI&Oacute;N:" for="generacion" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="generacion" value="#{egresadoController.selected.generacion}" title="Campo generacion" required="true" requiredMessage="El campo generacion es requerido">
                         <f:selectItems value="#{generacionController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+
                 </h:panelGrid>
     </center>
                    </p:panel>
-                <br />
+                <br /><br />
+                <div align="center">
+                <p:panel>
                 <h:commandButton action="#{egresadoController.create}" value="GUARDAR" />
-                <br />
-                <br />
-                <h:commandButton action="#{egresadoController.prepareList}" value="VER" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+
+                
             </h:form>
         </ui:define>
     </ui:composition>
