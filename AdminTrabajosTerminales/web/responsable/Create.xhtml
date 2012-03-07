@@ -19,42 +19,51 @@
 <center>
 
 
-                <h:panelGrid columns="2" cellspacing="15">
-                    <h:outputLabel value="ID RESPONSABLE:" for="idResponsable" />
-                    <h:inputText id="idResponsable" value="#{responsableController.selected.idResponsable}" title="#{bundle.CreateResponsableTitle_idResponsable}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_idResponsable}"/>
-                    <h:outputLabel value="NOMBRE:" for="nombre" />
-                    <h:inputText id="nombre" value="#{responsableController.selected.nombre}" title="#{bundle.CreateResponsableTitle_nombre}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_nombre}"/>
-                    <h:outputLabel value="FECHA MODIFICACI&Oacute;N:" for="fechaModificacion" />
-                    <h:inputText id="fechaModificacion" value="#{responsableController.selected.fechaModificacion}" title="#{bundle.CreateResponsableTitle_fechaModificacion}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_fechaModificacion}">
+                <h:panelGrid columns="3" cellspacing="15">
+                    <h:outputLabel value="ID RESPONSABLE:" for="idResponsable" styleClass="textoNEGRO"/>
+                    <h:inputText id="idResponsable" value="#{responsableController.selected.idResponsable}" title="Campo idResponsable" required="true" requiredMessage="El campo responsable es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="NOMBRE:" for="nombre" styleClass="textoNEGRO"/>
+                    <h:inputText id="nombre" value="#{responsableController.selected.nombre}" title="Campo nombre" required="true" requiredMessage="El campo nombre es requerido"/>
+                     <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="FECHA MODIFICACI&Oacute;N:" for="fechaModificacion" styleClass="textoNEGRO" />
+                    <h:inputText id="fechaModificacion" value="#{responsableController.selected.fechaModificacion}" title="Campo fechaModificacion" requiredMessage="El campo fechaModificacion es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
-                    <h:outputLabel value="ESTATUS:" for="estatus" />
-                    <h:inputText id="estatus" value="#{responsableController.selected.estatus}" title="#{bundle.CreateResponsableTitle_estatus}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_estatus}"/>
-                    <h:outputLabel value="CORREO:" for="correo" />
-                    <h:inputText id="correo" value="#{responsableController.selected.correo}" title="#{bundle.CreateResponsableTitle_correo}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_correo}"/>
-                    <h:outputLabel value="CARGO:" for="cargo" />
-                    <h:inputText id="cargo" value="#{responsableController.selected.cargo}" title="#{bundle.CreateResponsableTitle_cargo}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_cargo}"/>
-                    <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaAlta" />
-                    <h:inputText id="fechaAlta" value="#{responsableController.selected.fechaAlta}" title="#{bundle.CreateResponsableTitle_fechaAlta}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_fechaAlta}">
+                     <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="ESTATUS:" for="estatus" styleClass="textoNEGRO"/>
+                    <h:inputText id="estatus" value="#{responsableController.selected.estatus}" title="Campo estatus" required="true" requiredMessage="El campo estatus es requerido"/>
+                     <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="CORREO:" for="correo" styleClass="textoNEGRO"/>
+                    <h:inputText id="correo" value="#{responsableController.selected.correo}" title="Campo correo" required="true" requiredMessage="El campo correo es requerido"/>
+                     <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="CARGO:" for="cargo" styleClass="textoNEGRO"/>
+                    <h:inputText id="cargo" value="#{responsableController.selected.cargo}" title="Campo cargo" required="true" requiredMessage="El campo cargo es requerido"/>
+                     <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaAlta" styleClass="textoNEGRO"/>
+                    <h:inputText id="fechaAlta" value="#{responsableController.selected.fechaAlta}" title="Campo fechaAlta" required="true" requiredMessage="El campo fechaAlta es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
-                    <h:outputLabel value="DEPARTAMENTO:" for="departamento" />
-                    <h:selectOneMenu id="departamento" value="#{responsableController.selected.departamento}" title="#{bundle.CreateResponsableTitle_departamento}" >
+                     <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="DEPARTAMENTO:" for="departamento" styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="departamento" value="#{responsableController.selected.departamento}" title="Campo departamento" >
                         <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
+                     <h:outputLabel value="*" styleClass="textoROJO"/>
                 </h:panelGrid>
     </center>
                    </p:panel>
 
 
-                <br />
+                <br /><br />
+                
+                <div align="center">
+                <p:panel>
                 <h:commandButton action="#{responsableController.create}" value="GUARDAR" />
-                <br />
-                <br />
-                <h:commandButton action="#{responsableController.prepareList}" value="VER" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+
+               
             </h:form>
         </ui:define>
     </ui:composition>
