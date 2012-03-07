@@ -19,27 +19,21 @@
                     <center>
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputText value="ID:"/>
-                    <h:outputText value="#{tipoDocenteController.selected.id}" title="#{bundle.ViewTipoDocenteTitle_id}"/>
+                    <h:outputText value="#{tipoDocenteController.selected.id}" title="Campo id"/>
                     <h:outputText value="NOMBRE:"/>
-                    <h:outputText value="#{tipoDocenteController.selected.nombre}" title="#{bundle.ViewTipoDocenteTitle_nombre}"/>
+                    <h:outputText value="#{tipoDocenteController.selected.nombre}" title="Campo nombre"/>
                     <h:outputText value="DESCRIPCI&Oacute;N:"/>
-                    <h:outputText value="#{tipoDocenteController.selected.descripcion}" title="#{bundle.ViewTipoDocenteTitle_descripcion}"/>
+                    <h:outputText value="#{tipoDocenteController.selected.descripcion}" title="Campo descripcion"/>
                 </h:panelGrid>
 
                         </center>
                     </p:panel>
-                <br />
-                <h:commandButton action="#{tipoDocenteController.destroyAndView}" value="ELIMINAR"/>
-                <br />
-                <br />
-                <h:commandButton action="Edit" value="EDITAR"/>
-                <br />
-                <h:commandButton action="#{tipoDocenteController.prepareCreate}" value="CREAR NUEVO" />
-                <br />
-                <h:commandButton action="#{tipoDocenteController.prepareList}" value="VER"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                <br /><br />
+                <div align="center">
+                <p:panel>
+                <h:commandButton value="VOLVER" action="/index" immediate="true" />
+                </p:panel>
+                </div>
 
             </h:form>
         </ui:define>

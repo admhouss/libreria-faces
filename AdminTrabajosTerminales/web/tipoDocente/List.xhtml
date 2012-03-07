@@ -20,7 +20,8 @@
                 <div align="right">
                     <h:commandButton action="#{tipoDocenteController.prepareCreate}" value="Crear Nuevo"/>
                 </div>
-
+<br/><br/>
+                <p:panel header="CAT&Aacute;LOGO TIPO DE DOCENTE">
                 <p:dataTable value="#{tipoDocenteController.items}" var="item" paginator="true">
                     <p:column>
                         <f:facet name="header">
@@ -57,12 +58,17 @@
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
+                     </p:panel>
             </h:panelGroup>
-            <br />
+           
             
             <br />
             <br />
-            <h:commandButton value="Index" action="/index" immediate="true" />
+           <div  align="center">
+                <p:panel>
+            <h:commandButton value="REGRESAR" action="/index" immediate="true" />
+                </p:panel>
+            </div>
         </h:form>
         </ui:define>
     </ui:composition>
