@@ -23,17 +23,17 @@
 
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputLabel value="ID PROFESOR:" for="idProfesor" />
-                    <h:inputText id="idProfesor" value="#{profesorDocenteController.selected.idProfesor}" title="#{bundle.EditProfesorDocenteTitle_idProfesor}" required="true" requiredMessage="#{bundle.EditProfesorDocenteRequiredMessage_idProfesor}"/>
+                    <h:inputText id="idProfesor" value="#{profesorDocenteController.selected.idProfesor}" title="Campo idProfesor" required="true" requiredMessage="El campo idProfesor es requerido"/>
                     <h:outputLabel value="PROFESOR:" for="profesor" />
-                    <h:selectOneMenu id="profesor" value="#{profesorDocenteController.selected.profesor}" title="#{bundle.EditProfesorDocenteTitle_profesor}" required="true" requiredMessage="#{bundle.EditProfesorDocenteRequiredMessage_profesor}">
+                    <h:selectOneMenu id="profesor" value="#{profesorDocenteController.selected.profesor}" title="Campo profesor" required="true" requiredMessage="El campo profesor es requerido">
                         <f:selectItems value="#{profesorController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="DOCUMENTO:" for="documento" />
-                    <h:selectOneMenu id="documento" value="#{profesorDocenteController.selected.documento}" title="#{bundle.EditProfesorDocenteTitle_documento}" required="true" requiredMessage="#{bundle.EditProfesorDocenteRequiredMessage_documento}">
+                    <h:selectOneMenu id="documento" value="#{profesorDocenteController.selected.documento}" title="Campo documento" required="true" requiredMessage="El campo documento es requerido">
                         <f:selectItems value="#{documentoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="EGRESADO:" for="egresado" />
-                    <h:selectOneMenu id="egresado" value="#{profesorDocenteController.selected.egresado}" title="#{bundle.EditProfesorDocenteTitle_egresado}" required="true" requiredMessage="#{bundle.EditProfesorDocenteRequiredMessage_egresado}">
+                    <h:selectOneMenu id="egresado" value="#{profesorDocenteController.selected.egresado}" title="Campo egresado" required="true" requiredMessage="El campo egresado es requeridp">
                         <f:selectItems value="#{egresadoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
@@ -41,15 +41,14 @@
     </center>
                    </p:panel>
 
+
+                 <br /><br />
+                <div align="center">
+                <p:panel>
                 <h:commandButton action="#{profesorDocenteController.update}" value="GUARDAR"/>
-                <br />
-                <br />
-                <h:commandButton action="View" value="VER" immediate="true"/>
-                <br />
-                <h:commandButton action="#{profesorDocenteController.prepareList}" value="VER TODOS" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="EXIND}" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+
             </h:form>
         </ui:define>
     </ui:composition>
