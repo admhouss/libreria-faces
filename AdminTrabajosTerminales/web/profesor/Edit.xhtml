@@ -22,21 +22,21 @@
 
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputLabel value="ID BOLETA:" for="idBoleta" />
-                    <h:inputText id="idBoleta" value="#{profesorController.selected.idBoleta}" title="#{bundle.EditProfesorTitle_idBoleta}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_idBoleta}"/>
+                    <h:inputText id="idBoleta" value="#{profesorController.selected.idBoleta}" title="Campo idBoleta" required="true" requiredMessage="El campo idBoleta es requerido"/>
                     <h:outputLabel value="NOMBRE:" for="nombre" />
-                    <h:inputText id="nombre" value="#{profesorController.selected.nombre}" title="#{bundle.EditProfesorTitle_nombre}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_nombre}"/>
+                    <h:inputText id="nombre" value="#{profesorController.selected.nombre}" title="Campo nombre" required="true" requiredMessage="El campo nombre es requerido"/>
                     <h:outputLabel value="CORREO:" for="correo" />
-                    <h:inputText id="correo" value="#{profesorController.selected.correo}" title="#{bundle.EditProfesorTitle_correo}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_correo}"/>
+                    <h:inputText id="correo" value="#{profesorController.selected.correo}" title="Campo correo" required="true" requiredMessage="El campo correo es requerido"/>
                     <h:outputLabel value="ESTATUS:" for="estatus" />
-                    <h:inputText id="estatus" value="#{profesorController.selected.estatus}" title="#{bundle.EditProfesorTitle_estatus}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_estatus}"/>
+                    <h:inputText id="estatus" value="#{profesorController.selected.estatus}" title="Campo estatus" required="true" requiredMessage="El campo estatus es requerido"/>
                     <h:outputLabel value="ID DEPARTAMENTO:" for="idDepartamento" />
-                    <h:inputText id="idDepartamento" value="#{profesorController.selected.idDepartamento}" title="#{bundle.EditProfesorTitle_idDepartamento}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_idDepartamento}"/>
+                    <h:inputText id="idDepartamento" value="#{profesorController.selected.idDepartamento}" title="Campo idDepartamento" required="true" requiredMessage="El campo idDepartamento es requerido"/>
                     <h:outputLabel value="TIPO DOCENTE:" for="tipoDocente" />
-                    <h:selectOneMenu id="tipoDocente" value="#{profesorController.selected.tipoDocente}" title="#{bundle.EditProfesorTitle_tipoDocente}" required="true" requiredMessage="#{bundle.EditProfesorRequiredMessage_tipoDocente}">
+                    <h:selectOneMenu id="tipoDocente" value="#{profesorController.selected.tipoDocente}" title="Campon tipoDocente" required="true" requiredMessage="El campo tipoDocente es requerido">
                         <f:selectItems value="#{tipoDocenteController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="PROFESOR DOCENTE:" for="profesorDocente" />
-                    <h:selectOneMenu id="profesorDocente" value="#{profesorController.selected.profesorDocente}" title="#{bundle.EditProfesorTitle_profesorDocente}" >
+                    <h:selectOneMenu id="profesorDocente" value="#{profesorController.selected.profesorDocente}" title="Campo profesorDocente" >
                         <f:selectItems value="#{profesorDocenteController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
@@ -45,15 +45,15 @@
     </center>
                    </p:panel>
 
+               
+                <br /><br />
+                <div align="center">
+                <p:panel>
                 <h:commandButton action="#{profesorController.update}" value="GUARDAR"/>
-                <br />
-                <br />
-                <h:commandButton action="View" value="VER" immediate="true"/>
-                <br />
-                <h:commandButton action="#{profesorController.prepareList}" value="VER TODOS" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+
+
             </h:form>
         </ui:define>
     </ui:composition>
