@@ -19,26 +19,21 @@
                     <center>
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputText value="ID:"/>
-                    <h:outputText value="#{generacionController.selected.id}" title="#{bundle.ViewGeneracionTitle_id}"/>
+                    <h:outputText value="#{generacionController.selected.id}" title="Campo id"/>
                     <h:outputText value="A&Ntilde;O:"/>
-                    <h:outputText value="#{generacionController.selected.anio}" title="#{bundle.ViewGeneracionTitle_anio}"/>
+                    <h:outputText value="#{generacionController.selected.anio}" title="Campo anio"/>
                     <h:outputText value="DESCRIPCI&Oacute;N:"/>
-                    <h:outputText value="#{generacionController.selected.descripcion}" title="#{bundle.ViewGeneracionTitle_descripcion}"/>
+                    <h:outputText value="#{generacionController.selected.descripcion}" title="Campo descripcion"/>
                 </h:panelGrid>
                     </center>
                       </p:panel>
-                <br />
-                <h:commandButton action="#{generacionController.destroyAndView}" value="ELIMINAR"/>
-                <br />
-                <br />
-                <h:commandButton action="Edit" value="EDITAR"/>
-                <br />
-                <h:commandButton action="#{generacionController.prepareCreate}" value="CREAR NUEVO" />
-                <br />
-                <h:commandButton action="#{generacionController.prepareList}" value="VER"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                 <br /><br />
+                <div align="center">
+                <p:panel>
+                <h:commandButton value="VOLVER" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+
 
             </h:form>
         </ui:define>
