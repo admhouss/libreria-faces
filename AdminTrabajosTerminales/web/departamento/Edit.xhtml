@@ -20,17 +20,17 @@
 
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputLabel value="NOMBRE:" for="nombre" />
-                    <h:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="#{bundle.EditDepartamentoTitle_nombre}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_nombre}"/>
+                    <h:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="Campo nombre" required="true" requiredMessage="El campo nombre es requerido"/>
                     <h:outputLabel value="DESCRIPCI&Oacute;N:" for="descripcion" />
-                    <h:inputText id="descripcion" value="#{departamentoController.selected.descripcion}" title="#{bundle.EditDepartamentoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_descripcion}"/>
+                    <h:inputText id="descripcion" value="#{departamentoController.selected.descripcion}" title="Campo descripcion" required="true" requiredMessage="El campo descripcion es requerido"/>
                     <h:outputLabel value="ID RESPONSABLE:" for="idResponsable" />
-                    <h:inputText id="idResponsable" value="#{departamentoController.selected.idResponsable}" title="#{bundle.EditDepartamentoTitle_idResponsable}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_idResponsable}"/>
+                    <h:inputText id="idResponsable" value="#{departamentoController.selected.idResponsable}" title="Campo idResponsable" required="true" requiredMessage="El campo idResponsable es requerido"/>
                     <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaCreacion" />
-                    <h:inputText id="fechaCreacion" value="#{departamentoController.selected.fechaCreacion}" title="#{bundle.EditDepartamentoTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_fechaCreacion}">
+                    <h:inputText id="fechaCreacion" value="#{departamentoController.selected.fechaCreacion}" title="Campo fechaCreacion" required="true" requiredMessage="El campo fechaCreacion es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
                     <h:outputLabel value="RESPONSABLE:" for="responsable" />
-                    <h:selectOneMenu id="responsable" value="#{departamentoController.selected.responsable}" title="#{bundle.EditDepartamentoTitle_responsable}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_responsable}">
+                    <h:selectOneMenu id="responsable" value="#{departamentoController.selected.responsable}" title="Campo responsable" required="true" requiredMessage="El campo responsable es requerido">
                         <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
@@ -38,15 +38,14 @@
     </center>
                    </p:panel>
 
-                <h:commandButton action="#{departamentoController.update}" value="GUARDAR"/>
-                <br />
-                <br />
-                <h:commandButton action="View" value="VER" immediate="true"/>
-                <br />
-                <h:commandButton action="#{departamentoController.prepareList}" value="VER TODOS" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+               
+                <br /><br />
+                <div align="center">
+                <p:panel>
+                <h:commandButton action="#{departamentoController.update}" value="GUARDAR" />
+                </p:panel>
+                </div>
+
             </h:form>
         </ui:define>
     </ui:composition>
