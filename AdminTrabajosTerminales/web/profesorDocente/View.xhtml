@@ -19,28 +19,23 @@
                     <center>
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputText value="ID PROFESOR:"/>
-                    <h:outputText value="#{profesorDocenteController.selected.idProfesor}" title="#{bundle.ViewProfesorDocenteTitle_idProfesor}"/>
+                    <h:outputText value="#{profesorDocenteController.selected.idProfesor}" title="Campo idProfesor"/>
                     <h:outputText value="PROFESOR:"/>
-                    <h:outputText value="#{profesorDocenteController.selected.profesor}" title="#{bundle.ViewProfesorDocenteTitle_profesor}"/>
+                    <h:outputText value="#{profesorDocenteController.selected.profesor}" title="Campo profesor"/>
                     <h:outputText value="DOCUMENTO:"/>
-                    <h:outputText value="#{profesorDocenteController.selected.documento}" title="#{bundle.ViewProfesorDocenteTitle_documento}"/>
+                    <h:outputText value="#{profesorDocenteController.selected.documento}" title="Campo documento"/>
                     <h:outputText value="EGRESADO:"/>
-                    <h:outputText value="#{profesorDocenteController.selected.egresado}" title="#{bundle.ViewProfesorDocenteTitle_egresado}"/>
+                    <h:outputText value="#{profesorDocenteController.selected.egresado}" title="Campo egresado"/>
                 </h:panelGrid>
                         </center>
                     </p:panel>
-                <br />
-                <h:commandButton action="#{profesorDocenteController.destroyAndView}" value="ELIMINAR"/>
-                <br />
-                <br />
-                <h:commandButton action="Edit" value="EDITAR"/>
-                <br />
-                <h:commandButton action="#{profesorDocenteController.prepareCreate}" value="CREAR NUEVO" />
-                <br />
-                <h:commandButton action="#{profesorDocenteController.prepareList}" value="VER"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                <br /><br />
+                <div align="center">
+                <p:panel>
+                <h:commandButton value="VOLVER" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+
 
             </h:form>
         </ui:define>
