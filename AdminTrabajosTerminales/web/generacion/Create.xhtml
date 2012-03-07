@@ -17,25 +17,29 @@
             <h:form>
                 <p:panel header="ALTA GENERACI&Oacute;N">
 <center>
-                <h:panelGrid columns="2" cellspacing="15">
-                    <h:outputLabel value="ID GENERACI&Oacute;N:" for="id" />
-                    <h:inputText id="id" value="#{generacionController.selected.id}" title="#{bundle.CreateGeneracionTitle_id}" required="true" requiredMessage="#{bundle.CreateGeneracionRequiredMessage_id}"/>
-                    <h:outputLabel value="A&Ntilde;O:" for="anio" />
-                    <h:inputText id="anio" value="#{generacionController.selected.anio}" title="#{bundle.CreateGeneracionTitle_anio}" required="true" requiredMessage="#{bundle.CreateGeneracionRequiredMessage_anio}"/>
-                    <h:outputLabel value="DESCRIPCI&Oacute;N:" for="descripcion" />
-                    <h:inputText id="descripcion" value="#{generacionController.selected.descripcion}" title="#{bundle.CreateGeneracionTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateGeneracionRequiredMessage_descripcion}"/>
+                <h:panelGrid columns="3" cellspacing="15">
+                    <h:outputLabel value="ID GENERACI&Oacute;N:" for="id" styleClass="textoNEGRO"/>
+                    <h:inputText id="id" value="#{generacionController.selected.id}" title="Campo id" required="true" requiredMessage="El campo id es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="A&Ntilde;O:" for="anio" styleClass="textoNEGRO"/>
+                    <h:inputText id="anio" value="#{generacionController.selected.anio}" title="Campo anio" required="true" requiredMessage="El campo anio es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="DESCRIPCI&Oacute;N:" for="descripcion" styleClass="textoNEGRO"/>
+                    <h:inputText id="descripcion" value="#{generacionController.selected.descripcion}" title="Campo descripcion" required="true" requiredMessage="El campo descripcion es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+
                 </h:panelGrid>
 
      </center>
                    </p:panel>
-                <br />
+                <br /><br />
+
+                <div align="center">
+                <p:panel>
                 <h:commandButton action="#{generacionController.create}" value="GUARDAR" />
-                <br />
-                <br />
-                <h:commandButton action="#{generacionController.prepareList}" value="VER" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+                
             </h:form>
         </ui:define>
     </ui:composition>
