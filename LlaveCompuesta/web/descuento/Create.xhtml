@@ -20,7 +20,7 @@
                         <h:panelGrid columns="3" cellspacing="15">
                    
                     <h:outputLabel value="Porcentaje:" for="porcentaje" styleClass="textoNEGRO"/>
-                    <h:inputText id="porcentaje" value="#{descuentoController.selected.porcentaje}" title="Porcentaje" required="true" requiredMessage="El campo porcentaje requiere capturarse"/>
+                    <h:inputText id="porcentaje" value="#{descuentoController.selected.porcentaje}" title="Porcentaje" required="true" requiredMessage="El campo porcentaje requiere capturarse" converter="#{BidDecimal}" converterMessage="Error de conversion el valor espeficidado no es un numero valido"/>
                     <h:outputLabel value="%" styleClass="textoNEGRO"  />
                     <h:outputLabel value="Descripci&oacute;n:" for="descripcion" styleClass="textoNEGRO" />
                     <h:inputText id="descripcion" value="#{descuentoController.selected.descripcion}" title="Descripcion" required="true" requiredMessage="El campo descripcion requiere capturarse"/>
