@@ -19,41 +19,34 @@
                     <center>
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputText value="ID RESPONSABLE:"/>
-                    <h:outputText value="#{responsableController.selected.idResponsable}" title="#{bundle.ViewResponsableTitle_idResponsable}"/>
+                    <h:outputText value="#{responsableController.selected.idResponsable}" title="Campo idResponsable"/>
                     <h:outputText value="NOMBRE:"/>
-                    <h:outputText value="#{responsableController.selected.nombre}" title="#{bundle.ViewResponsableTitle_nombre}"/>
+                    <h:outputText value="#{responsableController.selected.nombre}" title="Campo nombre"/>
                     <h:outputText value="FECHA MODIFICACI&Oacute;N:"/>
-                    <h:outputText value="#{responsableController.selected.fechaModificacion}" title="#{bundle.ViewResponsableTitle_fechaModificacion}">
+                    <h:outputText value="#{responsableController.selected.fechaModificacion}" title="Campo fechaModificacion">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="ESTATUS:"/>
-                    <h:outputText value="#{responsableController.selected.estatus}" title="#{bundle.ViewResponsableTitle_estatus}"/>
+                    <h:outputText value="#{responsableController.selected.estatus}" title="Campo estatus"/>
                     <h:outputText value="CORREO:"/>
-                    <h:outputText value="#{responsableController.selected.correo}" title="#{bundle.ViewResponsableTitle_correo}"/>
+                    <h:outputText value="#{responsableController.selected.correo}" title="Campo correo"/>
                     <h:outputText value="CARGO:"/>
-                    <h:outputText value="#{responsableController.selected.cargo}" title="#{bundle.ViewResponsableTitle_cargo}"/>
+                    <h:outputText value="#{responsableController.selected.cargo}" title="Campo cargo"/>
                     <h:outputText value="FECHA ALTA:"/>
-                    <h:outputText value="#{responsableController.selected.fechaAlta}" title="#{bundle.ViewResponsableTitle_fechaAlta}">
+                    <h:outputText value="#{responsableController.selected.fechaAlta}" title="Campo fechaAlta">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="DEPARTAMENTO:"/>
-                    <h:outputText value="#{responsableController.selected.departamento}" title="#{bundle.ViewResponsableTitle_departamento}"/>
+                    <h:outputText value="#{responsableController.selected.departamento}" title="Campo departamento"/>
                 </h:panelGrid>
                          </center>
                     </p:panel>
-                <br />
-                <h:commandButton action="#{responsableController.destroyAndView}" value="ELIMINAR"/>
-                <br />
-                <br />
-                <h:commandButton action="Edit" value="EDITAR"/>
-                <br />
-                <h:commandButton action="#{responsableController.prepareCreate}" value="CREAR NUEVO" />
-                <br />
-                <h:commandButton action="#{responsableController.prepareList}" value="VER"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
-
+               <br /><br />
+                <div align="center">
+                <p:panel>
+                <h:commandButton value="VOLVER" action="/index" immediate="true" />
+                </p:panel>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
