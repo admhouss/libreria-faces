@@ -20,24 +20,22 @@
 <center>
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputLabel value="ID GENERACI&Oacute;N:" for="id" />
-                    <h:inputText id="id" value="#{generacionController.selected.id}" title="#{bundle.EditGeneracionTitle_id}" required="true" requiredMessage="#{bundle.EditGeneracionRequiredMessage_id}"/>
+                    <h:inputText id="id" value="#{generacionController.selected.id}" title="Campo id" required="true" requiredMessage="El campo id es requerido"/>
                     <h:outputLabel value="A&Ntilde;O:" for="anio" />
-                    <h:inputText id="anio" value="#{generacionController.selected.anio}" title="#{bundle.EditGeneracionTitle_anio}" required="true" requiredMessage="#{bundle.EditGeneracionRequiredMessage_anio}"/>
+                    <h:inputText id="anio" value="#{generacionController.selected.anio}" title="Campo anio" required="true" requiredMessage="El campo anio es requerido"/>
                     <h:outputLabel value="DESCRIPCI&Oacute;N:" for="descripcion" />
-                    <h:inputText id="descripcion" value="#{generacionController.selected.descripcion}" title="#{bundle.EditGeneracionTitle_descripcion}" required="true" requiredMessage="#{bundle.EditGeneracionRequiredMessage_descripcion}"/>
+                    <h:inputText id="descripcion" value="#{generacionController.selected.descripcion}" title="Campo descripcion" required="true" requiredMessage="El campo descripcion es requerido"/>
                 </h:panelGrid>
 
     </center>
                    </p:panel>
+               
+                <br /><br />
+                <div align="center">
+                <p:panel>
                 <h:commandButton action="#{generacionController.update}" value="GUARDAR"/>
-                <br />
-                <br />
-                <h:commandButton action="View" value="VER" immediate="true"/>
-                <br />
-                <h:commandButton action="#{generacionController.prepareList}" value="VER TODOS" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                </p:panel>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
