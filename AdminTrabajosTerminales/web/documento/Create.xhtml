@@ -17,40 +17,50 @@
             <h:form>
                 <p:panel header="ALTA DOCUMENTO">
 <center>
-                <h:panelGrid columns="2" cellspacing="15">
-                    <h:outputLabel value="NUM TT:" for="noTt" />
-                    <h:inputText id="noTt" value="#{documentoController.selected.noTt}" title="#{bundle.CreateDocumentoTitle_noTt}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_noTt}"/>
-                    <h:outputLabel value="T&Iacute;TULO:" for="titulo" />
-                    <h:inputText id="titulo" value="#{documentoController.selected.titulo}" title="#{bundle.CreateDocumentoTitle_titulo}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_titulo}"/>
-                    <h:outputLabel value="DESCRICI&Oacute;N:" for="descripcion" />
-                    <h:inputText id="descripcion" value="#{documentoController.selected.descripcion}" title="#{bundle.CreateDocumentoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_descripcion}"/>
-                    <h:outputLabel value="IMAGEN:" for="imagen" />
-                    <h:inputTextarea rows="4" cols="30" id="imagen" value="#{documentoController.selected.imagen}" title="#{bundle.CreateDocumentoTitle_imagen}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_imagen}"/>
-                    <h:outputLabel value="RESUMEN:" for="archivoResumen" />
-                    <h:inputTextarea rows="4" cols="30" id="archivoResumen" value="#{documentoController.selected.archivoResumen}" title="#{bundle.CreateDocumentoTitle_archivoResumen}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_archivoResumen}"/>
-                    <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaCreacion" />
-                    <h:inputText id="fechaCreacion" value="#{documentoController.selected.fechaCreacion}" title="#{bundle.CreateDocumentoTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_fechaCreacion}">
+                <h:panelGrid columns="3" cellspacing="15">
+                    <h:outputLabel value="NUM TT:" for="noTt" styleClass="textoNEGRO" />
+                    <h:inputText id="noTt" value="#{documentoController.selected.noTt}" title="Campo noTt" required="true" requiredMessage="El campo noTT es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="T&Iacute;TULO:" for="titulo" styleClass="textoNEGRO"/>
+                    <h:inputText id="titulo" value="#{documentoController.selected.titulo}" title="Campo titulo" required="true" requiredMessage="El campo titulo es requerido"/>
+                   <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="DESCRICI&Oacute;N:" for="descripcion" styleClass="textoNEGRO"/>
+                    <h:inputText id="descripcion" value="#{documentoController.selected.descripcion}" title="Campo descripcion" required="true" requiredMessage="El campo descripcion es requerido"/>
+                   <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="IMAGEN:" for="imagen" styleClass="textoNEGRO"/>
+                    <h:inputTextarea rows="4" cols="30" id="imagen" value="#{documentoController.selected.imagen}" title="Campo imagen" required="true" requiredMessage="El campo imagen es requerido"/>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="RESUMEN:" for="archivoResumen" styleClass="textoNEGRO"/>
+                    <h:inputTextarea rows="4" cols="30" id="archivoResumen" value="#{documentoController.selected.archivoResumen}" title="Campo archivoResumen" required="true" requiredMessage="El campo archivoResumen es requerido"/>
+                   <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaCreacion" styleClass="textoNEGRO"/>
+                    <h:inputText id="fechaCreacion" value="#{documentoController.selected.fechaCreacion}" title="Campo fechaCreacion" required="true" requiredMessage="El campo fechaCreacion es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        
                     </h:inputText>
-                    <h:outputLabel value="PROTOCOLO:" for="archivoProtocolo" />
-                    <h:inputTextarea rows="4" cols="30" id="archivoProtocolo" value="#{documentoController.selected.archivoProtocolo}" title="#{bundle.CreateDocumentoTitle_archivoProtocolo}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_archivoProtocolo}"/>
-                    <h:outputLabel value="ULTIMA ACTUALIZACI&Oacute;N:" for="ultimaActualizacion" />
-                    <h:inputText id="ultimaActualizacion" value="#{documentoController.selected.ultimaActualizacion}" title="#{bundle.CreateDocumentoTitle_ultimaActualizacion}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_ultimaActualizacion}">
+                       <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="PROTOCOLO:" for="archivoProtocolo" styleClass="textoNEGRO"/>
+                    <h:inputTextarea rows="4" cols="30" id="archivoProtocolo" value="#{documentoController.selected.archivoProtocolo}" title="Campo archivoProtocolo" required="true" requiredMessage="El campo archivoProtocolo es requerido"/>
+                     <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="ULTIMA ACTUALIZACI&Oacute;N:" for="ultimaActualizacion" styleClass="textoNEGRO"/>
+                    <h:inputText id="ultimaActualizacion" value="#{documentoController.selected.ultimaActualizacion}" title="Campo ultimaActualizacion" required="true" requiredMessage="El campo ultimaActualizacion es requerido">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+
                     </h:inputText>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
                 </h:panelGrid>
 
       </center>
                    </p:panel>
 
-                <br />
+                <br /><br/>
+
+                  <div align="center">
+                <p:panel>
                 <h:commandButton action="#{documentoController.create}" value="GUARDAR" />
-                <br />
-                <br />
-                <h:commandButton action="#{documentoController.prepareList}" value="VER" immediate="true"/>
-                <br />
-                <br />
-                <h:commandButton value="INDEX" action="/index" immediate="true" />
+                </p:panel>
+                </div>
+                
             </h:form>
         </ui:define>
     </ui:composition>
