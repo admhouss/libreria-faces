@@ -20,15 +20,15 @@
                 <h:panelGrid columns="2" cellspacing="15">
                     
                     <h:outputLabel value="Fecha Comentario:" for="fechaComentario" styleClass="textoNEGRO" />
-                    <h:inputText id="fechaComentario" value="#{comentarioController.selected.fechaComentario}" title="fecha Comentario" required="true" requiredMessage="RequiredMessage_fechaComentario">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <h:inputText id="fechaComentario" value="#{comentarioController.selected.fechaComentario}" title="fecha Comentario" required="true" requiredMessage="El campo fecha comentario es requerido">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:inputText>
                     <h:outputLabel value="Comentario:" for="comentario" styleClass="textoNEGRO" />
-                    <h:inputText id="comentario" value="#{comentarioController.selected.comentario}" title="comentario" required="true" requiredMessage="RequiredMessage_comentario"/>
+                    <h:inputText id="comentario" value="#{comentarioController.selected.comentario}" title="comentario" required="true" requiredMessage="El campo comentario es requerido"/>
                     <h:outputLabel value="Autor:" for="autor" styleClass="textoNEGRO" />
-                    <h:inputText id="autor" value="#{comentarioController.selected.autor}" title="autor" required="true" requiredMessage="RequiredMessage_autor"/>
+                    <h:inputText id="autor" value="#{comentarioController.selected.autor}" title="autor" required="true" requiredMessage="El campo autor es requerdo"/>
                     <h:outputLabel value="Articulo:" for="articulo"  styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="articulo" value="#{comentarioController.selected.articulo}" title="articulo" required="true" requiredMessage="RequiredMessage_articulo">
+                    <h:selectOneMenu id="articulo" value="#{comentarioController.selected.articulo}" title="articulo" required="true" requiredMessage="El campo articulo es requerido">
                         <f:selectItems value="#{articuloController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
