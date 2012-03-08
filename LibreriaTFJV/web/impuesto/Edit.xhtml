@@ -24,7 +24,7 @@
                     <h:outputLabel value=" "  styleClass="textoNEGRO" />
 
                     <h:outputLabel value="Impuesto:" for="montoImpuesto" styleClass="textoNEGRO" />
-                    <h:inputText id="montoImpuesto" value="#{impuestoController.selected.montoImpuesto}" title="Monto Impuesto" required="true" requiredMessage="El campo Monto Impuesto falta por capturar"/>
+                    <h:inputText id="montoImpuesto" value="#{impuestoController.selected.montoImpuesto}" title="Monto Impuesto" required="true" requiredMessage="El campo Monto Impuesto falta por capturar" converter="#{BigDecimal}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                     <h:outputLabel value="%"  styleClass="textoNEGRO" />
 
                     

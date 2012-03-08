@@ -21,7 +21,7 @@
                     <h:panelGrid columns="3" cellspacing="15">
                     
                     <h:outputLabel value="Impuesto:" for="montoImpuesto" styleClass="textoNEGRO" />
-                    <h:inputText id="montoImpuesto" value="#{impuestoController.selected.montoImpuesto}" title="Monto Impuesto" required="true" requiredMessage="Falta por campturar el campo Monto Impuesto"/>
+                    <h:inputText id="montoImpuesto" value="#{impuestoController.selected.montoImpuesto}" title="Monto Impuesto" required="true" requiredMessage="Falta por campturar el campo Monto Impuesto" converter="#{BigDecimal}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                     <h:outputLabel value="%"  styleClass="textoNEGRO" />
                    
                     
