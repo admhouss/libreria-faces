@@ -27,17 +27,14 @@
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:calendar>
                     <h:outputLabel value="Articulo:" for="articulo" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="articulo" value="#{suscripcionClienteController.selected.articulo}" title="articulo}" required="true" requiredMessage="El campo articulo es requerido">
-                        <f:selectItems value="#{articuloController.listArticulos}" var="item" itemValue="#{item}" itemLabel="#{item.codigo}-#{item.titulo}"/>
-                    </h:selectOneMenu>
+                    <h:outputLabel id="articulo" value="#{suscripcionClienteController.selected.articulo.codigo}-#{suscripcionClienteController.selected.articulo.titulo}" title="articulo" />
+                       
                     <h:outputLabel value="Cliente:" for="cliente" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="cliente" value="#{suscripcionClienteController.selected.cliente}" title="cliente" required="true" requiredMessage="El campo cliente es requerido">
-                        <f:selectItems value="#{clienteController.listaClientes}" var="item" itemValue="#{item}" itemLabel="#{item.id}"/>
-                    </h:selectOneMenu>
+                    <h:outputLabel id="cliente" value="#{suscripcionClienteController.selected.cliente}" title="cliente" />
+                       
                     <h:outputLabel value="Suscripcion" for="suscripcion" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="suscripcion" value="#{suscripcionClienteController.selected.suscripcion}" title="suscripcion}" required="true" requiredMessage="suscripcion}">
-                        <f:selectItems value="#{suscripcionController.listSuscripcion}" var="item" itemValue="#{item}" itemLabel="#{item.suscripcionPK.idSuscripcion}"/>
-                    </h:selectOneMenu>
+                    <h:outputLabel id="suscripcion" value="#{suscripcionClienteController.selected.suscripcion.suscripcionPK.idSuscripcion}" title="suscripcion}" />
+                      
                 </h:panelGrid>
                     </center>
                 </p:panel>

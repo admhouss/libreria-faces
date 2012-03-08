@@ -19,21 +19,19 @@
             <h:panelGroup>
 
                 <br/>  <br/>
-                <div align="right">
-                 <h:commandButton  action="#{suscripcionClienteController.prepareCreate}" value="Crear Nuevo"/>
-                </div>
+               
                 <br/><br/>
                 <p:panel header="CAT&Aacute;LOGO DE SUSCRIPCIONES CLIENTE">
                 <center>
 
                     <p:dataTable value="#{suscripcionClienteController.listSuscripcionesCliente}" var="item" paginator="true" rows="10" selectionMode="single">
-                        <p:column style="width:60px;" >
+                        <p:column style="width:60px;" filterBy="#{item.cliente.id}">
                         <f:facet name="header">
                             <h:outputText value="CLIENTE" />
                         </f:facet>
                             <h:outputText value="#{item.cliente.id}"/>
                     </p:column>
-                    <p:column>
+                        <p:column filterBy="#{item.suscripcion.suscripcionPK.idSuscripcion}">
                         <f:facet name="header">
                             <h:outputText value="SUSCRIPCION"/>
                         </f:facet>
@@ -41,7 +39,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ESTADO ENVIO"/>
+                            <h:outputText value="ESTADO"/>
                         </f:facet>
                         <h:outputText value="PENDIENTE" rendered="#{item.estadoEnvio==false}"/>
                         <h:outputText value="ENVIADO" rendered="#{item.estadoEnvio}"/>
