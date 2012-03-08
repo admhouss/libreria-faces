@@ -328,9 +328,9 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
         tipoArticulo=tipoArticulo.toUpperCase();
         formato=formato.toUpperCase();
         if(tipoArticulo.equalsIgnoreCase("SUSCRIPCION") || tipoArticulo.equalsIgnoreCase("SUSCRIPCIÒN")){
-            if(formato.equalsIgnoreCase("FISICO") || formato.equalsIgnoreCase("FÌSICO"))
+            if(formato.toUpperCase().equalsIgnoreCase("FISICO") || formato.toUpperCase().equalsIgnoreCase("FÌSICO"))
              return 0;//SUSCRIPCION FISICA;
-            if(formato.equalsIgnoreCase("ELECTRONICO") || formato.equalsIgnoreCase("ELÈCTRONICO"))
+            if(formato.toUpperCase().equalsIgnoreCase("ELECTRONICO") || formato.toUpperCase().equalsIgnoreCase("ELÈCTRONICO"))
             return 1;  //SUSCRIPCION ELECTRONICO
         }
         return 2;/// PUBLICACICION
@@ -346,7 +346,7 @@ private static  Logger logger = Logger.getLogger(PayPalController.class);
      try{
 
         if(direnvioController.getDireccionEnvioSelected()==null){
-              JsfUtil.addErrorMessage("Es requerido seleccionar una direccion de envio,");
+              JsfUtil.addErrorMessage("Es requerido seleccionar una direccion de envio");
               return "/carrito/Carrito";
    
         }

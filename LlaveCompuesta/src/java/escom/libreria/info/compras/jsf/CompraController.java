@@ -324,13 +324,11 @@ return "/compra/CompradoDeposito";
           compra.setImpuesto(compraTOTAL.getImpuesto());
           compra.setPagoNeto(compraTOTAL.getTotalMonto());
           compra.setPagoTotal(compraTOTAL.getTotalMonto());
-          compra.setCostoEnvio(BigDecimal.ZERO);//CAMBIAR COSTO DE ENVIO
-          compra.setCuenta(" ");
+          compra.setCostoEnvio(compraTOTAL.getGastosEnvio());//CAMBIAR COSTO DE ENVIO
           compra.setIdPedido(pedidoID);
           compra.setFecha(new Date());
           compra.setIdCliente(idCliente);
           compra.setObservaciones("PROCESANDO");
-          compra.setFechaEnvio(new Date());
           compra.setFechaEnvio(new Date());
           compra.setEstado("CONFIRMADO");
           compra.setCcd(0);
@@ -346,8 +344,8 @@ return "/compra/CompradoDeposito";
       
           return "/paypal/Create";
         } catch (Exception e) {
-            e.printStackTrace();
-            JsfUtil.addErrorMessage(e, ("Error al confirmar pedido"));
+            logger.error("ERROR AL CONFIRMAR PEDIDO", e);
+            JsfUtil.addErrorMessage("Error al confirmar pedido");
             return null;
         }
     }

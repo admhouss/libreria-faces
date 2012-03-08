@@ -131,6 +131,7 @@ public class facturafromDenegateImp implements facturafromClient{
 
                   response = stub.requestTransaction(requestTransaction6);
                   StringBuilder buffer=new StringBuilder();
+                  buffer.append("RESPUESTA DEL SERVICIO MYSUIT").append("\n");
                   buffer.append("proceso:").append(response.getRequestTransactionResult().getResponse().getProcessor()).append("\n").
                   append("codigo:").append(response.getRequestTransactionResult().getResponse().getCode()).append("\n").
                   append("data:").append(response.getRequestTransactionResult().getResponse().getData()).append("\n").

@@ -148,7 +148,7 @@ public class PedidoController implements Serializable{
             pedidos= getFacade().getListaPedidosByidPedios(identificadorPedido);
         }catch(Exception e){
 
-            JsfUtil.addErrorMessage("Error al obtener pedidos by cliente");
+            logger.error("Error al obtener pedidos  cliente",e);
         }
 
         return pedidos;
@@ -160,7 +160,7 @@ public class PedidoController implements Serializable{
         {
             Cliente cliente=sistemaController.getCliente();
             pedidos=getFacade().getListPedidoByCliente(cliente.getId());
-         //   pedidos= getFacade().getListaPedidosByidPedios(identificadorPedido);
+         
         }catch(Exception e){
 
             logger.error("ERROR LISTA DE PEIDDOS BU CLIENTES ALL");
@@ -178,7 +178,7 @@ public class PedidoController implements Serializable{
             pedidos= getFacade().getListaPedidosByidPedios(identificadorPedido);
         }catch(Exception e){
 
-            JsfUtil.addErrorMessage("Error al obtener pedidos by cliente");
+           logger.error("Error al obtener pedido ",e);
         }
         return pedidos;
     }
@@ -196,7 +196,7 @@ public class PedidoController implements Serializable{
              }
         }catch(Exception e){
 
-            JsfUtil.addErrorMessage("Error al obtener pedidos by cliente");
+            logger.error("Error al obtener monto Total pedidoController",e);
         }
         return montoTotal;
     }

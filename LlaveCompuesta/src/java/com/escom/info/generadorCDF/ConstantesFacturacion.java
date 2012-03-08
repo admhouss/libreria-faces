@@ -11,10 +11,10 @@ package com.escom.info.generadorCDF;
  */
 public abstract class ConstantesFacturacion {
 
-    public static final String RUTA_REPOSITORIO_CFD= "/home/libreria/facturacion/";  //"C:/Users/xxx/Desktop/facturasPrueba/";
+    public static final String RUTA_REPOSITORIO_CFD= "/home/libreria/facturacion/"; // "C:/Users/xxx/Desktop/facturasPrueba/";
     public static final String FACTURA_NOMBRE="FACTCFD0";
-    //public static final String ruta_cfd="C:/Users/xxx/Desktop/facturasPrueba/"; //"/home/libreria/facturacion/";
-    public static final String keyStore="/home/libreria/mykeystore/keystore.jks";//"C:/Users/xxx/Documents/mikeystore/keystore.jks";
+   
+    public static final String keyStore= "/home/libreria/mykeystore/keystore.jks"; //"C:/Users/xxx/Documents/mikeystore/keystore.jks";
     public static final String DWONLOAD="http://libreria-tfjfa.com/LibreriaTFJV/faces/download/Create.xhtml?key=";  //http://localhost:8080/LibreriaTFJV/faces/download/Create.xhtml?key=";
     public static final String URL_COMPRA_ARTICULO="http://libreria-tfjfa.com/LibreriaTFJV/faces/compra/";  //http://localhost:8080/LibreriaTFJV/faces/compra/
     public static final String usuarioBase="libreria_app";  //"root";

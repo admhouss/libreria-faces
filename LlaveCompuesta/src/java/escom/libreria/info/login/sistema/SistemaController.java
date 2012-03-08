@@ -108,7 +108,7 @@ public class SistemaController implements Serializable {
                              Logger.getLogger(SistemaController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }else{
-                          JsfUtil.addErrorMessage("Su cuenta se encuentra desactivada ,ingresar correo electronico");
+                          JsfUtil.addErrorMessage("Ingresa a tu correo electrónico y activa tu cuenta");
                           return "/login/OlvideContrasenia";
                     }
                }
