@@ -17,10 +17,8 @@
             </h:panelGroup>
 
             <br/><br/>
-            <br />
-            <div align="right">
-                 <h:commandButton action="#{almacenPedidoController.prepareCreate}" value="Crear Nuevo"/>
-            </div>
+           
+            
             <br/><br/>
             <h:panelGroup>
                 <p:panel header="CAT&Aacute;LOGO DE ALMACEN PEDIDO">
@@ -51,10 +49,7 @@
                              <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
                         </h:commandLink>
                         
-                        <h:commandLink action="#{almacenPedidoController.prepareEdit(item)}" >
-                             <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
-                        </h:commandLink>
-                        
+                                             
                         <h:commandLink action="#{almacenPedidoController.destroy(item)}" >
                              <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
