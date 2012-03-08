@@ -27,15 +27,15 @@
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
                     <h:outputText value="Fecha Fin:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{descuentoClienteController.selected.fechaFin}" title="#{bundle.ViewDescuentoClienteTitle_fechaFin}">
+                    <h:outputText value="#{descuentoClienteController.selected.fechaFin}" title="Fecha Fin">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
                     <h:outputText value="Cliente:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{descuentoClienteController.selected.cliente.nombre} #{descuentoClienteController.selected.cliente.paterno} #{descuentoClienteController.selected.cliente.materno}" title="#{bundle.ViewDescuentoClienteTitle_cliente}"/>
+                    <h:outputText value="#{descuentoClienteController.selected.cliente.nombre} #{descuentoClienteController.selected.cliente.paterno} #{descuentoClienteController.selected.cliente.materno}" title="Cliente"/>
                     <h:outputText value="Descripci&oacute;n:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{descuentoClienteController.selected.descuento.descripcion}" title="#{bundle.ViewDescuentoClienteTitle_descuento}"/>
+                    <h:outputText value="#{descuentoClienteController.selected.descuento.descripcion}" title="Descripcion"/>
                     <h:outputText value="Descuento:" styleClass="textoNEGRO"/>
-                    <h:outputText value="#{descuentoClienteController.selected.descuento.porcentaje} %" title="#{bundle.ViewDescuentoClienteTitle_descuento}"/>
+                    <h:outputText value="#{descuentoClienteController.selected.descuento.porcentaje} %" title="Porcentaje"/>
 
                 </h:panelGrid>
             </center>
