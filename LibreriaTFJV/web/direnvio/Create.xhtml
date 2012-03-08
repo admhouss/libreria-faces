@@ -31,8 +31,8 @@
                     <h:inputText id="noExterior" value="#{direnvioController.selected.noExterior}" title="noExterior" required="true" requiredMessage="El campo noExterior es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="No.Interior:" for="noInterior" styleClass="textoNEGRO"/>
-                    <h:inputText id="noInterior" value="#{direnvioController.selected.noInterior}" title="noInterior" required="true" requiredMessage="El campo noInterior es requerido"/>
-                    <h:outputLabel value="*"  styleClass="textoROJO"/>
+                    <h:inputText id="noInterior" value="#{direnvioController.selected.noInterior}" title="noInterior" />
+                    <h:outputLabel value=" "  styleClass="textoROJO"/>
                     <h:outputLabel value="Colonia:" for="colonia" styleClass="textoNEGRO"/>
                     <h:inputText id="colonia" value="#{direnvioController.selected.colonia}" title="colonia" required="true" requiredMessage="El campo colonia es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
@@ -41,7 +41,7 @@
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     
                     <h:outputLabel value="C.P:" for="cp" styleClass="textoNEGRO" />
-                    <h:inputText id="cp" value="#{direnvioController.selected.cp}" title="codigo postal" required="true" requiredMessage="El campo cp es requerido"/>
+                    <h:inputText id="cp" value="#{direnvioController.selected.cp}" title="codigo postal" required="true" requiredMessage="El campo cp es requerido" converter="#{Integer}" converterMessage="Error de conversion ,el valor espeficiado no es un n&uacute;mero valido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Referencia:" for="referencia" styleClass="textoNEGRO"/>
                     <h:inputText id="referencia" value="#{direnvioController.selected.referencia}" title="referencia" required="true" requiredMessage="El campo referencia es requerido"/>
