@@ -178,7 +178,7 @@ public class DirenvioController implements Serializable{
             JsfUtil.addSuccessMessage(("Direncion Acutalizada Satisfactoriamente"));
             return "/direnvio/View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ("Error al actualizar direcion de envio"));
+            JsfUtil.addErrorMessage(("Error al actualizar direcion de envio"));
             return null;
         }
     }

@@ -326,8 +326,8 @@ public class GeneraraFacade {
        descuento.setServicio(TSpecialServicesType.DESCUENTO);
        descuento.setDescripcion(TSpecialServicesType.DESCUENTO.value());
        descuento.setBase(getImporte(pedido.getPrecioNeto().add(pedido.getGastosEnvio())));//ESTA BIEN LA BASE
-       descuento.setMonto(getImporte(getCalcularImpuesto(pedido.getDescuento(), pedido.getPrecioNeto().add(pedido.getGastosEnvio()))));
-       descuento.setTasa(pedido.getDescuento());
+       descuento.setMonto(getImporte(getCalcularImpuesto(BigDecimal.ZERO, pedido.getPrecioNeto().add(pedido.getGastosEnvio()))));
+       descuento.setTasa(BigDecimal.ZERO);
        lista.add(descuento);
        return t;
 
@@ -361,7 +361,7 @@ public class GeneraraFacade {
     private TResumenDeDescuentosYRecargos getResumenDeDescuentosYCargos(BigDecimal descuentoTotal) {
         TResumenDeDescuentosYRecargos d=new TResumenDeDescuentosYRecargos();
 
-        d.setTotalDescuentos(getImporte(descuentoTotal));
+        d.setTotalDescuentos(getImporte(BigDecimal.ZERO));
         d.setTotalRecargos(getImporte(BigDecimal.ZERO));  //resuemen descuento recargos
 
 

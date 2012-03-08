@@ -112,6 +112,7 @@ public class generadorCDFController implements Serializable
                     /*DESCOMENTAR ESTA LINEA SI ES IMPORTANTE ,LA COMENTE POR PROBAR**/
                             if(c.getReqFactura()==1)
                             enviarFacturaToCliente(c.getIdCliente(),facturacion.getUbicacionCFDI());
+                           logger.info("factura realizada satisfactoriamente");
                         }
                          else{
                            logger.info("LA UBICACION ES NULA"+msgError);

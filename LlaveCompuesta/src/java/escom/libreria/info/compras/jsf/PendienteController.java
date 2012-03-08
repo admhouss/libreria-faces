@@ -118,9 +118,7 @@ public class PendienteController implements Serializable{
 
     public String destroy(Pendiente p) {
         current =p; //(Pendiente)getItems().getRowData();
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        //performDestroy();
-        //recreateModel();
+        
         getFacade().remove(current);
         JsfUtil.addSuccessMessage("Pendiente Eliminado Satisfactoriamente");
         return "/pendiente/List";

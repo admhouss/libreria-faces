@@ -125,7 +125,7 @@ public class AlmacenController implements Serializable{
             JsfUtil.addErrorMessage("El articulo ya fue registrado anteriormente");
             return "/almacen/Create";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ("Error al crear almacen "));
+            JsfUtil.addErrorMessage("Error al crear almacen ");
             return null;
         }
     }

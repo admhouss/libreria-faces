@@ -223,13 +223,14 @@ public class PedidoFacade {
 
     public CompraDTO getSuperTotal(int idPedido) {
         CompraDTO compra=new CompraDTO();
-         TypedQuery<Object[]> query=em.createQuery("SELECT SUM(p.impuesto),SUM(p.descuento),SUM(p.precioTotal) FROM Pedido p WHERE p.pedidoPK.idPedido=:idPedido",Object[].class)
+         TypedQuery<Object[]> query=em.createQuery("SELECT SUM(p.impuesto),SUM(p.descuento),SUM(p.precioTotal),SUM(p.gastosEnvio) FROM Pedido p WHERE p.pedidoPK.idPedido=:idPedido",Object[].class)
                                  .setParameter("idPedido",idPedido);
          List<Object[]> results = query.getResultList();
   for (Object[] result : results) {
   compra.setImpuesto((BigDecimal) result[0]);
   compra.setDescuento((BigDecimal) result[1]);
   compra.setTotalMonto((BigDecimal) result[2]);
+  compra.setGastosEnvio((BigDecimal) result[3]);
       //System.out.println("impuesto: " + result[0] + ", descuento: " + result[1]+"precio toal"+result[2]);
   }
 
@@ -288,17 +289,21 @@ public Date getHoy(){
                   .setParameter("idArticulo",idArticulo);
          pedido=query.getSingleResult();
         }catch(Exception e){
+            e.printStackTrace();
         }
          return pedido;
     }
 
     public void cambiarEstadoPedidoAll(int idPedido,String type) { //type CANCELADO,PROCESANDO,COMPRADO
+        try{
          Query query = em.createQuery("UPDATE Pedido p SET p.estado=:estado WHERE p.pedidoPK.idPedido=:idPedido",Pedido.class)
         .setParameter("idPedido",idPedido)
         .setParameter("estado", type);
 
         int deleted = query.executeUpdate();
-
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -310,24 +315,32 @@ public Date getHoy(){
 
          pedido=query.getResultList();
         }catch(Exception e){
+            e.printStackTrace();
         }
          return pedido;
     }
 
     public int getIdPedidoProcesando(String idCliente, String string) {
+        try{
        TypedQuery<Pedido> query=(TypedQuery<Pedido>) em.createQuery("SELECT p FROM Pedido p WHERE p.cliente.id=:idCliente AND p.estado=:estado",Pedido.class)
                .setParameter("idCliente", idCliente)
                .setParameter("estado", string);
-
+        }catch(Exception e){
+            e.printStackTrace();
+        }
        return 1;
     }
 
     public int buscarIdPeidoMaximo(String idCliente,String estado) {
         Integer idPedido=null;
+        try{
         TypedQuery<Integer> query=em.createQuery("SELECT MAX(p.pedidoPK.idPedido) FROM Pedido p WHERE p.cliente.id=:idCliente AND p.estado=:estado",Integer.class)
                   .setParameter("idCliente",idCliente)
                   .setParameter("estado", estado);
         idPedido=query.getSingleResult();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return idPedido;
 
     }

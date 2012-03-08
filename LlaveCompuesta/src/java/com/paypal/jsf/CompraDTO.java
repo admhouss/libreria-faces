@@ -16,6 +16,7 @@ public class CompraDTO {
     private BigDecimal impuesto;
     private BigDecimal descuento ;
     private BigDecimal totalMonto;
+    private BigDecimal gastosEnvio;
 
     public BigDecimal getDescuento() {
         return descuento;
@@ -28,6 +29,15 @@ public class CompraDTO {
     public BigDecimal getImpuesto() {
         return impuesto;
     }
+
+    public BigDecimal getGastosEnvio() {
+        return gastosEnvio;
+    }
+
+    public void setGastosEnvio(BigDecimal gastosEnvio) {
+        this.gastosEnvio = gastosEnvio;
+    }
+
 
     public void setImpuesto(BigDecimal impuesto) {
         this.impuesto = impuesto;
