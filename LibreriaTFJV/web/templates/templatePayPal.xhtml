@@ -111,7 +111,7 @@ body { border:none; background:none; background-color:#FFFFFF;}
                                                 <!--</a>-->
                                                 <span class="amount"><h:outputLabel value="#{item.precioTotal}"/></span>
                                        </li>
-                                            <li class="secondary"><h:outputLabel value="Precio del Art&iacute;culo $ #{item.precioNeto}"/></li>
+                                            <li class="secondary"><h:outputLabel value="Precio del Art&iacute;culo $ #{item.precioTotal}"/></li>
                                             <li class="secondary"><h:outputLabel value="Cantidad $ #{item.noArticuloCategoria}"/></li>
                                         </ul>
                                     </li>
@@ -137,7 +137,7 @@ body { border:none; background:none; background-color:#FFFFFF;}
                                  </div></li></ul>
                     </div>
                      <div class="small wrap items totals item1">
-                         <ul><li class="heavy highlight finalTotal"><span class="grandTotal amount highlight"><h:outputLabel value="Total $ #{pedidoController.montoTotal} MX"/></span></li></ul>
+                         <ul><li class="heavy highlight finalTotal"><span class="grandTotal amount highlight"><h:outputLabel value="Total $ #{compraController.precioTotalFinal} MX"/></span></li></ul>
                     </div>
                        <!-- </p:dataList>-->
                     </div>
