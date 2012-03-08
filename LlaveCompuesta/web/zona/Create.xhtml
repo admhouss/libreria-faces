@@ -22,10 +22,10 @@
                     <h:inputText id="zona" value="#{zonaController.selected.idZona}" title="zona"  maxlength="2" required="true" requiredMessage="El campo zona es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Peso:" for="peso" styleClass="textoNEGRO"/>
-                    <h:inputText id="peso" value="#{zonaController.selected.peso}" title="Peso" />
+                    <h:inputText id="peso" value="#{zonaController.selected.peso}" title="Peso" converter="#{BigDecimal}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                     <h:outputLabel value="Kg"  styleClass="textoROJO"/>
                     <h:outputLabel value="Tarifa:" for="tarifa" styleClass="textoNEGRO"/>
-                    <h:inputText id="tarifa" value="#{zonaController.selected.tarifa}" title="tarifa" />
+                    <h:inputText id="tarifa" value="#{zonaController.selected.tarifa}" title="tarifa" converter="#{BigDecimal}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                     <h:outputLabel value=" "  styleClass="textoROJO"/>
                 </h:panelGrid>
                     </center>
