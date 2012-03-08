@@ -22,7 +22,7 @@
                 <h:panelGrid columns="3" cellspacing="15">
                     
                     <h:outputLabel  value="Precio:" for="precio" styleClass="textoNEGRO" />
-                    <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="Precio Publico" required="true" requiredMessage="Elcampo precioPublico es requerido"/>
+                    <h:inputText id="precio" value="#{promocionController.selected.precioPublico}" title="Precio Publico" required="true" requiredMessage="El  campo precio Publico es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"  />
                     <h:outputLabel value="Fecha Inicio:" for="diaInicio" styleClass="textoNEGRO" />
                     <p:calendar id="diaInicio" value="#{promocionController.selected.diaInicio}" title="Dia Inicio" required="true" requiredMessage="El campo  dia Inicio es requerido" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true">
