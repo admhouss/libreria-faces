@@ -18,11 +18,7 @@
             
             <h:panelGroup>
                 
-                <div align="right">
-                     <br /><br />
-                     <h:commandButton action="#{pedidoController.prepareCreate}" value="Crear Nuevo"/>
-            
-                </div>
+                
                     
                      <br/><br/>
                 <p:panel header="CAT&Aacute;LOGO DE PEDIDOS">
@@ -56,23 +52,7 @@
                         </f:facet>
                         <h:outputText value="#{item.articulo.codigo}-#{item.articulo.titulo}"/>
                     </p:column>
-                   <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
-                        </f:facet>
-                        <h:commandLink action="#{pedidoController.prepareView(item)}">
-                            <img src="./../resources/iconos/sver.png" alt="" title="Ver"/>
-                        </h:commandLink>
-                        
-                        <h:commandLink action="#{pedidoController.prepareEdit(item)}">
-                            <img src="./../resources/iconos/seditar.png" alt="" title="Editar"/>
-                        </h:commandLink>
-                        
-                        
-                        <h:commandLink action="#{pedidoController.destroy(item)}">
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
-                        </h:commandLink>
-                    </p:column>
+                  
                 </p:dataTable>
                 </p:panel>
             </h:panelGroup>
