@@ -16,17 +16,17 @@
             </h:panelGroup>
             <h:form id="descuentoCreate">
                 <br/>  <br/>
-                <p:panel header="CREAR DESCUENTO">
+                <p:panel header="ALTA DESCUENTO ART&Iacute;CULO">
                 <center>
                     <h:panelGrid columns="3" cellspacing="15">
 
                     <h:outputLabel value="Descuento:" for="montoImpuesto" styleClass="textoNEGRO" />
-                    <h:inputText id="montoImpuesto" value="#{descuentoArticuloController.selected.descuento}" title="descuento" required="true" requiredMessage="RequiredMessage_montoImpuesto"/>
+                    <h:inputText id="montoImpuesto" value="#{descuentoArticuloController.selected.descuento}" title="descuento" required="true" requiredMessage="RequiredMessage_montoImpuesto" converter="#{BigDecimal}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido" />
                     <h:outputLabel value="%"  styleClass="textoNEGRO"/>
 
                    
                     <h:outputLabel value="Fecha Inicio:" for="fecha_inicio" styleClass="textoNEGRO" />
-                    <p:calendar id="fecha_inicio" value="#{descuentoArticuloController.selected.fechaInicio}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" required="true" readOnlyInputText="true" requiredMessage="Falta por capturar el campo fecha inicio!" />
+                    <p:calendar id="fecha_inicio" value="#{descuentoArticuloController.selected.fechaInicio}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" required="true" readOnlyInputText="true" requiredMessage="Falta por capturar el campo fecha inicio" />
                      <h:outputLabel value=" "/>
                     <h:outputLabel value="Fecha Fin:" for="fecha_fin" styleClass="textoNEGRO" />
                     <p:calendar id="fecha_fin" value="#{descuentoArticuloController.selected.fechaFinal}" pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" required="true" readOnlyInputText="true" requiredMessage="Falta por capturar el campo fecha fin" />
@@ -42,7 +42,7 @@
                 </p:panel>
 
                     <br/>  <br/>
-            <p:panel header="CAT&Aacute;LOGO ART&Iacute;CULOS">
+            <p:panel header="SELECCIONAR ART&Iacute;CULOS">
 
             <h:panelGroup >
                 <p:dataTable value="#{articuloController.listArticulos}" var="item" paginator="true"  rows="10" selectionMode="single">
