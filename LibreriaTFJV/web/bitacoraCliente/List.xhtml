@@ -26,7 +26,7 @@
                             <h:outputText value="FECHA"/>
                         </f:facet>
                         <h:outputText value="#{item.fecha}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
                     <p:column>
@@ -59,7 +59,7 @@
                        
                        
                         <h:commandLink action="#{bitacoraClienteController.destroy(item)}">
-                              <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                              <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
