@@ -34,7 +34,7 @@
                 <p:tab title="PUBLICACIONES" rendered="#{publicacionController.tipoArticuloMostrar>=1}">
                     <h:panelGroup id="control" >
                     
-                   <p:dataGrid value="#{publicacionController.listLibroByCategoria}" var="item"  rows="5" paginator="true"  columns="1"  >
+                   <p:dataGrid value="#{publicacionController.listLibroByCategoria}" var="item"  rows="10" paginator="true"  columns="1"  >
 
 
 
@@ -82,11 +82,11 @@
 
 
         <h:commandLink  action="#{publicacionController.prepareView(item,1)}" immediate="true" >
-            <img src="./../resources/iconos/Comentarios.png" alt="" title="Detalles Publicacion"/>
+            <img src="./../resources/iconos/Comentarios.png" alt="" title="Detalles Publicaci&oacute;n"/>
         </h:commandLink>
 
            <h:commandLink  action="#{publicacionController.prepareView(item,1)}" immediate="true" >
-             <img src="./../resources/iconos/informacion.png" alt="" title="Detalle Publicacion"/>
+               <img src="./../resources/iconos/informacion.png" alt="" title="Detalle Publicaci&oacute;n"/>
            </h:commandLink>
 
 
@@ -155,11 +155,11 @@
 
 
         <h:commandLink  action="#{publicacionController.prepareView(item,1)}" immediate="true" >
-            <img src="./../resources/iconos/Comentarios.png" alt="" title="Detalles Publicacion"/>
+            <img src="./../resources/iconos/Comentarios.png" alt="" title="Detalles Publicaci&oacute;n"/>
         </h:commandLink>
 
            <h:commandLink  action="#{publicacionController.prepareView(item,1)}" immediate="true" >
-             <img src="./../resources/iconos/informacion.png" alt="" title="Detalle Publicacion"/>
+               <img src="./../resources/iconos/informacion.png" alt="" title="Detalle Publicaci&oacute;n"/>
            </h:commandLink>
 
 
