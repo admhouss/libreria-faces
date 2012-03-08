@@ -34,7 +34,7 @@
                     <h:outputText id="enConsigna" value="#{almacenController.selected.enConsigna}" title="Consigna" />
                     <h:outputLabel value="*"  styleClass="textoROJO" />
                     <h:outputLabel value="En Firme:" for="enFirme" styleClass="textoNEGRO" />
-                    <h:inputText id="enFirme" value="#{almacenController.selected.enFirme}" title="Firme" required="true" requiredMessage="enFirme"/>
+                    <h:inputText id="enFirme" value="#{almacenController.selected.enFirme}" title="Firme" required="true" requiredMessage="enFirme" converter="#{Integer}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO" />
                     
                 </h:panelGrid>

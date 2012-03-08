@@ -17,7 +17,7 @@
             <h:form id="NovedadesCreate">
 
                 <br/>  <br/>
-                <p:panel header="EDITAR ALAMAC&Eacute;N">
+                <p:panel header="CREAR ALMAC&Eacute;N">
                 <center>
                     <h:panelGrid columns="3" cellspacing="15">
 
@@ -27,25 +27,20 @@
 
                     <h:outputLabel value=" "  styleClass="textoROJO" />
                     <h:outputLabel value="En Consigna:" for="enConsigna" styleClass="textoNEGRO" />
-                    <h:inputText id="enConsigna" value="#{almacenController.selected.enConsigna}" title="Consigna" required="true" requiredMessage="El campo Consigna es requerido">
-                         <f:validator  validatorId="NumeroValidator"/>
+                    <h:inputText id="enConsigna" value="#{almacenController.selected.enConsigna}" title="Consigna" required="true" requiredMessage="El campo Consigna es requerido" converter="#{Integer}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido">
+                         
                     </h:inputText>
                     <h:outputLabel value="*"  styleClass="textoROJO" />
                     <h:outputLabel value="En Firme:" for="enFirme" styleClass="textoNEGRO" />
-                    <h:inputText id="enFirme" value="#{almacenController.selected.enFirme}" title="Firme" required="true" requiredMessage="El campo Firme es requerido">
-                         <f:validator  validatorId="NumeroValidator"/>
+                    <h:inputText id="enFirme" value="#{almacenController.selected.enFirme}" title="Firme" required="true" requiredMessage="El campo Firme es requerido" converter="#{Integer}" converterMessage="Error de conversi&oacute;n ,el valor especificado es un n&uacute;mero valido">
+                         
                     </h:inputText>
                     <h:outputLabel value="*"  styleClass="textoROJO" />
                      
                    
 
                     <h:outputLabel value="Art&iacute;culo:" for="articulo"  styleClass="textoNEGRO"/>
-                   <!-- <h:selectOneMenu id="articulo" value="{almacenController.selected.articulo}" title="Articulo" required="true"
-                                     requiredMessage="articulo" style="width:220px;" >
-
-                        <f:selectItems value="{articuloController.listArticulos}" var="item" itemValue="{item}" itemLabel={item.codigo}-{item.titulo}"/>
-                    </h:selectOneMenu>
-                   -->
+                  
                     <h:outputLabel value="*"  styleClass="textoROJO" />
                      </h:panelGrid>
                
