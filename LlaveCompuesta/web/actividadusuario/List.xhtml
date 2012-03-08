@@ -20,9 +20,7 @@
             <h:panelGroup >
 
                  <br /> <br />
-                <!-- <div align="right">
-                     <h:commandButton action="{actividadusuarioController.prepareCreate}" value="Crear Nuevo"/>
-                 </div>-->
+                
                  <br /> <br />
                  <p:panel header="CAT&Aacute;LOGO ACTIDAD USUARIO ADMINISTRATIVO">
                 <p:dataTable value="#{actividadusuarioController.listActividadUsuario}" var="item" paginator="true" rows="10">
@@ -38,7 +36,7 @@
                             <h:outputText value="FECHA"/>
                         </f:facet>
                         <h:outputText value="#{item.fecha}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
                     <p:column style="width:100px;">
