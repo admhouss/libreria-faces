@@ -19,7 +19,7 @@
                     <h:inputText id="idMovimiento" value="#{bitacoraConsultaController.selected.idMovimiento}" title="#{bundle.EditBitacoraConsultaTitle_idMovimiento}" required="true" requiredMessage="#{bundle.EditBitacoraConsultaRequiredMessage_idMovimiento}"/>
                     <h:outputLabel value="#{bundle.EditBitacoraConsultaLabel_fecha}" for="fecha" />
                     <h:inputText id="fecha" value="#{bitacoraConsultaController.selected.fecha}" title="#{bundle.EditBitacoraConsultaTitle_fecha}" required="true" requiredMessage="#{bundle.EditBitacoraConsultaRequiredMessage_fecha}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.EditBitacoraConsultaLabel_articulo}" for="articulo" />
                     <h:selectOneMenu id="articulo" value="#{bitacoraConsultaController.selected.articulo}" title="#{bundle.EditBitacoraConsultaTitle_articulo}" required="true" requiredMessage="#{bundle.EditBitacoraConsultaRequiredMessage_articulo}">
