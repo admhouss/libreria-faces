@@ -896,6 +896,7 @@ private int determinaTipoArticulo(String formato,String tipoArticulo){ //SUSCRIP
 
           suscripcionEnvios.setPedido(pedido);
           suscripcionEnvios.getPedido().setPedidoPK(pedido.getPedidoPK());
+          suscripcionEnvios.getPedido().getPedidoPK().setIdArticulo(pedido.getArticulo().getId());
           suscripcionEnvios.setArticulo(pedido.getArticulo());
           suscripcionEnvios.setSuscripcion(suscripcion);
 
@@ -905,6 +906,7 @@ private int determinaTipoArticulo(String formato,String tipoArticulo){ //SUSCRIP
                 SuscripcionEnviosPK pk=new SuscripcionEnviosPK();
                 suscripcion.setSuscripcionPK(new SuscripcionPK(pedido.getArticulo().getId(), artc.getId()));
                 pk.setIdPedido(pedido.getPedidoPK().getIdPedido());
+
                 pk.setIdSuscripcion(pedido.getArticulo().getId());
                 pk.setIdArticulo(artc.getId());
 

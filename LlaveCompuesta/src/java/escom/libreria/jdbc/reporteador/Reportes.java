@@ -175,13 +175,13 @@ public class Reportes {
         .append("impuesto i, descuento_articulo da, promocion pro   ")
         .append("WHERE (a.ID IN(")
         .append(LISTA_ARTICULOS) //CONTIENE la lista de los articulos seleccionados IN(1,2,3,4,5)
-        .append(") AND p.NOMBRE LIKE ? ) ") //OR da.DESCUENTO =?) ")
+        .append(") OR p.NOMBRE LIKE ? ) ") //OR da.DESCUENTO =?) ")
         .append("AND i.ID_ARTICULO = a.ID   ")
         .append("AND al.ID_ARTICULO =a.ID   ")
         .append("AND da.ID_ARTICULO = a.ID  ")
         .append("AND pro.ID_ARTICULO = a.ID ")
         .append("AND pa.ID_ARTICULO = a.ID  ")
-        .append("AND pa.ID_PROVEEDOR = p.ID;    ");
+        .append("OR pa.ID_PROVEEDOR = p.ID;    ");
          return builder.toString().toLowerCase();
 
         }
