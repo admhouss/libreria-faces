@@ -56,7 +56,7 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
        </span>
 
       </li>
-      <li class="ui-state-default ui-corner-all" title="Articulos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
+      <li class="ui-state-default ui-corner-all" title="Art&iacute;culos Relacionados"><span class="ui-icon ui-icon-link"></span></li>
     </ul>
     </td>
   </tr>
@@ -79,17 +79,17 @@ xmlns:p="http://primefaces.prime.com.tr/ui">
                     <h:outputText value="#{articuloController.selected.costo}" title="costo"/>
                     <h:outputText value="Precio Unitario:"/>
                     <h:outputText value="#{articuloController.selected.precioUnitario}" title="precio Unitario:"/>
-                    <h:outputText value="Descripcion:"/>
+                    <h:outputText value="Descripci&oacute;n:"/>
                     <h:outputText value="#{articuloController.selected.descripcion}" title="Descripcion"/>
                     <h:outputText value="Fecha Registro:"/>
                     <h:outputText value="#{articuloController.selected.fechaRegistro}" title="Fecha Registro">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
                     <h:outputText value="Proveedor:"/>
                     <h:outputText value="#{articuloController.selected.proveedor.nombre}" title="idProveedor"/>
 
                    
-                    <h:outputText value="Tipo Articulo:"/>
+                    <h:outputText value="Tipo Art&iacute;culo:"/>
                     <h:outputText value="#{articuloController.selected.tipoArticulo.descripcion}" title="idTipo"/>
                     </h:panelGrid>
                         </p:tab>

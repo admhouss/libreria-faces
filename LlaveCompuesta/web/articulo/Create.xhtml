@@ -32,10 +32,10 @@
                         <h:inputText id="divisa" size="25" value="#{articuloController.selected.divisa}" title="divisa" required="true" requiredMessage="El campo divisa es requerido"/>
                         <h:outputLabel value="*"  styleClass="textoROJO"/>
                         <h:outputLabel value="Costo:" for="costo" styleClass="textoNEGRO" />
-                        <h:inputText id="costo" size="25"  value="#{articuloController.selected.costo}" title="costo" required="true" requiredMessage="El campo costo es requerido"/>
+                        <h:inputText id="costo" size="25"  value="#{articuloController.selected.costo}" title="costo" required="true" requiredMessage="El campo costo es requerido" converter="#{BigDecimal}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                         <h:outputLabel value="*"  styleClass="textoROJO"/>
                         <h:outputLabel value="Precio Unitario:" for="precioUnitario" styleClass="textoNEGRO" />
-                        <h:inputText id="precioUnitario" size="25" value="#{articuloController.selected.precioUnitario}" title="precioUnitario" required="true" requiredMessage="El campo Precio unitario es requerido"/>
+                        <h:inputText id="precioUnitario" size="25" value="#{articuloController.selected.precioUnitario}" title="precioUnitario" required="true" requiredMessage="El campo Precio unitario es requerido" converter="#{BigDecimal}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                         <h:outputLabel value="*"  styleClass="textoROJO"/>
                         <h:outputLabel value="Requerido:" for="requerido" styleClass="textoNEGRO" />
                         <h:inputText id="requerido" value="#{articuloController.selected.requerido}" title="descripcion"  size="25"/>
