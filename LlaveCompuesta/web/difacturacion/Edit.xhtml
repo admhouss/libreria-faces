@@ -40,7 +40,7 @@
                     <h:inputText id="delMunicipio" value="#{difacturacionController.selected.delMunicipio}" title="Del.Municipio" required="true" requiredMessage="El campo Del.Municipio es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="CP" for="cp" styleClass="textoNEGRO"/>
-                    <h:inputText id="cp" value="#{difacturacionController.selected.cp}" title="cp}" required="true" requiredMessage="El campo CP es requerido"/>
+                    <h:inputText id="cp" value="#{difacturacionController.selected.cp}" title="cp}" required="true" requiredMessage="El campo CP es requerido" converter="#{Integer}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido" />
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Tel&eacute;fono:" for="telefono" styleClass="textoNEGRO" />
                     <h:inputText id="telefono" value="#{difacturacionController.selected.telefono}" title="telefono}" required="true" requiredMessage="El campo telefono es requerido"/>
