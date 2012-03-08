@@ -20,7 +20,7 @@
 <center>
                 <h:panelGrid columns="3" cellspacing="15">
                     <h:outputLabel value="Cantidad:" for="cantidad" styleClass="textoNEGRO" />
-                    <h:inputText id="cantidad" value="#{proveedorArticuloController.selected.cantidad}" title="Cantidad" required="true" requiredMessage="El campo cantidad es requerido"/>
+                    <h:inputText id="cantidad" value="#{proveedorArticuloController.selected.cantidad}" title="Cantidad" required="true" requiredMessage="El campo cantidad es requerido" converter="#{Integer}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                     <h:outputLabel value="*" styleClass="textoROJO" />
                     <h:outputLabel value="Proveedor:" for="proveedor" styleClass="textoNEGRO" />
                     <h:selectOneMenu id="proveedor" value="#{proveedorArticuloController.selected.proveedor}" title="proveedor" required="true" requiredMessage="El campo proveedor es requerido">
@@ -29,7 +29,7 @@
                      <h:outputLabel value="*" styleClass="textoROJO" />
                   
                     <h:outputLabel value="Peso:" for="peso" styleClass="textoNEGRO"  />
-                    <h:inputText id="peso" value="#{proveedorArticuloController.selected.peso}" title="Cantidad" required="true" requiredMessage="El campo peso es requerido"/>
+                    <h:inputText id="peso" value="#{proveedorArticuloController.selected.peso}" title="Cantidad" required="true" requiredMessage="El campo peso es requerido" converter="#{BigDecimal}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                      <h:outputLabel value="Kg" styleClass="textoROJO" />
                      <h:outputLabel value="Art&iacute;culo:"  styleClass="textoNEGRO"  />
                     <!---<h:selectOneMenu id="articulo" value="{proveedorArticuloController.selected.articulo}" title="articulo" required="true" requiredMessage="El campo articulo es requerido" style="width:200px;">
