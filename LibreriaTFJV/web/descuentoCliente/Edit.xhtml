@@ -22,11 +22,11 @@
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
                     <h:outputLabel value="Fecha Inicio:" for="fechaInicio" styleClass="textoNEGRO" />
-                    <p:calendar id="fechaInicio" value="#{descuentoClienteController.selected.fechaInicio}" title="fechaInicio" required="true" requiredMessage="RequiredMessage_fechaInicio"  pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true" >
+                    <p:calendar id="fechaInicio" value="#{descuentoClienteController.selected.fechaInicio}" title="fechaInicio" required="true" requiredMessage="El campo fechaInicio es requerido"  pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true" >
 
                     </p:calendar>
                     <h:outputLabel value="Fecha Fin:" for="fechaFin"  styleClass="textoNEGRO" />
-                    <p:calendar  pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" id="fechaFin" value="#{descuentoClienteController.selected.fechaFin}" title="fechaFin" required="true" requiredMessage="RequiredMessage_fechaFin" readOnlyInputText="true">
+                    <p:calendar  pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" id="fechaFin" value="#{descuentoClienteController.selected.fechaFin}" title="fechaFin" required="true" requiredMessage="El campo fechaFin es requerido" readOnlyInputText="true">
 
                     </p:calendar>
                    

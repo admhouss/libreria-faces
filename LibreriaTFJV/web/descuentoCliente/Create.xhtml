@@ -22,19 +22,19 @@
                 <center>
                     <h:panelGrid columns="2" cellspacing="15">
                     <h:outputLabel value="Fecha Inicio:" for="fechaInicio" styleClass="textoNEGRO" />
-                    <p:calendar id="fechaInicio" value="#{descuentoClienteController.selected.fechaInicio}" title="fechaInicio" required="true" requiredMessage="RequiredMessage_fechaInicio"  pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true" >
+                    <p:calendar id="fechaInicio" value="#{descuentoClienteController.selected.fechaInicio}" title="fechaInicio" required="true" requiredMessage="El campo fecha Inicio es requerido"  pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" readOnlyInputText="true" >
                        
                     </p:calendar>
                     <h:outputLabel value="Fecha Fin:" for="fechaFin"  styleClass="textoNEGRO" />
-                    <p:calendar  pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" id="fechaFin" value="#{descuentoClienteController.selected.fechaFin}" title="fechaFin" required="true" requiredMessage="RequiredMessage_fechaFin" readOnlyInputText="true">
+                    <p:calendar  pattern="dd/MM/yyyy" locale="es" effect="fadeIn" showOn="button" navigator="true" id="fechaFin" value="#{descuentoClienteController.selected.fechaFin}" title="fechaFin" required="true" requiredMessage="El campo fecha Fin es requerido" readOnlyInputText="true">
                        
                     </p:calendar>
                     <h:outputLabel value="Cliente:" for="cliente" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="cliente" value="#{descuentoClienteController.selected.cliente}" title="cliente" required="true" requiredMessage="RequiredMessage_cliente">
+                    <h:selectOneMenu id="cliente" value="#{descuentoClienteController.selected.cliente}" title="cliente" required="true" requiredMessage="El campo cliente es requerido">
                         <f:selectItems value="#{clienteController.listaClientes}"  var="item" itemValue="#{item}" itemLabel="#{item.id}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="Descuento:" for="descuento" styleClass="textoNEGRO" />
-                    <h:selectOneMenu id="descuento" value="#{descuentoClienteController.selected.descuento}" title="descuento" required="true" requiredMessage="RequiredMessage_descuento">
+                    <h:selectOneMenu id="descuento" value="#{descuentoClienteController.selected.descuento}" title="descuento" required="true" requiredMessage="El campo descuento es requerido">
                         <f:selectItems value="#{descuentoController.listDescuentos}"  var="item" itemValue="#{item}" itemLabel="#{item.descripcion}" />
                     </h:selectOneMenu>
                 </h:panelGrid>
