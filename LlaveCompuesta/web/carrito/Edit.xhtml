@@ -57,7 +57,7 @@
                             <f:facet name="header">
                                 <h:outputLabel value="Cantidad"  />
                             </f:facet>
-                             <h:inputText value="#{item.cantidad}" required="true" requiredMessage="El campo cantidad es requerido" size="1"/>
+                             <h:inputText value="#{item.cantidad}" required="true" requiredMessage="El campo cantidad es requerido" size="1" converter="#{Integer}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                          </h:column>
                          <h:column>
                             <f:facet name="header">
