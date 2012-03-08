@@ -87,14 +87,14 @@
                           <h:outputText value="Consulta por:" styleClass="textoNEGRO"/>
                           <h:selectOneMenu  id="generico" value="#{publicacionController.selectCategoria}" >
                               <f:selectItem id="item_1" itemLabel="Autor"  itemValue="p.articulo.creador" />
-                              <f:selectItem id="item_2" itemLabel="Titulo" itemValue="p.articulo.titulo" />
+                              <f:selectItem id="item_2" itemLabel="T&iacute;tulo" itemValue="p.articulo.titulo" />
                               <f:selectItem id="item_3" itemLabel="Tema" itemValue="p.articulo.tablaContenidos"/>
 
-                              <f:selectItem id="item_5" itemLabel="Numero" itemValue="p.numero"/>
+                              <f:selectItem id="item_5" itemLabel="N&uacute;mero" itemValue="p.numero" />
                               <f:selectItem id="item_6" itemLabel="ISSN" itemValue="p.issn"/>
                               <f:selectItem id="item_7" itemLabel="ISBN" itemValue="p.isbn"/>
                               <f:selectItem id="item_8" itemLabel="Editorial" itemValue="p.editorial"/>
-                              <f:selectItem id="item_9" itemLabel="Articulo" itemValue="p.articulo.tipoArticulo.descripcion"/>
+                              <f:selectItem id="item_9" itemLabel="Art&iacute;culo" itemValue="p.articulo.tipoArticulo.descripcion"/>
                               <f:selectItem id="item_10" itemLabel="Categoria" itemValue="p.articulo.asunto"/>
                               <f:ajax execute="@this" event="change" render="consulta"/>
                           </h:selectOneMenu>
@@ -134,9 +134,9 @@
 
                 <br/> <br/> <br/>
                 <p:accordionPanel autoHeight="false" rendered="#{publicacionController.activate}">
-                    <p:tab title="PUBLICACION">
+                    <p:tab title="PUBLICACI&Oacute;N">
                <h:panelGroup >
-                   <p:dataGrid   value="#{publicacionController.listPublicacionByBusqueda}" var="item"  rows="8" paginator="true" columns="1">
+                   <p:dataGrid   value="#{publicacionController.listPublicacionByBusqueda}" var="item"  rows="10" paginator="true" columns="1">
 		 
                        <p:column>
 
