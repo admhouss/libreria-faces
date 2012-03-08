@@ -30,11 +30,11 @@
                    </h:outputLabel>
                      <h:outputLabel value="*" styleClass="textoROJO" />
                     <h:outputLabel value="Cantidad:" for="cantidad" styleClass="textoNEGRO" />
-                    <h:inputText id="cantidad" value="#{proveedorArticuloController.selected.cantidad}" title="Cantidad" required="true" requiredMessage="El campo cantidad es requerido"/>
+                    <h:inputText id="cantidad" value="#{proveedorArticuloController.selected.cantidad}" title="Cantidad" required="true" requiredMessage="El campo cantidad es requerido" converter="#{Integer}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                     <h:outputLabel value="*" styleClass="textoROJO" />
        
                     <h:outputLabel value="Peso:" for="peso" styleClass="textoNEGRO"  />
-                    <h:inputText id="peso" value="#{proveedorArticuloController.selected.peso}" title="Cantidad" required="true" requiredMessage="El campo peso es requerido"/>
+                    <h:inputText id="peso" value="#{proveedorArticuloController.selected.peso}" title="Cantidad" required="true" requiredMessage="El campo peso es requerido" converter="#{BigDecimal}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
                      <h:outputLabel value="*" styleClass="textoROJO" />
                 </h:panelGrid>
 </center>

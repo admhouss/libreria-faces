@@ -16,18 +16,18 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <p:panel header="VER PROVEEDOR ARTICULO">
+                <p:panel header="VER PROVEEDOR ART&Iacute;CULO">
                 <h:panelGrid columns="2" cellspacing="15">
                     <h:outputText value="Cantidad:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{proveedorArticuloController.selected.cantidad}" title="Cantidad"/>
-                    <h:outputText value="ULT.MODIFICACION:" styleClass="textoNEGRO"/>
+                    <h:outputText value="Ult Modificaci&oacute;n:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{proveedorArticuloController.selected.ultMof}" title="ULTIMA MODIFICACION">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="Proveedor:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{proveedorArticuloController.selected.proveedor.nombre}" title="proveedor"/>
                     
-                    <h:outputText value="Peso:" styleClass="textoNEGRO"/>
+                    <h:outputText value="Peso Kg:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{proveedorArticuloController.selected.peso}" title="Peso"/>
                     <h:outputText value="Articulo:" styleClass="textoNEGRO"/>
                     <h:outputText value="#{proveedorArticuloController.selected.articulo.codigo}-#{proveedorArticuloController.selected.articulo.titulo}" title="articulo"/>
