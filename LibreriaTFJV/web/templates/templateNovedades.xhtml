@@ -9,8 +9,10 @@
 
        
         <link href="#{facesContext.externalContext.request.contextPath}/resources/css/primefaces-start/theme.css" rel="stylesheet" type="text/css"  media="screen"/>
-       <link href="#{facesContext.externalContext.request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="#{facesContext.externalContext.request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
         <link href="#{facesContext.externalContext.request.contextPath}/resources/template/SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
+        <link rel="shortcut icon" href="http://libreria-tfjfa.com/t.ico" />
+        
 
  <title>..::Libreria Virtual::..</title>
 <!-- InstanceBeginEditable name="head" -->
@@ -373,14 +375,19 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
     <div align="left">
     <h:dataTable value="#{articuloController.asuntoDistinctArticulo}" var="item" columnClasses="list navigation">
         <h:column>
+
             <f:facet name="header">
-                <h2>&nbsp;&nbsp;&nbsp;&nbsp;<h:outputText value="Categor&iacute;as" styleClass="list navigation"/></h2>
+                   <ul class="list navigation">
+        <li>
+            <h2 align="left"><h:outputText value="Categor&iacute;as" /></h2>
+        </li>
+                   </ul>
             </f:facet>
-            <div style="text-align:left">
+            <div align="left">
             <ul class="list navigation">
         <li>
              <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/busqueda/ListCategoria.xhtml?banderaCategoria=#{item}">
-                &nbsp;&nbsp;&nbsp; <h:outputText value="#{item}"/>
+                 <font style="text-transform:capitalize;"><h:outputText value="#{item}"/></font>
              </h:outputLink>
         </li>
             </ul>
@@ -469,12 +476,13 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
 -->
 
 <p>&nbsp;</p>
-<table width="90%" border="0" align="right">
+<table width="90%" border="0" align="left">
   <tr>
     <th align="left" scope="col">
 
-        <h2>Ofertas</h2>
-      <ul class="list navigation">
+        <h2 align="left">Ofertas</h2>
+
+      <ul class="list navigation" >
         <li>
             <h:form id="formOfertaMes">
                 <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/ofertas/List.xhtml">
@@ -513,15 +521,22 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
 
 <h:form id="lomasvendido">
     <div align="left">
+
     <h:dataTable value="#{articuloController.asuntoDistinctArticulo}" var="item" columnClasses="list navigation">
         <h:column>
             <f:facet name="header">
-                <h2>&nbsp;&nbsp;&nbsp;&nbsp;<h:outputText value="Lo mas vendido" styleClass="list navigation"/></h2>
+
+                  <ul class="list navigation">
+        <li>
+            <h2 align="left" ><h:outputText value="Lo m&aacute;s vendido" /></h2>
+        </li>
+                  </ul>
             </f:facet>
             <ul class="list navigation">
         <li>
              <h:outputLink  value="#{facesContext.externalContext.request.contextPath}/faces/MasVendido/List.xhtml?asuntoArticulo=#{item}">
-                &nbsp;&nbsp;&nbsp; <h:outputText value="#{item}"/>
+
+                 <font style="text-transform:capitalize;"> <h:outputText value="#{item}" /></font>
              </h:outputLink>
         </li>
             </ul>
@@ -592,16 +607,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                     </h:form>
 
                 </li>
-                   <li>
-                     <h:form id="BitacoraClienteForm">
-
-                         <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/bitacoraCliente/List.xhtml" rendered="#{sistemaController.operacionPerfilSuperAndGeneral}" >
-                           <h:outputText value="Bitacora cliente"/>
-                       </h:outputLink>
-
-                    </h:form>
-
-                </li>
+                  
                   <li>
                     <h:form id="CategoriaForm">
 
@@ -644,7 +650,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                     <h:form id="DescuentoForm">
 
                        <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/descuento/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
-                           <h:outputText value="C&aacute;talogo Descuento Cliente"/>
+                           <h:outputText value="Cat&aacute;logo Descuento Cliente"/>
                        </h:outputLink>
 
                     </h:form>
@@ -864,8 +870,8 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
                  <li>
                      <h:form id="FACTURACIONFORM">
 
-                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/factura/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
-                             <h:outputText value="Factura"/>
+                      <h:outputLink value="#{facesContext.externalContext.request.contextPath}/faces/temaCliente/List.xhtml" rendered="#{sistemaController.operacionPerfilAdminProducto}" >
+                             <h:outputText value="Tema Clientes"/>
                        </h:outputLink>
 
                     </h:form>
@@ -1278,6 +1284,8 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
       <td>&nbsp;</td>
     </tr>
   </table>
+
+  
 </div>
 <script type="text/javascript">
 var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"./../resource/template/SpryAssets/SpryMenuBarDownHover.gif", imgRight:"./../resource/template/SpryAssets/SpryMenuBarRightHover.gif"});
