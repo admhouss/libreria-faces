@@ -25,32 +25,32 @@
                                  <h:outputLabel value="" styleClass="textoROJO" />
 
                                  <h:outputLabel value="Direcci&oacute;n de correo:" for="email" styleClass="textoNEGRO"/>
-                                 <h:inputText id="email" value="#{clienteController.selected.id}" title="email" required="true" requiredMessage="RequiredMessage_email" size="25">
+                                 <h:inputText id="email" value="#{clienteController.selected.id}" title="email" required="true" requiredMessage="El campo email es requerido" size="25">
                                        <f:validator  validatorId="EmailValidator"/>
                                  </h:inputText>
                                  <h:outputLabel value="*" styleClass="textoROJO"/>
                                  <h:outputLabel value="Confirmaci&oacute;n de la direcci&oacute;n de correo:" for="cemail" styleClass="textoNEGRO"/>
-                                 <h:inputText id="cemail" value="#{clienteController.confirmaCorreo}" title="confirma email" required="true" requiredMessage="requiere confirma direccion electronica" size="25">
+                                 <h:inputText id="cemail" value="#{clienteController.confirmaCorreo}" title="confirma email" required="true" requiredMessage="El campo confirmar email es requerido" size="25">
                                        <f:validator  validatorId="EmailValidator"/>
                                  </h:inputText>
                                  <h:outputLabel value="*" styleClass="textoROJO"/>
                                  <h:outputLabel value="Nombre:" for="nombre" styleClass="textoNEGRO"/>
-                                 <h:inputText id="nombre" value="#{clienteController.selected.nombre}" title="nombre" required="true" requiredMessage="RequiredMessage_nombre" size="25"/>
+                                 <h:inputText id="nombre" value="#{clienteController.selected.nombre}" title="nombre" required="true" requiredMessage="El campo nombre es requerido" size="25"/>
                                  <h:outputLabel value="*" styleClass="textoROJO"/>
                                  <h:outputLabel value="Paterno:" for="paterno" styleClass="textoNEGRO"/>
-                                 <h:inputText id="paterno" value="#{clienteController.selected.paterno}" title="paterno" required="true" requiredMessage="RequiredMessage_paterno" size="25"/>
+                                 <h:inputText id="paterno" value="#{clienteController.selected.paterno}" title="paterno" required="true" requiredMessage="El campo paterno es requerido" size="25"/>
                                  <h:outputLabel value="*" styleClass="textoROJO"/>
                                  <h:outputLabel value="Materno:" for="materno" styleClass="textoNEGRO"/>
-                                 <h:inputText id="materno" value="#{clienteController.selected.materno}" title="materno" required="true" requiredMessage="RequiredMessage_materno" size="25"/>
+                                 <h:inputText id="materno" value="#{clienteController.selected.materno}" title="materno" required="true" requiredMessage="El campo materno es requerido" size="25"/>
                                  <h:outputLabel value="*" styleClass="textoROJO"/>
 
                                  <h:outputLabel value="Tel&eacute;fono:" for="telefono" styleClass="textoNEGRO"/>
-                                 <h:inputText id="telefono" value="#{clienteController.selected.telefono}" title="materno" required="true" requiredMessage="RequiredMessage_telefono" size="25"/>
+                                 <h:inputText id="telefono" value="#{clienteController.selected.telefono}" title="materno" required="true" requiredMessage="El campo telefono es requerido" size="25"/>
                                  <h:outputLabel value="*" styleClass="textoROJO"/>
 
 
                                   <h:outputLabel value="Correo Alternativo:" for="correo_alternativo" styleClass="textoNEGRO"/>
-                                  <h:inputText id="correo_alternativo" value="#{clienteController.selected.email}" title="correo alternativo" required="false" requiredMessage="Correo Alternativo requerido" size="25">
+                                  <h:inputText id="correo_alternativo" value="#{clienteController.selected.email}" title="correo alternativo" required="false" requiredMessage="El campo correo Alternativo requerido" size="25">
                                       <f:validator  validatorId="EmailValidator"/>
                                   </h:inputText>
                                  <h:outputLabel value=" " styleClass="textoROJO"/>
@@ -65,11 +65,11 @@
                      
                     
                     <h:outputLabel value="Password:" for="password" styleClass="textoNEGRO"/>
-                    <p:password feedback="true" id="password" value="#{clienteController.selected.password}" title="password" required="true" requiredMessage="Password requerido"  maxlength="10" minLength="3" />
+                    <p:password feedback="true" id="password" value="#{clienteController.selected.password}" title="password" required="true" requiredMessage="El campo password es requerido"  maxlength="10" minLength="3" />
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                                         
                     <h:outputLabel value="Estado:" for="estado" styleClass="textoNEGRO"/>
-                    <h:selectOneMenu id="estado" value="#{clienteController.selected.estado}" title="estado" required="true" requiredMessage="estado requerido">
+                    <h:selectOneMenu id="estado" value="#{clienteController.selected.estado}" title="estado" required="true" requiredMessage="Estado requerido">
                         <f:selectItems value="#{estadoController.listEstado}" var="item" itemValue="#{item}"  itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
