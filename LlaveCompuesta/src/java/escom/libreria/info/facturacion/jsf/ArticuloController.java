@@ -368,27 +368,33 @@ public class ArticuloController implements Serializable {
     }
     public String create() {
         try {
-            current.setAsunto(current.getAsunto());
-            current.setArchivo(current.getArchivo());
-            current.setAgregacionRecurso(current.getAgregacionRecurso());
-            current.setCodigo(current.getCodigo());
-            current.setCosto(current.getCosto());
-            current.setCreador(current.getCreador());
-            current.setDescripcion(current.getDescripcion());
-            current.setModUpdate(new  Date());
-            current.setFechaRegistro(new Date());
-            current.setFechaCreacion(new Date());
-            current.setFormato(current.getFormato());
-            current.setFormatoDigital(current.getFormatoDigital());
-           // current.setProveedorList(current.getProveedorList());
-            current.setImagen(current.getImagen());
-             getFacade().create(current);
-            JsfUtil.addSuccessMessage(("Articulo Created"));
-            return prepareView(current);
+
+            Articulo xx=getFacade().find(current.getCodigo());
+            if(xx==null)
+            {
+                current.setAsunto(current.getAsunto());
+                current.setArchivo(current.getArchivo());
+                current.setAgregacionRecurso(current.getAgregacionRecurso());
+                current.setCodigo(current.getCodigo());
+                current.setCosto(current.getCosto());
+                current.setCreador(current.getCreador());
+                current.setDescripcion(current.getDescripcion());
+                current.setModUpdate(new  Date());
+                current.setFechaRegistro(new Date());
+                current.setFechaCreacion(new Date());
+                current.setFormato(current.getFormato());
+                current.setFormatoDigital(current.getFormatoDigital());
+                current.setImagen(current.getImagen());
+                getFacade().create(current);
+                 JsfUtil.addSuccessMessage(("Articulo Created"));
+                return prepareView(current);
+            }else
+            JsfUtil.addErrorMessage("Error Articulo duplicado");
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(("Error al crear Articulos"));
             return null;
         }
+        return null;
     }
 
     public String prepareEdit(Articulo p) {
@@ -410,7 +416,7 @@ public class ArticuloController implements Serializable {
             JsfUtil.addSuccessMessage(("Articulo Actualizado Satisfactoriamente"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(("Error al actualizar articulo"));
             return null;
         }
     }
