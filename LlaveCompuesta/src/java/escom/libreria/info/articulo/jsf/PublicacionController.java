@@ -501,19 +501,19 @@ public String buscarLibroRelacionados(Articulo p){
 
    
     public String buscarLibroGeneral(){
+       try{
         ValidarNumero v=new ValidarNumero();
         int numero=0;
 
         numero=v.validarNumero(getGeneral())?Integer.parseInt(getGeneral()):-1;
-        setGeneral(getGeneral().trim()==null?"":getGeneral());
-
-
-       
-       listPublicacionByBusqueda=getFacade().buscarPublicaciones_Articulo(getGeneral(), numero);
-              
+        setGeneral(getGeneral().trim()==null?"":getGeneral());       
+        listPublicacionByBusqueda=getFacade().buscarPublicaciones_Articulo(getGeneral(), numero);
        if(!isActivate()){
         JsfUtil.addSuccessMessage("No se encontraron coincidencias!");
        }
+        }catch(Exception e){
+            logger.error("error", e);
+        }
        setGeneral("");
        return "/busqueda/List";
     }

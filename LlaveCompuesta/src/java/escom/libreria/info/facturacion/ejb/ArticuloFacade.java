@@ -202,6 +202,8 @@ e.printStackTrace();
 
     }
 
+
+
     public List<Articulo> getPublicaciones() {
         List<Articulo> articulos=null;
         try{
