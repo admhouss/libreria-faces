@@ -21,13 +21,13 @@
                     <center>
                         <h:panelGrid columns="3" cellspacing="15">
                     <h:outputLabel value="RFC:" for="rfc" styleClass="textoNEGRO"/>
-                    <h:inputText id="rfc" value="#{difacturacionController.selected.rfc}" title="RFC" required="true" requiredMessage="El campo rfc es requerido"/>
+                    <h:inputText id="rfc" value="#{difacturacionController.selected.rfc}" title="RFC" required="true" requiredMessage="El campo rfc es requerido" maxlength="10"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Razon Social:" for="razonSocial" styleClass="textoNEGRO" />
                     <h:inputText id="razonSocial" value="#{difacturacionController.selected.razonSocial}" title="Razon Social:" required="true" requiredMessage="El campo razon Social es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Calle:" for="calle" styleClass="textoNEGRO" />
-                    <h:inputText id="calle" value="#{difacturacionController.selected.calle}" title="calle}" required="true" requiredMessage="El campo calle es requerido"/>
+                    <h:inputText id="calle" value="#{difacturacionController.selected.calle}" title="calle" required="true" requiredMessage="El campo calle es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="No.Exterior:" for="noExterior" styleClass="textoNEGRO" />
                     <h:inputText id="noExterior" value="#{difacturacionController.selected.noExterior}" title="No.Exterior" required="true" requiredMessage="El campo no.Exterior es requerido"/>
@@ -42,10 +42,11 @@
                     <h:inputText id="delMunicipio" value="#{difacturacionController.selected.delMunicipio}" title="Del.Municipio" required="true" requiredMessage="El campo Del.Municipio es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="CP" for="cp" styleClass="textoNEGRO"/>
-                    <h:inputText id="cp" value="#{difacturacionController.selected.cp}" title="cp}" required="true" requiredMessage="El campo CP es requerido"/>
+                    <h:inputText id="cp" value="#{difacturacionController.selected.cp}" title="cp" required="true" requiredMessage="El campo CP es requerido" converter="#{Integer}" converterMessage="Error de conversi&oacute;n ,el valor especificado no es un n&uacute;mero valido"/>
+
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     <h:outputLabel value="Tel&eacute;fono:" for="telefono" styleClass="textoNEGRO" />
-                    <h:inputText id="telefono" value="#{difacturacionController.selected.telefono}" title="telefono}" required="true" requiredMessage="El campo telefono es requerido"/>
+                    <h:inputText id="telefono" value="#{difacturacionController.selected.telefono}" title="telefono" required="true" requiredMessage="El campo telefono es requerido"/>
                     <h:outputLabel value="*"  styleClass="textoROJO"/>
                     
                     <h:outputLabel value="Estado" for="estado" styleClass="textoNEGRO" />
