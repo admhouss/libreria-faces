@@ -22,16 +22,16 @@
                     <center>
                         <h:panelGrid columns="2" cellspacing="15">
                    
-                    <h:outputText value="Fecha:" styleClass="textoNEGRO" />
+                    <h:outputText value="FECHA:" styleClass="textoNEGRO" />
                     <h:outputText value="#{bitacoraClienteController.selected.fecha}" title="Fecha">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" locale="es"/>
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="es"/>
                     </h:outputText>
-                    <h:outputText value="Estado:" styleClass="textoNEGRO" />
+                    <h:outputText value="ESTADO:" styleClass="textoNEGRO" />
                     <h:outputText value="COMPRO" rendered="#{bitacoraClienteController.selected.estado==false}"/>
                     <h:outputText  value ="CONSULTO" rendered="#{bitacoraClienteController.selected.estado}"/>
-                    <h:outputText value="Cliente:" styleClass="textoNEGRO" />
+                    <h:outputText value="CLIENTE:" styleClass="textoNEGRO" />
                     <h:outputText value="#{bitacoraClienteController.selected.cliente.id}" title="cliente"/>
-                    <h:outputText value="Art&iacute;culo:" styleClass="textoNEGRO" />
+                    <h:outputText value="ART&Iacute;CULO:" styleClass="textoNEGRO" />
                     <h:outputText value="#{bitacoraClienteController.selected.articulo.titulo}" title="articulo"/>
                 </h:panelGrid>
                     </center>
