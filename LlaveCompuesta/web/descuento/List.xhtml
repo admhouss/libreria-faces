@@ -30,7 +30,7 @@
                    
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="PORCENTAJE"/>
+                            <h:outputText value="PORCENTAJE %"/>
                         </f:facet>
                         <h:outputText value="#{item.porcentaje}"/>
                     </p:column>
@@ -53,7 +53,7 @@
                         </h:commandLink>
                         
                         <h:commandLink action="#{descuentoController.destroy(item)}" >
-                            <img src="./../resources/iconos/quitar.png" alt="" title="Ver"/>
+                            <img src="./../resources/iconos/quitar.png" alt="" title="Quitar"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>
@@ -63,7 +63,7 @@
 
             <div align="center">
                 <p:panel>
-                    <h:commandButton value="Home" action="/index" immediate="true" />
+                    <h:commandButton value="Volver" action="/index" immediate="true" />
                 </p:panel>
             </div>
         </h:form>
