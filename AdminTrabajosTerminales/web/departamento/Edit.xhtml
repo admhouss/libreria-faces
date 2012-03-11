@@ -4,7 +4,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.prime.com.tr/ui">
+       xmlns:p="http://primefaces.prime.com.tr/ui">
+
 
     <ui:composition template="/templates/templateNovedades.xhtml">
         <ui:define name="title">
@@ -15,37 +16,36 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                           <p:panel header="EDITAR DEPARTAMENTO">
+
+                <p:panel header="EDITAR DEPARTAMENTO">
 <center>
-
-                <h:panelGrid columns="2" cellspacing="15">
-                    <h:outputLabel value="NOMBRE:" for="nombre" />
+                <h:panelGrid columns="3" cellspacing="15">
+                    <h:outputLabel value="DEPARTAMENTO:" for="nombre" styleClass="textoNEGRO"/>
                     <h:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="Campo nombre" required="true" requiredMessage="El campo nombre es requerido"/>
-                    <h:outputLabel value="DESCRIPCI&Oacute;N:" for="descripcion" />
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="DESCRIPCI&Oacute;N" for="descripcion" styleClass="textoNEGRO"/>
                     <h:inputText id="descripcion" value="#{departamentoController.selected.descripcion}" title="Campo descripcion" required="true" requiredMessage="El campo descripcion es requerido"/>
-                    <h:outputLabel value="ID RESPONSABLE:" for="idResponsable" />
-                    <h:inputText id="idResponsable" value="#{departamentoController.selected.idResponsable}" title="Campo idResponsable" required="true" requiredMessage="El campo idResponsable es requerido"/>
-                    <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaCreacion" />
-                    <h:inputText id="fechaCreacion" value="#{departamentoController.selected.fechaCreacion}" title="Campo fechaCreacion" required="true" requiredMessage="El campo fechaCreacion es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="RESPONSABLE:" for="responsable" />
-                    <h:selectOneMenu id="responsable" value="#{departamentoController.selected.responsable}" title="Campo responsable" required="true" requiredMessage="El campo responsable es requerido">
-                        <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
 
+                    <h:outputLabel value="FECHA CREACI&Oacute;N" for="fechaCreacion" styleClass="textoNEGRO"/>
+                    <p:calendar id="fechaCreacion" value="#{departamentoController.selected.fechaCreacion}" title="Campo fecha Creacion" required="true" requiredMessage="El campo fechaCreacion es requerido" pattern="dd/MM/yyyy">
+
+                    </p:calendar>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                    <h:outputLabel value="RESPONSABLE:" for="responsable"  styleClass="textoNEGRO"/>
+                    <h:selectOneMenu id="responsable" value="#{departamentoController.selected.responsable}" title="Campo responsable" required="true" requiredMessage="El campo responsable es requerido">
+                        <f:selectItems value="#{responsableController.listResponsables}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
+                </h:panelGrid>
     </center>
                    </p:panel>
-
-               
                 <br /><br />
                 <div align="center">
                 <p:panel>
-                <h:commandButton action="#{departamentoController.update}" value="GUARDAR" />
+                    <h:commandButton action="#{departamentoController.update}" value="GUARDAR" />
                 </p:panel>
                 </div>
-
             </h:form>
         </ui:define>
     </ui:composition>

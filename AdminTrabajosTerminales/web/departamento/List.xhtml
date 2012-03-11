@@ -43,14 +43,14 @@
                             <h:outputText value="FECHA CREACI&Oacute;N"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column>
+                        <p:column style="width:100px;">
                         <f:facet name="header">
                             <h:outputText value="RESPONSABLE"/>
                         </f:facet>
-                        <h:outputText value="#{item.responsable}"/>
+                        <h:outputText value="#{item.responsable.nombre}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">

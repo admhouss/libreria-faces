@@ -22,21 +22,20 @@
                     <h:outputText value="#{departamentoController.selected.nombre}" title="Campo nombre"/>
                     <h:outputText value="DESCRIPCI&Oacute;N:"/>
                     <h:outputText value="#{departamentoController.selected.descripcion}" title="Campo descripcion"/>
-                    <h:outputText value="ID RESPONSABLE:"/>
-                    <h:outputText value="#{departamentoController.selected.idResponsable}" title="Campo idResponsable"/>
+                    
                     <h:outputText value="FECHA CREACION:"/>
                     <h:outputText value="#{departamentoController.selected.fechaCreacion}" title="Campo fechaCreacion">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="RESPONSABLE:"/>
-                    <h:outputText value="#{departamentoController.selected.responsable}" title="Campo responsable"/>
+                    <h:outputText value="#{departamentoController.selected.responsable.nombre}" title="Campo responsable"/>
                 </h:panelGrid>
                     </center>
                     </p:panel>
                 <br /><br />
                 <div align="center">
                 <p:panel>
-                <h:commandButton value="VOLVER" action="/index" immediate="true" />
+                <h:commandButton value="VOLVER" action="#{departamentoController.prepareList}" immediate="true" />
                 </p:panel>
                 </div>
             </h:form>
