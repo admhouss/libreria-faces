@@ -27,9 +27,11 @@
                     <h:inputText id="nombre" value="#{responsableController.selected.nombre}" title="Campo nombre" required="true" requiredMessage="El campo nombre es requerido"/>
                      <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="FECHA MODIFICACI&Oacute;N:" for="fechaModificacion" styleClass="textoNEGRO" />
-                    <h:inputText id="fechaModificacion" value="#{responsableController.selected.fechaModificacion}" title="Campo fechaModificacion" requiredMessage="El campo fechaModificacion es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
+                 
+                    <p:calendar id="fechaModificacion" value="#{responsableController.selected.fechaModificacion}" title="Campo fecha Modificacion" required="true" requiredMessage="El campo fecha Modificacion es requerido" pattern="dd/MM/yyyy">
+                    </p:calendar>
+                    
+
                      <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="ESTATUS:" for="estatus" styleClass="textoNEGRO"/>
                     <h:inputText id="estatus" value="#{responsableController.selected.estatus}" title="Campo estatus" required="true" requiredMessage="El campo estatus es requerido"/>
@@ -41,13 +43,15 @@
                     <h:inputText id="cargo" value="#{responsableController.selected.cargo}" title="Campo cargo" required="true" requiredMessage="El campo cargo es requerido"/>
                      <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaAlta" styleClass="textoNEGRO"/>
-                    <h:inputText id="fechaAlta" value="#{responsableController.selected.fechaAlta}" title="Campo fechaAlta" required="true" requiredMessage="El campo fechaAlta es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
+                   
+                     <p:calendar id="fechaAlta" value="#{responsableController.selected.fechaAlta}" title="Campo fechaAlta" required="true" requiredMessage="El campo fechaAlta es requerido" pattern="dd/MM/yyyy">
+                    </p:calendar>
+
+
                      <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="DEPARTAMENTO:" for="departamento" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="departamento" value="#{responsableController.selected.departamento}" title="Campo departamento" >
-                        <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{departamentoController.listDepartamentos}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
                      <h:outputLabel value="*" styleClass="textoROJO"/>
                 </h:panelGrid>

@@ -40,8 +40,9 @@
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
                     <h:outputLabel value="DEPARTAMENTO:" for="departamento" />
-                    <h:selectOneMenu id="departamento" value="#{responsableController.selected.departamento}" title="Campo departamento" >
-                        <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"/>
+                    
+                      <h:selectOneMenu id="departamento" value="#{responsableController.selected.departamento}" title="Campo departamento" >
+                        <f:selectItems value="#{departamentoController.listDepartamentos}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
 
