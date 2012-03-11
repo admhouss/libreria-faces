@@ -42,13 +42,13 @@
 
                     <h:outputLabel value="TIPO DOCENTE:" for="tipoDocente" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="tipoDocente" value="#{profesorController.selected.tipoDocente}" title="Campo tipoDocente" required="true" requiredMessage="El campo tipoDocente es requerido">
-                        <f:selectItems value="#{tipoDocenteController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{tipoDocenteController.listTipoDocumento}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
                    <h:outputLabel value="*" styleClass="textoROJO"/>
 
                     <h:outputLabel value="PROFESOR DOCENTE:" for="profesorDocente" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="profesorDocente" value="#{profesorController.selected.profesorDocente}" title="Campo profesroDocente" >
-                        <f:selectItems value="#{profesorDocenteController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{profesorDocenteController.listProfesorDocente}" var="item" itemValue="#{item}" itemLabel="#{item.profesor}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
 
