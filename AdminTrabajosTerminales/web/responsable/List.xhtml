@@ -19,39 +19,22 @@
             <h:panelGroup>
 
                 <div align="right">
-                  <h:commandButton action="#{responsableDocenteController.prepareCreate}" value="Crear Nuevo"/>
+                  <h:commandButton action="#{responsableController.prepareCreate}" value="Crear Nuevo"/>
 
 
                 </div>
   <br/><br/>
                 <p:panel header="CAT&Aacute;LOGO DE RESPONSABLE">
-                <p:dataTable value="#{responsableController.items}" var="item" paginator="true">
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="IDRES"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idResponsable}"/>
-                    </p:column>
+                    <p:dataTable value="#{responsableController.listResponsables}" var="item" paginator="true">
+                    
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="NOMBRE"/>
                         </f:facet>
                         <h:outputText value="#{item.nombre}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="MODIFICACION"/>
-                        </f:facet>
-                        <h:outputText value="#{item.fechaModificacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ESTATUS"/>
-                        </f:facet>
-                        <h:outputText value="#{item.estatus}"/>
-                    </p:column>
+                   
+                   
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="CORREO"/>
@@ -64,33 +47,26 @@
                         </f:facet>
                         <h:outputText value="#{item.cargo}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="CREACI&Oacute;N"/>
-                        </f:facet>
-                        <h:outputText value="#{item.fechaAlta}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:column>
+                   
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="DEPTO"/>
                         </f:facet>
-                        <h:outputText value="#{item.departamento}"/>
+                        <h:outputText value="#{item.departamento.nombre}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{responsableController.prepareView}">
+                        <h:commandLink action="#{responsableController.prepareView(item)}">
                             <img src="./../resources/iconos/sver.png" alt="" title="ver"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{responsableController.prepareEdit}">
+                        <h:commandLink action="#{responsableController.prepareEdit(item)}">
                             <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{responsableController.destroy}">
+                        <h:commandLink action="#{responsableController.destroy(item)}">
                             <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
                         </h:commandLink>
                     </p:column>
