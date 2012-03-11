@@ -27,7 +27,7 @@
                     <h:inputText id="correo" value="#{egresadoController.selected.correo}" title="Campo correo" required="true" requiredMessage="El campo correo es requerido"/>
                     <h:outputLabel value="GENERACI&Oacute;N:" for="generacion" />
                     <h:selectOneMenu id="generacion" value="#{egresadoController.selected.generacion}" title="Campo generacion" required="true" requiredMessage="El campo generacion es requerido">
-                        <f:selectItems value="#{generacionController.itemsAvailableSelectOne}"/>
+                              <f:selectItems value="#{generacionController.listGeneracion}" var="item" itemValue="#{item}" itemLabel="#{item.anio}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
 
