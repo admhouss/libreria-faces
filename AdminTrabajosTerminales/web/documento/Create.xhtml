@@ -33,21 +33,20 @@
                     <h:outputLabel value="RESUMEN:" for="archivoResumen" styleClass="textoNEGRO"/>
                     <h:inputTextarea rows="4" cols="30" id="archivoResumen" value="#{documentoController.selected.archivoResumen}" title="Campo archivoResumen" required="true" requiredMessage="El campo archivoResumen es requerido"/>
                    <h:outputLabel value="*" styleClass="textoROJO"/>
-                    <h:outputLabel value="FECHA CREACI&Oacute;N:" for="fechaCreacion" styleClass="textoNEGRO"/>
-                    <h:inputText id="fechaCreacion" value="#{documentoController.selected.fechaCreacion}" title="Campo fechaCreacion" required="true" requiredMessage="El campo fechaCreacion es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        
-                    </h:inputText>
-                       <h:outputLabel value="*" styleClass="textoROJO"/>
+                   <h:outputLabel value="FECHA CREACI&Oacute;N" for="fechaCreacion" styleClass="textoNEGRO"/>
+                    <p:calendar id="fechaCreacion" value="#{documentoController.selected.fechaCreacion}" title="Campo fechaCreacion" required="true" requiredMessage="El campo fechaCreacion es requerido" pattern="dd/MM/yyyy">
+
+                    </p:calendar>
+                    <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="PROTOCOLO:" for="archivoProtocolo" styleClass="textoNEGRO"/>
                     <h:inputTextarea rows="4" cols="30" id="archivoProtocolo" value="#{documentoController.selected.archivoProtocolo}" title="Campo archivoProtocolo" required="true" requiredMessage="El campo archivoProtocolo es requerido"/>
                      <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="ULTIMA ACTUALIZACI&Oacute;N:" for="ultimaActualizacion" styleClass="textoNEGRO"/>
-                    <h:inputText id="ultimaActualizacion" value="#{documentoController.selected.ultimaActualizacion}" title="Campo ultimaActualizacion" required="true" requiredMessage="El campo ultimaActualizacion es requerido">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-
-                    </h:inputText>
+                    <p:calendar id="ultimaActualizacion" value="#{documentoController.selected.ultimaActualizacion}" title="Campo ultima actualizacion" required="true" requiredMessage="El campo ultima actualizacion es requerido" pattern="dd/MM/yyyy">
+                    </p:calendar>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
+
+
                 </h:panelGrid>
 
       </center>
