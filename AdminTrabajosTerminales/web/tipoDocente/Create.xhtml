@@ -20,7 +20,7 @@
 
                 <h:panelGrid columns="3" cellspacing="15">
                     <h:outputLabel value="ID:" for="id" styleClass="textoNEGRO"/>
-                    <h:inputText id="id" value="#{tipoDocenteController.selected.id}" title="Campo id" required="true" requiredMessage="El campo id es requerido"/>
+                    <h:inputText id="id" value="#{tipoDocenteController.selected.id}" title="Campo id" required="true" requiredMessage="El campo id es requerido" converter="#{Integer}" converterMessage="Es bla blsa"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="NOMBRE:" for="nombre" styleClass="textoNEGRO"/>
                     <h:inputText id="nombre" value="#{tipoDocenteController.selected.nombre}" title="Campo nombre" required="true" requiredMessage="El campo nombre es requerido"/>
