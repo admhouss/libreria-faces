@@ -30,7 +30,7 @@
                     <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="GENERACI&Oacute;N:" for="generacion" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="generacion" value="#{egresadoController.selected.generacion}" title="Campo generacion" required="true" requiredMessage="El campo generacion es requerido">
-                        <f:selectItems value="#{generacionController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{generacionController.listGeneracion}" var="item" itemValue="#{item}" itemLabel="#{item.anio}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
 

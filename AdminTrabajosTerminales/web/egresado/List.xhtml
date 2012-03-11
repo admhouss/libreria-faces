@@ -26,7 +26,7 @@
 
                <p:panel header="CAT&Aacute;LOGO DE EGRESADOS">
 
-                <p:dataTable value="#{egresadoController.items}" var="item" paginator="true">
+                   <p:dataTable value="#{egresadoController.listEgresados}" var="item" paginator="true">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
@@ -49,21 +49,21 @@
                         <f:facet name="header">
                             <h:outputText value="GENERACI&Oacute;N"/>
                         </f:facet>
-                        <h:outputText value="#{item.generacion}"/>
+                        <h:outputText value="#{item.generacion.anio}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
-                        <h:commandLink action="#{egresadoController.prepareView}">
+                        <h:commandLink action="#{egresadoController.prepareView(item)}">
                             <img src="./../resources/iconos/sver.png" alt="" title="ver"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{egresadoController.prepareEdit}">
+                        <h:commandLink action="#{egresadoController.prepareEdit(item)}">
                             <img src="./../resources/iconos/seditar.png" alt="" title="editar"/>
                         </h:commandLink>
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{egresadoController.destroy}">
+                        <h:commandLink action="#{egresadoController.destroy(item)}">
                              <img src="./../resources/iconos/quitar.png" alt="" title="quitar"/>
                         </h:commandLink>
                     </p:column>

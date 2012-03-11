@@ -26,14 +26,14 @@
                     <h:outputText value="CORREO:"/>
                     <h:outputText value="#{egresadoController.selected.correo}" title="Campo correo"/>
                     <h:outputText value="GENERACI&Oacute;N:"/>
-                    <h:outputText value="#{egresadoController.selected.generacion}" title="Campo generacion"/>
+                    <h:outputText value="#{egresadoController.selected.generacion.anio}" title="Campo generacion"/>
                 </h:panelGrid>
                     </center>
                       </p:panel>
                 <br /><br />
                 <div align="center">
                 <p:panel>
-                <h:commandButton value="VOLVER" action="/index" immediate="true" />
+                    <h:commandButton value="VOLVER" action="#{egresadoController.prepareList}" immediate="true" />
                 </p:panel>
                 </div>
 
