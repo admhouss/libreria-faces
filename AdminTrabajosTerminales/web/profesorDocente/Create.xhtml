@@ -25,18 +25,21 @@
                <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="PROFESOR:" for="profesor" styleClass="textoNEGRO" />
                     <h:selectOneMenu id="profesor" value="#{profesorDocenteController.selected.profesor}" title="Campo profesor" required="true" requiredMessage="El campo profesor es requerido">
-                        <f:selectItems value="#{profesorController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                 <h:outputLabel value="*" styleClass="textoROJO"/>
+                        <f:selectItems value="#{profesorController.listProfesor}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
+                     </h:selectOneMenu>
+                     <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="DOCUMENTO:" for="documento" styleClass="textoNEGRO"/>
                     <h:selectOneMenu id="documento" value="#{profesorDocenteController.selected.documento}" title="Campo documento" required="true" requiredMessage="El campo documento es requerido">
-                        <f:selectItems value="#{documentoController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{documentoController.listDocuments}" var="item" itemValue="#{item}" itemLabel="#{item.titulo}"/>
                     </h:selectOneMenu>
                  <h:outputLabel value="*" styleClass="textoROJO"/>
                     <h:outputLabel value="EGRESADO:" for="egresado" styleClass="textoNEGRO" />
                     <h:selectOneMenu id="egresado" value="#{profesorDocenteController.selected.egresado}" title="Campo egresado" required="true" requiredMessage="El campo egresado es requerido">
-                        <f:selectItems value="#{egresadoController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{egresadoController.listEgresados}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>
                     </h:selectOneMenu>
+
+                    
+
                     <h:outputLabel value="*" styleClass="textoROJO"/>
 
                 </h:panelGrid>
