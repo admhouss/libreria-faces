@@ -27,9 +27,10 @@
                     <h:outputLabel value="DESCRICI&Oacute;N:" for="descripcion" styleClass="textoNEGRO"/>
                     <h:inputText id="descripcion" value="#{documentoController.selected.descripcion}" title="Campo descripcion" required="true" requiredMessage="El campo descripcion es requerido"/>
                    <h:outputLabel value="*" styleClass="textoROJO"/>
-                    <h:outputLabel value="IMAGEN:" for="imagen" styleClass="textoNEGRO"/>
+                  <h:outputLabel value="IMAGEN:" for="imagen" styleClass="textoNEGRO"/>
                     <h:inputTextarea rows="4" cols="30" id="imagen" value="#{documentoController.selected.imagen}" title="Campo imagen" required="true" requiredMessage="El campo imagen es requerido"/>
                     <h:outputLabel value="*" styleClass="textoROJO"/>
+
                     <h:outputLabel value="RESUMEN:" for="archivoResumen" styleClass="textoNEGRO"/>
                     <h:inputTextarea rows="4" cols="30" id="archivoResumen" value="#{documentoController.selected.archivoResumen}" title="Campo archivoResumen" required="true" requiredMessage="El campo archivoResumen es requerido"/>
                    <h:outputLabel value="*" styleClass="textoROJO"/>
@@ -48,6 +49,24 @@
 
 
                 </h:panelGrid>
+   
+                     <p:tab title="SUBIR IMAGEN" >
+                         <center>
+                         <h:panelGrid columns="2" cellspacing="15" >
+                             <h:outputLabel value="Imagen:" styleClass="textoNEGRO"/>
+                          <p:fileUpload fileUploadListener="#{subirArchivo.handleFileUpload}" auto="true" label="Examinar"
+                                        allowTypes="*.jpg;*.png;*.gif" description="*.jpg;*.png;*.gif"  update="result" />
+                         </h:panelGrid>
+                             <h:panelGroup id="result">
+                                 <img  src="#{documentoController.selected.imagen}" alt="PORTADA" border="0" title="Portada" width="120" height="120"/>
+                             </h:panelGroup>
+
+                         </center>
+                     </p:tab>
+
+
+
+
 
       </center>
                    </p:panel>
