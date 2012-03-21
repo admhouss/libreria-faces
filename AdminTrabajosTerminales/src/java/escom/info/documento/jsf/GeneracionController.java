@@ -86,11 +86,16 @@ public class GeneracionController  implements Serializable{
 
     public String create() {
         try {
+            current.setAnio(current.getAnio());
+            current.setDescripcion(current.getDescripcion());
+            current.setEgresadoList(current.getEgresadoList());
+            current.setId(current.getId());
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/egresado").getString("GeneracionCreated"));
-            return prepareCreate();
+            JsfUtil.addSuccessMessage("Generacion creada satisfactoriamente");
+            return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/egresado").getString("PersistenceErrorOccured"));
+            e.printStackTrace();
+            JsfUtil.addErrorMessage("Error al crear Generacion");
             return null;
         }
     }
@@ -103,11 +108,16 @@ public class GeneracionController  implements Serializable{
 
     public String update() {
         try {
+            current.setAnio(current.getAnio());
+            current.setDescripcion(current.getDescripcion());
+            current.setEgresadoList(current.getEgresadoList());
+            current.setId(current.getId());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/egresado").getString("GeneracionUpdated"));
-            return "View";
+            JsfUtil.addSuccessMessage("Generacion editada exitosamente");
+            return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/egresado").getString("PersistenceErrorOccured"));
+            e.printStackTrace();
+            JsfUtil.addErrorMessage("Error al crear");
             return null;
         }
     }
@@ -117,7 +127,7 @@ public class GeneracionController  implements Serializable{
         //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         //performDestroy();
        // recreateModel();
-        getFacade().remove(g);
+        getFacade().remove(current);
         JsfUtil.addSuccessMessage("Generacion Eliminada Satisfactoriamente");
         return "List";
     }

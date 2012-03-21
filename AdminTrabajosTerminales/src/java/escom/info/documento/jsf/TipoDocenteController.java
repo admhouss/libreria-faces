@@ -70,51 +70,63 @@ public class TipoDocenteController implements Serializable{
         return "List";
     }
 
-    public String prepareView() {
-        current = (TipoDocente)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(TipoDocente t) { //ingualar el objeto a current
+        current = t;//(TipoDocente)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new TipoDocente();
-        selectedItemIndex = -1;
+        current = new TipoDocente(); //inicializa
+        //selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/documento").getString("TipoDocenteCreated"));
-            return prepareCreate();
+
+            //agrgar esto
+            current.setDescripcion(current.getDescripcion());
+            current.setNombre(current.getNombre());
+            current.setId(current.getId());
+
+            //current.setId(current.selectedItemIndex);
+
+            getFacade().create(current); //insertas la informacion
+            JsfUtil.addSuccessMessage(("Tipo Docente Creado Saatisfactoriamente"));
+            return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/documento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage("Error al crear Tipo Docente");
             return null;
         }
     }
 
-    public String prepareEdit() {
-        current = (TipoDocente)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(TipoDocente t ) {
+        current = t; //aqui tambien
+        
         return "Edit";
     }
 
     public String update() {
         try {
+            current.setDescripcion(current.getDescripcion());
+            current.setNombre(current.getNombre());
+            current.setId(current.getId());
+
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/documento").getString("TipoDocenteUpdated"));
+            JsfUtil.addSuccessMessage("TipoDocente editado satisfactoriamente");
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/documento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage("Error al editar Tipo Docente");
             return null;
         }
     }
 
-    public String destroy() {
-        current = (TipoDocente)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
+    public String destroy(TipoDocente t) {
+        current = t; // aqui tambien
+        getFacade().remove(current);
+        JsfUtil.addSuccessMessage("Tipo Docente"
+                + " eliminado satisfactoriamente");
         return "List";
     }
 
