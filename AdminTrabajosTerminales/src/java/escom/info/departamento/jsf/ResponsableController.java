@@ -71,51 +71,71 @@ public class ResponsableController implements Serializable {
         return "List";
     }
 
-    public String prepareView() {
-        current = (Responsable)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(Responsable r) {
+        current = r;//;(Responsable)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Responsable();
-        selectedItemIndex = -1;
+        current = new Responsable();//
+        //selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/departamento").getString("ResponsableCreated"));
-            return prepareCreate();
+            current.setCargo(current.getCargo());
+            current.setCorreo(current.getCorreo());
+            current.setDepartamento(current.getDepartamento());
+            current.setEstatus(current.getEstatus());
+            current.setFechaAlta(current.getFechaAlta());
+            current.setIdResponsable(current.getIdResponsable());
+            current.setNombre(current.getNombre());
+            current.setFechaModificacion(current.getFechaModificacion());
+            getFacade().create(current);// guarda en la base datos
+            JsfUtil.addSuccessMessage("Responsable creado satisfactoriamente");
+            return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/departamento").getString("PersistenceErrorOccured"));
+            e.printStackTrace();
+            JsfUtil.addErrorMessage("Error al crear responsable");
             return null;
         }
     }
 
-    public String prepareEdit() {
-        current = (Responsable)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(Responsable r) {
+        current =r;// (Responsable)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
+            current.setCargo(current.getCargo());
+            current.setCorreo(current.getCorreo());
+            current.setDepartamento(current.getDepartamento());
+            current.setEstatus(current.getEstatus());
+            current.setFechaAlta(current.getFechaAlta());
+            current.setIdResponsable(current.getIdResponsable());
+            current.setNombre(current.getNombre());
+            current.setFechaModificacion(current.getFechaModificacion());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/departamento").getString("ResponsableUpdated"));
+            JsfUtil.addSuccessMessage("Responsable editado satisfactoriamente");
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/departamento").getString("PersistenceErrorOccured"));
+            e.printStackTrace();
+            JsfUtil.addErrorMessage("Error al editar responsable");
             return null;
         }
     }
 
-    public String destroy() {
-        current = (Responsable)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreateModel();
+    public String destroy(Responsable r) {
+        current = r;//(Responsable)getItems().getRowData();
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        //performDestroy();
+        //recreateModel();
+        getFacade().remove(r);
+        JsfUtil.addSuccessMessage("Responsable eliminado  satisfsactoriamene");
         return "List";
     }
 

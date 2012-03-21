@@ -84,11 +84,20 @@ public List<Profesor> getListProfesor(){
 
     public String create() {
         try {
+            current.setCorreo(current.getCorreo());
+            current.setEstatus(current.getEstatus());
+            current.setIdBoleta(current.getIdBoleta());
+            current.setIdDepartamento(current.getIdDepartamento());
+            current.setNombre(current.getNombre());
+            current.setProfesorDocente(current.getProfesorDocente());
+            current.setTipoDocente(current.getTipoDocente());
+
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/profesor").getString("ProfesorCreated"));
-            return prepareCreate();
+            JsfUtil.addSuccessMessage("Profesor creado satisfactoriamente");
+            return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/profesor").getString("PersistenceErrorOccured"));
+            e.printStackTrace();
+            JsfUtil.addErrorMessage("Error al crear profesor");
             return null;
         }
     }
@@ -101,11 +110,19 @@ public List<Profesor> getListProfesor(){
 
     public String update() {
         try {
+            current.setCorreo(current.getCorreo());
+            current.setEstatus(current.getEstatus());
+            current.setIdBoleta(current.getIdBoleta());
+            current.setIdDepartamento(current.getIdDepartamento());
+            current.setNombre(current.getNombre());
+            current.setProfesorDocente(current.getProfesorDocente());
+            current.setTipoDocente(current.getTipoDocente());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/profesor").getString("ProfesorUpdated"));
+            JsfUtil.addSuccessMessage("Profesor editado satisdactoriamente");
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/profesor").getString("PersistenceErrorOccured"));
+            e.printStackTrace();
+            JsfUtil.addErrorMessage("Error al editar profesor");
             return null;
         }
     }

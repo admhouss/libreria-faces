@@ -68,12 +68,14 @@ public class EgresadoController implements Serializable{
     }
 
     public String prepareList() {
-        recreateModel();
+    //    recreateModel();
         return "List";
     }
 
     public String prepareView(Egresado e) {
         current=e;
+
+
         //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -86,11 +88,17 @@ public class EgresadoController implements Serializable{
 
     public String create() {
         try {
+            current.setCorreo(current.getCorreo());
+            current.setGeneracion(current.getGeneracion());
+            current.setId(current.getId());
+            current.setNombre(current.getNombre());
+            current.setProfesorDocenteList(current.getProfesorDocenteList());
+
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/egresado").getString("EgresadoCreated"));
-            return prepareCreate();
+            JsfUtil.addSuccessMessage(("El egresado ha sido creado satisfactoriamente"));
+            return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/egresado").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(("Error al crear Egresado"));
             return null;
         }
     }
@@ -104,10 +112,10 @@ public class EgresadoController implements Serializable{
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/egresado").getString("EgresadoUpdated"));
+            JsfUtil.addSuccessMessage(("El egresado ha sido creado satisfactoriamente"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/egresado").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(("Eror al crear egresado"));
             return null;
         }
     }
@@ -118,7 +126,7 @@ public class EgresadoController implements Serializable{
         //performDestroy();
        // recreateModel();
         getFacade().remove(e);
-        JsfUtil.addSuccessMessage("Egresado Eliminado Satisfactoriamente");
+        JsfUtil.addSuccessMessage("Egresado a sido Eliminado Satisfactoriamente");
         return "List";
     }
 

@@ -86,11 +86,16 @@ public class ProfesorDocenteController implements Serializable{
 
     public String create() {
         try {
+            current.setDocumento(current.getDocumento());
+            current.setEgresado(current.getEgresado());
+            current.setIdProfesor(current.getIdProfesor());
+            current.setProfesor(current.getProfesor());
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/profesor").getString("ProfesorDocenteCreated"));
-            return prepareCreate();
+            JsfUtil.addSuccessMessage("Profesor docente crado satisfactoriamente");
+            return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/profesor").getString("PersistenceErrorOccured"));
+            e.printStackTrace();
+            JsfUtil.addErrorMessage("Error al crear Profesor docente");
             return null;
         }
     }
@@ -103,11 +108,17 @@ public class ProfesorDocenteController implements Serializable{
 
     public String update() {
         try {
+            current.setDocumento(current.getDocumento());
+            current.setEgresado(current.getEgresado());
+            current.setIdProfesor(current.getIdProfesor());
+            current.setProfesor(current.getProfesor());
+
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/profesor").getString("ProfesorDocenteUpdated"));
+            JsfUtil.addSuccessMessage("Profesor docente editado satisfactoriamente");
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/profesor").getString("PersistenceErrorOccured"));
+             e.printStackTrace();
+            JsfUtil.addErrorMessage("Error al editar profesor docente");
             return null;
         }
     }

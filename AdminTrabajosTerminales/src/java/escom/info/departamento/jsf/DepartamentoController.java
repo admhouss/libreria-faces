@@ -74,7 +74,7 @@ public class DepartamentoController  implements Serializable{
 
     public String prepareView( Departamento d) {
         current=d;
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+       // selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
@@ -86,11 +86,18 @@ public class DepartamentoController  implements Serializable{
 
     public String create() {
         try {
+            current.setResponsable(current.getResponsable());
+            current.setFechaCreacion(current.getFechaCreacion());
+            //current.setIdResponsable(current.getResponsable().getIdResponsable());
+            current.setIdResponsable(current.getResponsable().getIdResponsable());
+            current.setNombre(current.getNombre());
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/departamento").getString("DepartamentoCreated"));
-            return prepareCreate();
+            JsfUtil.addSuccessMessage(("Departamento creado Satisfactoriamente")); //  modificado
+            return prepareView(current);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/departamento").getString("PersistenceErrorOccured"));
+            e.printStackTrace();
+            JsfUtil.addErrorMessage("Error al crear departamento");
+            //log.error("",e);
             return null;
         }
     }
@@ -103,11 +110,16 @@ public class DepartamentoController  implements Serializable{
 
     public String update() {
         try {
+            current.setResponsable(current.getResponsable());
+            current.setFechaCreacion(current.getFechaCreacion());
+            current.setIdResponsable(current.getResponsable().getIdResponsable());
+            current.setNombre(current.getNombre());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/departamento").getString("DepartamentoUpdated"));
+            JsfUtil.addSuccessMessage(("Departamento editado satisfactoriamente"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/departamento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage("Eror al editar departamento");
+            //no olvides log4g
             return null;
         }
     }
@@ -135,9 +147,9 @@ public class DepartamentoController  implements Serializable{
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/departamento").getString("DepartamentoDeleted"));
+            JsfUtil.addSuccessMessage(("DepartamentoDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/departamento").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ("PersistenceErrorOccured"));
         }
     }
 
